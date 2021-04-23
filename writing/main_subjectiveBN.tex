@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+\bibliographystyle{apa}
+%\usepackage{natbib}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings} % kopfzeile/ fußzeile
+\clearpairofpagestyles
+\ohead{April 2021\\ Sonja Dobkowitz}
+\ihead{ Subjective Basic Needs, Sustainability and Growth }
+\cfoot{\thepage}
+%\pagestyle{plain}
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Proposal \\ Subjective Basic Needs, Sustainability and Growth}
+\date{}
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usetikzlibrary{shapes.geometric}
+\begin{document}
+	\maketitle
+	\tableofcontents
+\section{Motivation}
+
+\paragraph{Climate change and a reduction of consumption}
+Climate change is one of, if not the central problem threatening humanity today. 
+What is needed is a reduction in resource usage. Two competing and potentially complementing views about how to achieve such a decoupling exist. 
+On the one hand, proponents of a recomposition perspective argue that a shift towards green production alone is sufficient to fight climate change. 
+The recomposition approach has been dominant in (macro)economics research. However, there is uncertainty about whether this approach alone is sufficient to fight climate change.
+ On the other hand, OTHERS argue  that a reduction in consumption levels is inevitable \citep[compare][]{Gough2015ClimateNeeds}.
+Therefore,  this paper focuses on a reduction in consumption as a measure to fight climate change  AND ABSTRACTS FROM THE COMMON REDOMPOSITION PERSPECTIVE\footnote{By abstracting from the recomposition view the paper assumes that a rise in consumption implies a rise in resource usage. }.
+
+\paragraph{Introduction Basic needs}
+ More precisely, the central object of this study are subjective basic needs. The term refers to what an individual subjectively believes she needs as a minimum consumption level. This measure comprises objective basic needs which a human being needs to live a humane live. 
+ For example, objective basic needs are such that biological needs are satisfied, that shelter is secured, and that the individual can participate in society. 
+Subjective basic needs in today's consumption societies most likely reach beyond that level. They are formed and shaped by the individual's susceptibility to advertisement, to common consumption levels observed in society, and habits, to name a few. PROVIDE REFERENCES. 
+
+\paragraph{Consequences of subjective basic needs for reduction and recomposition}
+The most direct impact of subjective basic needs on resource usage follows from high aggregate consumption levels causing high levels of resource usage absent a big enough recomposition of production. \footnote{Assuming a decoupling of resource usage and consumption is impossible}. (INTERACTION WITH RECOMPOSITION VIEW) Less obvious, a high level of subjective basic needs can impede individuals to switch to green consumption and hence a recomposition towards green production. The mechanism is the following. Studies have provided evidence for the presence of individual social responsibility, i.e. the willingness to pay a price premium to avoid negative externalities, as a determinant of demand \citep[compare][]{Bartling2015DoResponsibility}. Yet, the willingness to pay for green goods most likely is negatively related to subjective basic needs: when income is not high enough to allow for green goods to cover subjective basic needs, the individual might prefer to keep consumption of non-green alternatives high to satisfy what is subjectively perceived a need. 
+  
+  
+In light of climate change it is crucial to learn about potential policy measures to lower subjective basic needs (BEHAVIOURAL/EXPERIMENTAL), the effectiveness of such measures on an aggregate level(MODEL), and political considerations that could prevent governmental action in this direction (POLITICAL ECONOMY: TRADE OFF LABOUR VS ENVIRONMENT).  
+
+Therefore, the paper is separated into three parts. The first one presents a field study to analyse measures to lower subjective basic needs. The findings are then modelled into a \textbf{disequilibrium} structural model to learn about their aggregate effectiveness. Particular emphasis is put on the effect on labour demand.
+The final part studies the political economy of subjective basic needs. Given the adverse effects of policies which lower consumption on labour demand and output, measures which are commonly used to measure policymakers' success, viewing th policy trade-off through a political economy lens is essential. 
+
+
+\section{Basic needs}
+\paragraph{Households} A generic household maximises lifetime utility according to:
+\begin{align}
+\underset{c_{s},c_{n}, l}{\max} \ \hspace{2mm} U(c_s, c_n, l; h_n)= \underset{c_{s},c_{n}, l}{\max} \ \hspace{2mm} \log(c(c_s,c_n))-\chi\frac{l^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  -penalty(c_s, c_n),
+\\
+s.t. \  p_{s}c_{s}+c_{n}\leq w(1-\tau_l)zl+T,\\
+l\leq L \\
+c =
+\left(\omega_s^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\omega_s)^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{with} \hspace*{2mm} \sigma \neq 1
+\end{align}
+Where the penalty function is given, for example, by
+\begin{align*}
+penalty(\hat{c_t}-\bar{c})=\frac{1}{\phi}\exp(-\phi(c_{nt}+c_{st}-\bar{c}))\\
+\end{align*}
+\clearpage
+\bibliography{../../bib_2_0}
+\end{document} 
