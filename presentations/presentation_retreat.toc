@@ -1,3 +1,3 @@
 \babel@toc {english}{}
 \beamer@sectionintoc {1}{Idea 1: \\ Reducing Consumption Levels}{3}{0}{1}
-\beamer@sectionintoc {2}{The environmental costs of inequality}{10}{0}{2}
+\beamer@sectionintoc {2}{The environmental costs of inequality}{13}{0}{2}
