@@ -66,7 +66,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %TITLE
 \author[Sonja Dobkowitz]{\small Sonja Dobkowitz}
 \institute[University of Bonn]{University of Bonn}
-\title{What next? \\ \vspace{3mm} \small{1) The Reduction of Consumption}\\ \small{2) Inequality, Social Responsibility and Directed Innovation}}
+\title{What next?: Reducing Consumption Levels}
 
 \newcommand{\ar}{$\Rightarrow$ \ }
 
@@ -87,21 +87,21 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\titlepage
 	\end{frame}
 }
-\addtocounter{framenumber}{-1}
+%\addtocounter{framenumber}{-1}
 
- {\setbeamertemplate{footline}{}
- \begin{frame}{Content}
- \vspace{4mm}
- \tableofcontents
- \end{frame}
- }
- \addtocounter{framenumber}{-1}
+% {\setbeamertemplate{footline}{}
+% \begin{frame}{Content}
+% \vspace{4mm}
+% \tableofcontents
+% \end{frame}
+% }
+ %\addtocounter{framenumber}{-1}
 
 
 %---------------------------------------
 %            Intro
 %---------------------------------------
-\section{Idea 1: \\ Reducing Consumption Levels}
+%\section{ Reducing Consumption Levels}
 \begin{frame}{Motivation}
 
 \begin{itemize}[<+-| alert@+>]
@@ -127,74 +127,95 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 
 %\addtocounter{framenumber}{-1}
-\begin{frame}{This Paper}
-	\vspace{-4mm}
+\begin{frame}{}
+	\vspace{4mm}
 		\begin{block}{Research Question}
-			What are the effects of a reduction in consumption? % on inequality and macro variables?% by consumers? What would policymakers choose?\\ or\\
+			What are the effects of a reduction in consumption?% on societal acceptance? % on inequality and macro variables?% by consumers? What would policymakers choose?\\ or\\
 %What is the socially optimal policy to achieve a sufficient reduction in aggregate consumption?
 	\end{block}
+%\textbf{With a focus on}:
+%- political economy and societal acceptance (profits and labour income)\\
+%- environmental externality \small{(indirect effects through innovations, unemployment, a recomposition of demand)}
+%
+\pause
 \textbf{Model}
-	\begin{itemize}
+\pause
+\vspace{-2mm}
+	\begin{itemize}[<+-| alert@+>]
 		%\item neoclassical growth model: output and consumption determined by factor supply
-		\item  \textbf{demand-determined production level} allowing for excess supply of labour \\
+		\item \textbf{demand-determined production level} allowing for excess supply of labour \\
 		\small{(building on models of economic slack/ disequilibria, such as \cite{Auerbach2021InequalityEconomy})}
 		
 		\item sectors differ with respect to the degree of resource usage % calibrated so that only producing with the low sector does not meet initial consumption levels	
 		\item \textbf{Inequality}: Households differ with respect to
 		\begin{itemize}
 	
-\item the sector where they are employed 
-\item the composition and environmental cost of their consumption bundle due to basic needs 
-\item capital which is only held by some households
+\item the sector where they are employed in
+\item the composition and environmental cost of their consumption bundle due to\\ \textbf{basic needs} 
+\item capital, which is only held by some households
 		\end{itemize}
-	\item effect on directed innovations
+	\item \textbf{directed innovations}
 	\end{itemize}
-
+\vspace{2mm}
+\pause 
+\begin{block}{Focus of this paper}
+(1) indirect effects on climate externality and (2) societal acceptance of such a policy
+\end{block}
 \end{frame}
 
-\begin{frame}{How to model the reduction of consumption?}
-	\begin{itemize}
-		\item change in household preferences; intrinsic motivation
-		\item government policy 
+\begin{frame}{How to model a reduction of consumption?}
+	\begin{itemize}[<+-| alert@+>]
+		\item intrinsic change in household preferences \textbf{?}
+		\item policy 
 		\begin{itemize}
-				\item reduction of working time as suggested by \cite{GoughCANGREEN}
-				\item establish easy ways to share durable consumption
+				\item reduction of working time as suggested by \cite{GoughCANGREEN} (non-separable utility)
+				\item foster and establish easy ways to share durable consumption
 				\item economic-ecological education (long-run policy)
-				\item tax on consumption beyond needs or high-emission consumption 
-		\end{itemize}
+			%	\item tax on consumption beyond needs or high-emission consumption 
 	\item empirically study/ draw from literature studying relation of ecological cost of consumption bundles and household characteristics/ events 
-	\item[\ar] framework to (1) compare effects of different policies to reduce consumption as to limit global warming to 1.5 °C above pre-industrial levels, and (2) to study the  political economy of consumption reduction \ar implementability and societal acceptance
+		
 	\end{itemize}
-\end{frame}
-\begin{frame}{Why do we need to study a reduction of consumption in a quantitative model?}
-	\begin{itemize}
-\item ambiguous effect on climate externality: e.g. reduction of demand for high-emission goods \ar high-emission sectors lay off workers \ar increase in inequality if low-income households work primarily in these sectors \ar with motivation to meet basic needs those households revert to consume more emission-high goods in case they are cheaper
-\item effect on directed innovation unclear: lower demand \ar less innovations but also  
-
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-
-	Empirical analysis
-	\begin{itemize}
-		\item measure resource consumption by household
-		\item What household characteristic/ events determine consumption levels?
-		\item[\ar] Informs model on how a reduction of consumption can be implemented
-		\item introduce reduction necessary to meet 1.5° warming goal
-		\item measure 
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Hypotheses}
-	
+\pause
+\textbf{Exercise}
 \begin{itemize}
-	\item 
-		\item with basic needs questionable if reduction in consumption by one type implies reduction in resource usage 
+\item compare effects of different policies to reduce consumption as to limit global warming to 1.5 °C above pre-industrial levels (accounting for indirect effects)
+%\item  study the  political economy of consumption reduction (implementability, societal acceptance)
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Why a quantitative model?}
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{fg=black} %change the font color
+	%	\setbeamerfont{alerted text}{series=\bfseries} 
+		
+		\item Does a reduction in demand slow down green innovation? Or does a triggered recomposition imply an acceleration?
+		\item If the poor get poorer, do
+		 they adjust their composition of consumption  in a way that emissions increase?
+		\item Who profits, who loses?  Does such a policy increase inequality? For example, because the poor see a lower labour income, or do profits sink in a ways so that inequality decreases?
+	%	\item various mechanisms shape the effect of a reduction in consumption. Characterised by different income sources, inequality will be affected 
+%\item ambiguous effect on climate externality: e.g. reduction of demand for high-emission goods \ar high-emission sectors lay off workers \ar increase in inequality if low-income households work primarily in these sectors \ar with motivation to meet basic needs those households revert to consume more emission-high goods in case they are cheaper
+%\item effect on directed innovation unclear: lower demand \ar less innovations? 
+%\item rebound effect?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data}
+	\begin{itemize}[<+-| alert@+>]\setbeamercolor{alerted text}{fg=black} %change the font color
+	%	\setbeamerfont{alerted text}{series=\bfseries} 
+		
+		\item \textbf{Quantity}: measure resource consumption by household using consumption bundle from CEX 
+		\item \textbf{Quality}: proxy share of green goods consumed by Nielsen sustainable panel
+		\item[\ar] How high is emission-conusmption by household type? What consumption to target by policy?
+		\item[\ar] How do households differ by the share of green goods consume? 
+		%\item What household characteristic/ events determine consumption levels?
+		\item[\ar] Informs model on how a reduction of emission-consumption can be implemented
+	\end{itemize}
+\end{frame}
+
+
+\begin{comment}
 %---------------------------------------------------------------------
 \section{The environmental costs of inequality}
 
@@ -227,6 +248,8 @@ How important an obstacle are subjective basic needs and inequality for a transi
 	
 \end{frame}
 
+content...
+\end{comment}
 
 \begin{frame}[shrink]{References}
 	
