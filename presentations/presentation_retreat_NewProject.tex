@@ -1,0 +1,261 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+%\usepackage[noxcolor]{beamerarticle} % to get presentation as article ! if used also set documentclass to article!
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\setbeamercolor{alerted text}{bg={}, fg=cyan!100}
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+
+
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz}
+\institute[University of Bonn]{University of Bonn}
+\title{What next?: Reducing Consumption Levels}
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+\institute{University of Bonn} 
+\date{\today} 
+%\subject{} 
+\begin{document}
+	
+	{\setbeamertemplate{footline}{}
+		\begin{frame}
+		\titlepage
+	\end{frame}
+}
+%\addtocounter{framenumber}{-1}
+
+% {\setbeamertemplate{footline}{}
+% \begin{frame}{Content}
+% \vspace{4mm}
+% \tableofcontents
+% \end{frame}
+% }
+ %\addtocounter{framenumber}{-1}
+
+
+%---------------------------------------
+%            Intro
+%---------------------------------------
+%\section{ Reducing Consumption Levels}
+\begin{frame}{Motivation}
+
+\begin{itemize}[<+-| alert@+>]
+	\setbeamercolor{alerted text}{fg=black} %change the font color
+	\setbeamerfont{alerted text}{series=\bfseries} 
+	
+	\item<+-| alert@+> due to climate change, we need to reduce the consumption of resources
+	\vspace{4mm}
+	\item<+-| alert@+> macroeconomic research largely focuses on a green \textbf{\textcolor{cyan!100}{recomposition}} of consumption 
+\vspace{4mm}
+	\item<+-| alert@+>  but it is unclear whether recomposition alone is sufficient to fight climate change at today's high consumption levels% some non-green production methods remain....
+	%	\item<+-| alert@+> green production can meet today's high consumption levels
+	%\end{enumerate}
+	% the two are basically the same: some non-green technologies would remain to meet todays high levels of consumption. Or consumption has to reduce to make the recomposition sufficient
+
+	%ADD LANCET REPORT
+\vspace{4mm}
+	\item[\ar]<+-| alert@+>  this project focuses on a \textbf{\textcolor{cyan!100}{reduction}}  of consumption % you might believe that a recomposition is enough given market mechanisms to foster new innovations, however, it could be the case that it is not possible => better be prepared! 
+\end{itemize}
+%\textcolor{blue}{insert data on inequality}
+\end{frame}
+
+
+
+%\addtocounter{framenumber}{-1}
+\begin{frame}{}
+	\vspace{4mm}
+		\begin{block}{Research Question}
+			What are the effects of a reduction in consumption?% on societal acceptance? % on inequality and macro variables?% by consumers? What would policymakers choose?\\ or\\
+%What is the socially optimal policy to achieve a sufficient reduction in aggregate consumption?
+	\end{block}
+%\textbf{With a focus on}:
+%- political economy and societal acceptance (profits and labour income)\\
+%- environmental externality \small{(indirect effects through innovations, unemployment, a recomposition of demand)}
+%
+\pause
+\textbf{Model}
+\pause
+\vspace{-2mm}
+	\begin{itemize}[<+-| alert@+>]
+		%\item neoclassical growth model: output and consumption determined by factor supply
+		\item \textbf{demand-determined production level} allowing for excess supply of labour \\
+		\small{(building on models of economic slack, such as \cite{Auerbach2021InequalityEconomy})}
+		
+		\item sectors differ with respect to the degree of resource usage % calibrated so that only producing with the low sector does not meet initial consumption levels	
+		\item \textbf{Inequality}: Households differ with respect to
+		\begin{itemize}
+	
+\item the sector where they are employed in
+\item the composition and environmental cost of their consumption bundle due to\\ \textbf{basic needs} 
+\item firm ownership
+		\end{itemize}
+	\item \textbf{directed innovations}, cost of non-green capital stock, dynamic model
+	\end{itemize}
+\vspace{2mm}
+\pause 
+\begin{block}{Focus of this paper}
+(1) indirect effects on climate externality  and (2) societal acceptance of such a policy
+\end{block}
+\end{frame}
+
+\begin{frame}{How to model a reduction of consumption?}
+	\begin{itemize}[<+-| alert@+>]
+		\item intrinsic change in household preferences \textbf{?}
+		\item policy 
+		\begin{itemize}
+				\item reduction of working time as suggested by \cite{GoughCANGREEN} (non-separable utility)
+				\item foster and establish easy ways to share durable consumption
+				\item economic-ecological education (long-run policy)
+			%	\item tax on consumption beyond needs or high-emission consumption 
+	\item empirically study/ draw from literature studying relation of ecological cost of consumption bundles and household characteristics/ events 
+		
+	\end{itemize}
+	\end{itemize}
+\pause
+\textbf{Exercise and Goal}
+\begin{itemize}
+\item compare effects of different policies to reduce aggregate consumption as to limit global warming to 1.5 °C above pre-industrial levels (accounting for indirect effects)
+%\item  study the  political economy of consumption reduction (implementability, societal acceptance)
+	\item shed light on  societal acceptance/ optimal implementation of reduction 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why a quantitative model?}
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{fg=black} %change the font color
+	%	\setbeamerfont{alerted text}{series=\bfseries} 
+		
+		\item Does a reduction in demand slow down green innovation? Or does a triggered recomposition imply an acceleration?
+		\item If the poor get poorer, do
+		 they adjust their composition of consumption  in a way that emissions increase?
+		\item Who profits, who loses?  Does such a policy increase inequality? For example, because the poor see a lower labour income, or do profits sink in a ways so that inequality decreases?
+	%	\item various mechanisms shape the effect of a reduction in consumption. Characterised by different income sources, inequality will be affected 
+%\item ambiguous effect on climate externality: e.g. reduction of demand for high-emission goods \ar high-emission sectors lay off workers \ar increase in inequality if low-income households work primarily in these sectors \ar with motivation to meet basic needs those households revert to consume more emission-high goods in case they are cheaper
+%\item effect on directed innovation unclear: lower demand \ar less innovations? 
+%\item rebound effect?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data}
+	\begin{itemize}[<+-| alert@+>]\setbeamercolor{alerted text}{fg=black} %change the font color
+	%	\setbeamerfont{alerted text}{series=\bfseries} 
+		
+		\item \textbf{Quantity}: measure resource consumption by household using consumption bundle from CEX 
+		\item \textbf{Quality}: proxy share of green goods consumed by Nielsen sustainable panel
+		\item[\ar] How high is emission-conusmption by household type? What consumption to target by policy?
+		\item[\ar] How do households differ by the share of green goods consume? 
+		%\item What household characteristic/ events determine consumption levels?
+		\item[\ar] Informs model on how a reduction of emission-consumption can be implemented
+	\end{itemize}
+\end{frame}
+
+
+\begin{comment}
+%---------------------------------------------------------------------
+\section{The environmental costs of inequality}
+
+\begin{frame}{Motivation}
+	
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{fg=black} %change the font color
+		\setbeamerfont{alerted text}{series=\bfseries} 
+		
+		\item<+-| alert@+> due to climate change, we need to reduce the consumption of resources
+		\vspace{4mm}
+		\item<+-| alert@+> a rising willingness to spend for green products implies a \textit{recomposition} of consumption towards less resource-intense goods
+		\vspace{4mm}
+		\item<+-| alert@+>  but: \textbf{\textcolor{cyan!100}{subjective basic needs}} are high, preventing a demand-driven transition to green production
+		\vspace{4mm}
+		\item[\ar]<+-| alert@+> How important are subjective basic needs in hampering a transition?  What are the economic consequences of a reduction of subjective basic needs?
+	\end{itemize}
+	%\textcolor{blue}{insert data on inequality}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+	Make model in first project a quantitative model:\\ (1) heterogenous agents to capture distribution of income more accurately;  (2) estimate social responsibility by household and \textbf{subjective} basic needs \ar households do not want to reduce the level of consumption beyond what they perceive as needed (will be a function of income);  (3) introduce carbon cycle to account for dynamics in externality; (4) directed innovation \ar interaction with demand!  \\
+	
+	\begin{block}{Research Question}
+How important an obstacle are subjective basic needs and inequality for a transition to sustainable production?
+\end{block}
+	\ar empirical research has shown that income determines the level of resource consumption; Empirical work on how income inequality and C02 emissions relate and why; But, income inequality is also a factor that impacts a transition to sustainable production: subjective basic needs are a positive function of income \ar social responsibility will never be effective even if everyone is rich. We need a transition to lower subjective basic needs. 
+	
+	
+\end{frame}
+
+content...
+\end{comment}
+
+\begin{frame}[shrink]{References}
+	
+	\bibliography{../../bib_2_0}
+	\bibliographystyle{apa}
+\end{frame}
+\end{document}
