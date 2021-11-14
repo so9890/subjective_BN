@@ -2,16 +2,71 @@
 
 3 model blocks: households, producing firms, innovation sector.
 
-\paragraph{Production}
-2 intermediate good's sectors: a sustainable and an unsustainable one. In each sector there is a unit mass of monopolistically competitive firms. 
-Each sector sells a final good which are aggregated by competitive and sector-specific final good producers according to
-\begin{align}
-	Y_n= \left(\int_{0}^{1} y_n(j)^{\frac{\varepsilon_n-1}{\varepsilon_n}}dj\right)^{\frac{\varepsilon_n}{\varepsilon_n-1}} \\
-	Y_s= \left(\int_{0}^{1} y_s(j)^{\frac{\varepsilon_s-1}{\varepsilon_s}}dj\right)^{\frac{\varepsilon_s}{\varepsilon_s-1}} \\
-\end{align}
-Is the competition of firms within or across sectors?
+\paragraph{Households}
+The central aspect of the model is a satiation point of consumption. Households never consume above this level. This makes sense if one assumes households which deliberately lower the amount consumed. 
+
+\begin{align*}
+U(C)= -\frac{(C-B)^2}{2} 
+\end{align*}
+Goods enter as perfect substitutes if $C=c_n+c_s$ to generate consumption utility.
+Goods are complements if $C=c_n^{1-\omega}c_s^\omega$.
+ There is an upper bound and households would never consume more than $B$. Disadvantage: there is no consumption above B.  (Yet, $B$ can also be perceived as habits since the MU increases with $B$. Thus, $B$ can also represent subjective needs, but of such a kind, that the household never exceeds these needs). 
 
 
+Alternatively, one could assume habits or subjective needs and a reduction in these needs as exogenous shock. However, in this specification, consumption would grow again once prices adjust in order to clear markets (I assume... since still more is better and output is determined by input factors.)
+To solely focus on needs consider:
+
+\begin{align*}
+	U(C)= \frac{(C-B)^{1-\frac{1}{\eta}}}{1-\frac{1}{\eta}}
+\end{align*}
+
+
+Finally, I like to think that product groups are similar across sectors but that there are big productivity differences. E.g. Traveling unsustainably is by plane versus by train or sailing ship in a sustainable fashion. The input of labour and time is way higher in the sustainable sector. hence, less output in a given period. (growth not on variety level but on productivity level...eg very little of each category also already available now...yet at low productivity)
+
+
+Another question that arises is whether habits/the upper bound of consumption is to be modeled on individual good or composite consumption level.
+On product level, à la Ravn, Schmitt-Grohé (here with habits...)
+\begin{align*}
+&y(j)=\left((1-\omega)c_n(j)^{\frac{\sigma-1}{\sigma}} +\omega c_s(j)^{\frac{\sigma-1}{\sigma}}\right)^\frac{\sigma}{\sigma-1}\\
+with\ \sigma =1: \hspace{3mm}& y(j)=c_n(j)^{1-\omega}c_s(j)^\omega \\
+&	x= \left(\int_{0}^{1} (y(j)- B_j)^{\frac{\varepsilon-1}{\varepsilon}}dj\right)^{\frac{\varepsilon}{\varepsilon-1}}
+\end{align*}
+Don't know how to aggregate unit mass of products by use of an upper bound. 
+
+In contrast, assuming habits on the composite level would allow for substitution between say holiday trips and restaurant visits.
+
+Then it might make sense to assume the following aggregation as in \cite{Acemoglu2012TheChange} where each sector produces one  consumption good that is then combined to a composite consumption good: \\
+
+\noindent\textbf{Competitive final good producers in each sector}
+\begin{align*}
+&Y_n= H_n^{1-\alpha_n}\int_{0}^{1}A_{nj}^{1-\alpha_n}x_{nj}^{\alpha_n} dj\\
+&Y_s= H_s^{1-\alpha_s}\int_{0}^{1}A_{sj}^{1-\alpha_s}x_{sj}^{\alpha_s} dj
+\end{align*}
+\textbf{Competitive final good production aka household's choice}
+\begin{align*}
+&Y=\left(\omega Y_s^{\frac{\varepsilon}{\varepsilon-1}}+(1-\omega)Y_n^{\frac{\varepsilon}{\varepsilon-1}}\right)^{\frac{\varepsilon-1}{\varepsilon}}\\
+with \ \sigma=1 \hspace{3mm} & Y=Y_s^\omega Y_n^{1-\omega}
+\end{align*}
+And on the household level
+\begin{align*}
+U(C)=-\frac{(C-B)^2}{2}.
+\end{align*}
+
+\paragraph{Production of machines and innovations \citep{Acemoglu2012TheChange}}
+Monopolistic competition happens \textbf{across} sectors since it is the price elasticity of substitution between sectors that matters for the demand monopolistic producers face: $\varepsilon$.
+
+The decision by scientists where to invent also depends on this elasticity, $\omega$ and maybe $B$. \textbf{This is what I want to show, look at.}
+
+\paragraph{Labour market}
+As an extension to the model in \cite{Acemoglu2012TheChange} I assume heterogeneity in the labour input wrt skills in each sector, this implies income heterogeneity. 
+\begin{align*}
+H_s= \lambda z_h l_r\\
+H_n= (1-\lambda) z_l l_p
+\end{align*}
+\ar could have that in the initial ss wages in the low sector are higher since less labour is available with $z_l<z_h$. Either allow rich also to work there... or drop $z_h, z_l$. 
+
+\vspace{5mm}
+\noindent\rule[1ex]{\textwidth}{1pt}
 The model extends \cite{Bilbiie2012EndogenousCycles} and abstracts from shocks. 
 I introduce
 \begin{itemize}
