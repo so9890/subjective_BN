@@ -249,9 +249,11 @@ h_h= w_h \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p
 \text{Demand labour firm sector j wrt } l_{hj}\hspace{4mm}&l_{hj}= \left(\frac{p_{jL}}{w_h}\right)^{\frac{1}{1-\varepsilon_j}}\varepsilon_j^{\frac{1}{1-\varepsilon_j}}l_{lj}\\
 \text{Demand labour firm sector j wrt } l_{lj}\hspace{4mm}&
 l_{lj}= \left(\frac{p_{jL}}{w_l}\right)^\frac{1}{\varepsilon_j}(1-\varepsilon_j)^\frac{1}{\varepsilon_j}l_{hj}\\
-\text{Final good producer sector j: Production}\hspace{4mm}&y_j=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}d_i\\
+\text{Final good producer sector j: Production}\hspace{4mm}&y_j=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+&\ \ \  = \alpha \left(\frac{p_j}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_j L_j^D \nonumber \\ 
 \text{Final good producer sector j: Labour demand}\hspace{4mm}&
-p_j(1-\alpha) (L_j^D)^{-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i=p_{jL} % = p_j (1-\alpha)\frac{y_j}{L_j}
+p_{jL} = p_j(1-\alpha) (L_j^D)^{-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+& \ \ \ = (1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_j^\frac{1}{1-\alpha}A_j\nonumber
 \\
 \text{Final good producer sector j: Machines demand}\hspace{4mm}&
 x_{ij} = \left(\alpha\frac{p_j}{p_{ij}}\right)^\frac{1}{1-\alpha}L_j^D A_{ij}\\
