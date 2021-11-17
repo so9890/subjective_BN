@@ -134,9 +134,9 @@ or\ & C= \left(\frac{\omega_s}{1-\omega}\right)^{\omega_s}\left(\frac{p_n}{p_s}\
 Using this, I can solve explicitly for the choice variables as a function of the satiation point $B$ and the wage rate $w_e$:
 \begin{align}
 c_s=\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
-c_n=\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}B\\
-h_e=w_e \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(1-
-\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}\right)B
+c_n=\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
+h_e=\left(
+\frac{w_e \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B
 \end{align}
 
 \subsubsection{Solving production side: Perfect competition, no growth}
@@ -154,7 +154,7 @@ l_{lj}= \left(\frac{p_{jL}}{w_l}\right)^\frac{1}{\varepsilon_j}(1-\varepsilon_j)
 Exploiting free labour movement and imposing that the wage rate is the same in both sectors implies
 \begin{align*}
  w_l= \frac{p_{nL}^\frac{\varepsilon_s}{\varepsilon_s-\varepsilon_n}}{p_{sL}^\frac{\varepsilon_n}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_n(1-\varepsilon_n)^\frac{1-\varepsilon_n}{\varepsilon_n}}{\varepsilon_s(1-\varepsilon_s)^\frac{1-\varepsilon_s}{\varepsilon_s}}\right)^\frac{\varepsilon_s\varepsilon_n}{\varepsilon_s-\varepsilon_n}\\
- w_h= \frac{p_{sL}^\frac{1-\varepsilon_n}{\varepsilon_s-\varepsilon_n}}{p_{nL}^\frac{1-\varepsilon_s}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_s^\frac{\varepsilon_s}{1-\varepsilon_s}(1-\varepsilon_s)}{\varepsilon_n^\frac{\varepsilon_n}{1-\varepsilon_s}(1-\varepsilon_s)}\right)^\frac{(1-\varepsilon_n)(1-\varepsilon_s)}{\varepsilon_s-\varepsilon_n}.
+ w_h= \frac{p_{sL}^\frac{1-\varepsilon_n}{\varepsilon_s-\varepsilon_n}}{p_{nL}^\frac{1-\varepsilon_s}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_s^\frac{\varepsilon_s}{1-\varepsilon_s}(1-\varepsilon_s)}{\varepsilon_n^\frac{\varepsilon_n}{1-\varepsilon_n}(1-\varepsilon_n)}\right)^\frac{(1-\varepsilon_n)(1-\varepsilon_s)}{\varepsilon_s-\varepsilon_n}.
 \end{align*}
 It follows from here that the wage rate for high skill labour increases with the price paid by the sustainable sector for labour, and vice versa. 
 
@@ -228,46 +228,84 @@ x_{ij}=x_{ij} \forall i,j
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-Overview equations determining equilibrium 
+Overview equations determining equilibrium assuming income such that $C<B$
 \begin{align}
 \text{\textbf{Households}}& \nonumber \\
 \text{$c_s$ demand high-skill}\hspace{4mm}&c_{sh}=\frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
-\text{$c_n$ demand high-skill}\hspace{4mm}&c_{nh} = \frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}B\\
+\text{$c_n$ demand high-skill}\hspace{4mm}&c_{nh} = \frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
 \text{$h_h$ supply}\hspace{4mm}&
-h_h= w_h \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\\ & \left(1-
-\frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}\right)B\\
+h_h= \left(\frac{w_h \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B\\
 \text{$c_s$ demand low-skill}\hspace{4mm}&c_{sl}=\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
-\text{$c_n$ demand low-skill}\hspace{4mm}&c_{nl}=\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}B\\
-\text{$h_l$ supply}\hspace{4mm}& h_l= w_l \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\\ &\left(1-
-\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-2\omega_s}}\right)B
+\text{$c_n$ demand low-skill}\hspace{4mm}&c_{nl}=\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B\\
+\text{$h_l$ supply}\hspace{4mm}& h_l= \left(\frac{w_l \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B
 \end{align}
 \newpage
 \begin{align}
 \text{\textbf{Production}}& \nonumber \\
-\text{Production sust. labour input} \hspace{4mm}& L_s^S =l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\\ 
-\text{Production unsust. labour input} \hspace{4mm}& L_n^S =l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}\\
-\text{Demand labour firm sector j wrt } l_{hj}\hspace{4mm}&l_{hj}= \left(\frac{p_{jL}}{w_h}\right)^{\frac{1}{1-\varepsilon_j}}\varepsilon_j^{\frac{1}{1-\varepsilon_j}}l_{lj}\\
-\text{Demand labour firm sector j wrt } l_{lj}\hspace{4mm}&
-l_{lj}= \left(\frac{p_{jL}}{w_l}\right)^\frac{1}{\varepsilon_j}(1-\varepsilon_j)^\frac{1}{\varepsilon_j}l_{hj}\\
-\text{Final good producer sector j: Production}\hspace{4mm}&y_j=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
-&\ \ \  = \alpha \left(\frac{p_j}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_j L_j^D \nonumber \\ 
-\text{Final good producer sector j: Labour demand}\hspace{4mm}&
-p_{jL} = p_j(1-\alpha) (L_j^D)^{-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
-& \ \ \ = (1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_j^\frac{1}{1-\alpha}A_j\nonumber
+\text{Production sust. labour input} \hspace{4mm}& L_s =l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\label{mod:labS}\\ 
+\text{Production unsust. labour input} \hspace{4mm}& L_n =l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}\label{mod:labN}\\
+%
+\text{Demand labour firm sector n wrt } l_{hn}\hspace{4mm}&l_{hn}= \left(\frac{p_{nL}}{w_h}\right)^{\frac{1}{1-\varepsilon_n}}\varepsilon_n^{\frac{1}{1-\varepsilon_n}}l_{ln}\label{mod:opt_labhn}\\
+%
+\text{Demand labour firm sector s wrt } l_{hn}\hspace{4mm}&l_{hs}= \left(\frac{p_{sL}}{w_h}\right)^{\frac{1}{1-\varepsilon_s}}\varepsilon_s^{\frac{1}{1-\varepsilon_s}}l_{ls}\label{mod:opt_labhs}\\
+%
+\text{Demand labour firm sector n wrt } l_{ln}\hspace{4mm}&
+l_{ln}= \left(\frac{p_{nL}}{w_l}\right)^\frac{1}{\varepsilon_n}(1-\varepsilon_n)^\frac{1}{\varepsilon_n}l_{hn}\label{mod:opt_labln}\\
+%
+\text{Demand labour firm sector s wrt } l_{ls}\hspace{4mm}&
+l_{ls}= \left(\frac{p_{sL}}{w_l}\right)^\frac{1}{\varepsilon_s}(1-\varepsilon_s)^\frac{1}{\varepsilon_s}l_{hs}\label{mod:opt_labls}\\
+%
+\text{Final good producer sector n: Production}\hspace{4mm}&y_n
+%=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+=  \left(\alpha\frac{p_n}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_n L_n \label{mod:prod_n} \\ 
+%
+\text{Final good producer sector s: Production}\hspace{4mm}&y_s
+%=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+=  \left(\alpha\frac{p_s}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_s L_s \label{mod:prod_s} \\
+%
+\text{Final good producer sector n: Labour demand}\hspace{4mm}&
+p_{nL} =% p_n(1-\alpha) (L_n)^{-\alpha}\int_{0}^{1}A_{in}^{1-\alpha}x_{in}^\alpha d_i\\
+%& \ \ \ =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_n^\frac{1}{1-\alpha}A_n\label{mod:pnl}
 \\
-\text{Final good producer sector j: Machines demand}\hspace{4mm}&
-x_{ij} = \left(\alpha\frac{p_j}{p_{ij}}\right)^\frac{1}{1-\alpha}L_j^D A_{ij}\\
-\text{Machine producers: machine supply}\hspace{4mm}& p_{ij}=\psi\\
+%
+\text{Final good producer sector s: Labour demand}\hspace{4mm}&
+p_{sL} =% p_n(1-\alpha) (L_n)^{-\alpha}\int_{0}^{1}A_{in}^{1-\alpha}x_{in}^\alpha d_i\\
+%& \ \ \ =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_s^\frac{1}{1-\alpha}A_s\label{mod:psl}
+\\
+%\text{Final good producer sector j: Machines demand}\hspace{4mm}&
+%x_{ij} = \left(\alpha\frac{p_j}{p_{ij}}\right)^\frac{1}{1-\alpha}L_j^D A_{ij}\\
+%\text{Machine producers: machine supply}\hspace{4mm}& p_{ij}=\psi\\
 %
 \text{\textbf{Market clearing}}& \nonumber\\
-\text{sust final good}\hspace{4mm}& y_s=\lambda c_{sh}+(1-\lambda) c_{sl}\\
-\text{unsust final good}\hspace{4mm}& y_n=\lambda c_{nh}+(1-\lambda) c_{nl}\\
-\text{high-skill labour}\hspace{4mm}& l_{hs}+l_{hn}=n_h=h_h\\
-\text{low-skill labour}\hspace{4mm}&l_{ls}+l_{ln}=n_l=h_l\\
-\text{Unsust. labour input good}\hspace{4mm}&L_n^D=L_n^S\\
-\text{Sust. labour input good}\hspace{4mm}&L_s^D=L_s^S\\
-\text{machines}\hspace{4mm}&x_{ij}=x_{ij} \forall i,j
+\text{sust final good}\hspace{4mm}& y_s=\lambda c_{sh}+(1-\lambda) c_{sl}\label{mod:sus_market}\\
+\text{unsust final good}\hspace{4mm}& y_n=\lambda c_{nh}+(1-\lambda) c_{nl};\ \  p_n=1\label{mod:unsus_market}\\
+\text{high-skill labour}\hspace{4mm}& l_{hs}+l_{hn}=n_h=h_h\label{mod:hh_market}\\
+\text{low-skill labour}\hspace{4mm}&l_{ls}+l_{ln}=n_l=h_l\label{mod:hl_market}
 \end{align}
+
+\newpage 
+\paragraph{Solving the model}
+To explicitly solve the model as functions of $p_n$ I follow these steps:
+\begin{enumerate}
+\item $p_{nL}$ and $p_{sL}$ follow from equation \ref{mod:pnl} and \ref{mod:psl} directly. 
+\item I solve for $w_h$ and $w_l$ as function of $p_{nL}$ and $p_{sL}$ by use of the optimality conditions of the labour input producing firm equations \ref{mod:opt_labhn} to \ref{mod:opt_labls}. Which yields
+\begin{align}
+ w_h=& \frac{p_{sL}^\frac{1-\varepsilon_n}{\varepsilon_s-\varepsilon_n}}{p_{nL}^\frac{1-\varepsilon_s}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_s^\frac{\varepsilon_s}{1-\varepsilon_s}(1-\varepsilon_s)}{\varepsilon_n^\frac{\varepsilon_n}{1-\varepsilon_n}(1-\varepsilon_n)}\right)^\frac{(1-\varepsilon_n)(1-\varepsilon_s)}{\varepsilon_s-\varepsilon_n}\\
+ w_l=& p_{nL}^\frac{1}{1-\varepsilon_n}\left(\frac{\varepsilon_n}{w_h}\right)^{\frac{\varepsilon_n}{1-\varepsilon_n}}(1-\varepsilon_n)
+\end{align}
+\item using the household optimality conditions I get $c_{sh}, c_{sl}, h_h, h_l$ as a function of $p_n$ and $p_s$
+\item from $h_h, h_n$ plus the optimality conditions of the labour-input producing firm I derive $l_{hs}, l_{hn}, l_{ls}, l_{ln}$
+\item labour-input production, equations \ref{mod:labN} and \ref{mod:labS}, give $L_s$ and $L_n$
+\item sustainable output then follows from the production function \ref{mod:prod_s}
+\item
+to solve the model completely (only as a function of the price of the numeraire $c_n$: $p_n$), I enforce
+the sustainable good's market clearing condition \ref{mod:sus_market}. 
+\item all other variables $c_{nh}, c_{nl}, y_n$ follow from the HH sector and the unsustainable good's market clearing which holds by Walras' law.
+\end{enumerate}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{5mm}
 \noindent\rule[1ex]{\textwidth}{1pt}

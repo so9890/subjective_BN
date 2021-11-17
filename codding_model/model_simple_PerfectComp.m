@@ -2,12 +2,14 @@
 % no innovation 
 % no monopolistic competition
 % no labour sector choice
+clear, clc
 
+cd('/home/sonja/Documents/projects/Overconsumption/codding_model')
 % variables
 syms cnh cnl csh csl Ch Cl hh hl yn ys lls lln lhs lhn ...
      psL pnL ps pn wh wl Ls Ln real
 
- % vector of variables for which to solve model
+%% vector of variables for which to solve model
  symvariables=[cnh, cnl, csh, csl, Ch, Cl, hh, hl, yn,ys, lls, lln, lhs, lhn, ...
      psL, pnL, ps, pn, wh, wl, Ls, Ln];
 % parameters
@@ -21,10 +23,9 @@ c=0;
 c=c+1;
 f(c)=csh-wh^2*(omegas/ps)^(1+omegas)*((1-omegas)/pn)^(1-omegas)/(1+wh^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
-f(c)=cnh-wh^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(2-omegas)/(1+wh^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^((1-2*omegas)))*B;
+f(c)=cnh-wh^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(2-omegas)/(1+wh^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
-f(c)=hh- wh*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas)*(1-(wh^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas))...
-    /(1+wh^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(1-2*omegas)))*B;
+f(c)=hh- wh*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas)/(1+wh^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
 f(c)=Ch-csh^omegas*cnh^(1-omegas);
 
@@ -32,10 +33,9 @@ f(c)=Ch-csh^omegas*cnh^(1-omegas);
 c=c+1;
 f(c)=csl-wl^2*(omegas/ps)^(1+omegas)*((1-omegas)/pn)^(1-omegas)/(1+wl^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
-f(c)=cnl-wl^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(2-omegas)/(1+wl^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^((1-2*omegas)))*B;
+f(c)=cnl-wl^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(2-omegas)/(1+wl^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
-f(c)=hl- wl*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas)*(1-(wl^2*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas))...
-    /(1+wl^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(1-2*omegas)))*B;
+f(c)=hl- wl*(omegas/ps)^(omegas)*((1-omegas)/pn)^(1-omegas)/(1+wl^2*(omegas/ps)^(2*omegas)*((1-omegas)/pn)^(2*(1-omegas)))*B;
 c=c+1;
 f(c)=Cl-csl^omegas*cnl^(1-omegas);
 
@@ -53,14 +53,16 @@ f(c)=lhs-(psL*eppsilons/wh)^(1/(1-eppsilons))*lls;
 c=c+1;
 f(c)=lhn-(pnL*eppsilonn/wh)^(1/(1-eppsilonn))*lln;
 
-lls=(psL*(1-eppsilons)/wl)^(1/(eppsilons))*lhs;
-lln=(pnL*(1-eppsilonn)/wh)^(1/(eppsilonn))*lhn;
+c=c+1;
+f(c)=lls-(psL*(1-eppsilons)/wl)^(1/(eppsilons))*lhs;
+c=c+1;
+f(c)=lln-(pnL*(1-eppsilonn)/wl)^(1/(eppsilonn))*lhn;
 
 % production final good
 c=c+1;
-f(c)=ys-alphaa*(ps/psii)^(alphaa/(1-alphaa))*As*Ls;
+f(c)=ys-(alphaa*ps/psii)^(alphaa/(1-alphaa))*As*Ls;
 c=c+1;
-f(c)=yn- alphaa*(pn/psii)^(alphaa/(1-alphaa))*An*Ln;
+f(c)=yn-(alphaa*pn/psii)^(alphaa/(1-alphaa))*An*Ln;
 
 % labour input demand => price for labour good
 c=c+1;
@@ -91,15 +93,10 @@ f(c)=hh-(lhs+lhn);
 c=c+1;
 f(c)=hl-(lls+lln);
 
-% labour input good
-c=c+1;
-f(c)=psL-1;
-
-% fixing wage low skill
-c=c+1;
-f(c)=wl-1;
 
 %--end model block
+fprintf('model equations %d', length(f))
+fprintf('variables %d', length(symvariables))
 
 %-- Solve symbolically
 S=solve(f, symvariables);
