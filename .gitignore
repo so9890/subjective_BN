@@ -6,6 +6,7 @@
 *.bib_*.utf8
 *.blg
 *.dvi
+*.dta
 *.ent
 *.fff
 *.fls
@@ -33,6 +34,7 @@
 *.ttt
 *.vrb
 .waf*
+*.zip
 waf-*
 waf3-*
 *latexmk
