@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Inequality, Nature, and Limits to Sustainable Production}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+\vspace{1mm}
+%Preliminary and incomplete\\
+First version: November 27, 2021\\
+This version: \today }
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+	
+\section{Motivation}
+
+Due to climate change and vital threats to biodiversity we need to reduce the consumption of resources. % why this?/ Resource consumption= to emissions??? 
+Macroeconomic research has largely focused on a green \textit{recomposition} of consumption. However, doubt has been raised if a recomposition of production alone suffices to fight climate change. 
+Arguments which question the pure recomposition approach are, for instance, the use of nature as a sink \citep{Dasgupta2021}, failure of a decoupling of production and resource usage despite a  shift to sustainable technologies in recent years (\textit{degrowth book}), rebound effects of demand, or the existence of limiting factors  and the regenerative capacity of the planet. 
+Given the uncertainty about the possibilities of sustainable technologies to decouple resources and production, this paper draws attention to a world, in which a recomposition of production is not enough to comply with climate targets and planetary boundaries. 
+The novelty is the introduction of an upper bound on the reduction of resource usage in the sustainable sector (\textit{hence there is some resource needed in the sustainable sector!}) in a macroeconomic analysis of environmental policies. (\textit{Parameter values such that with the upper bound on technology today's consumption levels (of the rich) cannot be met.}) 
+
+HAVE TO READ AA PAPER AGAIN, HOW DO THEY MODEL THIS?
+
+As a result, consumption growth will have to cease or become negative in order to respect planetary boundaries. (\textit{postgrowth! not degrowth with this motivation }) How much time remains for consumption growth to stop? One could argue not much due to uncertainty, irreversibility. What is the optimal policy in such a scenario, that is, a scenario where sustainable technology also exerts some externality, and the risk of a disaster/ irreversibility (tipping point) is already very high? 
+
+What is the optimal policy? What is the socially acceptable policy? How do the two matter?
+More specifically, I am interested in two aspects. First, the paper focuses on the political conflicts which may arise in such a scenario where a reduction of economic output is inevitable (\textit{Might already be present in other papers but just not discussed}). 
+For example, what are the effects on distinct sources of income: the wage rate paid in green and non-green sectors, firm profits and dividends?  Due to a heterogeneous distribution of skills across sectors \cite{Bowen2018CharacterisingComposition, Consoli2016DoCapital}, low and high income households might be affected differently by the reduction in output. 
+Second, the analysis draws attention to general equilibrium effects which might matter for the total effect an initial reduction in output has on the externality. 
+A reduction in demand or labour, for instance, could well affect the incentives for R\&D. To capture the effect I integrate  endogenous, directed technolgical innovation following  \cite{Acemoglu2012TheChange} into the model. Furthermore, in an extension, I allow for income-dependent marginal propensities to consume so that aggregate demand for green products varies with the distribution of income. When income of the poor falls in reaction to a drop in consumption by the rich, for instance, they might revert to consume a higher share of an unsustainable yet cheaper good. This again mitigates the reduction in resource consumption. 
+
+
+\clearpage
+\bibliography{../../bib_2_0}
+\addcontentsline{toc}{section}{References}
+\end{document}
