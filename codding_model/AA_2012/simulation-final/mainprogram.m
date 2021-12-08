@@ -59,6 +59,8 @@ display_diag=1;    %=1 if you want to see diagnostics, ~1 if otherwise
 %********************************************************************
 %3. initial guesses
 if mode == 1
+    sce10rho01=0.4;
+    taue10rho01=2;
     sc0=sce10rho01; % initial guess for the share of scientists in clean research
     t0=taue10rho01; % initial guess for the input tax
     x0=[sc0; t0]; % vector stacking the guess for the share of scientists in clean research and the guess for the input tax
