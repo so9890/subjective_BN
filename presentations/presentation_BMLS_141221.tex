@@ -201,7 +201,7 @@ I add
 
 \section{Main Part}
 \begin{frame}{Roadmap}
-In this part, I want to talk about
+%In this part, I want to talk about
 \begin{itemize}
 \item Related literature % to identify gaps
 \begin{enumerate}
@@ -278,36 +278,43 @@ In this part, I want to talk about
 
 \section{Working time reduction}
 \begin{frame}{What is meant by a working time reduction?}
-	\begin{enumerate}
-\item historic examples
-\item in the macro literature
-	\end{enumerate}
-	The following is based on  \cite{Pullinger2014WorkingDesign} and \cite{Alvarez-Cuadrado2007EnvyHours}
 	\begin{itemize}
-		\item limits to max. number of working hours per week
-		\item minimum number of holidays per year
-		\item rights to reduce working hours
-		\item pre-retirement policies
-		\item[+] coupled with financial support; job protection
-		\item increased time rights for employees (rights to career breaks, to flexible and part time working hours)
-		\item fiscal support (credits, benefit restructuring, paid leave rights)
-		\item  facilitation to re-enter labour market (protection from future career losses)
-		\item financial instruments to decouple working time from income reception
-		\item \citep{Alvarez-Cuadrado2007EnvyHours}: tax on consumption, subsidy to leisure
+		\item upper bound on maximum working hours per week
+	%	\item minimum number of holidays per year
+	%	\item rights to reduce working hours
+	%	\item pre-retirement policies
+	%	\item[+] coupled with financial support; job protection
+	%	\item increased time rights for employees (rights to career breaks, to flexible and part time working hours)
+	\item \cite{Pullinger2014WorkingDesign} also mentions as complements:
+	\begin{itemize}
+\item fiscal support (credits, benefit restructuring, paid leave rights)
+\item  facilitation to re-enter labour market (protection from future career losses)
+%\item pre-retirement policies
+%\item financial instruments to decouple working time from income reception 
+	\end{itemize}
+		\item France as historic example \citep[based on][]{Alvarez-Cuadrado2007EnvyHours}
+		\begin{itemize}
+\item 1841: 12-hour workday was introduced
+\item 1904: Millerand law introduced 10-hours day
+\item 1936: left-wing coalition introduced 40-hour week
+\item around 1998: movement towards 35-hour week begun
+		\end{itemize}
 	\end{itemize}
 	
 \end{frame}
 
 
 
-\begin{frame}{Why consider working time reduction policies}
-	Why should a working time reduction be chosen by a government?
+\begin{frame}{Why consider working time reduction policies?}
+	Why may a working time reduction be chosen by a government for environmental reasons? 
 \begin{enumerate}
-\item overconsumption in due to negative externality of consumption on the environment
-\item political feasibility
+\item inefficiently high consumption levels when no externality-free production technology is available.\\
+(\cite{Alvarez-Cuadrado2007EnvyHours} studies reduction policy as response to negative externalities of consumption due to social preferences.  
+) 
 \end{enumerate}
 \end{frame}
-\begin{frame}[allowframebreaks]{Why a reduction policy might be optimal}
+
+\begin{frame}[allowframebreaks]{Why a reduction in growth might be inevitable}
 \begin{itemize}
 	\item \cite{Acemoglu2012TheChange} show that a reduction of long-run growth is inevitable to avoid an environmental catastrophe in some cases
 	\begin{itemize}
@@ -316,38 +323,45 @@ In this part, I want to talk about
 \item[-] when the initial environmental quality is low (p.142) \ar some planetary boundaries already passed today \citep{Rockstrom2009AHumanity}
 \item[-] dependence on regeneration rate of the environment
 	\end{itemize}
-\item externality of ``clean'' sector
+\item \cite{Arrow2004AreMuch}(Journal of Economic Perspectives) \ar using a sustainability measure they provide evidence that consumption is too high (not leaving enough natural resources for future generations)
+
+
+\item \textbf{\alert{Extensions to \cite{Acemoglu2012TheChange} }}
 \begin{itemize}
-\item[-] renewable/ nonfossil fuels \ar externalities in production process are present e.g. production of solar panels toxic inputs; non-fossil fuel nitrogen generation (biomass burning, to clear land, microbial N cycles) important \citep{Song2021ImportantEmissions} 
-\item[-] waste (after use) \ar recycling system for solar panels 
+\item externality of ``clean'' sector \citep[see also][]{Dasgupta2021}
+\begin{itemize}
+	\item[-] renewable/ nonfossil fuels \ar externalities in production process are present e.g. production of solar panels toxic inputs; non-fossil fuel nitrogen generation (biomass burning, to clear land, microbial N cycles) important \citep{Song2021ImportantEmissions} 
+	\item[-] waste (after use) \ar recycling system for solar panels 
 \end{itemize}
-\item parallel positive trend in demand (population growth, rebound effect)
-\item \cite{Arrow2004AreMuch}(Journal of Economic Perspectives) \ar using a sustainability measure they provide evidence that consumption is too high
-\item Irreversibility already before thresholds are hit (e.g. species extinction)
+\item parallel positive trend in demand (population growth, rebound effect) that outperforms increase in clean technology growth (not long run if perfectly clean technology exists)
+%\item Irreversibilities already before thresholds are hit (e.g. species extinction)
+
+\end{itemize}
 %\item greenhouse gases: Carbon dioxide $CO_2$ (vast majority), Nitrous oxide $N_2O$, methane $CH_4$
 %\item stock of nature globally determined
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Does this imply a working time reduction?}
+	
+	\begin{itemize}
+	\item[\ar] optimal policy: increase relative utility from leisure to correct for too high consumption and labour \ar distortionary labour tax or consumption tax
+	\item BUT: \textbf{\alert{politically feasible?}} \\ \ar working time reduction might be preferred when government cares about social acceptability \citep{Alvarez-Cuadrado2007EnvyHours}
+	%\item[(ii)] could be that even a Ramsey planner chooses working time reduction policy when skills are not observable
 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Why might restrictions on hours worked be chosen as policy?}
+\begin{frame}{Why a macro model?}
+
 \begin{itemize}
-\item \cite{Alvarez-Cuadrado2007EnvyHours}
-The optimal tax policy in a setting with representative agent to restore the efficient allocation is to increase the value of leisure relative to consumption.
-\item[\ar] a combination of distortionary labour taxation or consumption taxation
-\item social acceptance of such policies questionable! Consumption becomes either more expensive or more of labour income has to be paid as tax
-\item[\ar] a restriction on working hours (minimum of vacation days, restrictions on hours worked per week and worker (historic evidence)) might gain a broader social acceptance
-\item[\ar] political economy approach to see working time reduction being chosen
+	\item construct model such that working time reduction might in principle become optimal (in a Ramsey or a political economy setting)
+	\item Is it still chosen when accounting for (1) directed technical change and (2) heterogeneous skills?
+	\item[\ar] both may counteract the effect of a working time reduction on the environment
 \end{itemize}
-\end{frame}
 
-\begin{frame}
-\begin{itemize}
-\item construct model such that working time reduction might in principle become politically optimal
-\item Is it still chosen when accounting for (1) directed technical change and (2) heterogeneous skills?
-\end{itemize}
 \end{frame}
-
 
 \section{Model}
 \begin{frame}{Model}
@@ -381,10 +395,6 @@ The optimal tax policy in a setting with representative agent to restore the eff
 	\item[\ar] effect on direction of innovations through market-size and  price effect
 \end{itemize}
 \begin{itemize}
-\item models of directed technical change in general assume the existence of a technology which does not exert any environmental externality
-\item questioned by proponents of reduction approach (post-/degrowth) literature
-\end{itemize}
-\begin{itemize}
 \item optimal environmental policy can entail reduction in consumption growth  \citep[e.g.,][]{Acemoglu2012TheChange} in a model with directed technical change
 \item relying on directed technical change as a recomposition policy
 \item despite assuming the existence of a technology which does not exert any externality
@@ -402,25 +412,9 @@ The optimal tax policy in a setting with representative agent to restore the eff
 \item[\ar] growth might have to cease eventually
 \item politically delicate topic
 \item what are the effects on inequality?
-
-\item macroeconomic research on environmental externality focuses on representative agent models \citep{Golosov2014OptimalEquilibrium, Barrage2019OptimalPolicy, Acemoglu2012TheChange}
-\item political acceptability important for environmental policy (compare, e.g., Yellow Vest movement in France 2018)
-\item especially important if optimal environmental policy slows down growth; conflicting with typical measures of political performance (employment, GDP growth)
-\item NOT SURE if inequality has been studied in such a setting...
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Why introduce environmental externality to ``clean'' production}
-scientific evidence that there are environmental costs related to what is generally considered ``\textit{clean}''
-\end{frame}
-
-\begin{frame}{related literature}
-\begin{itemize}
-\item economic papers on directed technical change
-\item criticism of economic research on environment
-\item 
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Model}
 	content...
@@ -449,4 +443,17 @@ scientific evidence that there are environmental costs related to what is genera
 	\bibliography{../../bib_2_0}
 	\bibliographystyle{apa}
 \end{frame}
+
+\appendix
+\begin{frame}{Why might restrictions on hours worked be chosen as policy?}
+	\begin{itemize}
+		\item \cite{Alvarez-Cuadrado2007EnvyHours}
+		The optimal tax policy in a setting with representative agent to restore the efficient allocation is to increase the value of leisure relative to consumption.
+		\item[\ar] a combination of distortionary labour taxation or consumption taxation
+		\item social acceptance of such policies questionable! Consumption becomes either more expensive or more of labour income has to be paid as tax
+		\item[\ar] a restriction on working hours (minimum of vacation days, restrictions on hours worked per week and worker (historic evidence)) might gain a broader social acceptance
+		\item[\ar] political economy approach to see working time reduction being chosen
+	\end{itemize}
+\end{frame}
+
 \end{document}
