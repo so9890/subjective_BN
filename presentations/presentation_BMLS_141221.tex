@@ -257,7 +257,7 @@ I add
 
 
 \begin{frame}{Related Literature: Political economy and limits to growth}
-\tr{To read!}
+%\tr{To read!}
 \begin{itemize}
 \item \cite{Alesina1994DistributiveGrowth}(QJE)
 
@@ -355,15 +355,16 @@ I add
 
 \begin{frame}{Why a macro model?}
 \begin{itemize}
-	\item[-] proponents of a reduction approach suggest a \textbf{\alert{working time reduction}} \citep{Schor2005SustainableReduction, Pullinger2014WorkingDesign}; but do not account for directed technical change
+	\item[-] proponents of a reduction approach suggest a \textbf{\alert{working time reduction}} \citep{Schor2005SustainableReduction, Pullinger2014WorkingDesign}; but do not account for directed technical change or inequality
 	\vspace{3mm}
-	\item[-] recomposition is studied in models of \textbf{\alert{directed technical change}} which generally abstract from distortionary labour taxes and assumes a externality-free technology %\\ (nevertheless, a reduction in growth may be part of the optimal environmental policy \citep[e.g.][]{Acemoglu2012TheChange})
+	\item however, there are interactions with directed technical change and inequality which might counteract the effect of working time reduction policies on the externality; social acceptance could also be questioned 
+	%\item[-] Would a government choose a working time reduction policy in presence of %recomposition is studied in models of \textbf{\alert{directed technical change}} which generally abstract from distortionary labour taxes and assumes a externality-free technology %\\ (nevertheless, a reduction in growth may be part of the optimal environmental policy \citep[e.g.][]{Acemoglu2012TheChange})
 	\vspace{2mm}
 	\alert{	\item[\ar] even if we assume that no clean technology exists it is unclear if a reduction in working time is indeed optimal once we account for (1) directed technical change or (2) heterogeneous skills (GE effects of WTR on environment)}
 
 	\item[\ar] construct model such that working time reduction might in principle become optimal, i.e., add environmental externality to clean sector %(in a Ramsey or a political economy setting)
 	\item What policy is optimal absent directed technical change and inequality?
-	\item How does the optimal policy change when accounting for (1) directed technical change and (2) heterogeneous skills?
+	\item How does the optimal policy change when accounting for (1) directed technical change and (2) skill heterogeneity?
 %	\item[\ar] both may counteract the effect of a working time reduction on the environment
 \end{itemize}
 \end{frame}
@@ -391,10 +392,84 @@ I add
 
 \section{Model}
 \begin{frame}{Model}
+\textbf{Households}
+\\
+differ wrt the skills, indicated by $e\in\{l,h\}$, which they take as given 
+
+\begin{align*}
+\max_{c_{st}, c_{nt}, h_{et}}U&=\sum_{t=0}^{\infty}\beta^t u(C_t,\alert{\pmb{h_{et}}}; S_t)\\
+s.t.& P_t C_t=\alert{\pmb{(1-\tau_l)}}w_{et}h_{et}+\pmb{\alert{T}}\\
+& C_t= \left(\omega c_{st}^{\frac{\sigma-1}{\sigma}}+(1-\omega)c_{nt}^\frac{\sigma-1}{\sigma}\right)^\frac{\sigma}{\sigma-1}
+\end{align*}
 \end{frame}
 
-\begin{frame}{Conclusion: Motivation in a nutshell}
+\begin{frame}{Model: Production
+\tiny{(follows \cite{Acemoglu2012TheChange})}}
+\begin{itemize}
+	\item \textbf{final good sectors (perfect competition)}
+	 \begin{align*}
+	 &Y_{nt}=R_{nt}^{\alpha_{2}} L_{nt}^{1-\alpha_n}\int_{0}^{1}A_{nit}^{1-\alpha_n}x_{nit}^{\alpha_n} di; \ 
+	 &Y_{st}=\alert{\pmb{R_{st}^{\alpha_{3}}}} L_{st}^{1-\alpha_s}\int_{0}^{1}A_{sit}^{1-\alpha_s}x_{sit}^{\alpha_s} di
+	 \end{align*}
+	\item \textbf{machine producing firms (monopolistic competition)}
+	\begin{align*}
+	\underset{x_{ijt}}{max}\  p_{ijt}x_{ijt}-\psi x_{ijt} \ j\in\{s,n\}
+	\end{align*}
+
+	\item \textbf{research}: scientiests decide each period where to allocate their research; better technology with success probability $\eta\in(0,1)$
+\begin{align*}
+A_{jit+1}=\left\{
+\begin{array}{ll}
+(1+\gamma)A_{jit}& \hspace{2mm} \text{if} \hspace*{2mm}\text{successful},\\
+A_{jit}  &\hspace{2mm}\text{if}\hspace{2mm} \text{not \ successful}.
+\end{array}
+\right.
+\end{align*}
+\end{itemize}
 \end{frame}
+
+\begin{frame}{Model: Labour sector and market clearing}
+	\begin{itemize}
+\item \alert{\pmb{Labour input producing firm (perfect competition)}}
+\begin{align*}
+L_s= l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\\
+L_n=l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}
+\end{align*}
+assuming $\varepsilon_s>\varepsilon_n$ following \cite{Consoli2016DoCapital}
+\item \textbf{Labour market clearing}
+\begin{align*}
+ h_{ht}= l_{hst}+l_{hnt} \\
+  h_{lt}= l_{lst}+l_{lnt}
+\end{align*}
+\item \textbf{Goods markets clearing}
+\begin{align*}
+Y_{st}=\lambda c_{hst}+(1-\lambda)c_{lst}; \  \hspace{4mm}
+Y_{nt}=\lambda c_{hnt}+(1-\lambda)c_{lnt}
+\end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Model: Environment}
+%\textbf{Disaster, Irreversibility, externality, Carbon cycle?}
+\begin{itemize}
+\item quality of nature $S_t$ and irreversibility
+\begin{align*}
+S_{t}= -\xi Y_{nt}\pmb{\alert{-\kappa \xi Y_{st}}}+(1+\delta)S_{t-1} & \hspace{3mm} \text{if}\  S_{t}\in[0,\bar{S}]\\
+S_{t+s}=0 \ \forall s>0& \hspace{3mm}  \text{if} \ S_{t}<0
+\end{align*}
+\item Environmental disaster: $S_t<0$
+\begin{align*}
+\underset{S\rightarrow0}{lim} u(C,h;S)=-\infty; 
+\hspace{5mm} 
+\underset{S\rightarrow0}{lim}\frac{\partial u(C,h;S)}{\partial S}=\infty
+\end{align*}
+\item stock of natural resources
+\begin{align*}
+Q_{t+1}=Q_t-R_{nt}\pmb{\alert{-R_{st}}}
+\end{align*}
+\end{itemize}
+\end{frame}
+
 %\begin{frame}{Interactions}
 %\begin{itemize}
 %\item on the one hand, proponents of a working time reduction may overlook general equilibrium effects on clean innovations
@@ -414,10 +489,6 @@ I add
 %\end{itemize}
 %\end{frame}
 
-
-\begin{frame}{Model}
-	content...
-\end{frame}
 
 \begin{frame}{Plan B}
 \begin{enumerate}
