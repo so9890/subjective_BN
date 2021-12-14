@@ -3,6 +3,7 @@
 \usetheme[outer/progressbar=foot,
 %outer/numbering=none
 ]{metropolis}
+\setbeamertemplate{footline}[frame number]
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamercolor{frametitle}{bg={}, fg=black!80}
 \setbeamercolor{alerted text}{bg={}, fg=cyan!100}
@@ -122,31 +123,33 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{frame}{Motivation}
 
 \begin{itemize}
-\item two measures to reduce environmental externalities prominent in literature: 
+\item<+-> two measures to reduce environmental externalities prominent in literature: 
 \begin{enumerate}
 \item a \alert{\textbf{recomposition}} of production
-\item a \textbf{\alert{reduction}} of production (especially: working time reduction for political economy reasons)
+\item a \textbf{\alert{reduction}} of production (especially: working time reductions)
 \end{enumerate}
 %(1) a \alert{\textbf{recomposition}} and (2) a \textbf{\alert{reduction}} of production through a working time reduction
 \vspace{3mm} 
-\item the two approaches might be complementary, related through general equilibrium effects, and shaped by \textbf{\alert{inequality}}
+\item<+-> the two approaches might be complementary, related through general equilibrium effects, and shaped by \textbf{\alert{inequality}}
 \vspace{3mm}
 \begin{itemize}
-\item[-] reduction policy might be inevitable (e.g., if no perfectly clean technology is available)
-\item[-] but: a reduction in demand and labour supply could affect growth in clean innovations \ar ambiguous effect on externality
-\item[-] even more so as rich households' labour supply is specific to the clean sector
+\item[-]<+-> reduction policy might be inevitable (e.g., if no perfectly clean technology is available)
+\item[-]<+-> but: a reduction in demand and labour supply could affect growth in clean innovations \ar ambiguous effect on externality
+\item[-]<+-> even more ambiguous if high-skilled labour supply is specific to the clean sector and affected more
 \end{itemize}
 \vspace{3mm}
-\item however,  these policies have mainly been studied separately and absent inequality
+\item<+-> however,  these policies have mainly been studied separately and absent inequality
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 	\begin{block}{Therefore...}
-I want to study recomposition and reduction policies jointly. 
+I want to study recomposition and reduction policies jointly... 
 \\
-I integrate policy instruments to lower labour supply in a model of directed technical change with  inequality. \\
+\pause
+... by integrating policy instruments to lower the labour supply in a model of directed technical change with  inequality. \\
 \vspace{2mm}
+\pause
 \ar \textbf{What is the optimal policy?}
 	\end{block}
 
@@ -160,25 +163,26 @@ I integrate policy instruments to lower labour supply in a model of directed tec
 %\item[-] clean and dirty sector
 %\end{itemize}
 \end{itemize}
+\pause
 I add 
 \begin{itemize}
-\item Inequality
+\item<+-> Inequality
 \begin{itemize}
 \item two household types: \textbf{\alert{high- and low-skilled}}
-\item \alert{\textbf{sectors differ in the share of high-skilled labour }}
+\item sectors differ in the share of high-skilled labour 
 \end{itemize}
-\item working time reduction to policy set
+\item<+-> \alert{\textbf{working time reduction}} to policy set
 \begin{itemize}
 \item households face a labour supply decision
 \item government can levy distortionary labour and consumption taxes (optimal policy); or an arguably more popular policy: lowering maximum of hours worked
 \end{itemize}
 
-\item %\tr{@Pavel. Potentially not sure about this now}
+\item<+-> %\tr{@Pavel. Potentially not sure about this now}
  \hyperlink{cleanSec}{\textbf{\alert{externality to clean sector}} }
 \begin{itemize}
 	\item clean technology also requires natural resources
 	\item and exerts environmental externalities: in production and as waste
-	\item[] \ar working time reduction might become necessary (depends on regeneration capacity of nature)
+	\item[] \ar working time reduction might become necessary %(depends on regeneration capacity of nature)
 \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -192,15 +196,18 @@ I add
 \end{enumerate}
 \end{block} 
 \pause
-	\textbf{a) Focus on externality}: Is a working time reduction part of the optimal environmental policy when accounting for (1) directed technical change and (2) inequality?
+	\textbf{a) focus on externality}: Is a working time reduction part of the optimal environmental policy when accounting for (1) directed technical change and (2) inequality?
 	\vspace{0mm}
+	\pause
 	\begin{enumerate}[(i)]
 	%	\item establish conditions under which a working time reduction is optimal (analytically)
-		\item in a representative agent model, calculate optimal policy to abstract from inequality (Ramsey)
+		\item<+-> in a representative agent model, calculate optimal policy to abstract from inequality (Ramsey)
 		\ar effect of directed technical change
-		\item plug optimal policy into a model with inequality\\ 
+		\vspace{2mm}
+		\item<+-> plug optimal policy into a model with inequality\\ 
 		\ar How does inequality shape the effect of the policy on the externality?
-		\item calculate optimal policy in full model \ar How does the optimal policy change once inequality is added?
+		\vspace{2mm}
+		\item<+-> calculate optimal policy in full model % \ar How does the optimal policy change once inequality is added?
 	\end{enumerate}
 
 \end{frame}
@@ -223,15 +230,18 @@ I add
 		\end{enumerate}
 	\end{block} 
 \pause
-		\textbf{b) Focus on inequality}: Environmental policies, especially reduction policies, are \textbf{\alert{politically delicate}} \ar restriction of working hours as a politically more acceptable policy in the literature (which might replicate optimal allocation)
+		\textbf{b) focus on inequality}: Environmental policies, especially reduction policies, are politically delicate \ar restriction of working hours as a socially more acceptable policy in the literature (which might replicate optimal allocation)
 	%\begin{itemize}
 	%	\item create winners and losers in an unequal society
 	%	\item policies traditionally evaluated with a focus on employment and growth 
 	%\end{itemize}
+	\pause
 	\begin{enumerate}[(i)]
-		\item Can a restriction on working hours replicate the optimal allocation from point 3?
-		\item What are the effects of a restriction of working hours on inequality? 
-		\item calculate optimal policy in full model from an economic policy perspective \ar Is a working hour restriction still part of the optimal policy? 
+		\item<+-> Can a restriction on working hours replicate the optimal allocation from point 3?
+		\vspace{2mm}
+		\item<+-> What are the effects of a restriction of working hours on inequality? 
+		\vspace{2mm}
+		\item<+-> calculate optimal policy from an economic policy perspective \ar Is a working hour restriction still part of the optimal policy? 
 	\end{enumerate}
 \end{frame}
 
@@ -243,7 +253,7 @@ I add
 \begin{enumerate}
 \item Endogenous growth and the environment
 \item Working time reductions
-\item Distortionary taxation/ Political economy
+\item Else %Distortionary taxation/ Political economy
 \end{enumerate}
 \item Working time reductions % this is from a real world/ political perspective more relevant than a higher tax on labour or consumption
 \begin{enumerate}
@@ -255,12 +265,21 @@ I add
 \end{itemize}
 \end{frame}
 
+
 \subsection{Literature}
+\begingroup
+\setbeamertemplate{footline}{}
+\begin{frame}
+	\huge{Literature}
+\end{frame}
+\endgroup
+%\addtocounter{framenumber}{-1}
+
 \begin{frame}[allowframebreaks]{Related literature: Endogenous growth and the environment}
 \begin{enumerate}
 \item  \underline{directed technical change}
 \begin{itemize}
-	\item \cite{Acemoglu2012TheChange}(AER) \ar reduction of long-run growth part of optimal policy for some parameter values; rep agent, inelastic labour supply
+	\item \cite{Acemoglu2012TheChange}(AER) \ar reduction of long-run growth part of optimal policy for some parameter values; rep agent, inelastic labour supply; with high substitutability: temporary subsidies/ taxes achieve sustainable growth
 	\vspace{4mm}
 	%\item \cite{Acemoglu2016TransitionTechnology}(JPE) \ar ? different model?
 	\item \cite{Eriksson2018PhasingChange}(Economic Modelling) \ar focuses on low elasticity of substitution between clean and dirty output; continued government intervention and long-run growth drag 
@@ -268,48 +287,53 @@ I add
 \vspace{4mm}
 \item  \underline{limits to growth}
 \begin{itemize}
-	\item \cite{Stokey1998AreGrowth}(International Economic Review) \ar environmental constraints can imply a limit to endogenous growth (AK model: no distinction between knowledge and capital); policy instruments: direct regulation, voucher system, pollution tax; rep agent; no labour decision 
+	\item \cite{Stokey1998AreGrowth}(International Economic Review) \ar environmental constraints can imply a limit to endogenous growth (no distinction between knowledge and capital); policy instruments: direct regulation, voucher system, pollution tax; rep agent; no labour decision 
 	\item \cite{Jones2016LifeGrowth}(JPE)\ar safety may be valued above consumption growth under standard preferences when life and death are taken into account \ar optimal consumption growth lower than what is feasible, could fall to zero %; rep agent; optimal policy; transition
 	\vspace{4mm}
 	\item \textbf{\cite{Brock2005ChapterEmpirics} (Handbook of Economic Growth)}\ar argue for non-existence of pollution-free technology. It follows that, when environmental boundaries have to be respected, there is a limit to growth; no optimal policy
 \end{itemize}
 \vspace{4mm}
-\alert{
-\item[\ar] limiting growth already established as potential optimal policy in endogenous growth literature due to environmental concerns}
+\centering
+\textbf{\alert{
+\item[\ar] limiting growth already established as potential optimal policy in endogenous growth literature due to environmental concerns}}
 \end{enumerate}
 \end{frame}
 
 \begin{frame}{Related literature: Working time reduction}
+	\vspace{-2mm}
 \begin{enumerate}
-\item \underline{... and the environment} (empirical/ argumentative studies)
+\item \underline{... and the environment} (empirical/ argumentative studies/ no macro model)
 \begin{itemize}
-\item \cite{Schor2005SustainableReduction}(Journal of Industrial Ecology) \ar reduction in consumption inevitable to respect environmental constraints;  empirical study on slow down in hours reduction, firm incentives to keep hours per worker high (fixed costs)
-\item \cite{Pullinger2014WorkingDesign}(Ecological Economics)\ar voluntary working time reduction possibilities in Netherlands/ Belgium; happiness from leisure to  offset disutility from consumption reduction%; other measures: maximum working time
+\item \cite{Schor2005SustainableReduction}(Journal of Industrial Ecology) \ar stabilisation of consumption inevitable due to environmental constraints;  presents evidence on slowdown in hours reduction; firm incentives to keep hours per worker high (e.g., fixed costs); endogenous preferences
+\vspace{2mm}
+\item \cite{Pullinger2014WorkingDesign}(Ecological Economics)\ar voluntary working time reduction possibilities in Netherlands/ Belgium; happiness from leisure may compensate for consumption reduction%; other measures: maximum working time
 %\item \cite{Cieplinski2021EnvironmentalReductionb}(Ecological Economics) \ar not clear about mechanisms
 \end{itemize}
-\vspace{4mm}
+\vspace{2mm}
 \item \underline{... and overconsumption} (due to habits or social preferences)
-
 \begin{itemize}
 \item \cite{Alvarez-Cuadrado2007EnvyHours}(Canadian Journal of Economics) \ar envy; benevolent planner reduces consumption; \textbf{restrictions on working hours} gets economy close to optimal policy
 \end{itemize}
-\vspace{4mm}
-%\item[\ar] working time reduction in macro model studied with focus on habits/ social preferences; suggested as environmental policy \\
-\alert{\item[\ar] missing: working time reduction policy in GE model; especially with directed technical change and inequlity}
 \end{enumerate}
+\vspace{-1mm}
+%\item[\ar] working time reduction in macro model studied with focus on habits/ social preferences; suggested as environmental policy \\
+\centering
+\textbf{\alert{\ar missing: working time reduction policy in GE model; especially with directed technical change and inequality}
+}
 \end{frame}
 
 
-\begin{frame}{Related Literature }
+\begin{frame}{Related Literature (very incomplete)}
+
 \textbf{- Distortionary taxes and the environment in endogenous growth models}
 \begin{itemize}
-	\item \cite{Bovenberg1997EnvironmentalGrowth}(Journal of Public Economics) \ar pre-existing distortionary taxes
+	\item \citet[Journal of Public Economics]{Bovenberg1997EnvironmentalGrowth} \ar pre-existing distortionary taxes
 \end{itemize}
 
 \textbf{ - Political economy and limits to growth}
 \begin{itemize}
-\item \cite{Alesina1994DistributiveGrowth}(QJE)
-\ar relation of growth and inequality from a political economy perspective
+\item \citet[QJE]{Alesina1994DistributiveGrowth}
+\ar relation of growth and inequality from a political economy perspective; heterogeneous endowments in capital and labour; policies maximising growth only optimal if government only cares about capital rich individuals; the higher inequality the lower optimal growth
 %\item  \cite{Alesina2005WorkDifferent}\ar social prefernces for leisure \ar jointly reducing working time \ar higher value of leisure
 \end{itemize}
 
@@ -321,11 +345,23 @@ I add
 %\end{itemize}
 \end{frame}
 
+
 \subsection{Working time reduction}
+
+\begingroup
+\setbeamertemplate{footline}{}
+\begin{frame}
+	\huge{Working time reduction}
+\end{frame}
+\endgroup
+%\addtocounter{framenumber}{-1}
+
+
 \begin{frame}{1. What is meant by a working time reduction?}
 	\begin{itemize}
-		\item increase relative value of leisure to correct for too high consumption and labour\\ \ar distortionary labour tax or consumption tax
-		\item but: \textbf{\alert{politically feasible?}} \\ \ar \alert{restrictions on working hours} might be preferred when government cares about social acceptability \citep{Alvarez-Cuadrado2007EnvyHours}
+		\item<+-> optimal policy: increase relative value of leisure to correct for too high consumption and labour \ar distortionary labour tax or consumption tax
+		\vspace{1mm}
+		\item<+-> but: \textbf{\alert{politically feasible?}} \\ \ar restrictions on working hours might be preferred when government cares about social acceptability \citep[as argued in][]{Alvarez-Cuadrado2007EnvyHours}?
 		%\item[(ii)] could be that even a Ramsey planner chooses working time reduction policy when skills are not observable
 		
 	%	\item minimum number of holidays per year
@@ -333,14 +369,16 @@ I add
 	%	\item pre-retirement policies
 	%	\item[+] coupled with financial support; job protection
 	%	\item increased time rights for employees (rights to career breaks, to flexible and part time working hours)
-	\item \cite{Pullinger2014WorkingDesign} mentions as complements in reality:
-	\begin{itemize}
-\item fiscal support (credits, benefit restructuring, paid leave rights)
-\item  facilitation to re-enter labour market (protection from future career losses)
-%\item pre-retirement policies
-%\item financial instruments to decouple working time from income reception 
-	\end{itemize}
-	\item France as historic example \citep[based on][]{Alvarez-Cuadrado2007EnvyHours}
+			\vspace{1mm}
+%	\item<+-> \cite{Pullinger2014WorkingDesign} mentions as complements in reality:
+%	\begin{itemize}
+%\item fiscal support (credits, benefit restructuring, paid leave rights)
+%\item  facilitation to re-enter labour market (protection from future career losses)
+%%\item pre-retirement policies
+%%\item financial instruments to decouple working time from income reception 
+%	\end{itemize}
+%		\vspace{1mm}
+	\item<+-> France as historic example \citep[based on][]{Alvarez-Cuadrado2007EnvyHours}
 	\begin{itemize}
 		\item 1841: 12-hour workday was introduced
 		\item 1904: Millerand law introduced 10-hours day
@@ -355,44 +393,54 @@ I add
 
 \begin{frame}{2. Why consider working time reduction policies in model? i}
 %	Why may a working time reduction be chosen by a government for environmental reasons? 
-\begin{enumerate}
+\pause
+\begin{itemize}
 	\item in literature: \cite{Alvarez-Cuadrado2007EnvyHours} studies reduction policy as response to negative externalities of consumption due to social preferences
-\item here: inefficiently high consumption levels due to environmental externality
-\end{enumerate}
+	\vspace{2mm}
+\item<+-> here: inefficiently high consumption levels due to environmental externality
+\end{itemize}
 \end{frame}
 
 \begin{frame}{2. Why consider working time reduction policies in model? ii}
 \begin{itemize}
-	\item  \cite{Acemoglu2012TheChange} show that a reduction in growth is inevitable to avoid an environmental catastrophe in some cases
+	\item  \cite{Acemoglu2012TheChange} show that a \textbf{reduction in growth} is inevitable to avoid an environmental catastrophe in some cases
+	\vspace{3mm}
 	\begin{itemize}
-\item[-] when there is a trade-off between pollution-reducing and output-increasing innovations (p.146)
-\item[-] when clean and dirty goods are weak substitutes (p.142; reduction in growth)  or complements (p. 144; no growth)
-\item[-] when the initial environmental quality is low (p.142) \ar  \cite{Rockstrom2009AHumanity} argue that some planetary boundaries have already been passed 
-\item[-] dependence on regeneration rate of the environment
+		
+\item[-]<+-> when there is a trade-off between pollution-reducing and output-increasing innovations (p.146)
+\vspace{2mm}
+\item[-]<+-> when clean and dirty goods are weak substitutes (p.142; reduction in growth)  or complements (p. 144; no growth)
+\vspace{2mm}
+\item[-]<+-> when the initial environmental quality is low (p.142) \\ \ar  \cite{Rockstrom2009AHumanity} argue that some planetary boundaries have already been passed (climate change only one boundary)
+\vspace{2mm}
+\item[-]<+-> dependence on regeneration rate of the environment
 	\end{itemize}
-\alert{\item[\ar] working time reduction already optimal in this setting? }
+\pause
+\textbf{\alert{\item[\ar] working time reduction (= reduction in consumption) already optimal in this setting? }}
 \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}{2. Why consider working time reduction policies in model? iii}
+	\pause
 \begin{itemize}
-\item \underline{Extensions to technology in \cite{Acemoglu2012TheChange} }
+%\item \underline{Extensions to technology in \cite{Acemoglu2012TheChange} }
+%\begin{itemize}
+\item<+-> \underline{externality of ``clean'' sector} \citep[see also][]{Dasgupta2021, Brock2005ChapterEmpirics}
 \begin{itemize}
-\item externality of ``clean'' sector \citep[see also][]{Dasgupta2021, Brock2005ChapterEmpirics}
-\begin{itemize}
-	\item[-] renewable/ non-fossil fuels \ar externalities in production process are present e.g. production of solar panels toxic inputs \citep{Yue2014DomesticAnalysis}; non-fossil fuel nitrogen generation (e.g., biomass burning to clear land) important \citep{Song2021ImportantEmissions} 
+	\item[-] renewable/ non-fossil fuels \ar externalities in production process are present e.g. production of solar panels uses toxic inputs \citep{Yue2014DomesticAnalysis}; non-fossil fuel nitrogen generation (e.g., biomass burning to clear land) important ($\approx$ 50\%) \citep{Song2021ImportantEmissions}; low but chronical levels of nitrogen cause species extinctions \citep{Clark2008LossGrasslands}
 	\item[-] waste (after use) \ar depends on recycling technology %\ar recycling system for solar panels not profitable enough today
 %	\item[-] substitutability of nature in production (input sources eg. fossil vs. non-fossil fuels)
-\end{itemize}
+%\end{itemize}
 %\item Irreversibilities already before thresholds are hit (e.g. species extinction)
 
 \end{itemize}
 %\item greenhouse gases: Carbon dioxide $CO_2$ (vast majority), Nitrous oxide $N_2O$, methane $CH_4$
 %\item stock of nature globally determined
-\item \underline{parallel positive trend in demand} (population growth, rebound effect) that outperforms increase in clean technology growth \small{(not long run if perfectly clean technology exists)}
-\item \normalsize{\underline{objective function}:} \cite{Arrow2004AreMuch}(Journal of Economic Perspectives) \ar using a sustainability measure they provide evidence that consumption is too high (not leaving enough natural resources for future generations)
+\item<+-> \underline{parallel positive trend in demand} (population growth, rebound effect) that outperforms increase in clean technology growth \small{(no long-run issue if perfectly clean technology exists)}
+\item<+-> \normalsize{\underline{objective function}:} \cite{Arrow2004AreMuch}(Journal of Economic Perspectives) \ar using a sustainability measure they provide evidence that consumption is too high (= not leaving enough natural resources for future generations)
+\item<+-> \underline{risk, ambiguity}
 \end{itemize}
 \end{frame}
 
@@ -422,15 +470,15 @@ I add
 %\end{frame}
 
 
-\begin{frame}{3. Why a macro model is necessary: Trade-offs}
+\begin{frame}{3. Why a macro model? : hypothesised Trade-offs}
 	%\tr{Under construction}
 %	Interactions between reduction and recomposition arise which have not been studied neither in the literature on directed technical change nor the literature on working time reduction
 \begin{enumerate}[a)]
 \item \textbf{Externality}
 \begin{enumerate}[1.] 
 \item<+->  direct effect of a working time reduction: lower labour supply and demand \ar lower output \ar diminishes externality
-\item<+-> lower demand/ labour supply \ar reduces profits\ar slows down innovations and recomposition \ar detrimental effect on externality?
-\item<+-> with heterogeneous skills: if high-skilled labour supply more responsive to distortionary tax \ar reduce their labour supply more \ar production costs in clean sector rise relatively more \ar demand shifts to dirty sector \ar unclear effect on direction of innovations 
+\item<+-> lower demand/ labour supply \ar reduces profits \ar slows down innovations and recomposition \ar detrimental effect on externality?
+\item<+-> with heterogeneous skills: if high-skilled labour supply more responsive to distortionary tax (richer?) \ar reduce their labour supply more \ar production costs in clean sector rise relatively more \ar increase in relative price of the clean good \ar unclear effect on direction of innovations 
 (market-size(-) and price(+) effect)
 	\end{enumerate}
 	%\begin{itemize}
@@ -445,42 +493,50 @@ I add
 \item<+->	\textbf{Inequality/ social acceptance}
 	\begin{itemize}
 \item[-]<+-> unproportional change in labour supply \ar relative wage changes
+\item[-]<+-> products might get more expensive
 	\end{itemize}
 \end{enumerate}
 \end{frame}
 
 \subsection{Model}
+\begingroup
+\setbeamertemplate{footline}{}
+\begin{frame}
+	\huge{Model}
+\end{frame}
+\endgroup
+%\addtocounter{framenumber}{-1}
+
 \begin{frame}{Model: \textbf{Households}}
 \begin{itemize}
 	\item unit mass of households, 2 types
 	\item differ wrt  skills, indicated by $e\in\{l,h\}$, which they take as given 
 	\item share of high-skilled households $\lambda$
-	\item problem:
-	
+	\item problem: \vspace{-2mm}
 	\begin{align*}
 	\max_{c_{st}, c_{nt}, h_{et}}U&=\sum_{t=0}^{\infty}\beta^t u(C_t,\alert{\pmb{h_{et}}}; S_t)\\
-	s.t.& P_t C_t=\alert{\pmb{(1-\tau_l)}}w_{et}h_{et}+\pmb{\alert{T}}\\
-	& C_t= \left(\omega c_{st}^{\frac{\sigma-1}{\sigma}}+(1-\omega)c_{nt}^\frac{\sigma-1}{\sigma}\right)^\frac{\sigma}{\sigma-1}\\
-	&h_{et}\leq \bar{H_t}
+	s.t.\ & P_t C_t=\alert{\pmb{(1-\tau_l)}}w_{et}h_{et}+\pmb{\alert{T}}\\
+	& C_t= \left( c_{st}^{\frac{\sigma-1}{\sigma}}+c_{nt}^\frac{\sigma-1}{\sigma}\right)^\frac{\sigma}{\sigma-1}\\
+	&h_{et}\leq \pmb{\alert{\bar{H_t}}}
 	\end{align*}
 \end{itemize}
-
+\tr{Note: I will either consider a distortionary labour tax or a restriction on hours worked (changing $\bar{H_t}$)}
 \end{frame}
 
 \begin{frame}{Model: Production
-\tiny{(follows \cite{Acemoglu2012TheChange})}}
+\footnotesize{(follows \cite{Acemoglu2012TheChange})}}
 \begin{itemize}
-	\item \textbf{final good sectors (perfect competition)}
+	\item<+-> \textbf{final good sectors} (perfect competition)
 	 \begin{align*}
 	 &Y_{nt}=R_{nt}^{\alpha_{2}} L_{nt}^{1-\alpha_n}\int_{0}^{1}A_{nit}^{1-\alpha_n}x_{nit}^{\alpha_n} di; \ 
 	 &Y_{st}=\alert{\pmb{R_{st}^{\alpha_{3}}}} L_{st}^{1-\alpha_s}\int_{0}^{1}A_{sit}^{1-\alpha_s}x_{sit}^{\alpha_s} di
 	 \end{align*}
-	\item \textbf{machine producing firms (monopolistic competition)}
+	\item<+-> \textbf{machine producing firms} (monopolistic competition)
 	\begin{align*}
-	\underset{x_{ijt}}{max}\  p_{ijt}x_{ijt}-\psi x_{ijt} \ j\in\{s,n\}
+	\underset{x_{ijt}}{max}\  p_{ijt}x_{ijt}-\psi x_{ijt}, \ \text{for}\  j\in\{s,n\}
 	\end{align*}
 
-	\item \textbf{research}: scientiests decide each period where to allocate their research; better technology with success probability $\eta\in(0,1)$
+	\item<+-> \textbf{research}: scientiests decide each period where to allocate their research; better technology with success probability $\eta\in(0,1)$
 \begin{align*}
 A_{jit+1}=\left\{
 \begin{array}{ll}
@@ -494,15 +550,19 @@ A_{jit}  &\hspace{2mm}\text{if}\hspace{2mm} \text{not \ successful}.
 
 \begin{frame}{Model: Labour sector and market clearing}
 	\begin{itemize}
-\item \alert{\pmb{Labour input producing firm}} (perfect competition)
+\item<+-> \alert{\pmb{Labour input producing firm}} (perfect competition) for $j\in\{s,n\}$
 \begin{align*}
-L_s= l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\\
-L_n=l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}
+L_{jt}=l_{hjt}^{\varepsilon_j}l_{ljt}^{1-\varepsilon_j}\\
+\underset{l_{hjt}, l_{ljt}}{\max}\  p_{Ljt}L_{jt}-w_{lt}l_{ljt}-w_{ht}l_{hjt}%\\
+%L_n=l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}
 \end{align*}
-assuming $\varepsilon_s>\varepsilon_n$ following \cite{Consoli2016DoCapital}
+\vspace{-2mm}
+\item[-]<+-> assume $\varepsilon_s>\varepsilon_n$ following \cite{Consoli2016DoCapital}
+\vspace{-1mm}
+\item[-]<+-> high skill not necessarily rich!
 \vspace{3mm}
-\item \textbf{Market clearing:}\\
-{Labour markets} \hspace{12mm}
+\item<+-> \textbf{Market clearing:}\\
+{Labour markets}: \hspace{10mm}
 $ h_{ht}= l_{hst}+l_{hnt}; \  \hspace{4mm}
   h_{lt}= l_{lst}+l_{lnt}$
 \\ {Goods markets}: \hspace{11mm} 
@@ -515,18 +575,18 @@ Market for scientist: \hspace{4mm} $s\geq s_{dt}+s_{ct}$
 \begin{frame}{Model: Environment}
 %\textbf{Disaster, Irreversibility, externality, Carbon cycle?}
 \begin{itemize}
-\item quality of nature $S_t$ and irreversibility
+\item<+-> quality of nature, $S_t$, and irreversibility
 \begin{align*}
 S_{t}= -\xi Y_{nt}\pmb{\alert{-\kappa \xi Y_{st}}}+(1+\delta)S_{t-1} & \hspace{3mm} \text{if}\  S_{t}\in[0,\bar{S}]\\
 S_{t+s}=0 \ \forall s>0& \hspace{3mm}  \text{if} \ S_{t}<0
 \end{align*}
-\item Environmental disaster: $S_t<0$
+\item<+-> environmental disaster: $S_t<0$
 \begin{align*}
 \underset{S\rightarrow0}{lim} u(C,h;S)=-\infty; 
 \hspace{5mm} 
 \underset{S\rightarrow0}{lim}\frac{\partial u(C,h;S)}{\partial S}=\infty
 \end{align*}
-\item stock of natural resources
+\item<+-> stock of natural resources
 \begin{align*}
 Q_{t+1}=Q_t-R_{nt}\pmb{\alert{-R_{st}}}
 \end{align*}
@@ -534,26 +594,26 @@ Q_{t+1}=Q_t-R_{nt}\pmb{\alert{-R_{st}}}
 \end{frame}
 
 \begin{frame}{Model: Government (very preliminary)}
+	\vspace{-2mm}
 	\begin{itemize}
 \item 
 \cite{Acemoglu2012TheChange}: subsidy on clean innovation, $\tau_i$, and corrective tax on dirty production, $\tau_n$
 \item here:
 
 \begin{enumerate}[a)]
-	\item focus on externality \ar Ramsey planner with (in addition) labour tax, $\tau_l$, and/or corrective tax on cleaner good $\tau_s$
+	\item \textbf{focus on externality} \ar Utilitarian Ramsey planner with  labour tax, $\tau_l$, and/or corrective tax on cleaner good $\tau_s$ (in addition to \cite{Acemoglu2012TheChange})
 	\vspace{-3mm}
 	\begin{align*}
-	&\underset{\tau_l, \tau_n, \tau_s, \tau_i}{\max} \lambda U_h+(1-\lambda)U_l\\
-	s.t.\ & feasibility\\
-	& behaviour\  of\  agents 
+	&\underset{\tau_{lt}, \tau_{nt}, \tau_{st}, \tau_{it}}{\max} \lambda U_{ht}+(1-\lambda)U_{lt}\\
+	s.t.\ & feasibility;\ behaviour\  of\  agents; \  balanced\ budget
 	\end{align*}
-	\vspace{-9mm}
+	\vspace{-5mm}
 	\pause
-	\item focus on political acceptance
+	\item \textbf{focus on political acceptance}
 	\begin{enumerate}[i)]
-		\item set maximum number of hours worked  $\bar{H_t}$ to match optimal leisure in Ramsey model\\ observability of types?
-		\item Rawlsian social welfare function to focus on effect on the poor (Yellow Vest movement): $\max(\min(U_h, U_l))$
-		\alert{\item notion of political feasibility?}
+		\item<+-> instead of distortionary tax set maximum number of hours worked,  $\bar{H_t}$, to match optimal leisure in Ramsey model\\ (assume types not observable?)
+		\item<+-> Rawlsian social welfare function to focus on effect on the poor (Yellow Vest movement): $\max(\min(U_{ht}, U_{lt}))$ 
+		\item<+-> \alert{notion of political feasibility?} Idea: similar to Ramsey problem but additional constraint on utility of the poor/rich/both?
 	\end{enumerate}
 	
 \end{enumerate}
@@ -579,51 +639,66 @@ Q_{t+1}=Q_t-R_{nt}\pmb{\alert{-R_{st}}}
 %\end{itemize}
 %\end{frame}
 
+\begingroup
+\setbeamertemplate{footline}{}
+\begin{frame}%[allowframebreaks]{References}
+	\huge{End Plan A}
+\end{frame}
+\endgroup
 
 \begin{frame}{Plan B}
+	\pause
+	\vspace{-3mm}
 \begin{enumerate}
-	\item extend paper on \textit{Redistribution, Demand, and Sustainable Production}
+	\item \textbf{extend paper on \textit{Redistribution, Demand, and Sustainable Production}}
 	\begin{itemize}
-\item introduce monopolistic competition, heterogeneity in labour supply, and/or directed technical change in sustainability model
-\item examine data on sustainable versus unsustainable consumption across income distribution and over time \\
-\alert{\ar Data sources?}
+		\item<+-> examine data on sustainable versus unsustainable consumption across income distribution and over time \footnotesize{(better than policy support, intentions to buy, differentiate intensive and extensive margin)} \\
+		\alert{\ar Data sources?}
+\item<+-> \normalsize introduce monopolistic competition, heterogeneity in labour supply \footnotesize{(feedback into inequality)}, \normalsize and/or directed technical change %in sustainability model
 	\end{itemize}
-\pause
-\item new paper on voluntary reduction in consumption (empirical and modelling)
+\vspace{2mm}
+\item<+-> \textbf{new paper on voluntary reduction in consumption} 
 \begin{itemize}
-	\item there are studies on a voluntary reduction in consumption by individuals \citep{Alexander2012TheContext}; but limited in scope. 
-	\item How important is this movement for the macroeconomy?
-\item look at data on durable consumption; or data on labour supply; add survey information on environmental behaviour \ar evidence for voluntary reduction in labour supply?
+	\item<+-> studies on a voluntary reduction in consumption by individuals \citep{Alexander2012TheContext}; but limited in scope. 
+	\item<+-> How important is this movement for the macroeconomy?
+\item<+-> look at data on durable consumption; or data on labour supply; add survey information on environmental behaviour \ar evidence for voluntary reduction in labour supply?
 \alert{\ar Any ideas on data sources?}
-\item if there is this tendency: model a reduction in consumption to study its effects on inequality and the externality \small{(directed technical change, heterogeneous skills)}
+\item<+-> (if there is this tendency:) model a reduction in consumption to study its effects on inequality and the externality \small{(directed technical change, heterogeneous skills)}
 \end{itemize}
 \end{enumerate}
 \end{frame}
 
 \begin{frame}{Conclusion}
+	\pause
 	\vspace{-7mm}
 \centering{	\textbf{Plan A}}
 	\vspace{-2mm}
 \begin{itemize}
-\item on the one hand, proponents of a working time reduction seem not to take interaction with recomposition approaches into account, directed technical change in particular
-\item on the other hand, reduction policies generally not in policy set in endogenous growth models; yet, potentially inevitable when no perfectly clean technology exists
-\item inequality hypothesised to shape interaction of reduction and recomposition policies
+\item<+-> on the one hand, proponents of a working time reduction seem not to take interaction with recomposition approaches into account, directed technical change in particular
+\item<+-> on the other hand, reduction policies generally not in policy set in endogenous growth models; yet, potentially inevitable when no perfectly clean technology exists
+\item<+-> inequality hypothesised to shape interaction of reduction and recomposition policies
 \vspace{2mm}
-\item[\ar] What is the optimal policy?
+\item[\ar]<+-> What is the optimal policy?
 \begin{itemize}
-\item Is a working time reduction optimal when directed technical change and inequality are accounted for?
-\item Is a restriction of working hours politically feasible when taking general equilibrium effects into account?
+\item<+-> Is a working time reduction optimal when directed technical change and inequality are accounted for?
+\item<+-> Is a restriction of working hours politically feasible when taking general equilibrium effects into account?
 \end{itemize}
 \end{itemize}
+\pause
 \vspace{-2mm}
 \textbf{Plan B}
 \end{frame}
+
+\begingroup
+\addtocounter{framenumber}{-4}
+\setbeamertemplate{footline}{}
 \begin{frame}[allowframebreaks]{References}
 	
 	\bibliography{../../bib_2_0}
 	\bibliographystyle{apa}
 \end{frame}
-
+\endgroup
+%\addtocounter{framenumber}{-4}
 %\appendix
 %\begin{frame}{Why might restrictions on hours worked be chosen as policy?}
 %	\begin{itemize}
