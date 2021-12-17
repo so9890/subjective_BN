@@ -50,6 +50,9 @@
 \newcommand{\sn}[1]{\textcolor{sonja}{#1}}
 %%% TIKZS
 \usepackage{tikz}
+\usepackage{times}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
 \usetikzlibrary{tikzmark}
 \usetikzlibrary{decorations.markings}
 \usepackage{tikz-cd}
@@ -65,7 +68,7 @@
 		thick,
 		shorten <=2pt,
 		shorten >=2pt,}}
-	
+\tikzstyle{every edge}=  [fill=orange]  
 % other stuff
 \newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
 \newcommand{\activatebar}{%
@@ -129,6 +132,9 @@ It is unclear a-priori if a reduction in output is indeed  a feature of the opti
 On the one hand, a reduction in output in general reduces resource consumption and waste directly. On the other hand, innovations are triggered by a market size effect (cite Acemoglu). As the market size and hence expected profits of innovation reduce, technological progress in general and in the clean sector in particular might diminish. 
 Evaluating the results, I give special attention on the effect on consumption and labour growth. Is it the case that as advocated by proponents of a reduction approach that consumption falls under the optimal environmental policy? 
 
+
+
+
 Given that a reduction policy is associated with costs on the household side, it is important to extend the analysis of a reduction policy into a political economy setting. This constitutes the second part of the paper. 
 First, the optimal policy resulting from the Ramsey problem under the assumption of a representative agent is evaluated in a model which features household heterogeneity. This approach allows to clearly see the consequences of the optimal policy resulting in the first part on (1) inequality, and (2) interactions of  inequality and the environmental externality. 
 
@@ -179,9 +185,52 @@ Therefore, in the model presented here, labour supply is elastic. Households cho
 \item Here analyse: how does inequality change the effect of the optimal environmental policy on the externality?; What are the consequences for different income groups?
 \item In full model: Ramsey planner and Politicians (democratic politician bases policy on opinion) 
 \end{enumerate}
+\section{Fields connected by the project}
 
-\section{Relation to the literature}
-\subsection{Endogenous directed technical change}
+
+\begin{tikzpicture}[]
+\path[mindmap,concept color=orange,text=black]
+node[concept] {My Project}
+[clockwise from=0]
+child[] {
+	node[concept] {environmental policy}
+	[clockwise from=90]
+	child { node[concept] (wtr)  {working time reduction} [clockwise from=180]
+		child {node[concept] {distortionary labour tax}}
+		child {node[concept] {restriction of hours worked}}
+			}
+	child { node[concept] (mainstream) {corrective taxes/subsidies}
+	[clockwise from=-100]
+	child [ concept color=red, text=white] { node[concept] (recomposition) {recomposition} }
+	 }
+}  
+child[concept color=orange] {
+	node[concept] (endg) {endogenous growth}
+	[clockwise from=-30]
+	child { node[concept] (dtc) {directed technical change} }
+}
+child[concept color=orange] { node[concept] {inequality} 
+[clockwise from=-90]
+child { node[concept] (hetskill) {heterogene-  ous skills}} 
+}
+child[concept color=orange] { node[concept] (endlab) {endogenous labour supply} [clockwise from=45]
+child [ concept color=red, text=white] { node[concept] (reduc) {reduction}} 
+};
+
+\begin{pgfonlayer}{background}
+\draw [circle connection bar ]
+(recomposition) edge (dtc)[color=orange]
+(reduc) edge (wtr) [color=orange];
+\end{pgfonlayer}
+
+
+\draw[->,  black] (reduc) edge (recomposition);
+
+\end{tikzpicture}
+
+
+\section{Literature}
+\subsection{Endogenous growth/ directed technical change}
 \begin{itemize}
 	\item \cite{Acemoglu2012TheChange}
 	\begin{itemize}
@@ -196,6 +245,28 @@ Therefore, in the model presented here, labour supply is elastic. Households cho
 \item no endogenous labour supply nor non-clean technology!
 \item Eriksson's model even allows to phase out the polluting part of the dirty good. 
 	\end{itemize}
+\item \cite{Acemoglu2016TransitionTechnology}
+\begin{itemize}
+\item different modeling of competition between clean and dirty inputs
+\item stressing this model to be a micro model...
+\item in contrast to \cite{Acemoglu2012TheChange} final good producers choose which technology to use \ar firms are not sector specific but they use what maximises profits 
+\item[\ar] In reality could think of a differentiation between profit-maximising firms and socially responsible firms which are committed to using the cleanest technologys
+\end{itemize}
+\item \cite{Acemoglu2002DirectedChange}
+\begin{itemize}
+\item 2 different labour inputs to two sectors
+\item there are costs associated with research which is not the case in \cite{Acemoglu2012TheChange}; this is the \textit{lab equipment model} which uses the final good as input to innovation!  (spending!); the alternative \textit{knowledge-based R\&D} specification: need knowledge spillovers from the past to sustain growth; ``standing on the shoulders of giants"
+\item \textit{knowledge based R\&D}: 
+\begin{itemize}
+\item scientists carry out research, there is a constant supply of scientists $=S$
+\item with only one sector growth would be proportional to S
+\item can allow knowledge spillover from both sectors and not only the given one... \\
+$\Delta N_l=\eta_L N_l^{(1+\delta)/2}N_z ^{(1-\delta)/2}s_L$; $s_L$ scientists allocated to sector $L$; $\eta_L$: costs of innovation in sector L
+\item this formulation generates \textit{state dependence} if $\delta \neq 0$.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+\end{itemize} 
+\item machine producers and innovations are the same unit
+\item innovation is on the variety of machines! \ar there are new machines being invented not the technology of existing firms
+\end{itemize}
 \end{itemize} 
 
 \subsection{Limits to endogenous growth}

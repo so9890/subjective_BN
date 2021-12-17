@@ -50,6 +50,10 @@
 \newcommand{\sn}[1]{\textcolor{sonja}{#1}}
 %%% TIKZS
 \usepackage{tikz}
+\usepackage{times}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
 \usetikzlibrary{tikzmark}
 \usetikzlibrary{decorations.markings}
 \usepackage{tikz-cd}
@@ -107,6 +111,58 @@ This version: \today }
 %	\includepdf[pages=-]{../titlepage.pdf}
 	\maketitle
 	
+\section{Timeline}
+\begin{itemize}
+	\item check difference to \cite{Acemoglu2016TransitionTechnology} 17/12 \checkmark
+\item by Saturday 18/12: have solved model as in AA solved analytically
+\item read Aghion paper on social responsibility
+\item by Monday 19/12: understand code
+\item xxx: model extension with clean sector causing externality 
+\item[\ar] what is the effect on the optimal policy as compared to AA
+\item add working time reduction as policy
+\end{itemize}
+
+\section{Fields connected by the project}
+\begin{tikzpicture}[]
+\path[mindmap,concept color=orange,text=black]
+node[concept] {My Project}
+[clockwise from=0]
+child[] {
+	node[concept] {environmental policy}
+	[clockwise from=90]
+	child { node[concept] (wtr)  {working time reduction} [clockwise from=180]
+		child {node[concept] {distortionary labour tax}}
+		child {node[concept] {restriction of hours worked}}
+	}
+	child { node[concept] (mainstream) {corrective taxes/subsidies}
+		[clockwise from=-100]
+		child [ concept color=red, text=white] { node[concept] (recomposition) {recomposition} }
+	}
+}  
+child[concept color=orange] {
+	node[concept] (endg) {endogenous growth}
+	[clockwise from=-30]
+	child { node[concept] (dtc) {directed technical change} }
+}
+child[concept color=orange] { node[concept] {inequality} 
+	[clockwise from=-90]
+	child { node[concept] (hetskill) {heterogene-  ous skills}} 
+}
+child[concept color=orange] { node[concept] (endlab) {endogenous labour supply} [clockwise from=45]
+	child [ concept color=red, text=white] { node[concept] (reduc) {reduction}} 
+};
+
+\begin{pgfonlayer}{background}
+\draw [circle connection bar ]
+(recomposition) edge (dtc)[color=orange]
+(reduc) edge (wtr) [color=orange];
+\end{pgfonlayer}
+
+
+\draw[->,  black] (reduc) edge (recomposition);
+
+\end{tikzpicture}
+
 \section{Motivation}
 
 %\tr{a gradual approach and not categorised}
@@ -158,23 +214,6 @@ Proponents of working time reductions point to special preferences and behaviour
 	\end{itemize}
 \end{itemize}
 \end{enumerate}
-
-
-Given that a reduction policy is associated with costs on the household side, it is important to extend the analysis of a reduction policy into a political economy setting. This constitutes the second part of the paper. 
-First, the optimal policy resulting from the Ramsey problem under the assumption of a representative agent is evaluated in a model which features household heterogeneity. This approach allows to clearly see the consequences of the optimal policy resulting in the first part on (1) inequality, and (2) interactions of  inequality and the environmental externality. 
-
-%Some stylized facts on inequality environmental production are build into this extended model to assess  the effects of the optimal policy. First, the share of high and low-skilled workers varies across the clean and dirty sector. \cite{Bowen2018CharacterisingComposition, Consoli2016DoCapital} provide evidence for the share of high-skilled labour being higher in the clean sector. A reduction in labour supply by the rich (which might be more elastic to a reduction in labour income), could therefore increase costs of production in this sector by more than it does in the dirty sector. Which again could rise the price of sustainable produce, thereby, ceteris paribus, reducing the budget share of the clean good in households consumption baskets. In contrast, a price effect positively directs innovation towards the clean sector. \footnote{\ Could add heterogeneity in firm ownership and investment. }
-
-\textbf{Effects on inequality}
-
-I will then compare the optimal policy in the representative agent economy, to the optimal policy with inequality. This exercise sheds light on the role of inequality on the optimal environmental policy. 
-
-In the third part, I will study the policy chosen by a \textit{democratically} elected government. 
-
-
-%\paragraph{Model}The key contribution of the paper is to add environmental costs to ``clean'' production which  will ultimately imply a limit to consumption growth.(\textit{check consumption evolves in the AA model under the optimal policy})  endogenous directed technolgical innovation following  \cite{Acemoglu2012TheChange} into the model. Furthermore, in an extension, I allow for income-dependent marginal propensities to consume so that aggregate demand for green products varies with the distribution of income. When income of the poor falls in reaction to a drop in consumption by the rich, for instance, they might revert to consume a higher share of an unsustainable yet cheaper good. This again mitigates the reduction in resource consumption. 
-
-
  
 \paragraph{Working time reduction\ar endogenous labour supply}
 A policy that has been advocated for by  proponents of a reduction policy is a decline in working time. A reduction in working time, the argument runs, diminishes income, which again reduces today's consumption due to a lower budget.
@@ -190,24 +229,7 @@ A common assumption in the literature on working time reduction are endogenous p
 Therefore, in the model presented here, labour supply is elastic. Households choose how much labour to supply. DO I NEED TO INTRODUCE FRICTIONS IN THE LABOUR MARKET HERE? such as: fixed costs per worker employed, unemployment benefits? 
 
 
-
-\section{Plan for the paper: The quantitative experiment}
-\begin{enumerate}
-\item Calculate the optimal policy in a representative agent model (should be the same as for some politician?)\ar gives the optimal environmental policy absent inequality\\
-\ar trade-off: reduction might have a negative effect on recomposition
-
-
-\item A reduction in consumption growth/ employment is politically delicate \ar look at political economy of such a policy. \\
-1) What effects does the policy resulting in bullet point above have on inequality?
-2) What would a political government choose given inequality? 
-\ar study the effects of a reduction on inequality
-
-\item Plug in optimal environmental policy in a model with inequality (two households) 
-\item Here analyse: how does inequality change the effect of the optimal environmental policy on the externality?; What are the consequences for different income groups?
-\item In full model: Ramsey planner and Politicians (democratic politician bases policy on opinion) 
-\end{enumerate}
-
-\section{Relation to the literature}
+\section{Literature}
 \subsection{Endogenous directed technical change}
 \begin{itemize}
 	\item \cite{Acemoglu2012TheChange}
@@ -223,6 +245,13 @@ Therefore, in the model presented here, labour supply is elastic. Households cho
 \item no endogenous labour supply nor non-clean technology!
 \item Eriksson's model even allows to phase out the polluting part of the dirty good. 
 	\end{itemize}
+\item \cite{Acemoglu2016TransitionTechnology}
+\begin{itemize}
+	\item different modeling of competition between clean and dirty inputs
+	\item stressing this model to be a micro model...
+	\item in contrast to \cite{Acemoglu2012TheChange} final good producers choose which technology to use \ar firms are not sector specific but they use what maximises profits 
+	\item[\ar] In reality could think of a differentiation between profit-maximising firms and socially responsible firms which are committed to using the cleanest technologys
+\end{itemize}
 \end{itemize} 
 
 \subsection{Limits to endogenous growth}
@@ -427,44 +456,105 @@ Measure resource usage of clean products relative to non-clean sector...BETTER: 
 
 
 \section{Model}
-\subsection{Preferences}
-In the baseline version of the model, there are standard preferences. Households care about the absolute amount of consumption and utility is monotonically increasing in consumption. 
-In an extension: 
-High consumption levels feature prominently in the literature suggesting a reduction of consumption for environmental reasons. In the economics literature, overconsumption has been shown to result from habits or social preferences. This paper places the environmental policy analysis in a model with habits/ social preferences as these seem to be the reason for high consumption levels, so that they should be taken into account in an analysis of potential reductions in consumption. 
-
-\subsection{Inequality}
-
-\noindent Income heterogeneity is introduced by
-\begin{itemize}
-\item skill heterogeneity
-\item firm ownership
-\item investment into research
-\end{itemize}
-
-\subsection{Pollution}
-Build on \cite{Acemoglu2012TheChange} but make the sustainable sector also exert pollution but less (motivate by production of electric vehicles, solar panels, infrastructure for railways) or leading to waste.  
-\subsection{Government}
-\subsubsection{Objective function}
-Political considerations and societal acceptance of environmental policies is a crucial aspect for environmental protection to succeed. 
-In the second part of the paper, I, therefore, consider a government which searches to increases its chances on reelection. 
-Three alternative ways to set up the government's objective function
 \begin{enumerate}
-	\item aggregation of utilities according to median voter?
-	\item assuming the gov does not know utilities, it could search to maximise value measures such as employment rates, environment with weights that follow polls, opinions in society (use WVS data)\\ \ar How important is a change in electorate values towards environmental priority to prevent environmental disaster?\\
-	Endogenise values relevant for votes \ar economic downturn \ar surge of prioritising economic growth, for instance
+\item understand model
+\begin{enumerate}
+\item solve analytically with directed technical change as in paper
+by 18/12
+\item go through code
+\end{enumerate}
 \end{enumerate}
 
-\subsubsection{What policies can the government choose from?}
-How is working time reduction in \cite{Schor2005SustainableReduction} implemented?
-What structural biases does she see on the firm level? i.e., why do firms have an advantage to keep working hours per worker high?
-\textit{Extension:} Model jobs posted as having a fixed number of hours.
+I use a model of directed technical change as in \cite{Acemoglu2012TheChange} but extend this model to allow for no clean technology. 
 
-Tax policies which might imply a reduction in consumption over time.
+In the next step, the government will have the option to use distortionary labour taxes in addition to R\&D subsidies and corrective taxes. For this policy to have an effect on output the labour supply of the representative agent is elastic.
+ 
 
-\subsection{The environment and planetary boundaries}
 
-Read nature articles
+\paragraph{Households}
+In the simplest extension to the model in \cite{Acemoglu2012TheChange}, there is only one household type of unit mass. The representative household maximises its lifetime utility subject to its budget constraint. 
 
+\begin{align*}
+\underset{c_{nt}, c_{st}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_t; S_t)\\
+s.t.& \ c_t= \left(c_{st}^{\frac{\sigma-1}{\sigma}} +c_{nt}^\frac{\sigma-1}{\sigma}\right)^\frac{\sigma}{\sigma-1}\\
+& c_{st}p_{st}+c_{nt}p_{nt}=w_t
+\end{align*}
+Households supply all their labour which is normalised to 1. 
+
+The price of the composite consumption good is defined the the inverse of the shadow value of income, which is reasonable given that households act optimally.
+Hence,
+\begin{align*}
+\left(p_{st}^{1-\sigma}+p_{nt}^{1-\sigma}\right)^\frac{1}{1-\sigma}=p_t
+\end{align*}
+\paragraph{Production}
+\noindent\textbf{Competitive final good producers in each sector}
+There are two sectors, a cleaner, $s$, and a dirty sector, $n$, in which a unit mass of competitive firms $i$ produces an individual consumption good. All firms use machines and an intermediate labour good as input. 
+\begin{align*}
+&Y_{nt}=R_{nt}^{\alpha_2} L_{nt}^{1-\alpha_n}\int_{0}^{1}A_{nit}^{1-\alpha_n}x_{nit}^{\alpha_n} di,\\
+&Y_{st}=\pmb{R_{st}^{\alpha_3}} L_{st}^{1-\alpha_s}\int_{0}^{1}A_{sit}^{1-\alpha_s}x_{sit}^{\alpha_s} di, 
+\end{align*}
+where the novelty relative to \cite{Acemoglu2012TheChange} is that the cleaner sector, too, uses an exhaustible source $R_{st}$. 
+The quantity of machines used by firm $i$ in sector $j$ is denoted by $x_{jit}$ and the respective productivity by $A_{jit}$ with $j\in\{s,n\}$. The amount of the sector-specific labour input good is given by $L_{jt}$.
+
+\textbf{Profit maximising conditions of final good producers}
+\begin{align*}
+\underset{L_{jt}, \{x_{ijt}\}_{i \in I}}{max} p_{jt} L_{jt}^{1-\alpha} \int_{0}^{1}A_{ijt}^{1-\alpha}x_{ijt}^\alpha di - p_{jLt} L_{jt} - \int_{0}^{1} p_{jit}x_{ijt} d_i
+\end{align*}
+Solving for the first order conditions and rearranging terms yields
+\begin{align}
+p_{jt}(1-\alpha) L_{jt}^{-\alpha}\int_{0}^{1}A_{ijt}^{1-\alpha}x_{ijt}^\alpha d_i= p_{jt} (1-\alpha)\frac{y_{jt}}{L_{jt}}\overset{!}{=}p_{jLt}  \label{eq:foc_demand_L}
+\\
+x_{ijt} \overset{!}{=} \left(\alpha\frac{p_{jt}}{p_{jit}}\right)^\frac{1}{1-\alpha}L_{jt} A_{ijt}\ \forall i\in I \label{eq:foc_demand_ma}
+\end{align}
+Following \cite{Acemoglu2012TheChange}, I assume that the average productivity in sector $j$ at time $t$ is defined by
+\begin{align*}
+A_{jt}:=\int_{0}^{1}A_{ijt}di.
+\end{align*}
+
+
+\paragraph{Machine producing firms}
+
+A monopolistically competitive sector produces machines and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms.
+\begin{align*}
+\underset{p_{ijt}}{max}\  p_{ijt}x_{ijt}(p_{ijt})-\psi x_{ijt}(p_{ijt}) \overset{!}{=}0.
+\end{align*}
+The FOC reads
+\begin{align*}
+\alpha x_{ijt}p_{ijt}^{\frac{-1}{1-\alpha}}-\psi x_{ijt}p_{ijt}^{\frac{\alpha-2}{1-\alpha}}.
+\end{align*}
+It follows that 
+\begin{align*}
+p_{ijt}=\frac{\psi}{\alpha}\ \ \text{and} \ \  x_{ijt}=\left(\frac{\alpha^2}{\psi}p_{jt}\right)^\frac{1}{1-\alpha}.
+\end{align*}
+
+\paragraph{Research}
+Scientists perform research and decide on the sector where to conduct their research, $\{s,n\}$. 
+
+Researchers maximise their expected profits by allocating their research either to the cleaner or dirty sector. 
+
+\textbf{The innovation decision}
+\begin{enumerate}
+\item scientists compare expected profits to decide in which sector to innovate
+\item they are successful with probability $\eta_j$ (sector dependent)
+\item if successful: scientists become a \textbf{one-period patent} and become the entrepreneur of the respective machine she has been randomly assigned to; productivity of firm is more productive: $A_{ijt}=(1+\gamma)A_{ijt-1}$
+\item if not successful: no revenue as scientist is no entrepreneur; the machine will produce with last period's  technology: $A_{ijt}=A_{ijt-1}$
+\item profits of the scientist are thus 0 if unsuccessful and $\pi_{ijt}$ otherwise; the expectation is about (1) the firm to which the scientist is allocated with equal probability, $f(i)=\frac{1}{|I|}=1$, and (2) the probability of success. By the law of iterated expectations we have
+\begin{align*}
+E_{i,\text{success}}[\pi^s_{ijt}| \Omega_t]=& \int_{0}^{1}E_\text{success}[\pi^s_{ijt}|i, \Omega_t]f(i)di,\\ \text{where}&\\
+E_\text{success}[\pi_{ijt}|i, \Omega_t]=& \eta_j\  \pi_{ijt}+(1-\eta_j)\ 0=\eta_j (1-\alpha)\alpha p_{jt}^\frac{1}{1-\alpha}L_{jt}(1+\gamma)A_{ijt},\\
+\text{and hence}&\\
+E_{i,\text{success}}[\pi^s_{ijt}| \Omega_t]=&\eta_j (1-\alpha)\alpha p_{jt}^\frac{1}{1-\alpha}L_{jt}(1+\gamma)A_{jt}=: \Pi_{jt}.
+\end{align*}
+where $\Omega_t$ is the information set available at time t before innovation success has materialised, that is, equilibrium aspects also not known. $\pi^s_{ijt}$ is the profit of the scientist in period t. 
+
+\end{enumerate}
+(Note: Monopolistic competition happens \textbf{across} sectors since it is the price elasticity of substitution between sectors that matters for the demand monopolistic producers face.
+The decision by scientists where to invent also depends on this elasticity, and potentially on the satiation level. 
+)
+
+\paragraph{Market clearing}
+\tr{scientists happen to be there\ar see  \cite{Acemoglu2002DirectedChange}: this assumption simplifies analysis }
+%-------------------------------------
 \clearpage
 \bibliography{../../bib_2_0}
 \addcontentsline{toc}{section}{References}
