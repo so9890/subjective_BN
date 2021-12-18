@@ -112,22 +112,31 @@ This version: \today }
 %\tr{a gradual approach and not categorised}
 \paragraph{Social acceptance of environmental policies}
 Planetary boundaries are violated or threatened to be by human activity \citep{Rockstrom2009AHumanity}.
-While there is a vital need to reduce environmental externalities of production, environmental policies face a hard time getting implemented. The Yellow Vest movement in France in yyyy illustrates the opposition which may arise with those who feel they would lose from particular environmental policies. 
+While there is a vital need to reduce environmental externalities of production, environmental policies face a hard time getting implemented. The Yellow Vest movement in France in yyyy illustrates the opposition which may arise with those who feel they would lose from particular environmental policies. At the same time, more households prioritised environmnetal policies over policies to foster growth and employment in France(compare figure \ref{fig:WVS} below).
 
 Working time reductions through restrictions of working hours \citep{Alvarez-Cuadrado2007EnvyHours} or facilitation of voluntary working time reductions \citep{Pullinger2014WorkingDesign, Schor2005SustainableReduction} have been proposed as measures to lower environmental externalities and at the same time being socially accepted. The former argument relies on a direct effect: lower labour supply would lower production (supply side) or a demand-side mechanism through which less income reduces the ability (budget constraint) or desire (non-separable preferences) to consume. Indeed, individual acceptance of working time reductions seem immanent to policies which facilitate voluntary working time reductions. Restrictions of working hours might be harder to implement \textit{(provide reference to emp.literature)} depending on the exact dynamic. 
 
-However, working time reduction policies which are individually acceptable when introduced might have general equilibrium effects on inequality and the externality which again could lower support for the political party in power. 
+However, working time reduction policies which are individually acceptable when introduced might have general equilibrium effects on inequality and the externality which again could lower support for the political party in power/ \textbf{environmental policies}. 
 For example, reducing hours worked might be picked up more heavily by consumption-rich households. If these households also happen to be especially high-skilled, the supply of high-skilled labour reduces more than that of low-skilled labour. If again the cleaner sector uses more high-skilled labour \citep[][provide evidence for this claim]{Consoli2016DoCapital}, the cleaner sector's production costs may rise. 
-Producers pass this rise in production costs through to consumers so that eventually demand shifts to the relatively cheaper, dirty consumption good. This demand effect could diminish or revers the initially advantageous effect of the working time reduction. Furthermore, inequality could be affected through changes in the relative wage rate. With high-skilled labour getting relatively scarcer, the marginal product of this labour type rises relatively more. As a result, inequality rises. 
+Producers pass this rise in production costs through to consumers so that eventually demand shifts to the relatively cheaper, dirty consumption good. This demand effect could diminish or reverse the initially advantageous effect of the working time reduction. Furthermore, inequality could be affected through changes in the relative wage rate. With high-skilled labour getting relatively scarcer, the marginal product of this labour type rises relatively more. As a result, inequality rises. 
 
-\paragraph{government objective function possibilities}
+
+
+\paragraph{government objective function}
 \begin{itemize}
-\item  These general equilibrium effects which materialise with a lag are assumed to be taken into account by the government. Knowing the time of \textbf{elections}, a government would then not implement a policy which is foreseen to result in general ...\textbf{Voting decision}
-Households do not only care about their individual consumption to determine their vote. Instead, households also care about environmental externalities. This setup is motivated by data from the World Values Survey.
-What environmental policy would a democratically elected government choose? 
+%\item  These general equilibrium effects which materialise with a lag are assumed to be taken into account by the government. Knowing the time of \textbf{elections}, a government would then not implement a policy which is foreseen to result in general ...\textbf{Voting decision}Households do not only care about their individual consumption to determine their vote. Instead, households also care about environmental externalities. This setup is motivated by data from the World Values Survey. What environmental policy would a democratically elected government choose? 
  
-\item The government cares about \textbf{social tension}. While heterogeneity in opinions is inevitable and not necessarily bad, too polarised opinions might be problematic, for example, for the implementabiliyt of environmental policies.  \ar \textbf{ some sort of social tension (would this imply some notion of political opinions, how opinions are formed endogenously...)}
-\item add some \textbf{political feasibility} constraint on government objective function... e.g., lower bound on utility reduction of the poor. \ar study effects on inequality/ heterogeneous households 
+\item The government cares about \textbf{social tension} and \textbf{support for the environmental policy}. While heterogeneity in opinions is inevitable and not necessarily bad, too polarised opinions might be problematic, for example, for the implementability of environmental policies. 
+
+Using microlevel information on support/opinions for environmental policies (WVS, or \cite{CCAM}), I estimate a structural model of opinion formation which serves to endogenise political opinions in the model. 
+
+The government seeks to comply with environmental targets (e.g. Paris agreement) but with the additional constraint of ensuring societal support/cohesion. 
+
+\begin{itemize}
+\item societal support: 50\% of population has to support the environmental policy
+\item societal cohesion: measure by variance in opinions; or distance between opinions
+\item[\ar] use both constraints jointly since in France, e.g. Policies did not pass despite a high support according to the WVS. 
+\end{itemize}
 \end{itemize}
 
 
@@ -137,6 +146,27 @@ What environmental policy would a democratically elected government choose?
 To fill this gap, I present a model of directed technical change in which no perfectly clean technology can be innovated. Therefore, a reduction policy might be inevitable. As put forward by the literature advocating reduction policies, the government can restrict the maximum hours worked per employee \textit{(consult \cite{Schor2005SustainableReduction})}.\footnote{\ One rationale behind working hour restrictions as a tool to reduce production is that this policy faces more acceptance in society than higher income or consumption taxes.}
 This tool allows the government to reduce output overall which lowers the externality directly.
 However, a decline in demand and labour supply may discourage incentives to innovate in the cleaner sector. This indirect channel might undermine the direct advantageous effect on the externality. Taking general equilibrium effects into account might alter the benefits of reductionist policies to lower the externality which have not been considered before. 
+
+
+Figure \ref{fig:WVS} shows the evolution of the share of households (?) which prioritises environmental policies above policies to foster economic growth and employment for Germany and the US. 
+
+\begin{figure}[h!!]
+	\begin{minipage}[h!!]{0.42\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Germany}
+		\includegraphics[width=1\textwidth]{../Data/data_germany_priorities.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.42\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) US}
+		\includegraphics[width=1\textwidth]{../Data/data_US_priorities.png}
+	\end{minipage}
+	\caption{The plot shows the evolution of answers to the following question by the World Value Survey in Germany (panel A) and the US (panel B): \textit{``Here are two statements people sometimes make when discussing the environment and
+			economic growth. Which of them comes closer to your own point of view? A. Protecting
+			the environment should be given priority, even if it causes slower economic growth and
+			some loss of jobs B. Economic growth and creating jobs should be the top priority, even
+			if the environment suffers to some extent"}}\label{fig:WVS}
+\end{figure}
 
 \paragraph{Adding inequality}
 We live in a time characterised by high degrees of inequality. I argue that this aspect of today's economies crucially determines the mechanisms of environmental policies in market economies. Empirical research has provided evidence for a skill bias in cleaner sectors of production \citep{Consoli2016DoCapital}. Assume the government cannot differentiate households by skill and raises the labour tax for all households. Especially high-skilled households might reduce their labour supply if they are richer \textit{(need to find evidence for this: income share of high skilled)} due to a lower shadow value of income \textit{(have to differentiate substitution and income channel here)}. This again lowers the market size of the cleaner sector thereby dampening clean innovation incentives. On the other hand, the price of the cleaner good might rise more than that of the dirty good. Through the price effect clean innovation could accelerate again. Hence, accounting for skill heterogeneity across sectors adds to the ambiguous effect of reduction policies on recomposition policies.

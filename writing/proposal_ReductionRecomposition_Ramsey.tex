@@ -128,33 +128,34 @@ This version: \today }
 node[concept] {My Project}
 [clockwise from=0]
 child[] {
-	node[concept] {environmental policy}
-	[clockwise from=90]
-	child { node[concept] (wtr)  {working time reduction} [clockwise from=180]
+	node[concept, scale=1.1] {environ- mental policy}
+	[clockwise from=70]
+	child { node[concept] (wtr)  {working time reduction} [clockwise from=90]
 		child {node[concept] {distortionary labour tax}}
-		child {node[concept] {restriction of hours worked}}
+		child {node[concept, level distance=2cm] {restriction of hours worked}}
 	}
-	child { node[concept] (mainstream) {corrective taxes/subsidies}
-		[clockwise from=-100]
-		child [ concept color=red, text=white] { node[concept] (recomposition) {recomposition} }
+	child { node[concept] (corr) {corrective taxes/subsidies}
 	}
 }  
 child[concept color=orange] {
 	node[concept] (endg) {endogenous growth}
 	[clockwise from=-30]
-	child { node[concept] (dtc) {directed technical change} }
+	child { node[concept] (dtc) {directed technical change} 
+		[clockwise from=30, level distance=10cm]
+child [ concept color=red, text=white] { node[concept,  scale=2.1] (recomposition) {recom- position} }	
+}
 }
 child[concept color=orange] { node[concept] {inequality} 
 	[clockwise from=-90]
 	child { node[concept] (hetskill) {heterogene-  ous skills}} 
 }
 child[concept color=orange] { node[concept] (endlab) {endogenous labour supply} [clockwise from=45]
-	child [ concept color=red, text=white] { node[concept] (reduc) {reduction}} 
+	child [ concept color=red, text=white] { node[concept, scale=1.3] (reduc) {reduction}} 
 };
 
 \begin{pgfonlayer}{background}
 \draw [circle connection bar ]
-(recomposition) edge (dtc)[color=orange]
+(recomposition) edge (corr) [color=orange]
 (reduc) edge (wtr) [color=orange];
 \end{pgfonlayer}
 
@@ -167,18 +168,19 @@ child[concept color=orange] { node[concept] (endlab) {endogenous labour supply} 
 
 %\tr{a gradual approach and not categorised}
 \paragraph{introduce two policies: complements and interlinked}
-Planetary boundaries are violated or threatened to be by human activity \citep{Rockstrom2009AHumanity}, and the need to reduce environmental externalities of production becomes more and more vital.  % why this?/ Resource consumption= to emissions??? 
+Planetary boundaries are violated or threatened to be by human activity \citep{Rockstrom2009AHumanity}. The need to reduce environmental externalities of production becomes more and more vital.  % why this?/ Resource consumption= to emissions??? 
 Two measures to lower environmental externalities feature prominently in the discussion: a recomposition and a reduction approach. Macroeconomic research by and large has focused on the former: instead of producing a high share of polluting goods the optimal policy directs resources to the clean sector. Models of directed technical change, in particular, are designed to study recomposition through policies and market forces.
 Proponents of a reduction approach question the possibility that a recomposition of production alone suffices to meet planetary boundaries. The two approaches are most likely (i) complements to keep the environment in an inhabitable state and (ii) interlinked through general equilibrium effects. However,
-a joint macroeconomic analysis of the both policies is hitherto missing. 
+a joint macroeconomic analysis of both policies is hitherto missing. 
 
+\tr{The next to paragraphs are 2 options on how to continue. Either with distortionary taxes (Version 1) or with working time reductios (Version 2); }
 \paragraph{Version 1: what I do: With distortionary labour tax or general consumption tax}
-To fill this gap, I present a model of directed technical change in which no perfectly clean technology can be innovated. Therefore, a reduction policy might be inevitable. Having distortionary labour taxes at its disposal, the government has the means to overall reduce economic output. A reduction in output directly lowers the externality. However, a decline in demand and labour supply may discourage incentives to innovate in the cleaner sector. This indirect channel might undermine the direct advantageous effect on the externality. Taking general equilibrium effects into account might alter the benefits of reductionist policies to lower the externality which have not been considered before. 
+To fill this gap, I present a model of directed technical change in which no perfectly clean technology can be innovated. Therefore, a reduction policy might be inevitable. Having distortionary labour taxes at its disposal, the government has the means to reduce economic output overall. A reduction in output directly lowers the externality. However, a decline in demand and labour supply may discourage incentives to innovate in the cleaner sector. This indirect channel might undermine the direct advantageous effect of a reduction policy on the externality. It is, therefore, questionable whether they are part of the optimal policy.
 
 \paragraph{Version 2: what I do: with restriction of maximum working hours}
-To fill this gap, I present a model of directed technical change in which no perfectly clean technology can be innovated. Therefore, a reduction policy might be inevitable. As put forward by the literature advocating reduction policies, the government can restrict the maximum hours worked per employee \textit{(consult \cite{Schor2005SustainableReduction})}.\footnote{\ One rationale behind working hour restrictions as a tool to reduce production is that this policy faces more acceptance in society than higher income or consumption taxes.}
+To fill this gap, I present a model of directed technical change in which no perfectly clean technology can be innovated. Therefore, a reduction policy might be inevitable. As put forward by the literature advocating reduction policies, the government in the model can restrict the maximum hours worked per employee \textit{(consult \cite{Schor2005SustainableReduction})}.\footnote{\ One rationale behind working hour restrictions as a tool to reduce production is that this policy faces more acceptance in society than higher income or consumption taxes \citep[e.g.][]{Schor2005SustainableReduction, Alvarez-Cuadrado2007EnvyHours}.}
 This tool allows the government to reduce output overall which lowers the externality directly.
-However, a decline in demand and labour supply may discourage incentives to innovate in the cleaner sector. This indirect channel might undermine the direct advantageous effect on the externality. Taking general equilibrium effects into account might alter the benefits of reductionist policies to lower the externality which have not been considered before. 
+However, a decline in demand and labour supply may discourage incentives to innovate in the cleaner sector. This indirect channel might undermine the direct advantageous effect on the externality. It is, therefore, questionable whether they are part of the optimal policy.
 
 \paragraph{Adding inequality}
 We live in a time characterised by high degrees of inequality. I argue that this aspect of today's economies crucially determines the mechanisms of environmental policies in market economies. Empirical research has provided evidence for a skill bias in cleaner sectors of production \citep{Consoli2016DoCapital}. Assume the government cannot differentiate households by skill and raises the labour tax for all households. Especially high-skilled households might reduce their labour supply if they are richer \textit{(need to find evidence for this: income share of high skilled)} due to a lower shadow value of income \textit{(have to differentiate substitution and income channel here)}. This again lowers the market size of the cleaner sector thereby dampening clean innovation incentives. On the other hand, the price of the cleaner good might rise more than that of the dirty good. Through the price effect clean innovation could accelerate again. Hence, accounting for skill heterogeneity across sectors adds to the ambiguous effect of reduction policies on recomposition policies.
@@ -189,7 +191,7 @@ We live in a time characterised by high degrees of inequality. I argue that this
 The interrelationship of reduction, recomposition, and inequality motivates to ask: What is the optimal environmental policy? 
  % (tipping point) is already very high (assumption of where we are relative to tipping point)? \ar make the distance from the tipping point a parameter on which results should depend.
  
-\newpage
+%\newpage
 \paragraph{How}
 \underline{Roadmap}: 
 \begin{enumerate}
@@ -197,37 +199,25 @@ The interrelationship of reduction, recomposition, and inequality motivates to a
 \item Model absent directed technical change (random allocation of scientists) and absent inequality \ar Is a reduction policy  (either labour/ consumption tax or working hours restriction) part of the optimal policy when also having corrective taxes at hand? What is the effect of a reduction policy on wages/demand? 
 \item Introduce directed technical change (keep number of instruments same as in 1.) \\ \ar How much reduction is now optimal as compared to the first exercise?
 \item add inequality to the model and keep the policy from 2. \ar how does inequality affect the optimal allocation?
-\item In full model (directed technical change and inequality), calculate the optimal policy \ar How does it compare to the optimal policy without inequality! (Note that the difference can now occur due to inequality as another motive for government intervention or the effect of inequality on the externality)\ar \textit{seems like an exercise to study the costs of inequality on environmental protection (trade-offs); adjust objective function? Vary weight on inequality in government objective function. }\\ 
-
-\item \underline{As an extension or new paper on the political economy of environmental policies}: \\
-\ar what are the effects on inequality \ar \textbf{ some sort of social tension (would this imply some notion of political opinions, how opinions are formed endogenously...)}
- add some political feasibility constraint on government objective function... e.g., lower bound on utility reduction of the poor. \ar study effects on inequality/ heterogeneous households \ar political flavour, different paper?
+\item In full model (directed technical change and inequality), calculate the optimal policy \ar How does it compare to the optimal policy without inequality! (Note that the difference can now occur due to inequality as another motive for government intervention or the effect of inequality on the externality)\ar \textit{seems like an exercise to study the costs of inequality on environmental protection (trade-offs); adjust objective function? Vary weight on inequality in government objective function. }
 
 \item  \underline{In an extension/ the appendix}:
-Proponents of working time reductions point to special preferences and behavioural biases which, on the one hand, lead to too high consumption levels (habits, social preferences) or, on the other hand, make reduction policies less painful (status quo, loss aversion). 
+Proponents of working time reductions point to special preferences and behavioural biases which, on the one hand, lead to too high consumption levels (habits, social preferences) or, on the other hand, are argued to make reduction policies less painful (status quo, loss aversion; social value of leisure). 
 \begin{itemize}
 	\item \underline{Special preferences}
 	\begin{itemize}
-\item extend model to have social value of leisure \ar an argument in favour of reduction policies \citep{Alesina2005WorkDifferent}
-\item include social preferences, habits (as a reason for high consumption levels) \citep{Arrow2004AreMuch, Alvarez-Cuadrado2007EnvyHours, Ravn2006DeepHabits}
-\item status quo oriented preferences, loss aversion \citep{Schor2005SustainableReduction} (argument for social acceptance to reduce future income)
+		\item extend model to have social value of leisure \ar an argument in favour of reduction policies \citep{Alesina2005WorkDifferent}
+		\item include social preferences, habits (as a reason for high consumption levels) \citep{Arrow2004AreMuch, Alvarez-Cuadrado2007EnvyHours, Ravn2006DeepHabits}
+		\item status quo oriented preferences, loss aversion \citep{Schor2005SustainableReduction} (argument for social acceptance to reduce future income)
 	\end{itemize}
 \end{itemize}
+
+\item \underline{As an extension or new paper on the political economy of environmental policies}: \\
+\ar what are the effects on inequality \ar \textbf{ some sort of social tension (maybe some notion of political opinions, how opinions are formed endogenously...)\ar estimate that using WVS data on opinions\ar what determines households willingness to relinquish employment growth for environmental improvements}; 
+ add some political feasibility constraint on government objective function... e.g., lower bound on utility reduction of the poor. \ar study effects on inequality/ heterogeneous households \ar political flavour, different paper?
+
 \end{enumerate}
  
-\paragraph{Working time reduction\ar endogenous labour supply}
-A policy that has been advocated for by  proponents of a reduction policy is a decline in working time. A reduction in working time, the argument runs, diminishes income, which again reduces today's consumption due to a lower budget.
-(\cite{Schor2005SustainableReduction} does not really suggest a mechanism)
-In addition, with non-separable preferences, a reduction in labour diminishes the marginal utility of consumption thereby indirectly reducing demand. 
-
-In addition, a reduction in consumption might even not have a devastating effect on utility under the assumption of social preferences or some sort of addiction (UTLITY SPECIFICATIONS WITH HABITS DO NOT FEATURE ZERO GROWTH?)
-
-
-A common assumption in the literature on working time reduction are endogenous preferences, which may positively rely on past consumption or some measure of societal consumption. Reducing income, then, also reduces 
-
-
-Therefore, in the model presented here, labour supply is elastic. Households choose how much labour to supply. DO I NEED TO INTRODUCE FRICTIONS IN THE LABOUR MARKET HERE? such as: fixed costs per worker employed, unemployment benefits? 
-
 
 \section{Literature}
 \subsection{Endogenous directed technical change}
@@ -298,7 +288,7 @@ repair and settles on a new lower, less productive steady state.}
 \item[\ar] policies should stem (eindämmen) income increases instead of reducing current consumption! (this is what is harmful, not future income reduction). This theory relates to \textit{loss aversion} (Kahnemann and Tversky 1984,) of what I have instead of future profits...\textit{status quo bias} (Samuelson and Zeckhauser, 1988), \textit{endowment effects} (Thaler, 1980)
 \item endogenous preferences: desires change so that I like what I have once I have it; This is different from social preferences and habits yet, these are also endogenous  
 \item she does not give a structured explanation of how a working time reduction should affect environmental externalities; she drops some vague ideas: 1) negative effect if leisure activities are environmentally costly such as traveling...; 2) due to more time a reduction in the consumption of speed and convenience which are ecologically costly;
-\item presents some ideas on how hours reduction should be done: per worker, per job, egalitarian or not... (she suggests egalitarian arguaing that an unequal reduction implies opposition of those who work high hours)
+\item presents some ideas on how hours reduction should be done: per worker, per job, egalitarian or not... (\textbf{she suggests egalitarian arguaing that an unequal reduction implies opposition of those who work high hours})
 \item she suggests there might be a trade-off in growth: a) increasing sustainable technology $\uparrow$ environment, b) increasing incomes \ar consumption $\downarrow$ environment
 \end{itemize}
 
@@ -318,7 +308,7 @@ repair and settles on a new lower, less productive steady state.}
 \item more conventional measures to reduce working time: 
 maximum working hours, use-specific WTR (childcare); 
 \end{itemize}
-\item What are the macroeffects on a working time reduction? Hypothesis: higher wage in the reducing sector \ar inequality, externality
+\item Sonja: What are the macroeffects on a working time reduction? Hypothesis: higher wage in the reducing sector \ar inequality, externality
 \item paper by \cite{Cieplinski2021EnvironmentalReductionb} more macro approach \ar explore trade-offs of WRT on externality
 \begin{itemize}
 \item macro approach to the effect of working time reductions
@@ -387,7 +377,7 @@ Most compellent argument against unlimited growth: sustainable sector also consu
 \end{itemize}
 \item \cite{Arrow2004AreMuch}
 \begin{itemize}
-\item following \cite{Cohen2019AnnualSubstitutable} they show/ argue that economic development was already impeded by natural degradation in 2004
+\item according to \cite{Cohen2019AnnualSubstitutable} they show/ argue that economic development was already impeded by natural degradation in 2004
 \end{itemize}
 \end{itemize}
 
@@ -452,6 +442,8 @@ Knowledge has to make up for the reduction in the intensity of pollution in orde
 \item US authority on GHG \\ \url{https://www.epa.gov/ghgemissions/inventory-us-greenhouse-gas-emissions-and-sinks}
 \end{itemize}
 \section{Empirical Contribution}
+
+???
 Measure resource usage of clean products relative to non-clean sector...BETTER: provide evidence from already existing studies! Seems to be a boring exercise
 
 
