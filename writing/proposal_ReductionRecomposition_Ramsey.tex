@@ -195,7 +195,7 @@ The interrelationship of reduction, recomposition, and inequality motivates to a
 \paragraph{How}
 \underline{Roadmap}: 
 \begin{enumerate}
-	\item extend paper by \cite{Acemoglu2012TheChange} to not have perfectly clean technology
+	\item extend paper by \cite{Acemoglu2012TheChange, Fried2018ClimateAnalysis, Acemoglu2016TransitionTechnology} to not have perfectly clean technology and endogenous labour decision.
 \item Model absent directed technical change (random allocation of scientists) and absent inequality \ar Is a reduction policy  (either labour/ consumption tax or working hours restriction) part of the optimal policy when also having corrective taxes at hand? What is the effect of a reduction policy on wages/demand? 
 \item Introduce directed technical change (keep number of instruments same as in 1.) \\ \ar How much reduction is now optimal as compared to the first exercise?
 \item add inequality to the model and keep the policy from 2. \ar how does inequality affect the optimal allocation?
@@ -217,7 +217,28 @@ Proponents of working time reductions point to special preferences and behaviour
  add some political feasibility constraint on government objective function... e.g., lower bound on utility reduction of the poor. \ar study effects on inequality/ heterogeneous households \ar political flavour, different paper?
 
 \end{enumerate}
- 
+
+\paragraph{Alternative Structure}
+\begin{enumerate}
+\item working time reduction and heterogeneous skill interaction in centre \ar focus on role of inequality
+\item working time reduction and directed technical change (in \cite{Acemoglu2012TheChange} no effect, as only relative profits matter for the direction of innovations)
+\end{enumerate}
+
+\paragraph{Write up in the paper}
+\begin{enumerate}
+\item Section: analytically show mechanism: how reduction (policy) affects innovation decision
+\item Section: Analytically discuss relevant parameter values on which optimal policy depends: when is a working time reduction optimal, when is it not?
+\item Section: calibrate/ estimate quantitative model/ discuss why which parameter values make sense (as in \cite{Jones2016LifeGrowth, Fried2018ClimateAnalysis})
+\item Section: transitions\ar paths of optimal policy until in new steady state with new (no) consumption growth
+\end{enumerate} 
+
+\section{How to model the externality}
+Different approaches are used in the literature
+\begin{itemize}
+\item integrated assessment models use carbon cycles\ar only focus on carbon from energy generation through burning fossil fuels
+\item yet, there are other planetary boundaries \citep{Rockstrom2009AHumanity} which should be taken into accounts
+\item[\ar] additional cycles or pool planetary boundaries and externalities into one as in \cite{Dasgupta2021}?´
+\end{itemize}
 
 \section{Literature}
 \subsection{Endogenous directed technical change}
@@ -365,7 +386,8 @@ capital stock decreases as MPK reduces with lower labour supply \ar lower saving
 \subsection{Arguments against the sufficiency of sustainable technological growth/ recomposition}
 Most compellent argument against unlimited growth: sustainable sector also consumes nature; waste through 
 \begin{itemize}
-\item missing decoupling: rise in resource usage despite more clean technology \citep{Alexander2012TheContext}
+	\item \textbf{TO BE READ} \tr{\cite{FuglesangClimateHowitt}:  What if plan A (recomposition) is not possible due to risk?}
+\item missing decoupling: rise in  resource usage despite more clean technology \citep{Alexander2012TheContext}
 \item rebound effects (look at Taylor and Tilford, 2000, as cited in \cite{Schor2005SustainableReduction}); XXX Paradox \citep{Alexander2012TheContext}
 \item moral obligation against less developed countries and those consuming at a lower bound of consumption \citep{Alexander2012TheContext}
 \item slow diffusion of green technologies \citep{Schor2005SustainableReduction}; Does she give evidence?
@@ -467,16 +489,20 @@ In the next step, the government will have the option to use distortionary labou
 In the simplest extension to the model in \cite{Acemoglu2012TheChange}, there is only one household type of unit mass. The representative household maximises its lifetime utility subject to its budget constraint. 
 
 \begin{align*}
-\underset{c_{nt}, c_{st}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_t; S_t)\\
-s.t.& \ c_t= \left(c_{st}^{\frac{\sigma-1}{\sigma}} +c_{nt}^\frac{\sigma-1}{\sigma}\right)^\frac{\sigma}{\sigma-1}\\
-& c_{st}p_{st}+c_{nt}p_{nt}=w_t
+\underset{c_{nt}, c_{st}, h_t}{max}&\sum_{t=0}^{\infty}\beta^t u(c_t, \pmb{h_t}; S_t)\\
+s.t.& \ c_t= \left(\pmb{\omega} c_{st}^{\frac{\varepsilon-1}{\varepsilon}} +(\pmb{1-\omega})c_{nt}^\frac{\varepsilon-1}{\varepsilon}\right)^\frac{\varepsilon}{\varepsilon-1}\\
+& c_{st}p_{st}+c_{nt}p_{nt}=w_t\pmb{(1-\tau_l)}h_t\\
+& h_t\leq H_t
 \end{align*}
-Households supply all their labour which is normalised to 1. 
+As an extension to \cite{Acemoglu2012TheChange}, household supply labour elastically. There is no savings decision. 
+ The formulation here where households choose the optimal composition of the composite consumption good is closer to the interpretation that households choose between different degrees of pollution, and not the producing firm. 
+
+The degree of pollution of production is \textbf{taken as given} in the final good production of each sector. 
 
 The price of the composite consumption good is defined the the inverse of the shadow value of income, which is reasonable given that households act optimally.
 Hence,
 \begin{align*}
-\left(p_{st}^{1-\sigma}+p_{nt}^{1-\sigma}\right)^\frac{1}{1-\sigma}=p_t
+\left(p_{st}^{1-\varepsilon}+p_{nt}^{1-\varepsilon}\right)^\frac{1}{1-\varepsilon}=p_t
 \end{align*}
 \paragraph{Production}
 \noindent\textbf{Competitive final good producers in each sector}
@@ -502,8 +528,14 @@ Following \cite{Acemoglu2012TheChange}, I assume that the average productivity i
 \begin{align*}
 A_{jt}:=\int_{0}^{1}A_{ijt}di.
 \end{align*}
-
-
+With free labour mobility it follows that $p_{sLt}=p_{nLt}$. This condition implies
+\begin{align*}
+\frac{p_{st}}{p_{nt}}=\left(\frac{A_{nt}}{A_{st}}\right)^{1-\alpha}.
+\end{align*}
+Replacing demand for machines in the production function yields
+\begin{align*}
+Y_{jt}= \left(\frac{\alpha^2}{\psi}p_{jt}\right)^{\frac{\alpha}{1-\alpha}}L_{jt}A_{jt}
+\end{align*}
 \paragraph{Machine producing firms}
 
 A monopolistically competitive sector produces machines and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms.
@@ -516,9 +548,13 @@ The FOC reads
 \end{align*}
 It follows that 
 \begin{align*}
-p_{ijt}=\frac{\psi}{\alpha}\ \ \text{and} \ \  x_{ijt}=\left(\frac{\alpha^2}{\psi}p_{jt}\right)^\frac{1}{1-\alpha}.
+p_{ijt}=\frac{\psi}{\alpha}\ \ \text{and} \ \  x_{ijt}=\left(\frac{\alpha^2}{\psi}p_{jt}\right)^\frac{1}{1-\alpha}A_{ijt}L_{jt}.
 \end{align*}
 
+The wage rate, which is determined by the FOCs of final good producers becomes
+\begin{align*}
+w_t=p_{jLt}= p_{jt}^{\frac{1}{1-\alpha}}(1-\alpha)\left(\frac{\alpha^2}{\psi}\right)^\frac{\alpha}{1-\alpha}A_{jt}.
+\end{align*}
 \paragraph{Research}
 Scientists perform research and decide on the sector where to conduct their research, $\{s,n\}$. 
 
@@ -544,8 +580,25 @@ where $\Omega_t$ is the information set available at time t before innovation su
 The decision by scientists where to invent also depends on this elasticity, and potentially on the satiation level. 
 )
 
+
+\textbf{Does $p_{jt}$ depend on consumer preferences: $\varepsilon,\ \omega$?}
+
 \paragraph{Market clearing}
 \tr{scientists happen to be there\ar see  \cite{Acemoglu2002DirectedChange}: this assumption simplifies analysis }
+
+
+\section{Feedback}
+\paragraph{Farzad}
+\begin{itemize}
+\item JM nächstes Jahr! (Pavel: Mai 2022 JM Paper fertig!)
+\item include preference change in model \ar what effect if reduction policy is in place too!  (Crowding out?)
+\item two household types, those which reduce consumption deliberately and those which don't; \ar \textbf{soziale Präferenzen!}: voluntary reduction to reduce burden on environment...
+\item data work on this part: Global Preferences Survey (Armin Falk,) \ar are households willing to reduce their consumption?
+\item[\ar] To write a broad job market paper! This could be interesting for behaviour economists, 
+\item sustainability paper nach Vorträgen in Paris polishen und dann einreichen
+\item  political economy paper afterwards
+\item insee daten (Frankreich) for sustainability project?
+\end{itemize}
 %-------------------------------------
 \clearpage
 \bibliography{../../bib_2_0}
