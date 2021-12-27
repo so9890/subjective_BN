@@ -109,23 +109,102 @@
 \begin{document}
 	%	\includepdf[pages=-]{../titlepage.pdf}
 	\maketitle
+\section{To do}
+\begin{itemize}
+	\item representativeness...
+	\item show distribution of answers
+	\item show correlation with 
+	\begin{itemize}
+		\item skills
+		\item income
+		\item consumption over time
+	\end{itemize}
+\end{itemize}
+
+\section{Data sources}
 Questions on reduction:
 \url{https://www.dataarchive.lissdata.nl/study_units/view/1045}
 
 Questions on moral consumer behaviour! 
 \url{https://www.dataarchive.lissdata.nl/study_units/view/420}
 
-\section{To do}
-\begin{itemize}
-\item representativeness...
-\item show distribution of answers
-\item show correlation with 
-\begin{itemize}
-\item skills
-\item income
-\item consumption over time
-\end{itemize}
-\end{itemize}
+
+\section{Descriptive Statistics}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Opinions on behaviour}\label{fig:opinions}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) I am willing to change my lifestyle to help the environment}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a175title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) We all need to live simpler lives}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a181title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) It is a moral duty to care for nature and the environment}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a183title0.png}
+	\end{minipage}	
+\begin{minipage}[h!!]{0.32\textwidth}  
+%	\captionsetup{width=.45\linewidth}
+\centering\footnotesize{(d) I do not want the government's policy to tackle environmental problems to cost me anything extra}
+\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a178title0.png}
+\end{minipage}		
+\begin{minipage}[h!!]{0.32\textwidth}  
+%	\captionsetup{width=.45\linewidth}
+\centering\footnotesize{(e) Protecting the environment must not stand in the way of economic progress}
+\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a180title0.png}
+\end{minipage}	
+	\floatfoot{Notes: \tiny{ Looks like a gap between opinions on normative duties and the willingness to act.
+	}}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Reported behaviour/ intentions}\label{fig:behaviour}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) I regularly buy second-hand products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a135title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer to own things}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a144title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) I would be open to long-term leasing of products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a141title0.png}
+	\end{minipage}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(d) I am open to buying products made from used parts or materials}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a147title0.png}
+\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(e) I prefer new products}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a148title0.png}
+\end{minipage}
+	%%	\floatfoot{Notes: \tiny{ 
+	%In appendix \ref{app:att}, more details on data manipulations are provided.
+	%	}}
+\end{figure}
+
+\section{Model}
+Test the following thesis: Already today some people want to reduce their consumption of resources due to environmental reasons. Reduction can be by buying second-hand or recycled products or leasing durables. 
+
+\subsection{Discrete choice: binary outcome variable}
+marginal effects of regressor on dependent variable; both models below are not linear, cannot use OLS! Use Maximum likelihood
+\paragraph{Linear probability model}
+\paragraph{Logit Model}
+\paragraph{Probit Model}
+\section{Results}
 
 %-------------------------------------
 \clearpage
