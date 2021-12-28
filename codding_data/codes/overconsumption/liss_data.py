@@ -12,6 +12,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
+import seaborn as sns
+from matplotlib.colors import ListedColormap
+
+from functions_liss import dont
+
 "read in data"
 
 dtafile= '../../liss_data/qk20a_EN_1.0p.dta'
@@ -19,6 +24,9 @@ dtafile= '../../liss_data/qk20a_EN_1.0p.dta'
 varfile= '../../liss_data/variable_explanation.xls'
 df = pd.read_stata(dtafile)
 
+# replace dont know
+df.replace("Don\x92t know", "Don\'t know")
+    
 # some stats
 df.tail()
 df.info()
@@ -46,10 +54,10 @@ for i in list_numbers:
     #percentages
     occur=occur/total*100
     
-    # replace apostrophe with \' in index
+     #replace apostrophe with \' in index
     list_occur=occur.index.tolist()
     for j in range(0,len(occur.index)):
-       # strr=list_occur[j]
+        #strr=list_occur[j]
         list_occur[j]=list_occur[j].replace("Don\x92t know", "Don\'t know")
     occur.index=list_occur
     
@@ -82,21 +90,79 @@ for i in ['175', '181', '183']:
     dicc=dic[i]
     for j in ['135', '141', '144', '147', '148']:
         dats=df[['qk20a'+i,'qk20a'+j]].copy()
-        helper1=var_names[var_names[0]=='qk20a'+str(i)]
-        helper2=var_names[var_names[0]=='qk20a'+str(j)]
+        helper1=var_names[var_names[0]=='qk20a'+str(i)] # opinion => rows
+        helper2=var_names[var_names[0]=='qk20a'+str(j)] # action  => columns
         
         dats=dats.set_axis([str(helper1.iloc[0,1]), str(helper2.iloc[0,1])], axis=1)
-        dicc[j] = pd.crosstab(dats[str(helper1.iloc[0,1])], dats[helper2.iloc[0,1]], normalize='all', margins = False)
+        # cross table for heatmaps normalize by opinion = index => distribution of action for each opinion
+        dicc[j] = pd.crosstab(dats[str(helper1.iloc[0,1])], dats[helper2.iloc[0,1]], normalize='index', margins = False)
         
-        # plot bar chart
+        #replace apostrophe with \' in index
+        dicc[j]=dont(dicc[j])
+        
+        # plot bar chart => normalise by total number of observations, no margin
+        helpps= pd.crosstab(dats[str(helper1.iloc[0,1])], dats[helper2.iloc[0,1]], normalize='all', margins = False)
+        helpps=dont(helpps)         # update column and row names using function 
             
-        ax = dicc[j].plot(kind='bar', stacked=True, rot=30)
+        ax = helpps.plot(kind='bar', stacked=True, rot=30)
         ax.legend(title=str(helper2.iloc[0,1]), bbox_to_anchor=(1, 1.02), loc='upper left')
         plt.xticks(rotation=30, ha='right', fontsize = 12)
 
-        plt.savefig('../../results/liss/conditional_'+str(helper1.iloc[0,0])+'_'+str(helper2.iloc[0,0])+'.png', format='png', bbox_inches='tight')
+        plt.savefig('../../results/liss/conditional_bar_'+str(helper1.iloc[0,0])+'_'+str(helper2.iloc[0,0])+'.png', format='png', bbox_inches='tight')
+        plt.clf()
+
+        # frequency headmap: joint distribution
+        helpps= pd.crosstab(dats[str(helper1.iloc[0,1])], dats[helper2.iloc[0,1]], normalize='all', margins = True)
+        helpps=dont(helpps)
+        
+        data1=helpps.copy()
+        data1['All'] = float('nan')   # columns
+        data1.loc['All']=float('nan') # rows
+        ax = sns.heatmap(data1, annot=True, cmap="BuPu")
+
+        data2=helpps.copy()
+        data2.loc[:6,:6]=float('nan')
+        sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
+        
+        plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
+        plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
+
+        plt.savefig('../../results/liss/joint_heatmap'+i+'_'+j+'.png', format='png', bbox_inches='tight')
+        plt.clf()
+        
     dic[i]=dicc
 
+# heatmaps from cross table with conditional probabilities
+for i in ['175', '181', '183']:
+    s=dic[i]
+    for j in ['135', '141', '144', '147', '148']:
+        
+        # joints
+        data1 = s[j].copy()
+        #data1[7] = float('nan')
+        ax = sns.heatmap(data1.iloc[:6], annot=True, cmap="BuPu")
+        
+        # Greens
+        data2 = s[j].copy()
+        #data2.columns = data2.columns.add_categories('All')
+        data2['All']=1
+        data2.iloc[:,:6] = float('nan')
+        sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
+
+        helper1=var_names[var_names[0]=='qk20a'+str(i)] # opinion => rows
+        helper2=var_names[var_names[0]=='qk20a'+str(j)] # action  => columns
+        
+        plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
+        plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
+
+        plt.savefig('../../results/liss/conditional_heatmap'+i+'_'+j+'.png', format='png', bbox_inches='tight')
+        plt.clf()
+        
+        
+# bubble plot using frequency as size indicator
+
+#he=df.groupby(['qk20a'+str(i), 'qk20a'+str(j)]).size().reset_index()
+#plt.scatter(he['qk20a'+str(i)], he['qk20a'+str(j)], s=he[0])
 
 """ Intention for behaviour: Second-hand shopping, leasing, buying recycled products
 
@@ -109,17 +175,19 @@ for i in ['175', '181', '183']:
     """
     
 #-------------------------
-"1a) Drivers of reducing behaviour; "
+"1a) Drivers of reducing behaviour"
 #
 
 
 
-
 # encoding categorical variables
-for i in list_numbers:
-    df['qk20a'+str(i)+'_cat'] = df['qk20a'+str(i)].cat.codes
+#for i in list_numbers:
+ #   df['qk20a'+str(i)+'_cat'] = df['qk20a'+str(i)].cat.codes
+
+#plt.scatter(df.qk20a175_cat, df.qk20a135_cat)
+#s=df[['qk20a175_cat', 'qk20a135_cat']].corr().style.background_gradient(cmap="Blues")
 
 # make binary CONTINUE
-df.binary_175=0
+#df.binary_175=0
 # Logit
-log_reg = smf.logit("qk20a135_cat ~ qk20a175_cat + qk20a181_cat + qk20a183_cat", data=df).fit()
+#log_reg = smf.logit("qk20a135_cat ~ qk20a175_cat + qk20a181_cat + qk20a183_cat", data=df).fit()
