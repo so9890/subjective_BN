@@ -149,13 +149,16 @@ for i in ['175', '181', '183']:
         data2.iloc[:,:6] = float('nan')
         sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
 
-        helper1=var_names[var_names[0]=='qk20a'+str(i)] # opinion => rows
-        helper2=var_names[var_names[0]=='qk20a'+str(j)] # action  => columns
-        
-        plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
-        plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
+        for p in range(0,2):
+            if p==1:
+    
+                helper1=var_names[var_names[0]=='qk20a'+str(i)] # opinion => rows
+                helper2=var_names[var_names[0]=='qk20a'+str(j)] # action  => columns
+                
+                plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
+                plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
 
-        plt.savefig('../../results/liss/conditional_heatmap'+i+'_'+j+'.png', format='png', bbox_inches='tight')
+            plt.savefig('../../results/liss/conditional_heatmap'+i+'_'+j+'labels'+str(p)+'.png', format='png', bbox_inches='tight')
         plt.clf()
         
         

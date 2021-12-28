@@ -196,14 +196,121 @@ Questions on moral consumer behaviour!
 	%	}}
 \end{figure}
 
+\subsection{Correlations: Opinions and action}
+Those who are willing to change their lifestyle, \ref{fig:behaviour_opinion} also have a higher chance to act accordingly. That is, to buy second-hand products regularly, to not prefer new products, and to be open for long-term leasing. 
+
+There is no clear positive correlation between the opinion that simpler lives are necessary and the willingness to engage in long-term leasing. The willingness to change one's lifestyle seems more concrete, more related to actions. In general opinions which have to hold for all or normative judgments are less well correlated with specific actions. 
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: Willing to change lifestyle}\label{fig:behaviour_opinion}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c)I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_141labels0.png}
+	\end{minipage}
+		\floatfoot{Notes: \tiny{ 
+	The rows refer to the willingness to change one's lifestyle; columns represent the conditional distribution of the respective variable in the title (a) to (c) for a given category of the willingness to change.}}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: We all have to live simpler lives}\label{fig:behaviour_opinion:simpler}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c)I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: \tiny{ 
+			As in figure \ref{fig:behaviour_opinion}.}}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: It is a moral duty to care for nature and the environment}\label{fig:behaviour_opinion:moral}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: \tiny{ 
+			As in figure \ref{fig:behaviour_opinion}.}}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Joint distribution of opinion and behaviour: Willing to change lifestyle}\label{fig:behaviour_opinion_joint}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c)I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: \tiny{ 
+		Rows refer to the willingness to change one's lifestyle for the environment; columns refer to the variable in the title of the panle (a) to (c). It seems like that being willing to change one's lifestyle and acting accordingly are the most frequent choices.	}}
+\end{figure}
+
+\newpage
 \section{Model}
 Test the following thesis: Already today some people want to reduce their consumption of resources due to environmental reasons. Reduction can be by buying second-hand or recycled products or leasing durables. 
 
 \subsection{Discrete choice: binary outcome variable}
+\tr{Skip this part for now}
 marginal effects of regressor on dependent variable; both models below are not linear, cannot use OLS! Use Maximum likelihood
 \paragraph{Linear probability model}
 \paragraph{Logit Model}
 \paragraph{Probit Model}
+
+\subsection{Is there a voluntary reduction in labour supply due to environmental concerns?}
+
+More precisely, I want to see (1) if those who are willing to change their lifestyle for environmental reasons are also reducing their labour supply or consumption expenditures/ composition of consumption. 
+Or (2) whether they are more responsive to policies. 
+
+\paragraph{Approach 1}
+
+
 \section{Results}
 
 %-------------------------------------
