@@ -29,7 +29,7 @@ df = pd.read_stata(dtafile)
 # save to dictionary
 list_consumption_data=['09a', '10b', '12c', '15d', '17e']
 dic_data=dict.fromkeys(list_consumption_data)
-for i in list_consumption_data
+for i in list_consumption_data:
     df_help = pd.read_stata('../../liss_data/timeUse_con/bf'+i+'_EN_1.0p.dta')
     
     # generate year variable
