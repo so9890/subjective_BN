@@ -9,9 +9,7 @@ and generate descriptive statistics
 """
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import statsmodels.formula.api as smf
 import seaborn as sns
 from matplotlib.colors import ListedColormap
 
@@ -20,8 +18,6 @@ from functions_liss import dont
 "read in data"
 
 dtafile= '../../liss_data/qk20a_EN_1.0p.dta'
-
-varfile= '../../liss_data/variable_explanation.xls'
 df = pd.read_stata(dtafile)
 
 # replace dont know
@@ -33,6 +29,8 @@ df.info()
 df.describe()
 
 # read in list of variable names
+varfile= '../../liss_data/variable_explanation.xls'
+
 var_names=pd.read_excel(varfile, usecols=("A:B"), header=None)
 var_names=var_names[~pd.isna(var_names[1])]
 
@@ -124,15 +122,18 @@ for i in ['175', '181', '183']:
         data2.loc[:6,:6]=float('nan')
         sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
         
-        plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
-        plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
-
-        plt.savefig('../../results/liss/joint_heatmap'+i+'_'+j+'.png', format='png', bbox_inches='tight')
+        for p in range(0,2):
+            if p==1:
+    
+                plt.xlabel(str(helper2.iloc[0,1]), fontsize = 15) # x-axis label with fontsize 15
+                plt.ylabel(str(helper1.iloc[0,1]), fontsize = 15) # y-axis label with fontsize 15
+        
+            plt.savefig('../../results/liss/joint_heatmap'+i+'_'+j+'labels'+str(p)+'.png', format='png', bbox_inches='tight')
         plt.clf()
         
     dic[i]=dicc
 
-# heatmaps from cross table with conditional probabilities
+# heatmaps from cross table with conditional probabilities: distribution of actions withing opinion categories
 for i in ['175', '181', '183']:
     s=dic[i]
     for j in ['135', '141', '144', '147', '148']:
@@ -172,7 +173,7 @@ for i in ['175', '181', '183']:
     1) what is driving reducing behaviour? What is preventing it? 
         a) quality, price, environment, social perception, availability
         b) add opinions on environment => is it significant in explaining behaviour?; that is, do people take action?
-    2) Who are those people which buy second hand/ lease, buy recycles products? 
+In next steps    2) Who are those people which buy second hand/ lease, buy recycles products? 
         a) Income => motive might be either for too low income or for environmental concerns; correlated through education
         b) Willingness to reduce and skills=> relevant for effect on macroeconomy
     """
@@ -180,8 +181,6 @@ for i in ['175', '181', '183']:
 #-------------------------
 "1a) Drivers of reducing behaviour"
 #
-
-
 
 # encoding categorical variables
 #for i in list_numbers:

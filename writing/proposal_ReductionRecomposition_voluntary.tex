@@ -298,7 +298,8 @@ Test the following thesis: Already today some people want to reduce their consum
 
 \subsection{Discrete choice: binary outcome variable}
 \tr{Skip this part for now}
-marginal effects of regressor on dependent variable; both models below are not linear, cannot use OLS! Use Maximum likelihood
+marginal effects of regressor on dependent variable; two last models below are not linear, cannot use OLS! Use Maximum likelihood. \\
+What determines the probability to buy second hand, buy recycled products, of long-run leasing
 \paragraph{Linear probability model}
 \paragraph{Logit Model}
 \paragraph{Probit Model}
@@ -309,6 +310,27 @@ More precisely, I want to see (1) if those who are willing to change their lifes
 Or (2) whether they are more responsive to policies. 
 
 \paragraph{Approach 1}
+\begin{itemize}
+\item changes in consumption (annual) over time
+\item[\ar] pattern or quantity
+\item time spent working (income divided by wage)
+\item control for income changes, family changes, politics, time FE
+\item first regress consumption changes on controls \ar residuals: changes in consumption unexplained by controls
+\item[\ar] plot residuals: if negative then there are reductions in consumption which are unexplained by controls
+\item regress residuals on opinions interacted with taking action etc \ar Does this explain reduction?
+\item[\ar] If so, then there are households which reduce their consumption due to environment (arguably controls sufficient to argue for causality)
+\end{itemize}
+
+Steps to be taken
+\begin{enumerate}
+\item download and merge consumption data and income data\ar over waves and environment dataset
+\item 
+\end{enumerate}
+\paragraph{Approach 2}
+\begin{itemize}
+\item policy effects
+\item heterogeneous effects of policy
+\end{itemize}
 
 
 \section{Results}
