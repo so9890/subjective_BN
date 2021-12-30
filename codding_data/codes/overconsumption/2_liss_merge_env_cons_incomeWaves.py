@@ -25,20 +25,46 @@ import numpy as np
 dtafile= '../../liss_data/environment/qk20a_EN_1.0p.dta'
 df = pd.read_stata(dtafile)
 
-# consumption data => merge individually to environmental data file and later append to get 2-indices structure
+""" merge consumption data waves and concatenate """
+
+# merge individually to environmental data file and later append to get 2-indices structure
 # save to dictionary
 list_consumption_data=['09a', '10b', '12c', '15d', '17e']
 dic_data=dict.fromkeys(list_consumption_data)
+# also save only panel data
+dic_panel_con=dict.fromkeys(list_consumption_data)
 
 for i in list_consumption_data:
     df_help = pd.read_stata('../../liss_data/timeUse_con/bf'+i+'_EN_1.0p.dta')
     
-    # generate year variable
-    %#['year']= df_help['bf'+i+'124'].str[-4:]
-    dic_data[i]=df.merge(df_help,  left_on= 'nomem_encr', right_on= 'nomem_encr', how= 'left', validate='1:1', indicator='source'+i)
+    # rename variables to be same across dataframes
+    variable_names=df_help.columns.to_list()
+    for j in range(0,len(variable_names)):
+        #strr=list_occur[j]
+        variable_names[j]=variable_names[j].replace(str(i), "")
+    df_help.columns=variable_names
     
+    # merge panel wave to environmental dataset
+    # keep all observations also if not in wave \ar missing date!
+    helper=df.merge(df_help,  left_on= 'nomem_encr', right_on= 'nomem_encr', how= 'left', validate='1:1', indicator='source')
+    # create year variable
+    helper['year']='20'+i[:2]
+    dic_data[i]=helper
+    
+    # save panel
+    dic_panel_con[i]=df_help
+    
+# concatenate from dictionary to long dataset 
+data_long=pd.concat(list(dic_data.values()), join="outer")
+
+# move year of panel interview to second column
+helpper = data_long.pop('year') # removes column b from frame and saves to new dataframe
+data_long.insert(loc = 1, column = 'year', value = list(helpper))
 
 
+""" Plot variables over time by environmental indicator. """
+
+# other household expenditures: bf17e089 => durables?
 
 
 
