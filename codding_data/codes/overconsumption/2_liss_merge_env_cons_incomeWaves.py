@@ -18,6 +18,7 @@ The resulting data set is used to
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 """read in data and merge to environmental data set """
 
@@ -64,9 +65,36 @@ data_long.insert(loc = 1, column = 'year', value = list(helpper))
 
 """ Plot variables over time by environmental indicator. """
 
-# other household expenditures: bf17e089 => durables?
+# other household expenditures: bf17e089 => durables? but also clothes
+# collapse dataset by willingness to change
+data_col=data_long[['qk20a175', 'year', 'bf089', 'bf090', 'bf087']].groupby(['qk20a175', 'year'], as_index=False).mean()
 
+# list of categories in grouping variable
+groups=list(data_col.qk20a175.drop_duplicates())
 
+# list of dataframes split
+frames=[data_col[data_col.qk20a175==groups[0]]]
+for i in range(1,len(groups)):
+    frames.append(data_col[data_col.qk20a175==groups[i]])
+
+# mkae plot from data frame list
+>>> L1 = ['a','b','c','d']
+>>> L2 = [1,2,3,4]
+>>> d = dict(zip(L1,L2))
+
+# consumption variables
+cons=['bf089', 'bf090', 'bf087']
+meaning=['other expenditure', 'total month', 'cleaning the house or maintaining the garden']
+dicc=dict(zip(cons, meaning))
+for var in cons:
+    
+    # plot time series
+    fig = plt.figure()
+    for frame in frames:
+        plt.plot(frame['year'], frame[var])
+    plt.legend(groups)
+    plt.title(dicc[var])
+    plt.show()
 
 
 
