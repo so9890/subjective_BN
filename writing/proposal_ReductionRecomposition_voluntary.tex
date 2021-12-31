@@ -304,7 +304,7 @@ What determines the probability to buy second hand, buy recycled products, of lo
 \paragraph{Logit Model}
 \paragraph{Probit Model}
 
-\subsection{Is there a voluntary reduction in labour supply due to environmental concerns?}
+\subsection{Is there a voluntary reduction in cosnumption/labour supply due to environmental concerns?}
 
 More precisely, I want to see (1) if those who are willing to change their lifestyle for environmental reasons are also reducing their labour supply or consumption expenditures/ composition of consumption. 
 Or (2) whether they are more responsive to policies. 
@@ -316,10 +316,23 @@ Look at levels first.\\ If don't find anything, look at subgroups which also buy
 
 \paragraph{Approach 1}
 \begin{itemize}
-\item changes in consumption (annual) over time
-\item[\ar] changes or quantity
+	\item outcome variables
+	\begin{itemize}
+
+\item changes in consumption (annual) over time \ar but very coarse... changes in expenditures could be driven by increase in quantity or change in composition of products bought! Not good!
 \item time spent working (income divided by wage)
-\item control for income changes \tr{these can be a choice, only account for exogenous changes in income! \ar could use narrative on reason for changes in income, job change... }, family changes, politics, time FE
+\item survey questions allow to differentiate quantity from quality 
+\item in income dataset: \textit{ci21n382-ci21n354} \ar Do you buy new clothes/ furniture regularly \ar no bcs not necessary \ar some sort of voluntary reduction; time series dimension! \ar changes over time?
+\item in working time dataset: variables \textit{cw21n526-cw21n510}; For what reasons worked less than 36 hours? \ar e.g. I voluntarily work below 36 hours for leisure...
+\item\tr{\textbf{ Next: see if can construct time series from income/working data set questions}}
+	\end{itemize}
+\item Controls
+\begin{itemize}
+\item control for income changes \tr{these can be a choice, only account for exogenous changes in income! \ar could use narrative on reason for changes in income, job change... }, 
+\item family changes
+\item  politics, time FE
+\end{itemize}	
+
 \item first regress consumption changes on controls \ar residuals: changes in consumption unexplained by controls
 \item[\ar] plot residuals: if negative then there are reductions in consumption which are unexplained by controls
 \item regress residuals on opinions interacted with taking action etc \ar Does this explain reduction?
@@ -331,11 +344,13 @@ Steps to be taken
 \item download and merge consumption data and income data\ar over waves and environment dataset
 \item run 
 \end{enumerate}
+
 \paragraph{Approach 2}
 \begin{itemize}
 \item policy effects
-\item heterogeneous effects of policy
+\item heterogeneous effects of policy \ar interaction with willingness to change
 \end{itemize}
+\textbf{The policy intervention as in \cite{Pullinger2014WorkingDesign}} \ar Pullinger argues that policies have not been taken up well
 
 
 \section{Results}
