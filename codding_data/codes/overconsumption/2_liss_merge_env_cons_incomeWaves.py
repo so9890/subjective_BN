@@ -8,6 +8,8 @@ Created on Wed Dec 29 11:53:22 2021
 This file merges the dataset on environmental preferences and actions
 to the liss waves on consumption, income, and demographics.
 
+CURRENT STATE: NEED TO CHECK IF CONCATENATING DATA SET INDEED MERGES THE SAME VARIABLES! 
+
 The resulting data set is used to
     a) (file: 3_liss) run a regression of changes in consumption on observables
         => the residuals are used to document unexplained changes in consumption
@@ -42,7 +44,8 @@ for i in list_consumption_data:
     variable_names=df_help.columns.to_list()
     for j in range(0,len(variable_names)):
         #strr=list_occur[j]
-        variable_names[j]=variable_names[j].replace(str(i), "")
+        "note that the below might append different variables=> renaming of variables!"
+        variable_names[j]=variable_names[j].replace(str(i), "") 
     df_help.columns=variable_names
     
     # merge panel wave to environmental dataset
