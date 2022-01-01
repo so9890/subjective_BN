@@ -81,14 +81,15 @@ for i in range(1,len(groups)):
     frames.append(data_col[data_col.qk20a175==groups[i]])
 
 # mkae plot from data frame list
->>> L1 = ['a','b','c','d']
->>> L2 = [1,2,3,4]
->>> d = dict(zip(L1,L2))
+#>>> L1 = ['a','b','c','d']
+#>>> L2 = [1,2,3,4]
+#>>> d = dict(zip(L1,L2))
 
 # consumption variables
 cons=['bf089', 'bf090', 'bf087']
 meaning=['other expenditure', 'total month', 'cleaning the house or maintaining the garden']
 dicc=dict(zip(cons, meaning))
+
 for var in cons:
     
     # plot time series
