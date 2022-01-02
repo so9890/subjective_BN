@@ -96,20 +96,54 @@ meaning=['Do you buy new clothes regularly?', \
          'Do you replace worn furniture with new furniture?']
 dicc=dict(zip(cons, meaning))    
 
-for i in cons:
-   data_long[i+'_cat'] = data_long[i].astype('category').cat.codes
-   # no i dont think it is necessary is encoded as 1
+# generate indicator for answert to ci306/7
+
 
 # drop nans => same for both variables
 helper=data_long[~pd.isna(data_long['ci307'])]
 
-helper.ci306_cat[helper.ci306_cat!=1]=0
-helper.ci307_cat[helper.ci307_cat!=1]=0
+for i in cons:
+    # 1) generate list of possible answers
+    groupps=list(helper[i].drop_duplicates())
+    # 2) only keep answers with necessary
+    res =  [True for s in range(len(groupps))]
+    for s in range(0, len(groupps)):
+        res[s]=str.__contains__(groupps[s], 'necessary')
+    list_positive_answer = list(compress(groupps, res))
+    
+    #3) generate indicator
+    helper[i+'_cat']=0
 
-# drop 2008-2010 as no observation from environmental dataset in panel
-helper=helper[helper.year.astype(float)>2010]
+    #4) generate indicator
+    if i=='ci306':
+        helper.ci306_cat[helper.ci306.isin(list_positive_answer)]=1
+    elif i== 'ci307':
+        helper.ci307_cat[helper.ci307.isin(list_positive_answer)]=1
+        
+        
+#ss=helper[helper.year.astype(float)<2010]
 
-""" collapse data set by distinct env. variable indicators. """
+""" plot total"""
+ 
+# total share evolution
+data_total=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).sum()
+total_all=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).size()
+data_total=data_total.merge(total_all[[ 'year','size']],  left_on= ['year'], right_on= [ 'year'], how= 'left', validate='1:1', indicator='source')
+
+# generate share for both variables
+for i in cons:
+    data_total[i+'share']=data_total[i+'_cat'].values/data_total['size']
+
+    fig = plt.figure()
+    plt.plot(data_total.year, data_total[i+'share'])
+    plt.title(dicc[i])
+    plt.legend(['no, not necessary (in percent)'])
+    plt.xticks(rotation=30, ha='right', fontsize = 12)
+    #plt.show()
+    plt.savefig('../../results/liss/total_share_notnecessary_'+i+'.png', format='png', bbox_inches='tight')
+    plt.clf()
+
+""" Plots by env. variable indicators. """
 
 for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148']:
     
@@ -144,24 +178,6 @@ for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148'
         plt.savefig('../../results/liss/share_notnecessary'+v+'_'+i+'.png', format='png', bbox_inches='tight')
         plt.clf()
         
-    """ plot total"""
-    
-    # total share evolution
-    data_total=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).sum()
-    total_all=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).size()
-    data_total=data_total.merge(total_all[[ 'year','size']],  left_on= ['year'], right_on= [ 'year'], how= 'left', validate='1:1', indicator='source')
-    
-    # generate share for both variables
-    for i in cons:
-        data_total[i+'share']=data_total[i+'_cat'].values/data_total['size']
-    
-        fig = plt.figure()
-        plt.plot(data_total.year, data_total[i+'share'])
-        plt.title(dicc[i])
-        plt.legend(['no, not necessary (in percent)'])
-        #plt.show()
-        plt.savefig('../../results/liss/total_share_notnecessary'+v+'_'+i+'.png', format='png', bbox_inches='tight')
-        plt.clf()
         
     """ plot broader categories"""
     
