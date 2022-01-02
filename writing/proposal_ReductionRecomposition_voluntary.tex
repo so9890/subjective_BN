@@ -323,8 +323,28 @@ Look at levels first.\\ If don't find anything, look at subgroups which also buy
 \item time spent working (income divided by wage)
 \item survey questions allow to differentiate quantity from quality 
 \item in income dataset: \textit{ci21n382-ci21n354} \ar Do you buy new clothes/ furniture regularly \ar no bcs not necessary \ar some sort of voluntary reduction; time series dimension! \ar changes over time?
-\item in working time dataset: variables \textit{cw21n526-cw21n510}; For what reasons worked less than 36 hours? \ar e.g. I voluntarily work below 36 hours for leisure...
+\item in working time dataset: variables
+\begin{itemize}
+\item cw21n526 - cw21n510 For what reaosns did you work parttime ($<$36 hours)
+\begin{itemize}
+\item \textbf{cw21n399}: I wanted to take it a bit easier
+\item \textbf{cw21n400}: because I want to have more leisure time
+\end{itemize}
+\item cw21n145: How many hours would you like to work in total? \ar should be below or equal to actual hours when consider person as voluntary reductionist
+\item cw21n291 - cw21n306: If you were to stop working before the old pension age, for what reason would that be?
+\begin{itemize}
+\item \textbf{cw21n292}: I believe I have worked long enough
+\item \textbf{cw21n294}: I would like to do something different
+\item \textbf{cw21n295}: I want to take it a bit easier
+\end{itemize}
+\item \textbf{cw21n001}: does have paid work
+\end{itemize}
+\item[\ar] combine affirmative answers to (cw21n399 + cw21n400) (\ar already reduced), (cw21n292+cw21n294+cw21n295) (\ar willing to reduce)
 \item\tr{\textbf{ Next: see if can construct time series from income/working data set questions}}
+\begin{itemize}
+\item consumption data works well! 
+\item working hours: \\ what is the control group: employed or unemployed\ar employed
+\end{itemize}
 	\end{itemize}
 \item Controls
 \begin{itemize}
@@ -350,14 +370,14 @@ Steps to be taken
 \item policy effects
 \item heterogeneous effects of policy \ar interaction with willingness to change
 \end{itemize}
-\textbf{The policy intervention as in \cite{Pullinger2014WorkingDesign}} \ar Pullinger argues that policies have not been taken up well
+\textbf{The policy intervention as in \cite{Pullinger2014WorkingDesign}} \ar Pullinger argues that policies have not been taken up well. Furthermore, the introduction of some policies to facilitate reductions in working hours over the life cycle have been introduced in 2006. The panel starts in 2008. 
 
 
 \section{Results}
 
 \begin{figure}[h!!]
 	\centering	
-	\caption{Share of panelists whcih don't find it necessary to buy new furniture/ clothes}\label{fig:evolution_notNecessary}	
+	\caption{Share of panelists which don't find it necessary to buy new furniture/ clothes}\label{fig:evolution_notNecessary}	
 	\begin{minipage}[h!!]{0.4\textwidth}  
 		%	\captionsetup{width=.45\linewidth}
 		%\centering\footnotesize{(a) not necessary to buy new clothes}
@@ -393,7 +413,7 @@ As regards figure \ref{fig:evolution_notNecessary}, the following questions aris
 
 \begin{figure}[h!!]
 	\centering	
-	\caption{\tr{Share of panelists which don't find it necessary to buy new furniture/ clothes: by buys second hand regularly lifestyle}}\label{fig:evolution_notNecessary_bygroup:2ndHand}	
+	\caption{\tr{Share of panelists which don't find it necessary to buy new furniture/ clothes: by buys second hand regularly }}\label{fig:evolution_notNecessary_bygroup:2ndHand}	
 	\begin{minipage}[h!!]{0.32\textwidth}  
 		%	\captionsetup{width=.45\linewidth}
 		\centering\footnotesize{(a) Replacing new furniture not necessary}
@@ -474,6 +494,129 @@ As regards figure \ref{fig:evolution_notNecessary}, the following questions aris
 	\floatfoot{Notes:  }
 \end{figure}
 
+\subsection{Voluntary low hours worked}
+Having studied how the share of panelists who don't think it is necessary to buy new furniture or clothes increases, it is interesting to look at how the share of panelists which voluntarily work less hours changes over time. 
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours }\label{fig:evolution_wtr}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Share voluntary part time}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: Willing to change lifestyle for environmental reasons }\label{fig:evolution_wtr_willingtochange}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a175_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a175_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: moral duty }\label{fig:evolution_wtr_moral}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a183_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a183_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: simpler lives }\label{fig:evolution_wtr_simpler}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a181_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a181_willing.png}
+	\end{minipage}
+	\floatfoot{Notes: Those who think we should live simpler lives tend to work more in part time for voluntary reasons! Why is that? Could also be due to some joint driver...Or having more time = change in values = simpler is ok (habits) \ar reverse causality  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: buys second hand regularly }\label{fig:evolution_wtr_2ndhand}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a135_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a135_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: want to own things }\label{fig:evolution_wtr_ownThings}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a144_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a144_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours: want products to be new }\label{fig:evolution_wtr_newThings}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Actual}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a148_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Share would reduce work for voluntary reason}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a148_willing.png}
+	\end{minipage}
+	\floatfoot{Notes:  }
+\end{figure}
+
+All in all, working low hours seems to be positively correlated with environmental concerns! Those who have concerns about the environment and want to change or actually do change their behaviour also work less hours roughly in all years considered.s
 %-------------------------------------
 \clearpage
 \bibliography{../../bib_2_0}

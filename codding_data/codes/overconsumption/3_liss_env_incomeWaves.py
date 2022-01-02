@@ -12,7 +12,6 @@ Goal: 1) How does the variable of thinking furniture replacememnt and new clothe
 """
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import os
 from itertools import compress
@@ -63,10 +62,12 @@ for i in list_waves:
     
     # merge panel wave to environmental dataset
     # keep all observations also if not in wave \ar missing date!
-    helper=df.merge(df_help[['nomem_encr','ci307', 'ci306']],  left_on= 'nomem_encr', right_on= 'nomem_encr', how= 'left', validate='1:1', indicator='source')
+    helper=df.merge(df_help,  left_on= 'nomem_encr', right_on= 'nomem_encr', how= 'left', validate='1:1', indicator='source')
     # create year variable
     helper['year']=df_help.ci_m.astype(str).str[0:4]
-    #helper['month']=df_help.ci_m.astype(str).str[4:6]
+    # save to pickles as env_income_bywave
+    helper.to_pickle('../../liss_data/merged/env_income_wave_20'+i[2:4])
+    
     dic_data[i]=helper
     
     # save wave
@@ -97,8 +98,6 @@ meaning=['Do you buy new clothes regularly?', \
 dicc=dict(zip(cons, meaning))    
 
 # generate indicator for answert to ci306/7
-
-
 # drop nans => same for both variables
 helper=data_long[~pd.isna(data_long['ci307'])]
 
@@ -120,8 +119,6 @@ for i in cons:
     elif i== 'ci307':
         helper.ci307_cat[helper.ci307.isin(list_positive_answer)]=1
         
-        
-#ss=helper[helper.year.astype(float)<2010]
 
 """ plot total"""
  
@@ -139,6 +136,8 @@ for i in cons:
     plt.title(dicc[i])
     plt.legend(['no, not necessary (in percent)'])
     plt.xticks(rotation=30, ha='right', fontsize = 12)
+    plt.yticks( fontsize = 12)
+
     #plt.show()
     plt.savefig('../../results/liss/total_share_notnecessary_'+i+'.png', format='png', bbox_inches='tight')
     plt.clf()
@@ -147,16 +146,15 @@ for i in cons:
 
 for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148']:
     
-    # collapse dataset by willingness to change
+    # collapse dataset by variable indicated by v and year
     data_col=helper[[v, 'year', 'ci306_cat', 'ci307_cat']].groupby([v, 'year'], as_index=False).sum()
     total=helper[[v, 'year', 'ci306_cat', 'ci307_cat']].groupby([v, 'year'], as_index=False).size()
     data_col=data_col.merge(total[[v, 'year','size']],  left_on= [v, 'year'], right_on= [v, 'year'], how= 'left', validate='1:1', indicator='source')
     
-    #generate share for both variables
+    #generate share by time series: reduction variable
     for i in cons:
         data_col[i+'share']=data_col[i+'_cat'].values/data_col['size']
      
-    
     # list of categories in grouping variable
     groups=list(data_col[v].drop_duplicates())
     
@@ -172,9 +170,9 @@ for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148'
         for frame in frames:
             plt.plot(frame['year'], frame[i+'share'])
         plt.legend(groups)
-        plt.title(dicc[i])
-        #plt.show()
-    
+       # plt.title(dicc[i])
+        plt.xticks(rotation=30, ha='right', fontsize = 12)
+        plt.yticks( fontsize = 12)
         plt.savefig('../../results/liss/share_notnecessary'+v+'_'+i+'.png', format='png', bbox_inches='tight')
         plt.clf()
         
@@ -210,7 +208,9 @@ for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148'
         for frame in frames:
             plt.plot(frame['year'], frame[i+'share'])
         plt.legend(groups)
-        plt.title(dicc[i]+': no, not necessary (in percent)')
+        #plt.title(dicc[i]+': no, not necessary (in percent)')
+        plt.xticks(rotation=30, ha='right', fontsize = 12)
+        plt.yticks( fontsize = 12)
         #plt.show()
     
         plt.savefig('../../results/liss/broad_groups_notnecessary'+v+'_'+i+'.png', format='png', bbox_inches='tight')
