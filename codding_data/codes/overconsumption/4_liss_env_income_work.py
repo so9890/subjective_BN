@@ -16,7 +16,6 @@ The script prepares figures of
 """
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import os
 from itertools import compress
@@ -108,18 +107,27 @@ for i in cats:
             helper.actual_ind[(helper[b]=='yes') | (helper[b]=='Yes')]=1
         elif i== cats[1]:
             helper.willing_ind[(helper[b]=='yes') | (helper[b]=='Yes')]=1
-    
+
+# aslo create indicator for actual behaviour separately
+for b in dicc['actual']:
+    helper[b+'_ind']=0
+
+helper.cw399_ind[(helper['cw399']=='yes') | (helper['cw399']=='Yes')]=1 #want to take it a bit easier
+helper.cw400_ind[(helper['cw400']=='yes') | (helper['cw400']=='Yes')]=1 # want to have more leisure
+
+# save dataset 
+helper.to_pickle('../../liss_data/merged/env_income_work_long')
 
 """ 1) plot total sample"""
  
 # total share evolution
 
-data_total=helper[[ 'year', 'willing_ind', 'actual_ind']].groupby(['year'], as_index=False).sum()
-total_all=helper[[ 'year', 'willing_ind', 'actual_ind']].groupby(['year'], as_index=False).size()
+data_total=helper[[ 'year', 'willing_ind', 'actual_ind', 'cw399_ind', 'cw400_ind']].groupby(['year'], as_index=False).sum()
+total_all=helper[[ 'year', 'willing_ind', 'actual_ind', 'cw399_ind', 'cw400_ind']].groupby(['year'], as_index=False).size()
 data_total=data_total.merge(total_all[[ 'year','size']],  left_on= ['year'], right_on= [ 'year'], how= 'left', validate='1:1', indicator='source')
 
-# generate share for both variables
-for i in cats:
+# generate share for indicator variables
+for i in list([cats[0], cats[1], 'cw399', 'cw400']):
     data_total[i+'share']=data_total[i+'_ind'].values/data_total['size']
 
     fig = plt.figure()

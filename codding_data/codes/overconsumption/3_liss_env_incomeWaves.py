@@ -119,13 +119,17 @@ for i in cons:
     elif i== 'ci307':
         helper.ci307_cat[helper.ci307.isin(list_positive_answer)]=1
         
+# save indicator variable in long format to merge to regression dataset
+helper[['nomem_encr', 'year', 'ci307_cat', 'ci306_cat']].to_pickle('../../liss_data/merged/indic_consumption_reduc')
+
 
 """ plot total"""
  
 # total share evolution
 data_total=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).sum()
 total_all=helper[[ 'year', 'ci306_cat', 'ci307_cat']].groupby(['year'], as_index=False).size()
-data_total=data_total.merge(total_all[[ 'year','size']],  left_on= ['year'], right_on= [ 'year'], how= 'left', validate='1:1', indicator='source')
+data_total=data_total.merge(total_all[[ 'year','size']],  left_on= ['year'], \
+                            right_on= [ 'year'], how= 'left', validate='1:1', indicator='source')
 
 # generate share for both variables
 for i in cons:
