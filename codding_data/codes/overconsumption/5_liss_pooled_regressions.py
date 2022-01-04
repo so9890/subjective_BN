@@ -35,13 +35,24 @@ data=data.merge(indics,  left_on= ['nomem_encr', 'year'], right_on= ['nomem_encr
         -at time of reduction
         - on average before reduction! (after reduction can have changed)
     """
-    
+"""Static:
+    1) who are part time workers?
+      a) all (at some time in panel)
+      b) those which become part time workers and remain till end of panel before they reduce
+   2) variables: 
+        - wage, eduction, sector, family size, sex, married, head?
+                
+    """
+
+
+
 """Dynamic:
     1) create indicator to before and after reduction on individual level
         How to treat those which increase hours again?
         Need to treat those which work more hours again differently
         Include hours worked dynamically as outcome variable and voluntary as a regressor"""
-    
+        
+
 
 
 
