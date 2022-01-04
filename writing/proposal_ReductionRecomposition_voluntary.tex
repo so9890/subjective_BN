@@ -109,6 +109,13 @@
 \begin{document}
 	%	\includepdf[pages=-]{../titlepage.pdf}
 	\maketitle
+	
+\section{Introduction}
+This paper documents a rising share of households which reduce their consumption voluntarily. These households find additional consumption of furniture or clothes unnecessary. This suggests the existence of a satiation point for certain goods; compare panels (a) and (b) in figure \ref{fig:evolution_notNecessary}.In parallel there is a positive in the share of panelists which voluntarily works less than full time hours per week. These panelists choose to work less in order to increase leisure or to take it easier \textit{(check if this does not coincide with changing hours of partner! Could only look at those where partner did not change)}. This indicates that leisure becomes more valuable to these households than consumption. 
+
+In a next step, I show that both the increase in the share of panelists which don't think it is necessary to buy new products and the share which volunarily works part time is positively correlated with environmentally friendly attitudes (\textit{I am willing to change, moral duty, simpler lives should be lived}) and behaviour (buy second hand regularly, ). 
+
+ is driven by environmentally friendly acting households.
 \section{To do}
 \begin{itemize}
 	\item representativeness...
@@ -377,18 +384,28 @@ Steps to be taken
 
 \begin{figure}[h!!]
 	\centering	
-	\caption{Share of panelists which don't find it necessary to buy new furniture/ clothes}\label{fig:evolution_notNecessary}	
+	\caption{Indicators of voluntary reduction over time}\label{fig:evolution_notNecessary}	
 	\begin{minipage}[h!!]{0.4\textwidth}  
 		%	\captionsetup{width=.45\linewidth}
-		%\centering\footnotesize{(a) not necessary to buy new clothes}
+		\centering\footnotesize{(a) Percentag which does not find it necessary to replace furniture}
 		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_notnecessary_ci307.png}
 	\end{minipage}
 	\begin{minipage}[h!!]{0.4\textwidth}
 		%	\captionsetup{width=.45\linewidth}
-		%\centering\footnotesize{(b) I prefer new products}
+		\centering\footnotesize{(b) Percentage which does not find it necessary to buy new clothes}
 		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_notnecessary_ci306.png}
 	\end{minipage}
-	\floatfoot{Notes: \tiny{ The evolution of the share of panelists which think that it is not necessary to replace old furniture or to buy new clothes over time (Not yet matched with environmental dataset information). Panel size increases over waves: $\approx$700 to $\approx$1500.}}
+	\begin{minipage}[h!!]{0.4\textwidth}  
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(c) Share voluntary part time}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_actual.png}
+\end{minipage}
+\begin{minipage}[h!!]{0.4\textwidth}
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(d) Share would reduce work for voluntary reason}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_willing.png}
+\end{minipage}
+	\floatfoot{Notes: { The evolution of the share of panelists who think that it is not necessary to replace old furniture or to buy new clothes over time (Not yet matched with environmental dataset information). Panel size increases over waves: $\approx$700 to $\approx$1500.}}
 \end{figure}
 
 As regards figure \ref{fig:evolution_notNecessary}, the following questions arise: 
@@ -620,6 +637,7 @@ All in all, working low hours seems to be positively correlated with environment
 
 \subsection{Does a reduction in consumption cause a reduction in working hours?}
 Regression!; Is there information on hours worked?
+Exploit time dimension \ar yesterday's consumption informative on today's hours worked?
 %-------------------------------------
 \clearpage
 \bibliography{../../bib_2_0}
