@@ -40,7 +40,14 @@ data=data.merge(indics,  left_on= ['nomem_encr', 'year'], right_on= ['nomem_encr
       a) all (at some time in panel)
       b) those which become part time workers and remain till end of panel before they reduce
    2) variables: 
-        - wage, eduction, sector, family size, sex, married, head?
+        - wage (annual net wage: ci08a012, ci08a021, ci08a03; wage period in last job: cw08a322; cw08a323 through cw08a325 wage in last job )
+        - eduction: cw08a005 (ordinary); if other then next variable needed
+        - sector: 
+        - family size
+        - sex 
+        - married
+        - head of household
+        - age cw08a003, year of birth cw08a002
                 
     """
 
@@ -50,7 +57,11 @@ data=data.merge(indics,  left_on= ['nomem_encr', 'year'], right_on= ['nomem_encr
     1) create indicator to before and after reduction on individual level
         How to treat those which increase hours again?
         Need to treat those which work more hours again differently
-        Include hours worked dynamically as outcome variable and voluntary as a regressor"""
+        Include hours worked dynamically as outcome variable and voluntary as a regressor
+        
+        - actually hours worked, used to work in last job: cw08a127 in most important job
+        - hours per week per contract in most important job
+        """
         
 
 
