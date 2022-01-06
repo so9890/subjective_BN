@@ -12,7 +12,7 @@ The script prepares figures of
     1) the evolution of the percentage of the working population below 36hours (parttime or below) 
         for reasons of stronger preferences for leisure
     2) the evolution of the percentage which would want to stop working for leisure reasons
-    3) What determines whether a household wants to work less voluntarily? => Probit
+    3) Crossection skill and environmental preferences
 """
 
 import pandas as pd
@@ -20,7 +20,10 @@ import matplotlib.pyplot as plt
 import os
 from itertools import compress
 
+import seaborn as sns
+from matplotlib.colors import ListedColormap
 
+from functions_liss import dont
 """ read in data from pickles (env +income) and working data set;
     merge.
     """
@@ -72,6 +75,9 @@ for i in list_waves_work:
     
 # concatenate from dictionary to long dataset 
 data_long=pd.concat(list(dic_data.values()), join="outer")
+
+# list of environmental indicators
+list_env= ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148']
 
 
 """ Plot variables over time: percentage working voluntarily below 36 hours 
@@ -143,7 +149,7 @@ for i in list([cats[0], cats[1], 'cw399', 'cw400']):
 
 """ 2) plot share by environmental indicator """
 
-for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148']:
+for v in list_env:
     
     # only two groups agree and disagree
     helper['group_broad']='Others'
@@ -180,4 +186,4 @@ for v in ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148'
         plt.savefig('../../results/liss/broad_groups_work_redcuction'+v+'_'+i+'.png', format='png', bbox_inches='tight')
         plt.show()
         plt.clf()
-    
+  

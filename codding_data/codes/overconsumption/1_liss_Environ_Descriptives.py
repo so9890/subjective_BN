@@ -168,28 +168,3 @@ for i in ['175', '181', '183']:
 #he=df.groupby(['qk20a'+str(i), 'qk20a'+str(j)]).size().reset_index()
 #plt.scatter(he['qk20a'+str(i)], he['qk20a'+str(j)], s=he[0])
 
-""" Intention for behaviour: Second-hand shopping, leasing, buying recycled products
-
-    1) what is driving reducing behaviour? What is preventing it? 
-        a) quality, price, environment, social perception, availability
-        b) add opinions on environment => is it significant in explaining behaviour?; that is, do people take action?
-In next steps    2) Who are those people which buy second hand/ lease, buy recycles products? 
-        a) Income => motive might be either for too low income or for environmental concerns; correlated through education
-        b) Willingness to reduce and skills=> relevant for effect on macroeconomy
-    """
-    
-#-------------------------
-"1a) Drivers of reducing behaviour"
-#
-
-# encoding categorical variables
-#for i in list_numbers:
- #   df['qk20a'+str(i)+'_cat'] = df['qk20a'+str(i)].cat.codes
-
-#plt.scatter(df.qk20a175_cat, df.qk20a135_cat)
-#s=df[['qk20a175_cat', 'qk20a135_cat']].corr().style.background_gradient(cmap="Blues")
-
-# make binary CONTINUE
-#df.binary_175=0
-# Logit
-#log_reg = smf.logit("qk20a135_cat ~ qk20a175_cat + qk20a181_cat + qk20a183_cat", data=df).fit()
