@@ -22,6 +22,19 @@ import seaborn as sns
 from matplotlib.colors import ListedColormap
 
 from functions_liss import dont
+import math
+
+import warnings
+
+from mpl_toolkits.mplot3d import Axes3D
+
+from scipy import stats
+from statsmodels.formula.api import logit
+from statsmodels.formula.api import probit
+from statsmodels.formula.api import glm
+
+
+import statsmodels.api as sm
 
 """ read in data """
 
@@ -134,8 +147,7 @@ for i in 'actual_ind', 'ci306_cat', 'ci307_cat':
     plt.show()
     plt.clf()
 
-
-""" BELOW DOESNT LOOK GOOD
+"""Heatmaps skill and behaviour"""
 # generate indicator if member reduces at some point in time
 # within panelist take sum of indicators if not necessary furniture, clothes, or part time work for leisure
 indics_reduc=data[['nomem_encr','ci306_cat', 'ci307_cat', 'actual_ind']].groupby(['nomem_encr'], as_index=False).max()
@@ -182,9 +194,14 @@ for y in ['2020', '2021']:
             plt.savefig('../../results/liss/heatmap_skills_'+dic_kind[i]+v+y+'.png', format='png', bbox_inches='tight')
             plt.show()
             plt.clf()
+            
+"""Pooled Panel: Probit/Logit: What explains the probability to xxx
+    heteroskedasticity of error terms due to panel structure
+    Outcome variables: ci306_cat, ci307_cat, actual_ind, hours worked
     """
 
-"""Dynamic:
+
+"""Dynamic: Local projection Panel
     1) create indicator to before and after reduction on individual level
         How to treat those which increase hours again?
         Need to treat those which work more hours again differently
