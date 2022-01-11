@@ -66,53 +66,90 @@ data=data.merge(indics,  left_on= ['nomem_encr', 'year'], right_on= ['nomem_encr
         - head of household
         - age cw08a003, year of birth cw08a002
     """
-    
-    
-"""Correlations skill and 
-    1) environmental attitudes in Crosssection,
-    2) part time work, reduction consumption
-    """
+ 
+""" Sort skills into green, neutral or brown in 2020 (info on env. attitudes)
 
-# skill variable coded as
+    Based on Consoli et al. 2016: they find that an occupation which is green has a higher level of 
+    non-routine analytic, non-routine interactive, non-routine manual work
+    
+    What matters is not if the actual work is green but rather if they could work in a green sector
+    """
+    
+# skill variable (cw404) coded as
 #          1/2 higher academic, independent profession, supervisory;
 #          3+4 intermediate academic independent; 
 #           5 other mental work
 #           6 skilled manual work, 7 semiskilled manual work, 8 unskilled manual work
 #           9 agrarian
+
+helpp = data[data.year=='2020']
+# index of categories in skill variable
+cats=helpp['cw404'].cat.categories
+# list of green skills
+list_green=[cats[0], cats[1] ,cats[3], cats[5]]
+list_neutral=[cats[2], cats[8]]
+list_lessgreen=[cats[4], cats[6], cats[7]]
+# less green job =0 : unskilled mental work, 
+helpp['green_skill']=0
+# set indicator equal to 1 if in neutral skill, and equal to 2 if green skill
+helpp.green_skill[helpp['cw404'].isin(list_green)]=2
+helpp.green_skill[helpp['cw404'].isin(list_neutral)]=1
+# test
+helpp.green_skill[helpp['cw404'].isin(list_lessgreen)].unique()==0
+
+# code as categorical  
+helpp.green_skill=helpp.green_skill.astype('category')  
+
+"""Correlations skill and 
+    1) environmental attitudes in Crosssection,
+    2) part time work, reduction consumption
+    """
+
 # Heatmaps for skills (cw404): conditional and joint distributions
 # only keep 2020 -> current state
 
-helpp = data[data.year=='2020']
+
 list_env= ['qk20a175', 'qk20a135', 'qk20a181', 'qk20a183', 'qk20a144', 'qk20a148']
 
 # frequency headmap: marginal distribution: given skill what do they choose?
 
 dic_kind={'index': 'conditional', 'all': 'joint'}
-for i in list(dic_kind.keys()):
-    
-    for v in list_env:
-        helpps= pd.crosstab( helpp['cw404'], helpp[v],  normalize=i, margins = i=='all') # margins false if i==index
-        helpps=dont(helpps)
+for varrs in ['cw404', 'green_skill']: # over separate skills and over categoroies green, neutral, less green
+
+    for i in list(dic_kind.keys()):
         
-        data1=helpps.copy()
-        if i=='joint':
-            data1['All'] = float('nan')   # columns
-        data1.loc['All']=float('nan') # rows
-        ax = sns.heatmap(data1, annot=True, cmap="BuPu")
-        
-         # Greens
-        data2 = helpps.copy()
-        #data2.columns = data2.columns.add_categories('All')
-        if i=='index':
-            data2['All']=1
-            data2.iloc[:,:-1] = float('nan')
-        elif i=='all':
-            data2.iloc[:-1,:-1] = float('nan')
+        for v in list_env:
+            helpps= pd.crosstab( helpp[varrs], helpp[v],  normalize=i, margins = i=='all') # margins false if i==index
+
+           # convert columns and row names to srings
+            helpps.columns = helpps.columns.astype(str)
+            helpps.index = helpps.index.astype(str)
+            if varrs == 'green_skill': 
+                helpps.index =['less green', 'neutral', 'green']
+                
+     
+            helpps=dont(helpps)
+           
+            data1=helpps.copy()
+            if i=='all':
+                data1['All'] = float('nan')   # columns
+            data1.loc['All'] = float('nan')    # rows
+            ax = sns.heatmap(data1, annot=True, cmap="BuPu")
             
-        sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
-        plt.savefig('../../results/liss/heatmap_skills_'+dic_kind[i]+v+'.png', format='png', bbox_inches='tight')
-        #plt.show()
-        plt.clf()
+             # Greens
+            data2 = helpps.copy()
+            #data2.columns = data2.columns.add_categories('All')
+            if i=='index':
+                data2['All']=1
+                data2.iloc[:,:-1] = float('nan')
+            elif i=='all':
+                data2.loc['All'] = float('nan')    # rows
+                data2.iloc[:-1,:-1] = float('nan')
+                
+            sns.heatmap(data2, annot=True, cbar=False, cmap=ListedColormap(['white']))
+            plt.savefig('../../results/liss/heatmap_skills_'+dic_kind[i]+v+varrs+'.png', format='png', bbox_inches='tight')
+            plt.show()
+            plt.clf()
 
 """evolution over time skill and voluntary reduction """
 
