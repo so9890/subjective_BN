@@ -1,6 +1,6 @@
 \section{Model}
 
-In this section, I spell out the tractable model. Skills are exogenous so that there is only an intensive margin, hours worked, which determines skill supply in equilibrium. In an extension, I introduce  skills as an endogenous variable the distribution of which is driven by learning ability as in \cite{Heathcote2017OptimalFramework}. \tr{I think I will change this set up to have both an intensive margin of hours worked (as it is now), and an extensive margin through skill investment as in \cite{Heathcote2017OptimalFramework}. }
+In this section, I spell out the tractable model. Skills are exogenous so that there is only an intensive margin, hours worked, which determines skill supply in equilibrium. In an extension, I introduce  skills as an endogenous variable the distribution of which is driven by learning ability as in \cite{Heathcote2017OptimalFramework}. \tr{I think I will change this set up to have both an intensive margin and an extensive margin through skill investment; the latter is the only margin in \cite{Heathcote2017OptimalFramework}. }
 
 \subsection{Households}
 There is a unit mass of households in the economy which \textit{exogenously} differ in skills, indicated by s, and effective labour productivity, $e_{s}$. There is neither a life-cycle structure in the model nor idiosyncratic risk.
@@ -11,11 +11,11 @@ U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_
 %U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
 s.t.& \ \ c_{st}p_{t}=\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}
 \end{align}
-$S_t$ indicates the state of the environment and is taken as given by the household.
+%$S_t$ indicates the state of the environment and is taken as given by the household.
 A household's income is subject to a nonlinear tax schedule, $T(y_{st})=y_{st}-\lambda y_{st}^{1-\tau}$, similar to \cite{Heathcote2017OptimalFramework}. Pre-tax income is determined by hours worked, effective labour productivity, and the skill-specific wage rate $w_{st}$. Disposable income is given by $\tilde{y}_{st}=\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}$.
 Departure from log-utility introduces an intensive margin in the labour supply decision which instantaneously reacts to changes in taxation. 
 
-\textit{Note: effective labour productivity can be used to match average income by type and supply, otherwise supply would determine income, too. A skill premium in HSV arises by assuming disutility from skill accumulation and an exponentially distributed learning ability; the higher the lower disutility from skills. compare p. 1705; with endogenous growth income then interacts with availability of machines. Have to ensure that in initial ss..}
+\textit{Note: effective labour productivity can be used to match average income by type and supply, otherwise supply would determine income, too. A skill premium in HSV arises by assuming disutility from skill accumulation and an exponentially distributed learning ability; the higher this ability the lower the disutility from skill investment (compare p. 1705); with endogenous growth income then interacts with availability of machines. }
 
 \subsection{Production}
 The production side of the tractable model follows \cite{Acemoglu2012TheChange}. 
@@ -45,13 +45,13 @@ A monopolistically competitive sector produces machines, $x_{ijt}$, and sells th
 %\end{align*}
  \paragraph{Research}
  Scientists perform research and decide on the sector where to conduct their research, $\{c,d\}$. 
- Researchers maximise their expected profits by allocating their research either to the cleaner or dirty sector. 
+ Researchers maximise their expected profits by allocating their research either to the cleaner or dirty sector. The amount of scientists is fixed and exogenously given (for tractability, assumption also made in \cite{Acemoglu2002DirectedChange}.)
  
  \textbf{The innovation decision}
  \begin{enumerate}
  	\item scientists compare expected profits to decide in which sector to innovate
  	\item they are successful with probability $\eta_j$ (sector dependent)
- 	\item if successful: scientists become a \textbf{one-period patent} and become the entrepreneur of the respective machine she has been randomly assigned to; the machines are more productive than in the previous period: $A_{ijt}=(1+\xi)A_{ijt-1}$
+ 	\item if successful: scientists receive a \textbf{one-period patent} and become the entrepreneur of the respective machine she has been randomly assigned to; the machines are more productive than in the previous period: $A_{ijt}=(1+\xi)A_{ijt-1}$
  	\item if not successful: no revenue as scientist is no entrepreneur; the machine will produce with last period's  technology: $A_{ijt}=A_{ijt-1}$
  	\item profits of the scientist are thus 0 if unsuccessful and $\pi_{ijt}$ otherwise; the expectation is about (1) the firm to which the scientist is allocated with equal probability, $f(i)=\frac{1}{|I|}=1$, and (2) the probability of success. By the law of iterated expectations we have
  	\begin{align*}
@@ -110,7 +110,8 @@ content...
 \item show how labour supply depends on productivity and wage (which again is determined by skill scarcity and machine supply) \checkmark
 \item how do prices depend on tax progressivity (with and without endogenous innovation)
 \item how does the direction of innovation depend on tax progressivity?
-\item[\ar] all these points do not depend on the relation of production and environment (if nature does not affect productivity)
+\item How does the social welfare function depend on taxes?
+%\item[\ar] all these points do not depend on the relation of production and environment (if nature does not affect productivity)
 \end{enumerate}}
 
 \subsection{Labour supply}
