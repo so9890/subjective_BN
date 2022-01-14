@@ -33,6 +33,7 @@
 *.toc
 *.ttt
 *.vrb
+*.xlsx
 .waf*
 *.zip
 waf-*

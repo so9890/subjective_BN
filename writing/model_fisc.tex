@@ -1,5 +1,5 @@
 \section{Model}
-
+\tr{Preliminary}
 In this section, I spell out the tractable model. Skills are exogenous so that there is only an intensive margin, hours worked, which determines skill supply in equilibrium. In an extension, I introduce  skills as an endogenous variable the distribution of which is driven by learning ability as in \cite{Heathcote2017OptimalFramework}. \tr{I think I will change this set up to have both an intensive margin and an extensive margin through skill investment; the latter is the only margin in \cite{Heathcote2017OptimalFramework}. }
 
 \subsection{Households}
@@ -30,9 +30,10 @@ There are two sectors a cleaner, $c$, and a dirty sector, $d$,  indexed by $j\in
 \end{align*}
 
 \paragraph{Labour input good}
-\tr{Under construction}
-For simplicity, I assume there exist two skill types high and low: $s \in {h,l}$ in the exogenous skill setting. A fraction $\zeta$ of the population is of type $s=h$; the remainder provides low-skilled labour. 
-The labour input good used by final good producers in both sectors is produced in two competitive markets according to:
+\tr{Under construction: might make sense to look at two households in the analytical part; more complicated when skill is endogenous}
+For simplicity, I assume there exist two skill types high and low: $s \in {h,l}$. % in the exogenous skill setting. 
+A fraction $\zeta$ of the population is of type $s=h$; the remainder provides low-skilled labour. 
+The labour input good used by final good producers is sector specific. The competitive labour input good producing firm in sector $j$ combines high and low-skilled labour according to:
 \begin{align}
 L_{jt}=l_{jht}^{\theta_j}l_{jlt}^{1-\theta_j},
 \end{align}
@@ -68,7 +69,7 @@ A monopolistically competitive sector produces machines, $x_{ijt}$, and sells th
  )
  
 \paragraph{Market clearance}
-Markets for labour and the composite consumption good clear each period:
+Markets for skills and the composite consumption good clear each period:
 \begin{align}
 l_{dht}+l_{cht}=\zeta e_h h_{ht},\\
 l_{dlt}+l_{clt}=(1-\zeta) e_l h_{lt},\\
@@ -76,7 +77,10 @@ Y_t=\zeta c_{ht}+(1-\zeta)c_{lt}.
 \end{align}
 
 \subsection{Environment}
-There are three pollutants...
+In this section I model how sectors and emission targets relate.
+There are Co2 and non-CO2 emissions which are relevant for climate warming. 
+CO2 sinks are relevant for the mode, too. 
+
 
 \begin{comment}
 The environment in the literature
@@ -104,23 +108,32 @@ In \cite{Acemoglu2012TheChange}
 content...
 \end{comment}
 
+\subsection{Government}
+The government is modelled as a Ramsey planner who maximises a Utilitarian social welfare function subject to a time path of emission targets.
+
+\noindent
+The exogenous emission targets from IPCC report \citep{Rogelj2018MitigationDevelopment.} are:
+\begin{itemize}
+\item reduction of emissions in 2030 to 25-30GtCO2 per year 
+\item net-zero emissions by 2050 (model economy has to be climate-neutral from 2050 onwards)
+
+\end{itemize}
 \section{Closed-form solutions}
-\tr{Goals:
+{Goals:
 \begin{enumerate}
 \item show how labour supply depends on productivity and wage (which again is determined by skill scarcity and machine supply) \checkmark
 \item how do prices depend on tax progressivity (with and without endogenous innovation)
-\item how does the direction of innovation depend on tax progressivity?
 \item How does the social welfare function depend on taxes?
+\item Later: how does the direction of innovation depend on tax progressivity?
 %\item[\ar] all these points do not depend on the relation of production and environment (if nature does not affect productivity)
 \end{enumerate}}
 
 \subsection{Labour supply}
 To derive a closed-form solution, I assume the following functional form\footnote{\ The utility function is not balanced-growth path consistent. In the quantitative analysis, I will adjust the functional form.}
 \begin{align}
-u_s(c_{st},h_{st};S_t)=
+u_s(c_{st},h_{st})=
 \frac{c_{st}^{1-\gamma}}{1-\gamma}-
-\frac{h_{st}^{1+\sigma}}{1+\sigma}-
-(\bar{S}-S_t).
+\frac{h_{st}^{1+\sigma}}{1+\sigma}.%-(\bar{S}-S_t).
 \end{align}
 The household's optimality conditions imply the following policy functions for consumption and hours worked:
 \begin{align}
@@ -129,6 +142,6 @@ The household's optimality conditions imply the following policy functions for c
 \end{align}
 
 Focus on the last summand in equation \ref{eq:labour_sup}.
-By allowing for a coefficient of relative risk aversion, $\gamma$, different from 1, the hourly wage rate, $e_sw_{st}$, shapes the impact of the tax progressivity $\tau$ on labour supply and consumption. The income and the substitution effect do not cancel as in the log-utility version studied in \cite{Heathcote2017OptimalFramework}.\footnote{\ Whenever the coefficient of relative risk aversion is smaller than one, $\gamma<1$, under the assumption of a concave utility in consumption and a progressive tax system, i.e. $\tau>0$ and \tr{And $\tau$<1.},  the substitution effect dominates and the household 
-	increases labour supply as its hourly wage rate rises. Proof: The tax adjusted uncompensated wage elasticity reads: $\frac{d log(h)}{d log(ew)}= \frac{(1-\gamma)(1-\tau)}{\sigma+\tau(1-\gamma)+\gamma}$. \tr{And $\tau$<1.} Assuming a progressive tax system, the denominator is positive whenever utility is concave in consumption, i.e., $\gamma>0$. Hence, in sum, $\gamma\in\left(0,1\right)$ implies an increase in labour supply as the hourly wage rate rises under a progressive labour income tax. } 
+By allowing for a coefficient of relative risk aversion, $\gamma$, different from 1, the hourly wage rate, $e_sw_{st}$, shapes the impact of the tax progressivity $\tau$ on labour supply and consumption. The income and the substitution effect do not cancel as in the log-utility version studied in \cite{Heathcote2017OptimalFramework}.\footnote{\ \tr{Preliminary} Whenever the coefficient of relative risk aversion is smaller than one, $\gamma<1$, under the assumption of a concave utility in consumption and a progressive tax system, i.e. $\tau>0$ and \tr{And $\tau<1$.},  the substitution effect dominates and the household 
+	increases labour supply as its hourly wage rate rises. Proof: The tax adjusted uncompensated wage elasticity reads: $\frac{d log(h)}{d log(ew)}= \frac{(1-\gamma)(1-\tau)}{\sigma+\tau(1-\gamma)+\gamma}$. \tr{And $\tau<1$.} Assuming a progressive tax system, the denominator is positive whenever utility is concave in consumption, i.e., $\gamma>0$. Hence, in sum, $\gamma\in\left(0,1\right)$ implies an increase in labour supply as the hourly wage rate rises under a progressive labour income tax. } 
 Households which receive a higher income per hour worked are more responsive to an increase in tax progressivity. As a consequence, a change in tax progressivity alters supply of distinct skills heterogeneously on impact. 
