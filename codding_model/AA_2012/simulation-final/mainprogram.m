@@ -1,4 +1,4 @@
-%******* This is the main program
+%******* This is the main program AcemogluaAghion etc 2012
 %1. Fix the parameters in the parameter section
 %2. Choose the options (DTC or not, delay and 2 instruments or only the carbon tax in the option section)
 %3. Choose an initial guess for the allocation of researchers and the input tax.
