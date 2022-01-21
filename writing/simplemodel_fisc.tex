@@ -1,0 +1,76 @@
+\section{Simple Model and Hypothesis}
+Simple model with representative agent who provides two skills: high and low. I look at steady states: laissez faire versus the steady state under the optimal policy. 
+The focus rests on matching emissions in the model to emission targets suggested by the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
+
+\subsection{Model and Hypothesis}
+
+The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established tax instruments: distortionary labour taxes (consumption taxes) are available. 
+
+\begin{align}
+	\underset{\{\tau_{lt}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
+	s.t.\ & \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+		 & \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
+		 & \text{behaviour of firms and households}
+\end{align}
+
+$E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050 and in 2030 to $E_t= 25-30GtCO2e\ yr^{-1}$. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. 
+\paragraph{Households}
+% the rep agent
+The economy behaves as if there was a representative household. The household chooses between high and low-skilled labour. The household experiences utility costs from skill accumulation. In equilibrium, the high-skilled labour receives a higher wage rate. 
+
+\begin{align}
+U=\underset{\{c_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}}{max}&
+\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})\\
+%U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
+s.t.& \ \ c_{t}p_{t}= (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ %\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}
+\ & h_{ht}+h_{lt}\leq H_t\\
+\ & h_{st}\geq 0 \ \forall s\in \{l,h\}
+\end{align}
+The period utility function includes costs for on-the-job training which is required for high-skilled labour in the next period. 
+\begin{align}
+	u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})&= %\frac{c_t^{1-\gamma}}{1-\gamma}
+	\log(c_t)-\frac{(h_{ht}+h_{lt})^{1+\sigma}}{1+\sigma}-v(h_{ht+1}),\\
+	\text{where}\  & v(h_{ht+1})=\left\{
+	\begin{array}{lll}
+	\zeta& \hspace{2mm} \text{if} \hspace*{2mm}  h_{ht+1}> 0, &\\
+	0  &\hspace{2mm}\text{if}\hspace{2mm}  h_{ht+1}= 0.
+	\end{array}
+	\right. 		
+\end{align}
+The costs from learning for skill accumulation, $\zeta$, imply that high-skill labour earns a premium to compensate the representative household for learning. When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
+
+The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.
+\paragraph{Production}
+There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector specific goods are imperfect substitutes in final consumption good production.\footnote{\ This ensures that the dirty good is always produced and overall, production is never perfectly clean.}  
+The final good producing sector is perfectly competitive:
+$Y_t=\left(Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right)^\frac{\varepsilon}{\varepsilon-1}$. 
+I take the composite good as the numeraire so that $\left[p_{dt}^{1-\varepsilon}+p_{ct}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}=1$.
+
+In both sectors, a unit mass of competitive firms $i$ produces an individual consumption good. All firms use machines, $x_{jit}$ and an intermediate labour good, $L_{jt}$ as input.\footnote{\ For now I abstract from a natural resource.} 
+\begin{align*}
+&Y_{dt}= L_{dt}^{1-\alpha_d}\int_{0}^{1}A_{dit}^{1-\alpha_d}x_{dit}^{\alpha_d} di,\ \hspace{2mm} Y_{ct}= L_{ct}^{1-\alpha_c}\int_{0}^{1}A_{cit}^{1-\alpha_c}x_{cit}^{\alpha_c} di.
+\end{align*}
+
+The labour input good is produced by a perfectly competitive and sector-specific labour industry according to: 
+\begin{align}
+L_{jt}=l_{jht}^{\theta_j}l_{jlt}^{1-\theta_j}, \ for \ j \in\{c,d\},
+\end{align}
+where $\theta_c>\theta_d$. In words, the clean sectors labour input has a higher share of high-skilled labour. 
+
+
+\paragraph{Machine producing firms}
+A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms. It follows that $p_{ijt}=\psi$.
+
+
+Technological progress is exogenous and homogeneous across sectors: 
+\begin{align}
+A_{ijt+1}=(1+\eta) A_{ijt}\ for \ j \in\{c,d\}. 
+\end{align}
+
+\subsection{Hypothesised outcome}
+How do I expect the optimal steady state to differ from the laissez-faire one? 
+In the representative agent model, the government faces a trade-off  between efficiency and the externality. 
+On the one hand, the distortionary labour tax reduces output and thereby the externality of production. On the other hand, it reduces utility from consumption.
+
+Allowing for two skill types and a skill bias of the cleaner sector adds an additional layer to the effect of labour taxes on the environment. Instead of merely reducing output there is also a recomposition effect. 
+In response to the labour tax, the household reduces its labour supply. Since the high-skilled labour earns a higher wage rate, unskilled labour becomes more attractive to the representative agent. The lower supply of skilled labour increases production costs of the cleaner sector. The price of the cleaner good increases. Hence, the share of clean to dirty output falls. This indirect recomposition effect counteracts the direct reduction of the externality. 
