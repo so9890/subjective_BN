@@ -26,7 +26,7 @@ The period utility function includes costs for on-the-job training which is requ
 %	\end{array}
 %	\right. 		
 \end{align}
-The positive parameter $\zeta$ implies a higher marginal disutility for high-skilled labour than unskilled labour. As a result, in equilibirum,  
+The positive parameter $\zeta>1$ implies a higher marginal disutility for high-skilled labour than unskilled labour. As a result, in equilibirum,  
 high-skilled labour earns a premium to compensate the representative household for the higher disutility. When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
 
 The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.
@@ -41,7 +41,7 @@ I take the composite good as the numeraire so that $\left[p_{dt}^{1-\varepsilon}
 
 In both sectors, a unit mass of competitive firms $i$ produces an individual consumption good. All firms use machines, $x_{jit}$ and an intermediate labour good, $L_{jt}$ as input.\footnote{\ For now I abstract from a natural resource.} 
 \begin{align*}
-&Y_{dt}= L_{dt}^{1-\alpha_d}\int_{0}^{1}A_{dit}^{1-\alpha_d}x_{dit}^{\alpha_d} di,\ \hspace{2mm} Y_{ct}= L_{ct}^{1-\alpha_c}\int_{0}^{1}A_{cit}^{1-\alpha_c}x_{cit}^{\alpha_c} di.
+&Y_{dt}= L_{dt}^{1-\alpha}\int_{0}^{1}A_{dit}^{1-\alpha}x_{dit}^{\alpha} di,\ \hspace{2mm} Y_{ct}= L_{ct}^{1-\alpha}\int_{0}^{1}A_{cit}^{1-\alpha}x_{cit}^{\alpha} di.
 \end{align*}
 
 The labour input good is produced by a perfectly competitive and sector-specific labour industry according to: 
@@ -61,7 +61,7 @@ Technological progress is exogenous:
 A_{ijt+1}=(1+\upsilon_{jt}) A_{ijt}\ for \ j \in\{c,d\}. 
 \end{align}
 
-\paragraph{Impossibility of reaching target in steady state with endogenous growth}
+\paragraph{Impossibility of reaching target in steady state with exogenous growth}
 Note that with exogenous growth in each sector there is no possibility for the government to stop emissions from growing, since production of the dirty good is essential for the consumption good (no perfect substitution: $\varepsilon<\infty$). To meet the emission target, the government either needs to affect the growth rate in the economy; i.e., $\upsilon_j$ is a choice variable, or work and consumption need to be set to zero; or the emission target has to be defined in relative terms. The latter possibility contradicts the Paris Agreement which is concerned with absolute emissions.  
 I therefore assume, that the government can change the growth rate.
 
@@ -97,10 +97,58 @@ I hypothesise that under this assumption growth in the clean sector, too, will h
 
 How can then be there a role for distortionary labour taxes if the government can choose growth rates? Maybe not. But once growth is endogenous? Maybe during the transition? 
 Maybe because reducing labour supply is better in terms of utility? 
+
+Some rationale for setting hours restriction? 
 \subsection{Equilibrium conditions}
 
 \begin{align*}
-\text{Household}\ & 
+\text{\textbf{Household}} & \\
+\text{FOC consumption}\hspace{4mm}&  \log(c_t)= \log(\lambda_t)+ (1-\tau_{lt})\left[\frac{1}{1+\sigma}\log(1-\tau_{lt})+\log(w_{lt})\right]\\
+\text{FOCs labour supply}\hspace{4mm}&  \log(H_t)=\frac{1}{1+\sigma}\log(1-\tau_{lt})\\
+\ \hspace{4mm} & \log(w_{ht})=\log(w_{lt})+\log(\zeta)\\
+\text{definition}\  H_t\hspace{4mm} & \log(H_t)=\log(h_{lt}+\zeta h_{ht})\\
+\ 
+\\
+\text{\textbf{Production}}& \\
+\text{\textbf{Final Good Producer}}\\
+\text{Profit maximisation}\hspace{4mm} & Y_{nt}=\left(\frac{p_{ct}}{p_{dt}}\right)^\varepsilon Y_{ct}\\
+\text{Production}\hspace{4mm} & Y_t=\left[Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right]^{\frac{\varepsilon}{\varepsilon-1}}\\
+\text{\textbf{Clean Sector}}\\
+\text{Production}\hspace{4mm}& Y_{ct}=L^{1-\alpha}_{ct}\int_{0}^{1}A^{1-\alpha}_{ict}x_{ict}^{\alpha}di=  \left(\alpha\frac{p_{ct}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{ct} L_{ct} \\ 
+\text{labour demand}\hspace{4mm} & p_{cLt} =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{ct}^\frac{1}{1-\alpha}A_{ct}\\
+\text{machine demand}\hspace{4mm} & x_{ict} = \left(\alpha\frac{ p_{ct}}{p_{ict}}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\\
+%
+\text{\textbf{Dirty Sector}}\\
+\text{Production}\hspace{4mm} & Y_{dt}=L^{1-\alpha}_{dt}\int_{0}^{1}A^{1-\alpha}_{idt}x_{idt}^{\alpha}di=  \left(\alpha\frac{p_{dt}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{dt} L_{dt} \\ 
+\text{labour demand}\hspace{4mm} & p_{dLt} =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{dt}^\frac{1}{1-\alpha}A_{dt}\\
+\text{machine demand}\hspace{4mm} & x_{idt} = \left(\alpha\frac{ p_{dt}}{p_{idt}}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}
+\end{align*}
+
+\begin{align*}
+\text{\textbf{Labour sectors}}\\
+\text{Production clean labour input} \hspace{4mm}& L_{ct}=l_{hct}^{\theta_c}l_{lct}^{1-\theta_c}\\ 
+\text{Production dirty labour input} \hspace{4mm}& L_{dt}=l_{hdt}^{\theta_d}l_{ldt}^{1-\theta_d}\\
+%
+\text{Demand high skill clean sector}\hspace{4mm}&l_{hct}= \left(\frac{p_{cLt}}{w_{ht}}\right)^{\frac{1}{1-\theta_c}}\theta_c^{\frac{1}{1-\theta_c}}l_{lct}\\
+%
+\text{Demand low skill clean sector } \hspace{4mm}&l_{lct}= \left(\frac{p_{cLt}}{w_{lt}}\right)^{\frac{1}{\theta_c}}(1-\theta_c)^{\frac{1}{\theta_c}}l_{hct}\\
+%
+\text{Demand high skill dirty sector} \hspace{4mm}&l_{hdt}= \left(\frac{p_{dLt}}{w_{ht}}\right)^{\frac{1}{1-\theta_d}}\theta_d^{\frac{1}{1-\theta_d}}l_{ldt}\\
+%
+\text{Demand low skill dirty sector } \hspace{4mm}&l_{ldt}= \left(\frac{p_{dLt}}{w_{lt}}\right)^{\frac{1}{\theta_d}}(1-\theta_d)^{\frac{1}{\theta_d}}l_{hdt}\\
+\text{\textbf{Market clearing}}& \nonumber\\
+\text{Consumption Good}\hspace{4mm}& Y_{t}=c_t; \ 
+(\text{Numeraire}\ \  p_t=1)\\
+\text{high skill}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
+\text{low skill}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}\\
+\text{\textbf{Technology}}\hspace{4mm}\\
+\text{Clean sector}\hspace{4mm}& A_{ict+1}=(1+\upsilon_{ct})A_{ict}\\
+\text{Dirty sector}\hspace{4mm}& A_{idt+1}=(1+\upsilon_{dt})A_{idt}\\
+\text{Progress bound}\hspace{4mm}& \upsilon_{ct}+\upsilon_{dt}=\Upsilon\\
+\text{Definition average clean technology}\hspace{4mm}& A_{ct}=\int_0^1A_{ict}di\\
+\text{Definition average dirty technology}\hspace{4mm}& A_{dt}=\int_0^1A_{idt}di
 \end{align*}
 \subsection{Steady state}
 All variables grow at a constant rate $\eta$
