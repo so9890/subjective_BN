@@ -4,16 +4,6 @@ The focus rests on matching emissions in the model to emission targets suggested
 
 \subsection{Model and Hypothesis}
 
-The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established tax instruments: distortionary labour taxes (consumption taxes) are available. 
-
-\begin{align}
-	\underset{\{\tau_{lt}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
-	s.t.\ & \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
-		 & \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
-		 & \text{behaviour of firms and households}
-\end{align}
-
-$E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050 and in 2030 to $E_t= 25-30GtCO2e\ yr^{-1}$. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. 
 \paragraph{Households}
 % the rep agent
 The economy behaves as if there was a representative household. The household chooses between high and low-skilled labour. The household experiences utility costs from skill accumulation. In equilibrium, the high-skilled labour receives a higher wage rate. 
@@ -22,24 +12,27 @@ The economy behaves as if there was a representative household. The household ch
 U=\underset{\{c_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}}{max}&
 \sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})\\
 %U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
-s.t.& \ \ c_{t}p_{t}= (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ %\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}
-\ & h_{ht}+h_{lt}\leq H_t\\
+s.t.& \ \ c_{t}p_{t}=% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
+\lambda \left(h_{ht}w_{ht}+h_{lt}w_{lt}\right)^{1-\tau}\\
+\ & h_{ht}+h_{lt}\leq \bar{H}_t\\
 \ & h_{st}\geq 0 \ \forall s\in \{l,h\}
 \end{align}
 The period utility function includes costs for on-the-job training which is required for high-skilled labour in the next period. 
 \begin{align}
 	u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})&= %\frac{c_t^{1-\gamma}}{1-\gamma}
-	\log(c_t)-\frac{(h_{ht}+h_{lt})^{1+\sigma}}{1+\sigma}-v(h_{ht+1}),\\
-	\text{where}\  & v(h_{ht+1})=\left\{
-	\begin{array}{lll}
-	\zeta& \hspace{2mm} \text{if} \hspace*{2mm}  h_{ht+1}> 0, &\\
-	0  &\hspace{2mm}\text{if}\hspace{2mm}  h_{ht+1}= 0.
-	\end{array}
-	\right. 		
+	\log(c_t)-\frac{(h_{lt}+\zeta h_{ht})^{1+\sigma}}{1+\sigma}%-v(h_{ht+1})%,\\
+	%\text{where}\  & v(h_{ht+1})=\left\{\begin{array}{lll}\zeta& \hspace{2mm} \text{if} \hspace*{2mm}  h_{ht+1}> 0, &\\
+%0  &\hspace{2mm}\text{if}\hspace{2mm}  h_{ht+1}= 0.
+%	\end{array}
+%	\right. 		
 \end{align}
-The costs from learning for skill accumulation, $\zeta$, imply that high-skill labour earns a premium to compensate the representative household for learning. When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
+The positive parameter $\zeta$ implies a higher marginal disutility for high-skilled labour than unskilled labour. As a result, in equilibirum,  
+high-skilled labour earns a premium to compensate the representative household for the higher disutility. When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
 
 The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.
+
+I define the variable $H_t=\zeta h_{ht}+h_{lt}$ which facilitates the derivation of results. 
+
 \paragraph{Production}
 There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector specific goods are imperfect substitutes in final consumption good production.\footnote{\ This ensures that the dirty good is always produced and overall, production is never perfectly clean.}  
 The final good producing sector is perfectly competitive:
@@ -55,17 +48,42 @@ The labour input good is produced by a perfectly competitive and sector-specific
 \begin{align}
 L_{jt}=l_{jht}^{\theta_j}l_{jlt}^{1-\theta_j}, \ for \ j \in\{c,d\},
 \end{align}
-where $\theta_c>\theta_d$. In words, the clean sectors labour input has a higher share of high-skilled labour. 
+where $\theta_c>\theta_d$ so that the clean sectors labour input has a higher share of high-skilled labour. 
 
 
 \paragraph{Machine producing firms}
 A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms. It follows that $p_{ijt}=\psi$.
 
 
-Technological progress is exogenous and homogeneous across sectors: 
+\paragraph{Technological progress}
+Technological progress is exogenous:
 \begin{align}
-A_{ijt+1}=(1+\eta) A_{ijt}\ for \ j \in\{c,d\}. 
+A_{ijt+1}=(1+\upsilon_{jt}) A_{ijt}\ for \ j \in\{c,d\}. 
 \end{align}
+
+\paragraph{Impossibility of reaching target in steady state with endogenous growth}
+Note that with exogenous growth in each sector there is no possibility for the government to stop emissions from growing, since production of the dirty good is essential for the consumption good (no perfect substitution: $\varepsilon<\infty$). To meet the emission target, the government either needs to affect the growth rate in the economy; i.e., $\upsilon_j$ is a choice variable, or work and consumption need to be set to zero; or the emission target has to be defined in relative terms. The latter possibility contradicts the Paris Agreement which is concerned with absolute emissions.  
+I therefore assume, that the government can change the growth rate.
+
+The government chooses the growth rate in each sector, taking into account that research is constrained by an exogenous  amount of scientists
+\begin{align}
+\upsilon_{ct}+\upsilon_{dt}\leq\Upsilon
+\end{align}
+ 
+  
+\paragraph{Government}
+
+The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established tax instruments: distortionary labour taxes (consumption taxes) are available. 
+
+\begin{align}
+\underset{\{\tau_{lt}, \upsilon_{ct}, \upsilon_{dt}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
+s.t.\ & \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+& \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
+&\upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
+& \text{behaviour of firms and households}
+\end{align}
+
+$E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050 and in 2030 to $E_t= 25-30GtCO2e\ yr^{-1}$. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. 
 
 \subsection{Hypothesised outcome}
 How do I expect the optimal steady state to differ from the laissez-faire one? 
@@ -74,3 +92,15 @@ On the one hand, the distortionary labour tax reduces output and thereby the ext
 
 Allowing for two skill types and a skill bias of the cleaner sector adds an additional layer to the effect of labour taxes on the environment. Instead of merely reducing output there is also a recomposition effect. 
 In response to the labour tax, the household reduces its labour supply. Since the high-skilled labour earns a higher wage rate, unskilled labour becomes more attractive to the representative agent. The lower supply of skilled labour increases production costs of the cleaner sector. The price of the cleaner good increases. Hence, the share of clean to dirty output falls. This indirect recomposition effect counteracts the direct reduction of the externality. 
+
+I hypothesise that under this assumption growth in the clean sector, too, will have to stop. Why? Consider that only the clean sector growths, then the price for clean goods has to fall so that the final good sector  continues demand the supply of the clean good. The price will be driven towards zero. Which cannot be an equilibrium solution since the clean sector would stop producing as costs exceed revenues (only if marginal production costs tend to zero but they don't as labour exerts disutility).
+
+How can then be there a role for distortionary labour taxes if the government can choose growth rates? Maybe not. But once growth is endogenous? Maybe during the transition? 
+Maybe because reducing labour supply is better in terms of utility? 
+\subsection{Equilibrium conditions}
+
+\begin{align*}
+\text{Household}\ & 
+\end{align*}
+\subsection{Steady state}
+All variables grow at a constant rate $\eta$
