@@ -48,8 +48,13 @@ delta =.5*emission0/S0; % half of CO2 emissions are absorbed at current atmosphe
 %********************************************************************
 %********************************************************************
 %2. options
-mode = 1; %1: for the model with directed technical change and both instruments, 0.5: for a model with DTC but only the carbon tax, 0: for a model without dtc
-% the program for the case with a carbon tax only is correct only if epsilon>(2-alpha)/(1-alpha), moreover if this is the case, it assumes that when several allocation of scientists are possible equilibria, the equilibrium chosen is the interior one.
+mode = 1; % 1: for the model with directed technical change and both instruments, 
+          % 0.5: for a model with DTC but only the carbon tax,
+          % 0: for a model without dtc
+% the program for the case with a carbon tax only is correct only if 
+% epsilon>(2-alpha)/(1-alpha), moreover if this is the case,
+% it assumes that when several allocation of scientists are possible
+% equilibria, the equilibrium chosen is the interior one.
 delay = 0; % delay before applying optimal policy (possible only for mode = 1)
 display_iter=0;    %=1 if you want to see iterations, ~1 if otherwise
 display_diag=1;    %=1 if you want to see diagnostics, ~1 if otherwise

@@ -2,6 +2,7 @@
 Simple model with representative agent who provides two skills: high and low. I look at steady states: laissez faire versus the steady state under the optimal policy. 
 The focus rests on matching emissions in the model to emission targets suggested by the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
 
+How to determine the economy in 2050? Should the economy have reached a steady state? or should it be in a transitional path? Maybe no need to specify this...it will be a outcome. All I have to use is that for all years after 2050 net-emissions have to be zero. Whether the economy is on the transitional path or in a steady state is an outcome. 
 \subsection{Model and Hypothesis}
 
 \paragraph{Households}
@@ -113,17 +114,20 @@ Some rationale for setting hours restriction?
 \text{\textbf{Final Good Producer}}\\
 \text{Profit maximisation}\hspace{4mm} & Y_{nt}=\left(\frac{p_{ct}}{p_{dt}}\right)^\varepsilon Y_{ct}\\
 \text{Production}\hspace{4mm} & Y_t=\left[Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right]^{\frac{\varepsilon}{\varepsilon-1}}\\
+\text{Price}\hspace{4mm}& p_t:=\left[p_{ct}^{1-\varepsilon}+p_{dt}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}\\
 \text{\textbf{Clean Sector}}\\
 \text{Production}\hspace{4mm}& Y_{ct}=L^{1-\alpha}_{ct}\int_{0}^{1}A^{1-\alpha}_{ict}x_{ict}^{\alpha}di=  \left(\alpha\frac{p_{ct}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{ct} L_{ct} \\ 
 \text{labour demand}\hspace{4mm} & p_{cLt} =
 (1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{ct}^\frac{1}{1-\alpha}A_{ct}\\
 \text{machine demand}\hspace{4mm} & x_{ict} = \left(\alpha\frac{ p_{ct}}{p_{ict}}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\\
 %
+\text{Supply machines (price)}\hspace{4mm}& p_{ict}=\psi \\
 \text{\textbf{Dirty Sector}}\\
 \text{Production}\hspace{4mm} & Y_{dt}=L^{1-\alpha}_{dt}\int_{0}^{1}A^{1-\alpha}_{idt}x_{idt}^{\alpha}di=  \left(\alpha\frac{p_{dt}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{dt} L_{dt} \\ 
 \text{labour demand}\hspace{4mm} & p_{dLt} =
 (1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{dt}^\frac{1}{1-\alpha}A_{dt}\\
-\text{machine demand}\hspace{4mm} & x_{idt} = \left(\alpha\frac{ p_{dt}}{p_{idt}}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}
+\text{machine demand}\hspace{4mm} & x_{idt} = \left(\alpha\frac{ p_{dt}}{p_{idt}}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}\\
+\text{Supply machines (price)}\hspace{4mm}& p_{idt}=\psi
 \end{align*}
 
 \begin{align*}
@@ -150,5 +154,38 @@ Some rationale for setting hours restriction?
 \text{Definition average clean technology}\hspace{4mm}& A_{ct}=\int_0^1A_{ict}di\\
 \text{Definition average dirty technology}\hspace{4mm}& A_{dt}=\int_0^1A_{idt}di
 \end{align*}
-\subsection{Steady state}
-All variables grow at a constant rate $\eta$
+\subsection{Balanced Growth path}
+A balanced growth rate is defined as follows. The economy is in equilibrium as specified above. Furthermore, I impose that all variables grow at constant rates. A dash $'$ indicates next period variables. 
+
+It follows that the labour input good does not grow since hours worked are constant and transitional dynamics are not allowed by definition. 
+
+I write the evolution of the model as a function of growth rates and initial conditions $A_{c0}, A_{d0}$. I also impose that policy variables, $\upsilon_{c}, \upsilon_{d}, \tau_l. \lambda$, are constant. 
+
+From the FOCs on skill demand follows that the price of the labour input good relative to the skill-specific wage rate is constant. Substituting demand for low skill in the clean sector into the demand for high skill yields
+
+\begin{align*}
+ w_{h}^{\frac{1}{1-\theta_c}}w_l^{\frac{1}{\theta_c}}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}.
+\end{align*}
+Multiplying the left-hand side with $(w_h/w_h)^\frac{1}{\theta_c}$ and
+using the FOC governing skill supply $w_h/w_l=\zeta$, it holds that
+
+\begin{align*}
+& \zeta^\frac{-1}{\theta_c}w_h^\frac{1}{(1-\theta_c)\theta_c}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}\\
+	\Leftrightarrow\ & \frac{p_{cL}}{w_h}= \zeta^{-(1-\theta_c)}\theta_c^{-\theta_c}(1-\theta_c)^{-(1-\theta_c)}.
+\end{align*}
+
+Define sector-specific inflation as: $1+\pi_{j}=\frac{p'_j}{p_j}$.
+Using the definition of the aggregate price level one can show that 
+\begin{align*}
+\frac{Y'}{Y}= (1+\pi_c)^{\frac{\varepsilon(1-\alpha)+\alpha}{1-\alpha}}(1+\upsilon_{c})
+\end{align*}
+since $\frac{L_{c}'}{L_c}=1$.
+Using goods market clearance, the budget condition, and the FOC for total skill supply, it follows that 
+\begin{align*}
+\frac{Y'}{Y}= \left(\frac{w'_h}{w_h}\right)^{1-\tau_l}.
+\end{align*}
+Labour demand implies that 
+\begin{align*}
+\frac{p'_{cL}}{p_{cL}}= (1+\pi_c)^\frac{1}{1-\alpha}(1+\upsilon_{c})
+\end{align*}
+(independent of growth in $L_c$)
