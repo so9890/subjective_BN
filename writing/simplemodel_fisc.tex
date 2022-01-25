@@ -32,7 +32,7 @@ high-skilled labour earns a premium to compensate the representative household f
 
 The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.
 
-I define the variable $H_t=\zeta h_{ht}+h_{lt}$ which facilitates the derivation of results. 
+I define the variable $H_t:=\zeta h_{ht}+h_{lt}$ which facilitates the derivation of results. 
 
 \paragraph{Production}
 There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector specific goods are imperfect substitutes in final consumption good production.\footnote{\ This ensures that the dirty good is always produced and overall, production is never perfectly clean.}  
@@ -76,13 +76,13 @@ The government chooses the growth rate in each sector, taking into account that 
 
 The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established tax instruments: distortionary labour taxes (consumption taxes) are available. 
 
-\begin{align}
+\begin{align*}
 \underset{\{\tau_{lt}, \upsilon_{ct}, \upsilon_{dt}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
-s.t.\ & \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
-& \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
-&\upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
-& \text{behaviour of firms and households}
-\end{align}
+s.t.\ & (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+& (2)\ \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
+& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
+& (4)\ \text{behaviour of firms and households}
+\end{align*}
 
 $E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050 and in 2030 to $E_t= 25-30GtCO2e\ yr^{-1}$. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. 
 
@@ -177,28 +177,27 @@ using the FOC governing skill supply $w_h/w_l=\zeta$, it holds that
 
 Define sector-specific inflation as: $1+\pi_{j}=\frac{p'_j}{p_j}$.
 Using the definition of the aggregate price level, final good production, and optimality conditions in the clean sector, one can show that 
-\begin{align*}
-\frac{Y'}{Y}= (1+\pi_c)^{\frac{\varepsilon(1-\alpha)+\alpha}{1-\alpha}}(1+\upsilon_{c}),
-\end{align*}
+\begin{align}\label{eq:agg_supply}
+\frac{Y'}{Y}= (1+\pi_c)^{\frac{\varepsilon(1-\alpha)+\alpha}{1-\alpha}}(1+\upsilon_{c}), \hspace{3mm} \text{(Supply side)}
+\end{align}
 since $\frac{L_{c}'}{L_c}=1$.
 Using goods market clearance, the budget condition, and the FOC for total skill supply, it follows that 
-\begin{align*}
-\frac{Y'}{Y}= \left(\frac{w'_h}{w_h}\right)^{1-\tau_l}.
-\end{align*}
-Labour demand implies that 
+\begin{align}\label{eq:agg_demand}
+\frac{Y'}{Y}= \left(\frac{w'_h}{w_h}\right)^{1-\tau_l}. \hspace{3mm} \text{(Demand side)}
+\end{align}
+Demand for the labour input good implies that 
 \begin{align}\label{eq:labour income}
 \frac{p'_{cL}}{p_{cL}}= (1+\pi_c)^\frac{1}{1-\alpha}(1+\upsilon_{c})
 \end{align}
 (independent of growth in $L_c$).
 
-Multiplying both sides with $\left(\frac{w_h'}{w_h}\right)^{-1}$ and using that $\frac{p_{cL}}{w_h}$ is constant, it follows that 
+Multiplying both sides with $\left(\frac{w_h'}{w_h}\right)^{-1}$, using equation \ref{eq:agg_growth}, and that $\frac{p_{cL}}{w_h}$ is constant, it follows that 
 
 \begin{align}
 		\frac{\frac{p'_{cL}}{w'_h}}{\frac{p_{cL}}{w_h}}= (1+\pi_c)^\frac{1}{1-\alpha}(1+\upsilon_{c})\left(\frac{Y'}{Y}\right)^{-\frac{1}{1-\tau_l}}=1.
 \end{align}
 
 Above equation determines inflation in the clean sector:
-
 \begin{align}\label{eq:inf_c}
 1+\pi_c=(1+\upsilon_{c})^{\frac{\tau_l(1-\alpha)}{(1-\tau_l)-\varepsilon(1-\alpha)-\alpha}}.
 \end{align}
@@ -206,6 +205,12 @@ By symmetry of (i) how goods enter the production fo the final good and of (ii) 
 \begin{align}\label{eq:inf_d}
 1+\pi_d=(1+\upsilon_{d})^{\frac{\tau_l(1-\alpha)}{(1-\tau_l)-\varepsilon(1-\alpha)-\alpha}}.
 \end{align}
+
+
+\noindent\rule[1ex]{\textwidth}{1pt}
+
+\noindent \textbf{(Aggregate output result, less relevant for main story)}
+
 Hence, 
 \begin{align}\label{eq:agg_growth}
 	(1+g_y)=\frac{Y'}{Y}=(1+\upsilon_{c})^\frac{(1-\tau_l)[1-(\varepsilon(1-\alpha)+\alpha)]}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}.
@@ -237,6 +242,10 @@ Substitution into the production function of the clean labour input good yields
 \tr{To be continued.}
 
 \textbf{\tr{To be shown next:  How $\tau_l$ affects (1) skill supply (level) and (2) externality. }}
+\\
+
+\noindent\rule[1ex]{\textwidth}{1pt}
+
 
 \paragraph{Progressivity and emission targets}
 The constraint on emissions in the government's objective function implies that $Y_{dt}=\frac{\delta}{\kappa}$, thus, $(1+g_{ydt})=1$, for all time periods starting from 2050, $t\geq 30$. 
@@ -246,13 +255,16 @@ From the dirty sector's production function and equation \ref{eq:inf_d} we have 
 &\frac{Y_{d}'}{Y_d}=(1+\pi_d)^{\frac{\alpha}{1-\alpha}}(1+\upsilon_{d})\label{eq:gyd}\\
 \Leftrightarrow\ &(1+\upsilon_{d})^{\frac{(1-\alpha)(1-\tau_l-\varepsilon)}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}}=1\label{eq:def_taul}
 \end{align}
-The inflation rate in equation \ref{eq:gyd} captures the role of machine demand by the dirty sector. When the price at which dirty firms can sell their output is high, they demand more machines. A positive inflation, therefore, implies a rise in dirty output. As will be shown below, this mechanism ensures that the government can target dirty sector production through tax progressivity. 
+The inflation rate in equation \ref{eq:gyd} captures the role of machine demand by the dirty sector. When the price at which dirty firms can sell their output is high, they demand more machines. A positive inflation, therefore, implies a rise in dirty output.
+
+At the same time, a rise in the dirty good's price reduces demand. This counteracting mechanism is accounted for in equation \ref{eq:def_taul}. 
+ As will be shown below, this mechanism ensures that the government can target dirty sector production through tax progressivity. 
 
 First, I establish an optimal policy result. Assume that the government cannot set the growth rate in the dirty sector, then equation \ref{eq:def_taul} defines $\tau_l$ on a balanced growth path.
 
-\begin{prop}[Determination tax progressivity]
+\begin{prop}[Optimal tax progressivity]
 Assume growth of the dirty technology, $\upsilon_{d}$, is exogenously determined. 
-Then, to comply with the Paris Agreement, the government has to set the tax progressivity parameter, $\tau_l$, to $\tau^*_l=1-\varepsilon$ (with $\varepsilon\neq 1$, as otherwise the exponent in \ref{eq:def_taul} is not defined under the optimal tax rate.).
+Then, to comply with the Paris Agreement, the government has to set the tax progressivity parameter, $\tau_l$, to $\tau^*_l=1-\varepsilon$ for $\varepsilon\neq 1$ (as otherwise the exponent in \ref{eq:def_taul} is not defined under the optimal tax rate.).
 When goods are complements, the optimal tax system is progressive. If goods are substitutes, the optimal tax system is regressive.
 \end{prop}
 
@@ -262,6 +274,26 @@ The result implies that inflation in the dirty sector under the optimal policy i
 Can this be an equilibrium as the price for dirty products declines?
 
 How does tax progressivity affect inflation? 
+First note that at a flat tax, the inflation rate is independent of the sector-specific technological growth rate. This is due to offsetting mechanisms.\tr{Continue}
+
+ 
 \tr{Start from effect on HH:} 
 (1) A rise in $\tau_l$ reduces disposable income and aggregate demand falls. This is a mechanical result from a higher tax rate, and a reduction in aggregate hours supplied.  
 (1) For the dirty sector to demand labour, the costs of the labour input good has to balance its marginal product which positively depends on technological progress and the sector specific price. 
+
+\paragraph{Effect of $\tau_l$ on skill investment}
+From the definition of $H$ it has to hold that 
+\begin{align}
+&1=\frac{dh_l}{dH}+\zeta \frac{dh_h}{dH}\label{eq:ident} \\
+\Leftrightarrow\ & \frac{dh_h}{dH}=\frac{1-\frac{dh_l}{dH}}{\zeta}.\label{eq:resp}
+\end{align}
+Using this equation, one can show that high skill supply is relatively more responsive to changes in total effective hours worked, i.e.,  $\frac{dh_h}{dH}>\frac{dh_l}{dH}$, if one excludes the case that high skill supply reduces as effective hours increase.\footnote{\ Proof: Suppose   $\frac{dh_h}{dH}>0$. Now, assume by contradiction that low skill supply is relatively more responsive. Hence, $\frac{dh_h}{dH}<\frac{dh_l}{dH}$. Using equation \ref{eq:resp}, one gets that $\frac{dh_l}{dH}>1+\zeta$. Replacing this inequality in the identity \ref{eq:ident}, it follows that $0>\zeta[1+\frac{dh_h}{dH}]$. Since $\zeta>1$ by assumption, it has to hold that $\frac{dh_h}{dH}<-1$ which contradicts the premise that $\frac{dh_h}{dH}>0$. } Thus, as the household reduces total effective hours supplied, the reduction in high skilled hours is higher. \tr{This should be due to the substitution effect being more pronounced: the marginal utility from less high skill is higher than from less low skill hours.} This should show up in general equilibrium effects... but relative wages are fixed. 
+
+
+\textbf{Supply side}
+Analogously to \ref{eq:constant}, one can show that
+\begin{align*}
+\frac{p_{cL}}{w_l}&=\zeta^{\theta_c}\theta_c^{-\theta_c}(1-\theta_c)^{-(1-\theta_c)}\\
+\frac{p_{dL}}{w_l}&=\zeta^{\theta_d}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}\\
+\frac{p_{dL}}{w_h}&=\zeta^{-(1-\theta_d)}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}.
+\end{align*}
