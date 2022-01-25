@@ -213,7 +213,7 @@ Hence,
 Equation \ref{eq:agg_growth} implies the following proposition:
 \begin{prop}[aggregate growth]
 \textit{For a proportional tax system, $\tau_l=0$, aggregate growth equals growth in the clean sector. 
-When the tax system is progressive\footnote{\ In the sense defined in \cite{Heathcote2017OptimalFramework}.}, $\tau_l>0$, then aggregate growth exceeds growth in the clean sector. When the tax rate is regressive, $\tau_l<0$, aggregate growth is smaller than in the clean sector. }
+When the tax system is progressive\footnote{\ In the sense defined in \cite{Heathcote2017OptimalFramework}.}, $\tau_l>0$, then aggregate growth exceeds technology growth in the clean sector. When the tax rate is regressive, $\tau_l<0$, aggregate growth is smaller than technology growth in the clean sector. }
 \end{prop}
 \tr{Have to understand why.} 
 With a flat tax system there is no inflation in the clean sector; compare equation \ref{eq:inf_c}. When the tax system is progressive, ...
@@ -242,13 +242,26 @@ Substitution into the production function of the clean labour input good yields
 The constraint on emissions in the government's objective function implies that $Y_{dt}=\frac{\delta}{\kappa}$, thus, $(1+g_{ydt})=1$, for all time periods starting from 2050, $t\geq 30$. 
 
 From the dirty sector's production function and equation \ref{eq:inf_d} we have that
-\begin{align}\label{eq:def_taul}
-(1+\upsilon_{d})^{\frac{(1-\alpha)(1-\tau_l-\varepsilon)}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}}=1
+\begin{align}
+&\frac{Y_{d}'}{Y_d}=(1+\pi_d)^{\frac{\alpha}{1-\alpha}}(1+\upsilon_{d})\label{eq:gyd}\\
+\Leftrightarrow\ &(1+\upsilon_{d})^{\frac{(1-\alpha)(1-\tau_l-\varepsilon)}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}}=1\label{eq:def_taul}
 \end{align}
-Assume that the government cannot set the growth rate in the dirty sector, then equation \ref{eq:def_taul} defines $\tau_l$ on a balanced growth path.
+The inflation rate in equation \ref{eq:gyd} captures the role of machine demand by the dirty sector. When the price at which dirty firms can sell their output is high, they demand more machines. A positive inflation, therefore, implies a rise in dirty output. As will be shown below, this mechanism ensures that the government can target dirty sector production through tax progressivity. 
+
+First, I establish an optimal policy result. Assume that the government cannot set the growth rate in the dirty sector, then equation \ref{eq:def_taul} defines $\tau_l$ on a balanced growth path.
 
 \begin{prop}[Determination tax progressivity]
-Assume $\upsilon_{d}$ is exogenously determined. 
-Then, to comply with the Paris Agreement, the government has to set the tax progressivity parameter $\tau_l$ to $\tau^*_l=1-\varepsilon$ (with $\varepsilon\neq 1$, as otherwise the exponent in \ref{eq:def_taul} is not defined under the optimal tax rate.).
+Assume growth of the dirty technology, $\upsilon_{d}$, is exogenously determined. 
+Then, to comply with the Paris Agreement, the government has to set the tax progressivity parameter, $\tau_l$, to $\tau^*_l=1-\varepsilon$ (with $\varepsilon\neq 1$, as otherwise the exponent in \ref{eq:def_taul} is not defined under the optimal tax rate.).
 When goods are complements, the optimal tax system is progressive. If goods are substitutes, the optimal tax system is regressive.
 \end{prop}
+
+The intuition is, that by choosing tax progressivity, the government affects price inflation in the dirty sector; compare equation \ref{eq:inf_d}. 
+The result implies that inflation in the dirty sector under the optimal policy is negative when there is positive growth in dirty technology. The demand for machines has to decline by the same rate as technology growths for dirty output to be constant.  
+
+Can this be an equilibrium as the price for dirty products declines?
+
+How does tax progressivity affect inflation? 
+\tr{Start from effect on HH:} 
+(1) A rise in $\tau_l$ reduces disposable income and aggregate demand falls. This is a mechanical result from a higher tax rate, and a reduction in aggregate hours supplied.  
+(1) For the dirty sector to demand labour, the costs of the labour input good has to balance its marginal product which positively depends on technological progress and the sector specific price. 
