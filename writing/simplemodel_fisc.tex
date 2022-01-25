@@ -202,6 +202,10 @@ Above equation determines inflation in the clean sector:
 \begin{align}\label{eq:inf_c}
 1+\pi_c=(1+\upsilon_{c})^{\frac{\tau_l(1-\alpha)}{(1-\tau_l)-\varepsilon(1-\alpha)-\alpha}}.
 \end{align}
+By symmetry of (i) how goods enter the production fo the final good and of (ii) sectors, it also holds that 
+\begin{align}\label{eq:inf_d}
+1+\pi_d=(1+\upsilon_{d})^{\frac{\tau_l(1-\alpha)}{(1-\tau_l)-\varepsilon(1-\alpha)-\alpha}}.
+\end{align}
 Hence, 
 \begin{align}\label{eq:agg_growth}
 	(1+g_y)=\frac{Y'}{Y}=(1+\upsilon_{c})^\frac{(1-\tau_l)[1-(\varepsilon(1-\alpha)+\alpha)]}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}.
@@ -231,3 +235,20 @@ Substitution into the production function of the clean labour input good yields
 \end{align*}
 
 \tr{To be continued.}
+
+\textbf{\tr{To be shown next:  How $\tau_l$ affects (1) skill supply (level) and (2) externality. }}
+
+\paragraph{Progressivity and emission targets}
+The constraint on emissions in the government's objective function implies that $Y_{dt}=\frac{\delta}{\kappa}$, thus, $(1+g_{ydt})=1$, for all time periods starting from 2050, $t\geq 30$. 
+
+From the dirty sector's production function and equation \ref{eq:inf_d} we have that
+\begin{align}\label{eq:def_taul}
+(1+\upsilon_{d})^{\frac{(1-\alpha)(1-\tau_l-\varepsilon)}{(1-\tau_l)-(\varepsilon(1-\alpha)+\alpha)}}=1
+\end{align}
+Assume that the government cannot set the growth rate in the dirty sector, then equation \ref{eq:def_taul} defines $\tau_l$ on a balanced growth path.
+
+\begin{prop}[Determination tax progressivity]
+Assume $\upsilon_{d}$ is exogenously determined. 
+Then, to comply with the Paris Agreement, the government has to set the tax progressivity parameter $\tau_l$ to $\tau^*_l=1-\varepsilon$ (with $\varepsilon\neq 1$, as otherwise the exponent in \ref{eq:def_taul} is not defined under the optimal tax rate.).
+When goods are complements, the optimal tax system is progressive. If goods are substitutes, the optimal tax system is regressive.
+\end{prop}
