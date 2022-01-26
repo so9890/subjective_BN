@@ -83,7 +83,7 @@ q=q+1;
 f(q)= wh/wl-zetaa;
 
 q=q+1;
-f(q)= zetaa*hl+hh- H;
+f(q)= zetaa*hh+hl- H;
 
 %-- final good production
 % production 

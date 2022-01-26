@@ -303,22 +303,27 @@ Using the values for $p_{jL}/w_s$ it follows that the optimal skill input ratios
 \begin{align*}
 \frac{l_{hc}}{l_{lc}}=\frac{\theta_c}{\zeta (1-\theta_c)}; \hspace{2mm} \frac{l_{hd}}{l_{ld}}=\frac{\theta_d}{\zeta (1-\theta_d)}.
 \end{align*}
-Imposing labour market clearing for both skills yields
+Imposing labour market clearing for both skills and optimal skill demand  yields 
 \begin{align*}
-l_{lc}= \frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}h_l.
+&l_{ld}=\frac{\theta_c}{1-\theta_c}\chi h_l-\chi \zeta h_h,\\
+& l_{lc}=\chi \zeta h_h-\frac{\theta_d}{1-\theta_d}\chi h_l\\
+with \ & \chi:= \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}.
+%& l_{hc}= \frac{\theta_c}{\zeta (1-\theta_c)}l_{lc}\\
+%& l_{hd}=\frac{\theta_d}{\zeta (1-\theta_d)}l_{ld}
 \end{align*}
-Labour good supply is then given by
+Labour good supply is then given by (where I substituted $h_h$)
 \begin{align}
-L_c&= \underbrace{\left(\frac{\theta_c}{\zeta(1-\theta_c)}\right)^{\theta_c}\frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}}_{=:\chi_c}h_l\label{eq:lab_inputc} \\
-L_d&= \underbrace{\left(\frac{\theta_d}{\zeta (1-\theta_d)}\right)^{\theta_d}\left[1-\frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}\right]}_{=:\chi_d}h_l.\label{eq:lab_inputd}
+L_c&=\underbrace{\left(\frac{\theta_c}{\zeta(1-\theta_c)}\right)^{\theta_c}}_{=:\gamma_c}\chi\left(H +\frac{\theta_d}{1-\theta_d} h_l\right)\label{eq:lab_inputc} \\
+L_d&= \underbrace{\left(\frac{\theta_d}{\zeta (1-\theta_d)}\right)^{\theta_d}}_{=:\gamma_d}\chi\left(\frac{1}{1-\theta_c} h_l-H\right).\label{eq:lab_inputd}
 \end{align}
 Substituting labour input in the sector-specific production functions, and using demand for sector goods, $Y_d=\left(\frac{p_c}{p_d}\right)^\varepsilon Y_c$, yields
 \begin{align*}
-p_d =p_c\left(\frac{\chi_c}{\chi_d}\frac{A_c}{A_d}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}.
+p_c =p_d\left(\frac{\gamma_d}{\gamma_c}\frac{A_d}{A_c}\left(\frac{\frac{1}{1-\theta_c}h_l-H}{H+\frac{\theta_d}{1-\theta_d}h_l}\right)\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}.
 \end{align*}
-Together with the definition of the aggregate price level and the choice of $Y$ as numeraire determines sector-specific prices:
+\tr{Note that now policy can affect inflation through changes in labour supply---}
+Together with the definition of the aggregate price level and the choice of $Y$ as numeraire determines sector-specific prices as a function of labour supply:
 \begin{align*}
-p_c= \left(1+\left(\frac{\chi_c}{\chi_d}\frac{A_c}{A_d}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
+p_d= \left(1+\left(\frac{\gamma_d}{\gamma_c}\frac{A_d}{A_c}\left(\frac{\frac{1}{1-\theta_c}h_l-H}{H+\frac{\theta_d}{1-\theta_d}h_l}\right)\right)^{\frac{(1-\alpha)(1-\varepsilon)}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
 \end{align*}
 From here,  equilibrium conditions determine prices $p_{dL}, p_{cL}$. Using \ref{eq:constant} skill wages follow. Together with the FOC on hours supply, wages determine aggregate demand. Imposing goods market clearing and using equations \ref{eq:lab_inputc} and \ref{eq:lab_inputd}, determines low skill hour demand in equilibrium.
 

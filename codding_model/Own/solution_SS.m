@@ -1,32 +1,44 @@
-function levels= solution_SS(Ac, Ad, params, pols, list)
+function levels= solution_SS(x, symsparams, pols, list, vars_tosolve)
 
 % function uses analytically derived BGP/initial SS equations to get model
 % variables determined by initial values and parameters, and policy
 
 % input:
-% Ac, Ad:   initial technology
-% params:   numeric vector of parameters
-% pols:     numeric vector of policy variables
+% Ac, Ad:       initial technology (can be numeric or symbolic)
+% symsparams:   numeric/symbolic vector of parameters
+% pols:         numeric/symbolic vector of policy variables
+% vars_tosolve: symbolic vector of controls and predetermined variables
+%               determines order of solutions in output (levels).                
 
 % output:
-% levels: numeric vector of model variables on BGP, first period
+% levels:  vector of model variables in first period given initial
+%          conditions. Ordered as order in vars_tosolve
 %% preparations 
 
-% read in required variables/parameters from input
-thetac=params(list.params=='thetac');
-thetad=params(list.params=='thetad');
-sigmaa=params(list.params=='sigmaa');
-zetaa=params(list.params=='zetaa');
-eppsilon=params(list.params=='eppsilon');
-alphaa=params(list.params=='alphaa');
-psii=params(list.params=='psii');
+Ac=x(list.x=='Ac');
+Ad=x(list.x=='Ad');
+
+% read in required symbolic variables/parameters from input
+% if instead of symsparams a numeric vector is provided 
+% these are numbers
+
+thetac=symsparams(list.params=='thetac');
+thetad=symsparams(list.params=='thetad');
+sigmaa=symsparams(list.params=='sigmaa');
+zetaa=symsparams(list.params=='zetaa');
+eppsilon=symsparams(list.params=='eppsilon');
+alphaa=symsparams(list.params=='alphaa');
+psii=symsparams(list.params=='psii');
 
 tauul=pols(list.pol=='tauul');
+lambdaa=pols(list.pol=='lambdaa');
 vc=pols(list.pol=='vc');
 vd=pols(list.pol=='vd');
 
 % auxiliary variables/parameters
-chic = (thetac/(zetaa*(1-thetac)))^(thetac)*((1-thetac)*(thetad-zetaa*(1-thetad)))/(thetad*(1-thetac)-thetac*(1-thetad));
+chic = (thetac/(zetaa*(1-thetac)))^(thetac)*...
+        ((1-thetac)*(thetad-zetaa*(1-thetad)))...
+        /(thetad*(1-thetac)-thetac*(1-thetad));
 chid = (thetad/(zetaa*(1-thetad)))^(thetad)*(1-((1-thetac)*(thetad-zetaa*(1-thetad)))/(thetad*(1-thetac)-thetac*(1-thetad)));
 
 %% solutions
@@ -71,9 +83,17 @@ lhc = thetac/(zetaa*(1-thetac))*llc;
 lhd = thetad/(zetaa*(1-thetad))*lld;
 
 % sector output
-yc = 
+yc = (1/(1+(chic*Ac/(chid*Ad))...
+    ^((eppsilon-1)*(1-alphaa)/(alphaa+eppsilon*(1-alphaa))))...
+    )^(eppsilon/(eppsilon-1))...
+    *lambdaa*(H*wl)^(1-tauul);
+
+yd= (pc/pd)^eppsilon*yc;
+
 % technology in next period
 Acp = (1+vc)*Ac;
 Adp = (1+vd)*Ad; 
 
+%% summarise
+levels=eval(vars_tosolve);
 end
