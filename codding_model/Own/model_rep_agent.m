@@ -41,6 +41,11 @@ syms c cp ...           % consumption
     vd vdp ...          % productivity growth dirty sector - gov choice
     vc vcp ...          % productivity growth clean sector - gov choice
     real
+%    ...
+%     ... % inflation
+%     pic picp ...        % inflation in the clean sector = pcp/pc
+%     pid pidp ...        % inflation in the dirty sector = pdp/pd
+    
 
 % parameters
 syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
@@ -59,8 +64,7 @@ symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, b
 %% Model f(yp, y, xp, x)=0 
 
 % auxiliary stuff
-H= zetaa*hl+hh;
-Hp=zetaa*hlp+hhp; 
+ 
 p=(pc^(1-eppsilon)+pd^(1-eppsilon))^(1/(1-eppsilon));
 pp=(pcp^(1-eppsilon)+pdp^(1-eppsilon))^(1/(1-eppsilon));
 
@@ -77,6 +81,9 @@ f(q)= H-(1-tauul)^(1/(1+sigmaa));
 
 q=q+1;
 f(q)= wh/wl-zetaa;
+
+q=q+1;
+f(q)= zetaa*hl+hh- H;
 
 %-- final good production
 % production 
@@ -157,6 +164,7 @@ f(q)= lhc+lhd-hh;
 q=q+1;
 f(q)= llc+lld-hl;
 
+
 fprintf('number model equations: %d', q);
 
 %% summarising variables
@@ -164,9 +172,10 @@ fprintf('number model equations: %d', q);
 % exogenous variables
 x  = [Ac Ad];
 xp = [Acp Adp]; 
+
 % endogenous variables
-y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld ];
-yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp];
+y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H];
+yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp];
 
 % policy variables: in laissez faire as if parameters
 pol  = [lambdaa tauul vc vd];
@@ -178,3 +187,5 @@ list.y=string(y);
 list.xp=string(xp);
 list.yp=string(yp);
 
+list.pol=string(pol);
+list.params=string(symsparams);

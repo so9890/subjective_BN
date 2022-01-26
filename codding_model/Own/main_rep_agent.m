@@ -6,6 +6,7 @@
 
 
 %% include path to package
+clc, clear
 folder='/home/sonja/Documents/projects/Overconsumption/codding_model/Own/tools'
 addpath(genpath(folder))
 
@@ -21,10 +22,3 @@ model_rep_agent;
 %% read in and check steady state file
 
 
-% check if ss values set model equations numerically close to zero
-cell.y=arrayfun(@char, list.y, 'uniform', 0);
-cell.x=arrayfun(@char, list.x, 'uniform', 0);
-cell.yp=arrayfun(@char, list.yp, 'uniform', 0);
-cell.xp=arrayfun(@char, list.xp, 'uniform', 0);
-
-modelSS=subs(model.f, [cell.x, cell.xp, cell.yp, cell.y], [Xss', Xss', Yss', Yss']);

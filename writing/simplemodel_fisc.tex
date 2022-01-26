@@ -287,13 +287,52 @@ From the definition of $H$ it has to hold that
 &1=\frac{dh_l}{dH}+\zeta \frac{dh_h}{dH}\label{eq:ident} \\
 \Leftrightarrow\ & \frac{dh_h}{dH}=\frac{1-\frac{dh_l}{dH}}{\zeta}.\label{eq:resp}
 \end{align}
-Using this equation, one can show that high skill supply is relatively more responsive to changes in total effective hours worked, i.e.,  $\frac{dh_h}{dH}>\frac{dh_l}{dH}$, if one excludes the case that high skill supply reduces as effective hours increase.\footnote{\ Proof: Suppose   $\frac{dh_h}{dH}>0$. Now, assume by contradiction that low skill supply is relatively more responsive. Hence, $\frac{dh_h}{dH}<\frac{dh_l}{dH}$. Using equation \ref{eq:resp}, one gets that $\frac{dh_l}{dH}>1+\zeta$. Replacing this inequality in the identity \ref{eq:ident}, it follows that $0>\zeta[1+\frac{dh_h}{dH}]$. Since $\zeta>1$ by assumption, it has to hold that $\frac{dh_h}{dH}<-1$ which contradicts the premise that $\frac{dh_h}{dH}>0$. } Thus, as the household reduces total effective hours supplied, the reduction in high skilled hours is higher. \tr{This should be due to the substitution effect being more pronounced: the marginal utility from less high skill is higher than from less low skill hours.} This should show up in general equilibrium effects... but relative wages are fixed. 
+Using this equation, one can show that high skill supply is relatively more responsive to changes in total effective hours worked, i.e.,  $\frac{dh_h}{dH}>\frac{dh_l}{dH}$, if one excludes the case that high skill supply reduces as effective hours increase.\footnote{\ Proof: Suppose   $\frac{dh_h}{dH}>0$. Now, assume by contradiction that low skill supply is relatively more responsive. Hence, $\frac{dh_h}{dH}<\frac{dh_l}{dH}$. Using equation \ref{eq:resp}, one gets that $\frac{dh_l}{dH}>1+\zeta$. Replacing this inequality in the identity \ref{eq:ident}, it follows that $0>\zeta[1+\frac{dh_h}{dH}]$. Since $\zeta>1$ by assumption, it has to hold that $\frac{dh_h}{dH}<-1$ which contradicts the premise that $\frac{dh_h}{dH}>0$. } Thus, as the household reduces total effective hours supplied, the reduction in high skilled hours is higher. \tr{This should be due to the marginal utility from less high skill is higher than from less low skill hours.} This should show up in general equilibrium effects... but relative wages are fixed. 
 
 
 \textbf{Supply side}
 Analogously to \ref{eq:constant}, one can show that
 \begin{align*}
 \frac{p_{cL}}{w_l}&=\zeta^{\theta_c}\theta_c^{-\theta_c}(1-\theta_c)^{-(1-\theta_c)}\\
-\frac{p_{dL}}{w_l}&=\zeta^{\theta_d}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}\\
+\frac{p_{dL}}{w_l}&=\zeta^{\theta_d}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}\ \Leftrightarrow\ w_l= p_{dL}\zeta^{-\theta_d}\theta_d^{\theta_d}(1-\theta_d)^{1-\theta_d}\\
 \frac{p_{dL}}{w_h}&=\zeta^{-(1-\theta_d)}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}.
 \end{align*}
+
+\subsection{Solution in levels - for coding}
+Using the values for $p_{jL}/w_s$ it follows that the optimal skill input ratios in the labour good production are
+\begin{align*}
+\frac{l_{hc}}{l_{lc}}=\frac{\theta_c}{\zeta (1-\theta_c)}; \hspace{2mm} \frac{l_{hd}}{l_{ld}}=\frac{\theta_d}{\zeta (1-\theta_d)}.
+\end{align*}
+Imposing labour market clearing for both skills yields
+\begin{align*}
+l_{lc}= \frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}h_l.
+\end{align*}
+Labour good supply is then given by
+\begin{align}
+L_c&= \underbrace{\left(\frac{\theta_c}{\zeta(1-\theta_c)}\right)^{\theta_c}\frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}}_{=:\chi_c}h_l\label{eq:lab_inputc} \\
+L_d&= \underbrace{\left(\frac{\theta_d}{\zeta (1-\theta_d)}\right)^{\theta_d}\left[1-\frac{(1-\theta_c)(\theta_d-\zeta(1-\theta_d))}{\theta_d(1-\theta_c)-\theta_c(1-\theta_d)}\right]}_{=:\chi_d}h_l.\label{eq:lab_inputd}
+\end{align}
+Substituting labour input in the sector-specific production functions, and using demand for sector goods, $Y_d=\left(\frac{p_c}{p_d}\right)^\varepsilon Y_c$, yields
+\begin{align*}
+p_d =p_c\left(\frac{\chi_c}{\chi_d}\frac{A_c}{A_d}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}.
+\end{align*}
+Together with the definition of the aggregate price level and the choice of $Y$ as numeraire determines sector-specific prices:
+\begin{align*}
+p_c= \left(1+\left(\frac{\chi_c}{\chi_d}\frac{A_c}{A_d}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
+\end{align*}
+From here,  equilibrium conditions determine prices $p_{dL}, p_{cL}$. Using \ref{eq:constant} skill wages follow. Together with the FOC on hours supply, wages determine aggregate demand. Imposing goods market clearing and using equations \ref{eq:lab_inputc} and \ref{eq:lab_inputd}, determines low skill hour demand in equilibrium.
+
+\begin{align*}
+h_l=\left( \frac{1}{\left(\frac{\alpha}{\psi}\right)^{\frac{\alpha}{1-\alpha}}\left[\left(p_c^\frac{\alpha}{1-\alpha}\chi_c A_c\right)^\frac{\varepsilon-1}{\varepsilon}+\left(p_d^\frac{\alpha}{1-\alpha}\chi_d A_d\right)^\frac{\varepsilon-1}{\varepsilon}\right]^\frac{\varepsilon}{\varepsilon-1}}\right)\ \lambda \left(H w_l\right)^{1-\tau_l}.
+\end{align*}
+
+Knowing $h_l$, the variables $L_c, \ L_d, \ h_h, \ l_{lc}, l_{ld}, l_{hc}, l_{hd}$ follow. 
+
+Output of the clean and dirty sector read
+\begin{align}
+%Y_d& =  \frac{\chi_d A_d}{\left[\left(\left(\chi_d A_d\right)^\frac{\alpha}{\alpha+\varepsilon(1-\alpha)}\left(\chi_c A_c\right)^\frac{\varepsilon(1-\alpha)}{\alpha+\varepsilon(1-\alpha)}\right)^\frac{\varepsilon-1}{\varepsilon}+\left(\chi_d A_d\right)^\frac{\varepsilon-1}{\varepsilon}\right]^\frac{\varepsilon}{\varepsilon-1}} \lambda (H w_l)^{1-\tau_l}\\
+&Y_d = \left(\frac{1}{\left(\frac{\chi_c A_c}{\chi_d A_d}\right)^{\frac{(\varepsilon-1)(1-\alpha)}{\alpha+\varepsilon(1-\alpha)}}+1}\right)^\frac{\varepsilon}{\varepsilon-1}\lambda (H w_l)^{1-\tau_l}\\
+& Y_c= \left(\frac{1}{1+\left(\frac{\chi_d A_d}{\chi_c A_c}\right)^{\frac{(\varepsilon-1)(1-\alpha)}{\alpha+\varepsilon(1-\alpha)}}}\right)^\frac{\varepsilon}{\varepsilon-1}\lambda (H w_l)^{1-\tau_l}.
+\end{align}
+
+The government can affect dirty production by lowering aggregate demand. Note that $\chi_c,\ \chi_d$ are functions of the disutility from high skill labour supply, $\zeta$. As a result, the elasticity of diryt and clean output to tax progressivity is asymmetric.
