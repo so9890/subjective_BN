@@ -1,4 +1,4 @@
-function levels= solution_SS(x, symsparams, pols, list, vars_tosolve)
+function levels= solution_SS(x, symsparams, pols, list, vars_tosolve, init)
 
 % function uses analytically derived BGP/initial SS equations to get model
 % variables determined by initial values and parameters, and policy
@@ -8,7 +8,8 @@ function levels= solution_SS(x, symsparams, pols, list, vars_tosolve)
 % symsparams:   numeric/symbolic vector of parameters
 % pols:         numeric/symbolic vector of policy variables
 % vars_tosolve: symbolic vector of controls and predetermined variables
-%               determines order of solutions in output (levels).                
+%               determines order of solutions in output (levels).    
+% init        : if exists, initial values for skill supply
 
 % output:
 % levels:  vector of model variables in first period given initial
@@ -35,17 +36,33 @@ lambdaa=pols(list.pol=='lambdaa');
 vc=pols(list.pol=='vc');
 vd=pols(list.pol=='vd');
 
+% read in labour variables (guesses)
+H  = init(list.init=='H');
+hl = init(list.init=='hl');
+hh = init(list.init=='hh');
+
 % auxiliary variables/parameters
-chic = (thetac/(zetaa*(1-thetac)))^(thetac)*...
-        ((1-thetac)*(thetad-zetaa*(1-thetad)))...
-        /(thetad*(1-thetac)-thetac*(1-thetad));
-chid = (thetad/(zetaa*(1-thetad)))^(thetad)*(1-((1-thetac)*(thetad-zetaa*(1-thetad)))/(thetad*(1-thetac)-thetac*(1-thetad)));
+% chic = (thetac/(zetaa*(1-thetac)))^(thetac)*...
+%         ((1-thetac)*(thetad-zetaa*(1-thetad)))...
+%         /(thetad*(1-thetac)-thetac*(1-thetad));
+% chid = (thetad/(zetaa*(1-thetad)))^(thetad)*(1-((1-thetac)*(thetad-zetaa*(1-thetad)))/(thetad*(1-thetac)-thetac*(1-thetad)));
+
+gammad = (thetad/(zetaa*(1-thetad)))^thetad;
+gammac = (thetac/(zetaa*(1-thetac)))^thetac;
+chii   = (1-thetad)*(1-thetac)/(thetac*(1-thetad)-thetad*(1-thetac));
+
+labc   = H+thetad/(1-thetad)*hl;
+labd   = 1/(1-thetac)*hl-H;
 
 %% solutions
 
+% labour input good
+Lc= gammac*chii*labc;
+Ld= gammad*chii*labd;
+
 % sector good prices
-pc = ((chic/chid*Ac/Ad)^((1-alphaa)*(1-eppsilon)/(alphaa+eppsilon*(1-alphaa)))+1)^(-1/(1-eppsilon));
-pd = pc*(chic/chid*Ac/Ad)^((1-alphaa)/(alphaa+eppsilon*(1-alphaa)));
+pd = ((gammad/gammac*Ad/Ac*labd/labc)^((1-alphaa)*(1-eppsilon)/(alphaa+eppsilon*(1-alphaa)))+1)^(-1/(1-eppsilon));
+pc = pd*(gammad/gammac*Ad/Ac*labd/labc)^((1-alphaa)/(alphaa+eppsilon*(1-alphaa)));
 
 % labour input prices
 pcL = (1-alphaa)*(alphaa/psii)^(alphaa/(1-alphaa))*pc^(1/(1-alphaa))*Ac;
@@ -56,37 +73,21 @@ wl = pdL*zetaa^(-thetad)*thetad^thetad*(1-thetad)^(1-thetad);
 wh = zetaa*wl;
 
 % household
-H = (1-tauul)^(1/(1+sigmaa)); 
+%H = (1-tauul)^(1/(1+sigmaa)); 
 c = lambdaa*(H*wl)^(1-tauul);
 
 % goods market clearing
 Y = c;
 
-% hl as defined in paper
-hl= (alphaa/psii)^(-alphaa/(1-alphaa))*...
-    ((pc^(alphaa/(1-alphaa))*chic*Ac)^((eppsilon-1)/eppsilon)+...
-      (pd^(alphaa/(1-alphaa))*chid*Ad)^((eppsilon-1)/eppsilon)...
-      )^(-eppsilon/(eppsilon-1))*lambdaa*(H*wl)^(1-tauul);
-
-% high skill supply
-hh = 1/zetaa*(H-hl);
-
-% Labour input good production 
-Lc=chic*hl;
-Ld=chid*hl;
-
 % skill inputs
-llc = Lc*(thetac/(zetaa*(1-thetac)))^(-thetac);
-lld = Ld*(thetad/(zetaa*(1-thetad)))^(-thetad);
+llc = Lc/gammac;
+lld = Ld/gammad;
 
-lhc = thetac/(zetaa*(1-thetac))*llc;
-lhd = thetad/(zetaa*(1-thetad))*lld;
+lhc = gammac^(1/thetac)*llc;
+lhd = gammad^(1/thetad)*lld;
 
 % sector output
-yc = (1/(1+(chic*Ac/(chid*Ad))...
-    ^((eppsilon-1)*(1-alphaa)/(alphaa+eppsilon*(1-alphaa))))...
-    )^(eppsilon/(eppsilon-1))...
-    *lambdaa*(H*wl)^(1-tauul);
+yc = (alphaa/psii)^(alphaa/(1-alphaa))*Ac*Lc;
 
 yd= (pc/pd)^eppsilon*yc;
 

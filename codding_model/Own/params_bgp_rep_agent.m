@@ -1,4 +1,4 @@
-function [params, analy_solution]=params_bgp_rep_agent(symsparams, f, pol, xp, y, x )
+function [params, pols, analy_solution]=params_bgp_rep_agent(symsparams, f, pol, xp, y, x )
 
 % function to read in parameter values and balanced growth path
 % retrieves solution to analytically solvable model as symbolic vector
@@ -19,7 +19,8 @@ function [params, analy_solution]=params_bgp_rep_agent(symsparams, f, pol, xp, y
 %% symbolic solution: choice variables as a function of Ad, Ac, policy and parameters
 % uses analytically derived equations
 
-analy_solution=solution_SS(x, symsparams, pol, list, [y, xp]);
+% some mistake; check later
+%analy_solution=solution_SS(x, symsparams, pol, list, [y, xp]);
 
 %% Calibration 
 sigmaa   = 1/0.75;      % from Chetty et al 
@@ -45,38 +46,53 @@ vd      = Uppsilon-vc;  % growth dirty sector
 pols_num=eval(pol);
 
 %% numeric solution 
-% uses analytical results as initial values despite modelling differences
+% uses analytical functions as initial values (despite modelling
+% differences)
+
+%-- evaluate model at initial conditions, parameters, and policy
+%   instruments. Then, extract variables for which to solve model and
+%   write model as a function. 
 
 % initial conditions
 Ad=8;
 Ac=4;
 x_init=eval(x);
 
-% Test if analytic solution to SS sets model equations numerically to zero
+% substitute numeric values
 model_num=subs(f, [symsparams, pol, x], [params, pols_num, x_init]); % as a function of initial values Ad, Ac
-num_solution=eval(subs(analy_solution, [symsparams, pol, x], [params, pols_num, x_init]));
 
-modelSS= eval(subs(model_num, [y, xp], num_solution)); % important to have y and x in order as passes to solution_SS!
-
-if max(modelSS)>1.e-14
-    error('SS not found')
-end
-
-%%
-% write model as function 
-matlabFunction(model_num, 'vars', {[y, xp]}, 'File', 'model_fun' ); % vars: variables for which to solve model
-                                                                    % File: filename of function 
-% get variables for which to solve model                                                                    
+% variables for which to solve model numerically
 vars_tosolve=symvar(model_num);
 
+% write model as function 
+matlabFunction(model_num, 'vars', {vars_tosolve}, 'File', 'model_tosolve' );
 
-% initial values: use analytically derived solution as starting values
-Acp=(1+vc)*Ac_init;
-Adp=(1+vd)*Ad_init; 
-Lc=
-x0=[]
-modFF = @(x)model_num(x);
-options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, 'TolFun', 10e-8);%, );%, 'Display', 'Iter', );
+%-- initial values: use analytically derived solution as starting values
+%   and guesses for hours supplied
 
-[y, fval, exitflag]=fsolve(modFF, guess_trans, options);
+H=(1-tauul)^(1/(1+sigmaa));
+% guess distribution of H on hl and hh
+hh=H/4; % one fourth in high skill hours
+hl=H-zetaa*hh;
+
+% vector of guesses and list
+init=[H, hh, hl];
+list.init=["H", "hh", "hl"];
+
+%-- solve function using fsolve
+%   pass numeric versions of initial values, parameters, policy to
+%   analytic (half) solution
+%   results ordered as in vars_tosolve (= order of variables in model_tosolve)
+
+guess=solution_SS(x_init, params, pols_num, list, vars_tosolve, init);
+
+modFF = @(x)model_tosolve(x);
+options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-15);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+
+[vars_solution, fval, exitflag]=fsolve(modFF, guess, options);
+
+%% evaluate vectors of y and xp
+endo_vars_num=eval(subs([y, xp], vars_tosolve, vars_solution));
+y=endo_vars_num(1:21);
+x=endo_vars_num(22:23);
 end
