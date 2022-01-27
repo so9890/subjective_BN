@@ -24,7 +24,7 @@ function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol,
 
 %% Calibration 
 sigmaa   = 1/0.75;      % from Chetty et al 
-zetaa    = 1;         % matches skill premium; with zeta==1 there is no 
+zetaa    = 1.4;         % matches skill premium; with zeta==1 there is no 
                         % difference in skills from a hh perspective
 eppsilon = 10;           % elasticity of substitution clean and dirty production
 alphaa   = 1/3;         % income share capital
@@ -39,9 +39,21 @@ params=eval(symsparams);
 
 % policy variables
 tauul   = 0.181;        % progressivity; taken from HSV
-lambdaa = 1;            % as if not there
+% have to ensure that tauul>(1-alphaa)*(1-eppsilon) in the case of
+% substitutes
+if eppsilon>1
+   if tauul<(1-alphaa)*(1-eppsilon)
+       display ('*********the program is not stable for that range, with goods being substitutes******************')
+   end
+elseif eppsilon<1
+    if tauul>(1-alphaa)*(1-eppsilon)
+       display ('*********the program is not stable for that range, with goods being complements******************')
+    end
+end
+
+lambdaa = 1;             % as if not there
 vc      = 0.001;         % growth clean sector
-vd      = Uppsilon-vc;  % growth dirty sector
+vd      = Uppsilon-vc;   % growth dirty sector
 
 pols_num=eval(pol);
 

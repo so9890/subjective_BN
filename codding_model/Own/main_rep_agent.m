@@ -25,7 +25,7 @@ model_rep_agent;
 %% simulate model for 30 years (until 2050)
 
 % number of periods for simulation 
-T=151;
+T=201;
 time=1:T; % vector of periods (1 is the initial period)
 
 % initialise matrices to save results
@@ -42,8 +42,8 @@ hours=[H, hh, hl];
 list.hours=["H", "hh", "hl"];
 
 % initial conditions technology
-Ad=8;
-Ac=4;
+Ad=3;
+Ac=2;
 
 x_init=eval(x);
 
@@ -84,6 +84,10 @@ legend(sprintf('%s', list.plot(i)))
 end
 
 suptitle('BGPs')
-path=sprintf('figures/Rep_agent/bgps_periods%d_eppsilon%d_zeta%d.png', T-1, ...
-    params(list.params=='eppsilon'),round(params(list.params=='zetaa')*10) );
+path=sprintf('figures/Rep_agent/bgps_periods%d_eppsilon%d_zeta%d_Ad0%d_Ac0%d.png', T-1, ...
+    params(list.params=='eppsilon'),round(params(list.params=='zetaa')*10), Ad,Ac );
 saveas(gcf,path)
+
+p_sim=(y_sim(list.y=='pd',:).^(1-params(list.params=='eppsilon'))+y_sim(list.y=='pc',:).^(1-params(list.params=='eppsilon'))).^(1/(1-params(list.params=='eppsilon')));
+figure(2)
+plot(time, p_sim)

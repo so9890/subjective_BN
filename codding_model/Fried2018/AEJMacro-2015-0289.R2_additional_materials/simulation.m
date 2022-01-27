@@ -236,3 +236,7 @@ deltaEmissionsNI = (emissions(:,3) - emissions(:,1))./emissions(:,1)*100;
 
 save baseResults
 
+%% Sonja plots
+
+% figure(1)
+% plot(1:Tsim, pm(:,1))
