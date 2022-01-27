@@ -1,4 +1,4 @@
-function [params, pols, analy_solution]=params_bgp_rep_agent(symsparams, f, pol, xp, y, x )
+function [params, pols_num, yss, xpss]=params_bgp_rep_agent(symsparams, f, pol, xp, y, x )
 
 % function to read in parameter values and balanced growth path
 % retrieves solution to analytically solvable model as symbolic vector
@@ -92,7 +92,16 @@ options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10
 [vars_solution, fval, exitflag]=fsolve(modFF, guess, options);
 
 %% evaluate vectors of y and xp
-endo_vars_num=eval(subs([y, xp], vars_tosolve, vars_solution));
-y=endo_vars_num(1:21);
-x=endo_vars_num(22:23);
+
+yss=zeros(size(list.y));
+xpss=zeros(size(list.xp));
+
+for i =list.y
+   yss(list.y==i) =vars_solution(vars_tosolve==i);
+end
+
+for i = list.xp
+    xpss(list.xp==i)= vars_solution(vars_tosolve==i);
+end
+
 end
