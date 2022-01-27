@@ -9,7 +9,7 @@ function levels= solution_SS(x, symsparams, pols, list, vars_tosolve, init)
 % pols:         numeric/symbolic vector of policy variables
 % vars_tosolve: symbolic vector of controls and predetermined variables
 %               determines order of solutions in output (levels).    
-% init        : if exists, initial values for skill supply
+% init:         initial values for skill supply
 
 % output:
 % levels:  vector of model variables in first period given initial
@@ -37,9 +37,9 @@ vc=pols(list.pol=='vc');
 vd=pols(list.pol=='vd');
 
 % read in labour variables (guesses)
-H  = init(list.init=='H');
-hl = init(list.init=='hl');
-hh = init(list.init=='hh');
+H  = init(list.hours=='H');
+hl = init(list.hours=='hl');
+hh = init(list.hours=='hh');
 
 % auxiliary variables/parameters
 % chic = (thetac/(zetaa*(1-thetac)))^(thetac)*...
