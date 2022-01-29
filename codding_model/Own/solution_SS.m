@@ -98,6 +98,10 @@ Adp = (1+vd)*Ad;
 % machines
 xd = (alphaa/psii*pd)^(1/(1-alphaa))*Ad*Ld;
 xc = (alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
+
+% gov budget
+G = (H*wl-lambdaa*(H*wl)^(1-tauul));
+
 %% summarise
 levels=eval(vars_tosolve);
 end

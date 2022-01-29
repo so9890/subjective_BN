@@ -93,7 +93,7 @@ saveas(gcf,path)
 
 p_sim=(y_sim(list.y=='pd',:).^(1-params(list.params=='eppsilon'))+y_sim(list.y=='pc',:).^(1-params(list.params=='eppsilon'))).^(1/(1-params(list.params=='eppsilon')));
 % check market clearing
-demand_output= params(list.params=='psii').*(y_sim(list.y=='xd',:)+y_sim(list.y=='xc',:))+ y_sim(list.y=='c',:);
+demand_output= params(list.params=='psii').*(y_sim(list.y=='xd',:)+y_sim(list.y=='xc',:))+ y_sim(list.y=='c',:)+ y_sim(list.y=='G',:);
 
 figure(2)
 plot(time, p_sim)

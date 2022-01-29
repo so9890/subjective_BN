@@ -149,7 +149,9 @@ H_t=\zeta h_{ht}+h_{lt}
 %
 \text{Demand low skill dirty sector } \hspace{4mm}&l_{ldt}= \left(\frac{p_{dLt}}{w_{lt}}\right)^{\frac{1}{\theta_d}}(1-\theta_d)^{\frac{1}{\theta_d}}l_{hdt}\\
 \text{\textbf{Market clearing}}& \nonumber\\
-\text{Final Good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)%\psi \left(\int_0^1\left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}+\int_0^1\left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\right)
+\text{Budget}\hspace{4mm}& G_t=H_tw_{lt}-\lambda_t(H_t w_{lt})^{(1-\tau_{lt})}\\
+\text{\textbf{Market clearing}}& \nonumber\\
+\text{Final Good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)+G_t%\psi \left(\int_0^1\left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}+\int_0^1\left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\right)
 ;\\
 & \ 
 (\text{Numeraire}\ \  p_t=1)\\
@@ -191,7 +193,7 @@ Using the definition of the aggregate price level, final good production, and op
 since $\frac{L_{c}'}{L_c}=1$.
 Using goods market clearance, the budget condition, and the FOC for total skill supply, it follows that 
 \begin{align}\label{eq:agg_demand}
-\frac{Y'}{Y}= \left(\frac{w'_h}{w_h}\right)^{1-\tau_l}. \hspace{3mm} \text{(Demand side)}
+\frac{Y'}{Y}= \left(\frac{w'_h}{w_h}\right)^{1-\tau_l}. \hspace{3mm} \text{(Demand side)}\tr{\text{wrong, misses gov expenditures... or let lambdaa adjust}}
 \end{align}
 Demand for the labour input good implies that 
 \begin{align}\label{eq:labour income}
