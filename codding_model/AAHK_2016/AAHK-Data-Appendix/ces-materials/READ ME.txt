@@ -1,0 +1,19 @@
+These materials provide empirical background for the moments and distributions that are 
+included in our simulations. 
+
+The central file is programs-ces-consolidated.do, which provides the core programs used
+at Center of Economic Studies (CES) to provide the results given in the text. Disclosure 
+restrictions only allow us to provide programs, and some parts of these programs are 
+redacted due to the firm-level information and identifiers used in the code. The file 
+provides greater annotation to guide on this front.
+
+The second file is programs-external-consolidated.do, providing some complementary pieces 
+that mainly prepare for the estimations conducted internal to the Census Bureau. The
+central output from this work is env-data-prep1c2.dta that consolidates our designations
+of clean and dirty energy patents based upon their technology codes.
+
+We are able to provide the env-data-prep1c2.dta file that contains patent records that
+form the core of our environment technology sample. This file is used directly at the Census 
+Bureau in our analysis. It designates patents connected to clean energy vs. dirty energy. It
+also notes the classes designated by Popp and Newell (2012). Patent filing numbers can be 
+used to link these records to many external patent sources. 

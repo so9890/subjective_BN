@@ -25,7 +25,7 @@ model_rep_agent;
 %% simulate model for 30 years (until 2050)
 
 % number of periods for simulation 
-T=201;
+T=51;
 time=1:T; % vector of periods (1 is the initial period)
 
 % initialise matrices to save results
@@ -42,8 +42,8 @@ hours=[H, hh, hl];
 list.hours=["H", "hh", "hl"];
 
 % initial conditions technology
-Ad=3;
-Ac=2;
+Ad=8;
+Ac=4;
 
 x_init=eval(x);
 
@@ -78,16 +78,26 @@ list.joint=[list.y, list.x];
 figure(1)
 
 for i=1:length(list.plot)
-subplot(length(list.plot)/nn,nn,i)
+subplot(floor(length(list.plot)/nn)+1,nn,i)
 plot(time, plotts(list.joint==list.plot(i),:))
 legend(sprintf('%s', list.plot(i)))
 end
 
 suptitle('BGPs')
-path=sprintf('figures/Rep_agent/bgps_periods%d_eppsilon%d_zeta%d_Ad0%d_Ac0%d.png', T-1, ...
-    params(list.params=='eppsilon'),round(params(list.params=='zetaa')*10), Ad,Ac );
+path=sprintf('figures/Rep_agent/bgps_periods%d_eppsilon%d_zeta%d_Ad0%d_Ac0%d_thetac%d_thetad%d.png', T-1, ...
+    params(list.params=='eppsilon'), params(list.params=='zetaa')*10, Ad,Ac,...
+    params(list.params=='thetac')*10, params(list.params=='thetad')*10 );
 saveas(gcf,path)
 
+%% aggregate price level
+
 p_sim=(y_sim(list.y=='pd',:).^(1-params(list.params=='eppsilon'))+y_sim(list.y=='pc',:).^(1-params(list.params=='eppsilon'))).^(1/(1-params(list.params=='eppsilon')));
+% check market clearing
+demand_output= params(list.params=='psii').*(y_sim(list.y=='xd',:)+y_sim(list.y=='xc',:))+ y_sim(list.y=='c',:);
+
 figure(2)
 plot(time, p_sim)
+
+figure(3)
+plot(time, demand_output, time, y_sim(list.y=='Y',:))
+legend('demand', 'supply')

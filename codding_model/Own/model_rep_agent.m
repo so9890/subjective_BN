@@ -34,6 +34,8 @@ syms c cp ...           % consumption
     llc llcp ...        % low skill input clean sector
     lhd lhdp ...        % high skill input dirty sector
     lld lldp ...        % low skill input dirty sector
+    xd xdp ...          % machines dirty sector
+    xc xcp ...          % machines clean sector
     ...
     ... % productivity
     Ac Acp ...          % productivity clean sector
@@ -164,6 +166,15 @@ f(q)= lhc+lhd-hh;
 q=q+1;
 f(q)= llc+lld-hl;
 
+% additional variables to be tracked
+%machines dirty
+q=q+1;
+f(q)= xd-(alphaa/psii*pd)^(1/(1-alphaa))*Ad*Ld;
+
+% machines clean
+q=q+1;
+f(q)= xc-(alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
+
 
 fprintf('number model equations: %d', q);
 
@@ -174,8 +185,8 @@ x  = [Ac Ad];
 xp = [Acp Adp]; 
 
 % endogenous variables
-y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H];
-yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp];
+y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd];
+yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp];
 
 % policy variables: in laissez faire as if parameters
 pol  = [lambdaa tauul vc vd];

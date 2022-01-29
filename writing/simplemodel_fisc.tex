@@ -1,5 +1,6 @@
 \section{Simple Model and Hypothesis}
-Simple model with representative agent who provides two skills: high and low. I look at steady states: laissez faire versus the steady state under the optimal policy. 
+This section presents a simple representative household model. The representative household provides two skills: high and low. I look at steady states: laissez faire versus the steady state under the optimal policy. 
+The model builds on \cite{Acemoglu2012TheChange} and \cite{Heathcote2017OptimalFramework}. 
 The focus rests on matching emissions in the model to emission targets suggested by the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
 
 How to determine the economy in 2050? Should the economy have reached a steady state? or should it be in a transitional path? Maybe no need to specify this...it will be a outcome. All I have to use is that for all years after 2050 net-emissions have to be zero. Whether the economy is on the transitional path or in a steady state is an outcome. 
@@ -53,7 +54,7 @@ where $\theta_c>\theta_d$ so that the clean sectors labour input has a higher sh
 
 
 \paragraph{Machine producing firms}
-A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms. It follows that $p_{ijt}=\psi$.
+A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. I assume that the costs to produce one machine, $\psi$, are homogeneous across firms. It follows that $p_{ijt}=\psi$.
 
 
 \paragraph{Technological progress}
@@ -62,6 +63,7 @@ Technological progress is exogenous:
 A_{ijt+1}=(1+\upsilon_{jt}) A_{ijt}\ for \ j \in\{c,d\}. 
 \end{align}
 
+\begin{comment}
 \paragraph{Impossibility of reaching target in laissez-faire with exogenous growth}
 \tr{Note that this is wrong! There is an option for the gov to affect inflation which then redirects demand.}
 Note that with exogenous growth in each sector there is no possibility for the government to stop emissions from growing, since production of the dirty good is essential for the consumption good (no perfect substitution: $\varepsilon<\infty$). To meet the emission target, the government either needs to affect the growth rate in the economy; i.e., $\upsilon_j$ is a choice variable, or work and consumption need to be set to zero; or the emission target has to be defined in relative terms. The latter possibility contradicts the Paris Agreement which is concerned with absolute emissions.  
@@ -71,7 +73,7 @@ The government chooses the growth rate in each sector, taking into account that 
 \begin{align}
 \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon
 \end{align}
- 
+\end{comment} 
   
 \paragraph{Government}
 
@@ -79,10 +81,10 @@ The government maximises social welfare but is constrained by meeting emission t
 
 \begin{align*}
 \underset{\{\tau_{lt}, \upsilon_{ct}, \upsilon_{dt}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
-s.t.\ & (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
-& (2)\ \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
-& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
-& (4)\ \text{behaviour of firms and households}
+s.t.\ %& (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+& (1)\ \underbrace{\kappa Y_{nt}}_{\text{emissions in t}} -\delta \leq E_t \  \forall \ t\geq 0\\
+%& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
+& (2)\ \text{behaviour of firms and households}
 \end{align*}
 
 $E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050 and in 2030 to $E_t= 25-30GtCO2e\ yr^{-1}$. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. 
@@ -105,11 +107,14 @@ Some rationale for setting hours restriction?
 
 \begin{align*}
 \text{\textbf{Household}} & \\
-\text{FOC consumption}\hspace{4mm}&  \log(c_t)= \log(\lambda_t)+ (1-\tau_{lt})\left[\frac{1}{1+\sigma}\log(1-\tau_{lt})+\log(w_{lt})\right]\\
-\text{FOCs labour supply}\hspace{4mm}&  \log(H_t)=\frac{1}{1+\sigma}\log(1-\tau_{lt})\\
-\ \hspace{4mm} & \log(w_{ht})=\log(w_{lt})+\log(\zeta)\\
-\text{definition}\  H_t\hspace{4mm} & \log(H_t)=\log(h_{lt}+\zeta h_{ht})\\
-\ 
+\text{FOCs labour supply}\hspace{4mm}&  %\log(H_t)=\frac{1}{1+\sigma}\log(1-\tau_{lt})\\
+H_t=(1-\tau_{lt})^\frac{1}{1+\sigma}\\
+\ \hspace{4mm} & %\log(w_{ht})=\log(w_{lt})+\log(\zeta)\\
+w_{ht}=\zeta w_{lt}\\
+\text{Budget}\hspace{4mm}&  %\log(c_t)= \log(\lambda_t)+ (1-\tau_{lt})\left[\frac{1}{1+\sigma}\log(1-\tau_{lt})+\log(w_{lt})\right]\\
+c_t= \lambda_t (H_tw_{lt})^{(1-\tau_{lt})}\\
+\text{definition}\  H_t\hspace{4mm} & %\log(H_t)=\log(h_{lt}+\zeta h_{ht})\\
+H_t=\zeta h_{ht}+h_{lt}
 \\
 \text{\textbf{Production}}& \\
 \text{\textbf{Final Good Producer}}\\
@@ -144,7 +149,9 @@ Some rationale for setting hours restriction?
 %
 \text{Demand low skill dirty sector } \hspace{4mm}&l_{ldt}= \left(\frac{p_{dLt}}{w_{lt}}\right)^{\frac{1}{\theta_d}}(1-\theta_d)^{\frac{1}{\theta_d}}l_{hdt}\\
 \text{\textbf{Market clearing}}& \nonumber\\
-\text{Consumption Good}\hspace{4mm}& Y_{t}=c_t; \ 
+\text{Final Good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)%\psi \left(\int_0^1\left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}+\int_0^1\left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\right)
+;\\
+& \ 
 (\text{Numeraire}\ \  p_t=1)\\
 \text{high skill}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
 \text{low skill}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}\\
@@ -303,6 +310,8 @@ Focus on the case that goods are substitutes. Then the condition in the \textit{
 Analogously, when goods are complements, the \textit{or}-statement excludes regressive tax systems.
 I, therefore, ensure that when goods are complements, it holds that $\tau_l<(1-\alpha)(1-\varepsilon)$. When they are substitutes, it holds that $\tau_l>(1-\alpha)(1-\varepsilon)$.
 
+
+\tr{Remaining problem: prices are not constant on BGP with fixed growth rates...Look at literature on positive trend inflation...}
 \paragraph{Effect of $\tau_l$ on skill investment}
 From the definition of $H$ it has to hold that 
 \begin{align}

@@ -95,6 +95,9 @@ yd= (pc/pd)^eppsilon*yc;
 Acp = (1+vc)*Ac;
 Adp = (1+vd)*Ad; 
 
+% machines
+xd = (alphaa/psii*pd)^(1/(1-alphaa))*Ad*Ld;
+xc = (alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
 %% summarise
 levels=eval(vars_tosolve);
 end

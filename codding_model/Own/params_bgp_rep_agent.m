@@ -26,12 +26,12 @@ function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol,
 sigmaa   = 1/0.75;      % from Chetty et al 
 zetaa    = 1.4;         % matches skill premium; with zeta==1 there is no 
                         % difference in skills from a hh perspective
-eppsilon = 10;           % elasticity of substitution clean and dirty production
+eppsilon = 0.4;           % elasticity of substitution clean and dirty production
 alphaa   = 1/3;         % income share capital
 psii     = alphaa^2;    % cost of machine production following AA12
-thetac   = 0.6;         % high skill labour share clean sector
-thetad   = thetac*0.7;  % high skill labour share dirty sector
-Uppsilon = 0.01;         % sum of growth rates; used as an upper bound
+thetac   = 0.7;         % high skill labour share clean sector
+thetad   = thetac*0.8;  % high skill labour share dirty sector
+Uppsilon = 0.08;         % sum of growth rates; used as an upper bound
 betaa    = 0.999;       % matches time preference in AA12 (rho= 0.001; betaa=exp(-rho))
 
 % numeric vector of parameter values
@@ -52,7 +52,7 @@ elseif eppsilon<1
 end
 
 lambdaa = 1;             % as if not there
-vc      = 0.001;         % growth clean sector
+vc      = 0.01;         % growth clean sector
 vd      = Uppsilon-vc;   % growth dirty sector
 
 pols_num=eval(pol);
