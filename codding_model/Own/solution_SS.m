@@ -1,4 +1,4 @@
-function levels= solution_SS(x, symsparams, pols, list, vars_tosolve, init)
+function levels= solution_SS(x, symsparams, pols, list, vars_tosolve, init, indic)
 
 % function uses analytically derived BGP/initial SS equations to get model
 % variables determined by initial values and parameters, and policy
@@ -76,9 +76,6 @@ wh = zetaa*wl;
 %H = (1-tauul)^(1/(1+sigmaa)); 
 c = lambdaa*(H*wl)^(1-tauul);
 
-% goods market clearing
-Y = c;
-
 % skill inputs
 llc = Lc/gammac;
 lld = Ld/gammad;
@@ -101,6 +98,13 @@ xc = (alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
 
 % gov budget
 G = (H*wl-lambdaa*(H*wl)^(1-tauul));
+
+% goods market clearing
+if indic.fullDisposal==1
+    Y = c+psii*(xd+xc);
+else
+    Y = c+psii*(xd+xc)+G;
+end
 
 %% summarise
 levels=eval(vars_tosolve);

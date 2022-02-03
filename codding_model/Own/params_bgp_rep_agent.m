@@ -1,4 +1,4 @@
-function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, list)
+function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, indic)
 
 % function to read in parameter values and to numerically calculate initial 
 % period values of endogenous variables.
@@ -52,9 +52,17 @@ elseif eppsilon<1
 end
 
 lambdaa = 1;             % as if not there
-vc      = 0.01;         % growth clean sector
-vd      = Uppsilon-vc;   % growth dirty sector
 
+if indic.het_growth==1       % heterogeneous growth, there should be no structural change!
+    vd      = 0.07;          % growth dirty sector
+    vc      = Uppsilon-vd;   % growth clean sector
+    
+elseif indic.het_growth==0  % sectors grow at a equal rate
+    
+    vd      = 0.07;         % growth clean sector
+    vc      = vd; 
+    
+end
 pols_num=eval(pol);
 
 % substitute in model

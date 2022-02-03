@@ -1,7 +1,8 @@
 %% Representative agent model
 
 % laissez faire economy
-% model written with symbolic variables
+
+% THIS VERSION: the government fully disposes of its revenues! 
 
 % with two skill types if zetaa!=1
 
@@ -109,7 +110,7 @@ f(q)= pcL-(1-alphaa)*(alphaa/psii)^(alphaa/(1-alphaa))*pc^(1/(1-alphaa))*Ac;
 % machine demand: already substituted!
 
 %-- dirty sector
-%production
+% production
 q=q+1;
 f(q)= yd-(alphaa/psii)^(alphaa/(1-alphaa))*pd^(alphaa/(1-alphaa))*Ad*Ld;
 
@@ -157,7 +158,8 @@ f(q)= Adp-(1+vd)*Ad;
 %-- market clearing
 % numeraire (aggregate goods market clears by walras' law)
 q=q+1;
-f(q)= p-1;
+%f(q)= p-1;
+f(q) = Y-c-psii*(xd+xc);
 
 % high skill market
 q=q+1;
