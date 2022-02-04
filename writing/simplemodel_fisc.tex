@@ -164,13 +164,13 @@ This is the common result that  factor shares
 % this refers to (wh lhc)/(wl llc)
  are constant over time with a Cobb-Douglas production function. 
 Imposing labour market clearing for both skills and optimal skill demand  yields 
-\begin{align*}
-&l_{ld}=\chi\left(\frac{1}{1-\theta_c}h_l-H\right)\\ %\frac{\theta_c}{1-\theta_c}\chi h_l-\chi \zeta h_h,\\
-& l_{lc}=\chi \left(H-\frac{1}{1-\theta_d}h_l\right)\\
+\begin{align}
+&l_{ld}=\chi\left(\frac{1}{1-\theta_c}h_l-H\right)\label{eq:lld}\\ %\frac{\theta_c}{1-\theta_c}\chi h_l-\chi \zeta h_h,\\
+& l_{lc}=\chi \left(H-\frac{1}{1-\theta_d}h_l\right)\label{eq:llc}\\
 with \ & \chi:= \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}=\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}.
 %& l_{hc}= \frac{\theta_c}{\zeta (1-\theta_c)}l_{lc}\\
 %& l_{hd}=\frac{\theta_d}{\zeta (1-\theta_d)}l_{ld}
-\end{align*}
+\end{align}
 Labour good supply is then given by (where I substituted $h_h$)
 \begin{align}
 L_c&=\underbrace{\left(\frac{\theta_c}{\zeta(1-\theta_c)}\right)^{\theta_c}}_{=:\gamma_c}\chi\left(H -\frac{1}{1-\theta_d} h_l\right)\label{eq:lab_inputc} \\
@@ -180,7 +180,7 @@ Substituting labour input in the sector-specific production functions, and using
 \begin{align}\label{eq:price_ratio_output}
 \frac{p_c}{p_d} =\left(\frac{\gamma_d}{\gamma_c}\frac{A_d}{A_c}\frac{l_{ld}}{l_{lc}}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}.
 \end{align}
-\tr{Note that now policy can affect inflation/ relative prices through changes in labour supply---}
+%\tr{Note that now policy can affect inflation/ relative prices through changes in labour supply---NOPE: cancels}
 
 Another relation of the relative price in equilibrium, results from equating demand for the labour input good and  demand for low skill input in the clean and dirty labour good production sector, equations \ref{eq:pcl_wl} and \ref{eq:pdl_wl}. This gives another condition on the relative price in equilibrium
 \begin{align}\label{eq:price_ratio_labourinput}
@@ -194,8 +194,12 @@ z_j=\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j}
 Substituting equation \ref{eq:price_ratio_output} into equation \ref{eq:price_ratio_labourinput} determines the equilibrium ratio of low-skill input in the dirty to the clean sector: 
 
 \begin{align}
-\frac{l_{ld}}{l_{lc}}=\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\frac{\gamma_c}{\gamma_d}\left(\frac{z_d}{z_c}\right)^{\alpha+\varepsilon(1-\alpha)}\zeta^{(\theta_c-\theta_d)(\alpha+\varepsilon(1-\alpha))}.
-\end{align}
+\frac{l_{ld}}{l_{lc}}=&\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\frac{\gamma_c}{\gamma_d}\left(\frac{z_d}{z_c}\right)^{\alpha+\varepsilon(1-\alpha)}\zeta^{(\theta_c-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber\\
+=& \left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\label{eq:lldllc}\\
+\text{where}&\\
+ \tilde{\chi}= &\  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber
+	\end{align}
+
 
 \noindent \textbf{Now impose goods market clearing or final output as numeraire depending on whether gov revenues are disposed off}\\
 \textcolor{blue}{1) under the assumption that $\iota =1$, i.e. markets clear, no disposal of gov revenues}\\
@@ -203,4 +207,66 @@ Together with the definition of the aggregate price level and the choice of $Y$ 
 \begin{align*}
 p_c= \left(1+\left(\frac{\gamma_c}{\gamma_d}\frac{A_c}{A_d}\frac{l_{lc}}{l_{ld}}\right)^{\frac{(1-\alpha)(1-\varepsilon)}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
 \end{align*}
+ Substituting equation \ref{eq:lldllc} gives the price of the clean good in equilibrium as
+ \begin{align}\label{eq:eq_pc}
+	p_c=\frac{1}{\left(1+\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_c}{z_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\right)^{\frac{1}{1-\varepsilon}}},
+ \end{align}
+and using equation \ref{eq:price_ratio_labourinput} yields
+\begin{align}\label{eq:eq_pd}
+p_d=\frac{1}{\left(\left(\frac{A_d}{A_c}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_d}{z_c}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}+1\right)^{\frac{1}{1-\varepsilon}}}.
+\end{align}
+
+\begin{prop}[Skill scarcity and prices, assuming $\theta_c>\theta_d$] 
+	
+	The effect of skill scarcity on relative prices depends on the substitutability of goods. When goods are complements, $\varepsilon<1$, the price of the more skill-intense clean good rises with the disutility of high-skill labour, while the price of the dirty good falls.
+	Production of the clean good becomes more expensive. 
+	
+	When goods are substitutes, $\varepsilon>1$, then the clean good becomes cheaper the scarcer high skills and the price of the dirty good rises. Still, production of the clean good becomes more expensive, but it can be substituted by the dirty good. As the clean good becomes more expensive, demand shifts from the clean to the dirty good and market clearing implies a drop in the clean goods price. In total the general equilibrium effect outweighs the rise in production costs. 
+\end{prop}
+
+\paragraph{Intution}
+Consider equation
+The ratio of low labour in the dirty versus the clean sector negatively depends on the distutility of high-skill labour, when goods are substitutes.
+\tr{Continue later}
+
+\paragraph{Policy effects}
+Using equations \ref{eq:lld}, \ref{eq:llc}, and \ref{eq:lldllc} one can solve for $h_l$ as a function of total skill supply in equilibrium
+\begin{align}
+h_l= \underbrace{\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}}_{:=\tilde{\kappa}}H
+\end{align}
+Now, one can solve for labour input and sector-specific output as a function of tax progessivity  in equilibrium. 
+$L_c$ and $L_d$ are
+\begin{align}
+L_c= \gamma_c \chi \left(1-\frac{\tilde{\kappa}}{1-\theta_d}\right)H\\
+L_d= \gamma_d \chi \left(\frac{\tilde{\kappa}}{1-\theta_c}-1\right)H
+\end{align}
+As a result, the percentage change in labour input goods by sectors are equivalent. This together with prices being independent of skill supply implies that the output ratio of sectors is unaffected by tax progressivity.
+To see this write:
+\begin{align}
+\frac{d\left(\frac{Y_d}{Y_s}\right)}{d \tau_l}=\frac{Y_d}{Y_c}\left(\frac{\frac{dY_d}{Y_d}}{d \tau_l}-\frac{\frac{dY_c}{Y_c}}{d \tau_l}\right)=0
+\end{align}
+and observe that the percentage change in sector output is homogeneous. 
+\begin{align}
+\frac{1}{Y_d}\frac{dY_d}{d \tau_l}= \frac{1}{L_d}\frac{d L_d}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}\ \text{and} \ \frac{1}{Y_c}\frac{dY_c}{d \tau_l}= \frac{1}{L_c}\frac{d L_c}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l} 
+\end{align}
+
+\begin{prop}[Effect of $\tau_l$ on output ratio]
+	In the representative agent model with log utility and no disposal of government revenues, tax progressivity does not affect the equilibrium ratio of sector production. Only total output reduces as progressivity rises. \tr{directly obvious from seeing that ratio is constant!}
+\end{prop}
+
+\paragraph{Ways forward}
+How to introduce compositional effects:
+\begin{enumerate}
+	\item 	Utility function: With substitution and income effect not canceling (u(c)=$\frac{c^{1-\gamma}}{1-\gamma},\ \gamma\neq 1$), the wage rate might play a role, depends on GE effects.
+	\item endogenising skill supply (rep agent chooses how much skill to supply, but this he already does... / might need to introduce structure as in HSV)
+	\item government revenues are not used for final good consumption. Instead,  disposed of/ used for sth useful (this could be an extension and contribute to benefits of progressivity) THINK THIS ONLY CHANGES THE LEVEL TOO!
+\end{enumerate}
+\paragraph{Point 1 above}
+change the utility function in the code to see what happens, if $\frac{Y_d}{Y_c}$ is constant in particular 
+\paragraph{Point 3 above}
+\textcolor{blue}{2) Government consumption wasted}
+Letting the government not consume the final output good may alter the result. 
+Now, the aggregate price level is determined endogenously as the goods market does not clear by Walras' law. 
+
+In the equilibrium equations, I drop $p_t=1$ and use goods market clearing instead\\ $Y=c+\psi (x_c+x_d)$.
 

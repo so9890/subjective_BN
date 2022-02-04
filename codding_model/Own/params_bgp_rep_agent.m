@@ -24,6 +24,13 @@ function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol,
 
 %% Calibration 
 sigmaa   = 1/0.75;      % from Chetty et al 
+if indic.util== 0
+    gammaa   = 1;
+    etaa     = 0;       % not relevant
+else
+    gammaa   = 2;
+    etaa     = 4;       % exponent on leisure
+end
 zetaa    = 1.4;         % matches skill premium; with zeta==1 there is no 
                         % difference in skills from a hh perspective
 eppsilon = 0.4;           % elasticity of substitution clean and dirty production
@@ -38,7 +45,7 @@ betaa    = 0.999;       % matches time preference in AA12 (rho= 0.001; betaa=exp
 params=eval(symsparams);
 
 % policy variables
-tauul   = 0.181;        % progressivity; taken from HSV
+tauul   = indic.tauul_ex;        % progressivity; taken from HSV
 % have to ensure that tauul>(1-alphaa)*(1-eppsilon) in the case of
 % substitutes
 if eppsilon>1

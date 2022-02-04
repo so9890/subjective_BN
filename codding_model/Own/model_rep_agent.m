@@ -11,6 +11,7 @@
 % today and tomorrow
 
 syms c cp ...           % consumption 
+    mu mup ...          % lagrange multiplier budget
     lambdaa lambdaap ...% shifter government revenues
     tauul tauulp ...    % progressivity parameter
     wl wlp ...          % wage rate low skill
@@ -60,31 +61,69 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      thetad ...     % high skill weight dirty sector
      Uppsilon ...   % aggregate growth
      betaa ...      % time preference household
+     gammaa ...     % coefficient of relative risk aversion
+     etaa ...       % disutility from labour
      real 
  
-symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa];     
+symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa];     
 
 %% Model f(yp, y, xp, x)=0 
 
-% auxiliary stuff
+%-- auxiliary stuff
  
-p=(pc^(1-eppsilon)+pd^(1-eppsilon))^(1/(1-eppsilon));
-pp=(pcp^(1-eppsilon)+pdp^(1-eppsilon))^(1/(1-eppsilon));
+% aggregate price level
+p  = (pc^(1-eppsilon)+pd^(1-eppsilon))^(1/(1-eppsilon));
+pp = (pcp^(1-eppsilon)+pdp^(1-eppsilon))^(1/(1-eppsilon));
 
+% (disposable) income (tax system)
+
+I    = hh*wh+hl*wl;
+DI   = lambdaa*(I)^(1-tauul);
+DIhh = lambdaa*(1-tauul)*(I)^(-tauul)*wh;
+DIhl = lambdaa*(1-tauul)*(I)^(-tauul)*wl;
+
+% Utility function 
+if indic.util == 0
+    % log utility, KPR
+    Muc = c^(-gammaa);
+    Muhh = -H^sigmaa*zetaa;
+    Muhl = -H^sigmaa;
+    
+elseif indic.util==1
+    % more general BGP
+    Muc  = c^(-gammaa)*(H)^(-etaa*(1-gammaa));
+    Muhh = -etaa*zetaa*H^(-1)*c*Muc;
+    Muhl = -etaa*H^(-1)*c*Muc;
+end
+
+%-- model equations
 q= 0; % to count model equations
 
 %-- household
+% budget
+q=q+1;
+f(q)= p*c-DI;
+
 % consumption foc
 q=q+1;
-f(q)= p*c- lambdaa*(H*wl)^(1-tauul);
+f(q) = Muc-p*mu;
 
-% labour supply focs
+% labour supply focs = more generally to be able to use different utility
+% functions
+% q=q+1;
+% f(q)= H-(1-tauul)^(1/(1+sigmaa));
+%q=q+1;
+%f(q)= wh/wl-zetaa;
+
+% high skill supply
 q=q+1;
-f(q)= H-(1-tauul)^(1/(1+sigmaa));
+f(q) = -Muhh-mu*DIhh;
 
+% low skill supply
 q=q+1;
-f(q)= wh/wl-zetaa;
+f(q) = -Muhl-mu*DIhl;
 
+% definition total disutility hours
 q=q+1;
 f(q)= zetaa*hh+hl- H;
 
@@ -157,8 +196,11 @@ f(q)= Adp-(1+vd)*Ad;
 %-- market clearing
 % numeraire (aggregate goods market clears by walras' law)
 q=q+1;
-f(q)= p-1;
-
+if indic.fullDisposal==0
+    f(q) = p-1;
+else
+    f(q) = Y-c-psii*(xd+xc);
+end
 % high skill market
 q=q+1;
 f(q)= lhc+lhd-hh;
@@ -178,7 +220,7 @@ f(q)= xc-(alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
 
 % government budget
 q=q+1;
-f(q)= G-(H*wl-lambdaa*(H*wl)^(1-tauul));
+f(q)= G-(I-DI);
 
 fprintf('number model equations: %d', q);
 
@@ -189,8 +231,8 @@ x  = [Ac Ad];
 xp = [Acp Adp]; 
 
 % endogenous variables
-y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd G];
-yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp Gp];
+y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd G mu];
+yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp Gp mup];
 
 % policy variables: in laissez faire as if parameters
 pol  = [lambdaa tauul vc vd];
