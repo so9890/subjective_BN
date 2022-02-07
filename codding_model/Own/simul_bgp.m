@@ -1,4 +1,4 @@
-function [ybgp, xpbgp, vars_solution]= simul_bgp(hours, list, x, x_init, params, pols_num, model_pars, indic, t, guess0)
+function [ybgp, xpbgp, vars_solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars,  t, guess0)
 
 % function to calculate 
 % endogenous variables given calibration, policies, and initial conditions.
@@ -31,7 +31,7 @@ matlabFunction(model_num, 'vars', {vars_tosolve}, 'File', 'model_tosolve' );
 %   results ordered as in vars_tosolve (= order of variables in model_tosolve)
 
 if t==1
-    guess=solution_eqbm(x_init, params, pols_num, list, vars_tosolve, hours, indic);
+    guess=solution_eqbm(x_init, params, pols_num, list, vars_tosolve);
 elseif t>1
     guess=guess0;
 end
@@ -43,8 +43,8 @@ vars_solution = fsolve(modFF, guess, options);
 
 %% save numeric vectors of y and xp
 
-ybgp=zeros(size(list.y));
-xpbgp=zeros(size(list.xp));
+% ybgp=zeros(size(list.y));
+% xpbgp=zeros(size(list.xp));
 
 for i =list.y
    ybgp(list.y==i) =vars_solution(vars_tosolve==i);

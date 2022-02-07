@@ -1,7 +1,7 @@
 %% Representative agent model
 
-% laissez faire economy
-% model written with symbolic variables
+% competitive equilibrium and objective function gov. 
+% in symbolic variables
 
 % with two skill types if zetaa!=1
 
@@ -63,9 +63,13 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      betaa ...      % time preference household
      gammaa ...     % coefficient of relative risk aversion
      etaa ...       % disutility from labour
+     E ...          % vector of emission targets
+     deltaa ...     % regeneration rate nature
+     kappaa ...     % emission share of dirty output
      real 
  
-symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa];     
+symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa, deltaa, kappaa];     
+symstargets = [E];
 
 %% Model f(yp, y, xp, x)=0 
 
@@ -246,3 +250,47 @@ list.yp=string(yp);
 
 list.pol=string(pol);
 list.params=string(symsparams);
+
+%% competitive equilibrium solution (symbolic)
+solution_eqbm_syms;
+
+%% lagrange multiplier govs
+syms mu_target real % exogenous emission target
+
+% vector of symbolic variables for which to solve problem
+
+if indic.withtarget==1
+    symms.optim = sort([mu_target, tauul]);
+elseif indic.withtarget==0
+    symms.optim = sort([ tauul]);
+end
+list.optim  = string(symms.optim);
+
+%% social welfare function and constraints
+
+U=log(c)-(hl+zetaa*hh)^(1+sigmaa)/(1+sigmaa);
+
+W       = U;                                     % value function 
+target  = yd-deltaa*E/kappaa;
+%imp     = csp*(Ucsp)+(cnp-Tr)*(Ucnp)+lp*(Ulp);   % implementability constraint poor
+%rc      = psr*(lambdaa*csr+(1-lambdaa)*csp)+(lambdaa*cnr+(1-lambdaa)*cnp)-As*hs*psr-An*hn; % resource constraint, contructed from gov and hh budget
+%lab_m   = -(lambdaa*zh*lr+(1-lambdaa)*zl*lp)+H;                          % labour market clearance
+
+% add equality of FOCs poor with prices
+%foc_psp = psp-psr;
+%foc_lab = w_afterTaxp-w_afterTaxr;
+
+% add market clearing sustainable sector individually
+%sus_market = lambdaa*csr+(1-lambdaa)*csp-As*hs;
+
+
+Obj_ram = W-mu_target*indic.withtarget*target; %... % no beta as static; solution to static problem same as to infinite sum
+%         -murc*rc- mulm*lab_m...
+%         -msusm*sus_market...
+%         -focps*foc_psp-foclab*foc_lab;
+    
+Obj_sp = 0; %W + muLr*lambdaa*(L-lr)+muLp*(1-lambdaa)*(L-lp)...
+%     +mun*(An*hn-lambdaa*cnr-(1-lambdaa)*cnp)...
+%     +mus*(As*hs-lambdaa*csr-(1-lambdaa)*csp)...
+%     +mul*(-lab_m);
+%end
