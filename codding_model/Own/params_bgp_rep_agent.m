@@ -1,4 +1,4 @@
-function [params, pols_num, model_pars, E]=params_bgp_rep_agent(symsparams, f, pol, indic, T, tauul_opt)
+function [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, indic, T, tauul_opt, zetaa_calib)
 
 % function to read in parameter values and to numerically calculate initial 
 % period values of endogenous variables.
@@ -36,7 +36,7 @@ end
 if isfield(indic, 'zetaa')
     zetaa= indic.zetaa;
 else
-    zetaa    = 1.4;         % matches skill premium; with zeta==1 there is no 
+    zetaa    = zetaa_calib;         % matches skill premium; with zeta==1 there is no 
                             % difference in skills from a hh perspective
 end
                             
@@ -47,10 +47,7 @@ thetac   = 0.7;         % high skill labour share clean sector
 thetad   = thetac*0.8;  % high skill labour share dirty sector
 Uppsilon = 0.08;        % sum of growth rates; used as an upper bound
 betaa    = 0.999;       % matches time preference in AA12 (rho= 0.001; betaa=exp(-rho))
-deltaa   = 20;           % regeneration rate of nature
-kappaa   = 0.04;        % share of dirty output which translates into emissions 
 
-E        = [repmat(30,1, 50-20-1), zeros(1,T-30+1)]; % from t=1 to t=29 E=30; from t=30 to t=T E=0
 
 % policy variables
 

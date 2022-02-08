@@ -3,8 +3,7 @@
 % with two skill types, 
 % higher disutility from labour for high skill labour
 
-
-
+% NEXT: iNCLUDE LAMBDAA AS A POLICY VARIABLE
 %% include path to package
 clc, clear
 folder='/home/sonja/Documents/projects/Overconsumption/codding_model/Own/tools';
@@ -36,10 +35,11 @@ model_rep_agent;
 %% initialise variables for parameterisation
 
 % grids depending on variation
-gri.zetaa= [1.4];
-%gri.tauul=[0.181, 0.5];
+zetaa_calib=1.4;
+gri.zetaa= [zetaa_calib];
+gri.tauul=linspace(0,1.5,50);
 
-solution_LF=containers.Map;
+%solution_LF=containers.Map;
 %solution_Ramsey=containers.Map;
 
 % number of periods for simulation 
@@ -49,6 +49,8 @@ time=1:T; % vector of periods (1 is the initial period)
 % initialise matrices to save results
 y_simLF=zeros(length(y),T);
 x_simLF=zeros(length(x),T);
+W_simLF=zeros(1,T); % social welfare
+
 
 y_simRam=zeros(length(y),T);
 x_simRam=zeros(length(x),T);
@@ -59,79 +61,124 @@ Ad=8;
 Ac=4;
 
 x_init = eval(x);
+
+% read in parameter values
+% calibrate model
+[params, pols_num, ~]=params_bgp_rep_agent(symsparams, f, pol, indic, T, nan, zetaa_calib);
 %% simulation: Laissez-faire
 % read in parameters, write model as function to be solved numerically,
 % solve for T periods
 
-% simulation with values of zetaa in gri.zetaa; tauul
-for zz=1:length(gri.zetaa)
-    indic.zetaa=gri.zetaa(zz);
-    simulation;
+if ~isfile(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
+     T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
+     params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util))
+ 
+sol_mat=zeros( length(y)+length(x)+1, T, length(gri.zetaa)); % for each value of zetaa have a matrix of variables (rows) over time (columns)
+for tt=1:length(gri.zetaa)
+    indic.zetaa=gri.zetaa(tt);
+    
+    simulation; 
 end
+save(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
+     T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
+     params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util)...
+     ,'sol_mat')
+else 
+    load(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
+     T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
+     params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util))
+end
+ 
+%% calibration emissions and emission targets
+% use this to calibrate relation of production and output
+[targets_num, E_vec]=calibration_emissions(squeeze(sol_mat(list.y=='yd',1,gri.zetaa==1.4)), symstargets, T);
 
-% for tt=1:length(gri.tauul)
-%     indic.tauul_ex=gri.tauul(tt);
-%     simulation;
+%% grid method to maximise welfare function 
+
+% save welfare in marix
+
+% sol_mat=zeros(length(gri.tauul), T, length(y)+length(x)+1);
+% for tt=24:length(gri.tauul)
+%      indic.tauul_ex=gri.tauul(tt);
+%      simulation; % saves solution for each tauul in solution_LF  
 % end
+% save('simulation_results/grid_method', 'sol_mat')
+% p=gri.tauul
+% save('simulation_results/grid_method_grid', 'p')
+
 %% simulation Ramsey
 
-% calibrate model
-[params, pols_num, ~, E_num]=params_bgp_rep_agent(symsparams, f, pol, indic, T, nan);
+if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget))
 
-% initial guess optimal policy and Lagrange multi
-mu_target= 0.2;
-tauul = 0.1;
-guessLF=0; % for simulation in comp equilibrium
- 
-for t=time
+    % initial guess optimal policy and Lagrange multi
+    mu_budget= 1;
+    mu_target= 1;
+    tauul = 0.7;
+    guessLF=0; % for simulation in comp equilibrium
 
-    %-- read in model equations with numeric parameter values; 
-    %           only variables: policy and lagrange multipliers of gov. problem
-    %           emission target is dynamic
-    
-    [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
-                        (Obj_ram, symms.optim, [symsparams,symstargets], [params, E_num(t)], symms.optim,...
-                        'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
-    
-    %-- solve for optimal policy
-    guess= eval(varsModel);
-    modFF = @(x)Ramsey_model(x);
-    options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-14);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+    for t=time
 
-    [opt_pol, fval] = fsolve(modFF, guess, options);
-    
-    tauul=opt_pol(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
-    opt_pol_sim(:,t)=tauul;
-    
-    % find optimal allocation: pass optimal policy into comp. equilibrium
-    % model
-    [params, pols_num, model_pars, E]=params_bgp_rep_agent(symsparams, f, pol, indic, T, opt_pol_sim(:,t));
-    [ybgp, xpbgp, solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars, t, guessLF);
+        %-- read in model equations with numeric parameter values; 
+        %           only variables: policy and lagrange multipliers of gov. problem
+        %           emission target is dynamic
 
-    % save results
-    y_simRam(:,t)=ybgp';
-    x_simRam(:,t)=x_init; % to save technology in correct period
-    
-    % update initial values and use as initial guess for solution
-    x_init=xpbgp;
-    guessLF=solution;
-  
+        [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
+                            (Obj_ram, symms.optim, [symsparams, symstargets, E], [params, targets_num, E_vec(t)], symms.optim,...
+                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
+
+        %-- solve for optimal policy
+
+        guess= eval(varsModel);
+
+        modFF = @(x)Ramsey_model(x);
+        options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-14);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+
+        [opt_pol, fval] = fsolve(modFF, guess, options);
+
+        tauul=opt_pol(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
+        opt_pol_sim(:,t)=tauul;
+
+        % find optimal allocation: pass optimal policy into comp. equilibrium
+        % model
+        [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, indic, T, opt_pol_sim(:,t), zetaa_calib);
+        [ybgp, xpbgp, solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars, t, guessLF);
+
+        % save results
+        y_simRam(:,t)=ybgp';
+        x_simRam(:,t)=x_init; % to save technology in correct period
+
+        % update initial values and use as initial guess for solution
+        x_init=xpbgp;
+        guessLF=solution;
+
+    end
+
+    save(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'y_simRam');
+    save(sprintf('simulation_results/StatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'x_simRam');
+
+else
+    load(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
+    load(sprintf('simulation_results/StatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
 end
-
-%% Plots
+    
+    %% Plots
 
 %% Ramsey versus laissez faire
 
 % number of figures in row in subplot
-nn=3;
+nn=4;
 % list of variables to be plotted
-list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd" "lld"])), list.x];
+list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd" "lld"])), list.x, "welfare"];
 % combine variables into one matrix and list 
 
-plottsLF=[y_simLF; x_simLF];
-plottsRam=[y_simRam; x_simRam];
+plottsLF=sol_mat(:,:,params(list.params=='zetaa')==zetaa_calib);
+% welfare
+welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
+        params(list.params=='zetaa').*y_simRam(list.y=='hh',:)).^(1+params(list.params=='sigmaa'))./(1+params(list.params=='sigmaa'));
 
-list.joint=[list.y, list.x];
+plottsRam=[y_simRam; x_simRam; welf_sim ];
+
+list.joint=[list.y, list.x, "welfare"];
 
 figure(3)
 

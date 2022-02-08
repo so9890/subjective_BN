@@ -63,13 +63,13 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      betaa ...      % time preference household
      gammaa ...     % coefficient of relative risk aversion
      etaa ...       % disutility from labour
-     E ...          % vector of emission targets
+     E ...          % vector of net emission targets
      deltaa ...     % regeneration rate nature
      kappaa ...     % emission share of dirty output
      real 
  
-symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa, deltaa, kappaa];     
-symstargets = [E];
+symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa];     
+symstargets = [deltaa, kappaa];
 
 %% Model f(yp, y, xp, x)=0 
 
@@ -248,21 +248,22 @@ list.y=string(y);
 list.xp=string(xp);
 list.yp=string(yp);
 
-list.pol=string(pol);
-list.params=string(symsparams);
+list.pol     = string(pol);
+list.params  = string(symsparams);
+list.targets = string(symstargets);
 
 %% competitive equilibrium solution (symbolic)
 solution_eqbm_syms;
 
 %% lagrange multiplier govs
-syms mu_target real % exogenous emission target
+syms mu_target mu_budget real % exogenous emission target
 
 % vector of symbolic variables for which to solve problem
 
 if indic.withtarget==1
-    symms.optim = sort([mu_target, tauul]);
+    symms.optim = sort([mu_target, mu_budget, tauul]);
 elseif indic.withtarget==0
-    symms.optim = sort([ tauul]);
+    symms.optim = sort([mu_budget, tauul]);
 end
 list.optim  = string(symms.optim);
 
@@ -271,7 +272,8 @@ list.optim  = string(symms.optim);
 U=log(c)-(hl+zetaa*hh)^(1+sigmaa)/(1+sigmaa);
 
 W       = U;                                     % value function 
-target  = yd-deltaa*E/kappaa;
+target  = yd-(deltaa+E)/kappaa;
+budget  = 0-G;
 %imp     = csp*(Ucsp)+(cnp-Tr)*(Ucnp)+lp*(Ulp);   % implementability constraint poor
 %rc      = psr*(lambdaa*csr+(1-lambdaa)*csp)+(lambdaa*cnr+(1-lambdaa)*cnp)-As*hs*psr-An*hn; % resource constraint, contructed from gov and hh budget
 %lab_m   = -(lambdaa*zh*lr+(1-lambdaa)*zl*lp)+H;                          % labour market clearance
@@ -284,7 +286,7 @@ target  = yd-deltaa*E/kappaa;
 %sus_market = lambdaa*csr+(1-lambdaa)*csp-As*hs;
 
 
-Obj_ram = W-mu_target*indic.withtarget*target; %... % no beta as static; solution to static problem same as to infinite sum
+Obj_ram = W-mu_target*indic.withtarget*target-mu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
 %         -murc*rc- mulm*lab_m...
 %         -msusm*sus_market...
 %         -focps*foc_psp-foclab*foc_lab;
