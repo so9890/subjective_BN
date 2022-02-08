@@ -252,7 +252,8 @@ list.pol     = string(pol);
 list.params  = string(symsparams);
 list.targets = string(symstargets);
 
-%% competitive equilibrium solution (symbolic)
+%% Government problem
+% competitive equilibrium solution (symbolic)
 solution_eqbm_syms;
 
 %% lagrange multiplier govs
