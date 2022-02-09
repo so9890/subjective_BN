@@ -42,6 +42,10 @@ pdL = (1-alphaa)*(alphaa/psii)^(alphaa/(1-alphaa))*pd^(1/(1-alphaa))*Ad;
 wl = pdL*zetaa^(-thetad)*thetad^thetad*(1-thetad)^(1-thetad);
 wh = zetaa*wl;
 
+% gov budget
+%G = (H*wl-lambdaa*(H*wl)^(1-tauul));
+lambdaa = (H*wl-G)/(H*wl)^(1-tauul);
+
 % consumption
 c = lambdaa*(H*wl)^(1-tauul);
 
@@ -64,9 +68,6 @@ Adp = (1+vd)*Ad;
 % machines
 xd = (alphaa/psii*pd)^(1/(1-alphaa))*Ad*Ld;
 xc = (alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
-
-% gov budget
-G = (H*wl-lambdaa*(H*wl)^(1-tauul));
 
 % goods market clearing
 Y = c+psii*(xd+xc)+G;

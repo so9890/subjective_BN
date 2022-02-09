@@ -37,7 +37,6 @@ syms c cp ...           % consumption
     lld lldp ...        % low skill input dirty sector
     xd xdp ...          % machines dirty sector
     xc xcp ...          % machines clean sector
-    G Gp ...            % government revenues (expenditures)
     ...
     ... % productivity
     Ac Acp ...          % productivity clean sector
@@ -66,10 +65,11 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      E ...          % vector of net emission targets
      deltaa ...     % regeneration rate nature
      kappaa ...     % emission share of dirty output
+     G ...          % exogenous gov. revenues
      real 
  
-symsparams = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa];     
-symstargets = [deltaa, kappaa];
+symms.params = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa, G];     
+symms.targets = [deltaa, kappaa];
 
 %% Model f(yp, y, xp, x)=0 
 
@@ -99,6 +99,7 @@ elseif indic.util==1
     Muhh = -etaa*zetaa*H^(-1)*c*Muc;
     Muhl = -etaa*H^(-1)*c*Muc;
 end
+
 
 %-- model equations
 q= 0; % to count model equations
@@ -235,12 +236,15 @@ x  = [Ac Ad];
 xp = [Acp Adp]; 
 
 % endogenous variables
-y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd G mu];
-yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp Gp mup];
+y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd mu lambdaa];
+yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp mup lambdaap];
 
 % policy variables: in laissez faire as if parameters
-pol  = [lambdaa tauul vc vd];
-polp = [lambdaap tauulp vcp vdp];
+pol  = [tauul vc vd];
+polp = [tauulp vcp vdp];
+
+% marginal utilities
+symms.marginals= [Muc, Muhh, Muhl];
 
 % save lists of variables
 list.x=string(x);
@@ -249,22 +253,23 @@ list.xp=string(xp);
 list.yp=string(yp);
 
 list.pol     = string(pol);
-list.params  = string(symsparams);
-list.targets = string(symstargets);
+list.params  = string(symms.params);
+list.targets = string(symms.targets);
+list.marginals = string(["Muc" "Muhh" "Muhl"]);
 
 %% Government problem
 % competitive equilibrium solution (symbolic)
 solution_eqbm_syms;
 
 %% lagrange multiplier govs
-syms mu_target mu_budget real % exogenous emission target
+syms mu_target real % exogenous emission target
 
 % vector of symbolic variables for which to solve problem
 
 if indic.withtarget==1
-    symms.optim = sort([mu_target, mu_budget, tauul]);
+    symms.optim = sort([mu_target, tauul]);
 elseif indic.withtarget==0
-    symms.optim = sort([mu_budget, tauul]);
+    symms.optim = sort([tauul]);
 end
 list.optim  = string(symms.optim);
 
@@ -274,23 +279,11 @@ U=log(c)-(hl+zetaa*hh)^(1+sigmaa)/(1+sigmaa);
 
 W       = U;                                     % value function 
 target  = yd-(deltaa+E)/kappaa;
-budget  = 0-G;
-%imp     = csp*(Ucsp)+(cnp-Tr)*(Ucnp)+lp*(Ulp);   % implementability constraint poor
-%rc      = psr*(lambdaa*csr+(1-lambdaa)*csp)+(lambdaa*cnr+(1-lambdaa)*cnp)-As*hs*psr-An*hn; % resource constraint, contructed from gov and hh budget
-%lab_m   = -(lambdaa*zh*lr+(1-lambdaa)*zl*lp)+H;                          % labour market clearance
-
-% add equality of FOCs poor with prices
-%foc_psp = psp-psr;
-%foc_lab = w_afterTaxp-w_afterTaxr;
-
-% add market clearing sustainable sector individually
-%sus_market = lambdaa*csr+(1-lambdaa)*csp-As*hs;
+%budget  = (H*wl-lambdaa*(H*wl)^(1-tauul))-G;
 
 
-Obj_ram = W-mu_target*indic.withtarget*target-mu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
-%         -murc*rc- mulm*lab_m...
-%         -msusm*sus_market...
-%         -focps*foc_psp-foclab*foc_lab;
+Obj_ram = W-mu_target*indic.withtarget*target;%-mu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
+
     
 Obj_sp = 0; %W + muLr*lambdaa*(L-lr)+muLp*(1-lambdaa)*(L-lp)...
 %     +mun*(An*hn-lambdaa*cnr-(1-lambdaa)*cnp)...

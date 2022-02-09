@@ -3,7 +3,7 @@
     % share
 
 %% calibrate model
-[params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, indic, T, nan, zetaa_calib);
+[params, pols_num, model_pars]=params_bgp_rep_agent(symms.params, f, pol, indic, T, nan, zetaa_calib);
 
 %% simulate model for T years
 

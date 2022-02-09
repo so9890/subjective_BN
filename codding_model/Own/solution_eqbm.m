@@ -33,9 +33,11 @@ alphaa=symsparams(list.params=='alphaa');
 psii=symsparams(list.params=='psii');
 gammaa=symsparams(list.params=='gammaa');
 etaa= symsparams(list.params=='etaa');
+G= symsparams(list.params=='G');
+
 
 tauul=pols(list.pol=='tauul');
-lambdaa=pols(list.pol=='lambdaa');
+%lambdaa=pols(list.pol=='lambdaa');
 vc=pols(list.pol=='vc');
 vd=pols(list.pol=='vd');
 

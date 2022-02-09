@@ -64,7 +64,8 @@ x_init = eval(x);
 
 % read in parameter values
 % calibrate model
-[params, pols_num, ~]=params_bgp_rep_agent(symsparams, f, pol, indic, T, nan, zetaa_calib);
+[params, pols_num, ~]=params_bgp_rep_agent(symms.params, f, pol, indic, T, nan, zetaa_calib);
+
 %% simulation: Laissez-faire
 % read in parameters, write model as function to be solved numerically,
 % solve for T periods
@@ -73,17 +74,18 @@ if ~isfile(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2
      T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
      params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util))
  
-sol_mat=zeros( length(y)+length(x)+1, T, length(gri.zetaa)); % for each value of zetaa have a matrix of variables (rows) over time (columns)
-for tt=1:length(gri.zetaa)
-    indic.zetaa=gri.zetaa(tt);
-    
-    simulation; 
-end
-save(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
-     T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
-     params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util)...
-     ,'sol_mat')
+    sol_mat=zeros( length(y)+length(x)+1, T, length(gri.zetaa)); % for each value of zetaa have a matrix of variables (rows) over time (columns)
+    for tt=1:length(gri.zetaa)
+        indic.zetaa=gri.zetaa(tt);
+
+        simulation; 
+    end
+    save(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
+         T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
+         params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util)...
+         ,'sol_mat')
 else 
+    fprintf('LF exists')
     load(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
      T, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
      params(list.params=='thetad'), indic.het_growth, pols_num(list.pol=='tauul'), indic.util))
@@ -91,7 +93,7 @@ end
  
 %% calibration emissions and emission targets
 % use this to calibrate relation of production and output
-[targets_num, E_vec]=calibration_emissions(squeeze(sol_mat(list.y=='yd',1,gri.zetaa==1.4)), symstargets, T);
+[targets_num, E_vec]=calibration_emissions(squeeze(sol_mat(list.y=='yd',1,gri.zetaa==1.4)), symms.targets, T);
 
 %% grid method to maximise welfare function 
 
@@ -106,25 +108,38 @@ end
 % p=gri.tauul
 % save('simulation_results/grid_method_grid', 'p')
 
+%% Primal approach read in model
+[symms, Obj_ramPA]=primal_problem(y, x, list, symms, E);
+
 %% simulation Ramsey
 
 if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget))
 
     % initial guess optimal policy and Lagrange multi
-    mu_budget= 1;
-    mu_target= 1;
-    tauul = 0.7;
-    guessLF=0; % for simulation in comp equilibrium
+    mu_budget       = 1;
+    mu_target       = 1;
+    mu_opt_final    = 1;
+    mu_rc           = 1;
+    mu_imp          = 1;
+    mu_defH         = 1; 
+    tauul           = 0.7;
+    guessLF         = 0; % for simulation in comp equilibrium
 
+    
+    
     for t=time
 
         %-- read in model equations with numeric parameter values; 
         %           only variables: policy and lagrange multipliers of gov. problem
-        %           emission target is dynamic
+        %           emission target is dynamic => every period a new
+        %           problem!
 
         [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
-                            (Obj_ram, symms.optim, [symsparams, symstargets, E], [params, targets_num, E_vec(t)], symms.optim,...
+                            (Obj_ram, symms.optim, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optim,...
                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
+%        [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
+%                             (Obj_ramPA, symms.optimPA, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optimPA,...
+%                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
 
         %-- solve for optimal policy
 
@@ -140,7 +155,8 @@ if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtar
 
         % find optimal allocation: pass optimal policy into comp. equilibrium
         % model
-        [params, pols_num, model_pars]=params_bgp_rep_agent(symsparams, f, pol, indic, T, opt_pol_sim(:,t), zetaa_calib);
+        % FASTER: USE ANALYTICALLY SOLVED MODEL
+        [params, pols_num, model_pars]=params_bgp_rep_agent(symms.params, f, pol, indic, T, opt_pol_sim(:,t), zetaa_calib);
         [ybgp, xpbgp, solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars, t, guessLF);
 
         % save results
@@ -153,8 +169,8 @@ if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtar
 
     end
 
-    save(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'y_simRam');
-    save(sprintf('simulation_results/StatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'x_simRam');
+    save(sprintf('simulation_results/PAControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'y_simRam');
+    save(sprintf('simulation_results/PAStatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'x_simRam');
 
 else
     load(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
@@ -199,9 +215,9 @@ legend(sprintf('Optimal $\tau_l$'), 'Interpreter', 'latex', 'box', 'off', 'Locat
 
 
 suptitle('Laissez Faire versus Ramsey')
-path=sprintf('figures/Rep_agent/Ram_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d.png', T-1, ...
+path=sprintf('figures/Rep_agent/Ram_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
     params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad,Ac,...
-    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util);
+    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
 saveas(gcf,path)
 
 %% -- comparison params
