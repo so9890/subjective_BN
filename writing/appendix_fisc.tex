@@ -136,6 +136,84 @@ H_t=\zeta h_{ht}+h_{lt}
 \text{high skill}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
 \text{low skill}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}
 \end{align*}
+\subsection{Equilibrium conditions: Simplified model with Lc=hh, ld=hl}
+
+\begin{align*}
+\text{\textbf{Household solved:}} \hspace{50mm}& \\
+\text{FOCs labour supply}\hspace{4mm}&  %\log(H_t)=\frac{1}{1+\sigma}\log(1-\tau_{lt})\\
+H_t=(1-\tau_{lt})^\frac{1}{1+\sigma}\\
+\ \hspace{4mm} & %\log(w_{ht})=\log(w_{lt})+\log(\zeta)\\
+w_{ht}=\zeta w_{lt}\\
+\text{Budget}\hspace{4mm}&  %\log(c_t)= \log(\lambda_t)+ (1-\tau_{lt})\left[\frac{1}{1+\sigma}\log(1-\tau_{lt})+\log(w_{lt})\right]\\
+c_t= \lambda_t (H_tw_{lt})^{(1-\tau_{lt})}\\
+\text{definition}\  H_t\hspace{4mm} & %\log(H_t)=\log(h_{lt}+\zeta h_{ht})\\
+H_t=\zeta h_{ht}+h_{lt}
+\\
+%\text{\textbf{Labour sectors:}}\hspace{50mm}&\\
+%\text{Production clean labour input} \hspace{4mm}& L_{ct}=h_{ht}\\ 
+%\text{Production dirty labour input} \hspace{4mm}& L_{dt}=h_{lt}\\
+%
+\text{\textbf{Government}}\hspace{50mm}& \nonumber\\
+\text{Budget}\hspace{4mm}& G_t=H_tw_{lt}-\lambda_t(H_t w_{lt})^{(1-\tau_{lt})}
+\\
+\text{\textbf{Technology:}}\hspace{50mm}&\\
+\text{Clean sector}\hspace{4mm}& A_{ict+1}=(1+\upsilon_{ct})A_{ict}\\
+\text{Dirty sector}\hspace{4mm}& A_{idt+1}=(1+\upsilon_{dt})A_{idt}\\
+%\text{Progress bound}\hspace{4mm}& \upsilon_{ct}+\upsilon_{dt}=\Upsilon\\
+\text{Definition average clean technology}\hspace{4mm}& A_{ct}=\int_0^1A_{ict}di\\
+\text{Definition average dirty technology}\hspace{4mm}& A_{dt}=\int_0^1A_{idt}di
+\end{align*}
+
+\begin{align*}
+\text{\textbf{Production:}} \hspace{4mm}
+\text{\textbf{Final Good Producer}}&\\
+\text{Profit maximisation}\hspace{4mm} & Y_{nt}=\left(\frac{p_{ct}}{p_{dt}}\right)^\varepsilon Y_{ct}\\
+\text{Production}\hspace{4mm} & Y_t=\left[Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right]^{\frac{\varepsilon}{\varepsilon-1}}\\
+\text{Price}\hspace{4mm}& p_t:=\left[p_{ct}^{1-\varepsilon}+p_{dt}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}\\
+\text{\textbf{Clean Sector}}\\
+\text{Production}\hspace{4mm}& Y_{ct}=L^{1-\alpha}_{ct}\int_{0}^{1}A^{1-\alpha}_{ict}x_{ict}^{\alpha}di=  \left(\alpha\frac{p_{ct}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{ct} L_{ct}
+\\ & =x_{ct}^{\alpha}\left(A_{ct}L_{ct}\right)^{1-\alpha} \\ 
+\text{labour demand}\hspace{4mm} & w_{ht} =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{ct}^\frac{1}{1-\alpha}A_{ct}\\
+\text{machine demand}\hspace{4mm} & x_{ict} = \left(\alpha\frac{ p_{ct}}{p_{ict}}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\\
+& x_{ct}:=\int_{0}^{1}x_{ict} di= \left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ct}L_{ct}\\
+%
+\text{Supply machines (price)}\hspace{4mm}& p_{ict}=\psi \\
+%
+\text{\textbf{Dirty Sector}}\\
+\text{Production}\hspace{4mm} & Y_{dt}=L^{1-\alpha}_{dt}\int_{0}^{1}A^{1-\alpha}_{idt}x_{idt}^{\alpha}di=  \left(\alpha\frac{p_{dt}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{dt} L_{dt}\\ & =x_{dt}^{\alpha}\left(A_{dt}L_{dt}\right)^{1-\alpha} \\ 
+\text{labour demand}\hspace{4mm} & w_{lt} =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{dt}^\frac{1}{1-\alpha}A_{dt}\\
+\text{machine demand}\hspace{4mm} & x_{idt} = \left(\alpha\frac{ p_{dt}}{p_{idt}}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}\\
+& x_{dt}:=\int_{0}^{1}x_{idt} di= \left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{dt}L_{dt}\\
+\text{Supply machines (price)}\hspace{4mm}& p_{idt}=\psi\\
+\text{\textbf{Market clearing:}}\hspace{50mm}& \nonumber\\
+\text{Final Good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)+G_t%\psi \left(\int_0^1\left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}+\int_0^1\left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\right)
+\\
+%& \ (\text{Numeraire}\ \  p_t=1)\\
+\text{high skill}\hspace{4mm}& L_{ct}=h_{ht}\\
+\text{low skill}\hspace{4mm}&L_{dt}=h_{lt}
+\end{align*}
+
+\section{Solution in tractable model}
+Define
+\begin{align*}
+\tilde{\kappa}:=\ &\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}\\
+\gamma_j:=\ & \left(\frac{\theta_j}{\zeta(1-\theta_j)}\right)^{\theta_j}\\
+z_j:=\ &\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j} \\
+\chi:=\ & \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}=\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}\\
+ \tilde{\chi}: = &\  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}
+\end{align*}
+\begin{align*}
+H=\ & (1-\tau_l)^{\frac{1}{1+\sigma}}\\
+h_l=\ & \tilde{\kappa}H\\
+L_c=\ & \gamma_c \chi \left(1-\frac{\tilde{\kappa}}{1-\theta_d}\right)H
+\\
+L_d=\ & \gamma_d \chi \left(\frac{\tilde{\kappa}}{1-\theta_c}-1\right)H%= \zeta^{-\theta_d}z_d\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}H
+=\zeta^{-\theta_d}z_dp_d^{1-\varepsilon}H\\
+p_d=\ &\left(\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}} \\
+p_c=\ & \left(\frac{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}}
+\end{align*}
 
 \section{Generalised Balanced Growth path}
 

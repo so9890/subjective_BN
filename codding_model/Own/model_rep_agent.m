@@ -297,3 +297,23 @@ Obj_sp = 0; %W + muLr*lambdaa*(L-lr)+muLp*(1-lambdaa)*(L-lp)...
 %     +mus*(As*hs-lambdaa*csr-(1-lambdaa)*csp)...
 %     +mul*(-lab_m);
 %end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

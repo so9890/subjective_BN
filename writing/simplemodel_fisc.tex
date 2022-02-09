@@ -209,11 +209,13 @@ p_c= \left(1+\left(\frac{\gamma_c}{\gamma_d}\frac{A_c}{A_d}\frac{l_{lc}}{l_{ld}}
 \end{align*}
  Substituting equation \ref{eq:lldllc} gives the price of the clean good in equilibrium as
  \begin{align}\label{eq:eq_pc}
-	p_c=\frac{1}{\left(1+\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_c}{z_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\right)^{\frac{1}{1-\varepsilon}}},
+	p_c%& = \frac{1}{\left(1+\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_c}{z_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\right)^{\frac{1}{1-\varepsilon}}}\\
+	&= \left(\frac{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}}
  \end{align}
 and using equation \ref{eq:price_ratio_labourinput} yields
 \begin{align}\label{eq:eq_pd}
-p_d=\frac{1}{\left(\left(\frac{A_d}{A_c}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_d}{z_c}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}+1\right)^{\frac{1}{1-\varepsilon}}}.
+p_d%& =\frac{1}{\left(\left(\frac{A_d}{A_c}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_d}{z_c}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}+1\right)^{\frac{1}{1-\varepsilon}}}\\
+	&= \left(\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}} 
 \end{align}
 
 \begin{prop}[Skill scarcity and prices, assuming $\theta_c>\theta_d$] 
@@ -229,7 +231,7 @@ Consider equation
 The ratio of low labour in the dirty versus the clean sector negatively depends on the distutility of high-skill labour, when goods are substitutes.
 \tr{Continue later}
 
-\paragraph{Policy effects}
+
 Using equations \ref{eq:lld}, \ref{eq:llc}, and \ref{eq:lldllc} one can solve for $h_l$ as a function of total skill supply in equilibrium
 \begin{align}
 h_l= \underbrace{\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}}_{:=\tilde{\kappa}}H
@@ -240,6 +242,18 @@ $L_c$ and $L_d$ are
 L_c= \gamma_c \chi \left(1-\frac{\tilde{\kappa}}{1-\theta_d}\right)H\\
 L_d= \gamma_d \chi \left(\frac{\tilde{\kappa}}{1-\theta_c}-1\right)H
 \end{align}
+
+This solves the model, since, in equilibrium, $H$ is a function of parameters only in equilibrium. 
+
+\subsection{Growth rates}
+Dirty output grows as
+\begin{align*}
+\frac{Y_d'}{Y_d}=\left(\frac{p_d'}{p_d}\right)^{\frac{\alpha-(1-\alpha)(1-\varepsilon)}{1-\alpha}}\frac{A_d'}{A_d}\frac{H'}{H}
+\end{align*}
+When goods are substitutes, $\varepsilon>1$, the price in the dirty sectors reduces labour supply in this sector. When goods are complements, labour supply in the dirty sector increases as the dirty goods price rises...^
+
+growth in the dirty sector falls with inflation in this sector: $\alpha -(1-\alpha)(1-\varepsilon)>0$, then the growth in machines exceeds 
+\subsection{Results}
 As a result, the percentage change in labour input goods by sectors are equivalent. This together with prices being independent of skill supply implies that the output ratio of sectors is unaffected by tax progressivity.
 To see this write:
 \begin{align}
@@ -247,8 +261,13 @@ To see this write:
 \end{align}
 and observe that the percentage change in sector output is homogeneous. 
 \begin{align}
-\frac{1}{Y_d}\frac{dY_d}{d \tau_l}= \frac{1}{L_d}\frac{d L_d}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}\ \text{and} \ \frac{1}{Y_c}\frac{dY_c}{d \tau_l}= \frac{1}{L_c}\frac{d L_c}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l} 
+\frac{1}{Y_d}\frac{dY_d}{d \tau_l}= \frac{1}{L_d}\frac{d L_d}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}\ \text{and} \ \frac{1}{Y_c}\frac{dY_c}{d \tau_l}= \frac{1}{L_c}\frac{d L_c}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}.
 \end{align}
+
+
+
+
+
 
 \begin{prop}[Effect of $\tau_l$ on output ratio]
 	In the representative agent model with log utility and no disposal of government revenues, tax progressivity does not affect the equilibrium ratio of sector production. Only total output reduces as progressivity rises. \tr{directly obvious from seeing that ratio is constant!}
