@@ -8,35 +8,35 @@ How to determine the economy in 2050? Should the economy have reached a steady s
 
 \paragraph{Households}
 % the rep agent
-The economy behaves as if there was a representative household. The household chooses between high and low-skilled labour. The household experiences utility costs from skill accumulation. In equilibrium, the high-skilled labour receives a higher wage rate. 
+The economy behaves as if there was a representative household. The household chooses between high and low-skilled labour.  In equilibrium, the high-skilled labour receives a higher wage rate. 
 
 \begin{align}
-U=\underset{\{c_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}}{max}&
-\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})\\
+U=\underset{\{\{c_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}\}}{max}&
+\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{lt}, h_{ht})\\
 %U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
 s.t.& \ \ c_{t}p_{t}=% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
 \lambda \left(h_{ht}w_{ht}+h_{lt}w_{lt}\right)^{1-\tau}\\
 \ & h_{ht}+h_{lt}\leq \bar{H}_t\\
 \ & h_{st}\geq 0 \ \forall s\in \{l,h\}
 \end{align}
-The period utility function includes costs for on-the-job training which is required for high-skilled labour in the next period. 
+The household experiences utility costs from  providing the high skill.
 \begin{align}
-	u(c_{t}, h_{lt}, h_{ht}, h_{ht+1})&= %\frac{c_t^{1-\gamma}}{1-\gamma}
+	u(c_{t}, h_{lt}, h_{ht})&= %\frac{c_t^{1-\gamma}}{1-\gamma}
 	\log(c_t)-\frac{(h_{lt}+\zeta h_{ht})^{1+\sigma}}{1+\sigma}%-v(h_{ht+1})%,\\
 	%\text{where}\  & v(h_{ht+1})=\left\{\begin{array}{lll}\zeta& \hspace{2mm} \text{if} \hspace*{2mm}  h_{ht+1}> 0, &\\
 %0  &\hspace{2mm}\text{if}\hspace{2mm}  h_{ht+1}= 0.
 %	\end{array}
 %	\right. 		
 \end{align}
-The positive parameter $\zeta>1$ implies a higher marginal disutility for high-skilled labour than unskilled labour. As a result, in equilibirum,  
-high-skilled labour earns a premium to compensate the representative household for the higher disutility. When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
+The positive parameter $\zeta>1$ implies a higher marginal disutility for high-skilled than low-skilled labour. As a result, in equilibirum,  
+high-skilled labour earns a premium to compensate the representative household for the higher disutility. %When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
 
-The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.\footnote{\ \textcolor{sonja}{With log-utility the income and substitution effects of the wage rate on hour supply cancel. With GHH preferences, in contrast, the wealth effect cancels.} }
+%The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.\footnote{\ \textcolor{sonja}{With log-utility the income and substitution effects of the wage rate on hour supply cancel. With GHH preferences, in contrast, the wealth effect cancels.} }
 
 I define the variable $H_t:=\zeta h_{ht}+h_{lt}$ which facilitates the derivation of results. 
 
 \paragraph{Production}
-There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector specific goods are imperfect substitutes in final consumption good production.\footnote{\ This ensures that the dirty good is always produced and overall, production is never perfectly clean.}  
+There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector-specific goods are imperfect substitutes in the production of the final consumption good.\footnote{\ This ensures that the dirty good is always produced and overall, production is never perfectly clean.}  
 The final good producing sector is perfectly competitive:
 $Y_t=\left(Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right)^\frac{\varepsilon}{\varepsilon-1}$. 
 I take the composite good as the numeraire so that $\left[p_{dt}^{1-\varepsilon}+p_{ct}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}=1$.
@@ -87,7 +87,7 @@ s.t.\ %& (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
 & (2)\ \text{behaviour of firms and households}
 \end{align*}
 
-$E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050. In 2030 emissions should be between 25 and 30 GtCO2e per year. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. For simplicity, I assume that the regeneration rate is constant. \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
+$E_t$ are flow emissions per year. The IPCC prescribes net-zero emissions starting from 2050. In 2030 emissions should be between 25 and 30 GtCO2e per year. The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors. Hence, in the net-zero steady state it has to hold that $Y_{nt}=\frac{\delta}{\kappa}\ \forall t\geq 30$ assuming that the analysis starts in 2020. For simplicity, I assume that the regeneration rate is constant. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
 
 The government generates revenues from taxing labour income. 
 Broadly speaking, there are two channels through which distortionary labour taxation affects emissions. First, by affecting households' labour supply decision (efficiency channel) and second in a mechanical way by changing households disposable income. The latter effect cancels out when tax revenues are used by the government to consume the final output good. Allowing the government to recycle revenues in a different way than for final good consumption uncloses another instrument to reduce emissions. 
@@ -250,7 +250,7 @@ Dirty output grows as
 \begin{align*}
 \frac{Y_d'}{Y_d}=\left(\frac{p_d'}{p_d}\right)^{\frac{\alpha-(1-\alpha)(1-\varepsilon)}{1-\alpha}}\frac{A_d'}{A_d}\frac{H'}{H}
 \end{align*}
-When goods are substitutes, $\varepsilon>1$, the price in the dirty sectors reduces labour supply in this sector. When goods are complements, labour supply in the dirty sector increases as the dirty goods price rises...^
+When goods are substitutes, $\varepsilon>1$, the price in the dirty sectors reduces labour supply in this sector. When goods are complements, labour supply in the dirty sector increases as the dirty goods price rises...
 
 growth in the dirty sector falls with inflation in this sector: $\alpha -(1-\alpha)(1-\varepsilon)>0$, then the growth in machines exceeds 
 \subsection{Results}
