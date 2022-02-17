@@ -32,7 +32,7 @@ In order to determine \textit{relevant}, I refer to the planetary boundaries dis
 \subsection{Modelling choice: external emission target}\label{app:emission_climate_targets}
 There is a multitude of uncertainties shaping the relation of production, on the one hand, and nature and climate warming, on the other hand. These uncertainties relate to (i) the technological possibilities to reduce emissions in the future and (ii) the relation of emissions and the climate. 
 
-In the Paris Agreement clear political goals have been formulated in 2015. Under this treaty, states have agreed on a legally binding maximum increase in temperature to well below 2°C, preferably 1.5° over pre-industrial levels, and the global community seeks to be climate-neutral in 2050 \url{https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement}. 
+In the Paris Agreement clear political goals have been formulated in 2015. Under this treaty, states have agreed on a legally binding maximum increase in temperature to well below 2°C, preferably 1.5° over pre-industrial levels, and the global community seeks to be climate-neutral in 2050  (compare:\\ \url{https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement}). 
 
 \paragraph{Uncertainty 1): Emissions $\rightarrow$ temperature}
 Carbon dioxide has been the focus of the literature integrating climate change and economic models \citep[such as,][]{Golosov2014OptimalEquilibrium,Barrage2019OptimalPolicy}. 
@@ -44,7 +44,34 @@ In chapter 2 of the
 
 \paragraph{Uncertainty 2: Technological progress $\rightarrow$ emissions}
 An important modelling uncertainty remains: what degree of emission reduction can be achieved by technological progress in the specified time frame? I use different specifications of technological possibilities: (i) a scenario where technological progress is sufficient to reduce emissions to zero until 2050 at current consumption levels per capita, (ii) and one where innovation steps are insufficient.
+Also look at different modelling approaches to technological change: (i) sector-specific innovations, (ii) porgress on the substitutability of clean and dirty input goods.
 
+\paragraph{Uncertainty 2: regeneration rate of nature}
+
+\paragraph{Uncertainty 2: Substitutability of natural capital in welfare}
+Related to technological possibilities is the substitutability of clean and dirty production. 
+
+A key reference is \cite{Cohen2019AnnualSubstitutable}. They argue for a limit of substitutability of \textit{natural capital} (defined as the stock of renewable and nonrenewable resources including minerals, soils, plants, animals, water, air, and energy). The role of natural capital for welfare: resources for production, absorption of waste, basic-life support, direct conrtibution to human welfare \ar No perfect substitutability: Humans cannot live without natural resources. 
+
+BUT: my model so far is about greenhouse-gas emissions only.
+
+Definition \textit{sustainability} common in economics: maintaining a non-decreasing level of welfare across generations. (Sonja: this shouls include provision of natural services: human-friendly climate; how to know the utility function of future generations? Eg if habits are relevant, than they might be happy with less consumption). As regards renewables, it must be ensured that renewability is maintained. It is about the substitutability of natural inputs to the welfare function. \textit{Sonja: (1) How should we know how substitutable biodiversity is for humanity if it is about pleasure derived from living in a diverse world. (2) If it is about other factors of biodiversity, such as, maintaining more basal services for human live, such as safety, there might be less disagreement; more certainty on the importance also for future generations; a utility approach but based on objectively defined values: basic needs.}
+
+\cite{Cohen2019AnnualSubstitutable} make the following distinction: \textit{within-input substitution}: =resources used in welfare production: within-input substitution allows to reduce environmental \textbf{impacts} if the same type of input can be obtained from different sources (e.g.: energy: from emission-low sources instead of emission high sources); \textit{between-input substitution}: = from energy to manufactured capital; includes more efficient energy use, recycling, reforestation.
+
+\textit{Brundtland Comission} definition of sustainable development: \textit{development that meets the \textbf{needs} of the present without compromising the ability of future generations to meet their own needs}.
+If various forms of capital are substitutable (i.e. can use manufactured capital, human capital to replace nature) then production only depends on the total capital stock. Then, economic growth is said to be \textit{weakly sustainable} when the total capital stock is non-decreasing; i..e aggregate savings rate is above depreciation rate on all forms of capital. 
+
+\textit{Strong sustainability view}:  a minimum of natural capital must be sustained as it provides non-substitutable inputs to utility. Then, long-run growth must be able to maintain a natural capital stock.  
+\ar Define $Y$ broadly to incorporate other necessary consumption goods: stable climate, breathable air, food, water; but these are partially not traded in markets, rather public goods. Then, better to model as public goods; \textbf{Or as another input in final good production}.
+
+\begin{align*}
+Y= \left[\left(\underbrace{\left(Y_c^{\frac{\varepsilon_c-1}{\varepsilon_c}}+Y_d^{\frac{\varepsilon_c-1}{\varepsilon_c}}\right)^{\frac{\varepsilon_c}{\varepsilon_c-1}}}_{\text{consumption  good}}\right)^{\frac{\varepsilon_o-1}{\varepsilon_o}}+(\underbrace{N-\bar{N}}_{\text{natural capital}})^{\frac{\varepsilon_o-1}{\varepsilon_o}}\right]^{\frac{\varepsilon_o}{\varepsilon_o-1}}
+\end{align*} 
+where $\varepsilon_o$  governs the substitutability of natural capital and consumption in the final good; it translates into the substitutability discussed in \cite{Cohen2019AnnualSubstitutable}. For the basic needs level ins terms of natural capital holds: $\bar{N}>0$ so that nature is a necessary good. The variable $N$ determines the consumption of natural capital, such as breathing air, stable climate.
+Model technological growth on substitutability between natural capital (including nature as a waste), and other production inputs.  
+
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Greenhouse gas emissions Data}
 To calibrate the relation of economic production and emissions, I use data from the EPA \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}.
