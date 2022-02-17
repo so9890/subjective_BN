@@ -105,6 +105,7 @@ end
 
 %% Primal approach read in model
 [symms, Obj_ramPA]=primal_problem(y, x, list, symms, E);
+[Obj_ramPA_dynamic ]=primal_problem_dynamic(y, x, list, symms, E);
 
 %% simulation Ramsey
 
