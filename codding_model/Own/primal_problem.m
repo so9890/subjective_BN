@@ -1,7 +1,7 @@
-function [symms, Obj_ramPA]=primal_problem(y, x, list, symms, E)
+function [symms, Obj_ramPA ]=primal_problem(y, x, list, symms, E)
 %% Primal approach
 % goal: find optimal allocation (c, llc, lld, lhc, lhd, yc, yd )
-% Ad, Ac as given 
+% Ad, Ac as symbols
 
 % read in variables  over which to optimise and paramters
 c=y(list.y=='c');
@@ -12,7 +12,6 @@ lhd=y(list.y=='lhd');
 yc=y(list.y=='yc');
 yd=y(list.y=='yd');
 H=y(list.y=='H');
-
 
 Ac=x(list.x=='Ac');
 Ad=x(list.x=='Ad');
@@ -29,6 +28,7 @@ eppsilon=symms.params(list.params=='eppsilon');
 alphaa=symms.params(list.params=='alphaa');
 psii=symms.params(list.params=='psii');
 G=symms.params(list.params=='G');
+betaa=symms.params(list.params=='betaa');
 
 %gammaa=symms.params(list.params=='gammaa');
 %etaa= symms.params(list.params=='etaa');
@@ -46,6 +46,8 @@ syms mu_target mu_budget mu_opt_final mu_rc mu_imp mu_defH real % exogenous emis
 
 % symbolic vector of variables over which to optimise
 symms.optimPA=[c, llc, lld, lhc, lhd, yc, yd, H, mu_target, mu_budget, mu_opt_final, mu_rc, mu_imp, mu_defH ];
+symms.ramsey_mu=[mu_target, mu_budget, mu_opt_final, mu_rc, mu_imp, mu_defH];
+list.ramsey_mu=string(symms.ramsey_mu);
 
 % auxiliary variables
 hl = llc+lld;       % market clearing low skill
@@ -84,7 +86,6 @@ imp = c*Muc+Muhh/zetaa*H^(-sigmaa);
 rc = Y-(c+psii*(xd+xc)+G);
 opt_fin = yd-(pc/pd)^eppsilon*yc;
 targets = yd-(deltaa+E)/kappaa; 
-%budget = 0-G;
 defH = H  -( hh*zetaa+hl);
 
 % objective function 
@@ -95,7 +96,9 @@ Obj_ramPA = W -mu_target*targets...
             -mu_defH*defH; 
            % -mu_budget*budget...
 
-% can now take derivatives if static, or do value function iteration!
+
+% dynamic: generate vectors of variables for 30 periods
 
 
+  
 
