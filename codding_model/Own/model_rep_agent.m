@@ -269,7 +269,7 @@ syms muu_target real % exogenous emission target
 if indic.withtarget==1
     symms.optim = sort([muu_target, tauul]);
 elseif indic.withtarget==0
-    symms.optim = sort([tauul]);
+    symms.optim = sort(tauul);
 end
 list.optim  = string(symms.optim);
 
