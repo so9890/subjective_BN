@@ -11,13 +11,19 @@ function [ model, model_param, varsModel, paramsModel]=model_eq_Ramsey(Obj, symm
 % symmsparams:  symbolic vector of parameters in model
 % params:       numerical vector of parameter values, same order as
 %               symmsparam
-% listparams:   list of parameters as in symmsparams
-% listoptim:    list of choice variables wrt which Obj is differentiated
+% symmssolve:   variables for which to solve model
 % file_name:    name of file to which model should be written
-% symmssolve:   symbolic vector for which to solve equilibrium
+% x_init:       initial values of state variables
+% x:            symbolic vector of state variables
+% non_pol_num:  numeric vector of potential policy variables which are treated as
+%               parameters in this model version
+% non_pol_sym:  as above but symbolic
 
 % output
-% 
+% model:        symbolic model: jacobian of ramsey objective function 
+% model_param:  model with substituted numeric parameter values
+% varsModel:    variables for which to solve Ramsey problem
+% paramsModel:  parameters in model
 
 %% get model and write model file to be passed to fsolve
 

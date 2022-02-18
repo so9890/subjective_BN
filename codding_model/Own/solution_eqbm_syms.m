@@ -63,7 +63,7 @@ yd= (pc/pd)^eppsilon*yc;
 
 % technology in next period
 Acp = (1+vc)*Ac;
-Adp = (1+vd)*Ad; 
+Adp = (1+vdd)*Ad; 
 
 % machines
 xd = (alphaa/psii*pd)^(1/(1-alphaa))*Ad*Ld;
@@ -73,4 +73,4 @@ xc = (alphaa/psii*pc)^(1/(1-alphaa))*Ac*Lc;
 Y = c+psii*(xd+xc)+G;
 
 % shadow value income
-mu= 1/c;
+muu= 1/c;

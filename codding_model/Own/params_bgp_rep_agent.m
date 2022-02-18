@@ -63,13 +63,13 @@ elseif ~isnan(tauul_opt)
 end
 
 if indic.het_growth==1       % heterogeneous growth, there should be no structural change!
-    vd      = 0.07;          % growth dirty sector
-    vc      = Uppsilon-vd;   % growth clean sector
+    vdd      = 0.07;          % growth dirty sector
+    vc      = Uppsilon-vdd;   % growth clean sector
     
 elseif indic.het_growth==0  % sectors grow at a equal rate
     
-    vd      = 0.07;         % growth clean sector
-    vc      = vd; 
+    vdd      = 0.07;         % growth clean sector
+    vc      = vdd; 
     
 end
 % numeric vector of parameter values

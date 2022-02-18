@@ -3,7 +3,6 @@
 % with two skill types, 
 % higher disutility from labour for high skill labour
 
-% NEXT: iNCLUDE LAMBDAA AS A POLICY VARIABLE
 %% include path to package
 clc, clear
 if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own/tools')
@@ -29,7 +28,7 @@ indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours
                         % should also see that income and substitution
                         % effect cancel due to bgp compatibility
 indic.withtarget   = 0; % ==1 if uses swf with target
-
+indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
 
 %% read in model file, Objective fcn gov and variables
@@ -103,80 +102,27 @@ end
 
 % takes ages!
 
-%% Primal approach read in model
-[symms, Obj_ramPA]=primal_problem(y, x, list, symms, E);
-[Obj_ramPA_dynamic ]=primal_problem_dynamic(y, x, list, symms, E);
-
-%% simulation Ramsey
-
-Ac0=x_init(list.x=='Ac');
-Ad0=x_init(list.x=='Ad');
-
-if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget))
-
-    % initial guess optimal policy and Lagrange multi
-    mu_budget       = 1;
-    mu_target       = 1;
-    mu_opt_final    = 1;
-    mu_rc           = 1;
-    mu_imp          = 1;
-    mu_defH         = 1; 
-    tauul           = 0.7;
-    guessLF         = 0; % for simulation in comp equilibrium
-
+%% primal and dynamic models
+if indic.approach==1
+    %- read in static problem
+    [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
     
-    
-    for t=time
-
-        %-- read in model equations with numeric parameter values; 
-        %           only variables: policy and lagrange multipliers of gov. problem
-        %           emission target is dynamic => every period a new
-        %           problem!
-
-        [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
-                            (Obj_ram, symms.optim, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optim,...
-                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
-%        [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
-%                             (Obj_ramPA, symms.optimPA, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optimPA,...
-%                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
-
-        %-- solve for optimal policy
-
-        guess= eval(varsModel);
-
-        modFF = @(x)Ramsey_model(x);
-        options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-14);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-
-        [opt_pol, fval] = fsolve(modFF, guess, options);
-
-        tauul=opt_pol(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
-        opt_pol_sim(:,t)=tauul;
-
-        % find optimal allocation: pass optimal policy into comp. equilibrium
-        % model
-        % FASTER: USE ANALYTICALLY SOLVED MODEL
-        [params, pols_num, model_pars]=params_bgp_rep_agent(symms.params, f, pol, indic, T, opt_pol_sim(:,t), zetaa_calib);
-        [ybgp, xpbgp, solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars, t, guessLF);
-
-        % save results
-        y_simRam(:,t)=ybgp';
-        x_simRam(:,t)=x_init; % to save technology in correct period
-
-        % update initial values and use as initial guess for solution
-        x_init=xpbgp;
-        guessLF=solution;
-
-    end
-
-    save(sprintf('simulation_results/PAControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'y_simRam');
-    save(sprintf('simulation_results/PAStatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'x_simRam');
-
+    %- dynamic primal problems
+    [Obj_ramPA_dynamic, symms.optim_dynamic ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol);
 else
-    load(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
-    load(sprintf('simulation_results/StatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
+    %- dynamic dual approach
+     [Obj_ram_dynamic, symms.optim_dynamic]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol);
 end
-    
-    %% Plots
+%% simulation Ramsey: static
+
+%- initial values (guesses for ramsey problem updated in loop)
+Ac1     = x_init(list.x=='Ac');
+Ad1     = x_init(list.x=='Ad');
+
+ramsey_solve_static;
+%% dynamic problem
+%CONTINUE WRITE UP DYNAMIC PROBLEM SO THAT IT CAN BE SOLVED
+%% Plots
 
 %% Ramsey versus laissez faire
 
@@ -219,7 +165,7 @@ ytickformat('%.2f')
 
 sgtitle('Laissez Faire versus Ramsey')
 path=sprintf('figures/Rep_agent/Ram_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
-    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad0,Ac0,...
+    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
     params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
 saveas(gcf,path)
 

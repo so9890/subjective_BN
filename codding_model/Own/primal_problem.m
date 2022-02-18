@@ -1,4 +1,4 @@
-function [symms, Obj_ramPA ]=primal_problem(y, x, list, symms, E)
+function [symms, list, Obj_ramPA ]=primal_problem(y, x, list, symms, E)
 %% Primal approach
 % goal: find optimal allocation (c, llc, lld, lhc, lhd, yc, yd )
 % Ad, Ac as symbols

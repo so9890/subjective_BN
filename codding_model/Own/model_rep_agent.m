@@ -11,7 +11,7 @@
 % today and tomorrow
 
 syms c cp ...           % consumption 
-    mu mup ...          % lagrange multiplier budget
+    muu muup ...          % lagrange muultiplier budget
     lambdaa lambdaap ...% shifter government revenues
     tauul tauulp ...    % progressivity parameter
     wl wlp ...          % wage rate low skill
@@ -41,7 +41,7 @@ syms c cp ...           % consumption
     ... % productivity
     Ac Acp ...          % productivity clean sector
     Ad Adp ...          % productivity dirty sector
-    vd vdp ...          % productivity growth dirty sector - gov choice
+    vdd vddp ...          % productivity growth dirty sector - gov choice
     vc vcp ...          % productivity growth clean sector - gov choice
     real
 %    ...
@@ -111,7 +111,7 @@ f(q)= p*c-DI;
 
 % consumption foc
 q=q+1;
-f(q) = Muc-p*mu;
+f(q) = Muc-p*muu;
 
 % labour supply focs = more generally to be able to use different utility
 % functions
@@ -122,11 +122,11 @@ f(q) = Muc-p*mu;
 
 % high skill supply
 q=q+1;
-f(q) = -Muhh-mu*DIhh;
+f(q) = -Muhh-muu*DIhh;
 
 % low skill supply
 q=q+1;
-f(q) = -Muhl-mu*DIhl;
+f(q) = -Muhl-muu*DIhl;
 
 % definition total disutility hours
 q=q+1;
@@ -192,11 +192,11 @@ f(q)= Acp-(1+vc)*Ac;
 
 %dirty
 q=q+1;
-f(q)= Adp-(1+vd)*Ad;
+f(q)= Adp-(1+vdd)*Ad;
 
 % aggregate growth: write as inequality condition in gov problem! 
 %c=c+1;
-%f(c)=vc+vd- Uppsilon;
+%f(c)=vc+vdd- Uppsilon;
 
 %-- market clearing
 % numeraire (aggregate goods market clears by walras' law)
@@ -236,12 +236,12 @@ x  = [Ac Ad];
 xp = [Acp Adp]; 
 
 % endogenous variables
-y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd mu lambdaa];
-yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp mup lambdaap];
+y  =[c wl wh hl hh pc pd yc yd Y Lc Ld pcL pdL lhc llc lhd lld H xc xd muu lambdaa];
+yp =[cp wlp whp hlp hhp pcp pdp ycp ydp Yp Lcp Ldp pcLp pdLp lhcp llcp lhdp lldp Hp xcp xdp muup lambdaap];
 
 % policy variables: in laissez faire as if parameters
-pol  = [tauul vc vd];
-polp = [tauulp vcp vdp];
+pol  = [tauul vc vdd];
+polp = [tauulp vcp vddp];
 
 % marginal utilities
 symms.marginals= [Muc, Muhh, Muhl];
@@ -261,13 +261,13 @@ list.marginals = string(["Muc" "Muhh" "Muhl"]);
 % competitive equilibrium solution (symbolic)
 solution_eqbm_syms;
 
-%% lagrange multiplier govs
-syms mu_target real % exogenous emission target
+%% lagrange muultiplier govs
+syms muu_target real % exogenous emission target
 
 % vector of symbolic variables for which to solve problem
 
 if indic.withtarget==1
-    symms.optim = sort([mu_target, tauul]);
+    symms.optim = sort([muu_target, tauul]);
 elseif indic.withtarget==0
     symms.optim = sort([tauul]);
 end
@@ -282,13 +282,13 @@ target  = yd-(deltaa+E)/kappaa;
 %budget  = (H*wl-lambdaa*(H*wl)^(1-tauul))-G;
 
 
-Obj_ram = W-mu_target*indic.withtarget*target;%-mu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
+Obj_ram = W-muu_target*indic.withtarget*target;%-muu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
 
     
-Obj_sp = 0; %W + muLr*lambdaa*(L-lr)+muLp*(1-lambdaa)*(L-lp)...
-%     +mun*(An*hn-lambdaa*cnr-(1-lambdaa)*cnp)...
-%     +mus*(As*hs-lambdaa*csr-(1-lambdaa)*csp)...
-%     +mul*(-lab_m);
+Obj_sp = 0; %W + muuLr*lambdaa*(L-lr)+muuLp*(1-lambdaa)*(L-lp)...
+%     +muun*(An*hn-lambdaa*cnr-(1-lambdaa)*cnp)...
+%     +muus*(As*hs-lambdaa*csr-(1-lambdaa)*csp)...
+%     +muul*(-lab_m);
 %end
 
 

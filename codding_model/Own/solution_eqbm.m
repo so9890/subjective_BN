@@ -39,7 +39,7 @@ G= symsparams(list.params=='G');
 tauul=pols(list.pol=='tauul');
 %lambdaa=pols(list.pol=='lambdaa');
 vc=pols(list.pol=='vc');
-vd=pols(list.pol=='vd');
+vdd=pols(list.pol=='vdd');
 
 %% read in competitive eqbm solution
 solution_eqbm_syms;
