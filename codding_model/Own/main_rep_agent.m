@@ -5,12 +5,12 @@
 
 %% include path to package
 clc, clear
-if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own/tools')
+if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
     cd('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
 else 
     cd('C:\Users\user\Documents\subjective_BN\codding_model\Own')
 end
-
+%%
 folder = '../tools';
 addpath(genpath(folder))
 
