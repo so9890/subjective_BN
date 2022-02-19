@@ -1,11 +1,10 @@
-function [Obj_ram_dynamic,  optims ]=problem_dynamic(y, x, list, symms, E, Obj_ram , indic, pol )
+function [Obj_ram_dynamic,  optims, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ram , indic, pol, P )
 
 % function reads in dynamic models: take explicitly whole time span until
 % 2050 into account when maximizing. Not yet updated for a continuation
 % value. 
 
 % periods for which to solve directly
-P=30; 
 betaa=symms.params(list.params=='betaa');
 %% generate vectors for each variable; save in matrix
 

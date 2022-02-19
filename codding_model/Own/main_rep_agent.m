@@ -15,7 +15,6 @@ folder = '../tools';
 addpath(genpath(folder))
 
 % create folder to save figures
-%if CHECK IF DOES OR DOES NOT EXIST 
 mkdir('figures/Rep_agent');
 mkdir('simulation_results');
 
@@ -27,7 +26,9 @@ indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours
                         % == 1 if CRRA gamma!=1 KPR preferences (bgp),
                         % should also see that income and substitution
                         % effect cancel due to bgp compatibility
-indic.withtarget   = 0; % ==1 if uses swf with target
+
+% NEXT 19.02.: CODE WITH TARGET!                        
+indic.withtarget   = 1; % ==1 if uses swf with target
 indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
 
@@ -46,14 +47,14 @@ gri.tauul=linspace(0,1.5,50);
 %solution_Ramsey=containers.Map;
 
 % number of periods for simulation 
-T=101;
+T=101; % all time periods
+P=30;  % periods for which to solve ramsey problem explicitly
 time=1:T; % vector of periods (1 is the initial period)
 
 % initialise matrices to save results
 y_simLF=zeros(length(y),T);
 x_simLF=zeros(length(x),T);
-W_simLF=zeros(1,T); % social welfare
-
+%W_simLF=zeros(1,T); % social welfare
 
 y_simRam=zeros(length(y),T);
 x_simRam=zeros(length(x),T);
@@ -108,10 +109,10 @@ if indic.approach==1
     [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
     
     %- dynamic primal problems
-    [Obj_ramPA_dynamic, symms.optim_dynamic ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol);
+    [Obj_ramPA_dynamic, symms.optim_dynamic, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol, P);
 else
     %- dynamic dual approach
-     [Obj_ram_dynamic, symms.optim_dynamic]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol);
+     [Obj_ram_dynamic, symms.optim_dynamic, vecs, list]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol, P);
 end
 %% simulation Ramsey: static
 
@@ -119,41 +120,54 @@ end
 Ac1     = x_init(list.x=='Ac');
 Ad1     = x_init(list.x=='Ad');
 
-ramsey_solve_static;
+%ramsey_solve_static;
 %% dynamic problem
-%CONTINUE WRITE UP DYNAMIC PROBLEM SO THAT IT CAN BE SOLVED
+ramsey_solve_dynamic;
+
+
 %% Plots
 
+%% Ramsey versus laissez faire: dynamic problem
+
+
 %% Ramsey versus laissez faire
+
+% if dynamic
+time=1:P;
+T=P;
 
 % number of figures in row in subplot
 nn=5;
 % list of variables to be plotted
-%list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd" "lld"])), list.x, "welfare"];
+%list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd"
+%"lld"])), list.x, "welfare"];
 list.plot=[list.y list.x, "welfare"];
 
 % combine variables into one matrix and list 
 
-plottsLF=sol_mat(:,:,params(list.params=='zetaa')==zetaa_calib);
+plottsLF=sol_mat(:,1:T,params(list.params=='zetaa')==zetaa_calib);
+
 % welfare
 welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
         params(list.params=='zetaa').*y_simRam(list.y=='hh',:)).^(1+params(list.params=='sigmaa'))./(1+params(list.params=='sigmaa'));
 
-plottsRam=[y_simRam; x_simRam; welf_sim ];
+plottsRam=[y_simRam(:,1:T); x_simRam(:,1:T); welf_sim(:,1:T) ];
 
-
+% list as in matrices of results
+list.plot_mat=[list.y, list.x, "welfare"];
+%%
 
 figure(3)
 
 for i=1:length(list.plot)
 subplot(floor(length(list.plot)/nn)+1,nn,i)
-plot(time, plottsLF(list.joint==list.plot(i),:), time, plottsRam(list.joint==list.plot(i),:), 'LineWidth', 1.6)
+plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6)
 legend(sprintf('LF: %s', list.plot(i)), sprintf('Ramsey: %s', list.plot(i)), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
 ytickformat('%.2f')
 end
 
 subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
-plot(time, plottsLF(list.joint=='yd',:)./plottsLF(list.joint=='yc',:), time, plottsRam(list.joint=='yd',:)./plottsRam(list.joint=='yc',:), 'LineWidth', 1.6)
+plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
 legend(sprintf('LF: $y_d/y_c$'), sprintf('Ramsey: $y_d/y_c$'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
 ytickformat('%.2f')
 %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
@@ -164,7 +178,7 @@ legend(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex', 'box', 'off', 'Loca
 ytickformat('%.2f')
 
 sgtitle('Laissez Faire versus Ramsey')
-path=sprintf('figures/Rep_agent/Ram_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
+path=sprintf('figures/Rep_agent/dynamicRam_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
     params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
     params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
 saveas(gcf,path)

@@ -64,7 +64,7 @@ if ~isfile(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtar
         [ybgp, xpbgp, solution]= simul_bgp(list, x, x_init, params, pols_num, model_pars, t, guessLF);
 
         % save results
-        y_simRam(:,t)=ybgp';
+        y_simRam(:,t)=transpose(ybgp);
         x_simRam(:,t)=x_init; % to save technology in correct period
 
         % update initial values and use as initial guess for solution

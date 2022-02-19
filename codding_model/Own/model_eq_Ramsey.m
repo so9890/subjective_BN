@@ -31,19 +31,19 @@ function [ model, model_param, varsModel, paramsModel]=model_eq_Ramsey(Obj, symm
 % unreadable output
 
 % initialise model by vector of eqbm variables
-model=symmssolve'; 
+model=transpose(symmssolve); 
 
 for i=1:length(symmsoptim)
 model(i)=jacobian(Obj, symmsoptim(i)); % should give derivative=0 if not present
 end
 
 % retrieve variables in model for substitution
-model_vars=symvar(model)';
+model_vars=transpose(symvar(model));
 paramsModel=symmsparams(ismember(symmsparams,model_vars)); 
 
 %-- replace parameters by values
 
-model_param=subs(model',[symmsparams(ismember(symmsparams,model_vars)), x, non_pol_sym], [params(ismember(symmsparams,model_vars)), x_init, non_pol_num]);
+model_param=subs(transpose(model),[symmsparams(ismember(symmsparams,model_vars)), x, non_pol_sym], [params(ismember(symmsparams,model_vars)), x_init, non_pol_num]);
 
 
 %-- write parameterised model to file
