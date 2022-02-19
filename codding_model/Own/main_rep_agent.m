@@ -26,8 +26,7 @@ indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours
                         % == 1 if CRRA gamma!=1 KPR preferences (bgp),
                         % should also see that income and substitution
                         % effect cancel due to bgp compatibility
-
-% NEXT 19.02.: CODE WITH TARGET!                        
+% CONTINUE 19.02 CHECKING WITH TARGET 
 indic.withtarget   = 1; % ==1 if uses swf with target
 indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
@@ -124,10 +123,9 @@ Ad1     = x_init(list.x=='Ad');
 %% dynamic problem
 ramsey_solve_dynamic;
 
-
 %% Plots
-
-%% Ramsey versus laissez faire: dynamic problem
+ 
+  %% Ramsey versus laissez faire: dynamic problem
 
 
 %% Ramsey versus laissez faire
@@ -179,6 +177,46 @@ ytickformat('%.2f')
 
 sgtitle('Laissez Faire versus Ramsey')
 path=sprintf('figures/Rep_agent/dynamicRam_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
+    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
+saveas(gcf,path)
+
+%% test: static versus 
+dync=load(sprintf('simulation_results/DynamicControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'y_simRam');
+dyns=load(sprintf('simulation_results/DynamicStatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget),'x_simRam');
+statc= load(sprintf('simulation_results/ControlsRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
+stats=  load(sprintf('simulation_results/StatesRamsey_hetgrowth%d_util%d_withtarget%d.mat',indic.het_growth, indic.util, indic.withtarget));
+
+nn=5;
+%welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
+ %       params(list.params=='zetaa').*y_simRam(list.y=='hh',:)).^(1+params(list.params=='sigmaa'))./(1+params(list.params=='sigmaa'));
+
+plottsRam_dyn=[dync.y_simRam(:,1:T); dyns.x_simRam(:,1:T) ];
+plottsRam_stat=[statc.y_simRam(:,1:T); stats.x_simRam(:,1:T) ];
+
+% list as in matrices of results
+list.plot_mat=[list.y, list.x];
+% list of variables to be plotted
+list.plot=[list.y, list.x];
+
+figure(3)
+
+for i=1:length(list.plot)
+subplot(floor(length(list.plot)/nn)+1,nn,i)
+plot(time, plottsRam_stat(list.plot_mat==list.plot(i),:), time, plottsRam_dyn(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6)
+legend(sprintf('Static: %s', list.plot(i)), sprintf('Dynamic: %s', list.plot(i)), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+ytickformat('%.2f')
+end
+
+subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
+plot(time, plottsRam_stat(list.plot_mat=='yd',:)./plottsRam_stat(list.plot_mat=='yc',:), time, plottsRam_dyn(list.plot_mat=='yd',:)./plottsRam_dyn(list.plot_mat=='yc',:), 'LineWidth', 1.6)
+legend(sprintf('Static: $y_d/y_c$'), sprintf('Dynamic: $y_d/y_c$'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
+ytickformat('%.2f')
+%set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+
+
+sgtitle('Laissez Faire versus Ramsey')
+path=sprintf('figures/Rep_agent/dynamic_vs_static_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d.png', T-1, ...
     params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
     params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
 saveas(gcf,path)
