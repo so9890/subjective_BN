@@ -37,9 +37,11 @@ for i=1:length(symmsoptim)
 model(i)=jacobian(Obj, symmsoptim(i)); % should give derivative=0 if not present
 end
 
+
 % retrieve variables in model for substitution
 model_vars=transpose(symvar(model));
 paramsModel=symmsparams(ismember(symmsparams,model_vars)); 
+
 
 %-- replace parameters by values
 
@@ -54,5 +56,5 @@ model_param=subs(transpose(model),[symmsparams(ismember(symmsparams,model_vars))
 matlabFunction(model_param, 'vars', {symmssolve(ismember(symmssolve,model_vars))}, 'File', file_name );
 
 % get vector of variables in model to check if correct
-varsModel=symvar(model_param);
+varsModel=sort(symvar(model_param));
 end

@@ -15,7 +15,6 @@ if indic.approach==1
 %         yc              = 1;
  
  elseif indic.approach==2
-        guess           = repmat(0.7, size(symms.optim_dynamic)); %subs(symms.optim_dynamic,zer )
 end
 
     % initial guess optimal policy and Lagrange multi
@@ -29,7 +28,7 @@ end
 if indic.approach==2
 
      [model_dyn, model_param_dyn, varsModel_dyn, paramsModel_dyn]=model_eq_Ramsey...
-                (Obj_ram_dynamic, symms.optim_dynamic, [symms.params, symms.targets, transpose(vecs(:,list.joint=='E'))], [params, targets_num, E_vec], symms.optim_dynamic,...
+                (Obj_ram_dynamic, reshape(symms.optim_dynamic, 1, []), [symms.params, symms.targets, transpose(vecs(:,list.joint=='E'))], [params, targets_num, E_vec], reshape(symms.optim_dynamic,1,[]),...
                 'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
 
 elseif indic.approach ==1
@@ -37,19 +36,27 @@ elseif indic.approach ==1
 fprintf('primal approach dynamic not yet coded')
 end
 
+%-- guess
+guess           = repmat(0.7, size(varsModel_dyn)); %subs(symms.optim_dynamic,zer )
+
 %-- solve for optimal policy
 
 modFF = @(x)Ramsey_model(x);
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-14);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
-[opt_pol_sim, ~, exitflag] = fsolve(modFF, guess, options);
+[outt, ~, exitflag] = fsolve(modFF, guess, options);
 fprintf('ramsey solved with exitflag %d ', exitflag );
 
+
+opt_pol_sim=outt(ismember(varsModel_dyn, vecs(:, list.joint=='tauul')));
 
 % optimal allocation from analytic solution: static 
 vc           = pols_num(list.pol=='vc');
 vdd          = pols_num(list.pol=='vdd');
 vars_tosolve = [y,xp];
+
+ybgp=zeros(size(list.y));
+xpbgp=zeros(size(list.xp));
 
 for t=1:P
 % find optimal allocation: pass optimal policy into comp. equilibrium
@@ -60,8 +67,6 @@ for t=1:P
     levels=solution_eqbm(x_init, params, eval(pol), list, vars_tosolve );
                 
     % save results
-    ybgp=zeros(size(list.y));
-    xpbgp=zeros(size(list.xp));
     for i =list.y
         ybgp(list.y==i) =levels(vars_tosolve==i);
     end

@@ -27,7 +27,7 @@ indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours
                         % == 1 if CRRA gamma!=1 KPR preferences (bgp),
                         % should also see that income and substitution
                         % effect cancel due to bgp compatibility
-% CONTINUE 19.02 CHECKING WITH TARGET 
+
 indic.withtarget   = 1; % ==1 if uses swf with target
 indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
@@ -48,7 +48,7 @@ gri.tauul=linspace(0,1.5,50);
 
 % number of periods for simulation 
 T=101; % all time periods
-P=30;  % periods for which to solve ramsey problem explicitly
+P=50;  % periods for which to solve ramsey problem explicitly
 time=1:T; % vector of periods (1 is the initial period)
 
 % initialise matrices to save results
@@ -97,7 +97,7 @@ end
  
 %% calibration emissions and emission targets
 % use this to calibrate relation of production and output
-[targets_num, E_vec]=calibration_emissions(squeeze(sol_mat(list.y=='yd',1,gri.zetaa==1.4)), symms.targets, T);
+[targets_num, E_vec]=calibration_emissions(squeeze(sol_mat(list.y=='yd',1,gri.zetaa==1.4)), symms.targets, P);
 
 %% grid method to maximise welfare function 
 
@@ -126,7 +126,7 @@ ramsey_solve_dynamic;
 
 %% Plots
  
-  %% Ramsey versus laissez faire: dynamic problem
+%% Ramsey versus laissez faire: dynamic problem
 
 
 %% Ramsey versus laissez faire
@@ -161,19 +161,21 @@ figure(3)
 for i=1:length(list.plot)
 subplot(floor(length(list.plot)/nn)+1,nn,i)
 plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6)
-legend(sprintf('LF: %s', list.plot(i)), sprintf('Ramsey: %s', list.plot(i)), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
 ytickformat('%.2f')
+title(sprintf('%s', list.plot(i)), 'Interpreter', 'latex')
 end
 
 subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
 plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
-legend(sprintf('LF: $y_d/y_c$'), sprintf('Ramsey: $y_d/y_c$'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
+legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
 ytickformat('%.2f')
+title('$y_d/y_c$', 'Interpreter', 'latex')
 %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
 
 subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+2)
 plot(time, opt_pol_sim, 'LineWidth', 1.6)
-legend(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
 ytickformat('%.2f')
 
 sgtitle('Laissez Faire versus Ramsey')
