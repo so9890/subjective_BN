@@ -40,9 +40,9 @@ else
                             % difference in skills from a hh perspective
 end
 if indic.subst == 0                
-    eppsilon = 0.4;         % elasticity of substitution clean and dirty production
+    eppsilon = epps(1);         % elasticity of substitution clean and dirty production
 elseif indic.subst == 1
-    eppsilon = 4; 
+    eppsilon =epps(2); 
 end
 
 alphaa   = 1/3;         % income share capital
@@ -51,7 +51,7 @@ thetac   = 0.7;         % high skill labour share clean sector
 thetad   = thetac*0.8;  % high skill labour share dirty sector
 Uppsilon = 0.08;        % sum of growth rates; used as an upper bound
 betaa    = 0.999;       % matches time preference in AA12 (rho= 0.001; betaa=exp(-rho))
-G = 0; % target on gov revenues
+G        = 0;           % target on gov revenues
 
 % policy variables
 

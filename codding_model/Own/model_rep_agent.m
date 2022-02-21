@@ -277,12 +277,15 @@ list.optim  = string(symms.optim);
 
 U=log(c)-(hl+zetaa*hh)^(1+sigmaa)/(1+sigmaa);
 
-W       = U;                                     % value function 
-target  = yd-(deltaa+E)/kappaa;
+W        = U;                                     % value function 
+target   = yd-(deltaa+E)/kappaa;
+%growthAc = Acp - (1+vc)*Ac;
+%growthAd = Adp - (1+vdd)*Ad;
 %budget  = (H*wl-lambdaa*(H*wl)^(1-tauul))-G;
 
 
-Obj_ram = W-muu_target*indic.withtarget*target;%-muu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
+Obj_ram = W-muu_target*indic.withtarget*target; %...
+           %- muu_growthAc*growthAc- muu_growthAd * growthAd;%-muu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
 
     
 Obj_sp = 0; %W + muuLr*lambdaa*(L-lr)+muuLp*(1-lambdaa)*(L-lp)...
