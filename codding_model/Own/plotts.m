@@ -1,6 +1,6 @@
 %% Plots
 %% Ramsey versus laissez faire
-
+for plott="onlyR" % ["subplot", "separate", "onlyR"]
 for prob=["static"]% "dynamic"]
 for ss=0:1
  
@@ -9,7 +9,7 @@ for ss=0:1
     if ss==0
         params(list.params=='eppsilon')=epps(1);
     else
-       params(list.params=='eppsilon')=epps(2);
+        params(list.params=='eppsilon')=epps(2);
     end
 
 for ttt=0:1
@@ -46,7 +46,7 @@ nn=5;
 % list of variables to be plotted
 %list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd"
 %"lld"])), list.x, "welfare"];
-list.plot=[list.y list.x, "welfare"];
+list.plot=[list.y, list.x, "welfare"];
 
 % combine variables into one matrix and list 
 
@@ -64,89 +64,141 @@ opt_pol_sim= 1-y_simRam(list.y=='H',1:T).^(1+params(list.params=='sigmaa'));
 list.plot_mat=[list.y, list.x, "welfare"];
 
 %% figures
-%- all in one figure
-gcf=figure('Visible','off');
-
-for i=1:length(list.plot)
-subplot(floor(length(list.plot)/nn)+1,nn,i)
-plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.3)
-%legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-ytickformat('%.2f')
-title(sprintf('%s', list.plot(i)), 'Interpreter', 'latex')
-end
-
-subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
-plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
-%legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
-ytickformat('%.2f')
-title('$y_d/y_c$', 'Interpreter', 'latex')
-%set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-
-subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+2)
-plot(time, opt_pol_sim, 'LineWidth', 1.6)
-title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
-ytickformat('%.2f')
-
-sgtitle('Laissez Faire versus Ramsey')
-path=sprintf('figures/Rep_agent/%sRam_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd0.png', prob, T-1, ...
-    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
-    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
-exportgraphics(gcf,path,'Resolution', 400)
-% saveas(gcf,path)
-close gcf
+if plott=="subplot"
+        %- all in one figure
+        gcf=figure('Visible','off');
+        
+        for i=1:length(list.plot)
+        subplot(floor(length(list.plot)/nn)+1,nn,i)
+        plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.3)
+        %legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+        ytickformat('%.2f')
+        title(sprintf('%s', list.plot(i)), 'Interpreter', 'latex')
+        end
+        
+        subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
+        plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
+        %legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
+        ytickformat('%.2f')
+        title('$y_d/y_c$', 'Interpreter', 'latex')
+        %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+        
+        subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+2)
+        plot(time, opt_pol_sim, 'LineWidth', 1.6)
+        title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
+        ytickformat('%.2f')
+        
+        sgtitle('Laissez Faire versus Ramsey')
+        path=sprintf('figures/Rep_agent/%sRam_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd0.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget);
+        exportgraphics(gcf,path,'Resolution', 400)
+        % saveas(gcf,path)
+        close gcf
 
 %- separate figures 
-for lgdd=0:1
-for i=1:length(list.plot)
-gcf=figure('Visible','off');
-pp=plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
-set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
-if lgdd==1
-    legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+elseif plott=="separate"
+        
+        for lgdd=0:1
+        for i=1:length(list.plot)
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
+        if lgdd==1
+            legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+          %  xticks(linspace(0.1,0.9,9))
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods', 'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%sRam_LF_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        end
+        
+        
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
+        if lgdd==1
+            legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        %title('$y_d/y_c$', 'Interpreter', 'latex')
+        %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+        path=sprintf('figures/Rep_agent/%sRam_LF_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+       
+        end
+%- only ramsey
+elseif plott == "onlyR"
+        for lgdd=0:1
+        for i=1:length(list.plot)
+        gcf=figure('Visible','off');
+        pp=plot( time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
+        if lgdd==1
+            legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+          %  xticks(linspace(0.1,0.9,9))
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods', 'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%sonlyRam_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        end
+        
+        
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
+        if lgdd==1
+            legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        %title('$y_d/y_c$', 'Interpreter', 'latex')
+        %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+        path=sprintf('figures/Rep_agent/%sonlyRam_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        
+        
+        gcf=figure('Visible','off');
+        pp=plot(time, opt_pol_sim, 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
+        
+        if lgdd==1
+            legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%sonlyRam_separate_tauul_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        end
 end
-ytickformat('%.2f')
-
-path=sprintf('figures/Rep_agent/%sRam_LF_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
-    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
-    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
-exportgraphics(gcf,path,'Resolution', 400)
-end
-
-
-gcf=figure('Visible','off');
-plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
-set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
-if lgdd==1
-    legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-end
-ytickformat('%.2f')
-title('$y_d/y_c$', 'Interpreter', 'latex')
-%set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-path=sprintf('figures/Rep_agent/%sRam_LF_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
-    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
-    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
-exportgraphics(gcf,path,'Resolution', 400)
-
-
-gcf=figure('Visible','off');
-pp=plot(time, opt_pol_sim, 'LineWidth', 1.6);
-set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
-
-if lgdd==1
-    legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-end
-ytickformat('%.2f')
-
-path=sprintf('figures/Rep_agent/%sRam_LF_separate_tauul_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
-    params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
-    params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
-exportgraphics(gcf,path,'Resolution', 400)
-close gcf
-
 end
 end
 end
 end
+
 %% test: static versus 
 for ss=0:1
     for ttt=0:1
