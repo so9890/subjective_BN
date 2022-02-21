@@ -39,8 +39,12 @@ else
     zetaa    = zetaa_calib;         % matches skill premium; with zeta==1 there is no 
                             % difference in skills from a hh perspective
 end
-                            
-eppsilon = 0.4;         % elasticity of substitution clean and dirty production
+if indic.subst == 0                
+    eppsilon = 0.4;         % elasticity of substitution clean and dirty production
+elseif indic.subst == 1
+    eppsilon = 4; 
+end
+
 alphaa   = 1/3;         % income share capital
 psii     = alphaa^2;    % cost of machine production following AA12
 thetac   = 0.7;         % high skill labour share clean sector

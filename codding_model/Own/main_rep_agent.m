@@ -20,6 +20,7 @@ mkdir('simulation_results');
 
 %% indicators for model versions
 
+indic.subst        = 1; % == 0 if complements, ==1 if substitutes
 indic.fullDisposal = 0; % == 0 if gov. revenues are fully consumed (baseline), ==1 if gov revenues are fully disposed of
 indic.het_growth   = 1; % == 0 if there is equal growth across sectors, ==1 if growth in the sustainable sector is slower 
 indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours do not react to wage changes); 
