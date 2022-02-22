@@ -40,9 +40,9 @@ else
                             % difference in skills from a hh perspective
 end
 if indic.subst == 0                
-    eppsilon = epps(1);         % elasticity of substitution clean and dirty production
+    eppsilon = indic.epps(1);         % elasticity of substitution clean and dirty production
 elseif indic.subst == 1
-    eppsilon =epps(2); 
+    eppsilon =indic.epps(2); 
 end
 
 alphaa   = 1/3;         % income share capital

@@ -121,145 +121,27 @@ Maybe because reducing labour supply is better in terms of utility?
 
 Some rationale for setting hours restriction? 
 
-\section{Results}
-\subsection{Balanced Growth path}
- The model features structural transformation stemming from price effects (\cite{Ngai2007StructuralGrowth}, Baumol (1967)), since heterogeneous growth rates result in relative price changes over time. 
- 
-For certain parameter values the model exhibits a generalised balanced growth path (GBGP). In contrast to a balanced growth path, which is commonly defined by constant growth in all variables, a GBGP is less strict and certain variables are allowed to grow at non-constant rates. 
+%\section{Results}
+%\subsection{Balanced Growth path}
 
-
-A dash $'$ indicates next period variables.  
 
 %It follows that the labour input good does not grow, since hours worked are constant and transitional dynamics are ruled out by definition.\footnote{\ In a subsection below, I prove this claim.}
 
 %I write the evolution of the model as a function of growth rates and initial conditions $A_{c0}, A_{d0}$. I also impose that policy variables, $\upsilon_{c}, \upsilon_{d}, \tau_l, \lambda$, are constant on the balanced growth path. 
+%\begin{align}\label{eq:price_ratio_labourinput}
+%	\frac{p_c}{p_d}= \left(\frac{A_d}{A_c}\frac{z_d}{z_c}\zeta^{\theta_c-\theta_d}\right)^{1-\alpha}& \text{(optimality labour input production)}
+%\end{align}
 
-From the FOCs on skill demand follows that the price of the labour input good relative to the skill-specific wage rate is constant. Substituting demand for low skill in the clean sector into the demand for high skill yields
+%\begin{prop}[Skill scarcity and prices, assuming $\theta_c>\theta_d$] 
+%	
+%	The effect of skill scarcity on relative prices depends on the substitutability of goods. When goods are complements, $\varepsilon<1$, the price of the more skill-intense clean good rises with the disutility of high-skill labour, while the price of the dirty good falls.
+%	Production of the clean good becomes more expensive. 
+%	
+%	When goods are substitutes, $\varepsilon>1$, then the clean good becomes cheaper the scarcer high skills and the price of the dirty good rises. Still, production of the clean good becomes more expensive, but it can be substituted by the dirty good. As the clean good becomes more expensive, demand shifts from the clean to the dirty good and market clearing implies a drop in the clean goods price. In total the general equilibrium effect outweighs the rise in production costs. 
+%\end{prop}
 
-\begin{align*}
- w_{h}^{\frac{1}{1-\theta_c}}w_l^{\frac{1}{\theta_c}}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}.
-\end{align*}
-Multiplying the left-hand side with $(w_h/w_h)^\frac{1}{\theta_c}$ and
-using the FOC governing skill supply $w_h/w_l=\zeta$, it holds that
+%\paragraph{Intution}
+%Consider equation
+%The ratio of low labour in the dirty versus the clean sector negatively depends on the distutility of high-skill labour, when goods are substitutes.
+%\tr{Continue later}
 
-\begin{align}\label{eq:constant}
-& \zeta^\frac{-1}{\theta_c}w_h^\frac{1}{(1-\theta_c)\theta_c}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}\nonumber\\
-	\Leftrightarrow\ & \frac{p_{cL}}{w_h}= \zeta^{-(1-\theta_c)}\theta_c^{-\theta_c}(1-\theta_c)^{-(1-\theta_c)}.
-\end{align}
-%\noindent \tr{Note: this result does not rely on the claim that the labour input good is constant.}
-
-Analogously to \ref{eq:constant}, one can show that
-\begin{align}
-\frac{p_{cL}}{w_l}&=\zeta^{\theta_c}\theta_c^{-\theta_c}(1-\theta_c)^{-(1-\theta_c)}\label{eq:pcl_wl}\\
-\frac{p_{dL}}{w_l}&=\zeta^{\theta_d}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}\ \Leftrightarrow\ w_l= p_{dL}\zeta^{-\theta_d}\theta_d^{\theta_d}(1-\theta_d)^{1-\theta_d}\label{eq:pdl_wl}\\
-\frac{p_{dL}}{w_h}&=\zeta^{-(1-\theta_d)}\theta_d^{-\theta_d}(1-\theta_d)^{-(1-\theta_d)}.
-\end{align}
-
-
-Using the values for $p_{jL}/w_s$ it follows that the optimal skill input ratios in the labour good production are
-\begin{align*}
-\frac{l_{hc}}{l_{lc}}=\frac{\theta_c}{\zeta (1-\theta_c)}; \hspace{2mm} \frac{l_{hd}}{l_{ld}}=\frac{\theta_d}{\zeta (1-\theta_d)}.
-\end{align*}
-This is the common result that  factor shares 
-% this refers to (wh lhc)/(wl llc)
- are constant over time with a Cobb-Douglas production function. 
-Imposing labour market clearing for both skills and optimal skill demand  yields 
-\begin{align}
-&l_{ld}=\chi\left(\frac{1}{1-\theta_c}h_l-H\right)\label{eq:lld}\\ %\frac{\theta_c}{1-\theta_c}\chi h_l-\chi \zeta h_h,\\
-& l_{lc}=\chi \left(H-\frac{1}{1-\theta_d}h_l\right)\label{eq:llc}\\
-with \ & \chi:= \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}=\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}.
-%& l_{hc}= \frac{\theta_c}{\zeta (1-\theta_c)}l_{lc}\\
-%& l_{hd}=\frac{\theta_d}{\zeta (1-\theta_d)}l_{ld}
-\end{align}
-Labour good supply is then given by (where I substituted $h_h$)
-\begin{align}
-L_c&=\underbrace{\left(\frac{\theta_c}{\zeta(1-\theta_c)}\right)^{\theta_c}}_{=:\gamma_c}l_{lc}\label{eq:lab_inputc} \\
-L_d&=\underbrace{\left(\frac{\theta_d}{\zeta(1-\theta_d)}\right)^{\theta_d}}_{=:\gamma_d}l_{ld}= \zeta^{-\theta_d}z_dp_d^{1-\varepsilon}H.\label{eq:lab_inputd}
-\end{align}
-Substituting labour input in the sector-specific production functions, and using demand for sector goods, $Y_d=\left(\frac{p_c}{p_d}\right)^\varepsilon Y_c$, yields
-\begin{align}\label{eq:price_ratio_output}
-\frac{p_c}{p_d} =\left(\frac{\gamma_d}{\gamma_c}\frac{A_d}{A_c}\frac{l_{ld}}{l_{lc}}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}.& \text{(Demand output)}
-\end{align}
-%\tr{Note that now policy can affect inflation/ relative prices through changes in labour supply---NOPE: cancels}
-
-Another relation of the relative price in equilibrium, results from equating demand for the labour input good and  demand for low skill input in the clean and dirty labour good production sector, equations \ref{eq:pcl_wl} and \ref{eq:pdl_wl}. This gives another condition on the relative price in equilibrium
-\begin{align}\label{eq:price_ratio_labourinput}
-\frac{p_c}{p_d}= \left(\frac{A_d}{A_c}\frac{z_d}{z_c}\zeta^{\theta_c-\theta_d}\right)^{1-\alpha}& \text{(optimality labour input production)}
-\end{align}
-where
-\begin{align*}
-z_j=\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j}
-\end{align*}
-
-Substituting equation \ref{eq:price_ratio_output} into equation \ref{eq:price_ratio_labourinput} determines the equilibrium ratio of low-skill input in the dirty to the clean sector: 
-
-\begin{align}
-\frac{l_{ld}}{l_{lc}}=&\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\frac{\gamma_c}{\gamma_d}\left(\frac{z_d}{z_c}\right)^{\alpha+\varepsilon(1-\alpha)}\zeta^{(\theta_c-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber\\
-=& \left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\label{eq:lldllc}\\
-\text{where}&\\
- \tilde{\chi}= &\  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber
-	\end{align}
-
-
-\noindent \textbf{Now impose goods market clearing or final output as numeraire depending on whether gov revenues are disposed off}\\
-\textcolor{blue}{1) under the assumption that $\iota =1$, i.e. markets clear, no disposal of gov revenues}\\
-Together with the definition of the aggregate price level and the choice of $Y$ as numeraire determines sector-specific prices as a function of labour supply:
-\begin{align*}
-p_c= \left(1+\left(\frac{\gamma_c}{\gamma_d}\frac{A_c}{A_d}\frac{l_{lc}}{l_{ld}}\right)^{\frac{(1-\alpha)(1-\varepsilon)}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
-\end{align*}
- Substituting equation \ref{eq:lldllc} gives the price of the clean good in equilibrium as
- \begin{align}\label{eq:eq_pc}
-	p_c%& = \frac{1}{\left(1+\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_c}{z_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\right)^{\frac{1}{1-\varepsilon}}}\\
-	&= \left(\frac{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}}
- \end{align}
-and using equation \ref{eq:price_ratio_labourinput} yields
-\begin{align}\label{eq:eq_pd}
-p_d%& =\frac{1}{\left(\left(\frac{A_d}{A_c}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_d}{z_c}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}+1\right)^{\frac{1}{1-\varepsilon}}}\\
-	&= \left(\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}} 
-\end{align}
-
-\begin{prop}[Skill scarcity and prices, assuming $\theta_c>\theta_d$] 
-	
-	The effect of skill scarcity on relative prices depends on the substitutability of goods. When goods are complements, $\varepsilon<1$, the price of the more skill-intense clean good rises with the disutility of high-skill labour, while the price of the dirty good falls.
-	Production of the clean good becomes more expensive. 
-	
-	When goods are substitutes, $\varepsilon>1$, then the clean good becomes cheaper the scarcer high skills and the price of the dirty good rises. Still, production of the clean good becomes more expensive, but it can be substituted by the dirty good. As the clean good becomes more expensive, demand shifts from the clean to the dirty good and market clearing implies a drop in the clean goods price. In total the general equilibrium effect outweighs the rise in production costs. 
-\end{prop}
-
-\paragraph{Intution}
-Consider equation
-The ratio of low labour in the dirty versus the clean sector negatively depends on the distutility of high-skill labour, when goods are substitutes.
-\tr{Continue later}
-
-
-Using equations \ref{eq:lld}, \ref{eq:llc}, and \ref{eq:lldllc} one can solve for $h_l$ as a function of total skill supply in equilibrium
-\begin{align}
-h_l= \underbrace{\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}}_{:=\tilde{\kappa}}H
-\end{align}
-Now, one can solve for labour input and sector-specific output as a function of tax progessivity  in equilibrium. 
-$L_c$ and $L_d$ are
-\begin{align}
-L_c= \gamma_c \chi \left(1-\frac{\tilde{\kappa}}{1-\theta_d}\right)H\\
-L_d= \gamma_d \chi \left(\frac{\tilde{\kappa}}{1-\theta_c}-1\right)H
-\end{align}
-
-This solves the model, since, in equilibrium, $H$ is a function of parameters only. 
-
-
-\paragraph{Ways forward}
-How to introduce compositional effects:
-\begin{enumerate}
-	\item 	Utility function: With substitution and income effect not canceling (u(c)=$\frac{c^{1-\gamma}}{1-\gamma},\ \gamma\neq 1$), the wage rate might play a role, depends on GE effects.
-	\item endogenising skill supply (rep agent chooses how much skill to supply, but this he already does... / might need to introduce structure as in HSV)
-	\item government revenues are not used for final good consumption. Instead,  disposed of/ used for sth useful (this could be an extension and contribute to benefits of progressivity) THINK THIS ONLY CHANGES THE LEVEL TOO!
-\end{enumerate}
-\paragraph{Point 1 above}
-change the utility function in the code to see what happens, if $\frac{Y_d}{Y_c}$ is constant in particular 
-\paragraph{Point 3 above}
-\textcolor{blue}{2) Government consumption wasted}
-Letting the government not consume the final output good may alter the result. 
-Now, the aggregate price level is determined endogenously as the goods market does not clear by Walras' law. 
-
-In the equilibrium equations, I drop $p_t=1$ and use goods market clearing instead\\ $Y=c+\psi (x_c+x_d)$.
-
-Blödsinn, only changes level

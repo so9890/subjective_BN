@@ -133,26 +133,26 @@ H_t=\zeta h_{ht}+h_{lt}
 \text{Definition average dirty technology}\hspace{4mm}& A_{dt}=\int_0^1A_{idt}di
 \end{align*}
 
-\begin{align*}
+\begin{align}
 \text{\textbf{Production:}} \hspace{4mm}
 \text{\textbf{Final Good Producer}}&\\
 \text{Profit maximisation}\hspace{4mm} & Y_{nt}=\left(\frac{p_{ct}}{p_{dt}}\right)^\varepsilon Y_{ct}\\
 \text{Production}\hspace{4mm} & Y_t=\left[Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right]^{\frac{\varepsilon}{\varepsilon-1}}\\
 \text{Price}\hspace{4mm}& p_t:=\left[p_{ct}^{1-\varepsilon}+p_{dt}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}\\
 \text{\textbf{Clean Sector}}\\
-\text{Production}\hspace{4mm}& Y_{ct}=L^{1-\alpha}_{ct}\int_{0}^{1}A^{1-\alpha}_{ict}x_{ict}^{\alpha}di=  \left(\alpha\frac{p_{ct}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{ct} L_{ct}
+\text{Production}\hspace{4mm}& Y_{ct}=L^{1-\alpha}_{ct}\int_{0}^{1}A^{1-\alpha}_{ict}x_{ict}^{\alpha}di=  \left(\alpha\frac{p_{ct}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{ct} L_{ct} \label{eqbm:outputc}
 \\ & =x_{ct}^{\alpha}\left(A_{ct}L_{ct}\right)^{1-\alpha} \\ 
 \text{labour demand}\hspace{4mm} & p_{cLt} =
-(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{ct}^\frac{1}{1-\alpha}A_{ct}\\
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{ct}^\frac{1}{1-\alpha}A_{ct} \label{eqbm:labc} \\
 \text{machine demand}\hspace{4mm} & x_{ict} = \left(\alpha\frac{ p_{ct}}{p_{ict}}\right)^\frac{1}{1-\alpha}A_{ict}L_{ct}\\
 & x_{ct}:=\int_{0}^{1}x_{ict} di= \left(\alpha\frac{p_{ct}}{\psi}\right)^\frac{1}{1-\alpha}A_{ct}L_{ct}\\
 %
 \text{Supply machines (price)}\hspace{4mm}& p_{ict}=\psi \\
 %
 \text{\textbf{Dirty Sector}}\\
-\text{Production}\hspace{4mm} & Y_{dt}=L^{1-\alpha}_{dt}\int_{0}^{1}A^{1-\alpha}_{idt}x_{idt}^{\alpha}di=  \left(\alpha\frac{p_{dt}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{dt} L_{dt}\\ & =x_{dt}^{\alpha}\left(A_{dt}L_{dt}\right)^{1-\alpha} \\ 
+\text{Production}\hspace{4mm} & Y_{dt}=L^{1-\alpha}_{dt}\int_{0}^{1}A^{1-\alpha}_{idt}x_{idt}^{\alpha}di=  \left(\alpha\frac{p_{dt}}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_{dt} L_{dt}\label{eqbm:outputd}\\ & =x_{dt}^{\alpha}\left(A_{dt}L_{dt}\right)^{1-\alpha} \\ 
 \text{labour demand}\hspace{4mm} & p_{dLt} =
-(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{dt}^\frac{1}{1-\alpha}A_{dt}\\
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_{dt}^\frac{1}{1-\alpha}A_{dt}\label{eqbm:labd}\\
 \text{machine demand}\hspace{4mm} & x_{idt} = \left(\alpha\frac{ p_{dt}}{p_{idt}}\right)^\frac{1}{1-\alpha}A_{idt}L_{dt}\\
 & x_{dt}:=\int_{0}^{1}x_{idt} di= \left(\alpha\frac{p_{dt}}{\psi}\right)^\frac{1}{1-\alpha}A_{dt}L_{dt}\\
 \text{Supply machines (price)}\hspace{4mm}& p_{idt}=\psi\\
@@ -162,7 +162,8 @@ H_t=\zeta h_{ht}+h_{lt}
 %& \ (\text{Numeraire}\ \  p_t=1)\\
 \text{high skill}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
 \text{low skill}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}
-\end{align*}
+\end{align}
+\begin{comment}
 \subsection{Equilibrium conditions: Simplified model with Lc=hh, ld=hl}
 
 \begin{align*}
@@ -221,16 +222,114 @@ H_t=\zeta h_{ht}+h_{lt}
 \text{high skill}\hspace{4mm}& L_{ct}=h_{ht}\\
 \text{low skill}\hspace{4mm}&L_{dt}=h_{lt}
 \end{align*}
+\end{comment}
 
-\section{Solution in tractable model}
+\section{Solution of tractable model}
 Define
 \begin{align*}
-\tilde{\kappa}:=\ &\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}\\
-\gamma_j:=\ & \left(\frac{\theta_j}{\zeta(1-\theta_j)}\right)^{\theta_j}\\
-z_j:=\ &\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j} \\
-\chi:=\ & \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}=\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}\\
- \tilde{\chi}: = &\  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}
+	\tilde{\kappa}:=\ &\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}\\
+	\gamma_j:=\ & \left(\frac{\theta_j}{\zeta(1-\theta_j)}\right)^{\theta_j}\\
+	z_j:=\ &\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j} \\
+	\chi:=\ &% \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}
+	\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}\\
+	\tilde{\chi}: =\ &  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}
 \end{align*}
+From profit maximisation by labour input good producers follows that the price of the labour input good relative to the skill-specific wage rate is constant. Substituting demand for low skill in the clean sector into the demand for high skill yields
+
+\begin{align*}
+	w_{h}^{\frac{1}{1-\theta_c}}w_l^{\frac{1}{\theta_c}}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}.
+\end{align*}
+Multiplying the left-hand side with $(w_h/w_h)^\frac{1}{\theta_c}$ and
+using the FOC governing skill supply $w_h/w_l=\zeta$, it holds that
+
+\begin{align}\label{eq:constant}
+%	& \zeta^\frac{-1}{\theta_c}w_h^\frac{1}{(1-\theta_c)\theta_c}= p_{cL}^\frac{1}{(1-\theta_c)\theta_c}\theta_c^\frac{1}{1-\theta_c}(1-\theta_c)^\frac{1}{\theta_c}\nonumber\\
+%	\Leftrightarrow\ 
+& \frac{p_{cL}}{w_h}= \frac{\zeta^{-(1-\theta_c)}}{z_c}.
+\end{align}
+%\noindent \tr{Note: this result does not rely on the claim that the labour input good is constant.}
+
+Analogously to \ref{eq:constant}, it follows that
+\begin{align}
+	\frac{p_{cL}}{w_l}&=\frac{\zeta^{\theta_c}}{z_c}\label{eq:pcl_wl}\\
+	\frac{p_{dL}}{w_l}&=\frac{\zeta^{\theta_d}}{z_d}%\ \Leftrightarrow\ w_l= p_{dL}\zeta^{-\theta_d}\theta_d^{\theta_d}(1-\theta_d)^{1-\theta_d}
+	\label{eq:pdl_wl}\\
+	\frac{p_{dL}}{w_h}&=\frac{\zeta^{-(1-\theta_d)}}{z_d}.
+\end{align}
+Therefore, the optimal skill input ratios in the labour good production are given by
+\begin{align}\label{eq:inputr}
+	\frac{l_{hc}}{l_{lc}}=\frac{\theta_c}{\zeta (1-\theta_c)} \hspace{2mm} \text{and}\hspace{3mm} \frac{l_{hd}}{l_{ld}}=\frac{\theta_d}{\zeta (1-\theta_d)}.
+\end{align}
+This is the common result that  factor shares 
+% this refers to (wh lhc)/(wl llc)
+are constant over time with a Cobb-Douglas production function. 
+Imposing labour market clearing for both skills and optimal skill demand yields 
+\begin{align}
+	&l_{ld}=\chi\left(\frac{1}{1-\theta_c}h_l-H\right)\label{eq:lld}\\ %\frac{\theta_c}{1-\theta_c}\chi h_l-\chi \zeta h_h,\\
+	& l_{lc}=\chi \left(H-\frac{1}{1-\theta_d}h_l\right)\label{eq:llc} %\\
+%	with \ & \chi:= \frac{(1-\theta_d)(1-\theta_c)}{\theta_c(1-\theta_d)-\theta_d(1-\theta_c)}=\frac{(1-\theta_d)(1-\theta_c)}{\theta_c-\theta_d}.
+	%& l_{hc}= \frac{\theta_c}{\zeta (1-\theta_c)}l_{lc}\\
+	%& l_{hd}=\frac{\theta_d}{\zeta (1-\theta_d)}l_{ld}
+\end{align}
+Labour good supply follows from the labour input good's production function and optimal skill inputs, equations \ref{eq:inputr}, as
+\begin{align}
+	L_c&=\gamma_cl_{lc}\label{eq:lab_inputc} \\
+	L_d&=\gamma_dl_{ld}.\label{eq:lab_inputd}
+\end{align}
+%\tr{Note that now policy can affect inflation/ relative prices through changes in labour supply---NOPE: cancels}
+A relation of the relative price in equilibrium results from equating demand for the labour input goods, equations \ref{eqbm:labc} and \ref{eqbm:labd}, % (which relates the price for the labour input good and the price for the sector-specific final good), 
+demand for low skill input by labour producers, equations \ref{eq:pcl_wl} and \ref{eq:pdl_wl}, and free movement of skills: 
+\begin{align}\label{eq:price_ratio_labourinput}
+	\frac{p_c}{p_d}= \left(\frac{A_d}{A_c}\frac{z_d}{z_c}\zeta^{\theta_c-\theta_d}\right)^{1-\alpha}& \text{(optimality labour input production)}
+\end{align}
+%where
+%\begin{align*}
+%	z_j=\theta_j^{\theta_j}(1-\theta_j)^{1-\theta_j}
+%\end{align*}
+Together with the definition of the aggregate price level and the choice of $Y$ as numeraire, equation \ref{eq:price_ratio_labourinput} determines sector-specific prices as a function of parameters and productivity:
+%\begin{align*}
+%	p_c= \left(1+\left(\frac{\gamma_c}{\gamma_d}\frac{A_c}{A_d}\frac{l_{lc}}{l_{ld}}\right)^{\frac{(1-\alpha)(1-\varepsilon)}{\alpha+\varepsilon(1-\alpha)}}\right)^{-\frac{1}{1-\varepsilon}}.
+%\end{align*}
+%Substituting equation \ref{eq:lldllc} gives the price of the clean good in equilibrium as
+\begin{align}
+	p_c%& = \frac{1}{\left(1+\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_c}{z_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\right)^{\frac{1}{1-\varepsilon}}}\\
+	&= \left(\frac{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}}\label{eq:eq_pc}\\
+%\end{align}
+%%and using equation \ref{eq:price_ratio_labourinput} yields
+%\begin{align}
+	p_d%& =\frac{1}{\left(\left(\frac{A_d}{A_c}\right)^{(1-\alpha)(1-\varepsilon)}\left(\frac{z_d}{z_c}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}+1\right)^{\frac{1}{1-\varepsilon}}}\\
+	&= \left(\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}} \label{eq:eq_pd}
+\end{align}
+
+\paragraph{Skill allocation}
+To solve for the equilibrium ratio of skill inputs in the clean and dirty sector, I substitute labour input, equations \ref{eq:lab_inputc} and \ref{eq:lab_inputd}, in the sector-specific production functions, \ref{eqbm:outputc} and \ref{eqbm:outputd}. Exploiting demand for sector goods, $Y_d=\left(\frac{p_c}{p_d}\right)^\varepsilon Y_c$, and the price ratio in equilibrium pinned down by equation \ref{eq:price_ratio_labourinput} yields
+%\begin{align}\label{eq:price_ratio_output}
+
+%\end{align}
+%Substituting equation \ref{eq:price_ratio_output} into equation \ref{eq:price_ratio_labourinput} determines the equilibrium ratio of low-skill input in the dirty to the clean sector: 
+\begin{align}
+	\frac{p_c}{p_d} =&\left(\frac{\gamma_d}{\gamma_c}\frac{A_d}{A_c}\frac{l_{ld}}{l_{lc}}\right)^{\frac{1-\alpha}{\alpha+\varepsilon(1-\alpha)}}\\ %& \text{(Demand for sector-specific goods)}\\
+\Leftrightarrow\ 	\frac{l_{ld}}{l_{lc}}=&%\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\frac{\gamma_c}{\gamma_d}\left(\frac{z_d}{z_c}\right)^{\alpha+\varepsilon(1-\alpha)}\zeta^{(\theta_c-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber\\	=&
+	\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\left(\zeta^{\theta_c-\theta_d}\frac{\gamma_c}{\gamma_d}\frac{z_d}{z_c}\right)^{\alpha+\varepsilon(1-\alpha)}\label{eq:lldllc}%\\
+	%	\text{where}&\\
+	%	\tilde{\chi}= &\  (\theta_c^{\theta_c}\theta_d^{-\theta_d})^{(1-\alpha) (1-\varepsilon)}(1-\theta_c)^{-\theta_c-(1-\theta_c)(\alpha+\varepsilon(1-\alpha))}(1-\theta_d)^{\theta_d+(1-\theta_d)(\alpha+\varepsilon(1-\alpha))}\nonumber
+\end{align}
+
+\paragraph{Skill supply}
+Using equations \ref{eq:lld}, \ref{eq:llc}, and \ref{eq:lldllc} one can solve for $h_l$ as a function of total skill supply in equilibrium
+\begin{align}
+	h_l= \underbrace{\frac{(1-\theta_c)(1-\theta_d)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}+1\right]}{(1-\theta_d)+(1-\theta_c)\left[\left(\frac{A_c}{A_d}\right)^{(1-\alpha)(1-\varepsilon)}\zeta^{-(\theta_c-\theta_d)(1-\alpha)(1-\varepsilon)}\tilde{\chi}\right]}}_{:=\tilde{\kappa}}H
+\end{align}
+Now, one can solve for labour input and sector-specific output as a function of tax progessivity  in equilibrium. 
+$L_c$ and $L_d$ are
+\begin{align}
+	L_c&= \gamma_c \chi \left(1-\frac{\tilde{\kappa}}{1-\theta_d}\right)H\\
+	L_d&= \gamma_d \chi \left(\frac{\tilde{\kappa}}{1-\theta_c}-1\right)H=\zeta^{-\theta_d}z_dp_d^{1-\varepsilon}H
+\end{align}
+This solves the model, since, in equilibrium,  $H$ is a function of parameters and policy variables only. 
+
+\begin{comment}
+\paragraph{Summary of equilibrium equations}
 \begin{align*}
 H=\ & (1-\tau_l)^{\frac{1}{1+\sigma}}\\
 h_l=\ & \tilde{\kappa}H\\
@@ -242,9 +341,9 @@ p_d=\ &\left(\frac{\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon
 p_c=\ & \left(\frac{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}}{\left(A_dz_d\zeta^{\theta_c}\right)^{(1-\alpha)(1-\varepsilon)}+\left(A_cz_c\zeta^{\theta_d}\right)^{(1-\alpha)(1-\varepsilon)}}\right)^{\frac{1}{1-\varepsilon}}
 \end{align*}
 
-\section{Generalised Balanced Growth path}
-
-\paragraph{Model Isomorphic to model with investment and rented capital}
+content...
+\end{comment}
+\section{Model Isomorphic to model with investment and rented capital}
 The model is isomorphic to a model with (instantaneously productive) investment and full depreciation: 
 \begin{align*}
 I_t&=\psi(x_{dt}+x_{ct})\\

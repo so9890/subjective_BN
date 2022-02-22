@@ -98,6 +98,14 @@ elseif indic.util==1
     Muc  = c^(-gammaa)*(H)^(-etaa*(1-gammaa));
     Muhh = -etaa*zetaa*H^(-1)*c*Muc;
     Muhl = -etaa*H^(-1)*c*Muc;
+
+elseif indic.util==2
+    % MaCurdy (as discussed in Boppart, Krusell)
+    % sigmaa=1/theta
+    % gammaa=sigmaa
+    Muc  = c^(-gammaa);
+    Muhh = -zetaa*H^(sigmaa);
+    Muhl = -H^(sigmaa);
 end
 
 
