@@ -20,19 +20,19 @@ mkdir('simulation_results');
 
 %% indicators for model versions
 
-%for ss=0:1
-%for ttt=0:1
-indic.subst        = 1; %ss % == 0 if complements, ==1 if substitutes
+for ss=0:1
+for ttt=0:1
+indic.subst        = ss; %ss % == 0 if complements, ==1 if substitutes
 indic.epps         = [0.4, 4]; % vector of values for eppsilon, depending on indic.subst
 indic.fullDisposal = 0; % == 0 if gov. revenues are fully consumed (baseline), ==1 if gov revenues are fully disposed of
 indic.het_growth   = 1; % == 0 if there is equal growth across sectors, ==1 if growth in the sustainable sector is slower 
-indic.util         = 2; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours do not react to wage changes); 
+indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours do not react to wage changes); 
                         % == 1 if CRRA gamma!=1 KPR preferences (bgp),
                         % should also see that income and substitution
                         % effect cancel due to bgp compatibility
                         % ==2 if uses MaCurdy preferences (following Boppart and Krusell) 
 
-indic.withtarget   = 0;  %ttt; % ==1 if uses swf with target; ==0 if no target
+indic.withtarget   = ttt;  %ttt; % ==1 if uses swf with target; ==0 if no target
 indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
 
@@ -46,7 +46,7 @@ model_rep_agent;
 zetaa_calib=1.4;
 tauul_calib=0.181;
 gri.zetaa= [zetaa_calib];
-gri.tauul=[-0.2, 0, tauul_calib, 0.7];
+gri.tauul=0; %[-0.2, 0, tauul_calib, 0.7];
 
 %solution_LF=containers.Map;
 %solution_Ramsey=containers.Map;
@@ -129,9 +129,10 @@ end
 Ac1     = x_init(list.x=='Ac');
 Ad1     = x_init(list.x=='Ad');
 
+fprintf('indics substitutes %d, target %d', ss, ttt)
 ramsey_solve_static;
-%end
-%end
+end
+end
 %% dynamic problem
 % static gives same results but easier to solve!
 ramsey_solve_dynamic;

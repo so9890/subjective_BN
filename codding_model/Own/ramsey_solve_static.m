@@ -1,8 +1,6 @@
-if ~isfile(sprintf('simulation_results/StaticControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+if ~isfile(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ))
-
-
 
 if indic.approach==1
         mu_budget       = 1;
@@ -38,30 +36,33 @@ end
 
         if indic.approach==2
 
-            [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
+            [indexx, model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
                             (Obj_ram, symms.optim, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optim,...
-                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
+                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list);
         elseif indic.approach ==1
 
-            [model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
+            [indexx, model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
                              (Obj_ramPA, symms.optimPA, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optimPA,...
-                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'));
+                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list);
         end
 
         %-- solve for optimal policy
 
         guess= eval(varsModel);
+        % transform guess to unbounded variables
+        guess_trans=trans_guess(indexx, guess); 
 
         modFF = @(x)Ramsey_model(x);
         options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-14);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
      
-        [opt_pol, ~, exitf] = fsolve(modFF, guess, options);
+        [opt_pol, ~, exitf] = fsolve(modFF, guess_trans, options);
         fprintf('ramsey solved with %d, eppsilon %.2f, withtarget %d, period%d', exitf,params(list.params=='eppsilon'), indic.withtarget, t );
 
         % update initial guess
-        tauul=opt_pol(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
-        opt_pol_sim(:,t)=opt_pol(varsModel=='tauul');
+        opt_trans=trans_allo_out(indexx, opt_pol);
+        tauul=opt_trans(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
+        opt_pol_sim(:,t)=opt_trans(varsModel=='tauul');
         vc           = pols_num(list.pol=='vc');
         vdd          = pols_num(list.pol=='vdd');
         vars_tosolve = [y,xp];
@@ -103,8 +104,11 @@ save(sprintf('simulation_results/StaticControlsRamsey_hetgrowth%d_util%d_withtar
 save(sprintf('simulation_results/StaticStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+save(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'opt_pol_sim');
 
-elseif isfile(sprintf('simulation_results/StaticControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+elseif isfile(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ))
   

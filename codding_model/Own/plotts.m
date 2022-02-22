@@ -1,18 +1,18 @@
 %% Plots
 %% Ramsey versus laissez faire
-for plott="onlyR" % ["subplot", "separate", "onlyR"]
+for plott="subplot"%"comparisonTarget" % ["subplot", "separate", "onlyR", "comparisonTarget"]
 for prob=["static"]% "dynamic"]
 for ss=0:1
  
     indic.subst= ss;
   
     if ss==0
-        params(list.params=='eppsilon')=epps(1);
+        params(list.params=='eppsilon')=indic.epps(1);
     else
-        params(list.params=='eppsilon')=epps(2);
+        params(list.params=='eppsilon')=indic.epps(2);
     end
 
-for ttt=0:1
+for ttt=1%0:1
   indic.withtarget=ttt;
 
 if prob == "static"
@@ -64,7 +64,91 @@ opt_pol_sim= 1-y_simRam(list.y=='H',1:T).^(1+params(list.params=='sigmaa'));
 list.plot_mat=[list.y, list.x, "welfare"];
 
 %% figures
-if plott=="subplot"
+if plott== "comparisonTarget"
+
+    %- load opposite version wrt target
+    if prob == "static"
+    % choose whether to use static or dynamic problem
+    load(sprintf('simulation_results/StaticControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'y_simRam');
+    load(sprintf('simulation_results/StaticStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+    else
+     load(sprintf('simulation_results/DynamicControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'y_simRam');
+     load(sprintf('simulation_results/DynamicStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+    end
+    % welfare
+    welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
+            params(list.params=='zetaa').*y_simRam(list.y=='hh',:)).^(1+params(list.params=='sigmaa'))./(1+params(list.params=='sigmaa'));
+    
+    plottsRam_counter=[y_simRam(:,1:T); x_simRam(:,1:T); welf_sim(:,1:T) ];
+    % optimal policy
+    opt_pol_sim_counter= 1-y_simRam(list.y=='H',1:T).^(1+params(list.params=='sigmaa'));
+
+    for lgdd=0:1
+        for i=1:length(list.plot)
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsRam_counter(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'})  
+        if lgdd==1
+            legend(sprintf('with target' ), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+          %  xticks(linspace(0.1,0.9,9))
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods', 'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%s_CompTarget_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, list.plot(i), T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, indic.util,  lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        end
+        
+        
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'})  
+        if lgdd==1
+            legend(sprintf('with target'), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        %title('$y_d/y_c$', 'Interpreter', 'latex')
+        %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
+        path=sprintf('figures/Rep_agent/%s_CompTarget_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth,  indic.util,lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+
+        gcf=figure('Visible','off');
+        pp=plot(time, opt_pol_sim_counter, time, opt_pol_sim, 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'})  
+        
+        if lgdd==1
+            legend( sprintf('with target'),sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+        end
+        ytickformat('%.2f')
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%s_CompTarget_tauul_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, indic.util,  lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+       
+    end
+    % only one version of ttt is required;  should get to next higher loop
+    % by break
+    break 
+elseif plott=="subplot"
         %- all in one figure
         gcf=figure('Visible','off');
         
