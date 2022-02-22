@@ -3,6 +3,7 @@
 % with two skill types, 
 % higher disutility from labour for high skill labour
 
+% INCLUDE UPPER BOUND ON LABOUR SUPPLY!
 %% include path to package
 clc, clear
 if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
@@ -133,6 +134,9 @@ fprintf('indics substitutes %d, target %d', ss, ttt)
 ramsey_solve_static;
 end
 end
+
+%% plotts
+plotts;
 %% dynamic problem
 % static gives same results but easier to solve!
 ramsey_solve_dynamic;

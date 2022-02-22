@@ -62,7 +62,7 @@ indexx.oneabove=(list.optim=='tauul');
 %transformation: how variables should occur in model
 
 trans_optim=symmssolve;
-trans_optim(indexx.oneabove)=(1./(1+exp(symmssolve(indexx.oneabove))));
+trans_optim(indexx.oneabove)=(1-exp(symmssolve(indexx.oneabove))); % taul is only bounded above by 1
 
 % replace untransformed with transformed variables
 

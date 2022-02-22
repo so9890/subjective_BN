@@ -9,5 +9,5 @@ guess_trans=guess;
 
 % guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
 % guess_trans(indexx.exp)=log(guess(indexx.exp));
-guess_trans(indexx.oneabove)=log((1-guess(indexx.oneabove))./(guess(indexx.oneabove)));
+guess_trans(indexx.oneabove)=log(1-guess(indexx.oneabove));
 end

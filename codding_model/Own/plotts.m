@@ -1,6 +1,6 @@
 %% Plots
 %% Ramsey versus laissez faire
-for plott="subplot"%"comparisonTarget" % ["subplot", "separate", "onlyR", "comparisonTarget"]
+for plott= ["subplot", "separate", "onlyR", "comparisonTarget"]
 for prob=["static"]% "dynamic"]
 for ss=0:1
  
@@ -12,7 +12,7 @@ for ss=0:1
         params(list.params=='eppsilon')=indic.epps(2);
     end
 
-for ttt=1%0:1
+for ttt=0:1
   indic.withtarget=ttt;
 
 if prob == "static"
@@ -23,6 +23,9 @@ if prob == "static"
     load(sprintf('simulation_results/StaticStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+    load(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'opt_pol_sim');
 else
      load(sprintf('simulation_results/DynamicControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
@@ -30,6 +33,8 @@ else
      load(sprintf('simulation_results/DynamicStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+    
+   %   ADD OPTIMAL POLICY
 end
 
 % if dynamic
@@ -58,7 +63,7 @@ welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
 
 plottsRam=[y_simRam(:,1:T); x_simRam(:,1:T); welf_sim(:,1:T) ];
 % optimal policy
-opt_pol_sim= 1-y_simRam(list.y=='H',1:T).^(1+params(list.params=='sigmaa'));
+opt_pol_simRam=opt_pol_sim(:,1:T); 
 
 % list as in matrices of results
 list.plot_mat=[list.y, list.x, "welfare"];
@@ -75,6 +80,9 @@ if plott== "comparisonTarget"
     load(sprintf('simulation_results/StaticStatesRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
         params(list.params=='thetad'), Ad, Ac ),'x_simRam');
+    load(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
+        indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
+        params(list.params=='thetad'), Ad, Ac ),'opt_pol_sim');
     else
      load(sprintf('simulation_results/DynamicControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
         indic.het_growth, indic.util, 1-indic.withtarget, params(list.params=="eppsilon"), indic.approach, params(list.params=='zetaa'), params(list.params=='thetac'), ...
@@ -89,7 +97,7 @@ if plott== "comparisonTarget"
     
     plottsRam_counter=[y_simRam(:,1:T); x_simRam(:,1:T); welf_sim(:,1:T) ];
     % optimal policy
-    opt_pol_sim_counter= 1-y_simRam(list.y=='H',1:T).^(1+params(list.params=='sigmaa'));
+    opt_pol_sim_counter= opt_pol_sim(:,1:T);
 
     for lgdd=0:1
         for i=1:length(list.plot)
@@ -129,7 +137,7 @@ if plott== "comparisonTarget"
         exportgraphics(gcf,path,'Resolution', 400)
 
         gcf=figure('Visible','off');
-        pp=plot(time, opt_pol_sim_counter, time, opt_pol_sim, 'LineWidth', 1.6);
+        pp=plot(time, opt_pol_sim_counter, time, opt_pol_simRam, 'LineWidth', 1.6);
         set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'})  
         
         if lgdd==1
@@ -168,7 +176,7 @@ elseif plott=="subplot"
         %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
         
         subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+2)
-        plot(time, opt_pol_sim, 'LineWidth', 1.6)
+        plot(time, opt_pol_simRam, 'LineWidth', 1.6)
         title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
         ytickformat('%.2f')
         
@@ -262,7 +270,7 @@ elseif plott == "onlyR"
         
         
         gcf=figure('Visible','off');
-        pp=plot(time, opt_pol_sim, 'LineWidth', 1.6);
+        pp=plot(time, opt_pol_simRam, 'LineWidth', 1.6);
         set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
         
         if lgdd==1
