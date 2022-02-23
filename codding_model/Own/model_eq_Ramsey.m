@@ -1,4 +1,4 @@
-function [indexx, model, model_param_trans, varsModel, paramsModel]=model_eq_Ramsey(Obj, symmsoptim, symmsparams, params, symmssolve, file_name, x_init, x, non_pol_num, non_pol_sym, list)
+function [indexx, model, model_param_trans, varsModel, paramsModel]=model_eq_Ramsey(Obj, symmsoptim, symmsparams, params, symmssolve, file_name, x_init, x, non_pol_num, non_pol_sym, list, taul_sym)
 
 % function to differentiate the Objective functions 
 % and to return a model file of a numeric function that can be solved using fsolve. 
@@ -20,6 +20,8 @@ function [indexx, model, model_param_trans, varsModel, paramsModel]=model_eq_Ram
 % non_pol_sym:  as above but symbolic
 % list:         structure of variable lists, here: needed to have a list
 %               for which to solve the system for transformation 
+% taul_sym:     structure with hh and hl as function of tauul from closed
+%               form solution
 
 % output
 % model:        symbolic model: jacobian of ramsey objective function 
@@ -40,11 +42,13 @@ for i=1:length(symmsoptim)
 model(i)=jacobian(Obj, symmsoptim(i)); % should give derivative=0 if not present
 end
 
+% replace derivative wrt kt multiplier with complementary slackness
+% condition 
+model(list.optim=='kt_lab')=symmsoptim(list.optim=='kt_lab')*(symmsparams(list.params=='Hbar')-(taul_sym.hh+taul_sym.hl));
 
 % retrieve variables in model for substitution
 model_vars=transpose(symvar(model));
 paramsModel=symmsparams(ismember(symmsparams,model_vars)); 
-
 
 %-- replace parameters by values
 

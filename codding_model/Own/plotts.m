@@ -1,6 +1,10 @@
 %% Plots
 %% Ramsey versus laissez faire
-for plott= ["subplot", "separate", "onlyR", "comparisonTarget"]
+
+% for xaxis
+Year =transpose(year(['2020'; '2030'; '2040'; '2050'; '2060'; '2070';'2080'],'yyyy'));
+
+for plott= ["separate"]%,"onlyBAU", "subplot", "separate", "onlyR","comparisonTarget"]
 for prob=["static"]% "dynamic"]
 for ss=0:1
  
@@ -15,6 +19,7 @@ for ss=0:1
 for ttt=0:1
   indic.withtarget=ttt;
 
+%-- read in ramsey results
 if prob == "static"
 % choose whether to use static or dynamic problem
     load(sprintf('simulation_results/StaticControlsRamsey_hetgrowth%d_util%d_withtarget%d_eppsilon%.2f_dual%d_zetaa%.2f_thetac%.2f_thetad%.2f_initialAd%dAc%d.mat',...
@@ -52,11 +57,6 @@ nn=5;
 %list.plot=[list.y(~ismember(list.y, ["pcL" "pdL" "lhc" "llc" "lhd"
 %"lld"])), list.x, "welfare"];
 list.plot=[list.y, list.x, "welfare"];
-
-% combine variables into one matrix and list 
-
-plottsLF=sol_mat(:,1:T,params(list.params=='zetaa')==zetaa_calib);
-
 % welfare
 welf_sim=log(y_simRam(list.y=='c',:))-(y_simRam(list.y=='hl',:)+...
         params(list.params=='zetaa').*y_simRam(list.y=='hh',:)).^(1+params(list.params=='sigmaa'))./(1+params(list.params=='sigmaa'));
@@ -68,8 +68,55 @@ opt_pol_simRam=opt_pol_sim(:,1:T);
 % list as in matrices of results
 list.plot_mat=[list.y, list.x, "welfare"];
 
+%-- read in laissez-faire results: with taul= taul_calib
+load(sprintf('simulation_results/fullSimLF_T%d_initialAd%dAc%d_eppsilon%.2f_zetaa%.2f_thetac%.2f_thetad%.2f_HetGrowt%d_tauul%.3f_util%d.mat', ...
+     101, Ad, Ac,params(list.params=='eppsilon'), params(list.params=='zetaa'), params(list.params=='thetac'), ...
+     params(list.params=='thetad'), indic.het_growth, tauul_calib, indic.util))
+
+plottsLF=sol_mat(:,1:T,params(list.params=='zetaa')==zetaa_calib);
+
 %% figures
-if plott== "comparisonTarget"
+if plott== "onlyBAU"
+     for lgdd=0
+        for i=1:length(list.plot)
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsLF(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'}, {'color'}, { 'k'}) 
+        
+%         if lgdd==1
+%             legend(sprintf('with target' ), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+%         end
+        ytickformat('%.2f')
+        xticklabels(Year)
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods', 'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%s_onlyBAU_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, list.plot(i), T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, indic.util,  lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+        end
+        
+        
+        gcf=figure('Visible','off');
+        pp=plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), 'LineWidth', 1.6);
+        set(pp, {'LineStyle'}, {'-'}, {'color'}, {'k'})  
+       
+        ytickformat('%.2f')
+        xticklabels(Year)
+            ax=gca;
+            ax.FontSize=13;
+            xlabel('Periods',  'Fontsize', 20)
+        path=sprintf('figures/Rep_agent/%s_onlyBAU_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth,  indic.util,lgdd);
+        exportgraphics(gcf,path,'Resolution', 400)
+      
+    end
+    % only one version of ttt is required;  should get to next higher loop
+    % by break
+    break 
+elseif plott== "comparisonTarget"
 
     %- load opposite version wrt target
     if prob == "static"
@@ -102,13 +149,15 @@ if plott== "comparisonTarget"
     for lgdd=0:1
         for i=1:length(list.plot)
         gcf=figure('Visible','off');
+        %figure(i)
         pp=plot(time, plottsRam_counter(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
-        set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'})  
+        set(pp, {'LineStyle'}, {'-'; '--'}, {'color'}, {'k'; 'k'}) 
+        
         if lgdd==1
             legend(sprintf('with target' ), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
-          %  xticks(linspace(0.1,0.9,9))
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods', 'Fontsize', 20)
@@ -126,6 +175,7 @@ if plott== "comparisonTarget"
             legend(sprintf('with target'), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods',  'Fontsize', 20)
@@ -144,6 +194,7 @@ if plott== "comparisonTarget"
             legend( sprintf('with target'),sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods',  'Fontsize', 20)
@@ -165,6 +216,7 @@ elseif plott=="subplot"
         plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.3)
         %legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
         ytickformat('%.2f')
+        xticklabels(Year)
         title(sprintf('%s', list.plot(i)), 'Interpreter', 'latex')
         end
         
@@ -172,6 +224,7 @@ elseif plott=="subplot"
         plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
         %legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
         ytickformat('%.2f')
+        xticklabels(Year)
         title('$y_d/y_c$', 'Interpreter', 'latex')
         %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
         
@@ -179,7 +232,7 @@ elseif plott=="subplot"
         plot(time, opt_pol_simRam, 'LineWidth', 1.6)
         title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
         ytickformat('%.2f')
-        
+        xticklabels(Year)
         sgtitle('Laissez Faire versus Ramsey')
         path=sprintf('figures/Rep_agent/%sRam_LF_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd0.png', prob, T-1, ...
             params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
@@ -197,16 +250,26 @@ elseif plott=="separate"
         pp=plot(time, plottsLF(list.plot_mat==list.plot(i),:), time, plottsRam(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
         set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
         if lgdd==1
-            legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            if ttt==0
+                legend(sprintf('BAU'), sprintf('Laissez-faire'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            else 
+                legend(sprintf('BAU'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            end
         end
         ytickformat('%.2f')
-          %  xticks(linspace(0.1,0.9,9))
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods', 'Fontsize', 20)
-        path=sprintf('figures/Rep_agent/%sRam_LF_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
-            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
-            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+            if ttt==0 % in this case the optimal policy replicates the laissez-faire economy since there are no inefficiencies in the LF economy
+                path=sprintf('figures/Rep_agent/%sBAU_LF_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
+                params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+                params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+            else
+                  path=sprintf('figures/Rep_agent/%sRAM_BAU_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
+                params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+                params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+            end
         exportgraphics(gcf,path,'Resolution', 400)
         end
         
@@ -215,17 +278,27 @@ elseif plott=="separate"
         pp=plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6);
         set(pp, {'LineStyle'}, {'--'; '-'}, {'color'}, {'k'; 'k'})  
         if lgdd==1
-            legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            if ttt==0
+                legend(sprintf('BAU'), sprintf('Laissez-faire'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            else 
+                legend(sprintf('BAU'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
+            end
         end
         ytickformat('%.2f')
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods',  'Fontsize', 20)
-        %title('$y_d/y_c$', 'Interpreter', 'latex')
-        %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-        path=sprintf('figures/Rep_agent/%sRam_LF_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
+        if ttt==0
+            path=sprintf('figures/Rep_agent/%sBAU_LF_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
             params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
             params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+        else
+            path=sprintf('figures/Rep_agent/%sRAM_BAU_separate_ydyc_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, T-1, ...
+            params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
+            params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
+           
+        end
         exportgraphics(gcf,path,'Resolution', 400)
        
         end
@@ -240,10 +313,11 @@ elseif plott == "onlyR"
             legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
-          %  xticks(linspace(0.1,0.9,9))
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods', 'Fontsize', 20)
+            
         path=sprintf('figures/Rep_agent/%sonlyRam_separate_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_tauul%.3f_util%d_withtarget%d_lgd%d.png', prob, list.plot(i), T-1, ...
             params(list.params=='eppsilon'), params(list.params=='zetaa'), Ad1,Ac1,...
             params(list.params=='thetac'), params(list.params=='thetad') , indic.het_growth, pols_num(list.pol=='tauul'), indic.util, indic.withtarget, lgdd);
@@ -258,6 +332,7 @@ elseif plott == "onlyR"
             legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods',  'Fontsize', 20)
@@ -277,6 +352,7 @@ elseif plott == "onlyR"
             legend( sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
         end
         ytickformat('%.2f')
+        xticklabels(Year)
             ax=gca;
             ax.FontSize=13;
             xlabel('Periods',  'Fontsize', 20)

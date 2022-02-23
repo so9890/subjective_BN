@@ -47,7 +47,7 @@ model_rep_agent;
 zetaa_calib=1.4;
 tauul_calib=0.181;
 gri.zetaa= [zetaa_calib];
-gri.tauul=0; %[-0.2, 0, tauul_calib, 0.7];
+gri.tauul=tauul_calib; %[-0.2, 0, 0.7, tauul_calib]; % have to have tauul last for calibration in ramsey problem
 
 %solution_LF=containers.Map;
 %solution_Ramsey=containers.Map;
@@ -65,6 +65,7 @@ W_simLF=zeros(1,T); % social welfare
 y_simRam=zeros(length(y),T);
 x_simRam=zeros(length(x),T);
 opt_pol_sim=zeros(length(pol(ismember(pol, ['tauul']))),T);
+multis = zeros(length(list.optim(~ismember(list.optim, 'tauul'))),T);
 
 % initial conditions technology
 Ad=8;
@@ -76,7 +77,7 @@ x_init = eval(x);
 % calibrate model
 
 %% - if want to compare different tauul; uncomment the following
-for taut=1:length(gri.tauul) % loop over values for tauul
+for taut=1:length(gri.tauul) % loop over values for tauul  IMPORTANT WHEN INTERESTED IN RAMSEY SOLUTION NEED TO HAVE LF TAUUL LAST FOR CALIBRATION
 indic.tauul_ex=gri.tauul(taut);
 [params, pols_num, ~]=params_bgp_rep_agent(symms.params, f, pol, indic, T, nan, zetaa_calib);
 
@@ -113,17 +114,17 @@ end
 
 % takes ages!
 
-%% primal and dynamic models
-if indic.approach==1
-    %- read in static problem
-    [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
-    
-    %- dynamic primal problems
-    [Obj_ramPA_dynamic, symms.optim_dynamic, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol, P);
-else
-    %- dynamic dual approach
-     [Obj_ram_dynamic, symms.optim_dynamic, vecs, list]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol, P);
-end
+%% primal and dynamic models=> static same and better solution
+% if indic.approach==1
+%     %- read in static problem
+%     [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
+%     
+%     %- dynamic primal problems
+%     [Obj_ramPA_dynamic, symms.optim_dynamic, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol, P);
+% else
+%     %- dynamic dual approach
+%      [Obj_ram_dynamic, symms.optim_dynamic, vecs, list]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol, P);
+% end
 %% simulation Ramsey: static
 
 %- initial values (guesses for ramsey problem updated in loop)

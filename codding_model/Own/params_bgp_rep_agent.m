@@ -52,7 +52,7 @@ thetad   = thetac*0.8;  % high skill labour share dirty sector
 Uppsilon = 0.08;        % sum of growth rates; used as an upper bound
 betaa    = 0.999;       % matches time preference in AA12 (rho= 0.001; betaa=exp(-rho))
 G        = 0;           % target on gov revenues
-
+Hbar     = 1;
 % policy variables
 
 if isnan(tauul_opt) 

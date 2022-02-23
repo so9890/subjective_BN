@@ -21,6 +21,7 @@ if indic.approach==1
  elseif indic.approach==2
         tauul           = 0.7;
         muu_target      = 1;
+        kt_lab          = 0;
        % guessLF         = 0; % for simulation in comp equilibrium
 end
 
@@ -38,12 +39,12 @@ end
 
             [indexx, model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
                             (Obj_ram, symms.optim, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optim,...
-                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list);
+                            'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list, taul_sym);
         elseif indic.approach ==1
 
             [indexx, model, model_param, varsModel, paramsModel]=model_eq_Ramsey...
                              (Obj_ramPA, symms.optimPA, [symms.params, symms.targets, E], [params, targets_num, E_vec(t)], symms.optimPA,...
-                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list);
+                             'Ramsey_model', x_init, x, pols_num(pol~='tauul'), pol(pol~='tauul'), list, taul_sym);
         end
 
         %-- solve for optimal policy
@@ -61,6 +62,7 @@ end
 
         % update initial guess
         opt_trans=trans_allo_out(indexx, opt_pol);
+        multis(:,t) = opt_trans(varsModel=='muu_target'|varsModel=='kt_lab'); 
         tauul=opt_trans(varsModel=='tauul'); %   could be vector or scalar; initial value for next round
         opt_pol_sim(:,t)=opt_trans(varsModel=='tauul');
         vc           = pols_num(list.pol=='vc');

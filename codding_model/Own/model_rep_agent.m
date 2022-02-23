@@ -66,9 +66,10 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      deltaa ...     % regeneration rate nature
      kappaa ...     % emission share of dirty output
      G ...          % exogenous gov. revenues
+     Hbar ...       % time endowment
      real 
  
-symms.params = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa, G];     
+symms.params = [sigmaa, zetaa, eppsilon, alphaa, psii, thetac, thetad, Uppsilon, betaa, gammaa, etaa, G, Hbar];     
 symms.targets = [deltaa, kappaa];
 
 %% Model f(yp, y, xp, x)=0 
@@ -270,14 +271,14 @@ list.marginals = string(["Muc" "Muhh" "Muhl"]);
 solution_eqbm_syms;
 
 %% lagrange muultiplier govs
-syms muu_target real % exogenous emission target
+syms muu_target kt_lab real % exogenous emission target
 
 % vector of symbolic variables for which to solve problem
 
 if indic.withtarget==1
-    symms.optim = sort([muu_target, tauul]);
+    symms.optim = sort([muu_target, tauul, kt_lab]);
 elseif indic.withtarget==0
-    symms.optim = sort(tauul);
+    symms.optim = sort([tauul, kt_lab]);
 end
 list.optim  = string(symms.optim);
 
@@ -287,15 +288,18 @@ U=log(c)-(hl+zetaa*hh)^(1+sigmaa)/(1+sigmaa);
 
 W        = U;                                     % value function 
 target   = yd-(deltaa+E)/kappaa;
+lab      = (hl+hh)-Hbar;
 %growthAc = Acp - (1+vc)*Ac;
 %growthAd = Adp - (1+vdd)*Ad;
 %budget  = (H*wl-lambdaa*(H*wl)^(1-tauul))-G;
 
 
-Obj_ram = W-muu_target*indic.withtarget*target; %...
+Obj_ram = W-muu_target*indic.withtarget*target-kt_lab*lab; %...
            %- muu_growthAc*growthAc- muu_growthAd * growthAd;%-muu_budget*budget; %... % no beta as static; solution to static problem same as to infinite sum
 
-    
+taul_sym.hl = hl;
+taul_sym.hh = hh;
+
 Obj_sp = 0; %W + muuLr*lambdaa*(L-lr)+muuLp*(1-lambdaa)*(L-lp)...
 %     +muun*(An*hn-lambdaa*cnr-(1-lambdaa)*cnp)...
 %     +muus*(As*hs-lambdaa*csr-(1-lambdaa)*csp)...
