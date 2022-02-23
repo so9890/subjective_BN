@@ -1,1 +1,80 @@
 \section{Calibration}\label{sec:calib}
+
+The model is calibrated to parameter values common in the literature. I bestow more care on  calibrating the emission target. 
+I match emissions in the model to emission targets suggested in the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
+%How to determine the economy in 2050? Should the economy have reached a steady state? or should it be in a transitional path? Maybe no need to specify this...it will be a outcome. All I have to use is that for all years after 2050 net-emissions have to be zero. Whether the economy is on the transitional path or in a steady state is an outcome. 
+The IPCC prescribes net-zero emissions starting from 2050. In 2030 emissions should be between 25 and 30 GtCO2e per year.
+
+
+	\begin{table}[hh!!!!!]
+		\begin{center}
+			\captionsetup{width=0.9\textwidth}
+			\caption{ Calibration baseline model}
+			\label{tab:calib}
+			\begin{tabular}{c|cll}
+				%			\hline \hline
+				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+				\hline \hline
+				Parameter& Target/Source& \makecell[c]{Calibration}& \makecell[c]{Meaning}\\ \hline
+				
+				\hline
+				Utility&\multicolumn{3}{c}{}\\
+				\hline 
+				
+				\hline
+				$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity  \\
+				\hline
+				$\zeta$& -&1.4&\makecell[l]{additional disutility from\\  high skill labour} \\
+					\hline
+				$\bar{H}$& -&1&\makecell[l]{economic time endowment} \\
+				\hline
+				\hline
+				Production&\multicolumn{3}{c}{}\\
+				\hline
+				
+				\hline
+				$\varepsilon$&- &\makecell[l]{0.4 if complements,\\  4 if substitutes}& \makecell[l]{substitutability of clean and dirty\\ production in final consumption good}\\			
+				\hline
+				$\alpha$&- &$1/3$& capital share in production  \\
+				%\hline
+				%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
+				\hline
+				$\psi$&\cite{Acemoglue} &$\alpha^2$& cost of machine production  \\
+				\hline
+				
+				$\theta_c$&-&0.7&\makecell[l]{high skill labour share\\ in clean sector}\\
+				\hline
+					$\theta_d$&-&0.56&\makecell[l]{high skill labour share\\ in dirty sector}\\
+				\hline
+				\hline
+				Technology&\multicolumn{3}{c}{}\\
+				\hline
+				\hline
+				$v_d$&- &0.07& annual TFP growth dirty sector\\
+					\hline
+			
+				$v_c$&- &0.01& annual TFP growth clean sector\\
+					\hline
+				$A_{d0}$&- &8& initial productivity in dirty sector\\
+				\hline
+					$A_{c0}$&- &4& initial productivity clean sector\\
+					\hline
+				\hline
+				Government&\multicolumn{3}{c}{}\\
+				\hline
+				\hline
+				$G$&- &0& Budget requirement government\\
+				\hline
+				
+				\hline
+				Emissions&\multicolumn{3}{c}{}\\
+				\hline
+				
+				\hline
+				$\delta$&from EIA in 2019 or 20?&0.7893&natural sinks \\
+				\hline
+				$\kappa$& &5.7131& \makecell[l]{ gross emissions as a\\ fraction of dirty output}\\
+				\hline \hline
+			\end{tabular}
+		\end{center}
+	\end{table}

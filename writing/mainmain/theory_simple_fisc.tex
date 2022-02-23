@@ -1,25 +1,21 @@
 \section{Theoretical Results}\label{sec:theory}
- The model features structural transformation stemming from price effects (\cite{Ngai2007StructuralGrowth}, Baumol (1967)), since heterogeneous growth rates result in relative price changes over time. %A shown by \cite{Ngai2007StructuralGrowth}, the model features a balanced-growth path with certain parameter values: 
-For certain parameter values the model exhibits a generalised balanced growth path (GBGP): sector-specific goods are composites in the final good production.
 
-In contrast to a balanced growth path, which is commonly defined by constant growth in all variables, a GBGP is less strict and certain variables are allowed to grow at non-constant rates. 
-\cite{Ngai2007StructuralGrowth} find that with goods being complements employment shares shift to sectors with lower TFP growth; eventually, all labour is in the sector with the lowest TFP. In the present model, this is the clean sector. 
-
-In what follows, I am less interested in the long-run growth aspects of the economy, but rather on the transitional mechanisms across sectors. 
+In this section, I show, first, the mechanisms which drive changes in emissions, and, second, that under the assumption of a representative agent, labour taxes can only affect emissions through the level of production; the output ratio is independent of fiscal policies. 
+%In what follows, I present two  I am less interested in the long-run growth aspects of the economy, but rather on the transitional mechanisms across sectors. 
 
 
-\paragraph{Laissez-faire}
-\paragraph{Dirty output}
-
-Dirty output grows with the following rate
+\subsection{Emission growth}
+Emissions are a constant fraction of dirty output; they, thus, grow at the same rate.
+Dirty output growth is given by
 \begin{align*}
 	\frac{Y_d'}{Y_d}=\left(\frac{p_d'}{p_d}\right)^{\frac{\alpha+(1-\alpha)(1-\varepsilon)}{1-\alpha}}\frac{A_d'}{A_d}\frac{H'}{H}.
 \end{align*}
-The effect of sector-specific inflation on output captures, on the one hand, the positive effect of a higher demand for machines when the price for the respective good grows. This raises the marginal product of labour so that the dirty sector demands more labour; captures by the $\frac{\alpha}{1-\alpha}$ in the exponent. In addition,  a rise in the dirty good's price increases the marginal profit the dirty sector generates from increasing labour input one-for-one, this is captured by the exponent of 1. On the other hand,  the rise in the dirty good's price lowers demand for dirty output by final goods producers, even more so the more goods are substitutes, captured by the $\varepsilon$. The elasticity of dirty output with respect to dirty sector inflation is positive, when the reduction in demand by final good producers, $\varepsilon$,  is smaller than the rise in the marginal profit of labour, $\frac{1}{1-\alpha}$. 
-All else equal, a rise in dirty productivity increases dirty output, as does a rise in aggregate disutility-weighted labour supply.
+For a derivation and a full solution to the model see appendix section \ref{app:solu}. The dash indicates next period variables.
+The effect of sector-specific inflation on output captures, on the one hand, the positive effect of a higher demand for machines when the price for the respective good grows. This raises the marginal product of labour so that the dirty sector demands more labour; reflected by the term $\frac{\alpha}{1-\alpha}$ in the exponent. In addition,  a rise in the dirty good's price increases the marginal profit the dirty sector generates from increasing labour input one-for-one, this is captured by the exponent of 1. On the other hand,  the rise in the dirty good's price lowers demand for dirty output by final goods producers, even more so the more goods are substitutes, captured by the exponent $\varepsilon$. The elasticity of dirty output with respect to dirty sector inflation is positive, when the reduction in demand by final good producers, $\varepsilon$,  is smaller than the rise in the marginal profit of labour, $\frac{1}{1-\alpha}$. 
+All else equal, a rise in dirty productivity, $A_d$, increases dirty output, as does a rise in aggregate (disutility-weighted) labour supply, $H$.
 
-Since prices in this simple model are a function of total factor productivity only, the government can only affect dirty output growth through total labour supply by households; the output ratio is irresponsive to progressivity of the tax schedule.%The percentage change in labour input goods by sectors are equivalent. This together with prices being independent of skill supply implies that the output ratio of sectors is unaffected by tax progressivity.
-\footnote{\ This is directly obvious from the ratio demand by final good producers, which is only a function of the price ratio. }
+Since prices in this simple model are a function of total factor productivity only, the government can only affect dirty output growth through total labour supply by households. As the ratio of dirty to clean goods demanded by final good producers only depends on prices, the output ratio is irresponsive to the progressivity of the tax schedule.%The percentage change in labour input goods by sectors are equivalent. This together with prices being independent of skill supply implies that the output ratio of sectors is unaffected by tax progressivity.
+%\footnote{\ This is directly obvious from the ratio demand by final good producers, which is only a function of the price ratio. IN OTHER MODELS PRICES MAY DEPEND ON LABOUR SUPPLY1}
 
 
 	\begin{comment}
@@ -36,11 +32,11 @@ content...
 \end{comment}
 
 \begin{prop}[Effect of $\tau_l$ on dirty output]
-	In the representative agent model with log utility, tax progressivity does not affect the equilibrium ratio of sector production. Fiscal policy can only lower dirty output by reducing aggregate output.
+	In the representative agent model \tr{with log utility}, tax progressivity does not affect the equilibrium ratio of sector production. Fiscal policy can only lower dirty output by reducing aggregate labour supply.
 \end{prop}
 
-\paragraph{Model with Inequality and MaCurdy preferences}
-Following BOPPART et al., I look at a MaCurdy preference specification which features a slightly higher income than substitution effect in response to a change in productivity. In this section, I focus on a heterogeneous agent version of the model. Households differ in the exogenous level of skill they can provide.\footnote{\ \tr{In the representative agent model, the household is indifferent what kind of skill to supply, the optimal ratio of labour supply is independent of fiscal policy. Also when considering a representative family, the optimal equalisation of consumption equalises family members' income} } As a result, the response of hours worked to a change in tax progressivity is income dependent. 
+\subsection{Model with Inequality and MaCurdy preferences}
+Following BOPPART et al., I look at a MaCurdy preference specification which allows for a slightly higher income than substitution effect in response to a change in productivity. In this section, I focus on a heterogeneous agent version of the model. Households differ in the exogenous level of skill they can provide.\footnote{\ \tr{In the representative agent model, the household is indifferent what kind of skill to supply, the optimal ratio of labour supply is independent of fiscal policy. Also when considering a representative family, equalising consumption across family members'  makes the income effect marginally homogeneous.} } As a result, the response of hours worked to a change in tax progressivity is income dependent. 
 The utility of a household with skill level $s$ reads
 \begin{align}
 	u_s(c_{st},h_{st})=
