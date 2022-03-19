@@ -43,8 +43,9 @@ model(i)=jacobian(Obj, symmsoptim(i)); % should give derivative=0 if not present
 end
 
 % replace derivative wrt kt multiplier with complementary slackness
-% condition 
-model(list.optim=='kt_lab')=symmsoptim(list.optim=='kt_lab')*(symmsparams(list.params=='Hbar')-(taul_sym.hh+taul_sym.hl));
+% condition (economic time endowment)
+
+model(list.optim=='kt_lab')=symmsoptim(list.optim=='kt_lab')*(symmsparams(list.params=='Hbar')-(symmsoptim(list.optim=='lhc')+symmsoptim(list.optim=='lhd')+symmsoptim(list.optim=='llc')+symmsoptim(list.optim=='lld')));
 
 % retrieve variables in model for substitution
 model_vars=transpose(symvar(model));

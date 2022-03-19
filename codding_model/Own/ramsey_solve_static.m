@@ -3,20 +3,22 @@ if ~isfile(sprintf('simulation_results/StaticOptPol_hetgrowth%d_util%d_withtarge
         params(list.params=='thetad'), Ad, Ac ))
 
 if indic.approach==1
-        mu_budget       = 1;
+        eppsilon = params(list.params=='eppsilon');
+       % mu_budget       = 1;
         mu_target       = 1;
         mu_opt_final    = 1;
         mu_rc           = 1;
         mu_imp          = 1;
         mu_defH         = 1; 
-        H               = 1;
-        c               = 1;
-        lhc             = 1;
-        lhd             = 1;
-        llc             = 1; 
-        lld             = 1;
-        yd              = 1;
-        yc              = 1;
+        H               = 1.3;
+        lhc             = 0.2;
+        lhd             = 0.2;
+        llc             = 0.2; 
+        lld             = params(list.params=='Hbar')-lhc-lhd-llc;
+        yd              = 0.2;
+        yc              = 0.4;
+        c               = (yc^((eppsilon-1)/eppsilon)+yd^((eppsilon-1)/eppsilon))^(eppsilon/(eppsilon-1)); 
+        kt_lab          = 0;
  
  elseif indic.approach==2
         tauul           = 0.7;

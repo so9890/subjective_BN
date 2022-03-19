@@ -101,7 +101,8 @@ elseif indic.util==1
     Muhl = -etaa*H^(-1)*c*Muc;
 
 elseif indic.util==2
-    % MaCurdy (as discussed in Boppart, Krusell)
+    % MaCurdy (as discussed in Boppart, Krusell)=> not offsetting income
+    % and substituion effects
     % sigmaa=1/theta
     % gammaa=sigmaa
     Muc  = c^(-gammaa);
@@ -280,7 +281,9 @@ if indic.withtarget==1
 elseif indic.withtarget==0
     symms.optim = sort([tauul, kt_lab]);
 end
-list.optim  = string(symms.optim);
+
+list.optim  = string(symms.optim); % this is list optim for the dual problem; 
+                                   % is replaced for primal problem
 
 %% social welfare function and constraints
 

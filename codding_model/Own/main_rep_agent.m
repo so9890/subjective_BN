@@ -6,11 +6,11 @@
 % INCLUDE UPPER BOUND ON LABOUR SUPPLY!
 %% include path to package
 clc, clear
-if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
-    cd('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
-else 
-    cd('C:\Users\user\Documents\subjective_BN\codding_model\Own')
-end
+% if isfile('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
+cd('/home/sonja/Documents/projects/Overconsumption/codding_model/Own')
+% else 
+%     cd('C:\Users\user\Documents\subjective_BN\codding_model\Own')
+% end
 %%
 folder = '../tools';
 addpath(genpath(folder))
@@ -21,8 +21,10 @@ mkdir('simulation_results');
 
 %% indicators for model versions
 
-for ss=0:1
-for ttt=0:1
+ss=0; %:1 indi
+ttt=1; %0:1 indicators loop
+
+
 indic.subst        = ss; %ss % == 0 if complements, ==1 if substitutes
 indic.epps         = [0.4, 4]; % vector of values for eppsilon, depending on indic.subst
 indic.fullDisposal = 0; % == 0 if gov. revenues are fully consumed (baseline), ==1 if gov revenues are fully disposed of
@@ -34,12 +36,12 @@ indic.util         = 0; % == 0 if uses CRRA with gammaa=1 (bgp compatible, hours
                         % ==2 if uses MaCurdy preferences (following Boppart and Krusell) 
 
 indic.withtarget   = ttt;  %ttt; % ==1 if uses swf with target; ==0 if no target
-indic.approach     = 2; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
+indic.approach     = 1; % ==1 if uses primal approach, ==2 if uses dual approach (maxmise over optimal policy (tauul, lambdaa) directly
 indic.var          = string('zero');% 'zetaa'; % which parameter to change in simulations
 
 %% read in model file, Objective fcn gov and variables
 
-model_rep_agent;
+model_rep_agent; % resulting list.optim refers to dual problem
 
 %% initialise variables for parameterisation
 
@@ -115,16 +117,16 @@ end
 % takes ages!
 
 %% primal and dynamic models=> static same and better solution
-% if indic.approach==1
-%     %- read in static problem
-%     [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
-%     
-%     %- dynamic primal problems
-%     [Obj_ramPA_dynamic, symms.optim_dynamic, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol, P);
-% else
-%     %- dynamic dual approach
-%      [Obj_ram_dynamic, symms.optim_dynamic, vecs, list]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol, P);
-% end
+if indic.approach==1
+    %- read in static problem
+    [symms, list, Obj_ramPA]=primal_problem(y, x, list, symms, E);
+    
+    %- dynamic primal problems
+    [Obj_ramPA_dynamic, symms.optim_dynamic, vecs, list ]=problem_dynamic(y, x, list, symms, E, Obj_ramPA, indic, pol, P);
+else
+    %- dynamic dual approach
+     [Obj_ram_dynamic, symms.optim_dynamic, vecs, list]=problem_dynamic(y, x, list, symms, E, Obj_ram, indic, pol, P);
+end
 %% simulation Ramsey: static
 
 %- initial values (guesses for ramsey problem updated in loop)
@@ -133,8 +135,8 @@ Ad1     = x_init(list.x=='Ad');
 
 fprintf('indics substitutes %d, target %d', ss, ttt)
 ramsey_solve_static;
-end
-end
+% end
+% end
 
 %% plotts
 plotts;
