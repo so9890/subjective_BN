@@ -62,6 +62,7 @@ solve = zeros(Tsim,1);
 % Solve for Pf and Pg along BGP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 repeat =0; error =0; %turns on if something bad happens
 
 options.TypicalX = guessBgp';
@@ -87,6 +88,7 @@ if solve0 > 1e-12 || isreal(fval) ==0
 end
 
 
+%% the following looks like the calibration routine
 inc= 2;
 while repeat ==1
     %%

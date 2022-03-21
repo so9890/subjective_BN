@@ -36,6 +36,7 @@ ag0 = (1 + 1/rhonf + 1/rhong)*a0/(1/rhong + 1/rhonf*afg0 + amg0);
 af0 = ag0*afg0; 
 am0 = ag0*amg0;  
 
+% technology in deviation from aggregate growth 
 afHat0 = af0/a0; agHat0 = ag0/a0; amHat0 = am0/a0;
 
 sgf0 = (ag0/af0)^(phi/eta)*(rhonf/rhong); % follows from LOM of technology
@@ -60,6 +61,7 @@ end
 
 lgf0 = (sg0^(1-eta)/sf0^(1-eta))*pf0^(1/(1-alphaf))/pg0^(1/(1-alphag))*(af0/ag0)^(1-phi)*(1-alphaf)/(1-alphag)*eta/eta...
     *pgix0^(alphag/(1-alphag))/pfix0^(alphaf/(1-alphaf))*alphaf^(1/(1-alphaf))/alphag^(1/(1-alphag))*(rhonf/rhong)^(eta); 
+
 if abs(lgf0-lgfown)>10e-16
     error("own calculations of lgm wrong")
 end
@@ -68,6 +70,7 @@ lg0 = L/(1 + 1/lgm0 + 1/lgf0);
 lf0 = lg0/lgf0; 
 lm0 = lg0/lgm0; 
 
+% from here on there seems to be a detrending
 %MACHINES
 xfHat0 = (alphaf*pf0/pfix0)^(1/(1-alphaf))*lf0*afHat0;
 xgHat0= (alphag*pg0/pgix0)^(1/(1-alphag))*lg0*agHat0;
