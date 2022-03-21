@@ -17,7 +17,7 @@ function answ =bgp(pf0, pg0, a0, alphaf, alphag,alpham, deltaef, deltaeg, deltaf
     epse, epsf, epsy,eta, n0, phi, rhonf, rhong, theta0, L, S, tau0)
 
 %PRICES
-pfStar0 = theta0*pf0;
+pfStar0 = theta0*pf0; % on bgp this ratio of prices is required to hold!
 pfTil0 = ((pf0+ tau0)^(1-epsf)*deltaff^epsf + (pfStar0 + tau0)^(1-epsf)*deltafo^epsf)^(1/(1-epsf)); 
 pe0 = (pfTil0^(1-epse)*deltaef^epse + pg0^(1-epse)*deltaeg^epse)^(1/(1-epse));
 pm0 = ((1 - pe0^(1-epsy)*deltaye^epsy)/deltayn^epsy)^(1/(1-epsy));
@@ -31,26 +31,38 @@ pmix0 = 1/(alpham);
 afg0 = (1-alphag)/(1-alphaf) *pg0^(1/(1-alphag))/pf0^(1/(1-alphaf))*(alphag/pgix0)^(alphag/(1-alphag))*(pfix0/alphaf)^(alphaf/(1-alphaf)); 
 amg0 = (1-alphag)/(1-alpham) *pg0^(1/(1-alphag))/pm0^(1/(1-alpham))*(alphag/pgix0)^(alphag/(1-alphag))*(pmix0/alpham)^(alpham/(1-alpham)); 
 
+% technologies in levels!
 ag0 = (1 + 1/rhonf + 1/rhong)*a0/(1/rhong + 1/rhonf*afg0 + amg0);
 af0 = ag0*afg0; 
 am0 = ag0*amg0;  
 
 afHat0 = af0/a0; agHat0 = ag0/a0; amHat0 = am0/a0;
 
-sgf0 = (ag0/af0)^(phi/eta)*(rhonf/rhong); 
+sgf0 = (ag0/af0)^(phi/eta)*(rhonf/rhong); % follows from LOM of technology
 smf0 = (am0/af0)^(phi/eta)*(rhonf); 
 sf0 = S/(1 + sgf0 + smf0);
 sg0 = sf0*sgf0; 
 sm0 = sf0*smf0;
-gamma = n0/(sm0^eta*(a0/am0)^phi); 
+gamma = n0/(sm0^eta*(a0/am0)^phi); % n is growth rate in non-energy technology: n0=An'/An-1
 
 %WORKERS
 %Scientist market clearing implies (wsg = wsm)
 lgm0 = (sg0^(1-eta)/sm0^(1-eta))*pm0^(1/(1-alpham))/pg0^(1/(1-alphag))*(am0/ag0)^(1-phi)*(1-alpham)/(1-alphag)*eta/eta...
     *pgix0^(alphag/(1-alphag))/pmix0^(alpham/(1-alpham))*alpham^(1/(1-alpham))/alphag^(1/(1-alphag))*(1/rhong)^(eta);
 
+% own calculations SOnja
+lgmown = alpham/alphag*sg0/sm0; % correct
+lgfown = alphaf/alphag*sg0/sf0;
+
+if abs(lgm0-lgmown)>10e-16
+    error("own calculations of lgm wrong")
+end
+
 lgf0 = (sg0^(1-eta)/sf0^(1-eta))*pf0^(1/(1-alphaf))/pg0^(1/(1-alphag))*(af0/ag0)^(1-phi)*(1-alphaf)/(1-alphag)*eta/eta...
     *pgix0^(alphag/(1-alphag))/pfix0^(alphaf/(1-alphaf))*alphaf^(1/(1-alphaf))/alphag^(1/(1-alphag))*(rhonf/rhong)^(eta); 
+if abs(lgf0-lgfown)>10e-16
+    error("own calculations of lgm wrong")
+end
 
 lg0 = L/(1 + 1/lgm0 + 1/lgf0); 
 lf0 = lg0/lgf0; 

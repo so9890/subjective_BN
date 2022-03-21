@@ -18,6 +18,7 @@
 % Number of time periods for the simulation: Tsim
 % Green research subsidy (set to zero for paper results): v
 % Aggregate technology on the BGP: a0
+
 % Outputs:
 % Indicator of whether the fsolve was successful: solve
 % Initial guess for BGP: guessBGP
@@ -52,7 +53,7 @@ alphag = pp(1);  eta = pp(2); deltaye = pp(3);
 epsf = pp(4); deltaff = pp(5);
 
 deltayn = 1-deltaye;
-deltaeg=1-deltaef;
+deltaeg = 1-deltaef;
 deltafo = 1-deltaff;
 
 solve = zeros(Tsim,1);

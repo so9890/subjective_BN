@@ -14,17 +14,19 @@ home =0;
 if home ==1
     bpath = '/Users/steph/Dropbox/Research/Price_shocks/Matlab_files';
 else
-    bpath = '/Users/sfried/Dropbox/Research/Price_shocks/Matlab_files';
+    bpath = '/home/sonja/Documents/projects/Overconsumption/codding_model/Fried2018/AEJMacro-2015-0289.R2_additional_materials';
 end
 
-cd(strcat(bpath, '/Uncertainty/AEJFiles'))
+cd(bpath)
 
 
 %Load parameter values
-load(strcat(bpath, '/Uncertainty/AEJFiles/base')); 
-
+load('base'); 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Iniatlize quantities
+% notes sonja:
+% pp = calibrated variables using MoM approach 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Number of simulation periods (period 1=BGP, period 2 =2015-2019,
@@ -35,7 +37,7 @@ ind2015 =2; ind2030 = 5;
 
 %Number of experiments: 1 = endog Innovation; 2= exogenous innovation
 nExp = 2; 
-pp = [alphag, eta, deltaye, epsf, deltaff, nu1];
+pp = [alphag, eta, deltaye, epsf, deltaff, nu1];  % parameters from MOM
 theta1 = 2.1579; %average from 2001-2010
 tauMat = zeros(Tsim, nExp);
 tauStarMat = zeros(Tsim, nExp);
@@ -44,7 +46,8 @@ noInnov=0; %noInnov =1 =>exogenous innovation
 emissionsTarg = 30; %30 percent reduction in emissions
 v = zeros(Tsim, 1); %subsidy
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bracketing Routine: Computes emissions for different tax values and 
 % solves for the tax for which emissions are 30 percent below their
 % baseline value in 2030-2034 time period
@@ -66,20 +69,20 @@ for k = 1:2
             tauStarMat(2:end, 2) = tauStar*ones(Tsim-1,1);
             
             a = zeros(Tsim, nExp);
-            af = zeros(Tsim, nExp);
-            ag = zeros(Tsim, nExp);
-            am = zeros(Tsim, nExp);
+            af = zeros(Tsim, nExp); % machine share fossil fuel production
+            ag = zeros(Tsim, nExp); % machine share green energy production
+            am = zeros(Tsim, nExp); % machine share  production non-energz
             agg = zeros(Tsim, nExp);
-            cHat = zeros(Tsim, nExp);
-            edHat = zeros(Tsim, nExp);
-            fdHat = zeros(Tsim, nExp);
+            cHat = zeros(Tsim, nExp); % deviation consumption from BGP
+            edHat = zeros(Tsim, nExp); % energy output?
+            fdHat = zeros(Tsim, nExp); 
             fdHatStar = zeros(Tsim, nExp);
             fsHat = zeros(Tsim, nExp);
             gdpHat= zeros(Tsim, nExp);
             gdHat = zeros(Tsim, nExp);
             gsHat = zeros(Tsim, nExp);
-            lf = zeros(Tsim, nExp);
-            lg = zeros(Tsim, nExp);
+            lf = zeros(Tsim, nExp); % labour fossil
+            lg = zeros(Tsim, nExp); % labour green sector
             mdHat = zeros(Tsim, nExp);
             msHat = zeros(Tsim, nExp);
             pf = zeros(Tsim, nExp);
@@ -104,14 +107,15 @@ for k = 1:2
             profitsFHat= zeros(Tsim, nExp);
             profitsGxHat= zeros(Tsim, nExp);
             profitsMxHat= zeros(Tsim, nExp);
-            pfix= zeros(Tsim, nExp);
-            pgix= zeros(Tsim, nExp);
-            pmix= zeros(Tsim, nExp);
+            pfix= zeros(Tsim, nExp); % price machines fossil
+            pgix= zeros(Tsim, nExp); % price machines green
+            pmix= zeros(Tsim, nExp); % price machines non-energz good
             share= zeros(Tsim, nExp);
             imports= zeros(Tsim, nExp);
             solve= zeros(Tsim, nExp);
             noInnov = 0;
-            c1 = 1; c2 = Tsim;
+            c1 = 1; 
+            c2 = Tsim;
             
             for i = 1:2 %i = 1 => BGP, i => tax
                 

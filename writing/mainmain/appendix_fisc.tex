@@ -271,6 +271,71 @@ Wide deployment of BECCS is constrained by cost and availability of biomass.
 \end{itemize}
 
 \section{Model}
+\subsection{Model as in \cite{Fried2018ClimateAnalysis}}
+\begin{align*}
+\text{Household}\\
+& C_t=w_{lft}L_{lft}+w_{lgt}L_{lgt}+w_{lnt}L_{lnt}+w_{sft}S_{sft}+w_{sgt}S_{sgt}+w_{snt}S_{snt}+\\ &\int_{0}^{1}\pi_{fit}+\pi_{git}+\pi_{nit}di+T_t\\
+\text{Final good producer optimality}&\\
+\text{Optimality}\ \vspace{4mm}& \delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
+& (1-\delta_y)Y_t^\frac{1}{\varepsilon_y}N_t^{-\frac{1}{\varepsilon_e}}=p_{Nt}\\
+&
+p_{Et}E_t^\frac{1}{\varepsilon_e}\tilde{F}_t^{-\frac{1}{\varepsilon_e}}=p_{\tilde{F}t}\\
+& p_{Et}E_t^\frac{1}{\varepsilon_e}G_t^{-\frac{1}{\varepsilon_e}}=p_{Gt}\\
+& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}\delta_fF_t^{-\frac{1}{\varepsilon_f}}=p_{Ft}+\tau_{f}\\
+& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}(1-\delta_f)O_t^{-\frac{1}{\varepsilon_f}}=p_{Ot}+\tau_{o}\\
+\text{Definitions prices}\ \vspace{4mm}&
+p_{yt}= \left[\delta_y^{\varepsilon_y}p_{Et}^{1-\varepsilon_y}+(1-\delta_y)^{\varepsilon_y}p_{Nt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_y}\\
+& p_{Et}= \left[p_{\tilde{F}t}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\\
+& p_{\tilde{F}t}= \left[\delta_f^{\varepsilon_f}(p_{Ft}+\tau_{f})^{1-\varepsilon_f}+(1-\delta_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}\\
+\text{Production}\ \vspace{4mm}& 
+Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+&E_t=\left(\tilde{F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}\\
+&\tilde{F}_t=\left(\delta_fF_t^\frac{\varepsilon_f-1}{\varepsilon_f}+(1-\delta_f)O_t^\frac{\varepsilon_f-1}{\varepsilon_f}\right)^\frac{\varepsilon_f}{\varepsilon_f-1}\\
+\text{Intermediate good producers: G, N, F}&\\
+\text{Production}\ \vspace{4mm}& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
+&N_t= (\alpha_n^2p_{Nt})^\frac{ \alpha_n}{1-\alpha_n}A_{nt}L_{nt}\\
+&G_t= (\alpha_g^2p_{Gt})^\frac{ \alpha_g}{1-\alpha_g}A_{gt}L_{gt}
+\end{align*}
+
+\begin{align*}
+\text{Labour demand}\\
+& w_{lft}=p_{Ft}(1-\alpha_f)(\alpha_f^2p_{Ft})^\frac{\alpha_f}{1-\alpha_f}A_{ft}\\
+& w_{lnt}=p_{Nt}(1-\alpha_n)(\alpha_n^2p_{Nt})^\frac{\alpha_n}{1-\alpha_n}A_{nt}\\
+& w_{lgt}=p_{Gt}(1-\alpha_g)(\alpha_g^2p_{Gt})^\frac{\alpha_g}{1-\alpha_g}A_{gt}\\
+\text{Mashine demand}\ \vspace{4mm}\\
+&x_{fit}= \left(\alpha_f^2 p_{Ft}\right)^\frac{1}{1-\alpha_f}L_{ft}A_{fit}\\
+&x_{nit}= \left(\alpha_n^2 p_{Nt}\right)^\frac{1}{1-\alpha_n}L_{nt}A_{nit}\\
+&x_{git}= \left(\alpha_g^2 p_{Gt}\right)^\frac{1}{1-\alpha_g}L_{gt}A_{git}\\
+\text{Mashine producers}\\
+\text{Price setting}\ \vspace{4mm}&p_{fit}^x=\frac{1}{\alpha_f}\\
+&p_{nit}^x=\frac{1}{\alpha_n}\\
+&p_{git}^x=\frac{1}{\alpha_g}\\ 
+\text{Demand Scientists}\ \vspace{4mm}&
+w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\\
+&
+w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+&
+w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+\text{Innovation}\ \vspace{4mm}&
+A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\left(\frac{A_{t-1}}{A_{ft-1}}\right)^{\phi}\right) \\
+&
+A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\left(\frac{A_{t-1}}{A_{nt-1}}\right)^{\phi}\right) \\
+&
+A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\frac{A_{t-1}}{A_{gt-1}}\right)^{\phi}\right) \\
+\text{Markets}&\\
+&S_{ft}+S_{nt}+S_{gt}=S\\
+&L_{ft}+L_{nt}+L_{gt}=L\\
+&C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i+P_{Ot}O_t=Y_t\\
+&P_{Ot} \text{taken as given, imports}
+\end{align*}
+
+\subsection{Balanced growth path in \cite{Fried2018ClimateAnalysis}}
+She assumes that the ratio of prices is constant and energy prices themselves are constant (p.103). Assuming that the spillover effect is sufficiently strong (that is, $\phi$ is large) then a balanced growth path may exist on which the ratio of green and fossil technology, $A_g/A_f$, is constant. 
+
+In equilibrium it has to hold that 
+\begin{align*}
+P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\varepsilon_e-1}.
+\end{align*} 
 \subsection{Equilibrium conditions}
 
 \begin{align*}
