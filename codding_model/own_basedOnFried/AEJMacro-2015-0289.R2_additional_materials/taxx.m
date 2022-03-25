@@ -14,10 +14,10 @@ clc; clear;
 % if home ==1
 %     bpath = '/Users/steph/Dropbox/Research/Price_shocks/Matlab_files';
 % else
-%     bpath = '/home/sonja/Documents/projects/Overconsumption/codding_model/own_basedOnFried2018/AEJMacro-2015-0289.R2_additional_materials';
+     bpath = '/home/sonja/Documents/projects/Overconsumption/codding_model/own_basedOnFried/AEJMacro-2015-0289.R2_additional_materials';
 % end
 % 
-% cd(bpath)
+ cd(bpath)
 
 
 %Load parameter values
