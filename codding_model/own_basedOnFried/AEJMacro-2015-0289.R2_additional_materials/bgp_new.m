@@ -28,14 +28,12 @@ zetan= (1-alphan)/alphan;
 %Hl = hl*zl;
 
 % skill supply ratio given wages from HH optimality
-hlhh0 = (wl0/wh0)^((1-taul0)/(sigmaa+taul0));
+hlhh0 = (wl0/wh0)^((1-taul0)/(sigmaa+taul0))*(zl/zh)^(sigmaa/(sigmaa+taul0));
 
-% using labour firms optimal input shares it follows
+% labour firms optimal input shares imply
 hhfhlf0 = thetaf/(1-thetaf)*wl0/wh0;
 hhnhln0 = thetan/(1-thetan)*wl0/wh0;
 hhghlg0 = thetag/(1-thetag)*wl0/wh0;
-
-% this gives the labour input good normalised
 
 %PRICES
 pfStar0 = theta0*pf0; % on bgp this ratio of prices is required to hold!

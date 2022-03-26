@@ -340,14 +340,15 @@ P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\v
 \end{align*} 
 
 \subsection{Fried amended}
-\begin{align*}
-\text{\textbf{Household}}\\
+\begin{align}
+\text{\textbf{Household}}& \max \frac{C^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\\
 \text{Budget}\ \vspace{4mm}& p_{yt}C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-\sigma}= \mu_tp_{yt}\\
-& h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}\\
-& h_{lt}^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}\\
-& h_{st}^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{st}^{1-\tau_{lt}}h_{st}^{-\tau_{lt}}
+& (z_hh_{ht})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}\\
+& (z_lh_{lt})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}\\
+&(z_s h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{st}^{1-\tau_{lt}}h_{st}^{-\tau_{lt}}
 \\
 \text{\textbf{Final good producers}}&\\
 \text{Optimality}\ \vspace{4mm}& p_{yt}\delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
@@ -356,50 +357,58 @@ P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\v
 p_{Et}E_t^\frac{1}{\varepsilon_e}\tilde{F}_t^{-\frac{1}{\varepsilon_e}}=p_{\tilde{F}t}\\
 & p_{Et}E_t^\frac{1}{\varepsilon_e}G_t^{-\frac{1}{\varepsilon_e}}=p_{Gt}\\
 & p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}\delta_fF_t^{-\frac{1}{\varepsilon_f}}=p_{Ft}+\tau_{f}\\
-& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}(1-\delta_f)O_t^{-\frac{1}{\varepsilon_f}}=p_{Ot}+\tau_{o}\\
+& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}(1-\delta_f)O_t^{-\frac{1}{\varepsilon_f}}=p_{Ot}+\tau_{o}
+\\
 \text{Definitions prices}\ \vspace{4mm}&
 p_{yt}= \left[\delta_y^{\varepsilon_y}p_{Et}^{1-\varepsilon_y}+(1-\delta_y)^{\varepsilon_y}p_{Nt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_y}\\
 & p_{Et}= \left[p_{\tilde{F}t}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\\
-& p_{\tilde{F}t}= \left[\delta_f^{\varepsilon_f}(p_{Ft}+\tau_{f})^{1-\varepsilon_f}+(1-\delta_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}\\
+& p_{\tilde{F}t}= \left[\delta_f^{\varepsilon_f}(p_{Ft}+\tau_{f})^{1-\varepsilon_f}+(1-\delta_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}
+\\
 \text{Production}\ \vspace{4mm}& 
 Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
 &E_t=\left(\tilde{F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}\\
-&\tilde{F}_t=\left(\delta_fF_t^\frac{\varepsilon_f-1}{\varepsilon_f}+(1-\delta_f)O_t^\frac{\varepsilon_f-1}{\varepsilon_f}\right)^\frac{\varepsilon_f}{\varepsilon_f-1}\\
+&\tilde{F}_t=\left(\delta_fF_t^\frac{\varepsilon_f-1}{\varepsilon_f}+(1-\delta_f)O_t^\frac{\varepsilon_f-1}{\varepsilon_f}\right)^\frac{\varepsilon_f}{\varepsilon_f-1}
+\\
 \text{\textbf{Intermediate good producers}}&\\
 \text{Production}\ \vspace{4mm}& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
 &N_t= (\alpha_n^2p_{Nt})^\frac{ \alpha_n}{1-\alpha_n}A_{nt}L_{nt}\\
-&G_t= (\alpha_g^2p_{Gt})^\frac{ \alpha_g}{1-\alpha_g}A_{gt}L_{gt}
-\end{align*}
-
-\begin{align*}
-\text{Labour demand}\\
+&G_t= (\alpha_g^2p_{Gt})^\frac{ \alpha_g}{1-\alpha_g}A_{gt}L_{gt}\\
+%\end{align}
+%
+%\begin{align}
+\text{Labour demand}\label{eq:lab_demand}\\
 & w_{lft}=p_{Ft}(1-\alpha_f)(\alpha_f^2p_{Ft})^\frac{\alpha_f}{1-\alpha_f}A_{ft}\\
 & w_{lnt}=p_{Nt}(1-\alpha_n)(\alpha_n^2p_{Nt})^\frac{\alpha_n}{1-\alpha_n}A_{nt}\\
-& w_{lgt}=p_{Gt}(1-\alpha_g)(\alpha_g^2p_{Gt})^\frac{\alpha_g}{1-\alpha_g}A_{gt}\\
-\text{Mashine demand}\ \vspace{4mm}\\
+& w_{lgt}=p_{Gt}(1-\alpha_g)(\alpha_g^2p_{Gt})^\frac{\alpha_g}{1-\alpha_g}A_{gt}
+\\
+\text{Machine demand}&
+\\
 &x_{fit}= \left(\alpha_f^2 p_{Ft}\right)^\frac{1}{1-\alpha_f}L_{ft}A_{fit}\\
 &x_{nit}= \left(\alpha_n^2 p_{Nt}\right)^\frac{1}{1-\alpha_n}L_{nt}A_{nit}\\
-&x_{git}= \left(\alpha_g^2 p_{Gt}\right)^\frac{1}{1-\alpha_g}L_{gt}A_{git}\\
-\text{\textbf{Labour producers}}&\\
+&x_{git}= \left(\alpha_g^2 p_{Gt}\right)^\frac{1}{1-\alpha_g}L_{gt}A_{git}
+\\
+\text{\textbf{Labour producers}}&
+\\
 \text{Production}\ \vspace{4mm}& L_{ft}=h_{hft}^{\theta_{f}}h_{lft}^{1-\theta_{f}}\\
 & L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
 & L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}\\
 \ \\
-\text{Optimality}\ \vspace{4mm}& h_{hft}= \theta_{f}L_{ft}\frac{w_{lft}}{w_{ht}}\\
+\text{Optimality}\ \vspace{4mm}& h_{hft}= \theta_{f}L_{ft}\frac{w_{lft}}{w_{ht}}\label{eq:opt_lab_pro}\\
 & h_{hnt}= \theta_{n}L_{nt}\frac{w_{lnt}}{w_{ht}}\\
 & h_{hgt}= \theta_{g}L_{gt}\frac{w_{lgt}}{w_{ht}}\\
-& h_{lft}= (1-\theta_{f})L_{ft}\frac{w_{lft}}{w_{lt}}\\
+& h_{lft}= (1-\theta_{f})L_{ft}\frac{w_{lft}}{w_{lt}}\label{eq:opt_lab_pro_low}\\
 & h_{lnt}= (1-\theta_{n}) L_{nt}\frac{w_{lnt}}{w_{lt}}\\
-& h_{lgt}= (1-\theta_{g}) L_{gt}\frac{w_{lgt}}{w_{lt}}
-\end{align*}
-
-\begin{align*}
-\text{\textbf{Mashine producers}}\\
+& h_{lgt}= (1-\theta_{g}) L_{gt}\frac{w_{lgt}}{w_{lt}}\\
+%\end{align}
+%
+%\begin{align}
+\text{\textbf{Machine producers}}\\
 \text{Price setting}\ \vspace{4mm}&p_{fit}^x=\frac{1}{\alpha_f(1+\zeta_f)}\\
 &p_{nit}^x=\frac{1}{\alpha_n(1+\zeta_n)}\\
-&p_{git}^x=\frac{1}{\alpha_g(1+\zeta_g)}\\ 
+&p_{git}^x=\frac{1}{\alpha_g(1+\zeta_g)}
+\\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\\
+w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
 &
 w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
 &
@@ -410,6 +419,8 @@ A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\left(\f
 A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\left(\frac{A_{t-1}}{A_{nt-1}}\right)^{\phi}\right) \\
 &
 A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\frac{A_{t-1}}{A_{gt-1}}\right)^{\phi}\right) \\
+&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
+%DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\\
 &Gov_t=\int_{0}^{1}\pi_{fit}+\pi_{git}+\pi_{nit}di+z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{lt})})\\&+z_l(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{lt})})+z_s(w_{st}h_{st}-\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})})\\ &+\tau_{ct}(\omega_FF_t+\omega_OO_t) + \frac{1}{\alpha_f}\zeta_{ft}x_{ft}+\frac{1}{\alpha_g}\zeta_{gt}x_{gt}+ \frac{1}{\alpha_h}\zeta_{ht}x_{ht}\\
 \text{with}\ \vspace{4mm}&\zeta_{jt}=\frac{1-\alpha_j}{\alpha_j}\ \ \text{and} \ \ Gov_t\geq \bar{B} \forall t\\
@@ -419,8 +430,85 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 &h_{lft}+h_{lnt}+h_{lgt}=z_{l} h_{lt}\\
 &C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i+P_{Ot}O_t+Gov_t=Y_t\\
 &P_{Ot}\ \ \text{taken as given, imports}
-\end{align*}
+\end{align}
+\subsection{BGP: which can accomodate a trend in hours and diverging productivity shares}
 
+From the optimality condition in skill demand by labour producing firms, equations \ref{eq:opt_lab_pro} and \ref{eq:opt_lab_pro_low}, and the price paid by intermediate good producers in sector $j\in\{F, G, N\}$, $w_{ljt}$, equations \ref{eq:lab_demand}, yields the sector specific demand for high and low skill as a function of output in this sector. Substituting these equations in the intermediate good production function determines technology as a function of prices:
+\begin{align}
+A_{jt} = \left[\alpha_j^{2\frac{\alpha_j}{1-\alpha_j}}p_{jt}^\frac{1}{1-\alpha_j}(1-\alpha_j)\left(\frac{1-\theta_j}{w_{lt}}\right)^{1-\theta_j}\left(\frac{\theta_j}{w_{ht}}\right)^{\theta_j}\right] ^{-1}
+\end{align}
+Under the assumption of a stable wage premium, one can detrend technological progress as:
+\begin{align}
+\hat{A_{jt}}:=\frac{A_{jt}p_{jt}^\frac{1}{1-\alpha_j}}{w_{ht}}= \left[\alpha_j^{2\frac{\alpha_j}{1-\alpha_j}}(1-\alpha_j)\left(1-\theta_j\right)^{1-\theta_j}\theta_j^{\theta_j}\left(\frac{w_{ht}}{w_{lt}}\right)^{1-\theta_j}\right] ^{-1}\label{eq:A_det}
+\end{align}
+Both wage rates for high and low skill labour hence grow at the rate
+\begin{align}
+\gamma_{w}=\left(\frac{p_{jt+1}}{p_{jt}}\right)^\frac{1}{1-\alpha_j}\frac{A_{jt+1}}{A_{jt}}-1  \ \forall \ j. 
+\end{align}
+Hence, free skill movement across labour input firms, implies that on a BGP
+\begin{align}
+\left(\frac{p_{gt+1}}{p_{gt}}\right)^\frac{1}{1-\alpha_g}\frac{A_{gt+1}}{A_{gt}}=\left(\frac{p_{ft+1}}{p_{ft}}\right)^\frac{1}{1-\alpha_f}\frac{A_{ft+1}}{A_{ft}}=\left(\frac{p_{nt+1}}{p_{nt}}\right)^\frac{1}{1-\alpha_n}\frac{A_{nt+1}}{A_{nt}}. \label{eq:const_prA} 
+\end{align}
+These conditions ensure that relative expenditures on intermediate goods are constant \textbf{whenever the labour input ratios are constant}. Substituting intermeidate good production into the expenditure ratio $p_{ft}F_t/(p_{gt}G_t)$  yields
+\begin{align}
+&\frac{p_{ft+1}^\frac{1}{1-\alpha_f}A_{ft+1}L_{ft+1}}{p_{gt+1}^\frac{1}{1-\alpha_g}A_{gt+1}L_{gt+1}}= \frac{p_{ft}^\frac{1}{1-\alpha_f}A_{ft}L_{ft}}{p_{gt}^\frac{1}{1-\alpha_g}A_{gt}L_{gt}}\\
+&\Leftrightarrow \frac{L_{ft+1}}{L_{gt+1}}=\frac{L_{ft}}{L_{gt}},
+\end{align}
+where the second line follows from \ref{eq:const_prA}. 
+
+Note that the assumption that the ratio of technological progress is constant over time is necessary to have aggregate technology, $A_t$, as defined in Fried constant. I don't want to make this assumption to allow for zero growth in the fossil sector. Therefore, I define the leading technology as 
+\begin{align}
+A_t= \max\{A_{nt}, A_{gt}, A_{ft}\}
+\end{align}
+Since on the BGP each technology growths at a constant rate, the leading technology growths at a constant rate  whenever the fastest growing technology is also the leading one in levels.
+
+The assumption of a stable wage premium together with a constant progressivity parameter ensures that relative skill supply on the BGP is stable, too: 
+\begin{align}
+\frac{H_{ht}}{H_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^\frac{1-\tau_{lt}}{1+\sigma}.
+\end{align}
+
+A constant wage ratio also implies that relative skill employment in each sector is constant, $\frac{h_{hj}}{h_{lf}}$, which follows from skill demand by labour producers. 
+
+
+Observe that skill shares employed in each sector, $\frac{h_{pjt}}{H_{pt}} \forall \ j\ \text{and} \ p\in\{h,l\}$, are constant given constant expenditure ratios. 
+To see this, substitute demand for skill inputs by labour producing firms in the market clearing for high skill labour. Substituting labour demand by intermediate good producers yields
+\begin{align}
+w_{ht}H_{ht}= \left(\underbrace{\theta_f (1-\alpha_f)\frac{p_{ft}F_t}{p_{gt}G_t}+\theta_{g}(1-\alpha_g)+\theta_n(1-\alpha_n)\frac{p_{nt}N_t}{p_{gt}G_t}}_{:=\vartheta_t}\right)p_{gt}G_t
+\end{align}
+Replacing $G_t$ by its production function and substituting $L_{gt}$ using the production function and optimal skill ratios implies
+\begin{align}
+\frac{h_{lgt}}{H_{ht}}=\left(\frac{1}{\vartheta_t\alpha_g^{2\frac{\alpha_g}{1-\alpha_g}}\left(\frac{\theta_g}{1-\theta_g}\frac{w_{lt}}{w_{ht}}\right)^{\theta_{g}}}\right)\frac{w_{ht}}{A_{gt}p_{gt}^\frac{1}{1-\alpha_g}}.
+\end{align}
+Since expenditure shares are constant, so is the first multiplier. The second multiplier is constant following equation \ref{eq:A_det}. Since $\frac{H_h}{H_l}$ is constant by households optimality condition, above equation implies that $\frac{h_{lgt}}{H_{lt}}$ is time invariant. 
+\paragraph{Scientists and the marginal gains from innovation}
+The amount of scientists on the BGP is flexible in order to keep sector-specific technological growth constant. This follows from the law of motion from technologym let $\gamma_{Aj}$ denote technology growth in sector j:
+\begin{align}
+S_{jt}=\frac{\gamma_{Aj}}{\gamma}\rho_j^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^{-\phi}. \label{eq:scien}
+\end{align}
+Hence, since I have not assumed that technology gaps between sectors are stable, the amount of scientist employed in a given sector is flexible. When technology gaps are constant, so is the amount of scientists employed.
+
+In equilibrium, wages for scientists, i.e. the marginal product of innovations, are determined by equations \ref{eq:demand_sc}. 
+Free movement of scientists requires that
+\begin{align}
+\left(\frac{S_{gt}}{S_{ft}}\right)^{\eta-1}=\left(\frac{A_{gt}}{A_{ft}}\right)^\phi \frac{(1-\alpha_f)\alpha_f}{(1-\alpha_g)\alpha_g}\frac{p_{ft}F_t}{p_{gt}G_t}\left(\frac{\rho_g}{\rho_f}\right)^\eta.
+\end{align}
+Note, that in equilibrium, the equation states that the higher the ratio of scientists in sector g relative to sector f, the higher the technology gap in favour of sector g, under the assumption of increasing returns to scale, $\eta>1$. Increasing returns to scale in innovation seem reasonable, for example, synergy effects from teamwork. Creativity benefits from communication. Increasing returns can be perceived as positive spill-over effects within a sector. 
+
+
+Substituting equation \ref{eq:scien}, yields a condition on the sector-specific spillover of innovation $\eta$ so that the ratio of workers across sectors is constant on the BGP.
+It has to hold that
+\begin{align}
+\frac{L_{gt}}{L_{ft}}= \left(\frac{\gamma_{AF}}{\gamma_{AG}}\right)^{\eta-1}\left(\frac{1+\gamma_{AG}}{1+\gamma_{AF}}\right)^\phi \left(\frac{A_{ft-1}}{A_{gt-1}}\right)^{\phi(\eta-2)}\frac{\rho_g}{\rho_f}\frac{(1-\alpha_f)\alpha_f^{2\frac{\alpha_f}{1-\alpha_f}}}{(1-\alpha_g)\alpha_g^{2\frac{\alpha_g}{1-\alpha_g}}}\frac{p_{ft}^\frac{1}{1-\alpha_f}A_{ft}}{p_{gt}^\frac{1}{1-\alpha_g}A_{gt}}.
+\end{align}
+
+All terms are stable except for $\left(\frac{A_{ft-1}}{A_{gt-1}}\right)^{\phi(\eta-2)}$. Hence, for a balanced growth to have constant worker ratios across sectors, there have to be increasing returns to scientist within sectors and $\eta=2$.
+ 
+Alternatively, one might want to abstain from stable employment ratios. However, then expenditure shares would not be constant, which again is consistent with structural change. When expenditure shares are not constant, then skill moves across sectors. 
+However, my take on the BGP in this model is far in the future, after all transitions across sectors have taken place. Note, that I do not need to assume a BGP from 2050 onwards. 
+ 
+
+\begin{comment}
+%content...
 \subsection{Equilibrium conditions: own model}
 
 \begin{align*}
@@ -492,8 +580,7 @@ H_t=\zeta h_{ht}+h_{lt}
 \text{high skill}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
 \text{low skill}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}
 \end{align}
-
-\subsection{BGP: which can accomodate a trend in hours}
+\end{comment}
 
 
 \begin{comment}
