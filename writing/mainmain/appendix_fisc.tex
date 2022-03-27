@@ -346,9 +346,9 @@ P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\v
 \text{Budget}\ \vspace{4mm}& p_{yt}C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-\sigma}= \mu_tp_{yt}\\
-& (z_hh_{ht})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}\\
-& (z_lh_{lt})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}\\
-&(z_s h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{st}^{1-\tau_{lt}}h_{st}^{-\tau_{lt}}
+& (h_{ht})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}\\
+& (h_{lt})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}\\
+&( h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{st}^{1-\tau_{lt}}h_{st}^{-\tau_{lt}}
 \\
 \text{\textbf{Final good producers}}&\\
 \text{Optimality}\ \vspace{4mm}& p_{yt}\delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
@@ -432,7 +432,7 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 &P_{Ot}\ \ \text{taken as given, imports}
 \end{align}
 \subsection{BGP: which can accomodate a trend in hours and diverging productivity shares}
-
+\textbf{\tr{But this version assumes constant labour shares \ar this implies constant mashine growth and labour growth in each sector. Then again, on the BGP labour supply reduces, I only assume this affects sector labour input proportionately. There may also not be any growth in machines. }}
 From the optimality condition in skill demand by labour producing firms, equations \ref{eq:opt_lab_pro} and \ref{eq:opt_lab_pro_low}, and the price paid by intermediate good producers in sector $j\in\{F, G, N\}$, $w_{ljt}$, equations \ref{eq:lab_demand}, yields the sector specific demand for high and low skill as a function of output in this sector. Substituting these equations in the intermediate good production function determines technology as a function of prices:
 \begin{align}
 A_{jt} = \left[\alpha_j^{2\frac{\alpha_j}{1-\alpha_j}}p_{jt}^\frac{1}{1-\alpha_j}(1-\alpha_j)\left(\frac{1-\theta_j}{w_{lt}}\right)^{1-\theta_j}\left(\frac{\theta_j}{w_{ht}}\right)^{\theta_j}\right] ^{-1}
@@ -464,7 +464,7 @@ Since on the BGP each technology growths at a constant rate, the leading technol
 
 The assumption of a stable wage premium together with a constant progressivity parameter ensures that relative skill supply on the BGP is stable, too: 
 \begin{align}
-\frac{H_{ht}}{H_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^\frac{1-\tau_{lt}}{1+\sigma}.
+\frac{H_{ht}}{H_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^\frac{1-\tau_{lt}}{1+\sigma}\frac{z_h}{z_l}.
 \end{align}
 
 A constant wage ratio also implies that relative skill employment in each sector is constant, $\frac{h_{hj}}{h_{lf}}$, which follows from skill demand by labour producers. 
@@ -479,7 +479,7 @@ Replacing $G_t$ by its production function and substituting $L_{gt}$ using the p
 \begin{align}
 \frac{h_{lgt}}{H_{ht}}=\left(\frac{1}{\vartheta_t\alpha_g^{2\frac{\alpha_g}{1-\alpha_g}}\left(\frac{\theta_g}{1-\theta_g}\frac{w_{lt}}{w_{ht}}\right)^{\theta_{g}}}\right)\frac{w_{ht}}{A_{gt}p_{gt}^\frac{1}{1-\alpha_g}}.
 \end{align}
-Since expenditure shares are constant, so is the first multiplier. The second multiplier is constant following equation \ref{eq:A_det}. Since $\frac{H_h}{H_l}$ is constant by households optimality condition, above equation implies that $\frac{h_{lgt}}{H_{lt}}$ is time invariant. 
+Since expenditure shares are constant, so is the first multiplier. The second multiplier is constant following equation \ref{eq:A_det}. Since $\frac{H_h}{H_l}$ is constant by households optimality condition, above equation implies that $\frac{h_{lgt}}{H_{lt}}$ is time invariant. Note that I assume that skill shares (relative to total skill supplied) are stable on the BGP. 
 \paragraph{Scientists and the marginal gains from innovation}
 The amount of scientists on the BGP is flexible in order to keep sector-specific technological growth constant. This follows from the law of motion from technologym let $\gamma_{Aj}$ denote technology growth in sector j:
 \begin{align}

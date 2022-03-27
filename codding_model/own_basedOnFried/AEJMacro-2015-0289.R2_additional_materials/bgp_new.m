@@ -28,7 +28,7 @@ zetan= (1-alphan)/alphan;
 %Hl = hl*zl;
 
 % skill supply ratio given wages from HH optimality
-hlhh0 = (wl0/wh0)^((1-taul0)/(sigmaa+taul0))*(zl/zh)^(sigmaa/(sigmaa+taul0));
+HlHh0 = (wl0/wh0)^((1-taul0)/(sigmaa+taul0))*zh/zl;
 
 % labour firms optimal input shares imply
 hhfhlf0 = thetaf/(1-thetaf)*wl0/wh0;
@@ -54,17 +54,17 @@ pnix0 = 1/(alphan*(1+zetan));
 %              skills derived in 2)
 %              4) => defines productivity as a function of wh0, wl0, pf,
 %              pn, pg
-%              5) below results from division
+af0 = (alphaf^(2*alphaf/(1-alphaf))*pf0^(1/(1-alphaf))*(1-alphaf)*(1-thetaf)^(1-thetaf)*thetaf^thetaf*(wl0/wh0)^thetaf*wl0^(-1))^(-1);
+ag0 = (alphag^(2*alphag/(1-alphag))*pg0^(1/(1-alphag))*(1-alphag)*(1-thetag)^(1-thetag)*thetag^thetag*(wl0/wh0)^thetag*wl0^(-1))^(-1);
+an0 = (alphan^(2*alphan/(1-alphan))*pn0^(1/(1-alphan))*(1-alphan)*(1-thetan)^(1-thetan)*thetan^thetan*(wl0/wh0)^thetan*wl0^(-1))^(-1);
 
-afg0 = (1-alphag)/(1-alphaf) *pg0^(1/(1-alphag))/pf0^(1/(1-alphaf))*(alphag/alphaf)^2 ...
-        *((1-thetag)/wl0)^(1-thetag)*((thetag)/wh0)^(thetag)/(((1-thetaf)/wl0)^(1-thetaf)*((thetaf)/wh0)^(thetaf)); 
-ang0 = (1-alphag)/(1-alphan) *pg0^(1/(1-alphag))/pn0^(1/(1-alphan))*(alphag/alphan)^2 ...
-        *((1-thetag)/wl0)^(1-thetag)*((thetag)/wh0)^(thetag)/(((1-thetan)/wl0)^(1-thetan)*((thetan)/wh0)^(thetan));
+% afg0 = (1-alphag)/(1-alphaf) *pg0^(1/(1-alphag))/pf0^(1/(1-alphaf))*(alphag/alphaf)^2 ...
+%         *((1-thetag)/wl0)^(1-thetag)*((thetag)/wh0)^(thetag)/(((1-thetaf)/wl0)^(1-thetaf)*((thetaf)/wh0)^(thetaf)); 
+% ang0 = (1-alphag)/(1-alphan) *pg0^(1/(1-alphag))/pn0^(1/(1-alphan))*(alphag/alphan)^2 ...
+%         *((1-thetag)/wl0)^(1-thetag)*((thetag)/wh0)^(thetag)/(((1-thetan)/wl0)^(1-thetan)*((thetan)/wh0)^(thetan));
 
 % technologies in levels!
-ag0 = (1 + 1/rhonf + 1/rhong)*a0/(1/rhong + 1/rhonf*afg0 + ang0);
-af0 = ag0*afg0; 
-an0 = ag0*ang0;  
+a0 = max([af0,ag0, an0]);
 
 % use equations for ag0 and explicit one to  and equate to expressions resulting under
 % point 4)
@@ -76,29 +76,31 @@ afHat0 = af0/a0; agHat0 = ag0/a0; anHat0 = an0/a0;
 % function of the wage rate, etc. the variable is stable by assumption 
 
 % helpers skill market clearing
-%first output ratios
-GF = (pfTil0/pg0)^(epse)*(deltaff+(deltafo)*((pf0+tau0)/(pfStar0+tau0)*(deltafo)/deltaff)^((epsf-1)))^(epsf/(epsf-1));
-GN = (pn0/pe0*deltaye/deltayn)^(epsy)*((pg0/pfTil0)^(epse-1)+1)^(epse/(epse-1)); 
-FN = GN/GF;
+%first output ratios=> NOT STABLE WHEN HAVING TO HAVE F AT A CONSTANT LEVEL
+%ON THE BGP
+% instead look at expenditure ratios
+pgGpfF = pg0/pf0*(pfTil0/pg0)^(epse)*(deltaff+(deltafo)*((pf0+tau0)/(pfStar0+tau0)*(deltafo)/deltaff)^((epsf-1)))^(epsf/(epsf-1));
+pgGpnN = pg0/pn0*(pn0/pe0*deltaye/deltayn)^(epsy)*((pg0/pfTil0)^(epse-1)+1)^(epse/(epse-1)); 
+pfFpnN = pgGpnN/pgGpfF;
 
-LMHHg= (thetaf*(1-alphaf)*pf0*1/GF+thetag*(1-alphag)*pg0+thetan*(1-alphan)*pn0/GN);
-LMHHn= (thetaf*(1-alphaf)*pf0*FN+thetag*(1-alphag)*pg0*GN+thetan*(1-alphan)*pn0);
-LMHHf= (thetaf*(1-alphaf)*pf0+thetag*(1-alphag)*pg0*GF+thetan*(1-alphan)*pn0/FN);
+LMHHg= (thetaf*(1-alphaf)/pgGpfF+thetag*(1-alphag)+thetan*(1-alphan)/pgGpnN); % division by pgG
+LMHHn= (thetaf*(1-alphaf)*pfFpnN+thetag*(1-alphag)*pgGpnN+thetan*(1-alphan)); % division by pnN
+LMHHf= (thetaf*(1-alphaf)+thetag*(1-alphag)*pgGpfF+thetan*(1-alphan)/pfFpnN); % division by pfF
 
-helpn = (alphan^2*pn0)^(alphan/(1-alphan));
-helpg = (pg0*alphag^2)^(alphag/(1-alphag));
-helpf = (alphaf^2*pf0)^(alphaf/(1-alphaf)); 
+helpn = (alphan^2)^(alphan/(1-alphan));
+helpg = (alphag^2)^(alphag/(1-alphag));
+helpf = (alphaf^2)^(alphaf/(1-alphaf)); 
 
-hlfHh0 = wh0/(LMHHf*helpf*afHat0*(thetaf/(1-thetaf)*wl0/wh0)^thetaf); % hlf/(hh*zh);
-hlgHh0 = wh0/(LMHHg*helpg*agHat0*(thetag/(1-thetag)*wl0/wh0)^thetag); % hlg/(hh*zh);
-hlnHh0 = wh0/(LMHHn*helpn*anHat0*(thetan/(1-thetan)*wl0/wh0)^thetan); % hln/(hh*zh);
+hlfHh0 = wh0/(LMHHf*helpf*(thetaf/(1-thetaf)*wl0/wh0)^thetaf*af0*pf0^(1/(1-alphaf))); % hlf/(hh*zh); => constant due to constant labour input 
+hlgHh0 = wh0/(LMHHg*helpg*(thetag/(1-thetag)*wl0/wh0)^thetag*ag0*pg0^(1/(1-alphag))); % hlg/(hh*zh);
+hlnHh0 = wh0/(LMHHn*helpn*(thetan/(1-thetan)*wl0/wh0)^thetan*an0*pn0^(1/(1-alphan))); % hln/(hh*zh);
 
 % => detrended labour input good
 LfHh0 = (hhfhlf0)^thetaf*hlfHh0;
 LgHh0 = (hhghlg0)^thetag*hlgHh0;
 LnHh0 = (hhnhln0)^thetan*hlnHh0;
 
-% scientists => all scientists are alike
+% scientists => all scientists are alike; scientists are not stable. 
 sgf0 = (1/afg0)^(phi/eta)*(rhonf/rhong); % follows from LOM of technology
 snf0 = (afg0/ang0)^(phi/eta)*(rhonf);
 % detrend the level of scientist=> with falling hours there is a trend in
@@ -109,6 +111,7 @@ sgHat0 = sfHat0*sgf0;
 snHat0 = sfHat0*snf0;
 gamma = n0/(snHat0^eta*(a0/an0)^phi); % n is growth rate in non-energy technology: n0=An'/An-1
 
+% determine growth in other sectors from here?
 %Labour input good by sector
 
 %lf/lg follows from 1) dividing production functions of F/G
@@ -119,10 +122,9 @@ gamma = n0/(snHat0^eta*(a0/an0)^phi); % n is growth rate in non-energy technolog
 %   => these are demanded ratios in equilibrium
 
 
-% another definition of labour input ratios from the demand side => has to
-% be equal in equilibrium 
-lgf0 = helpf/helpg*afg0*GF;
-lgn0 = helpn/helpg*ang0*GN;
+% another definition of labour input ratios from free movement of
+% scientists
+lgf0= (gammaaAf/gammaaAg)
 
 % excess labour market demand
 d1 = lgf0 - (LgHh0/LfHh0);
