@@ -408,17 +408,17 @@ Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\fra
 &p_{git}^x=\frac{1}{\alpha_g(1+\zeta_g)}
 \\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
+w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
 &
-w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
 &
-w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
 \text{Innovation}\ \vspace{4mm}&
-A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\left(\frac{A_{t-1}}{A_{ft-1}}\right)^{\phi}\right) \\
+A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\right) \\
 &
-A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\left(\frac{A_{t-1}}{A_{nt-1}}\right)^{\phi}\right) \\
+A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\right) \\
 &
-A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\frac{A_{t-1}}{A_{gt-1}}\right)^{\phi}\right) \\
+A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\right) \\
 &A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\\
@@ -449,6 +449,8 @@ Hence, free skill movement across labour input firms, implies that on a BGP
 \begin{align}
 \left(\frac{p_{gt+1}}{p_{gt}}\right)^\frac{1}{1-\alpha_g}\frac{A_{gt+1}}{A_{gt}}=\left(\frac{p_{ft+1}}{p_{ft}}\right)^\frac{1}{1-\alpha_f}\frac{A_{ft+1}}{A_{ft}}=\left(\frac{p_{nt+1}}{p_{nt}}\right)^\frac{1}{1-\alpha_n}\frac{A_{nt+1}}{A_{nt}}. \label{eq:const_prA} 
 \end{align}
+
+\tr{Drop assumption that input shares are constant}
 These conditions ensure that relative expenditures on intermediate goods are constant \textbf{whenever the labour input ratios are constant}. Substituting intermeidate good production into the expenditure ratio $p_{ft}F_t/(p_{gt}G_t)$  yields
 \begin{align}
 &\frac{p_{ft+1}^\frac{1}{1-\alpha_f}A_{ft+1}L_{ft+1}}{p_{gt+1}^\frac{1}{1-\alpha_g}A_{gt+1}L_{gt+1}}= \frac{p_{ft}^\frac{1}{1-\alpha_f}A_{ft}L_{ft}}{p_{gt}^\frac{1}{1-\alpha_g}A_{gt}L_{gt}}\\
@@ -481,16 +483,19 @@ Replacing $G_t$ by its production function and substituting $L_{gt}$ using the p
 \end{align}
 Since expenditure shares are constant, so is the first multiplier. The second multiplier is constant following equation \ref{eq:A_det}. Since $\frac{H_h}{H_l}$ is constant by households optimality condition, above equation implies that $\frac{h_{lgt}}{H_{lt}}$ is time invariant. Note that I assume that skill shares (relative to total skill supplied) are stable on the BGP. 
 \paragraph{Scientists and the marginal gains from innovation}
-The amount of scientists on the BGP is flexible in order to keep sector-specific technological growth constant. This follows from the law of motion from technologym let $\gamma_{Aj}$ denote technology growth in sector j:
-\begin{align}
-S_{jt}=\frac{\gamma_{Aj}}{\gamma}\rho_j^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^{-\phi}. \label{eq:scien}
-\end{align}
-Hence, since I have not assumed that technology gaps between sectors are stable, the amount of scientist employed in a given sector is flexible. When technology gaps are constant, so is the amount of scientists employed.
+Scientists are in fixed supply. They receive the competitive wage rate and consume their income. Their income is not taxed and they do not receive transfers. This is to avoid redistribution from scientists to households and vice versa.  (In an extension could assume preferential tax schemes for scientists.) Could also add income from scientists to representative household but let it not be taxed. 
+%The amount of scientists on the BGP is flexible in order to keep sector-specific technological growth constant. This follows from the law of motion from technologym let $\gamma_{Aj}$ denote technology growth in sector j:
+%\begin{align}
+%S_{jt}=\left(\frac{\gamma_{Aj}}{\gamma}\right)^\frac{1}{\eta}\rho_j{A_{t-1}}^{\frac{-\phi}{\eta}}. \label{eq:scien}
+%\end{align}
+%The amount of scientists varies with overall productivity. For $\eta>0$ and $\phi>0$ the higher output the lower the amount of scientists employed. 
+%The marginal profit of innovation positively depends on aggregate technology. 
+
 
 In equilibrium, wages for scientists, i.e. the marginal product of innovations, are determined by equations \ref{eq:demand_sc}. 
 Free movement of scientists requires that
 \begin{align}
-\left(\frac{S_{gt}}{S_{ft}}\right)^{\eta-1}=\left(\frac{A_{gt}}{A_{ft}}\right)^\phi \frac{(1-\alpha_f)\alpha_f}{(1-\alpha_g)\alpha_g}\frac{p_{ft}F_t}{p_{gt}G_t}\left(\frac{\rho_g}{\rho_f}\right)^\eta.
+\left(\frac{S_{gt}}{S_{ft}}\right)^{\eta-1}= \frac{(1-\alpha_f)\alpha_f}{(1-\alpha_g)\alpha_g}\frac{p_{ft}F_t}{p_{gt}G_t}\left(\frac{\rho_g}{\rho_f}\right)^\eta.
 \end{align}
 Note, that in equilibrium, the equation states that the higher the ratio of scientists in sector g relative to sector f, the higher the technology gap in favour of sector g, under the assumption of increasing returns to scale, $\eta>1$. Increasing returns to scale in innovation seem reasonable, for example, synergy effects from teamwork. Creativity benefits from communication. Increasing returns can be perceived as positive spill-over effects within a sector. 
 
