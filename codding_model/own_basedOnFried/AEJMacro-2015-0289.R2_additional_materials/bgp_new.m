@@ -18,7 +18,7 @@ function answ =bgp_new(pf0, pg0, wh0, wl0, sf0, sg0, sn0, gamma0, zl, zh, S, alp
 
 % subsidies against monopolistic competition => the equilibrium is efficient
 
-MISTAKE IN THE FOLLOWING AS HAVE CODED PXIF WITHOUT TAX
+%MISTAKE IN THE FOLLOWING AS HAVE CODED PXIF WITHOUT TAX
 % except for the externality, 
 zetaf= (1-alphaf)/alphaf;
 zetag= (1-alphag)/alphag;
@@ -122,8 +122,8 @@ d7 = gamma0 - n0*(rhon/sn0)^eta; % n is growth rate in non-energy technology: n0
 
 
 % another definition of labour ratios from production (demand)
-lgf0= pgGpfF*af0*pf0^(1/(1-alphaf))*alphaf^(2*alphaf/(1-alphaf))/(ag0*pg^(1/(1-alphag))*alphag^(2*alphag/(1-alphag)));
-lgn0= pgGpnN*an0*pn0^(1/(1-alphan))*alphan^(2*alphan/(1-alphan))/(ag0*pg^(1/(1-alphag))*alphag^(2*alphag/(1-alphag)));
+lgf0= pgGpfF*af0*pf0^(1/(1-alphaf))*alphaf^(2*alphaf/(1-alphaf))/(ag0*pg0^(1/(1-alphag))*alphag^(2*alphag/(1-alphag)));
+lgn0= pgGpnN*an0*pn0^(1/(1-alphan))*alphan^(2*alphan/(1-alphan))/(ag0*pg0^(1/(1-alphag))*alphag^(2*alphag/(1-alphag)));
 
 % excess labour market demand => pins down high and low wage
 d1 = lgf0 - (LgHh0/LfHh0);

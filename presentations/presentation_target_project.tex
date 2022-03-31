@@ -1,0 +1,180 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+%\usepackage[noxcolor]{beamerarticle} % to get presentation as article ! if used also set documentclass to article!
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\setbeamercolor{alerted text}{bg={}, fg=cyan!100}
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+
+
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz}
+\institute[University of Bonn]{University of Bonn}
+\title{The net-zero emission target and fiscal policies}
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+\institute{University of Bonn} 
+\date{\today} 
+%\subject{} 
+\begin{document}
+	
+	{\setbeamertemplate{footline}{}
+		\begin{frame}
+		\titlepage
+	\end{frame}
+}
+%\addtocounter{framenumber}{-1}
+
+% {\setbeamertemplate{footline}{}
+% \begin{frame}{Content}
+% \vspace{4mm}
+% \tableofcontents
+% \end{frame}
+% }
+ %\addtocounter{framenumber}{-1}
+
+
+%---------------------------------------
+%            Intro
+%---------------------------------------
+%\section{ Reducing Consumption Levels}
+\begin{frame}{Motivation}
+
+\begin{itemize}[<+-| alert@+>]
+	\setbeamercolor{alerted text}{fg=black} %change the font color
+	\setbeamerfont{alerted text}{series=\bfseries} 
+\item natural scientists suggest net-emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.}
+\item in economic models emissions arise from fossil energy utilisation
+\item therefore, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{This paper}
+\begin{itemize}
+	\item the emission target determines fossil output starting from 2050
+	\item model economy on BGP (with constant output ratios) until today then, under optimal policy, focus on non-balanced trajectory
+	\item starting in 2020, the planner optimises over a finite horizon only
+\end{itemize}
+Working hypotheses
+
+\begin{itemize}
+	\item is there a role for labour income taxes given heterogeneity in skills? \ar regressive tax; 
+	\item could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\item what if the government on top seeks to satisfy a demand target as shown to be important to meet sustainability goals \ar progressive tax \ar A higher corrective tax needed to meet emission targets!
+	\item what if redistribution also affects the composition of demand? (need to include inequality) \ar progressive tax?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Literature}
+	\begin{itemize}
+		\item public finance
+		\item environmental policy
+		\item directed technical change
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Current State and way forward}
+	\begin{enumerate}
+		\item Block
+		\begin{itemize}
+			\item model economy \checkmark
+			\item define planner's objective
+			\item derive relevant equations for Barrage
+			\item code in Barrage to find optimal policy ! use as little analytical solutions as possible to be able to quickly change equations
+		\end{itemize}
+		\ar What is the optimal tax progressivity? \ar hypothesis: regressive tax and recycling revenues as transfers to clean sector wages?
+		\item Block: How does adding a demand target change the result?
+		\begin{itemize}
+			\item hypothesis: a higher tax progressivity could be optimal to reduce high consumption levels
+		\end{itemize}
+	\item Block: accounting for non-homotheticities in demand
+	\begin{itemize}
+		\item redistribution to affect the externality through a demand channel
+	\end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Method: nonbalanced Growth Path}
+	\begin{itemize}
+		\item need to analytically derive a continuation value to derive optimal policy
+		\item how done in \cite{Barrage2019OptimalPolicy}? She assumes a balanced growth path to exist to derive the continuation value (she does not have several sectors)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions}
+\begin{itemize}
+	\item papers which study BGP with unequal growth?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]{References}
+	
+	\bibliography{../../bib_2_0}
+	\bibliographystyle{apa}
+\end{frame}
+\end{document}

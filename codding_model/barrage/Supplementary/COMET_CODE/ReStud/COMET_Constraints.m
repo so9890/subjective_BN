@@ -13,6 +13,7 @@ function [c, ceq] = COMET_Constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Sonja: there are time period specific constraints! use
  c = zeros((2*T)+1+1,1);
 
 %%% 1. Initial capital constraint%%%

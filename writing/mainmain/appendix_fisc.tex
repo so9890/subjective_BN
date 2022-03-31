@@ -341,7 +341,7 @@ P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\v
 
 \subsection{Fried amended}
 \begin{align}
-\text{\textbf{Household}}& \max \frac{C^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\text{\textbf{Household}}& \max \frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
 \text{Budget}\ \vspace{4mm}& p_{yt}C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}\\
 \text{Optimality}\ \vspace{4mm}
@@ -408,18 +408,30 @@ Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\fra
 &p_{git}^x=\frac{1}{\alpha_g(1+\zeta_g)}
 \\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
+w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\\
 &
-w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
 &
-w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
 \text{Innovation}\ \vspace{4mm}&
-A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\right) \\
+A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\left(\frac{A_{t-1}}{A_{ft-1}}\right)^{\phi}\right) \\
 &
-A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\right) \\
+A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\left(\frac{A_{t-1}}{A_{nt-1}}\right)^{\phi}\right) \\
 &
-A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\right) \\
-&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
+A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\frac{A_{t-1}}{A_{gt-1}}\right)^{\phi}\right) \\
+%\text{Demand Scientists}\ \vspace{4mm}&
+%w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
+%&
+%w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+%&
+%w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+%\text{Innovation}\ \vspace{4mm}&
+%A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\right) \\
+%&
+%A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\right) \\
+%&
+%A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\right) \\
+%&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\\
 &Gov_t=\int_{0}^{1}\pi_{fit}+\pi_{git}+\pi_{nit}di+z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{lt})})\\&+z_l(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{lt})})+z_s(w_{st}h_{st}-\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})})\\ &+\tau_{ct}(\omega_FF_t+\omega_OO_t) + \frac{1}{\alpha_f}\zeta_{ft}x_{ft}+\frac{1}{\alpha_g}\zeta_{gt}x_{gt}+ \frac{1}{\alpha_h}\zeta_{ht}x_{ht}\\
@@ -647,7 +659,6 @@ H_t=\zeta h_{ht}+h_{lt}
 \text{high skill}\hspace{4mm}& L_{ct}=h_{ht}\\
 \text{low skill}\hspace{4mm}&L_{dt}=h_{lt}
 \end{align*}
-\end{comment}
 
 \section{Solution of tractable model}\label{app:solu}
 Define

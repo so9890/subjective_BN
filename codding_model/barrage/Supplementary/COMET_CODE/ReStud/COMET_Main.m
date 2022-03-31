@@ -6,8 +6,8 @@
 %%Version: August 2018
 
 clear
-cd C:\Users\lintb\Desktop\COMET\ReStud
-
+%cd C:\Users\lintb\Desktop\COMET\ReStud
+cd '/home/sonja/Documents/projects/Overconsumption/codding_model/barrage/Supplementary/COMET_CODE/ReStud'
 %M-File Outline%
 %%%%%%%%%%%%%%%%
 %General Notes
