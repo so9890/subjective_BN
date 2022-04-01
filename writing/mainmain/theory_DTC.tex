@@ -1,18 +1,32 @@
 \section{Theoretic Results}
 \subsection{An emission target calls for a reduction policy under likely parameter values}
+
+\paragraph{Effect of tax progressivity on energy output ratios}
+
+
 \subsection{Tax progressivity affects the composition of total output}
 In the model, tax progressivity affects the innovation decision due to heterogeneous effects on skill supply. 
 The optimal ratio of skills supplied by the household is
 \begin{align}
 \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^\frac{1-\tau_{lt}}{\tau_{lt}+\sigma}.
 \end{align}
-The semi-elasticity of the ratio of aggregate skill supply, defined as $\frac{H_h}{H_l}:=\frac{z_hh_h}{z_lh_l}$, in response to a change in tax progressivity is then given by
+The semi-elasticity of the ratio of aggregate skill supply, defined as $\frac{H_h}{H_l}:=\frac{z_hh_h}{z_lh_l}$, in response to a change in income tax progressivity is then given by
 \begin{align}
 \frac{d\log\left(\frac{H_h}{H_l}\right)}{d\tau_l}=-\frac{1+\sigma}{(\tau_l+\sigma)^2}\log\left(\frac{w_{h}}{w_l}\right). \end{align}
-The direct effect, with fixed prices is negative. 
-The term negative given a positive wage premium for high skill labour. Hence, a higher tax progressivity implies a decline in the relative supply of high skill labour. 
+The direct effect, with fixed prices is negative given a positive wage premium for high skill labour. Hence, a higher tax progressivity implies a decline in the relative supply of high skill labour. 
 
 \paragraph{Effect on the externality }
-
+\begin{prop}
+A rise in income tax progressivity increases the share of fossil energy in the economy when energy inputs are substitutes and high skill labour earns a premium.
+\end{prop}
+\textit{Proof}\\ 
+The ratio of fossil to green energy supply is given by  \tr{SEEMS wrong as corrective tax increases ratio with substitutes}
+\begin{align*}
+\frac{F_t}{G_t}=\left[\frac{1}{(1-\tau_{ft})}\frac{1-\alpha_g}{1-\alpha_f}\left(\frac{1-\theta_{g}}{1-\theta_f}+\frac{\theta_g}{\theta_f}\left(\frac{w_{lt}}{w_{ht}}\right)^\frac{1+\sigma}{\sigma+\tau_{lt}}\frac{z_l}{z_h}\right)\right]^\frac{\varepsilon_e}{\varepsilon_e-1}.
+\end{align*}
+The equation follows from iteratively applying skill demand by labour input producers and the skill market clearing conditions and substituting low-skill supply by the households optimality condition. This gives the following relation of high-skill hours employed in the green sector to total high-skill supply:  
+\begin{align*}
+\frac{h_{hg}}{H_h}=\frac{1-\left(\frac{w_l}{w_h}\right)^\frac{1+\sigma}{\sigma+\tau_{lt}}\frac{z_l}{z_h}\frac{\theta_f}{1-\theta_f}}{1-\frac{\theta_f}{\theta_g}\frac{1-\theta_g}{1-\theta_f}}.
+\end{align*}
 \subsection{Growth in the dirty sector has to stop}
 otherwise, price increases to infinity and labour input falls.

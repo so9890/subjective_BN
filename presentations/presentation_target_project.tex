@@ -109,24 +109,136 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\setbeamercolor{alerted text}{fg=black} %change the font color
 	\setbeamerfont{alerted text}{series=\bfseries} 
 \item natural scientists suggest net-emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.}
+\vspace{3mm}
 \item in economic models emissions arise from fossil energy utilisation
-\item therefore, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)
+\vspace{3mm}
+\item then, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)  \ar no balanced growth 
+\vspace{3mm}
+\item What is the optimal environmental policy?
 \end{itemize}
 \end{frame}
 
 \begin{frame}{This paper}
 \begin{itemize}
-	\item the emission target determines fossil output starting from 2050
-	\item model economy on BGP (with constant output ratios) until today then, under optimal policy, focus on non-balanced trajectory
-	\item starting in 2020, the planner optimises over a finite horizon only
+	\item<+-> the emission target determines fossil output starting from 2050
+	\vspace{3mm}
+	\item<+-> model economy on BGP (with constant growth ratios) until today; then, allow for non-balanced trajectory under optimal policy
+	\vspace{3mm}
+	\item<+-> first pass: starting in 2020, the planner optimises over a \textbf{finite horizon} only (political economy argument), and has to meet emission target (adapt code in \cite{Barrage2019OptimalPolicy})
 \end{itemize}
-Working hypotheses
+\end{frame}
+\begin{frame}{Working hypotheses}	
+	\begin{enumerate}
+		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+		\vspace{3mm}
+		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+		\vspace{3mm}
+		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+		\vspace{3mm}
+		\item<+-> now households are willing to reduce their consumption deliberately: reduction in satiation point; of high energy goods only, meat etc. 
+		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\end{enumerate}
+\end{frame}
 
+\section{Model}
+\begin{frame}{Model: Household}
+\alert{	To start with, no heterogenous consumption yet}\\
+%\text{\textbf{Householdrt}}
+\begin{align*}
+& \max_{\{C_t\}_{t=0}^\infty, \{h_{ht}\}_{t=0}^\infty, \{h_{lt}\}_{t=0}^\infty, \{h_{st}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\\
+\vspace{3mm}
+\\
+\text{s.t.}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}+S_t\\
+\end{align*}
+\vspace{-15mm}
 \begin{itemize}
-	\item is there a role for labour income taxes given heterogeneity in skills? \ar regressive tax; 
-	\item could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
-	\item what if the government on top seeks to satisfy a demand target as shown to be important to meet sustainability goals \ar progressive tax \ar A higher corrective tax needed to meet emission targets!
-	\item what if redistribution also affects the composition of demand? (need to include inequality) \ar progressive tax?
+	\item<+-> representative family with low-skill and high-skill workers, and scientists; distribution exogenous ($z_h,z_l, z_s$)
+	\vspace{2mm}
+	\item<+-> allow for potentially decreasing hours over time \citep{Boppart2019LaborPerspectiveb}
+	\vspace{2mm}
+	\item<+-> How to deal with Government transfers if don't want to assume linear consumption (no income effect)?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model: Producers}
+	\textbf{Final Good and Energy Producers }
+	\vspace{-3mm}
+\begin{align*}
+&Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+&E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
+\end{align*}
+\textbf{Intermediate Good Producers}
+\begin{align*}
+&F_{t}=L_{ft}^{1-\alpha_f}\int_{0}^{1}A^{1-\alpha_f}_{ift}x_{ift}^{\alpha_f}di \ \hspace{4mm}=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
+%& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
+&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di\ \hspace{4mm}=x_{nt}^{\alpha_n}\left(A_{nt}L_{nt}\right)^{1-\alpha_n}\\
+&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di\ \hspace{4mm}=x_{gt}^{\alpha_g}\left(A_{gt}L_{gt}\right)^{1-\alpha_g}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Model: Labour input good production}
+\begin{align*}& L_{ft}=h_{hft}^{\theta_{f}}h_{lft}^{1-\theta_{f}}\\
+& L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
+& L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}
+\end{align*}
+where $\theta_{g}>\theta_{f}$ \ar high-skill share in green energy, i.e. greener goods, higher
+\end{frame}
+\begin{frame}{Model: Machine Producers and Innovation}
+	\begin{itemize}
+		\item sector specific producers; machine production costs equal across sectors: $\psi=1$
+		\item monopolistic competition, set prices for machines, and hire scientists for research
+		\item correct for monopolistic competition with uniform subsidy 
+		\\ \ar no inefficiency (but motive to generate funds \ar log utility?)
+	\end{itemize}
+\pause
+\textbf{Innovation}
+\begin{align*}
+&A_{jit}=A_{jt-1}\left(1+\gamma\left(\frac{S_{jit}}{\rho_j}\right)^{\eta}\left(\frac{A_{t-1}}{A_{jt-1}}\right)^{\phi}\right) 
+\end{align*}
+\pause
+\textbf{Marginal product of innovation}
+\begin{align*}
+&
+w_{sjt}=\frac{\eta \gamma \alpha_f A_{jt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{jt}}{\rho_j}\right)^{\eta}p_{jt}J_t}{\frac{1}{1-\alpha_f}S_{jt}A_{jt}}\\
+\end{align*}
+\end{frame}
+\begin{frame}{Model: Government}
+	\begin{itemize}
+		\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ct})}F_t-c(L_{ft}, x_{ft})$
+		\item labour income tax
+		\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
+	\end{itemize}
+\begin{align*}
+&\max_{\{\tau_{ct}\}_{t=0}^{60}, \{\tau_{st}\}_{t=0}^{60}, \{\tau_{lt}\}_{t=0}^{60}} \sum_{t=0}^{60}\beta^t U_{t}\\
+s.t. \hspace{4mm}
+&(1)\ \ S_t+\tau_{st}w_{sgt}s_{gt}= \text{profits machines}+\text{tax income}+\tau_{ct}p_{ft}F_{t}\\
+&
+(2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,60]
+\end{align*}
+where 
+\begin{align*}
+\Omega =\left[\Omega_0,..., \Omega_{29}, \pmb{0}_{\{1\times 30\}}\right]
+\end{align*}
+\end{frame}
+\begin{frame}{Working hypotheses}	
+	\begin{itemize}
+		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+		\vspace{3mm}
+		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+		\vspace{3mm}
+		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Alternative strategies}
+	in case there is no role for fiscal policies under the baseline assumptions
+\begin{itemize}
+	\item<+-> add a \textbf{demand target} to gov. constraints;  shown to be important to meet sustainability goals (IPCC reports) and reduce reliance on uncertain carbon capture technologies \ar progressive tax 
+	\item<+-> demand target: keep imports of land and energy intense products low 
+	\item decouple demand and labour supply: \textbf{open economy} big enough to affect world prices for land etc. 
 \end{itemize}
 \end{frame}
 
