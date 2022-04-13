@@ -1,5 +1,6 @@
    function f = COMET_Objective(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,multip)
 
+%choice variables over direct periods
  C = x(1:T);
  L = x(T+1:2*T);
  E = x(2*T+1:3*T);
@@ -48,19 +49,29 @@ end
         Qt(m+1) = Qt(m)*(1-ksi4)+ksi4*TC(m);       
         
         
-%%% Step 2: Compute Continuation Values of Allocations %%%
+
+%%% Step 2: Compute Continuation Values of Allocations : AS FUNCTION OF LAST DIRECT PERIOD ALLOCATIONS%%%
+% => SHE ASSUMES CONSTANT SHARES OF LABOUR AND CAPITAL ALLOCATED TO FINAL GOOD PRODUCTION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Note: Computation assumes T is sufficiently large that clean energy will be cost-competitive by then (year 2255 in DICE -> T=25 ~ 2265 ok)        
 
 YT = ((((1+theta1*(TC(T))^2)^(-1))*(Z(T))*(((x(4*T)*x(2*T)*N(T))^(1-alpha-v))*((E(T))^(v))*((N(T)*10000*x(5*T))^alpha))));
-pi1_k = x(5*T)/(x(5*T)+x(7*T+1));       %Period T share of capital in final goods production
+pi1_k = x(5*T)/(x(5*T)+x(7*T+1));       %Period T share of capital in final goods production?> assumed to be constant?
 Kfut = ones(periods,1);                 %Continuation aggregate capital stock, bil. int. 2005 PPP dollars
-Kfut(1) = sT*(YT-Gct(T)+(1-Delta)*(N(T)*10000*(x(5*T)+x(7*T+1))));
+Kfut(1) = sT*(YT-Gct(T)+(1-Delta)*(N(T)*10000*(x(5*T)+x(7*T+1)))); % sonja: capital stock in first non-optimising 
+                                        % period determined by savings
 L(T:1:T+periods) = L(T);
 Yfut = zeros(periods,1);                %Continuation output, bil. int. 2005 PPP dollars
 for i = 1:1:(periods-1);
   Yfut(i) = ((((1+theta1*(TC(T+i))^2)^(-1))*Z(T)*(((x(4*T)*x(2*T)*N(T)*((1+gXt(T))^i))^(1-alpha-v))*((E(T)*((1+gXt(T))^(i)))^(v))*((pi1_k*Kfut(i))^alpha))));
-  Kfut(i+1) = sT*(Yfut(i)-Gct(T+i)+(1-Delta)*Kfut(i));
+  Kfut(i+1) = sT*(Yfut(i)-Gct(T+i)+(1-Delta)*Kfut(i)); % tomorrow's capital stock derived from 
+                                                       % resources
+                                                       % constraint with
+                                                       % abatement costs =0; 
+                                                       % savings rate
+                                                       % defined as 
+                                                       % K_t+1=sT*(K_t+1+C_t)
+                                                   
   C(T+i) = ((Yfut(i)-Gct(T+i)+(1-Delta)*Kfut(i))*(1-sT))/(N(T)*10000);
 end
 Yfut(periods) =  (((1+theta1*(TC(T+periods)^2))^(-1))*Z(T)*(((x(4*T)*x(2*T)*N(T)*((1+gXt(T))^periods))^(1-alpha-v))*(((E(T))*((1+gXt(T))^periods))^(v))*((pi1_k*Kfut(periods))^alpha)));
@@ -76,9 +87,10 @@ C(T+periods) = (Yfut(periods)-Gct(T+periods)-(Delta+gXt(T))*Kfut(periods))/(N(T)
 %%% Step 4: Compute PDV of Utility %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Composite = zeros(T+periods,1);
-Util1 = zeros(T+periods,1);
-UtilTC = zeros(T+periods,1);
-for i = 1:1:T+periods; 
+Util1 = zeros(T+periods,1);  % consumption and labour part of utility
+UtilTC = zeros(T+periods,1); % temperature change part of utility
+
+for i = 1:1:T+periods; % this loop runs over all periods: direct and non direct ones: 
     Composite(i) = (C(i)*((1-phi_labor*L(i))^(gamma_labor)));
     Util1(i) = (beta^(i-1))*N(i)*(((Composite(i)^(1-sigma))/(1-sigma)));
     UtilTC(i) = (beta^(i-1))*N(i)*(((1+alpha0*(TC(i)^alpha1))^((-1)*(1-sigma)))/(1-sigma));
@@ -89,7 +101,7 @@ UtilTC_cont = (beta^(T+periods-1))*N(T+periods)*(1/(1-beta))*(((1+alpha0*(TC(T+p
 Util1_cont = (beta^(T+periods-1))*N(T+periods)*(((Composite(T+periods)^(1-sigma))/(1-sigma))*(1/(1-beta*(1+gXt(T))^(1-sigma)))); 
 
 %Objective function value:
-f = (-1)*(sum(Util1)+Util1_cont+sum(UtilTC)+UtilTC_cont);
+f = (-1)*(sum(Util1)+sum(UtilTC)+Util1_cont+UtilTC_cont);
 
 
 
