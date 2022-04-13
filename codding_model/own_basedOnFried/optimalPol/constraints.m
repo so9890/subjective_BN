@@ -1,43 +1,105 @@
 function [c, ceq] = constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,b3,B0,energy_wedge_fix)
 % function to read in constraints on government problem
 
-% INputs
-% T:        periods over which to optimise directly (Barrage 1 period =10 years)
-% periods:  simulation periods after time T
-% N :       vector of population size for all periods considered
-% K0:       capital
+% there is no order of constraints
+%% read in stuff
+% choice variables
+% hhf, hhg, => replace hhn by market clearing
+% hlf, hlg  => hln as above
+% N, F, G : intermediate outputs
+% Af, Ag, An : technology
+% Sf, Sg    => Sn follows from scientist market clearing
 
-
-% read in choice variables which are all stored in the same vector x
-% for each variable a vector of length T
- C = x(1:T);                % consumption for T periods
- L = x(T+1:2*T);            % labour supply
- E = x(2*T+1:3*T);
- pi1_l = x(3*T+1:4*T);
- K1t = x(4*T+1:5*T);
- ECleanPct = x(5*T+1:6*T);
- K2t = x(6*T+1+1:7*T+1);    % tomorrow's capital stock
- sT = x(6*T+1);
+ hhf    = x(1:T);
+ hlf    = x(  T+1:2*T);
+ hlf    = x(2*T+1:3*T);
+ hlg    = x(3*T+1:4*T);
+ C      = x(4*T+1:5*T);
+ F      = x(5*T+1:6*T);
+ G      = x(6*T+1:7*T);
+ Af     = x(7*T+1:8*T);
+ Ag     = x(8*T+1:9*T);
+ An     = x(9*T+1:10*T);
+ sf     = x(10*T+1:11*T);
+ sg     = x(11*T+1:12*T);
+ hl     = x(12*T+1:13*T);
+ hh     = x(13*T+1:14*T);
 
  
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% parameters
+thetaa = params(list.params=='thetaa');
+sigmaa = params(list.params=='sigmaa');
+betaa = params(list.params=='betaa');
+
+thetaf = params(list.params=='thetaf');
+alphag
+alphaf
+alphan
+
+eppsy
+eppse
+gammaa
+etaa
+rhof
+rhog
+phii 
+
+omegaa ; % carbon content of fossil energy
+E      ; % vector of emission targets
+%% auxiliary variables
+
+hhn     = zh*hh-(hhf+hhg);
+hln     = zl*hl-(hlf+hlg); 
+hhhl    = hh./hl;
+Lg      = hhg.^thetag.*hlg.^(1-thetag);
+Ln      = hhn.^thetan.*hln.^(1-thetan);
+Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+A       = max([Af', Ag', An'])'; 
+Af_lag  = [Af0,Af(1:T-1)]; % shift Af backwards
+Ag_lag  = [Ag0,Ag(1:T-1)];
+An_lag  = [An0,An(1:T-1)];
+A_lag   = [A0,A(1:T-1)];
+
+mu      = C.^(-thetaa); % same equation in case thetaa == 1
+Muhh    = -zh*hh.^(-sigmaa);
+Muhl    = -zl*hl.^(-sigmaa);
+% dIdhh   = lambdaa
+% dIdhl 
+
+% prices and policy elements
+pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
+pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
+tauf    = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf*pf); 
+wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+ws      = (gammaa*etaa*(A_lag./Af_lag).^phii.*rhof^etaa.*sf.^(etaa-1).*pf.*F)*(1-alphaf)./(Af./Af_lag); 
+pn      = (N./(An*Ln)).^((1-alphan)/alphan)./alphan; % from production function neutral good
+
+
+pe      = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+taus    = 1-((gammaa*etaa*(A_lag./Ag_lag).^phii*rhon^etaa.*sg^(etaa-1).*pg.*G.*(1-alphag))./(Ag./Ag_lag*ws));
+taul    = (exp(wh./wl)-sigmaa*(hhhl))./(exp(hhhl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+lambdaa = hl.^(sigmaa+taul)./(mu.*(1-taul).*wl.^(1-taul));      % from FOC on low skill supply
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
+ % only for direct periods
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- % Sonja: there are time period specific constraints! 
- c = zeros((2*T)+1+1,1); % contains lower bounds for all direct optimisation 
-                         % periods and 2 additional ones: initial capital
-                         % constraint, and the IMP
+ % time period specific constraints! 
+ c = zeros((2*(T+periods))+1+1,1); % contains upper bounds for all direct optimisation 
+                         % periods and 2 additional ones: 
+                         % emission targets, IMP
  
                          % the constraints valid for T periods are:
                          % energy production
                          % resource constraint
                          
-%%% 1. Initial capital constraint%%%
+%%% 1. Emission constraint %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% this fills the last element of vector c with the initial capital
-% constraint
-c((2*T)+1+1,1) = ((x(4*T+1)+x(6*T+1+1))-(K1/(N(1)*10000)));
+c(1:T+periods) = omega*F-(E-deltaa);
 
 
 %%% 2. Energy production constraints %%%
@@ -98,21 +160,21 @@ end
      
 %%% 4. Implementability constraint %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+CONTINUE HERE
 %Compute IMP elements:
 Uct = ones(T,1);
 Ult = ones(T,1);
 betat = ones(T,1);
 P1 = ones(T,1);
 transfers = zeros(T,1);
- for i = 1:1:T;
+ for i = 1:1:T
      Uct(i) = (x(i)^(-sigma))*((1-phi_labor*x(T+i))^(gamma_labor*(1-sigma)));
      Ult(i) = (x(i)^(1-sigma))*(gamma_labor)*(-1)*(phi_labor)*((1-phi_labor*x(T+i))^(gamma_labor*(1-sigma)-1));
-     betat(i) = N(i)*beta^(i-1);
+     betat(i) = betaa^(i-1);
      transfers(i) = (trans_share)*G(i)*10;  %billions of dollars per decade in aggregate
      transfers(i) = transfers(i)/N(i);  %dollars per decade per person (billions over billions)
      transfers(i) = transfers(i)/10000;  %tens of thousands of dollars per person per decade
-         P1(i) = betat(i)*((Uct(i)*x(i))+(Ult(i)*x(T+i))-Uct(i)*transfers(i));
+         P1 = betat(i)*((Uct(i)*x(i))+(Ult(i)*x(T+i))-Uct(i)*transfers(i));
  end
 
 Uc0 = Uct(1);
