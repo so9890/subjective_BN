@@ -378,7 +378,7 @@ multip = 0;     %Placeholder for multiplier used in welfare calculations
 
 %%% Set Bounds %%%
 %%%%%%%%%%%%%%%%%%
-lb = zeros((7*T)+1,1);
+lb = zeros((7*T)+1,1); % 7 variables for all time periods, plus continuation savings rate
 ub = ones((7*T)+1,1);
 ub = Inf*ub;
 for j = 0:1:T-1;

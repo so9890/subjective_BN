@@ -1,4 +1,4 @@
-function [c, ceq] = constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,b3,B0,energy_wedge_fix)
+function [c, ceq] = constraints(x, T, targets, params, list, Ems)
 % function to read in constraints on government problem
 
 % there is no order of constraints
@@ -6,12 +6,12 @@ function [c, ceq] = constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,
 % choice variables
 % hhf, hhg, => replace hhn by market clearing
 % hlf, hlg  => hln as above
-% N, F, G : intermediate outputs
+% C, F, G : intermediate outputs
 % Af, Ag, An : technology
-% Sf, Sg    => Sn follows from scientist market clearing
+% hl, hh
 
  hhf    = x(1:T);
- hlf    = x(  T+1:2*T);
+ hhg    = x(  T+1:2*T);
  hlf    = x(2*T+1:3*T);
  hlg    = x(3*T+1:4*T);
  C      = x(4*T+1:5*T);
@@ -20,32 +20,47 @@ function [c, ceq] = constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,
  Af     = x(7*T+1:8*T);
  Ag     = x(8*T+1:9*T);
  An     = x(9*T+1:10*T);
- sf     = x(10*T+1:11*T);
- sg     = x(11*T+1:12*T);
- hl     = x(12*T+1:13*T);
- hh     = x(13*T+1:14*T);
-
+ hl     = x(10*T+1:11*T);
+ hh     = x(11*T+1:12*T);
+ 
  
 % parameters
 thetaa = params(list.params=='thetaa');
 sigmaa = params(list.params=='sigmaa');
-betaa = params(list.params=='betaa');
+% barHl  = params(list.params=='barHl');
+% barHh  = params(list.params=='barHh');
+zl  = params(list.params=='zl');
+zh  = params(list.params=='zh');
+
+%betaa = params(list.params=='betaa');
+S      = params(list.params=='S');
 
 thetaf = params(list.params=='thetaf');
-alphag
-alphaf
-alphan
+thetan = params(list.params=='thetan');
+thetag = params(list.params=='thetag');
 
-eppsy
-eppse
-gammaa
-etaa
-rhof
-rhog
-phii 
+alphag = params(list.params=='alphag');
+alphaf = params(list.params=='alphaf');
+alphan = params(list.params=='alphan');
 
-omegaa ; % carbon content of fossil energy
-E      ; % vector of emission targets
+eppsy = params(list.params=='eppsy');
+eppse = params(list.params=='eppse');
+deltay = params(list.params=='deltay');
+gammaa = params(list.params=='gammaa');
+etaa = params(list.params=='etaa');
+rhof = params(list.params=='rhof');
+rhog = params(list.params=='rhog');
+rhon = params(list.params=='rhon');
+phii = params(list.params=='phii');
+
+Af0 = params(list.params=='Af0');
+Ag0 = params(list.params=='Ag0');
+An0 = params(list.params=='An0');
+
+omegaa = targets(list.targets=='omegaa'); % carbon content of fossil energy
+deltaa = targets(list.targets=='deltaa'); % natural sink
+Ems    = Ems;   % vector of emission targets
+
 %% auxiliary variables
 
 hhn     = zh*hh-(hhf+hhg);
@@ -61,11 +76,15 @@ An_lag  = [An0,An(1:T-1)];
 A_lag   = [A0,A(1:T-1)];
 
 mu      = C.^(-thetaa); % same equation in case thetaa == 1
-Muhh    = -zh*hh.^(-sigmaa);
-Muhl    = -zl*hl.^(-sigmaa);
+% Muhh    = -zh*hh.^(-sigmaa);
+% Muhl    = -zl*hl.^(-sigmaa);
 % dIdhh   = lambdaa
 % dIdhl 
+sf      = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
+sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
+sn      =  S-(sf+sg); 
 
+E       = (F^((eppse-1)/eppse)+G^((eppse-1)/eppse)).^(eppse/(eppse-1));
 % prices and policy elements
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
@@ -74,218 +93,83 @@ wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
-ws      = (gammaa*etaa*(A_lag./Af_lag).^phii.*rhof^etaa.*sf.^(etaa-1).*pf.*F)*(1-alphaf)./(Af./Af_lag); 
-pn      = (N./(An*Ln)).^((1-alphan)/alphan)./alphan; % from production function neutral good
+ws      = (gammaa*etaa*(A_lag./Af_lag).^phii.*rhof^etaa.*sf.^(etaa-1).*pf.*F*(1-alphaf))./(Af./Af_lag); 
 
 
 pe      = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
-taus    = 1-((gammaa*etaa*(A_lag./Ag_lag).^phii*rhon^etaa.*sg^(etaa-1).*pg.*G.*(1-alphag))./(Ag./Ag_lag*ws));
+pn      = ((1-deltay)^eppsy.*pe.^(1-eppsy)./(1-deltay)^(eppsy)).^(1/(1-eppsy)); % definition prices and numeraire
+
+%taus    = 1-((gammaa*etaa*(A_lag./Ag_lag).^phii*rhog^etaa.*sg^(etaa-1).*pg.*G.*(1-alphag))./(Ag./Ag_lag.*ws));
 taul    = (exp(wh./wl)-sigmaa*(hhhl))./(exp(hhhl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
 lambdaa = hl.^(sigmaa+taul)./(mu.*(1-taul).*wl.^(1-taul));      % from FOC on low skill supply
+
+
+% auxiliary stuff depending on prices
+SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +zl*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+            +tauf.*pf.*F;
+        % subsidies and profits and wages scientists cancel
+Y       = (pe.*E.^(1/eppse)/deltay).^(eppsy); % demand E final good producers 
+N       = ((1-deltay)./pn.*Y.^(1/eppsy)).^eppse; % demand N final good producers 
+
+wln     = pn.^(1/(1-alphan)).*(1-alphan)*alphan^(alphan/(1-alphan).*An); % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag)*alphag^(alphag/(1-alphag).*Ag);
+
+
+xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
+xf      = (alphaf*pf).^(1/(1-alphaf)).*Lf.*Af;
+xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
  % only for direct periods
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
- c = zeros((2*(T+periods))+1+1,1); % contains upper bounds for all direct optimisation 
+ c = zeros(2*T,1); % contains upper bounds for all direct optimisation 
                          % periods and 2 additional ones: 
-                         % emission targets, IMP
+                         %  IMP
  
                          % the constraints valid for T periods are:
-                         % energy production
+                         % emission targets,
                          % resource constraint
                          
 %%% 1. Emission constraint %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-c(1:T+periods) = omega*F-(E-deltaa);
+c(1:T) = omegaa*F-(Ems-deltaa);
 
 
-%%% 2. Energy production constraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for i = 1:1:T;
-   c(i) = (-1)*((A_E(i)*(((1-x(3*T+i))*x(T+i)*N(i))^alphaE)*((N(i)*10000*x(6*T+1+i))^(1-alphaE)))-(x(2*T+i)));
-end
-
-%%% 3. Aggregate resource constraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-%Compute Temperature Change:
-TempE = E;
-for i = 1:1:T;
-    TempE(i) = (1-x(5*T+i))*TempE(i);
-    TempE(i) = TempE(i)+ELand(i);
-end
-    Zt = ones(T,1); %M_Lo
-    Zt(1) = phi23*X0+phi33*Zt0;
-    Xt = ones(T,1); %M_up
-    Xt(1) = phi12*S_t0+phi22*X0+phi32*Zt0;
-    St = ones(T,1); 
-    St(1) = ((E0*10)+ELand0)+phi11*S_t0+phi21*X0;
-    for i = 2:1:T;
-        Zt(i) = phi23*Xt(i-1)+phi33*Zt(i-1);
-        Xt(i) = phi12*St(i-1)+phi22*Xt(i-1)+phi32*Zt(i-1);
-        St(i) = TempE(i-1)+phi11*St(i-1)+phi21*Xt(i-1);
-    end
-    Qt = ones(T,1); %T_Lo
-    Qt(1) = Qt0*(1-ksi4)+ksi4*TC0;
-    Ft = ones(T,1); 
-    Ft(1) = (eta*((log((((St(1)+St(2))/2)+0.000001)/Sbar))/log(2)))+Fx(1); 
-    TC = ones(T,1);
-    TC(1) = TC0+ksi1*(Ft(1)-ksi2*TC0-ksi3*(TC0-Qt0));
-    for i = 2:1:T-1;
-        Qt(i) = Qt(i-1)*(1-ksi4)+ksi4*TC(i-1);
-        Ft(i) = (eta*((log((((St(i)+St(i+1))/2)+0.000001)/Sbar))/log(2)))+Fx(i);
-        TC(i) = TC(i-1)+ksi1*(Ft(i)-ksi2*TC(i-1)-ksi3*(TC(i-1)-Qt(i-1)));
-    end
-    m = (T-1);
-        Ft(m+1) = (eta*(log(((St(m+1)+0.000001)/Sbar))/log(2)))+Fx((m+1));
-        TC(m+1) = TC(m)+ksi1*(Ft(m+1)-ksi2*TC(m)-ksi3*(TC(m)-Qt(m)));
-        Qt(m+1) = Qt(m)*(1-ksi4)+ksi4*TC(m);       
-
-%Compute Abatement Costs & Resource Constraints:
-abt_cost = zeros(T,1);
-Eclean = zeros(T,1);
-for j=0:1:T-2;
-     Eclean(j+1) = x(5*T+1+j)*E(1+j);
-     abt_cost(j+1) = ((gamma*Pc(1+j)*1000)/((1+(a1+a4*log(1+j))*exp(a2+a3*log(1+j)-(b1+b2*log(1+j))*(Eclean(1+j)^b3)))))*Eclean(1+j);
-    c(T+j+1) = (-1)*((((1+theta1*(TC(1+j))^2)^(-1))*(Z(1+j))*(((x(T+1+j)*x(3*T+1+j)*N(j+1))^(1-alpha-v))*(((x(2*T+1+j)))^(v))*((N(1+j)*10000*x(4*T+1+j))^alpha)))-((x(4*T+1+1+j)+x(6*T+1+1+1+j))*10000*N(1+j+1))+(((1-delta)^10)*(x(4*T+1+j)+x(6*T+1+1+j))*10000*N(1+j))-((x(1+j)*N(1+j))*10000)-((1-trans_share)*G(j+1)*10)-abt_cost(1+j));
-end
-%Final Direct Optimization Period:
-     Eclean(T) = x(5*T+T)*E(T);
-     abt_cost(T) = ((gamma*Pc(T)*1000)/((1+(a1+a4*log(T))*exp(a2+a3*log(T)-(b1+b2*log(T))*(Eclean(T)^b3)))))*Eclean(T);  
-     c(2*T) = (-1)*(((1-x(6*T+1))*(((1+theta1*(TC(T))^2)^(-1))*(Z(T))*(((x(4*T)*x(2*T)*N(T))^(1-alpha-v))*((x(3*T))^(v))*((N(T)*10000*x(5*T))^alpha))-abt_cost(T)-((1-trans_share)*G(T)*10)+(((1-delta)^10)*(x(5*T)+x(7*T+1))*10000*N(T))))-((x(T)*N(T))*10000));
-
-     
-%%% 4. Implementability constraint %%%
+%%% 2. Implementability constraint %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-CONTINUE HERE
-%Compute IMP elements:
-Uct = ones(T,1);
-Ult = ones(T,1);
-betat = ones(T,1);
-P1 = ones(T,1);
-transfers = zeros(T,1);
- for i = 1:1:T
-     Uct(i) = (x(i)^(-sigma))*((1-phi_labor*x(T+i))^(gamma_labor*(1-sigma)));
-     Ult(i) = (x(i)^(1-sigma))*(gamma_labor)*(-1)*(phi_labor)*((1-phi_labor*x(T+i))^(gamma_labor*(1-sigma)-1));
-     betat(i) = betaa^(i-1);
-     transfers(i) = (trans_share)*G(i)*10;  %billions of dollars per decade in aggregate
-     transfers(i) = transfers(i)/N(i);  %dollars per decade per person (billions over billions)
-     transfers(i) = transfers(i)/10000;  %tens of thousands of dollars per person per decade
-         P1 = betat(i)*((Uct(i)*x(i))+(Ult(i)*x(T+i))-Uct(i)*transfers(i));
- end
 
-Uc0 = Uct(1);
-k0 = (K1/N(1))/10000;
-r0 = (((1/(N(1)*10000*x(4*T+1)))*(alpha)*(((1+theta1*(TC(1))^2))^(-1))*(Z(1))*(((x(3*T+1)*x(T+1)*N(1))^(1-alpha-v))*((x(2*T+1))^(v))*((x(4*T+1)*10000*N(1))^alpha))));
-b0 = (B0/N(1))/10000;
+%- create discount vector
+% disc=repmat(betaa, 1,T);
+% expp=0:T-1;
+% vec_discount= disc.^expp;
+% 
+% c(2*T+1) =vec_discount*((mu.*C)-...
+%     ((zl.*hl.^(sigmaa+1)+zh.*hh.^(sigmaa+1))./(1-taul)+mu.*SGov)); %
 
-%IMP Constraint:
-if distortionary==1
-  c((2*T)+1) =(-1)*(sum(P1)-N(1)*Uc0*((k0*(1+(r0-(1-(1-delta)^10))*(1-tao_k_0)))+b0));
-else
-    c((2*T)+1)=0;
-end
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% rather without savings technology: one binding constraint per period
+c(T+1:T*2)=(mu.*C)-((zl.*hl.^(sigmaa+1)+zh.*hh.^(sigmaa+1))./(1-taul)+mu.*SGov);
 
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%
+ % include missing equations here %
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ ceq = [];
+ 
 
- %%%Compute Preparatory Variables%%
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  Yt = zeros(T,1);
-  for j = 0:1:T-1
-      Yt(1+j) = (((1+theta1*(TC(1+j))^2)^(-1))*(Z(1+j))*(((x(T+1+j)*x(3*T+1+j)*N(j+1))^(1-alpha-v))*(((x(2*T+1+j)))^(v))*((N(1+j)*10000*x(4*T+1+j))^alpha)));
-  end 
- MPL = zeros(T,1);
- LaborTax = zeros(T,1);
- MPK = zeros(T,1);
- MRStime = ones(T,1);
- CapitalTax = ones(T,1);
- CapitalTax(1) = tao_k_0;
- Energy_Wedge = zeros(T,1);
- MPE = zeros(T,1);
- for i = 1:1:T;
-     MPL(i) = ((1-alpha-v)*Yt(i))/(N(i)*pi1_l(i)*L(i));     %MPL in dollars
-     LaborTax(i) = 1+((Ult(i)/Uct(i))/((MPL(i)/10000)));      
-     MPK(i) = (alpha*Yt(i))/(K1t(i)*10000*N(i));
-     MPE(i) = (v*Yt(i))/(E(i));    
-     Energy_Wedge(i) = (MPE(i)-((MPL(i)*(1-pi1_l(i))*N(i)*L(i))/(alphaE*E(i))));
- end
- for i = 2:1:T;
-   MRStime(i) = Uct(i-1)/(beta*Uct(i));
-   CapitalTax(i) = 1 - ((MRStime(i)-1)/((MPK(i))-(1-(1-delta)^10)));
- end
-  MAC = zeros(T,1);
-  at = zeros(T,1);
-  b0t = zeros(T,1);
-  b1t = zeros(T,1);
-  denom = zeros(T,1);
-  for i = 1:1:T;
-      at(i) = a1+a4*log(i);
-      b0t(i) = a2+a3*log(i);
-      b1t(i) = b1+b2*log(i);
-      denom(i) = 1+at(i)*exp(b0t(i)-b1t(i)*(Eclean(i)^b3));
-      MAC(i) = ((gamma*Pc(i)*1000)*((denom(i)^(-2))*b1t(i)*b3*(Eclean(i)^b3)*(denom(i)-1))+(gamma*Pc(i)*1000)*denom(i)^(-1));
-  end
-  
-  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-   ceq = [];
- 
-%%% 1. Labor tax contraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  if isempty(tao_l_fix)==0
-       for i = 1:1:T;   
-          ceq(i) = (-1)*(((MPL(i)/10000)*(1-tao_l_fix))+(Ult(i)/Uct(i)));
-      end
-  end  
-laenge0 = length(ceq);
-  if tao_l_const==1
-      for i = 1:1:T-1
-          ceq(laenge0+i) = (LaborTax(1+i)-LaborTax(i));
-      end
-  end
-   
-%%% 2. Capital Tax Constraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-laenge1 = length(ceq);
-  if isempty(tao_k_fix)==0
-      for i = 1:1:T-1;
-        ceq(laenge1+i) = (-1)*((1+(1-tao_k_fix)*((MPK(1+i))-(1-(1-delta)^10)))-MRStime(1+i));
-     end
-  end
-  laenge2 = length(ceq);
-  if tao_k_const==1
-      for i = 1:1:T-2
-          ceq(laenge2+i) = (CapitalTax(2+i) - CapitalTax(2+i-1));
-      end
-  end
-  
-%%% 3. Carbon Price Constraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-laenge3 = length(ceq);
-  if isempty(tao_E_fix)==0
-      for i = 1:1:T_tao_E_fix;
-         ceq(laenge3+i) = (Energy_Wedge(i)-energy_wedge_fix(i)); 
-         ceq(laenge3+T_tao_E_fix+i) = (MAC(i)-tao_E_fix(i));
-      end
-  end 
-  
-%%% 4. Intermediate Energy Input Tax Constraints %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-laenge4 = length(ceq);
- if no_interm_tax==1
-      for i = 1:1:T-1
-         ceq(laenge4+i) = (MAC(i)-Energy_Wedge(i));
-      end
-  end
+ ceq(1:T)       = pe.*E.^(1/eppse)-pg.*G.^(1/eppse); % green energy demand energy producers
+ ceq(T+1:T*2)   = (deltay*E.^((eppsy-1)/eppsy)+(1-deltay)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+ ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan)^(alphan./(1-alphan)); % from production function neutral good
+ ceq(T*3+1:T*4) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
+ ceq(T*4+1:T*5) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
+ ceq(T*5+1:T*6) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
+ ceq(T*6+1:T*7) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
+ ceq(T*7+1:T*8) = ((1-alphan)*etaa*gammaa*An_lag.^(1-phii).*A_lag.^phii.*sn.^etaa.*pn.*N)-ws.*sn.*An*rhon^etaa; % wage scientists neutral
+ ceq(T*8+1:T*9) = An_lag.*(1+(sn./rhon).^etaa.*(A_lag./An_lag).^phii)-An; % LOM neutral technology 
+ ceq(T*9+1:T*10) = C+xf+xn+xg-Y; % final good market clearing
 
 ceq = ceq';

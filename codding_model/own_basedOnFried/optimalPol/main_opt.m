@@ -7,7 +7,8 @@
 
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
-cd '/home/sonja/Documents/projects/Overconsumption/codding_model/barrage/Supplementary/COMET_CODE/ReStud'
+cd '/home/sonja/Documents/projects/Overconsumption/codding_model/own_basedOnFried/optimalPol'
+%%
 %M-File Outline%
 %%%%%%%%%%%%%%%%
 %General Notes
@@ -22,173 +23,69 @@ cd '/home/sonja/Documents/projects/Overconsumption/codding_model/barrage/Supplem
             
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 1: Select Fiscal Scenario        %%%
+%%%      Section 1: Select Scenario        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
+lengthh = 5; % number of zears per period         
+indic.util =0; % ==0 log utilit, otherwise as in Boppart
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% Calibration Base Year Tax Rates %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- tao_k_0 = .3340;           %Base year capital income tax rate
- tao_l_0 = .3609;           %Base year labor income tax
-
-%%% Time %%%
-%%%%%%%%%%%%
-periods = 10;               %Simulation periods after time T
-y = (1:1:T);                %Time in calendar years
-for i = 2:1:T+periods;
-     y(i) = 2015+((i-1)*10);
-end
-y(1) = 2015;
-
-%%% Households %%%
-%%%%%%%%%%%%%%%%%%
-beta = (.985)^10;            %Decadal pure rate of social time preference
-sigma = 1.5;                 %Inverse of intertemporal elasticity of substitution
-% sigma = 2;                 %Sigma=2   - Tables 6, 7
-% sigma = 1.1;               %Sigma=1.1 - Tables 6, 7
-
-
-
-
-%%% Production Functions & Initial Capital, Labor Allocations %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-alpha = .3;                                 %Final goods sector capital expenditure share
-v = 0.03;                                   %Final goods sector energy expenditure share
-alphaE = 0.403;                             %Energy sector labor expenditure share
-E0 = 7.990;                                 %Base year carbon-energy inputs, bmtC/year [year 2005 initial value from DICE 2010]
-delta = .1;                                 %Annual capital depreciation rate
-Delta = 1-((1-delta)^10);                   %Decadal capital depreciation rate
-Ysm1 = 55340;                               %Base year 2005 annual GDP, bil. of int. 2005 PPP dollars
-rsm1 = 0.05;                                %Base year annual net rate of return on capital
-K0 = (alpha*Ysm1)/(rsm1+delta);             %Total base year capital stock, bil. of int. 2005 PPP dollars
-L0 = .2272;                                 %Base year 2005 time share spent on work 
-pi_l_0 = (1-alpha-v)/(alphaE*v+1-alpha-v);  %Base year labor share in final goods production consistent with profit maximization and energy production E0
-pi_k_0 = alpha/(((1-alphaE)*v)+alpha);      %Base year capital share in final goods production consistent with profit maximization and energy production E0
-K0_FG = K0*(pi_k_0);                        %Base year final goods production capital stock, bil. of int. 2005 PPP dollars
-KE0 = K0*(1-pi_k_0);                        %Base year energy sector capital stock, bil. of int. 2005 PPP dollars
-LE0 = L0*N0*(1-pi_l_0);                     %Base year energy sector labor input
-
-
-%%%Sectoral Productivity Levels%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Final Goods Sector:
-Z0 = (Ysm1*10)/((((1+theta1*(TC0)^2))^(-1))*(((K0_FG)^(alpha))*((L0*pi_l_0*N0)^(1-alpha-v))*((E0*10)^(v))));  %Base year final goods sector initial TFP (decadal)
-Z = (ones(T,1));    
-    Z(1) = Z0*(1/(1-gZ0));
-    for i = 2:1:T+periods;
-        Z(i) = Z(i-1)*(1/(1-gZt(i-1)));
-    end
-%Energy Sector:
-A_E0 = (E0*10)/((KE0^(1-alphaE))*(LE0^alphaE)); %Base year energy sector TFP (decadal)
-A_E = zeros(T+periods,1);
-A_E(1) = A_E0*((1+gX0)^alphaE);
-for i = 2:1:T+periods;
-  A_E(i) = A_E(i-1)*((1+gXt(i-1))^alphaE);
-end
-
-%%% Model Time Zero Capital %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-s0 = 24.554/100;                        %Base year 2005 savings rate (DICE)
-K1 = K0*(1-Delta)+s0*(Ysm1*10);         %Model time zero (2015) total capital stock, bil. of int. 2005 PPP dollars
-    
-%%% Government %%%
-%%%%%%%%%%%%%%%%%%
- GovSpenfr = .311;                       %Base year 2005 government expenditure/GDP ratio
-% GovSpenfr = .311*(0.9);                %-10% Government Spending - Tables 6, 7
-% GovSpenfr = .311*(1.1);                %+10% Government Spending - Tables 6, 7
-trns_gdp = .1332;                        %Base year 2005 government transfers/GDP ratio
-trans_share = trns_gdp/GovSpenfr;        %Transfer share of government expenditures
-gov_c_fr = (GovSpenfr-trns_gdp);         %Government consumption share of government expenditures
-Gsm1 = (GovSpenfr)*Ysm1;                 %Base year government expenditure per year, bil. of int. 2005 PPP dollars
-G = ones(T+periods,1);
-Gct = ones(T+periods,1);                 %Government consumption per decade, bil. of int. 2005 PPP dollars
-G(1) = Gsm1*exp(gPop0+gX0);              %Government expenditures are assumed to grow at rates of population and labor productivity growth
-for i = 2:1:T+periods;
-    G(i) = G(i-1)*exp((gPop(i-1)+gXt(i-1)));  
-end
-for i = 1:1:T+periods;
-    Gct(i) = G(i)*10*(1-trans_share);
-end
-B0 = (.6263)*Ysm1;                       %Base year government debt, bil. of int 2005 PPP dollars 
-
-
-%%Labor Preferences%%
-%%%%%%%%%%%%%%%%%%%%%
-Frisch = 0.78;                          %Frisch elasticity of labor supply
-%Frisch = 2;                            %Frisch elasticity = 2 - Tables 6, 7           
-hh_cons_exp = 1-s0-gov_c_fr;            %Base year fraction of output consumed
-y_pc0 = ((Ysm1*10)/N0)/10000;           %Base year implied per capita output per decade, $10,000s int. 2005 PPP dollars
-c_05 = hh_cons_exp*y_pc0;               %Base year implied per capita consumption per decade, $10,000s int. 2005 PPP dollars
-w_05 = (1-alpha-v)*((Ysm1*10)/(L0*N0))*(1/10000);   %Base year implied wage (marginal product of labor) per decade, $10,000s int. 2005 PPP dollars
-temp_term = (1-sigma-(((1-sigma)^2)/(-sigma)));
-%Calibrating to the Frisch elasticity and to rationalize base year labor supply yields utility parameters (see paper for details):
-if distortionary==1
-    phi_labor = (((1-alpha-v)*(1-tao_l_0)*y_pc0*temp_term)+(c_05/Frisch))/(L0*(1-alpha-v)*(1-tao_l_0)*y_pc0*temp_term+c_05*L0+L0*(1/Frisch)*c_05);
-else
-     phi_labor = (((1-alpha-v)*y_pc0*temp_term)+(c_05/Frisch))/(L0*(1-alpha-v)*y_pc0*temp_term+c_05*L0+L0*(1/Frisch)*c_05);
-end
-gamma_labor = ((((1-phi_labor*L0)/(phi_labor*L0))*(-1/Frisch))+1)/(1-sigma-(((1-sigma)^2)/(-sigma)));
-
-
+F_baseyear= 5; 
+[params, targets, list, symms, Ems ]=get_params(F_baseyear, T, indic, lengthh);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Solve for Optimal Allocation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Preview: Structure of vector of allocations x:
-% C = x(1:T);               Per capita consumption ($10,000's)
-% L = x(T+1:2*T);           Total labor supply (fraction of time)
-% E = x(2*T+1:3*T);         Total energy inputs (GtC-eq)
-% pi1_l = x(3*T+1:4*T);     Fraction of labor devoted to final goods sector
-% K1t = x(4*T+1:5*T);       Capital in final goods production ($10,000's per capita)
-% ECleanPct = x(5*T+1:6*T); Fraction clean energy / abatement 
-% K2t = x(6*T+1+1:7*T+1);   Capital in energy production ($10,000's per capita)
-% sT = x(6*T+1);            Continuation savings rate (fraction)
+%  hhf    = x(1:T);
+%  hhg    = x(  T+1:2*T);
+%  hlf    = x(2*T+1:3*T);
+%  hlg    = x(3*T+1:4*T);
+%  C      = x(4*T+1:5*T);
+%  F      = x(5*T+1:6*T);
+%  G      = x(6*T+1:7*T);
+%  Af     = x(7*T+1:8*T);
+%  Ag     = x(8*T+1:9*T);
+%  An     = x(9*T+1:10*T);
+%  hl     = x(10*T+1:11*T);
+%  hh     = x(11*T+1:12*T);
 
-% choice variables
-% hhf, hhg, => replace hhn by market clearing
-% hlf, hlg  => hln as above
-% N, F, G : intermediate outputs
-% Af, Ag, An : technology
-% Sf, Sg    => Sn follows from scientist market clearing
 
-%%% Set Bounds %%%
-%%%%%%%%%%%%%%%%%%
-lb = zeros((7*T)+1,1);
-ub = ones((7*T)+1,1);
-ub = Inf*ub;
-for j = 0:1:T-1;
-   ub(T+1+j) = (1/phi_labor)-0.01;
-   ub(3*T+1+j) = 0.9999;
-   ub(5*T+1+j) = 1;
-   ub(6*T+1) = 0.9999;
-   lb(1+j) = 0.1;
-   lb(T+1+j) = 0.01;
-   lb(6*T+1+1+j) = 0.001;
-end
+%%% Linear constraints optimisation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+lb = zeros((12*T),1);
+ub = Inf*ones((12*T),1);
+
+ub(10*T+1:11*T)=params(list.params=='barHl');
+ub(11*T+1:12*T)=params(list.params=='barHh');
 
 %%% Initial Guess %%%
 %%%%%%%%%%%%%%%%%%%%%
-%Note: Good initial guess is critical.
-%It is recommended to load and use whichever previous scenario
-%comes closest to the scenario one is looking to analyze.
-%For larger parameter changes, it may also help to run intermediate
-%scenarios at intermediate values to produce better initial guesses.
-%Listed below are only the scenarios from Table 4, but the full set of
-%prior scenario and sensitivity results are included further below to be
-%imported here as well if applicable.
 
+x0 = zeros(12*T,1);
+
+x0(1:T)         =.02; % hhf
+x0(T+1:T*2)     =.04; % hhg
+x0(T*2+1:T*3)   =.03; % hlf
+x0(T*3+1:T*4)   =.01; % hlg 
+x0(T*4+1:T*5)   = 1;  % C
+x0(T*5+1:T*6)   = 0.4; % F
+x0(T*6+1:T*7)   = 0.6; % G
+x0(T*7+1:T*8)   = 2; % Af
+x0(T*8+1:T*9)   = 1; % Ag
+x0(T*9+1:T*10)  = 2; % An
+x0(T*10+1:T*11) = 0.3; % hl
+x0(T*11+1:T*12) = 0.3; % hh
 
 %%% Test Constraints and Objective Function %%%
-[f] = COMET_Objective(x0,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,multip)
-[c,ceq] = COMET_Constraints(x0,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,b3,B0,energy_wedge_fix)
-
+[f] =  objective(x0,T,params, list, indic);
+[c, ceq] = constraints(x0, T, targets, params, list, Ems);
 
 %%% Optimize %%%
 %%%%%%%%%%%%%%%%
