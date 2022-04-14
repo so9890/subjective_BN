@@ -1,4 +1,4 @@
-function [params, targets,  list, symms, Ems ]=get_params(F0, T, indic, lengthh)
+function [params, targets,  pol, list, symms, Ems ]=get_params(F0, T, indic, lengthh)
 
 % function to read in parameter values and to numerically calculate initial 
 % period values of endogenous variables.
@@ -48,13 +48,22 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      An0 ...        % initial technology level neutral     
     real 
  
+syms taul ...       % income tax progressivity
+     taus ...       % subsidy on green research
+     tauf ...       % sales tax fossil
+     lambdaa ...    % scale tax scheme
+     real
+ 
 symms.params = [sigmaa, thetaa, betaa, zh, zl , barHl, barHh, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, S, Af0, An0, Ag0];   
 list.params  = string(symms.params);
 
 symms.targets = [deltaa, omegaa];
-list.targets = string(symms.targets);
+list.targets  = string(symms.targets);
+
+symms.pol     = [taul, taus, tauf, lambdaa];
+list.pol      = string(symms.pol);
 
 %% Calibration 
 
@@ -91,13 +100,21 @@ rhog     = 0.01;
 phii     = 0.5;            % Fried
 S        = 0.01; 
 
-Af0     = 2; % match output levels 
-Ag0     = 1;
-An0     = 2; 
+Af0     = 1; % match output levels 
+Ag0     = 0.5;
+An0     = 1; 
 
+%- emissions
 [deltaa, omegaa, Ems]= calibration_emissions(F0,T, lengthh); 
+
+%- policies
+taul    = 0.181;
+taus    = 0; 
+tauf    = 0; 
+lambdaa = 1;
 
 % saving to vector
 params  = eval(symms.params);
 targets = eval(symms.targets);
+pol     = eval(symms.pol);
 end

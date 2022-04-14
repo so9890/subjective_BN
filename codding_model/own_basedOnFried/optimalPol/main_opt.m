@@ -35,8 +35,8 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-F_baseyear= 5; 
-[params, targets, list, symms, Ems ]=get_params(F_baseyear, T, indic, lengthh);
+F0= 5; 
+[params, targets, pol, list, symms, Ems ]=get_params(F0, T, indic, lengthh);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Solve for Optimal Allocation        %%%
