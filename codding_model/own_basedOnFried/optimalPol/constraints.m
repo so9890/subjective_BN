@@ -69,11 +69,11 @@ hhhl    = hh./hl;
 Lg      = hhg.^thetag.*hlg.^(1-thetag);
 Ln      = hhn.^thetan.*hln.^(1-thetan);
 Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
-A       = max([Af', Ag', An'])'; 
-Af_lag  = [Af0,Af(1:T-1)]; % shift Af backwards
-Ag_lag  = [Ag0,Ag(1:T-1)];
-An_lag  = [An0,An(1:T-1)];
-A_lag   = [A0,A(1:T-1)];
+A       = max([Af, Ag, An]')'; 
+Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
+Ag_lag  = [Ag0;Ag(1:T-1)];
+An_lag  = [An0;An(1:T-1)];
+A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
 
 mu      = C.^(-thetaa); % same equation in case thetaa == 1
 % Muhh    = -zh*hh.^(-sigmaa);
@@ -84,7 +84,7 @@ sf      = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
 sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
 sn      =  S-(sf+sg); 
 
-E       = (F^((eppse-1)/eppse)+G^((eppse-1)/eppse)).^(eppse/(eppse-1));
+E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 % prices and policy elements
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
@@ -112,8 +112,8 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
 Y       = (pe.*E.^(1/eppse)/deltay).^(eppsy); % demand E final good producers 
 N       = ((1-deltay)./pn.*Y.^(1/eppsy)).^eppse; % demand N final good producers 
 
-wln     = pn.^(1/(1-alphan)).*(1-alphan)*alphan^(alphan/(1-alphan).*An); % price labour input neutral sector
-wlg     = pg.^(1/(1-alphag)).*(1-alphag)*alphag^(alphag/(1-alphag).*Ag);
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan).*An); % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag).*Ag);
 
 
 xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
@@ -136,7 +136,7 @@ xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 %%% 1. Emission constraint %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-c(1:T) = omegaa*F-(Ems-deltaa);
+c(1:T) = omegaa*F-(Ems'-deltaa);
 
 
 %%% 2. Implementability constraint %%%
@@ -163,7 +163,7 @@ c(T+1:T*2)=(mu.*C)-((zl.*hl.^(sigmaa+1)+zh.*hh.^(sigmaa+1))./(1-taul)+mu.*SGov);
 
  ceq(1:T)       = pe.*E.^(1/eppse)-pg.*G.^(1/eppse); % green energy demand energy producers
  ceq(T+1:T*2)   = (deltay*E.^((eppsy-1)/eppsy)+(1-deltay)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
- ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan)^(alphan./(1-alphan)); % from production function neutral good
+ ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
  ceq(T*3+1:T*4) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
  ceq(T*4+1:T*5) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
  ceq(T*5+1:T*6) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
