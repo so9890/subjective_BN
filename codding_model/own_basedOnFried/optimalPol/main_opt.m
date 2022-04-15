@@ -35,10 +35,17 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-F0= 5; 
-[params, targets, pol, list, symms, Ems ]=get_params(F0, T, indic, lengthh);
 
+[params, targets, pol, list, symms, Ems ]=get_params( T, indic, lengthh);
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 3: Laissez-Faire        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Solve for Optimal Allocation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -62,8 +69,8 @@ F0= 5;
 lb = zeros((12*T),1);
 ub = Inf*ones((12*T),1);
 
-ub(10*T+1:11*T)=params(list.params=='barHl');
-ub(11*T+1:12*T)=params(list.params=='barHh');
+ub(10*T+1:11*T)=params(list.params=='upbarHl');
+ub(11*T+1:12*T)=params(list.params=='upbarHh');
 
 %%% Initial Guess %%%
 %%%%%%%%%%%%%%%%%%%%%

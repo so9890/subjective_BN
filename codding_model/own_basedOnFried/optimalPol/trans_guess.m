@@ -7,7 +7,7 @@ function guess_trans=trans_guess(indexx, guess, params, list)
 
 guess_trans=guess;
 
-% guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
+guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
 guess_trans(indexx.exp)=log(guess(indexx.exp));
-guess_trans(indexx.lab)=log(params(list.params=='barHl')-guess(indexx.lab));
+guess_trans(indexx.lab)=log(params(list.params=='upbarH')-guess(indexx.lab));
 end

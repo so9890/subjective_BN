@@ -22,7 +22,7 @@ REDO equations as in laissez faire
  An     = x(9*T+1:10*T);
  hl     = x(10*T+1:11*T);
  hh     = x(11*T+1:12*T);
- 
+ gammalh
  
 % parameters
 
@@ -90,9 +90,9 @@ xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
  % only for direct periods
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
- c = zeros(2*T,1); % contains upper bounds for all direct optimisation 
+ c = zeros(4*T,1); % contains upper bounds for all direct optimisation 
                          % periods and 2 additional ones: 
-                         %  IMP
+                         %  IMP; skill time endowment
  
                          % the constraints valid for T periods are:
                          % emission targets,
@@ -118,6 +118,9 @@ c(1:T) = omegaa*F-(Ems'-deltaa);
 % rather without savings technology: one binding constraint per period
 c(T+1:T*2)=(mu.*C)-((zl.*hl.^(sigmaa+1)+zh.*hh.^(sigmaa+1))./(1-taul)+mu.*SGov);
 
+%%% 3. Time endowment labour %%%
+c(T*2+1:T*3)=hh-upbarH;
+c(T*3+1:T*4)=hl-upbarH;
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%

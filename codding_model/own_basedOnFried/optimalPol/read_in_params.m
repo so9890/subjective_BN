@@ -1,7 +1,7 @@
 thetaa = params(list.params=='thetaa');
 sigmaa = params(list.params=='sigmaa');
-barH  = params(list.params=='barHl');
-% barHh  = params(list.params=='barHh');
+upbarH  = params(list.params=='upbarH');
+% upbarHh  = params(list.params=='upbarHh');
 zl  = params(list.params=='zl');
 zh  = params(list.params=='zh');
 

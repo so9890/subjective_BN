@@ -13,50 +13,55 @@ An0 = params(list.params=='An0');
 laggs=[Ag0, Af0, An0];
 
 %- choice variabes
-syms hhf hhg hlf hlg C F G Af Ag An hl hh real
+syms hhf hhg hhn hln hlf hlg C F G Af Ag An hl hh sf sg sn wh wl ws pg pn pe pf gammalh gammall real
 
-symms.choice = [hhf, hhg, hlf, hlg, C, F, G, Af, Ag, An, hl, hh];
+symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sf, sg, sn, wh, wl, ws, pg, pn, pe, pf, gammalh, gammall];
 list.choice  = string(symms.choice);
 
 hhf =.02; % hhf
 hhg =.04; % hhg
-hlf =.03; % hlf
+% hhn =.4; % hhn
+% hln =.3; % hln
+hlf =.02; % hlf
 hlg =.01; % hlg 
-C   = 0.2;  % C
-F   = 0.3; % F
-G   = 0.02; % G
+F   = 0.5; % F
+G   = .1; % G
 Af  = Af0*1.02; % Af
-Ag  = Ag0*1.02; % Ag
+Ag  = Ag0*1.002; % Ag
 An  = An0*1.02; % An
 hl  = 0.3; % hl
 hh  = 0.2; % hh
+% sg  = 0.2;
+% sf  = 0.3;
+% sn  = 0.4;
+gammalh = 0;
+gammall = 0;
 
-read_in_params;
-read_in_pol;
-auxiliary_stuff;
-x0=eval(symms.choice);
 
-%- transforming variables to unbounded variables
+[x0,ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list, targets, pol, laggs, symms);
+
+
+%% - transforming variables to unbounded variables
 %-- index for transformation 
 indexx.lab = boolean(zeros(size(list.choice)));
 indexx.exp = boolean(zeros(size(list.choice)));
+indexx.sqr = boolean(zeros(size(list.choice)));
 
 indexx.lab(list.choice=='hl'| list.choice=='hh')=1;
-indexx.exp(list.choice~='hl'& list.choice~='hh')=1;
+indexx.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list.choice~='gammalh' )=1;
+indexx.sqr(list.choice=='gammall'| list.choice=='gammalh')=1;
 
 guess_trans=trans_guess(indexx, x0, params, list);
 
-%- solving model
+%% - solving model
 f=laissez_faire(guess_trans, params, list, pol, laggs, targets, Ems);
 
-
-
 modFF = @(x)laissez_faire(x, params, list, pol, laggs, targets, Ems);
-options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-12);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 
-% run ones more with solution as starting value
-[sol2, fval, exitf] = fsolve(modFF, sol, options);
+%% run ones more with solution as starting value
+[sol2, fval, exitf] = fsolve(modFF, real(sol), options);
 
 %- transform results to bounded variables
 LF=trans_allo_out(indexx, sol2, params, list);

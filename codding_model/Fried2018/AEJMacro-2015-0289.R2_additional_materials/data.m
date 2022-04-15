@@ -40,7 +40,7 @@ gdp = M(:, 14); XfN = M(:, 15);  XN = M(:, 16); deflate = M(:, 17); RGDPPC = M(:
 %Construct annual moments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+% the following are RD expenditures by Gov or Comp(anies)
 total = totalComp + totalGov;
 fossilTotal = fossilGov + fossilComp; 
 greenTotal = greenGov + greenComp; 

@@ -1,4 +1,4 @@
-function [deltaa, omegaa, E_vec]= calibration_emissions(yd2019, T, lengthh)
+function [deltaa, omegaa, E_vec]= calibration_emissions(T, lengthh)
 
 % function calibrates emissions and targets
 % uses total output in 2019 LF of dirty sector as an input.
@@ -29,9 +29,9 @@ E_vec          = [repmat(targetUS-deltaa,1, (50-20)/lengthh-1), zeros(1,(T*5-30)
                 % from t=1 to t=29 E=30; from t=30 (2050) to t=T E=0
 
 %--- relation production and emissions  
-                    
-omegaa   = emissionsUS2019/yd2019; % share of dirty output which translates into emissions 
-                                    % => to match total greenhouse gas emissions in Gt
+outputFossil = calibration();       % total fossil production in numeraire
+omegaa   = emissionsUS2019/outputFossil(end-2); % share of dirty output which translates into emissions 
+                                   % => to match total greenhouse gas emissions in Gt
 
 
 end

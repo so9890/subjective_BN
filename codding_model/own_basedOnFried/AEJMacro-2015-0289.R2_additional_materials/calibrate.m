@@ -9,7 +9,7 @@
 % Inputs: 
 % Empirical values of moments: momD
 % Initial guess for parameters: p0
-% Directly calibrated paraeters and model and data values: alphaf, alpham, deltaef,
+% Directly calibrated parameters and model and data values: alphaf, alpham, deltaef,
 %    epse, epsf, epsy, L,phi ,rhonf, rhong,S, theta0, deltaPfStarD
 % Initial guesses: guess0, guessBGP
 % Options for fsolve: options
