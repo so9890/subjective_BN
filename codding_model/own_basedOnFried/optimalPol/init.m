@@ -1,14 +1,17 @@
-function [x0, ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list, targets, pol, laggs, symms)
+function [x0, ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list,  pol, laggs, varrs)
+
 % function to get a good initial guess
 % iterate over initial input variables
 
 read_in_params;
 read_in_pol;
 
+%    read_in_pars_calib;
 
-checkk=10; 
-ni=0;
-while abs(checkk)>1e-5
+
+ checkk=10; 
+ ni=0;
+% while abs(checkk)>1e-5
     
 %- definitions
 %A       = max([Af, Ag, An]')'; 
@@ -72,33 +75,33 @@ Y       =  (deltay.*E.^((eppsy-1)/eppsy)+(1-deltay).*N.^((eppsy-1)/eppsy)).^(epp
  xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
  
  C   = Y-xn-xf-xg;
- inc = zh*lambdaa*(hh*wh)^(1-taul)+zl*lambdaa*(hl*wl)^(1-taul)+SGov;
- 
- %test
- ni=ni+1;
- if ni < 100
- 
-     checkk=C-inc;
- 
- if checkk>1e-2
-     % then consumption too high => increase Y => Productivity; 
-     %                           => lower investment => lower prices =>
-     %                           lowr G
-     G=0.8*G; 
-     F=1.2*F;
-     An = 1.2*An; 
- elseif checkk<1e-2
-      G=1.2*G; 
-      F=0.9*F;
-      An = 0.8*An; 
- end
- else
-     fprintf('did not converge')
-     break
-     
- end
- 
-x0=eval(symms.choice);
+%  inc = zh*lambdaa*(hh*wh)^(1-taul)+zl*lambdaa*(hl*wl)^(1-taul)+SGov;
+%  
+%  %test
+%  ni=ni+1;
+%  if ni < 100
+%  
+%      checkk=C-inc;
+%  
+%  if checkk>1e-2
+%      % then consumption too high => increase Y => Productivity; 
+%      %                           => lower investment => lower prices =>
+%      %                           lowr G
+%      G=0.8*G; 
+%      F=1.2*F;
+%      An = 1.2*An; 
+%  elseif checkk<1e-2
+%       G=1.2*G; 
+%       F=0.9*F;
+%       An = 0.8*An; 
+%  end
+%  else
+%      fprintf('did not converge')
+%      break
+%      
+%  end
+
+x0=eval(varrs);
 
 x0(x0<0)=1; 
 

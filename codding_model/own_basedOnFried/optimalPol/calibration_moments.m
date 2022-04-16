@@ -3,9 +3,8 @@ function MOM = calibration_moments(zh,zl)
 % to be calibrated: lambda, thetaf, thetag, Af0, Ag0, An0
 % (thetan for now assumed shares as in population)
 
-clear
-addpath('data')
 
+addpath('data')
 
 %% - read in data
 
@@ -21,7 +20,7 @@ data =readtable('data/energy_consumption/combined.xlsx');
 MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP');
 MOM.Y    = 1; % normalised
 MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./moms(vars=='Total Renewable Energy Consumption');
-
+MOM.F    = moms(vars=='Total Fossil Fuels Consumption'); % to match emissions
 % Data on skill input and distribution
 MOM.whwl = 1.9; % 
 MOM.hhhl = 1; % assume equal hours worked, as in Bick, Schünden, Lagakos

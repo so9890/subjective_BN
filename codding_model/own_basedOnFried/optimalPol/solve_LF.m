@@ -37,8 +37,7 @@ hh  = 0.2; % hh
 gammalh = 0;
 gammall = 0;
 
-
-[x0,ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list, targets, pol, laggs, symms);
+[x0,ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list,  pol, laggs, symms.choice);
 
 
 %% - transforming variables to unbounded variables

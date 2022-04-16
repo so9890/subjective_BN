@@ -63,6 +63,13 @@ list.targets  = string(symms.targets);
 symms.pol     = [taul, taus, tauf, lambdaa];
 list.pol      = string(symms.pol);
 
+% parameters directly calibrated
+symms.paramsdir = [sigmaa, thetaa, betaa, zh, zl , upbarH, alphaf, alphan, alphag,...
+                eppsy, eppse, deltay, ...
+                gammaa, etaa, rhof, rhon, rhog, phii];   
+list.paramsdir  = string(symms.paramsdir);
+
+
 %% Calibration 
 
 sigmaa   = 1/0.75;      % from Chetty et al 
@@ -99,7 +106,8 @@ taus    = 0;
 tauf    = 0; 
 
 %- indirect calibration 
-
+%-- get moments
+MOM = calibration_moments(zh,zl);
 % thetan   = 0.5;
 % thetag   = 0.6;
 % thetaf   = thetag*0.5;
@@ -107,12 +115,16 @@ tauf    = 0;
 % Ag0     = 0.9196;
 % An0     = 1; 
 
-%- emissions
-[deltaa, omegaa, Ems]= calibration_emissions(T, lengthh); 
 
+%% -others
+parsHelp = eval(symms.params);
 
-% saving to vector
+[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list);
+
+%% - emissions
+[deltaa, omegaa, Ems]= calibration_emissions(T, lengthh, MOM.F); 
+
+% save
 params  = eval(symms.params);
 targets = eval(symms.targets);
-pol     = eval(symms.pol);
 end
