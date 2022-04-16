@@ -1,3 +1,4 @@
+function [An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(zh,zl)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
 
@@ -7,10 +8,15 @@
 % lambdaa to have gov budget = 0 in baseyear
 
 % data
-% Fossil consumption share, GDP, Non-energy output share
+% Energy consumption share, GDP, Fossil to Green output share
 
 % numeraire: Consumption Good
 
 % balanced budget, 
 % skills: match Consoli; or wage premia (then includes)
+
+%% data
+MOM = calibration_moments(zh,zl)
+
+
 

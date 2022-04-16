@@ -1,7 +1,7 @@
 function [params, targets,  pol, list, symms, Ems ]=get_params( T, indic, lengthh)
 
-% function to read in parameter values and to numerically calculate initial 
-% period values of endogenous variables.
+% function to read in parameter values and to calibrate direct parameters
+% calls on calibration_matching and calibration_emissions 
 
 % input
 % symmparams:   model parameters
@@ -11,9 +11,8 @@ function [params, targets,  pol, list, symms, Ems ]=get_params( T, indic, length
 
 
 % output
-% params:       numeric vector of calibrated parameters
+% params:       numeric vector of calibrated parameters and initial conditions
 % pols_num:     numeric vector of policy
-% x_init:       initial conditions
 % vars_tosolve: ordered list of variables as they enter in model function 
 
 %% symbolic vector and list
@@ -76,8 +75,8 @@ end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
 upbarH     = 1;
-zl       = 0.4;      % to be modeled from data
-zh       = 1-zl; 
+zh       = 0.3169;       % Slavik paper! to be updated
+zl       = 1-zh; 
 
 eppse    = 1.5;            % Fried
 eppsy    = 0.05;           % Fried
@@ -93,19 +92,20 @@ rhon     = 1;
 rhog     = 0.01;
 phii     = 0.5;            % Fried
 S        = 0.01; 
+
 %- policies
 taul    = 0.181;
 taus    = 0; 
 tauf    = 0; 
-lambdaa = 3; %=> assume balanced budget (SGov=0) in baseyear at 0.181
 
-%- skill shares and productivity simultaneously match model equations
-thetan   = 0.5;
-thetag   = 0.6;
-thetaf   = thetag*0.5;
-Af0     = 1.877; % Fried 
-Ag0     = 0.9196;
-An0     = 1; 
+%- indirect calibration 
+
+% thetan   = 0.5;
+% thetag   = 0.6;
+% thetaf   = thetag*0.5;
+% Af0     = 1.877; % Fried 
+% Ag0     = 0.9196;
+% An0     = 1; 
 
 %- emissions
 [deltaa, omegaa, Ems]= calibration_emissions(T, lengthh); 
