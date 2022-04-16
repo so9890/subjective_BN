@@ -69,7 +69,8 @@ symms.paramsdir = [sigmaa, thetaa, betaa, zh, zl , upbarH, alphaf, alphan, alpha
                 gammaa, etaa, rhof, rhon, rhog, phii];   
 list.paramsdir  = string(symms.paramsdir);
 
-
+symms.poldir     = [taul, taus, tauf];
+list.poldir      = string(symms.poldir);
 %% Calibration 
 
 sigmaa   = 1/0.75;      % from Chetty et al 
@@ -115,16 +116,17 @@ MOM = calibration_moments(zh,zl);
 % Ag0     = 0.9196;
 % An0     = 1; 
 
-
-%% -others
-parsHelp = eval(symms.params);
-
-[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list);
-
 %% - emissions
 [deltaa, omegaa, Ems]= calibration_emissions(T, lengthh, MOM.F); 
 
+%% -others
+parsHelp = eval(symms.paramsdir);
+polhelp= eval(symms.poldir);
+targets = eval(symms.targets);
+[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets);
+
+
 % save
 params  = eval(symms.params);
-targets = eval(symms.targets);
+
 end

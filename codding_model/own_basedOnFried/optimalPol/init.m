@@ -1,4 +1,4 @@
-function [x0, ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list,  pol, laggs, varrs)
+function [x0, ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall, params, list,  pol, laggs, varrs, targets)
 
 % function to get a good initial guess
 % iterate over initial input variables
@@ -61,7 +61,7 @@ pn      = ((1-deltay^eppsy.*pe.^(1-eppsy))./(1-deltay)^(eppsy)).^(1/(1-eppsy)); 
 % auxiliary stuff depending on prices
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +zl*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*pf.*omegaa*F;
             % subsidies and profits and wages scientists cancel
 N       =  ((1-deltay)/deltay.*pe./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay.*E.^((eppsy-1)/eppsy)+(1-deltay).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 

@@ -49,7 +49,7 @@ muu      = C.^(-thetaa);
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +zl*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*pf.*omegaa*F;
 N       =  ((1-deltay)/deltay.*pe./pn)^(eppsy).*E; % demand N final good producers 
 %
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan).*An); % price labour input neutral sector
@@ -63,51 +63,52 @@ wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag).*Ag);
 %    to start simulation in 2020
 
 q=0;
-% final output
+%1 final output
 q=q+1;
 f(q) = Y-MOM.Y;
 
-% energy expenditure share
+%2 energy expenditure share
 q=q+1;
 f(q) = E*pe/Y-MOM.EpeY;
 
-% fossil to renewable energy consumption
+%3 fossil to renewable energy consumption
 q=q+1;
 f(q) = F/G -MOM.FG;
 
-% Government budget;
+%4 Government budget;
 q=q+1;
 f(q) = MOM.Debt-SGov;
 
-% wage premium skill
+%5 wage premium skill
 q=q+1;
 f(q) = wh/wl-MOM.whwl;
 
-% hours worked
+%6 hours worked
 q=q+1;
-f(q) = hh/hl-MOM.hhhl;
+f(q) = 
 
-% relative skill input neutral sector
+%7 relative skill input neutral sector
 q=q+1;
 f(q) = hhn/hln - MOM.hhnhln;
 
 %% MODEL equations laissez faire
-%1- household optimality (muu auxiliary variable determined above)
+%8- household optimality (muu auxiliary variable determined above)
 q=q+1;
 f(q) = hh^(sigmaa+taul)-(muu*lambdaa*(1-taul)*wh^(1-taul))+gammalh; %=> determines hh
 
+%9
 q=q+1;
 f(q) = hl^(sigmaa+taul)-(muu*lambdaa*(1-taul)*wl^(1-taul))+gammall; %=> determines hl
 
-%3- budget
+%10- budget
 q=q+1;
 f(q) = zh*lambdaa*(wh*hh)^(1-taul)+zl*lambdaa*(wl*hl)^(1-taul)+SGov-C; %=> determines C
 
-%4- output fossil
+%11- output fossil
 q=q+1;
 f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*(Af.*Lf) -(F); 
 
-%5- output neutral
+%12- output neutral
 q=q+1;
 f(q) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); 
 

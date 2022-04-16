@@ -17,7 +17,7 @@ data =readtable('data/energy_consumption/combined.xlsx');
     vars=string(vars(~isnan(momsraw)));
   
 % moments for technology
-MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP');
+MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP')/100;
 MOM.Y    = 1; % normalised
 MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./moms(vars=='Total Renewable Energy Consumption');
 MOM.F    = moms(vars=='Total Fossil Fuels Consumption'); % to match emissions

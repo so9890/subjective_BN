@@ -1,4 +1,4 @@
-%function [An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list)
+%function [An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
 
@@ -15,6 +15,14 @@
 % balanced budget, 
 % skills: match Consoli; or wage premia (then includes)
 
+%% solve for intermediate and final good producers, prices
+
+x0=log(50); % guess pg
+prod = @(x)init_calib(x, MOM, parsHelp,list, polhelp);
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+[sol, fval, exitf] = fsolve(prod, x0, options);
+pg=exp(sol);
+[Y, pf, pe, pn, E, N, F, G, xg, xn, xf, C]=aux_calib_Prod(MOM, pg, parsHelp,list, polhelp);
 %% initial conditions
 
 %- choiceCALIB variabes
@@ -38,7 +46,7 @@ symms.laggs = [Ag_lag, Af_lag, An_lag];
 list.laggs= string(symms.laggs);
 laggs=[Ag0, Af0, An0];
 
-thetan   = 0.3;
+thetan   = 0.5;
 thetag   = 0.4;
 thetaf   = thetag*0.5;
 lambdaa  = 1; 
@@ -66,7 +74,7 @@ poll    = eval(symms.pol);
 [x0,ni, checkk]=init(Af, An, Ag, hhg, hhf, hlg, hlf, hh, hl, F, G,  gammalh, gammall,paramss, list, poll, laggs, symms.choiceCALIB);
 
 
-%% - transforming variables to unbounded variables
+% - transforming variables to unbounded variables
 %-- index for transformation 
 indexx.lab = boolean(zeros(size(list.choiceCALIB)));
 indexx.exp = boolean(zeros(size(list.choiceCALIB)));

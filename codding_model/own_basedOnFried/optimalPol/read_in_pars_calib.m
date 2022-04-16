@@ -1,24 +1,24 @@
 % params
-thetaa = paramss(list.params=='thetaa');
-sigmaa = paramss(list.params=='sigmaa');
-upbarH  = paramss(list.params=='upbarH');
-zl  = paramss(list.params=='zl');
-zh  = paramss(list.params=='zh');
-S      = paramss(list.params=='S');
-alphag = paramss(list.params=='alphag');
-alphaf = paramss(list.params=='alphaf');
-alphan = paramss(list.params=='alphan');
-eppsy = paramss(list.params=='eppsy');
-eppse = paramss(list.params=='eppse');
-deltay = paramss(list.params=='deltay');
-gammaa = paramss(list.params=='gammaa');
-etaa = paramss(list.params=='etaa');
-rhof = paramss(list.params=='rhof');
-rhog = paramss(list.params=='rhog');
-rhon = paramss(list.params=='rhon');
-phii = paramss(list.params=='phii');
+thetaa = paramss(list.paramsdir=='thetaa');
+sigmaa = paramss(list.paramsdir=='sigmaa');
+upbarH  = paramss(list.paramsdir=='upbarH');
+zl  = paramss(list.paramsdir=='zl');
+zh  = paramss(list.paramsdir=='zh');
+S      = paramss(list.paramsdir=='S');
+alphag = paramss(list.paramsdir=='alphag');
+alphaf = paramss(list.paramsdir=='alphaf');
+alphan = paramss(list.paramsdir=='alphan');
+eppsy = paramss(list.paramsdir=='eppsy');
+eppse = paramss(list.paramsdir=='eppse');
+deltay = paramss(list.paramsdir=='deltay');
+gammaa = paramss(list.paramsdir=='gammaa');
+etaa = paramss(list.paramsdir=='etaa');
+rhof = paramss(list.paramsdir=='rhof');
+rhog = paramss(list.paramsdir=='rhog');
+rhon = paramss(list.paramsdir=='rhon');
+phii = paramss(list.paramsdir=='phii');
 
 % policies
-taul    = poll(list.pol=='taul');
-taus    = poll(list.pol=='taus');
-tauf    = poll(list.pol=='tauf');
+taul    = poll(list.poldir=='taul');
+taus    = poll(list.poldir=='taus');
+tauf    = poll(list.poldir=='tauf');
