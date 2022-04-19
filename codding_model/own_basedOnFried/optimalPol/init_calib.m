@@ -3,12 +3,10 @@ function f = init_calib(x, MOM, params,list, pol)
 
 
 pg=exp(x(1));
-Y=exp(x(2));
 
-[~, ~, pe, ~, E]=aux_calib_Prod(MOM, pg, Y, C, params,list, pol);
-f(1) = E*pe/Y-MOM.EpeY;
-%- resource constraint
-C   = Y-xn-xf-xg;
+[ ~, pe, ~, EY]=aux_calib_Prod(MOM, pg, params,list, pol);
+f(1) = EY*pe-MOM.EpeY;
+
 end
 
 

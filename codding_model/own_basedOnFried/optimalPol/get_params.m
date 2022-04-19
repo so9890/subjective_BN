@@ -106,24 +106,25 @@ taul    = 0.181;
 taus    = 0; 
 tauf    = 0; 
 
-%- indirect calibration 
+%% - indirect calibration 
 %-- get moments
-MOM = calibration_moments(zh,zl);
+MOM = calibration_moments();
 % thetan   = 0.5;
 % thetag   = 0.6;
 % thetaf   = thetag*0.5;
 % Af0     = 1.877; % Fried 
 % Ag0     = 0.9196;
 % An0     = 1; 
+% lambdaa
 
 %% - emissions
-[deltaa, omegaa, Ems]= calibration_emissions(T, lengthh, MOM.F); 
-
+[deltaa, Ems]= calibration_emissions(T, lengthh); 
+% -omegaa follows in main calibration
 %% -others
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
 targets = eval(symms.targets);
-[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets);
+[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets);
 
 
 % save

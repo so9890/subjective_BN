@@ -16,6 +16,6 @@ function allo_trans=trans_allo_out(indexx, solution, params, list)
 allo_trans=solution;
 allo_trans(indexx.sqr)=solution(indexx.sqr).^2;
 allo_trans(indexx.exp)=exp(solution(indexx.exp));
-allo_trans(indexx.lab)=(params(list.params=='upbarH')-exp(solution(indexx.lab)));
+allo_trans(indexx.lab)=params(list.params=='upbarH')/(1+exp(solution(indexx.lab)));
 
 end

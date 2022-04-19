@@ -91,6 +91,13 @@ f(q) =
 q=q+1;
 f(q) = hhn/hln - MOM.hhnhln;
 
+%8 emissions 
+%--- relation production and emissions  
+
+q=q+1;
+f(q) = omegaa - emissionsUS2019/F; % share of dirty output which translates into emissions 
+                                   % => to match total greenhouse gas emissions in Gt
+
 %% MODEL equations laissez faire
 %8- household optimality (muu auxiliary variable determined above)
 q=q+1;
