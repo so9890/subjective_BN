@@ -14,7 +14,7 @@ An_lag  = exp(x(list.calib3=='An_lag'));
 sf      = exp(x(list.calib3=='sf'));
 sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
-
+ws      =   exp(x(list.calib3=='ws'));
 %-remaining variables (auxiliary)
 [hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
     =aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, el*eh, alphag, alphaf, alphan, thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
@@ -38,4 +38,5 @@ f(4) = wsf-wsg;
 f(5) = wsn-wsg;
 % market clearing scientists
 f(6) = -S+sf+sn+sg; 
+f(7) = ws-wsg;
 end

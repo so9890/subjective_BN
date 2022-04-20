@@ -67,7 +67,7 @@ list.pol      = string(symms.pol);
 
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, zh, zl , upbarH, alphaf, alphan, alphag,...
-                eppsy, eppse, deltay, ...
+                eppsy, eppse, S, ...
                 gammaa, etaa, rhof, rhon, rhog, phii];   
 list.paramsdir  = string(symms.paramsdir);
 
@@ -90,7 +90,7 @@ zl       = 1-zh;
 
 eppse    = 1.5;            % Fried
 eppsy    = 0.05;           % Fried
-deltay   = 1.44e-38;       % Fried
+%deltay   = 1.44e-38;       % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
 alphag   = 1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried

@@ -15,6 +15,15 @@
 % balanced budget, 
 % skills: match Consoli; or wage premia (then includes)
 
+%% initaliase stuff needed to check LF solves
+syms Ag_lag Af_lag An_lag real
+symms.laggs = [Ag_lag, Af_lag, An_lag];
+laggs=[Ag0, Af0, An0];
+list.laggs= string(symms.laggs);
+syms hhf hhg hhn hln hlf hlg C F G Af Ag An hl hh sf sg sn wh wl ws pg pn pe pf gammalh gammall real
+
+symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sf, sg, sn, wh, wl, ws, pg, pn, pe, pf, gammalh, gammall];
+list.choice  = string(symms.choice);
 
 %% solve for skill 
 
@@ -31,15 +40,6 @@ thetag =1/(1+exp(solNOM(1)));
 eleh   = exp(solNOM(2));
 hhgHH  = 1/(1+exp(solNOM(3))); % as targets for thetan and thetaf
 hlgHL  = 1/(1+exp(solNOM(4)));
-
-%% solve for intermediate and final good producers, prices
-
-% x0=log(50); % guess pg
-% prod = @(x)init_calib(x, MOM, parsHelp,list, polhelp);
-% options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-% [sol, fval, exitf] = fsolve(prod, x0, options);
-% pg=exp(sol);
-% [pf, pe, pn, EY, NY, FY, GY, xgY, xnY, xfY]=aux_calib_Prod(MOM, pg, parsHelp,list, polhelp);
 
 %% First calibration reduced model
 %- variables
@@ -102,18 +102,13 @@ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter',
 % [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 [solNOM, fval, exitf] = fsolve(modFF, sol, options);
 
-%%
-% sol2STR= load('sol2');
-% [sol2, fval, exitf] = fsolve(modFF, sol2STR.sol2, options);
-% save('sol204', 'sol')
-% save_sol=sol.*(1+rand(size(sol))*1e-3);
 allo_trans=trans_allo_out(indexx, solNOM, parsHelp, list.paramsdir);
 
-%% Second Calibration full model
+%% Second Calibration Research
 syms Af_lag Ag_lag An_lag ...
-     sf sg sn real
+     sf sg sn ws real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sf sg sn ];
+     sf sg sn ws ];
 list.calib3 =string(symms.calib3);
 
 %-variables: in baseperiod 2015-2019 relevant to solve 3rd calibration step
@@ -135,23 +130,16 @@ el     = allo_trans(list.calib2=='el');
 
 [hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
     =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
-% f= calibjoint(x, MOM, list, paramss, poll, thetag, eleh)
 %% remaining variables
 sg  = 0.2;
 sf  = 0.4;
 sn  = 0.4;
+ws = 1;
 Af_lag = An;
 An_lag = An;
 Ag_lag = Ag;
 x0= eval(symms.calib3);
 
-% - transforming variables to unbounded variables
-%-- index for transformation 
-%indexx3.exp = boolean(zeros(size(list.calib3)));
-%indexx3.exp(list.calib3~='thetan' & list.calib3~='thetaf' )=1;
-
-%-- transform
-%guess_trans=trans_guess(indexx3, x0, parsHelp, list.paramsdir);
 Af0=1;Ag0=1;An0=1; % for evaluation only;
 params = eval(symms.params);
 pol    = eval(symms.pol);
@@ -167,21 +155,80 @@ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter',
 [sol3, fval, exitf] = fsolve(modF3, log(x0), options);
 trans_sol3=exp(sol3);
 
+Af0 = trans_sol3(list.calib3=='Af_lag');
+Ag0 = trans_sol3(list.calib3=='Ag_lag');
+An0 = trans_sol3(list.calib3=='An_lag'); 
+%% save results
+params = eval(symms.params);
+% pol    = eval(symms.pol);
+% targets = eval(symms.targets);
+baseLF = eval(sort([symms.calib2, symms.calib3]));
+list.baseLF =  string(sort([symms.calib2, symms.calib3]));
 
+%% - test laissez faire
+%- preparation for laissez faire function
+gammalh = 0;
+gammall = 0;
+x0= eval(symms.choice);
+
+indexx.lab = boolean(zeros(size(list.choice)));
+indexx.exp = boolean(zeros(size(list.choice)));
+indexx.sqr = boolean(zeros(size(list.choice)));
+indexx.oneab = boolean(zeros(size(list.choice)));
+
+indexx.lab(list.choice=='hl'| list.choice=='hh')=1;
+indexx.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list.choice~='gammalh' )=1;
+indexx.sqr(list.choice=='gammall'| list.choice=='gammalh')=1;
+
+guess_trans=trans_guess(indexx, x0, params, list.params);
+
+f=laissez_faire(guess_trans, params, list, pol, laggs, targets);
+
+modLF = @(x)laissez_faire(x, params, list, pol, laggs, targets);
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,'Algorithm', 'levenberg-marquardt');%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+[sol, fval, exitf] = fsolve(modLF, solsav, options);
+%%
+solsav=sol;
 %% final calibration full model
 
 %- choiceCALIB variabes
-syms hhf hhg hhn hln hlf hlg C F G Af Ag An ...
-     hl hh sf sg sn wh wl ws pg pn pe pf gammalh gammall Y...
-     Af0 Ag0 An0 thetan thetaf lambdaa eh el omegaa real
+syms hhf hhg hhn C Af Ag An ...
+     sf sg sn ws pg gammalh gammall deltay ...
+     Af_lag Ag_lag An_lag thetan thetaf lambdaa el omegaa real
 
-symms.choiceCALIB = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, ...
-    Af, Ag, An, hl, hh,  sf, sg, sn, wh, wl, ws, pg, pn,...
-    pe, pf, gammalh, gammall, Y, Af0, Ag0, An0, thetan, thetaf,...
-    lambdaa, eh, el, omegaa];
+symms.choiceCALIB = [ hhf hhg hhn C Af Ag An ...
+     sf sg sn ws pg gammalh gammall deltay ...
+     Af_lag Ag_lag An_lag thetan thetaf lambdaa el omegaa];
 
 list.choiceCALIB  = string(symms.choiceCALIB);
 
+% initial guess => results from separate problems
+Af     = allo_trans(list.calib2=='Af');
+Ag     = allo_trans(list.calib2=='Ag');
+An     = allo_trans(list.calib2=='An'); 
+hhf    = allo_trans(list.calib2=='hhf');
+hhg    = allo_trans(list.calib2=='hhg');
+hhn    = allo_trans(list.calib2=='hhn');
+pg     = allo_trans(list.calib2=='pg'); 
+deltay = allo_trans(list.calib2=='deltay');
+thetaf = allo_trans(list.calib2=='thetaf');
+thetan = allo_trans(list.calib2=='thetan'); 
+% thetag=params(list.params=='thetag');
+omegaa = allo_trans(list.calib2=='omegaa'); 
+lambdaa = allo_trans(list.calib2=='lambdaa'); 
+C      = allo_trans(list.calib2=='C'); 
+el     = allo_trans(list.calib2=='el'); 
+Af_lag=trans_sol3(list.calib3=='Af_lag');
+Ag_lag=trans_sol3(list.calib3=='Ag_lag');
+An_lag=trans_sol3(list.calib3=='An_lag');
+sf=trans_sol3(list.calib3=='sf');
+sg=trans_sol3(list.calib3=='sg');
+sn=trans_sol3(list.calib3=='sn');
+ws = trans_sol3(list.calib3=='ws');
+gammalh = 0;
+gammall = 0;
+
+x0=eval(symms.choiceCALIB);
 % - transforming variables to unbounded variables
 %-- index for transformation 
 indexx.lab = boolean(zeros(size(list.choiceCALIB)));
@@ -189,19 +236,24 @@ indexx.exp = boolean(zeros(size(list.choiceCALIB)));
 indexx.sqr = boolean(zeros(size(list.choiceCALIB)));
 indexx.oneab = boolean(zeros(size(list.choiceCALIB)));
 
-indexx.lab(list.choiceCALIB=='hl'| list.choiceCALIB=='hh')=1;
-indexx.exp(list.choiceCALIB~='hl'& list.choiceCALIB~='hh' & list.choiceCALIB~='gammall'&...
-    list.choiceCALIB~='gammalh'& list.choiceCALIB~='thetan' & list.choiceCALIB~='thetag'& ...
+indexx.exp( list.choiceCALIB~='deltay'& list.choiceCALIB~='gammall'&...
+    list.choiceCALIB~='gammalh'& list.choiceCALIB~='thetan' &  ...
     list.choiceCALIB~='thetaf' )=1;
 indexx.sqr(list.choiceCALIB=='gammall'| list.choiceCALIB=='gammalh')=1;
-indexx.oneab(list.choiceCALIB=='thetan'| list.choiceCALIB=='thetag'| list.choiceCALIB=='thetaf') = 1;
+indexx.oneab(list.choiceCALIB=='deltay'|list.choiceCALIB=='thetan'| list.choiceCALIB=='thetaf') = 1;
 
 %-- transform
-guess_trans=trans_guess(indexx, x0, paramss, list);
+guess_trans=trans_guess(indexx, x0,parsHelp, list.paramsdir);
 
 %- test
-f=target_equ(guess_trans, MOM, paramss, list, poll);
+f=target_equ(guess_trans, MOM, parsHelp, list, polhelp, eleh, thetag);
 
+%% -solve
+modF4 = @(x)target_equ(x, MOM, parsHelp, list, polhelp, eleh, thetag);
+options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
+[sol4, fval, exitf] = fsolve(modF4, guess_trans, options);
+
+%%
 exitfl=0;
 count=0;
 countmax=100;
@@ -209,7 +261,6 @@ save=zeros(2,countmax);
 
 while exitfl<=0 && count<countmax
     count=count+1;
-    [solNOM, fval, exitf] = fsolve(modFF, guess_trans, options);
     guess_trans=solNOM;
     save(1,count)=max(fval);
     save(2,count)=exitf;

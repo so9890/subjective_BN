@@ -1,4 +1,4 @@
-function f=laissez_faire(x, params, list, pol, laggs, targets, Ems)
+function f=laissez_faire(x, params, list, pol, laggs, targets)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -9,11 +9,6 @@ read_in_pol;
 
 
 % choice variables
-% hhf, hhg, => replace hhn by market clearing
-% hlf, hlg  => hln as above
-% C, F, G : intermediate outputs
-% Af, Ag, An : technology
-% hl, hh
 
 %- transform variables directly instead of in code
  hhf    = exp(x(list.choice=='hhf'));
@@ -28,8 +23,8 @@ read_in_pol;
  Af     = exp(x(list.choice=='Af'));
  Ag     = exp(x(list.choice=='Ag'));
  An     = exp(x(list.choice=='An'));
- hl     = upbarH-exp(x(list.choice=='hl'));
- hh     = upbarH-exp(x(list.choice=='hh'));
+ hl     = upbarH/(1+exp(x(list.choice=='hl')));
+ hh     = upbarH/(1+exp(x(list.choice=='hh')));
  sf     = exp(x(list.choice=='sf'));
  sg     = exp(x(list.choice=='sg'));
  sn     = exp(x(list.choice=='sn'));
@@ -44,20 +39,23 @@ read_in_pol;
  pf     = exp(x(list.choice=='pf'));
 
 %- read in auxiliary equations
-auxiliary_stuff;
+[Af_lag, Ag_lag, An_lag, A_lag, Lg, Ln, Lf, muu, E, SGov, N, Y,wln, wlg, xn, xg, xf ] ...
+= auxiliary_stuff(params, list, pol, targets, laggs, C, hhg, hhf, hhn, hlg, hln, hlf, F, G, wh, hh, hl, wl, An,...
+                  Ag, Af, pn, pe, pf, pg);
+
 %% model equations
 q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 q=q+1;
-f(q) = hh^(sigmaa+taul)-(muu*lambdaa*(1-taul)*wh^(1-taul))+gammalh; %=> determines hh
+f(q) = hh^(sigmaa+taul)-(muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))+gammalh; %=> determines hh
 
 q=q+1;
-f(q) = hl^(sigmaa+taul)-(muu*lambdaa*(1-taul)*wl^(1-taul))+gammall; %=> determines hl
+f(q) = hl^(sigmaa+taul)-(muu*lambdaa*(1-taul)*(wl*el)^(1-taul))+gammall; %=> determines hl
 
 %3- budget
 q=q+1;
-f(q) = zh*lambdaa*(wh*hh)^(1-taul)+zl*lambdaa*(wl*hl)^(1-taul)+SGov-C; %=> determines C
+f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %=> determines C
 
 %4- output fossil
 q=q+1;
@@ -73,15 +71,22 @@ f(q)=  G-(Ag.*Lg).*(pg.*alphag).^(alphag./(1-alphag));
 
 %6- demand green scientists
 q=q+1;
-f(q)= (1-taus)*(Ag./Ag_lag.*ws)*rhog^etaa*sg-((gammaa*etaa*(A_lag./Ag_lag).^phii.*sg^(etaa).*pg.*G.*(1-alphag)));
-
-%7- wage scientists neutral
+f(q)=ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*F*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 
 q=q+1;
-f(q)= ws.*sn.*An*rhon^etaa- (etaa*gammaa*An_lag.^(1-phii).*A_lag.^phii.*sn.^etaa.*pn.*(1-alphan)*N); 
-
-% scientists fossil
+f(q)=ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(rhog^etaa.*(1-taus)*Ag./Ag_lag);
 q=q+1;
-f(q) =  ws*(rhof^etaa.*Af./Af_lag)*sf- (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa).*pf.*(1-tauf).*F*(1-alphaf)); 
+f(q)=ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan))./(rhon^etaa.*An./An_lag);
+
+% q=q+1;
+% f(q)= (1-taus)*(Ag./Ag_lag.*ws)*rhog^etaa*sg-((gammaa*etaa*(A_lag./Ag_lag).^phii.*sg^(etaa).*pg.*G.*(1-alphag)));
+% 
+% %7- wage scientists neutral
+% q=q+1;
+% f(q)= ws.*sn.*An*rhon^etaa- (etaa*gammaa*An_lag.^(1-phii).*A_lag.^phii.*sn.^etaa.*pn.*(1-alphan)*N); 
+% 
+% % scientists fossil
+% q=q+1;
+% f(q) =  ws*(rhof^etaa.*Af./Af_lag)*sf- (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa).*pf.*(1-tauf).*F*(1-alphaf)); 
 
 %8- LOM technology
 q=q+1;
@@ -118,14 +123,14 @@ f(q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf))
 q=q+1;
 f(q) = pe - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
 q=q+1;
-f(q) = pn - ((1-deltay^eppsy.*pe.^(1-eppsy))./(1-deltay)^(eppsy)).^(1/(1-eppsy)); % definition prices and numeraire
+f(q) = pn - ((1-deltay.*pe.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
 
 %- market clearing (consumption good=> numeraire)
 q=q+1;
-f(q) = zh*hh-(hhn+ hhf+hhg); % high skill market clearing
+f(q) = zh*hh*eh-(hhn + hhf+hhg); % high skill market clearing
 q=q+1;
-f(q) = zl*hl-(hln + hlf+hlg); % low skill market clearing
+f(q) = zl*hl*el-(hln + hlf+hlg); % low skill market clearing
 q=q+1;
 f(q) = S-(sn+sf+sg);
 
