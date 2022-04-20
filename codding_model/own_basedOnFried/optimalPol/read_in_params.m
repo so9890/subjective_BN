@@ -4,6 +4,8 @@ upbarH  = params(list.params=='upbarH');
 % upbarHh  = params(list.params=='upbarHh');
 zl  = params(list.params=='zl');
 zh  = params(list.params=='zh');
+el  = params(list.params=='el');
+eh  = params(list.params=='eh');
 
 %betaa = params(list.params=='betaa');
 S      = params(list.params=='S');

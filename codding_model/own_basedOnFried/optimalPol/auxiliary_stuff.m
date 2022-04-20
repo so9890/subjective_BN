@@ -47,7 +47,7 @@ E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 % auxiliary stuff depending on prices
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +zl*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*omegaa*pf.*F;
             % subsidies and profits and wages scientists cancel
 N       =  ((1-deltay)/deltay.*pe./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay.*E.^((eppsy-1)/eppsy)+(1-deltay).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 

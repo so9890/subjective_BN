@@ -1,5 +1,8 @@
 function f=target_equ(x, MOM, paramss, list, poll)
 
+% this function calibrates the model so that 
+% Alag refers to 2015-2019
+% A refers to 2020-2024
 % read in already calibrated parameters and policy
 read_in_pars_calib;
 
@@ -16,8 +19,8 @@ G      = exp(x(list.choiceCALIB=='G'));
 Af     = exp(x(list.choiceCALIB=='Af'));
 Ag     = exp(x(list.choiceCALIB=='Ag'));
 An     = exp(x(list.choiceCALIB=='An'));
-hl     = upbarH-exp(x(list.choiceCALIB=='hl'));
-hh     = upbarH-exp(x(list.choiceCALIB=='hh'));
+hl     = upbarH/(1+exp(x(list.choiceCALIB=='hl')));
+hh     = upbarH/(1+exp(x(list.choiceCALIB=='hh')));
 sf     = exp(x(list.choiceCALIB=='sf'));
 sg     = exp(x(list.choiceCALIB=='sg'));
 sn     = exp(x(list.choiceCALIB=='sn'));
@@ -30,11 +33,11 @@ pg     = exp(x(list.choiceCALIB=='pg'));
 pn     = exp(x(list.choiceCALIB=='pn'));
 pe     = exp(x(list.choiceCALIB=='pe'));
 pf     = exp(x(list.choiceCALIB=='pf'));
-Y     = exp(x(list.choiceCALIB=='Y'));
+Y      = exp(x(list.choiceCALIB=='Y'));
 % parameters to be matched
-thetaf = 1-exp(x(list.choiceCALIB=='thetaf'));
-thetan = 1-exp(x(list.choiceCALIB=='thetan'));
-thetag = 1-exp(x(list.choiceCALIB=='thetag'));
+thetan = 1/(1+exp(x(list.choiceCALIB=='thetan')));
+thetaf = 1/(1+exp(x(list.choiceCALIB=='thetaf')));
+
 
 lambdaa = exp(x(list.choiceCALIB=='lambdaa'));
 Af0     = exp(x(list.choiceCALIB=='Af0'));
