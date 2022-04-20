@@ -1,4 +1,4 @@
-function [deltaa, E_vec]= calibration_emissions(T, lengthh)
+function [deltaa, E_vec, MOM]= calibration_emissions(T, lengthh, MOM)
 
 % 2019 is base year
 % function calibrates emissions and targets
@@ -30,6 +30,6 @@ E_vec          = [repmat(targetUS-deltaa,1, (50-20)/lengthh-1), zeros(1,(T*lengt
                 % emissions in Gt (so far, globally)
                 % from t=1 to t=29 E=30; from t=30 (2050) to t=T E=0
 
-
+MOM.emissionsUS2019 = emissionsUS2019; 
 
 end

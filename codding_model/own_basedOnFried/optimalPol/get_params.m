@@ -21,6 +21,8 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      betaa...       % discount factor 5 years
      zh ...         % share high skilled
      zl ...         % share low skilled
+     eh ...         % effective labour productivity high skill
+     el ...         % effective productivity low skill
      upbarH...        % time endowment 
      alphaf ...     % machine share fossil
      alphan ...     % machine share neutral
@@ -52,7 +54,7 @@ syms taul ...       % income tax progressivity
      lambdaa ...    % scale tax scheme
      real
  
-symms.params = [sigmaa, thetaa, betaa, zh, zl , upbarH, alphaf, alphan, alphag,...
+symms.params = [sigmaa, thetaa, betaa, zh, zl, el, eh, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, S, Af0, An0, Ag0];   
 list.params  = string(symms.params);
@@ -118,13 +120,13 @@ MOM = calibration_moments();
 % lambdaa
 
 %% - emissions
-[deltaa, Ems]= calibration_emissions(T, lengthh); 
+[deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 
 % -omegaa follows in main calibration
 %% -others
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
-targets = eval(symms.targets);
-[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets);
+targetsHelp = eval(symms.targets(list.targets~='omegaa'));
+[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp);
 
 
 % save
