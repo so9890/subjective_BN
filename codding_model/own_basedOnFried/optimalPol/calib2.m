@@ -28,7 +28,7 @@ f(2) = E*pe/Y - MOM.EpeY; % market share Epe = determines deltay
 f(3) = Y - MOM.Y; % scales model!
 % need two more equations to determine thetaf and thetan: assume equal 
 f(4) = thetaf-thetan;
-f(5) = 
+f(5) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;
 f(6) = hl^(sigmaa+taul)-C^(-thetaa)*lambdaa*(1-taul)*(wl*el)^(1-taul);%=> el ; hh/hl - (MOM.whwl*eh/el)^((1-taul)/(taul+sigmaa)); % el
 f(7) = Y-xn-xf-xg-C;  %=> pg
 f(8) = (1-alphaf)*(1-tauf)*pf*FF-(hhf)*wh/thetaf; % labour demand => determines hhf

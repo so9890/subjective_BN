@@ -33,18 +33,22 @@ MOM.Debt  = 0; % assume balanced budget in baseyear
 
 %% skill distribution
 dist_total=dataskill{1:22,6};
-dist_greenlower=dataskill{1:22,13};
-dist_greenupper=dataskill{1:22,14};
+dist_greenlower=dataskill{1:22,15};
+%dist_greenupper=dataskill{1:22,14};
+dist_nongreen=dataskill{1:22,16};
+
 indic_skill=dataskill{1:22,10};
 green_total = dataskill{23,7};
 
 %- share high skill
 highskill_total = sum(dist_total(indic_skill==1)); 
 highskill_green = sum(dist_greenlower(indic_skill==1));  
-highskill_greenUp = sum(dist_greenupper(indic_skill==1));  
+%highskill_greenUp = sum(dist_greenupper(indic_skill==1));  
+highskill_nongreen = sum(dist_nongreen(indic_skill==1));  
 
 %-save moments
 MOM.hhg_hhghlg = highskill_green;
+MOM.sharehighnongreen = highskill_nongreen;
 MOM.hhehzh_total = highskill_total; 
 MOM.hg_total   = green_total;
 end

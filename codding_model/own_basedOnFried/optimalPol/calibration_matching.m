@@ -56,7 +56,7 @@ Af     = 1.877; % Fried
 Ag     = 0.9196;
 An     = 1; 
 thetan = 0.5;
-thetaf = thetag*0.5;
+thetaf = 0.5;
 lambdaa= 1;
 omegaa = 90;
 deltay = 0.3;
@@ -96,7 +96,7 @@ modFF = @(x)calib2(x, MOM, list, parsHelp, polhelp, thetag, eleh);
 
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
 [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
-%[solNOM, fval, exitf] = fsolve(modFF, sol, options);
+%[solNOM, fval, exitf] = fsolve(modFF, soll.sol(1:end-1), options);
 %save('solutionCalib2', 'sol');
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
 % [sol, fval, exitf] = fsolve(modFF, guess_trans, options);

@@ -25,7 +25,7 @@ hlghhg = (1-thetag)/thetag*MOM.whwl; % skill demand as fcn of wage ratio
 f(1) = MOM.hhg_hhghlg-(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag))); %=> determines thetag
 % total skill employment
 f(2) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hhhl/eleh); % => determines eleh
-
+f(3) = MOM.sharehighnongreen- continue here
 f(3)= hhgHH - MOM.hg_total*(1+(1-zh)/zh*eleh/hhhl)/(1+hlghhg); %=> determines share of high skill in green
 f(4)= hlgHL - MOM.hg_total*(1+zh/(1-zh)/eleh*hhhl)/(1+1/hlghhg); %=> determines share of high skill in green
 
