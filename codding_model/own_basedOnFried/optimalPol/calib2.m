@@ -26,13 +26,14 @@ deltay = 1/(1+exp(x(list.calib2=='deltay')));
 f(1) = MOM.FG-FF/G; %Af
 f(2) = E*pe/Y - MOM.EpeY; % market share Epe = determines deltay
 f(3) = Y - MOM.Y; % scales model!
-f(4) = wh-whg; 
-f(5) = whg-whn; %MOM.hg_total-((hhg+hlg)/(eh*zh*hh+el*zl*hl)); => labour share green conflicts with output targets!
+% need two more equations to determine thetaf and thetan: assume equal 
+%f(4) = wh-whg; 
+%f(5) = whg-whn; %MOM.hg_total-((hhg+hlg)/(eh*zh*hh+el*zl*hl)); => labour share green conflicts with output targets!
 f(6) = hl^(sigmaa+taul)-C^(-thetaa)*lambdaa*(1-taul)*(wl*el)^(1-taul);%=> el ; hh/hl - (MOM.whwl*eh/el)^((1-taul)/(taul+sigmaa)); % el
 f(7) = Y-xn-xf-xg-C;  %=> pg
-f(8) = (1-alphaf)*(1-tauf)*pf*FF-(hhf)/thetaf; % labour demand => determines hhf
-f(9) = (pn*N*(1-alphan))-hhn/thetan; % labour demand
-f(10) = (pg*G*(1-alphag))-hhg/(thetag); % labour demand
+f(8) = (1-alphaf)*(1-tauf)*pf*FF-(hhf)*wh/thetaf; % labour demand => determines hhf
+f(9) = (pn*N*(1-alphan))-hhn*wh/thetan; % labour demand
+f(10) = (pg*G*(1-alphag))-hhg*wh/(thetag); % labour demand
 % consumption: to ensure positive!
 f(11) = -C+ zh*wh*eh*hh+zl*wl*el*hl;
 f(12) = omegaa - MOM.emissionsUS2019/FF;
