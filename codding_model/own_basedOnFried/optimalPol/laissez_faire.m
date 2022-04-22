@@ -59,23 +59,23 @@ f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %=>
 
 %4- output fossil
 q=q+1;
-f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*(Af.*Lf) -(F); 
+f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*Af.*Lf -F; 
 
 %5- output neutral
 q=q+1;
-f(q) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); 
+f(q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan)); 
 
 %6- output green
 q=q+1;
-f(q)=  G-(Ag.*Lg).*(pg.*alphag).^(alphag./(1-alphag));
+f(q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %6- demand green scientists
 q=q+1;
-f(q)=ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*F*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 
+f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*F*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 
 q=q+1;
-f(q)=ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(rhog^etaa.*(1-taus)*Ag./Ag_lag);
+f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(rhog^etaa.*(1-taus)*Ag./Ag_lag);
 q=q+1;
-f(q)=ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan))./(rhon^etaa.*An./An_lag);
+f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan))./(rhon^etaa.*An./An_lag);
 
 % q=q+1;
 % f(q)= (1-taus)*(Ag./Ag_lag.*ws)*rhog^etaa*sg-((gammaa*etaa*(A_lag./Ag_lag).^phii.*sg^(etaa).*pg.*G.*(1-alphag)));

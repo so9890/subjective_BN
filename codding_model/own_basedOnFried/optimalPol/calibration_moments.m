@@ -51,4 +51,5 @@ MOM.hhg_hhghlg = highskill_green;
 MOM.sharehighnongreen = highskill_nongreen;
 MOM.hhehzh_total = highskill_total; 
 MOM.hg_total   = green_total;
+
 end

@@ -1,14 +1,21 @@
 
-function [Af_lag, Ag_lag, An_lag, A_lag, Lg, Ln, Lf, muu, E, SGov, N, Y,wln, wlg, wlf, xn, xg, xf ] ...
-= auxiliary_stuff(params, list, pol, targets, laggs, C, hhg, hhf, hhn, hlg, hln, hlf, F, G, wh, hh, hl, wl, An, Ag, Af, pn, pe, pf, pg)
-read_in_params;
-read_in_pol;
+function [A_lag, Lg, Ln, Lf, muu, E, SGov, N, Y,wln, wlg, wlf, xn, xg, xf ] ...
+= auxiliary_stuff(params, list, pol, targets,  C, hhg, hhf, hhn, hlg, hln, hlf, F, G, wh, hh, hl, wl, An, Ag, Af, pn, pe, pf, pg , Ag_lag, An_lag, Af_lag, indic, thetag)
+
+if indic.calib==1 
+    paramss=params;
+    poll=pol;
+    read_in_pars_calib;
+else
+    read_in_params;
+    read_in_pol;
+end 
 
 %- definitions
 %A       = max([Af, Ag, An]')'; 
-Af_lag  = laggs(list.laggs=='Af_lag'); % shift Af backwards
-Ag_lag  = laggs(list.laggs=='Ag_lag');
-An_lag  = laggs(list.laggs=='An_lag');
+% Af_lag  = laggs(list.laggs=='Af_lag'); % shift Af backwards
+% Ag_lag  = laggs(list.laggs=='Ag_lag');
+% An_lag  = laggs(list.laggs=='An_lag');
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 Lg      = hhg.^thetag.*hlg.^(1-thetag);

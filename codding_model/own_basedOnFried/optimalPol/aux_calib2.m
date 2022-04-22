@@ -5,8 +5,8 @@ hln =hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
 hlf =hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
 hlg =hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
 eh  = el/eleh;
-hh     = (hhn+hhf+hhg)/(zl*el); % high skill market clearing
-hl     = (hln+hlf+hlg)/(zh*eh); % low skill market clearing
+hh     = (hhn+hhf+hhg)/(zh*eh); % high skill market clearing
+hl     = (hln+hlf+hlg)/(zl*el); % low skill market clearing
 
 Lg = hhg.^thetag.*hlg.^(1-thetag);
 Ln = hhn.^thetan.*hln.^(1-thetan);

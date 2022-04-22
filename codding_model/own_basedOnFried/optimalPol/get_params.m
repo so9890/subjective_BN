@@ -126,7 +126,9 @@ MOM = calibration_moments();
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
 targetsHelp = eval(symms.targets(list.targets~='omegaa'));
-[An0, Af0, Ag0, thetaf, thetan, thetag, lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp);
+%%
+[An0, Af0, Ag0, thetaf, thetan, thetag, ...
+    lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp);
 
 
 % save

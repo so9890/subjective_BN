@@ -1,67 +1,85 @@
-function f=target_equ(x, params, list, pol, laggs, targets)
+function f=target_equ(x, MOM, paramss, list, poll, targets)
 % Model
 % equilibrium for one period!
 % takes policy as given
 
 %- read in policy and parameters
-read_in_params;
-read_in_pol;
-
+read_in_pars_calib;
 
 % choice variables
 
 %- transform variables directly instead of in code
- hhf    = exp(x(list.calibJoint=='hhf'));
- hhg    = exp(x(list.calibJoint=='hhg'));
- hhn    = exp(x(list.calibJoint=='hhn'));
- hln    = exp(x(list.calibJoint=='hln'));
- hlf    = exp(x(list.calibJoint=='hlf'));
- hlg    = exp(x(list.calibJoint=='hlg'));
- C      = exp(x(list.calibJoint=='C'));
- F      = exp(x(list.calibJoint=='F'));
- G      = exp(x(list.calibJoint=='G'));
- Af     = exp(x(list.calibJoint=='Af')); % technology 2015-2019
- Ag     = exp(x(list.calibJoint=='Ag'));
- An     = exp(x(list.calibJoint=='An'));
- hl     = upbarH/(1+exp(x(list.calibJoint=='hl')));
- hh     = upbarH/(1+exp(x(list.calibJoint=='hh')));
- sf     = exp(x(list.calibJoint=='sf'));
- sg     = exp(x(list.calibJoint=='sg'));
- sn     = exp(x(list.calibJoint=='sn'));
- gammalh = x(list.calibJoint=='gammalh')^2;
- gammall = x(list.calibJoint=='gammall')^2;
- wh     = exp(x(list.calibJoint=='wh'));
- wl     = exp(x(list.calibJoint=='wl'));
- ws     = exp(x(list.calibJoint=='ws'));
- pg     = exp(x(list.calibJoint=='pg'));
- pn     = exp(x(list.calibJoint=='pn'));
- pe     = exp(x(list.calibJoint=='pe'));
- pf     = exp(x(list.calibJoint=='pf'));
+ hhf    = exp(x(list.choiceCALIB=='hhf'));
+ hhg    = exp(x(list.choiceCALIB=='hhg'));
+ hhn    = exp(x(list.choiceCALIB=='hhn'));
+ hln    = exp(x(list.choiceCALIB=='hln'));
+ hlf    = exp(x(list.choiceCALIB=='hlf'));
+ hlg    = exp(x(list.choiceCALIB=='hlg'));
+ C      = exp(x(list.choiceCALIB=='C'));
+ F      = exp(x(list.choiceCALIB=='F'));
+ G      = exp(x(list.choiceCALIB=='G'));
+ Af     = exp(x(list.choiceCALIB=='Af')); % technology 2015-2019
+ Ag     = exp(x(list.choiceCALIB=='Ag'));
+ An     = exp(x(list.choiceCALIB=='An'));
+ hl     = upbarH/(1+exp(x(list.choiceCALIB=='hl')));
+ hh     = upbarH/(1+exp(x(list.choiceCALIB=='hh')));
+ sf     = exp(x(list.choiceCALIB=='sf'));
+ sg     = exp(x(list.choiceCALIB=='sg'));
+ sn     = exp(x(list.choiceCALIB=='sn'));
+ gammalh = x(list.choiceCALIB=='gammalh')^2;
+ gammall = x(list.choiceCALIB=='gammall')^2;
+ wh     = exp(x(list.choiceCALIB=='wh'));
+ wl     = exp(x(list.choiceCALIB=='wl'));
+ ws     = exp(x(list.choiceCALIB=='ws'));
+ pg     = exp(x(list.choiceCALIB=='pg'));
+ pn     = exp(x(list.choiceCALIB=='pn'));
+ pe     = exp(x(list.choiceCALIB=='pe'));
+ pf     = exp(x(list.choiceCALIB=='pf'));
 
 % parameters
-thetan = 1/(1+exp(x(list.calibJoint=='thetan')));
-thetaf = 1/(1+exp(x(list.calibJoint=='thetaf')));
-HAVE TO THINK ABOUT LAGEGD VARIABLES HERE
-Af_lag = exp(x(list.calibJoint=='Af_lag'));
-Ag_lag = exp(x(list.calibJoint=='Ag_lag'));
-An_lag = exp(x(list.calibJoint=='An_lag'));
-el     = exp(x(list.calibJoint=='el'));
-eh     = exp(x(list.calibJoint=='eh'));
-omegaa = exp(x(list.calibJoint=='omegaa'));
-lambdaa = exp(x(list.calibJoint=='lambdaa'));
-deltay = 1/(1+exp(x(list.calibJoint=='deltay')));
+thetan = 1/(1+exp(x(list.choiceCALIB=='thetan')));
+thetaf = 1/(1+exp(x(list.choiceCALIB=='thetaf')));
+thetag = 1/(1+exp(x(list.choiceCALIB=='thetag')));
+Af_lag = exp(x(list.choiceCALIB=='Af_lag'));
+Ag_lag = exp(x(list.choiceCALIB=='Ag_lag'));
+An_lag = exp(x(list.choiceCALIB=='An_lag'));
+el     = exp(x(list.choiceCALIB=='el'));
+eh     = exp(x(list.choiceCALIB=='eh'));
+omegaa = exp(x(list.choiceCALIB=='omegaa'));
+lambdaa = exp(x(list.choiceCALIB=='lambdaa'));
+deltay = 1/(1+exp(x(list.choiceCALIB=='deltay')));
 
-%- read in auxiliary equations
-[Af_lag, Ag_lag, An_lag, A_lag, Lg, Ln, Lf, muu, E, SGov, N, Y,wln, wlg, wlf, xn, xg, xf ] ...
-= auxiliary_stuff(params, list, pol, targets, laggs, C, hhg, hhf, hhn, hlg, hln, hlf, F, G, wh, hh, hl, wl, An,...
-                  Ag, Af, pn, pe, pf, pg);
+%% - read in auxiliary equations
+A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
+
+Lg      = hhg.^thetag.*hlg.^(1-thetag);
+Ln      = hhn.^thetan.*hln.^(1-thetan);
+Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
+muu      = C.^(-thetaa); % same equation in case thetaa == 1
+E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+
+SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
+            +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
+            +tauf.*omegaa*pf.*F;
+            % subsidies and profits and wages scientists cancel
+N       =  (1-deltay)/deltay.*(pe./pn)^(eppsy).*E; % demand N final good producers 
+Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
+
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan).*An); % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag).*Ag);
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
 %% equations
 q=0;
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %- calibration 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%1) perceived as if Af, Ag, An in 2015-2019 are parameters but from here back
+% out Af0, Ag0, An0
 q=q+1;
-f(q) = MOM.FG-F/G; %Af
+f(q) = MOM.FG-F/G; %Af => Af0 from LOM
 
 q=q+1;
 f(q) = E*pe/Y - MOM.EpeY; % market share Epe = determines deltay
@@ -70,22 +88,37 @@ q=q+1;
 f(q) = Y - MOM.Y; % scales model!
 
 q=q+1;
+f(q) = wh/wl-MOM.whwl; %=> determines Af as fcn of Ag
+
+%2) emissions
+q=q+1;
 f(q) = omegaa - MOM.emissionsUS2019/F;
 
+%3) government
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*eh*hh-lambdaa.*(wh.*eh*hh).^(1-taul))...
              +zl*(wl.*el*hl-lambdaa.*(wl.*el*hl).^(1-taul))+tauf.*pf.*omegaa*F;
+
+%4) skill shares
 q=q+1;
-f(q) = whg/wl-MOM.whwl; %=> determines Af as fcn of Ag
+f(q) = MOM.hhg_hhghlg-(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)));
 
 q=q+1;
-f(q) = Y-xg-xn-xf-C; % => thetan
+f(q) = thetaf-thetan;%Y-xg-xn-xf-C; % => pg
 
+q=q+1;
+f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;
+
+%5) effective skill productivity
 q=q+1;
 f(q) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hh/hl/el*eh); % => determines eleh
 
 q=q+1;
 f(q) = el-1; % => determines el
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%- model
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %1- household optimality (muu auxiliary variable determined above)
 q=q+1;
@@ -169,5 +202,5 @@ f(q)= gammalh*(hh-upbarH);
 q=q+1;
 f(q)= gammall*(hl-upbarH);
 
-fprintf('number equations: %d; number variables %d', q, length(list.calibJoint));
+%fprintf('number equations: %d; number variables %d', q, length(list.choiceCALIB));
 end
