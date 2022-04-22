@@ -1,12 +1,12 @@
 function [hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
 =aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf)
 
-hln =hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
-hlf =hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
-hlg =hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
+hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
+hlf = hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
+hlg = hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
 eh  = el/eleh;
-hh     = (hhn+hhf+hhg)/(zh*eh); % high skill market clearing
-hl     = (hln+hlf+hlg)/(zl*el); % low skill market clearing
+hh  = (hhn+hhf+hhg)/(zh*eh); % high skill market clearing
+hl  = (hln+hlf+hlg)/(zl*el); % low skill market clearing
 
 Lg = hhg.^thetag.*hlg.^(1-thetag);
 Ln = hhn.^thetan.*hln.^(1-thetan);
@@ -15,7 +15,6 @@ Lf = hhf.^thetaf.*hlf.^(1-thetaf);
 % prices
 pf=(1/MOM.FG)^(1/eppse)*pg;
 pe=(pf^(1-eppse)+pg^(1-eppse))^(1/(1-eppse)); 
-%pn=((1-deltay^eppsy.*pe.^(1-eppsy))./(1-deltay)^(eppsy)).^(1/(1-eppsy)); % definition prices and numeraire
 pn=((1-deltay.*pe.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
 

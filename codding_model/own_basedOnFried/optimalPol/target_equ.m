@@ -78,129 +78,172 @@ q=0;
 
 %1) perceived as if Af, Ag, An in 2015-2019 are parameters but from here back
 % out Af0, Ag0, An0
+%1
 q=q+1;
 f(q) = MOM.FG-F/G; %Af => Af0 from LOM
 
+%2
 q=q+1;
 f(q) = E*pe/Y - MOM.EpeY; % market share Epe = determines deltay
 
+%3
 q=q+1;
 f(q) = Y - MOM.Y; % scales model!
 
+%4
 q=q+1;
-f(q) = wh/wl-MOM.whwl; %=> determines Af as fcn of Ag
+f(q) = wh/wl-MOM.whwl; %=> determines Af as fcn of Ag; no determines ehel
 
 %2) emissions
+%5
 q=q+1;
 f(q) = omegaa - MOM.emissionsUS2019/F;
 
 %3) government
+%6
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*eh*hh-lambdaa.*(wh.*eh*hh).^(1-taul))...
-             +zl*(wl.*el*hl-lambdaa.*(wl.*el*hl).^(1-taul))+tauf.*pf.*omegaa*F;
+             +zl*(wl.*el*hl-lambdaa.*(wl.*el*hl).^(1-taul))...
+             +tauf.*pf.*omegaa*F;
 
 %4) skill shares
+%7
 q=q+1;
-f(q) = MOM.hhg_hhghlg-(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)));
+f(q) = MOM.hhg_hhghlg-hhg/(hhg+hlg);%(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)));
 
+%8
 q=q+1;
 f(q) = thetaf-thetan;%Y-xg-xn-xf-C; % => pg
 
+%9
 q=q+1;
 f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;
 
 %5) effective skill productivity
+%10
 q=q+1;
-f(q) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hh/hl/el*eh); % => determines eleh
+f(q) =  Ag/An-MOM.AgAn;
+%f(q) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hh/hl); % => determines eleh;
+%function in conflict with other shares
 
+%11 % income share labour versus machines 
 q=q+1;
-f(q) = el-1; % => determines el
+%f(q) = el-MOM.el; % => determines el
+f(q) = (zh*wh*eh*hh+zl*wl*el*hl+ws*(sf+sg+sn))/Y-MOM.labourshare;% => 0.66; el
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %- model
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %1- household optimality (muu auxiliary variable determined above)
+%12
 q=q+1;
 f(q) = hh^(sigmaa+taul)-(muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))+gammalh; %=> determines hh
 
+%13
 q=q+1;
 f(q) = hl^(sigmaa+taul)-(muu*lambdaa*(1-taul)*(wl*el)^(1-taul))+gammall; %=> determines hl
 
 %3- budget
+%14
 q=q+1;
 f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %=> determines C
 
 %4- output fossil
+%15
 q=q+1;
 f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*(Af.*Lf) -(F); 
 
 %5- output neutral
+%16
 q=q+1;
 f(q) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); 
 
 %6- output green
+%17
 q=q+1;
 f(q)=  G-(Ag.*Lg).*(pg.*alphag).^(alphag./(1-alphag));
 
 %6- demand green scientists
+%18
 q=q+1;
 f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*F*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 
+%19
 q=q+1;
 f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(rhog^etaa.*(1-taus)*Ag./Ag_lag);
+%20
 q=q+1;
 f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan))./(rhon^etaa.*An./An_lag);
 
 %8- LOM technology
+%21
 q=q+1;
 f(q) = An-An_lag.*(1+gammaa*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+%22
 q=q+1;
 f(q) = Af-Af_lag*(1+gammaa*(sf/rhof)^etaa*(A_lag/Af_lag)^phii);
+%23
 q=q+1;
 f(q) = Ag-Ag_lag*(1+gammaa*(sg/rhog)^etaa*(A_lag/Ag_lag)^phii);
  
 %9- optimality labour input producers
+
+%24
 q=q+1;
 f(q) = thetan*Ln.*wln-wh.*hhn;
+%25
 q=q+1;
 f(q)= thetag*Lg.*wlg-wh.*hhg;
+%26
 q=q+1;
 f(q)=(1-thetan)*Ln.*wln-wl.*hln;
+%27
 q=q+1;
 f(q)=(1-thetag)*Lg.*wlg-wl.*hlg;
 
 % prices and wages
 %- optimality energy producers
+
+%28
 q=q+1;
 f(q) = pf *F.^(1/eppse)- (G).^(1/eppse).*pg; 
 
 %- demand skill
-
+%29
 q=q+1;
-f(q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*wlf; % from optimality labour input producers fossil, and demand labour fossil
+f(q) = wh - thetaf*Lf/hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
+%30
 q=q+1;
-f(q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*wlf;
+f(q) = wl-(1-thetaf)*Lf/hlf*wlf;
 
 %- definitions prices
+%31
 q=q+1;
 f(q) = pe - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
+
+%32
 q=q+1;
 f(q) = pn - ((1-deltay.*pe.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
 
 %- market clearing (consumption good=> numeraire)
+%33
 q=q+1;
-f(q) = zh*hh*eh-(hhn + hhf+hhg); % high skill market clearing
+f(q) = zh*hh*eh-(hhn+hhf+hhg); % high skill market clearing
+%34
 q=q+1;
-f(q) = zl*hl*el-(hln + hlf+hlg); % low skill market clearing
+f(q) = zl*hl*el-(hln+hlf+hlg); % low skill market clearing
+%35
 q=q+1;
 f(q) = S-(sn+sf+sg);
 
 %13- Kuhn Tucker Labour supply
+%36
 q=q+1;
-f(q)= gammalh*(hh-upbarH);
+f(q)= gammalh*(upbarH-hh);
+%37
 q=q+1;
-f(q)= gammall*(hl-upbarH);
+f(q)= gammall*(upbarH-hl);
 
 %fprintf('number equations: %d; number variables %d', q, length(list.choiceCALIB));
 end

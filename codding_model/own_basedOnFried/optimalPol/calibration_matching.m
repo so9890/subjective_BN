@@ -63,22 +63,20 @@ thetan  = 1/(1+exp(solNOM(4)));
 %% First calibration reduced model
 
 %- initial values
-Af     = 1.877; % Fried 
+Af     = 87; % Fried 
 Ag     = 0.9196;
-An     = 1; 
+An     = 60; 
 % thetan = 0.5; FOLLOW FROM RESULTS ABOVES 
 % thetaf = 0.5;
 lambdaa= 1;
 omegaa = 90;
-deltay = 0.3;
-el     = 1; 
+deltay = 0.15;
+el     = 2; 
 hhf    =.02; % hhf
 hhg    =.04; % hhg
 hhn    =.04; % hhn
 pg     = 1; 
 C      = 1; 
-MOM.An = 1; 
-MOM.SGov=0; 
 
 x0= eval(symms.calib2);
 
@@ -100,16 +98,21 @@ guess_trans=trans_guess(indexx, x0, parsHelp, list.paramsdir);
 %- test
 tet=calib2(guess_trans, MOM, list, parsHelp, polhelp, thetag, eleh);
 
-%% - solving model
+% - solving model
 % saved old solution to be passed to model, not yet transformed back
 %soll=load('solutionCalib2.mat');
 modFF = @(x)calib2(x, MOM, list, parsHelp, polhelp, thetag, eleh);
 
-options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
-[sol, fval, exitf] = fsolve(modFF, guess_trans, options);
+solnew=guess_trans;
+options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
+[sol, fval, exitf] = fsolve(modFF,solnew , options);
+%%
+solnew=sol;
+options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
+[sol, fval, exitf] = fsolve(modFF,solnew , options);
 %[solNOM, fval, exitf] = fsolve(modFF, soll.sol(1:end-1), options);
 %save('solutionCalib2', 'sol');
-%options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
+%options = optimoptions('fsolve', 'TolFun', 10e-7, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
 % [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 %[solNOM, fval, exitf] = fsolve(modFF, sol, options);
 
@@ -146,7 +149,7 @@ sg  = 0.2;
 sf  = 0.4;
 sn  = 0.4;
 ws = 1;
-Af_lag = An;
+Af_lag = Af;
 An_lag = An;
 Ag_lag = Ag;
 x0= eval(symms.calib3);
@@ -208,7 +211,6 @@ thetag = params(list.params=='thetag');
 omegaa = allo_trans(list.calib2=='omegaa'); 
 lambdaa = allo_trans(list.calib2=='lambdaa'); 
 el     = allo_trans(list.calib2=='el'); 
-%eh = el/eleh; 
 Af_lag=trans_sol3(list.calib3=='Af_lag');
 Ag_lag=trans_sol3(list.calib3=='Ag_lag');
 An_lag=trans_sol3(list.calib3=='An_lag');
@@ -228,6 +230,7 @@ ws = trans_sol3(list.calib3=='ws');
 pg     = allo_trans(list.calib2=='pg'); 
 gammalh = 0;
 gammall = 0;
+MOM.AgAn = 0.9;
 [hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
     =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan, ...
                 thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
@@ -258,13 +261,65 @@ f=target_equ(guess_trans, MOM, parsHelp, list, polhelp, targets);
 
 %% -solve
 modF4 = @(x)target_equ(x, MOM, parsHelp, list, polhelp, targets);
-options = optimoptions('fsolve', 'TolFun', 10e-7, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
-[sol4, fval, exitf] = fsolve(modF4, guess_trans, options);
-[sol4, fval, exitf] = fsolve(modF4, soll, options);
+% options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
+% [sol4, fval, exitf] = fsolve(modF4, guess_trans, options);
 
+soll=guess_trans;
+count=0;
+exitf=-1;
+while exitf<=0 && count<=10
+    [sol4, fval, exitf] = fsolve(modF4, soll, options);
+    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');
+    count=count+1;
+    soll=sol4;
+end
+
+count=0;
+tolfun= 10e-5; % function tolerance increase
+while count<=10 
+    if exitf>0 % that is: the code has solved
+        tolfun= tolfun/10;
+    else
+        tolfun=tolfun*10;
+    end
+    soll=sol4;
+    options = optimoptions('fsolve', 'TolFun', tolfun, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');
+    [sol4, fval, exitf] = fsolve(modF4, soll, options);
+    if exitf>=0 % bcs it solves at some point
+    count=count+1;
+    end
+end
+%save final round results
 soll=sol4;
-save('soll', 'soll');
+%tolfun=tolfun*10;
+options = optimoptions('fsolve', 'TolFun', tolfun, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');
+[sol4, fval, exitf] = fsolve(modF4, soll, options);
+fprintf('full calibration solved at tolfun%d with exitflag %d', tolfun, exitf); 
+
+%save('soll', 'sol4');
+
 %% save results
+transsol=trans_allo_out(indexx, sol4, parsHelp, list.paramsdir);
+
+[list.choiceCALIB; transsol]'
+
+
+thetag=transsol(list.choiceCALIB=='thetag');
+thetan=transsol(list.choiceCALIB=='thetan');
+thetaf=transsol(list.choiceCALIB=='thetaf');
+Ag0=transsol(list.choiceCALIB=='Ag_lag')
+An0=transsol(list.choiceCALIB=='An_lag')
+Af0=transsol(list.choiceCALIB=='Af_lag')
+Ag=transsol(list.choiceCALIB=='Ag')
+An=transsol(list.choiceCALIB=='An')
+Af=transsol(list.choiceCALIB=='Af')
+hhg=transsol(list.choiceCALIB=='hhg')
+hhn=transsol(list.choiceCALIB=='hhn')
+hhf=transsol(list.choiceCALIB=='hhf')
+G=transsol(list.choiceCALIB=='G')
+F=transsol(list.choiceCALIB=='F')
+
+
 params = eval(symms.params);
 % pol    = eval(symms.pol);
 % targets = eval(symms.targets);

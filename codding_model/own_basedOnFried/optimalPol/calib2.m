@@ -29,12 +29,13 @@ f(3) = Y - MOM.Y; % scales model!=> Af
 % need two more equations to determine thetaf and thetan: assume equal 
 f(4) = thetaf-thetan;
 f(5) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;
-f(6) = el-10; %  Income share low skill already determined; scale!
+f(6) = (xn+xg+xf)/Y-(1-MOM.labourshare);% income share labour versus machines => 0.66; el
+%f(6) = el-MOM.el; %  Income share low skill already determined; scale!
 f(7) = Y-xn-xf-xg-C;  %=> pg
 f(8) = (1-alphaf)*(1-tauf)*pf*FF-(hhf)*wh/thetaf; % labour demand => determines hhf
 f(9) = (pn*N*(1-alphan))-hhn*wh/thetan; % labour demand: hhn
 f(10) = (pg*G*(1-alphag))-hhg*wh/thetag; % labour demand: hhg
-% consumption: to ensure positive!
+% consumption: to ensure positive! (includes Gov spending)
 f(11) = -C+ zh*wh*eh*hh+zl*wl*el*hl; % => C
 f(12) = omegaa - MOM.emissionsUS2019/FF; %=> omegaa
 % GOV budget

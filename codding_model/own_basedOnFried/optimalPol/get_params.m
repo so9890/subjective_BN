@@ -84,7 +84,7 @@ else
 end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
-upbarH     = 1;
+upbarH     = 10;
 zh       = 0.3169;       % Slavik paper! to be updated
 zl       = 1-zh; 
 

@@ -23,7 +23,7 @@ hhhl   = (MOM.whwl/eleh)^((1-taul)/(taul+sigmaa)); % skill supply as fcn of wage
 % share high skill in green sector
 f(1) = MOM.hhg_hhghlg-(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag))); %=> determines thetag
 % total skill employment
-f(2) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hhhl/eleh); % => determines eleh
+f(2) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hhhl); % => determines eleh
 f(3) = MOM.sharehighnongreen- 1/(1+(1-thetan)/thetan/MOM.whwl); % assuming equal shares
 f(4) = thetaf-thetan;
 % f(3)= hhgHH - MOM.hg_total*(1+1/HHHL)/(1+hlghhg); %=> determines share of high skill in green

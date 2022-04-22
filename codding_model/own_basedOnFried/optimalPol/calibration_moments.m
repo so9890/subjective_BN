@@ -52,4 +52,6 @@ MOM.sharehighnongreen = highskill_nongreen;
 MOM.hhehzh_total = highskill_total; 
 MOM.hg_total   = green_total;
 
+% to pin down effective labour productivity
+MOM.labourshare=1-1/3;
 end
