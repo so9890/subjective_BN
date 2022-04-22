@@ -16,8 +16,8 @@ sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
 ws      =   exp(x(list.calib3=='ws'));
 %-remaining variables (auxiliary)
-[hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
-    =aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, el*eh, alphag, alphaf, alphan, thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
+[hln, hlf, hlg, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+    =aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan, thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
 A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 wsf = (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*FF*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 

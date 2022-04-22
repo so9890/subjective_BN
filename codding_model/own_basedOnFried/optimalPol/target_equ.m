@@ -66,9 +66,13 @@ SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
 N       =  (1-deltay)/deltay.*(pe./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
 
-wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan).*An); % price labour input neutral sector
-wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag).*Ag);
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+
+xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
+xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
+xg      = (alphag*pg).^(1/(1-alphag)).*Lg*Ag;
 
 %% equations
 q=0;
@@ -81,6 +85,7 @@ q=0;
 %1
 q=q+1;
 f(q) = MOM.FG-F/G; %Af => Af0 from LOM
+%f(q) = F/E-0.8;
 
 %2
 q=q+1;
@@ -88,11 +93,12 @@ f(q) = E*pe/Y - MOM.EpeY; % market share Epe = determines deltay
 
 %3
 q=q+1;
+%q=q+1;
 f(q) = Y - MOM.Y; % scales model!
 
 %4
 q=q+1;
-f(q) = wh/wl-MOM.whwl; %=> determines Af as fcn of Ag; no determines ehel
+f(q) = wh/wl-MOM.whwl; %=> determines ehel
 
 %2) emissions
 %5
@@ -113,7 +119,7 @@ f(q) = MOM.hhg_hhghlg-hhg/(hhg+hlg);%(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)))
 
 %8
 q=q+1;
-f(q) = thetaf-thetan;%Y-xg-xn-xf-C; % => pg
+f(q) = Y-xg-xn-xf-C; % => pg 
 
 %9
 q=q+1;
@@ -122,14 +128,17 @@ f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;
 %5) effective skill productivity
 %10
 q=q+1;
-f(q) =  Ag/An-MOM.AgAn;
-%f(q) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hh/hl); % => determines eleh;
+f(q) =  thetaf-thetan;%
+%f(q) = MOM.hhehzh_total-1/(1+zh/(1-zh)*hh/hl*eh/el); % => determines eleh;
 %function in conflict with other shares
 
 %11 % income share labour versus machines 
 q=q+1;
-%f(q) = el-MOM.el; % => determines el
-f(q) = (zh*wh*eh*hh+zl*wl*el*hl+ws*(sf+sg+sn))/Y-MOM.labourshare;% => 0.66; el
+f(q) = Ag/An-MOM.AgAn;%MOM.el; % => determines el
+%f(q) = wlg/wln-MOM.wlgwln;%MOM.el; % => determines el
+
+% f(q) = (zh*wh*eh*hh+zl*wl*el*hl+ws*(sf+sg+sn))/Y-MOM.labourshare;% => 0.66; el
+%f(q) = C/Y-MOM.labourshare;% => 0.66; el
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %- model

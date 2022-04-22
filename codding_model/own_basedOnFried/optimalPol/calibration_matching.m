@@ -25,10 +25,10 @@ symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sf, 
 list.choice  = string(symms.choice);
 
 %- addiitonal symbolic variables for first calibration routine
-syms thetan thetaf el omegaa lambdaa deltay real
+syms thetan thetaf el eh omegaa lambdaa deltay real
 
 symms.calib2 = [hhf hhg hhn C Af Ag An ...
-     pg thetan thetaf el omegaa lambdaa deltay];
+     pg thetan thetaf el eh omegaa lambdaa deltay];
 
 list.calib2  = string(symms.calib2);
 
@@ -71,7 +71,8 @@ An     = 60;
 lambdaa= 1;
 omegaa = 90;
 deltay = 0.15;
-el     = 2; 
+el     = 0.5; 
+eh     = 0.5; 
 hhf    =.02; % hhf
 hhg    =.04; % hhg
 hhn    =.04; % hhn
@@ -104,11 +105,11 @@ tet=calib2(guess_trans, MOM, list, parsHelp, polhelp, thetag, eleh);
 modFF = @(x)calib2(x, MOM, list, parsHelp, polhelp, thetag, eleh);
 
 solnew=guess_trans;
-options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
 [sol, fval, exitf] = fsolve(modFF,solnew , options);
 %%
 solnew=sol;
-options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e5, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%'trust-region-dogleg');%'levenberg-marquardt');%, );%, );%, );%, 'Display', 'Iter', )
 [sol, fval, exitf] = fsolve(modFF,solnew , options);
 %[solNOM, fval, exitf] = fsolve(modFF, soll.sol(1:end-1), options);
 %save('solutionCalib2', 'sol');
@@ -140,10 +141,10 @@ omegaa     = allo_trans(list.calib2=='omegaa');
 lambdaa     = allo_trans(list.calib2=='lambdaa'); 
 C     = allo_trans(list.calib2=='C'); 
 el     = allo_trans(list.calib2=='el'); 
+eh     = allo_trans(list.calib2=='eh');
 
-
-[hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
-    =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
+[hln, hlf, hlg,  hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+    =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
 %% remaining variables
 sg  = 0.2;
 sf  = 0.4;
@@ -211,6 +212,7 @@ thetag = params(list.params=='thetag');
 omegaa = allo_trans(list.calib2=='omegaa'); 
 lambdaa = allo_trans(list.calib2=='lambdaa'); 
 el     = allo_trans(list.calib2=='el'); 
+eh     = allo_trans(list.calib2=='eh'); 
 Af_lag=trans_sol3(list.calib3=='Af_lag');
 Ag_lag=trans_sol3(list.calib3=='Ag_lag');
 An_lag=trans_sol3(list.calib3=='An_lag');
@@ -230,11 +232,12 @@ ws = trans_sol3(list.calib3=='ws');
 pg     = allo_trans(list.calib2=='pg'); 
 gammalh = 0;
 gammall = 0;
-MOM.AgAn = 0.9;
-[hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
-    =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan, ...
+
+[hln, hlf, hlg, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+    =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan, ...
                 thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
-            
+hh=hh/10;
+hl=hl/10;
 x0=eval(symms.choiceCALIB);
 
 % - transforming variables to unbounded variables
@@ -292,7 +295,7 @@ end
 %save final round results
 soll=sol4;
 %tolfun=tolfun*10;
-options = optimoptions('fsolve', 'TolFun', tolfun, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');
+options = optimoptions('fsolve', 'TolFun', tolfun*10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');
 [sol4, fval, exitf] = fsolve(modF4, soll, options);
 fprintf('full calibration solved at tolfun%d with exitflag %d', tolfun, exitf); 
 
@@ -318,7 +321,10 @@ hhn=transsol(list.choiceCALIB=='hhn')
 hhf=transsol(list.choiceCALIB=='hhf')
 G=transsol(list.choiceCALIB=='G')
 F=transsol(list.choiceCALIB=='F')
+el=transsol(list.choiceCALIB=='el')
 
+[hln, hlf, hlg, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+=aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf)
 
 params = eval(symms.params);
 % pol    = eval(symms.pol);

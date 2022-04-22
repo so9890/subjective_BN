@@ -84,7 +84,7 @@ else
 end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
-upbarH     = 10;
+upbarH     = 1;
 zh       = 0.3169;       % Slavik paper! to be updated
 zl       = 1-zh; 
 
@@ -111,6 +111,8 @@ tauf    = 0;
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
+MOM.wlgwln = 1.5; 
+MOM.AgAn = 1.5;
 % thetan   = 0.5;
 % thetag   = 0.6;
 % thetaf   = thetag*0.5;

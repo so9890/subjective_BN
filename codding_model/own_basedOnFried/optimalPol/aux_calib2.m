@@ -1,10 +1,10 @@
-function [hln, hlf, hlg, eh, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
-=aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eleh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf)
+function [hln, hlf, hlg,  hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+=aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf)
 
 hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
 hlf = hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
 hlg = hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
-eh  = el/eleh;
+%eh  = el/eleh;
 hh  = (hhn+hhf+hhg)/(zh*eh); % high skill market clearing
 hl  = (hln+hlf+hlg)/(zl*el); % low skill market clearing
 
