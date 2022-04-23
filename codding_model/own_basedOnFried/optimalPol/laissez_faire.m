@@ -2,14 +2,17 @@ function f=laissez_faire(x, params, list, pol, laggs, targets)
 % Model
 % equilibrium for one period!
 % takes policy as given
-
+% A_lag is except for the initial condition is 
 %- read in policy and parameters
 read_in_params;
 read_in_pol;
 
+%- initial condition
+Af_lag=laggs(list.laggs=='Af_lag');
+An_lag=laggs(list.laggs=='An_lag');
+Ag_lag=laggs(list.laggs=='Ag_lag');
 
 % choice variables
-
 %- transform variables directly instead of in code
  hhf    = exp(x(list.choice=='hhf'));
  hhg    = exp(x(list.choice=='hhg'));
@@ -38,10 +41,30 @@ read_in_pol;
  pe     = exp(x(list.choice=='pe'));
  pf     = exp(x(list.choice=='pf'));
 
-%- read in auxiliary equations
-[Af_lag, Ag_lag, An_lag, A_lag, Lg, Ln, Lf, muu, E, SGov, N, Y,wln, wlg, xn, xg, xf ] ...
-= auxiliary_stuff(params, list, pol, targets, laggs, C, hhg, hhf, hhn, hlg, hln, hlf, F, G, wh, hh, hl, wl, An,...
-                  Ag, Af, pn, pe, pf, pg);
+%% - read in auxiliary equations
+A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
+
+Lg      = hhg.^thetag.*hlg.^(1-thetag);
+Ln      = hhn.^thetan.*hln.^(1-thetan);
+Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
+muu      = C.^(-thetaa); % same equation in case thetaa == 1
+E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+
+SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
+            +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
+            +tauf.*omegaa*pf.*F;
+            % subsidies and profits and wages scientists cancel
+N       =  (1-deltay)/deltay.*(pe./pn)^(eppsy).*E; % demand N final good producers 
+Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
+
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+
+xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
+xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
+xg      = (alphag*pg).^(1/(1-alphag)).*Lg*Ag;
 
 %% model equations
 q=0;
@@ -69,9 +92,10 @@ f(q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan));
 q=q+1;
 f(q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
-%6- demand green scientists
+%7- demand green scientists
 q=q+1;
 f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sf.^(etaa-1).*pf.*(1-tauf).*F*(1-alphaf))./(rhof^etaa.*Af./Af_lag); 
+%8
 q=q+1;
 f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(rhog^etaa.*(1-taus)*Ag./Ag_lag);
 q=q+1;

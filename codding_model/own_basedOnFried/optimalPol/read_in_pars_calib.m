@@ -10,7 +10,7 @@ alphaf = paramss(list.paramsdir=='alphaf');
 alphan = paramss(list.paramsdir=='alphan');
 eppsy = paramss(list.paramsdir=='eppsy');
 eppse = paramss(list.paramsdir=='eppse');
-deltay = paramss(list.paramsdir=='deltay');
+%deltay = paramss(list.paramsdir=='deltay');
 gammaa = paramss(list.paramsdir=='gammaa');
 etaa = paramss(list.paramsdir=='etaa');
 rhof = paramss(list.paramsdir=='rhof');

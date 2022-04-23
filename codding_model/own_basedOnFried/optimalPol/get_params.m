@@ -113,6 +113,7 @@ tauf    = 0;
 MOM = calibration_moments();
 MOM.wlgwln = 1.5; 
 MOM.AgAn = 1.5;
+MOM.lowskill = 0.4;
 % thetan   = 0.5;
 % thetag   = 0.6;
 % thetaf   = thetag*0.5;

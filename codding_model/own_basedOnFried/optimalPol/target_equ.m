@@ -1,4 +1,4 @@
-function f=target_equ(x, MOM, paramss, list, poll, targets)
+function f=target_equ(x, MOM, paramss, list, poll, targets, thetag)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -39,7 +39,7 @@ read_in_pars_calib;
 % parameters
 thetan = 1/(1+exp(x(list.choiceCALIB=='thetan')));
 thetaf = 1/(1+exp(x(list.choiceCALIB=='thetaf')));
-thetag = 1/(1+exp(x(list.choiceCALIB=='thetag')));
+%thetag = 1/(1+exp(x(list.choiceCALIB=='thetag')));
 Af_lag = exp(x(list.choiceCALIB=='Af_lag'));
 Ag_lag = exp(x(list.choiceCALIB=='Ag_lag'));
 An_lag = exp(x(list.choiceCALIB=='An_lag'));
@@ -107,19 +107,19 @@ f(q) = omegaa - MOM.emissionsUS2019/F;
 
 %3) government
 %6
-q=q+1;
-f(q) = - MOM.Debt + zh*(wh.*eh*hh-lambdaa.*(wh.*eh*hh).^(1-taul))...
+ q=q+1;
+ f(q) = - MOM.Debt + zh*(wh.*eh*hh-lambdaa.*(wh.*eh*hh).^(1-taul))...
              +zl*(wl.*el*hl-lambdaa.*(wl.*el*hl).^(1-taul))...
              +tauf.*pf.*omegaa*F;
 
 %4) skill shares
 %7
-q=q+1;
-f(q) = MOM.hhg_hhghlg-hhg/(hhg+hlg);%(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)));
+%q=q+1;
+%f(q) = MOM.hhg_hhghlg-hhg/(hhg+hlg);%(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag)));
 
 %8
 q=q+1;
-f(q) = Y-xg-xn-xf-C; % => pg 
+f(q) = Y-xg-xn-xf-C; 
 
 %9
 q=q+1;
@@ -134,10 +134,11 @@ f(q) =  thetaf-thetan;%
 
 %11 % income share labour versus machines 
 q=q+1;
-f(q) = Ag/An-MOM.AgAn;%MOM.el; % => determines el
-%f(q) = wlg/wln-MOM.wlgwln;%MOM.el; % => determines el
+%f(q) =Ag/An-MOM.AgAn;%MOM.el; % => determines e
+%f(q) = wlg/wln-MOM.wlgwln;%MOM.el; % => determines el/ FOLLOWS from
+%moments on wh wl thetan,g,f
 
-% f(q) = (zh*wh*eh*hh+zl*wl*el*hl+ws*(sf+sg+sn))/Y-MOM.labourshare;% => 0.66; el
+%f(q) = (zh*wh*eh*hh+zl*wl*el*hl+ws*(sf+sg+sn))/Y-MOM.labourshare;% => 0.66; el
 %f(q) = C/Y-MOM.labourshare;% => 0.66; el
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -161,12 +162,12 @@ f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %=>
 %4- output fossil
 %15
 q=q+1;
-f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*(Af.*Lf) -(F); 
+f(q) = ((1-tauf)*alphaf*pf).^(alphaf/(1-alphaf))*Af.*Lf -F; 
 
 %5- output neutral
 %16
 q=q+1;
-f(q) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); 
+f(q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan)); 
 
 %6- output green
 %17
@@ -210,20 +211,20 @@ f(q)=(1-thetan)*Ln.*wln-wl.*hln;
 q=q+1;
 f(q)=(1-thetag)*Lg.*wlg-wl.*hlg;
 
+%28
+q=q+1;
+f(q) = wh - thetaf*Lf/hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
+%29
+q=q+1;
+f(q) = wl-(1-thetaf)*Lf/hlf*wlf;
+
 % prices and wages
 %- optimality energy producers
 
-%28
-q=q+1;
-f(q) = pf *F.^(1/eppse)- (G).^(1/eppse).*pg; 
-
-%- demand skill
-%29
-q=q+1;
-f(q) = wh - thetaf*Lf/hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
 %30
 q=q+1;
-f(q) = wl-(1-thetaf)*Lf/hlf*wlf;
+f(q) = pf *F.^(1/eppse)- G.^(1/eppse).*pg; 
+
 
 %- definitions prices
 %31
