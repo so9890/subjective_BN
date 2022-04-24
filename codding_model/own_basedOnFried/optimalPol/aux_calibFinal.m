@@ -1,6 +1,6 @@
-function [muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+function [muu, pf, Yout, pe, E, N, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
    SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll)
+  wh, wl] = aux_calibFinal(pn, hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, pg, hhn, hhf, hhg, MOM, list, paramss, poll)
 % parameters
 read_in_pars_calib;
 
@@ -8,20 +8,17 @@ read_in_pars_calib;
 %1) perceived as if Af, Ag, An in 2015-2019 are parameters but from here back
 % out Af0, Ag0, An0
 %1
-
 % final output and demand final sector
     Y   = MOM.Y; 
 
 pf  = MOM.FG^(-1/eppse)*pg; % optimality energy
 pe  = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); % definition prices
-pn  = ((1-deltay.*pe.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
-Etarg   = MOM.EpeY*Y/pe; 
-N   = (pe/pn)^eppsy*(1-deltay)/deltay*Etarg; % optimality final good
-Eopt = ((MOM.Y^((eppsy-1)/eppsy)-(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))/deltay^(1/eppsy))^((eppsy)/(eppsy-1)); 
-    E   = Eopt;
+E   = MOM.EpeY*Y/pe; 
+N   = (pe/pn)^eppsy*(1-deltay)/deltay*E; % optimality final good
 F   = E* (1+(1/MOM.FG)^((eppse-1)/eppse))^(-eppse/(eppse-1)); % uses optimality energy producers
     G   = F/MOM.FG; 
-Ft= 
+Yout = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^((eppsy)/(eppsy-1)); 
+
 % omissions
 omegaa = MOM.emissionsUS2019/F;
 
@@ -57,7 +54,7 @@ wln = LnwlnD/Ln; % demand= supply
 wlg = LgwlgD/Lg;
 wlf = LfwlfD/Lf;
 
-wl = (1-thetag)*Lg*wlg/hlg; 
+wl = wlg/(MOM.whwl*thetag+(1-thetag));  %(1-thetag)*Lg*wlg/hlg; superfluous! instead use definition wlf 
 wh = MOM.whwl*wl;
 
 % low skill demand => determined by optimal divide and high skill demand

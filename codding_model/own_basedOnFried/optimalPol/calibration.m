@@ -15,6 +15,8 @@ read_in_pars_calib;
 
 % variables
 pg = exp(x(list.calib=='pg'));
+pn = exp(x(list.calib=='pn'));
+
 hhn = exp(x(list.calib=='hhn'));
 hhg = exp(x(list.calib=='hhg'));
 hhf = exp(x(list.calib=='hhf'));
@@ -46,10 +48,9 @@ deltay = 1/(1+exp(x(list.calib=='deltay')));
 %- auxiliary variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+[muu, pf, Yout, pe, E, N, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
    SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll); 
-
+  wh, wl] = aux_calibFinal(pn, hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, pg, hhn, hhf, hhg, MOM, list, paramss, poll);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % equations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -57,7 +58,7 @@ deltay = 1/(1+exp(x(list.calib=='deltay')));
 q=0;
 %1)
 q=q+1;
-f(q)= Etarg - Eopt; % deltay
+f(q)= MOM.Y-Yout; % deltay
 
 %2) Government := > lambdaa
 q=q+1;
@@ -67,7 +68,7 @@ f(q) = - MOM.Debt + zh*(wh.*eh*hhD-lambdaa.*(wh.*eh*hhD).^(1-taul))...
 %- high skill share
 %3) thetag
 q=q+1;
-f(q) = MOM.hhg_hhghlg-(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag))); %=> thetag
+f(q) = MOM.hhg_hhghlg-hhg/(hhg+hlg); %(1-(1-thetag)/(thetag/MOM.whwl+(1-thetag))); %=> thetag
 %4)
 q=q+1;
 f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;%=> thetan, thetaf
@@ -79,13 +80,17 @@ f(q) =  thetaf-thetan;%=> thetan, thetaf
 % => ensures high skill market clearing
 %6)
 q=q+1;
-f(q) = hhn -thetan*Ln*wln/wh;
+f(q) = wln-(thetan*wh+(1-thetan)*wl);
 %7)
 q=q+1;
-f(q) = hhf -thetaf*Lf*wlf/wh; 
-%8)
+f(q) = wlf-(thetaf*wh+(1-thetaf)*wl);
+
+%8) already used to get wl!
+%q=q+1;
+%f(q) = hhg -thetag*Lg*wlg/wh; 
+% instead use final good market clearing
 q=q+1;
-f(q) = hhg -thetag*Lg*wlg/wh; 
+f(q) = Yout-xn-xg-xf-C;
 
 % skill market clearing
 %9)
@@ -108,8 +113,13 @@ q=q+1;
 f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C;
 % Y-C-xn-xf-xg; 
 
+
+% pn
+q=q+1;
+f(q)= 1-(deltay*pe^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(eppsy));
+
 %13-Labour supply and kuhnt tucker
-%- skill supply
+%- skill supply: so that each type is indifferent how much to work
 q=q+1;
 f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
 q=q+1;

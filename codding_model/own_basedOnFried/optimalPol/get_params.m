@@ -112,7 +112,7 @@ tauf    = 0;
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
-MOM.lowskill = 0.4;
+MOM.lowskill = 0.3;
 MOM.AgAn =1.5; 
 % thetan   = 0.5;
 % thetag   = 0.6;

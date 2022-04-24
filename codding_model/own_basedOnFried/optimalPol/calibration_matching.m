@@ -46,7 +46,7 @@ symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sf, 
 list.choice  = string(symms.choice);
 
 %- alternative calibration 
-symms.calib = [pg hhn hhg hhf hh hl gammalh gammall C deltay thetan thetaf thetag ...
+symms.calib = [pg pn hhn hhg hhf hh hl gammalh gammall C deltay thetan thetaf thetag ...
      lambdaa el eh chii];
  list.calib = string(symms.calib);
 %% solve for skill : thetag fix and others as initial guess
@@ -364,6 +364,7 @@ guess_trans=trans_guess(indexx, x0,parsHelp, list.paramsdir);
 f= calibration(guess_trans, MOM, list, parsHelp, polhelp);
 
 %% -solve
+MOM.lowskill=0.7;
 modFfinal = @(x)calibration(x, MOM, list, parsHelp, polhelp);
 options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
 [solfin, fval, exitf] = fsolve(modFfinal, guess_trans, options);
@@ -404,10 +405,9 @@ hl=transsol(list.calib=='hl');
 hh=transsol(list.calib=='hh');
 
 
-[muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
-  SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan,C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, parsHelp, polhelp);
-
+[muu, pf, Yout, pe, E, N, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+   SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
+  wh, wl] = aux_calibFinal(pn, hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, pg, hhn, hhf, hhg, MOM, list, parsHelp, polhelp);
 %- generate structures
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);
 strLF=cell2struct(num2cell(eval(symms.allvars)), cell_par, 2);

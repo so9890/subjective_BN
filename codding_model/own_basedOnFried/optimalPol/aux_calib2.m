@@ -33,7 +33,7 @@ xg      = (alphag*pg)^(1/(1-alphag))*Lg*Ag;
 % wages 
 wln     = pn*(1-alphan)*N/Ln; %pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg*(1-alphag)*G/Lg;%pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = pf*(1-tauf)*(1-alphaf)*F/Lf; %(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlf     = pf*(1-tauf)*(1-alphaf)*FF/Lf; %(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
 wh      = thetaf*(hlf./hhf).^(1-thetaf).*wlf; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*wlf;
