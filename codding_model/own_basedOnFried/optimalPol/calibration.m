@@ -21,6 +21,8 @@ hhf = exp(x(list.calib=='hhf'));
 gammalh = x(list.calib=='gammalh')^2;
 gammall = x(list.calib=='gammall')^2;
 C = exp(x(list.calib=='C'));
+hl    = upbarH/(1+exp(x(list.calib=='hl')));
+hh    = upbarH/(1+exp(x(list.calib=='hh')));
 % sf      = exp(x(list.calib=='sf'));
 % sg      = exp(x(list.calib=='sg'));
 % sn      = exp(x(list.calib=='sn'));
@@ -32,6 +34,8 @@ thetaf = 1/(1+exp(x(list.calib=='thetaf')));
 thetag = 1/(1+exp(x(list.calib=='thetag')));
 el = exp(x(list.calib=='el'));
 eh = exp(x(list.calib=='eh'));
+chii = exp(x(list.calib=='chii'));
+
 lambdaa = exp(x(list.calib=='lambdaa'));
 deltay = 1/(1+exp(x(list.calib=='deltay')));
 % Af0  = exp(x(list.calib=='Af0'));
@@ -42,9 +46,9 @@ deltay = 1/(1+exp(x(list.calib=='deltay')));
 %- auxiliary variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
-   SGov,  hh, hl, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll); 
+[muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+   SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
+  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll); 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % equations
@@ -89,17 +93,28 @@ q=q+1;
 f(q) = hhD-hh; %=> eh
 %10)
 q=q+1;
-f(q) = hlD-hl; %=> el
+f(q) = hlD-hl; %=> pg
 
-% goods market clearing : Holds by Walras' Law
+% goodzh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-Cs market clearing : Holds by Walras' Law
 %11)
 q=q+1;
 f(q) =  zl*wl*el*hlD-MOM.lowskill; 
 
+% chii: average hours worked
+q=q+1;
+f(q) = hh*zh+hl*zl-MOM.targethour;  
 %budget => C
 q=q+1;
-f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %Y-C-xn-xf-xg; 
-%13- Kuhn Tucker Labour supply
+f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C;
+% Y-C-xn-xf-xg; 
+
+%13-Labour supply and kuhnt tucker
+%- skill supply
+q=q+1;
+f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
+q=q+1;
+f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl*el)^(1-taul))-gammall/zl*hl^taul); %=> determines hl
+
 %12
 q=q+1;
 f(q)= gammalh*(upbarH-hh);
@@ -124,4 +139,6 @@ f(q)= gammall*(upbarH-hl);
 % f(q) = -S+sf+sn+sg; 
 % q=q+1;
 % f(q) = ws-wsg;
+%fprintf('number equations: %d; number variables %d', q, length(list.calib));
+
 end

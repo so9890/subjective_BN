@@ -1,6 +1,6 @@
-function [pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
-   SGov, hh, hl, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll)
+function [muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+   SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
+  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan, C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, paramss, poll)
 % parameters
 read_in_pars_calib;
 
@@ -10,17 +10,18 @@ read_in_pars_calib;
 %1
 
 % final output and demand final sector
+    Y   = MOM.Y; 
+
 pf  = MOM.FG^(-1/eppse)*pg; % optimality energy
-Y   = MOM.Y; 
 pe  = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); % definition prices
 pn  = ((1-deltay.*pe.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 Etarg   = MOM.EpeY*Y/pe; 
-N   = (pe/pn)^eppsy*(1-deltay)/deltay*Etarg;
-Eopt = ((MOM.Y-(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))/deltay)^((eppsy)/(eppsy-1)); 
-E   = Eopt;
-F   = E* (1+(1/MOM.FG)^((eppse-1)/eppse))^(-eppse/(eppse-1)); 
-G   = F/MOM.FG; 
-
+N   = (pe/pn)^eppsy*(1-deltay)/deltay*Etarg; % optimality final good
+Eopt = ((MOM.Y^((eppsy-1)/eppsy)-(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))/deltay^(1/eppsy))^((eppsy)/(eppsy-1)); 
+    E   = Eopt;
+F   = E* (1+(1/MOM.FG)^((eppse-1)/eppse))^(-eppse/(eppse-1)); % uses optimality energy producers
+    G   = F/MOM.FG; 
+Ft= 
 % omissions
 omegaa = MOM.emissionsUS2019/F;
 
@@ -72,10 +73,6 @@ hlD  = (hln+hlf+hlg)/(zl*el); % low skill market clearing
 %CDemand = zh*wh*eh*hhD+ zl*wl*el*hlD+tauf*pf*omegaa*F; 
 
 muu = C^(-thetaa);
-
-%- skill supply
-hh = ((muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))+gammalh)^(1/(sigmaa+taul)); %=> determines hh
-hl = ((muu*lambdaa*(1-taul)*(wl*el)^(1-taul))+gammall)^(1/(sigmaa+taul)); %=> determines hl
 
 %- research follows residually: 
 %  Alag, Anlag, etc and scientistsm wages scientists

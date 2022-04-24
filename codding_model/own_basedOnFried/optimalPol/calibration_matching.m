@@ -23,7 +23,7 @@ symms.laggs = [Ag_lag, Af_lag, An_lag];
 list.laggs= string(symms.laggs);
 
 %- all variables: to save base year variables!
-syms hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sf sg sn wh wl ws pg pn pe pf gammalh gammall wlg wln wlf xn xg xf real
+syms chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sf sg sn wh wl ws pg pn pe pf gammalh gammall wlg wln wlf xn xg xf real
 symms.allvars= [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, hl, hh,  sf, sg, sn, wh, wl, ws, pg, pn, pe, pf,  wlg, wln, wlf, xn, xg, xf, gammalh, gammall];
 list.allvars  = string(symms.allvars);
 
@@ -37,8 +37,8 @@ list.calib2  = string(symms.calib2);
 syms  thetag real
 symms.choiceCALIB = [  hhf hhg hhn hlf hlg hln F G C Af Ag An hl hh ...
      sf sg sn ws pg wh wl pn pe pf gammalh gammall ...
-     Af_lag Ag_lag An_lag  deltay thetan thetaf ...
-     lambdaa el eh omegaa ];
+     Af_lag Ag_lag An_lag  deltay thetan thetaf thetag...
+     lambdaa el eh omegaa chii ];
 list.choiceCALIB  = string(symms.choiceCALIB);
 
 %- variables for laissez faire
@@ -46,8 +46,8 @@ symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sf, 
 list.choice  = string(symms.choice);
 
 %- alternative calibration 
-symms.calib = [pg hhn hhg hhf gammalh gammall C deltay thetan thetaf thetag ...
-     lambdaa el eh];
+symms.calib = [pg hhn hhg hhf hh hl gammalh gammall C deltay thetan thetaf thetag ...
+     lambdaa el eh chii];
  list.calib = string(symms.calib);
 %% solve for skill : thetag fix and others as initial guess
 
@@ -163,6 +163,7 @@ Ag_lag = Ag;
 x0= eval(symms.calib3);
 
 Af0=1;Ag0=1;An0=1; % for evaluation only;
+chii=10;
 params = eval(symms.params);
 pol    = eval(symms.pol);
 targets = eval(symms.targets);
@@ -212,6 +213,7 @@ ws = trans_sol3(list.calib3=='ws');
 pg     = allo_trans(list.calib2=='pg'); 
 gammalh = 0;
 gammall = 0;
+chii=10;
 
 [hln, hlf, hlg, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
     =aux_calib2(MOM,deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan, ...
@@ -243,10 +245,9 @@ indexx.lab(list.choiceCALIB=='hl'| list.choiceCALIB=='hh')=1;
 guess_trans=trans_guess(indexx, x0,parsHelp, list.paramsdir);
 
 %- test
-f=target_equ(guess_trans, MOM, parsHelp, list, polhelp, targets, thetag);
-
+f=target_equFinal(guess_trans, MOM, parsHelp, list, polhelp, targets);
 %% -solve
-modF4 = @(x)target_equ(x, MOM, parsHelp, list, polhelp, targets, thetag);
+modF4 = @(x)target_equFinal(x, MOM, parsHelp, list, polhelp, targets);
 % options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
 % [sol4, fval, exitf] = fsolve(modF4, guess_trans, options);
 
@@ -254,8 +255,8 @@ soll=guess_trans;
 count=0;
 exitf=-1;
 while exitf<=0 && count<=10
-    [sol4, fval, exitf] = fsolve(modF4, soll, options);
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');
+    [sol4, fval, exitf] = fsolve(modF4, soll, options);
     count=count+1;
     soll=sol4;
 end
@@ -288,33 +289,40 @@ save('soll', 'sol4');
 transsol=trans_allo_out(indexx, sol4, parsHelp, list.paramsdir);
 [list.choiceCALIB; transsol]'
 
-% thetag=transsol(list.choiceCALIB=='thetag');
 thetan=transsol(list.choiceCALIB=='thetan');
 thetaf=transsol(list.choiceCALIB=='thetaf');
+thetag=transsol(list.choiceCALIB=='thetag');
+
 Ag0=transsol(list.choiceCALIB=='Ag_lag');
 An0=transsol(list.choiceCALIB=='An_lag');
 Af0=transsol(list.choiceCALIB=='Af_lag');
+el=transsol(list.choiceCALIB=='el');
+eh=transsol(list.choiceCALIB=='eh');
+deltay=transsol(list.choiceCALIB=='deltay');
+lambdaa=transsol(list.choiceCALIB=='lambdaa');
+omegaa=transsol(list.choiceCALIB=='omegaa');
+
+
 Ag=transsol(list.choiceCALIB=='Ag');
 An=transsol(list.choiceCALIB=='An');
 Af=transsol(list.choiceCALIB=='Af');
 hhg=transsol(list.choiceCALIB=='hhg');
 hhn=transsol(list.choiceCALIB=='hhn');
 hhf=transsol(list.choiceCALIB=='hhf');
-F=transsol(list.choiceCALIB=='F');
-el=transsol(list.choiceCALIB=='el');
-eh=transsol(list.choiceCALIB=='eh');
-deltay=transsol(list.choiceCALIB=='deltay');
+C=transsol(list.choiceCALIB=='C');
+
 pg=transsol(list.choiceCALIB=='pg');
 
-[hlnt, hlft, hlgt, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, FF, N, Y, xn, xf, xg, wh, wl, whg, whn]...
-=aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf, alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
+[hlnt, hlft, hlgt, hh, hl, Lg, Ln, Lf, pf, pe, pn, G, E, F, N, Y, xn, xf, xg, wh, wl, whg, whn]...
+=aux_calib2(MOM, deltay, hhn, hhg, hhf,zh, zl, el, eh, alphag, alphaf,...
+alphan,  thetag, thetan, thetaf, eppsy, eppse, Ag, An, Af, pg, tauf);
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
 %% save stuff 
-
+chii=10;
 params = eval(symms.params);
 pol    = eval(symms.pol);
 targets = eval(symms.targets);
@@ -327,7 +335,12 @@ cell_par=arrayfun(@char, symms.params, 'uniform', 0);
 strpar=cell2struct(num2cell(params), cell_par, 2);
 
 %% Alternative
-%- alternative calibration 
+%- alternative calibration
+while hh>=upbarH || hl>=upbarH
+    hh=hh/10;
+    hl=hl/10;
+end
+
 x0=eval(symms.calib);
 %-- index for transformation 
 indexx.lab = boolean(zeros(size(list.calib)));
@@ -337,10 +350,12 @@ indexx.oneab = boolean(zeros(size(list.calib)));
 
 indexx.exp( list.calib~='deltay'& list.calib~='gammall'&...
     list.calib~='gammalh'& list.calib~='thetan' &  ...
-    list.calib~='thetaf'& list.calib~='thetag')=1;
+    list.calib~='thetaf'& list.calib~='thetag' & ...
+    list.calib~='hl' & list.calib~='hh')=1;
 indexx.sqr(list.calib=='gammall'| list.calib=='gammalh')=1;
 indexx.oneab(list.calib=='deltay'|list.calib=='thetan'|...
     list.calib=='thetaf'| list.calib=='thetag') = 1;
+indexx.lab(list.calib=='hl'| list.calib=='hh')=1;
 
 %-- transform
 guess_trans=trans_guess(indexx, x0,parsHelp, list.paramsdir);
@@ -353,7 +368,7 @@ modFfinal = @(x)calibration(x, MOM, list, parsHelp, polhelp);
 options = optimoptions('fsolve', 'TolFun', 10e-6, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%);%, );%, );%, 'Display', 'Iter', );
 [solfin, fval, exitf] = fsolve(modFfinal, guess_trans, options);
 
-soll=guess_trans;
+soll=solfin;
 count=0;
 exitf=-1;
 while exitf<=0 && count<=10
@@ -370,15 +385,33 @@ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter',
 %% save results
 transsol=trans_allo_out(indexx, solfin, parsHelp, list.paramsdir);
 [list.calib; transsol]'
-[pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
-  SGov, hh, hl, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
-  wh, wl] = aux_calibFinal(deltay, eh, el, lambdaa, thetaf, thetag, thetan,C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, parsHelp, polhelp);
+C=transsol(list.calib=='C');
+pg=transsol(list.calib=='pg');
+hhn=transsol(list.calib=='hhn');
+hhg=transsol(list.calib=='hhg');
+hhf=transsol(list.calib=='hhf');
+gammalh=transsol(list.calib=='gammalh');
+gammall=transsol(list.calib=='gammall');
+thetan=transsol(list.calib=='thetan');
+thetag=transsol(list.calib=='thetag');
+thetaf=transsol(list.calib=='thetaf');
+el=transsol(list.calib=='el');
+eh=transsol(list.calib=='eh');
+lambdaa=transsol(list.calib=='lambdaa');
+deltay=transsol(list.calib=='deltay');
+chii=transsol(list.calib=='chii');
+hl=transsol(list.calib=='hl');
+hh=transsol(list.calib=='hh');
+
+
+[muu, pf, Y, pe, pn, Etarg, N, Eopt, E, F, G, omegaa, Af, An, Ag, Lg, Ln, Lf, xf, xg, xn, ...
+  SGov, hhD, hlD, hln, hlg, hlf, wlg, wln, wlf,...
+  wh, wl] = aux_calibFinal(hh, hl, deltay, eh, el, lambdaa, thetaf, thetag, thetan,C, gammall, gammalh, pg, hhn, hhf, hhg, MOM, list, parsHelp, polhelp);
 
 %- generate structures
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);
 strLF=cell2struct(num2cell(eval(symms.allvars)), cell_par, 2);
 
-;
 %% Test laissez Faire baseyear
 %- initial condition as laggs
 An_lag=params(list.params=='An0');

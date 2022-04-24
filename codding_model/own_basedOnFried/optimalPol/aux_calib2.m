@@ -26,17 +26,17 @@ N = (An.*Ln).*(pn.*alphan).^(alphan./(1-alphan));
 Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); 
 
 % machines
-xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
-xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
-xg      = (alphag*pg).^(1/(1-alphag)).*Lg*Ag;
+xn      = (alphan*pn)^(1/(1-alphan))*Ln*An;
+xf      = (alphaf*pf.*(1-tauf))^(1/(1-alphaf))*Lf*Af;
+xg      = (alphag*pg)^(1/(1-alphag))*Lg*Ag;
 
 % wages 
-wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
-wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
-whg     = thetag*(hlg./hhg).^(1-thetag).*(1-alphag)*alphag^(alphag/(1-alphag)).*...
-        (pg).^(1/(1-alphag)).*Ag;
-whn     = thetan*(hln./hhn).^(1-thetan).*(1-alphan)*alphan^(alphan/(1-alphan)).*...
-        (pn).^(1/(1-alphan)).*An;
+wln     = pn*(1-alphan)*N/Ln; %pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
+wlg     = pg*(1-alphag)*G/Lg;%pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlf     = pf*(1-tauf)*(1-alphaf)*F/Lf; %(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+
+wh      = thetaf*(hlf./hhf).^(1-thetaf).*wlf; % from optimality labour input producers fossil, and demand labour fossil
+wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*wlf;
+whg     = thetag*(hlg./hhg).^(1-thetag).*wlg;
+whn     = thetan*(hln./hhn).^(1-thetan).*wln;
 end

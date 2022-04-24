@@ -23,6 +23,7 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      zl ...         % share low skilled
      eh ...         % effective labour productivity high skill
      el ...         % effective productivity low skill
+     chii ...       % disutility labour
      upbarH...        % time endowment 
      alphaf ...     % machine share fossil
      alphan ...     % machine share neutral
@@ -54,7 +55,7 @@ syms taul ...       % income tax progressivity
      lambdaa ...    % scale tax scheme
      real
  
-symms.params = [sigmaa, thetaa, betaa, zh, zl, el, eh, upbarH, alphaf, alphan, alphag,...
+symms.params = [sigmaa, thetaa, betaa, zh, zl, el, eh, chii, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, S, Af0, An0, Ag0];   
 list.params  = string(symms.params);
@@ -111,9 +112,8 @@ tauf    = 0;
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
-MOM.wlgwln = 1.5; 
-MOM.AgAn = 1.5;
 MOM.lowskill = 0.4;
+MOM.AgAn =1.5; 
 % thetan   = 0.5;
 % thetag   = 0.6;
 % thetaf   = thetag*0.5;
