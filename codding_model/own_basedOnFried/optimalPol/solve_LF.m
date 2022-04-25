@@ -1,10 +1,5 @@
-%function [LF, list, symms] = solve_LF(pol, list, params, targets, Ems )
+function [LF, list, symms] = solve_LF(pol, list, params, targets, Ems, symms )
 %solves Laissez faire allocation taking policy as given 
-
-%- lags relevant for equilibrium
-syms Ag_lag Af_lag An_lag real
-symms.laggs = [Ag_lag, Af_lag, An_lag];
-list.laggs= string(symms.laggs);
 
 %-- initialise laggs 
 Ag0 = params(list.params=='Ag0');
@@ -53,9 +48,9 @@ indexx.sqr(list.choice=='gammall'| list.choice=='gammalh')=1;
 guess_trans=trans_guess(indexx, x0, params, list);
 
 %% - solving model
-f=laissez_faire(guess_trans, params, list, pol, laggs, targets, Ems);
+f=laissez_faire(guess_trans, params, list, pol, laggs, targets);
 
-modFF = @(x)laissez_faire(x, params, list, pol, laggs, targets, Ems);
+modFF = @(x)laissez_faire(x, params, list, pol, laggs, targets);
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 
@@ -82,4 +77,6 @@ LF=trans_allo_out(indexx, sol2, params, list);
 read_in_params;
 read_in_pol;
 auxiliary_stuff;
-checkk=C+xn+xf+xg-Y
+checkk=C+xn+xf+xg-Y;
+
+end
