@@ -64,7 +64,7 @@ f(q)= MOM.Y-Yout; % deltay
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*eh*hhD-lambdaa.*(wh.*eh*hhD).^(1-taul))...
              +zl*(wl.*el*hlD-lambdaa.*(wl.*el*hlD).^(1-taul))...
-             +tauf.*pf.*omegaa*F;         
+             +tauf.*pf.*F;         
 %- high skill share
 %3) thetag
 q=q+1;
@@ -79,11 +79,17 @@ f(q) =  thetaf-thetan;%=> thetan, thetaf
 % hhn hhf hhg follow from optimality labour producers as fcn of wlh wlg wlf
 % => ensures high skill market clearing
 %6)
+% q=q+1;
+% f(q) = wln-(thetan*wh+(1-thetan)*wl);
+% %7)
+% q=q+1;
+% f(q) = wlf-(thetaf*wh+(1-thetaf)*wl);
+% assume only
 q=q+1;
-f(q) = wln-(thetan*wh+(1-thetan)*wl);
-%7)
+f(q)=(1-thetan)*Ln.*wln-wl.*hln;
+% %27
 q=q+1;
-f(q) = wlf-(thetaf*wh+(1-thetaf)*wl);
+f(q)=(1-thetaf)*Lf.*wlf-wl.*hlf;
 
 %8) already used to get wl!
 %q=q+1;
@@ -100,7 +106,6 @@ f(q) = hhD-hh; %=> eh
 q=q+1;
 f(q) = hlD-hl; %=> pg
 
-% goodzh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-Cs market clearing : Holds by Walras' Law
 %11)
 q=q+1;
 f(q) =  zl*wl*el*hlD-MOM.lowskill; 
@@ -113,10 +118,10 @@ q=q+1;
 f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C;
 % Y-C-xn-xf-xg; 
 
-
+% - Model
 % pn
 q=q+1;
-f(q)= 1-(deltay*pe^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(eppsy));
+f(q)= 1-(deltay*pe^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(1-eppsy));
 
 %13-Labour supply and kuhnt tucker
 %- skill supply: so that each type is indifferent how much to work

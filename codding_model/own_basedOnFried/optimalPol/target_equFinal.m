@@ -59,11 +59,6 @@ Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
-
-SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
-            +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
-            +tauf.*omegaa*pf.*F;
-            % subsidies and profits and wages scientists cancel
             
 N       =  (1-deltay)/deltay.*(pe./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
@@ -76,6 +71,24 @@ xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
 xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
 xg      = (alphag*pg).^(1/(1-alphag)).*Lg*Ag;
 
+% machine prices and taxes
+pxf     = 1;
+pxg     = 1;
+pxn     = 1; 
+zetaf = (1-alphaf)/alphaf;
+zetag = (1-alphag)/alphag; 
+zetan = (1-alphan)/alphan;
+
+% profits
+prof_f =  (1-alphaf)/alphaf*xf-ws*sf;
+prof_g =  (1-alphag)/alphag*xg-ws*(1-taus)*sg;
+prof_n =  (1-alphan)/alphan*xn-ws*sn;
+
+SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
+            +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
+            +tauf.*omegaa*pf.*F+ws*sf+ws*sg+ws*sn+ prof_f+prof_n+prof_g...
+            -ws*taus*sg-zetaf*pxf*xf-zetan*pxn*xn-zetag*pxg*xg;
+            % subsidies and profits and wages scientists cancel
 %% equations
 q=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -192,44 +205,44 @@ f(q) = Ag-Ag_lag*(1+gammaa*(sg/rhog)^etaa*(A_lag/Ag_lag)^phii);
 %9- optimality labour input producers
 
 %24
-% q=q+1;
-% f(q) = thetan*Ln.*wln-wh.*hhn;
-% %25
-% q=q+1;
-% f(q)= thetag*Lg.*wlg-wh.*hhg;
-% %26
-% q=q+1;
-% f(q)=(1-thetan)*Ln.*wln-wl.*hln;
-% %27
-% q=q+1;
-% f(q)=(1-thetag)*Lg.*wlg-wl.*hlg;
+ q=q+1;
+ f(q) = thetan*Ln.*wln-wh.*hhn;
+ %25
+ q=q+1;
+ f(q)= thetag*Lg.*wlg-wh.*hhg;
+ %26
+ q=q+1;
+ f(q)=(1-thetan)*Ln.*wln-wl.*hln;
+ %27
+ q=q+1;
+ f(q)=(1-thetag)*Lg.*wlg-wl.*hlg;
 % 
 % %28
-% q=q+1;
-% f(q) = wh - thetaf*Lf/hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
+ q=q+1;
+ f(q) = wh - thetaf*Lf/hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
 % %29
-% q=q+1;
-% f(q) = wl-(1-thetaf)*Lf/hlf*wlf;
+ q=q+1;
+ f(q) = wl-(1-thetaf)*Lf/hlf*wlf;
 
 % alternative with one optimality and price definition
-q=q+1;
-f(q)= wh/wl-thetaf/(1-thetaf)*hlf/hhf; % optimality fossil labour good
-
-q=q+1;
-f(q)= wh/wl-thetag/(1-thetag)*hlg/hhg; % optimality green labour good
-
-q=q+1;
-f(q)= wh/wl-thetan/(1-thetan)*hln/hhn; % optimality neutral labour good
+% q=q+1;
+% f(q)= wh/wl-thetaf/(1-thetaf)*hlf/hhf; % optimality fossil labour good
+% 
+% q=q+1;
+% f(q)= wh/wl-thetag/(1-thetag)*hlg/hhg; % optimality green labour good
+% 
+% q=q+1;
+% f(q)= wh/wl-thetan/(1-thetan)*hln/hhn; % optimality neutral labour good
 
 % wage aggregation
-q=q+1;
-f(q) = wlf-(thetaf*wh+(1-thetaf)*wl);
-
-q=q+1;
-f(q) = wlg-(thetag*wh+(1-thetag)*wl);
-
-q=q+1;
-f(q) = wln-(thetan*wh+(1-thetan)*wl);
+% q=q+1;
+% f(q) = wlf-(thetaf*wh+(1-thetaf)*wl);
+% 
+% q=q+1;
+% f(q) = wlg-(thetag*wh+(1-thetag)*wl);
+% 
+% q=q+1;
+% f(q) = wln-(thetan*wh+(1-thetan)*wl);
 
 % prices and wages
 %- optimality energy producers
@@ -269,5 +282,5 @@ f(q)= gammalh*(upbarH-hh);
 q=q+1;
 f(q)= gammall*(upbarH-hl);
 
-% fprintf('number equations: %d; number variables %d', q, length(list.choiceCALIB));
+%fprintf('number equations: %d; number variables %d', q, length(list.choiceCALIB));
 end

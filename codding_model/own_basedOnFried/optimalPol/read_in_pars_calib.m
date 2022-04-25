@@ -1,4 +1,5 @@
 % params
+betaa = paramss(list.paramsdir=='betaa');
 thetaa = paramss(list.paramsdir=='thetaa');
 sigmaa = paramss(list.paramsdir=='sigmaa');
 upbarH  = paramss(list.paramsdir=='upbarH');

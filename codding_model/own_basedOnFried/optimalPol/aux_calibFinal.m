@@ -30,7 +30,7 @@ xn      = (alphan*pn).^(1/(1-alphan)).*AnLn; % machine demand
 xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*AfLf;
 xg      = (alphag*pg).^(1/(1-alphag)).*AgLg;
 
-% labour input good demand
+% labour input good demand: so that producers demand any amount of Ln
 LnwlnD     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*AnLn; % price labour input neutral sector
 LgwlgD     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*AgLg;
 LfwlfD     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*AfLf; 
@@ -54,8 +54,9 @@ wln = LnwlnD/Ln; % demand= supply
 wlg = LgwlgD/Lg;
 wlf = LfwlfD/Lf;
 
-wl = wlg/(MOM.whwl*thetag+(1-thetag));  %(1-thetag)*Lg*wlg/hlg; superfluous! instead use definition wlf 
+wl = (1-thetag)*Lg*wlg/hlg; 
 wh = MOM.whwl*wl;
+
 
 % low skill demand => determined by optimal divide and high skill demand
 
@@ -81,5 +82,5 @@ muu = C^(-thetaa);
 
 SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
             +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
-            +tauf.*omegaa*pf.*F;
+            +tauf.*pf.*F;
 end 

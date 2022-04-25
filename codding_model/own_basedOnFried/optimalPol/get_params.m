@@ -57,11 +57,16 @@ syms taul ...       % income tax progressivity
  
 symms.params = [sigmaa, thetaa, betaa, zh, zl, el, eh, chii, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, S, Af0, An0, Ag0];   
+                gammaa, etaa, rhof, rhon, rhog, phii, S];   
 list.params  = string(symms.params);
 
+symms.init   = [Af0, An0, Ag0];
+list.init    = string(symms.init);
 symms.targets = [deltaa, omegaa];
 list.targets  = string(symms.targets);
+
+symms.tardir = [deltaa];
+list.tardir = string(symms.tardir);
 
 symms.pol     = [taul, taus, tauf, lambdaa];
 list.pol      = string(symms.pol);
@@ -128,7 +133,8 @@ MOM.AgAn =1.5;
 %% -others
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
-targetsHelp = eval(symms.targets(list.targets~='omegaa'));
+targetsHelp = eval(symms.tardir);
+
 %%
 [An0, Af0, Ag0, thetaf, thetan, thetag, ...
     lambdaa, omegaa]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp);
