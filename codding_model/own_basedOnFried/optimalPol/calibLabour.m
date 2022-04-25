@@ -2,8 +2,7 @@ function f = calibLabour(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, paramss, list, 
 
 % to find
 % deltay
-% el
-% eh 
+% zh
 % thetan
 % thetag
 % thetaf 
@@ -11,9 +10,6 @@ function f = calibLabour(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, paramss, list, 
 % omegaa=> determined as auxiliary function 
 
 % parameters
-% read_in_pars_calib;
-zh=paramss(list.paramsdir=='zh');
-zl=paramss(list.paramsdir=='zl');
 upbarH=paramss(list.paramsdir=='upbarH');
 thetaa=paramss(list.paramsdir=='thetaa');
 sigmaa=paramss(list.paramsdir=='sigmaa');
@@ -36,8 +32,7 @@ wl = exp(x(list.calib=='wl'));
 thetan = 1/(1+exp(x(list.calib=='thetan')));
 thetaf = 1/(1+exp(x(list.calib=='thetaf')));
 thetag = 1/(1+exp(x(list.calib=='thetag')));
-el = exp(x(list.calib=='el'));
-eh = exp(x(list.calib=='eh'));
+zh = 1/(1+exp(x(list.calib=='zh')));
 chii = exp(x(list.calib=='chii'));
 lambdaa = exp(x(list.calib=='lambdaa'));
 
@@ -64,23 +59,18 @@ f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;%=> thetan, thetaf
 q=q+1;
 f(q) =  thetaf-thetan;%=> thetan, thetaf
 
-%11)
-%q=q+1;
-%f(q) =  zl*wl*el*hl-MOM.lowskill; 
-q=q+1;
-f(q) = el-1;
 % chii: average hours worked
 q=q+1;
-f(q) = hh*zh+hl*zl-MOM.targethour;  
+f(q) = hh*zh+hl*(1-zh)-MOM.targethour;  
 
-% eleh
+% zh
 q=q+1;
 f(q) = MOM.whwl-wh/wl; 
 
 %2) Government := > lambdaa
 q=q+1;
-f(q) = - MOM.Debt + zh*(wh.*eh*hh-lambdaa.*(wh.*eh*hh).^(1-taul))...
-             +zl*(wl.*el*hl-lambdaa.*(wl.*el*hl).^(1-taul))...
+f(q) = - MOM.Debt + zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
              +tauf.*pf.*F;
          
 %budget => C
@@ -99,18 +89,18 @@ f(q)=(1-thetag)*Lgwlg-wl.*hlg;
 % skill market clearing
 %9)
 q=q+1;
-f(q) = hh  - (hhn+hhf+hhg)/(zh*eh); % high skill market clearing
+f(q) = hh  - (hhn+hhf+hhg)/(zh); % high skill market clearing
 q=q+1;
-f(q) = hl  - (hln+hlf+hlg)/(zl*el); % low skill market clearing
+f(q) = hl  - (hln+hlf+hlg)/((1-zh)); % low skill market clearing
 
 % - Model
 
 %13-Labour supply and kuhnt tucker
 %- skill supply: so that each type is indifferent how much to work
 q=q+1;
-f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
+f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
 q=q+1;
-f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl*el)^(1-taul))-gammall/zl*hl^taul); %=> determines hl
+f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl)^(1-taul))-gammall/(1-zh)*hl^taul); %=> determines hl
 
 %12
 q=q+1;

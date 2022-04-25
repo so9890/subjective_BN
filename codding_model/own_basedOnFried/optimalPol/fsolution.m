@@ -29,8 +29,7 @@ omegaa=SP.omegaa;
 thetan = SL.thetan;
 thetaf = SL.thetaf;
 thetag = SL.thetag;
-el = SL.el;
-eh = SL.eh;
+zh = SL.zh;
 chii = SL.chii;
 lambdaa = SL.lambdaa;
 
@@ -70,7 +69,7 @@ ws = SR.ws;
  if abs(Ag-Agtest)>1e-10
      error('growth rate off')
  else
-     fprintf('growth rate works')
+     fprintf('growth rate works!!')
  end
 
 % save
@@ -86,9 +85,8 @@ Sinit=cell2struct(num2cell(init), cell_par, 2);
 x0LF= eval(symms.choice);
 % test
 zh=paramss(list.paramsdir=='zh');
-zl=paramss(list.paramsdir=='zl');
 tauf = poll(list.poldir=='tauf');
-Cincome= zh*eh*hh*wh+zl*wl*el*hl+tauf*pf*F;
+Cincome= zh*hh*wh+(1-zh)*wl*hl+tauf*pf*F;
 
 if abs(Cincome-C)>1e-10
     error('goods market does not clear!')
@@ -96,12 +94,12 @@ else
     fprintf('goods market clears!')
 end
 
-if abs(hh*zh*eh-hhn-hhf-hhg)>1e-10
+if abs(hh*zh-hhn-hhf-hhg)>1e-10
     error('high skill market does not clear!')
 else
     fprintf('high skill market clears!')
 end
-if abs(zl*el*hl-(hlg+hlf+hln))>1e-10
+if abs((1-zh)*hl-(hlg+hlf+hln))>1e-10
     error('low skill market does not clear!')
 else
     fprintf('low skill market clears!')

@@ -37,7 +37,7 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[params, targets, pol, list, symms, Ems ]=get_params( T, indic, lengthh);
+[params, targets,  pol, init, list, symms, Ems,  Sall, x0LF ]=get_params( T, indic, lengthh);
 
 
 %%

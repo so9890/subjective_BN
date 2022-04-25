@@ -51,8 +51,8 @@ Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
-SGov    = zh*(wh.*hh*eh-lambdaa.*(wh.*hh*eh).^(1-taul))...
-            +zl*(wl.*hl*el-lambdaa.*(wl.*hl*el).^(1-taul))...
+SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
             +tauf.*pf.*F;
             % subsidies and profits and wages scientists cancel
 N       =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
@@ -71,14 +71,14 @@ q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 q=q+1;
-f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh*eh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
+f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
 %2
 q=q+1;
-f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl*el)^(1-taul))-gammall/zl*hl^taul); %=> determines hl
+f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl)^(1-taul))-gammall/(1-zh)*hl^taul); %=> determines hl
 
 %3- budget
 q=q+1;
-f(q) = zh*lambdaa*(wh*hh*eh)^(1-taul)+zl*lambdaa*(wl*hl*el)^(1-taul)+SGov-C; %=> determines C
+f(q) = zh*lambdaa*(wh*hh)^(1-taul)+(1-zh)*lambdaa*(wl*hl)^(1-taul)+SGov-C; %=> determines C
 
 %4- output fossil
 q=q+1;
@@ -149,10 +149,10 @@ f(q) =  1-(deltay*pee^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(1-eppsy));
 
 %22- market clearing (consumption good=> numeraire)
 q=q+1;
-f(q) = zh*hh*eh-(hhn + hhf+hhg); % high skill market clearing
+f(q) = zh*hh-(hhn + hhf+hhg); % high skill market clearing
 %23
 q=q+1;
-f(q) = zl*hl*el-(hln + hlf+hlg); % low skill market clearing
+f(q) = (1-zh)*hl-(hln + hlf+hlg); % low skill market clearing
 %24
 q=q+1;
 f(q) = S-(sn+sff+sg);

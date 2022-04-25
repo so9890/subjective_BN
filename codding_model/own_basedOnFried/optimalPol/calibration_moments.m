@@ -24,7 +24,7 @@ MOM.targethour=1/5*(datahours.asShareOfTotalHours(datahours.TIME==2019)+datahour
 MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP')/100;
 MOM.Y    = 1; % normalised
 MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./moms(vars=='Total Renewable Energy Consumption');
-MOM.F    = moms(vars=='Total Fossil Fuels Consumption'); % to match emissions
+%MOM.F    = moms(vars=='Total Fossil Fuels Consumption'); % to match emissions
 % Data on skill input and distribution
 MOM.whwl = 1.9; % 
 %MOM.hhhl = 1; % assume equal hours worked, as in Bick, Schünden, Lagakos
@@ -55,6 +55,4 @@ MOM.sharehighnongreen = highskill_nongreen;
 MOM.hhehzh_total = highskill_total; 
 MOM.hg_total   = green_total;
 
-% to pin down effective labour productivity
-MOM.labourshare=1-1/3;
 end

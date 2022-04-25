@@ -1,19 +1,5 @@
 function f = calibProd(x, MOM, list, paramss)
-% function which determines prices, omega and delta in equilibrium! 
-% from here follow:
-
-% labour good producers
-% AfLf    = F/(alphaf*pf*(1-tauf))^(alphaf/(1-alphaf)); % production 
-% AgLg    = G/(alphag*pg)^(alphag/(1-alphag)); % production 
-% AnLn    = N/(alphan*pn)^(alphan/(1-alphan)); % production 
-% xn      = (alphan*pn).^(1/(1-alphan)).*AnLn; % machine demand
-% xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*AfLf;
-% xg      = (alphag*pg).^(1/(1-alphag)).*AgLg;
-% 
-% % labour input good demand: so that producers demand any amount of Ln
-% LnwlnD     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*AnLn; % price labour input neutral sector
-% LgwlgD     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*AgLg;
-% LfwlfD     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*AfLf; 
+% function determines pn, pg, omega and delta in equilibrium! 
 
 % parameters
 % read_in_pars_calib;

@@ -1,19 +1,19 @@
-function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, Starg, params, pol, targets]= calibration_matching(MOM, symms, list, parsHelp, polhelp, targets)
+function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, Starg, params, pol, targets, symms]...
+    = calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
+% to this end, the model is solved 
+% 1) from an aggregate pproduction side
+% 2) the household probelm and labour producing firms
+% 3) research side. 
 
 % To be chosen: 
 % An0, Af0, Ag0 (2019)
 % thetaf, thetan, thetag : share of high skill in labour input 
 % lambdaa to have gov budget = 0 in baseyear
-
-% data
-% Energy consumption share, GDP, Fossil to Green output share
-
-% numeraire: Consumption Good
-
-% balanced budget, 
-% skills: match Consoli; or wage premia (then includes)
+% zh: rationalises wage premium together with thetag, thetaf, thetan
+% deltay: weight on energy in production function 
+% omegaa: emissions per fossil 
 
 %% initaliase stuff needed for diverse solution 
 
@@ -29,9 +29,10 @@ syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn wh wl
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, gammalh, gammall];
 list.allvars  = string(symms.allvars);
 
-%- variables for laissez faire
+%- variables and index for laissez faire
 symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf, gammalh, gammall];
 list.choice  = string(symms.choice);
+
 indexxLF.lab = boolean(zeros(size(list.choice)));
 indexxLF.exp = boolean(zeros(size(list.choice)));
 indexxLF.sqr = boolean(zeros(size(list.choice)));
@@ -42,13 +43,15 @@ indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list
 indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh')=1;
 
 %- calibration productivity
+syms omegaa deltay real
 symms.prod= [pn, pg, omegaa, deltay];
 list.prod = string(symms.prod);
 
 
 %- calibration labour firms and HH side
-symms.calib = [ hhn hhg hhf hh hl gammalh gammall wh wl thetan thetaf thetag ...
-     lambdaa el eh chii];
+syms thetan thetaf thetag lambdaa chii zh real
+symms.calib = [hhn hhg hhf hh hl gammalh gammall wh wl thetan thetaf thetag ...
+     lambdaa zh chii];
  list.calib = string(symms.calib);
 %-- indexx
 indexxcalib.lab = boolean(zeros(size(list.calib)));
@@ -57,11 +60,11 @@ indexxcalib.sqr = boolean(zeros(size(list.calib)));
 indexxcalib.oneab = boolean(zeros(size(list.calib)));
 
 indexxcalib.lab(list.calib=='hl'| list.calib=='hh')=1;
-indexxcalib.exp(list.calib~='thetan' & list.calib~='thetaf' & list.calib~='thetag' ...
+indexxcalib.exp(list.calib~='thetan' & list.calib~='thetaf' & list.calib~='thetag'& list.calib~='zh' ...
     & list.calib~='hl' & list.calib~='hh'& list.calib~='gammalh' & list.calib~='gammall')=1;
 indexxcalib.sqr(list.calib=='gammall'| list.calib=='gammalh')=1;
-indexxcalib.oneab(list.calib=='thetag'| list.calib=='thetan'| list.calib=='thetaf') = 1;
-
+indexxcalib.oneab(list.calib=='thetag'| list.calib=='thetan'| ...
+    list.calib=='thetaf' | list.calib=='zh') = 1;
 
  %% First calibration reduced model: ONLY producers' side
 
@@ -90,8 +93,7 @@ trProd(list.prod=='deltay')=1/(1+trProd(list.prod=='deltay'));
 hhn = 0.02;
 hhg = 0.01;
 hhf = 0.02;
-eh=1;
-el=1;
+zh=0.2;
 wl=1;
 wh=MOM.whwl*wl;
 thetan=0.4;
@@ -100,8 +102,8 @@ thetag=0.5;
     hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
     hlf = hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
     hlg = hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
-hl = (hln+hlf+hlg)/((1-parsHelp(list.paramsdir=='zh'))*el);
-hh = (hhn+hhf+hhg)/(parsHelp(list.paramsdir=='zh')*eh);
+hl = (hln+hlf+hlg)/((1-zh));
+hh = (hhn+hhf+hhg)/zh;
 gammall = 0;
 gammalh = 0;
 chii =10;
@@ -113,7 +115,7 @@ x0=eval(symms.calib);
 guess_trans=trans_guess(indexxcalib, x0, parsHelp, list.paramsdir);
 
 %test:
-%f =calibLabour(guess_trans,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list, polhelp);
+f =calibLabour(guess_trans,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list, polhelp);
 
 %- solve
 Labf = @(x)calibLabour(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list, polhelp);

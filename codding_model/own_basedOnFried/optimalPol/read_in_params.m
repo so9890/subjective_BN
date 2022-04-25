@@ -2,10 +2,7 @@ thetaa = params(list.params=='thetaa');
 sigmaa = params(list.params=='sigmaa');
 upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');
-zl  = params(list.params=='zl');
 zh  = params(list.params=='zh');
-el  = params(list.params=='el');
-eh  = params(list.params=='eh');
 
 %betaa = params(list.params=='betaa');
 S      = params(list.params=='S');

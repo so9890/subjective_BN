@@ -15,8 +15,7 @@ omegaa=SP.omegaa;
 thetan = SL.thetan;
 thetaf = SL.thetaf;
 thetag = SL.thetag;
-el = SL.el;
-eh = SL.eh;
+zh = SL.zh;
 chii = SL.chii;
 lambdaa = SL.lambdaa;
 
