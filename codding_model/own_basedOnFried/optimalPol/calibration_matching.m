@@ -161,7 +161,7 @@ Ag_lag = Ag;
 x0 = eval(symms.calib3);
 
 %- test
-% f= calibRem(log(x0), MOM, list, params, pol, targets,trProd, parsHelp, polhelp, Af, An, Ag);
+f= calibRem(log(x0), MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag);
 
 % solving model
 modF3 = @(x)calibRem(x, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag); 

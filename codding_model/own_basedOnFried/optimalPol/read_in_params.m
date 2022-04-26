@@ -4,7 +4,9 @@ upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');
 zh  = params(list.params=='zh');
 
-%betaa = params(list.params=='betaa');
+if sum(list.params=='betaa')==1
+    betaa = params(list.params=='betaa');
+end
 S      = params(list.params=='S');
 
 thetaf = params(list.params=='thetaf');
@@ -25,10 +27,10 @@ rhog = params(list.params=='rhog');
 rhon = params(list.params=='rhon');
 phii = params(list.params=='phii');
 
-Af0 = params(list.params=='Af0');
-Ag0 = params(list.params=='Ag0');
-An0 = params(list.params=='An0');
-
+if exist('init')~=7
+    Af0 = init(list.init=='Af0');
+    Ag0 = init(list.init=='Ag0');
+    An0 = init(list.init=='An0');
+end
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
 deltaa = params(list.params=='deltaa'); % natural sink
-%Ems    = Ems;   % vector of emission targets

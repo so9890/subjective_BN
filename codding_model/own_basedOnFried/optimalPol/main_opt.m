@@ -31,7 +31,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
-
+indic.target =0; % ==1 if uses emission target
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -40,68 +40,60 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %          2) calibrates model to indirect params.
 [params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
 
-
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Laissez-Faire Simulation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% in this section I simulate the economy starting from 2015-2019 
+% in this section I simulate the economy starting from 2015-2019
+% order of variables in LF_SIM as in list.allvars
 [LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Solve for Optimal Allocation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-syms hhf hhg hlf hlg C F G Af Ag An hl hh gammalh gammall real
-symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh gammalh gammall];
+syms hhf hhg hlf hlg C F G Af Ag An hl hh real
+symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh];
 list.opt  = string(symms.opt); 
 
-%Preview: Structure of vector of allocations x:
-% ORDER AS IN LIST.OPT
-%  hhf    = x(1:T);
-%  hhg    = x(  T+1:2*T);
-%  hlf    = x(2*T+1:3*T);
-%  hlg    = x(3*T+1:4*T);
-%  C      = x(4*T+1:5*T);
-%  F      = x(5*T+1:6*T);
-%  G      = x(6*T+1:7*T);
-%  Af     = x(7*T+1:8*T);
-%  Ag     = x(8*T+1:9*T);
-%  An     = x(9*T+1:10*T);
-%  hl     = x(10*T+1:11*T);
-%  hh     = x(11*T+1:12*T);
-%  gammalh = x(12*T+1:13*T);; % Lagrange multiplier on HH labour supply
-%  gammall = x(13*T+1:14*T);
+nn= length(list.opt); % number of variables
 
 %%% Linear constraints optimisation %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-lb = zeros((length(list.opt)*T),1);
-ub = Inf*ones((length(list.opt)*T),1);
+lb = zeros((nn*T),1);
+ub = Inf*ones((nn*T),1);
 
-ub((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=params(list.params=='upbarH');
-ub((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=params(list.params=='upbarH');
+ub((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = params(list.params=='upbarH');
+ub((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = params(list.params=='upbarH');
 
+if indic.target==1
+  ub((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T) = (Ems'+params(list.params=='deltaa'))./params(list.params=='omegaa');
+end
 %%% Initial Guess %%%
 %%%%%%%%%%%%%%%%%%%%%
 
-x0 = zeros(12*T,1);
+x0 = zeros(nn*T,1);
 
-x0(1:T)         =.02; % hhf
-x0(T+1:T*2)     =.04; % hhg
-x0(T*2+1:T*3)   =.03; % hlf
-x0(T*3+1:T*4)   =.01; % hlg 
-x0(T*4+1:T*5)   = 1;  % C
-x0(T*5+1:T*6)   = 0.4; % F
-x0(T*6+1:T*7)   = 0.6; % G
-x0(T*7+1:T*8)   = 2; % Af
-x0(T*8+1:T*9)   = 1; % Ag
-x0(T*9+1:T*10)  = 2; % An
-x0(T*10+1:T*11) = 0.3; % hl
-x0(T*11+1:T*12) = 0.3; % hh
+x0(1:T)         =LF_SIM(list.allvars=='hhf',2:T+1); % hhf; first period in LF is baseline
+x0(T+1:T*2)     =LF_SIM(list.allvars=='hhg',2:T+1); % hhg
+x0(T*2+1:T*3)   =LF_SIM(list.allvars=='hlf',2:T+1); % hlf
+x0(T*3+1:T*4)   =LF_SIM(list.allvars=='hlg',2:T+1); % hlg 
+x0(T*4+1:T*5)   =LF_SIM(list.allvars=='C',2:T+1);   % C
+if indic.target==1
+    x0(T*5+1:T*6)   =(Ems+params(list.params=='deltaa'))./params(list.params=='omegaa');   % F
+else
+    x0(T*5+1:T*6)   =LF_SIM(list.allvars=='F',2:T+1);
+end
+x0(T*6+1:T*7)   =LF_SIM(list.allvars=='G',2:T+1);   % G
+x0(T*7+1:T*8)   =LF_SIM(list.allvars=='Af',2:T+1);  % Af
+x0(T*8+1:T*9)   =LF_SIM(list.allvars=='Ag',2:T+1);  % Ag
+x0(T*9+1:T*10)  =LF_SIM(list.allvars=='An',2:T+1);  % An
+x0(T*10+1:T*11) =LF_SIM(list.allvars=='hl',2:T+1);  % hl
+x0(T*11+1:T*12) =LF_SIM(list.allvars=='hh',2:T+1);  % hh
 
 %%% Test Constraints and Objective Function %%%
-[f] =  objective(x0,T,params, list, indic);
-[c, ceq] = constraints(x0, T, targets, params, list, Ems);
+f =  objective(x0,T,params, list);
+[c, ceq] = constraints(x0, T, params, init, list, Ems);
 
 %%% Optimize %%%
 %%%%%%%%%%%%%%%%
@@ -110,10 +102,12 @@ x0(T*11+1:T*12) = 0.3; % hh
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
- options = optimset('algorithm','sqp','Tolfun',1e-9,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+objf=@(x)objective(x,T,params, list);
+constf=@(x)constraints(x, T, params, init, list, Ems);
+%options = optimset('algorithm','sqp','Tolfun',1e-9,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-% options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(@(x)objective(x,T,params, list, indic),x0,[],[],[],[],lb,ub,@(x)constraints(x, T, targets, params, list, Ems),options);
+options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+[x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
 
 x0 = x;
 options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
