@@ -1,5 +1,5 @@
-function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, Starg, params, pol, targets, symms]...
-    = calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp)
+function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
+    = calibration_matching(MOM, symms, list, parsHelp, polhelp)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
 % to this end, the model is solved 
@@ -15,6 +15,9 @@ function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, Starg, params, pol
 % deltay: weight on energy in production function 
 % omegaa: emissions per fossil 
 
+% output
+% indexx: map of indices indicating variable transformation for code.
+%         contains laissez-faire index and calibration index. 
 %% initaliase stuff needed for diverse solution 
 
 %- calibration research side
@@ -25,8 +28,11 @@ symms.calib3 = [Af_lag Ag_lag An_lag ...
 list.calib3 =string(symms.calib3);
 
 %- all variables: to save base year variables!
-syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf real
-symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, gammalh, gammall];
+syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
+    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A real
+symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
+    hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
+    gammalh, gammall, SGov, Emnet, A ];
 list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire
@@ -66,6 +72,8 @@ indexxcalib.sqr(list.calib=='gammall'| list.calib=='gammalh')=1;
 indexxcalib.oneab(list.calib=='thetag'| list.calib=='thetan'| ...
     list.calib=='thetaf' | list.calib=='zh') = 1;
 
+% save indices to map 
+indexx = containers.Map({'LF', 'calib'}, {indexxLF, indexxcalib});
  %% First calibration reduced model: ONLY producers' side
 
 pn=log(1);
@@ -85,7 +93,7 @@ trProd(list.prod=='deltay')=1/(1+trProd(list.prod=='deltay'));
 
 % required for next functions
 [C, Lnwln, Lgwlg, Lfwlf, pf, F, pn, pg, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, parsHelp, polhelp);
+            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, parsHelp, polhelp, 'calib');
 
 %% Labour side
 
@@ -111,7 +119,7 @@ lambdaa=1;
 
 x0=eval(symms.calib);
 
-%- transfform
+%- transform
 guess_trans=trans_guess(indexxcalib, x0, parsHelp, list.paramsdir);
 
 %test:
@@ -124,7 +132,7 @@ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter',
 trLab=trans_allo_out(indexxcalib, solLab, parsHelp, list.paramsdir);
 
 % get calibrated parameters and policy
-[Sparams, Spol, Starg, params, pol, targets]=parsSol(symms,trProd, trLab, parsHelp, list, polhelp, targetsHelp);
+[Sparams, Spol, params, pol]=parsSol(symms,trProd, trLab, parsHelp, list, polhelp);
 
 %% Research side
 %- from previous
@@ -141,22 +149,22 @@ Lf = hhf.^Sparams.thetaf.*hlf.^(1-Sparams.thetaf);
 
 % initial guess
 sg  = 0.2;
-sff  = 0.4;
+sff = 0.4;
 sn  = 0.4;
-ws = 2;
+ws  = 2;
     Af = AfLf/Lf;
     An = AnLn/Ln;
     Ag = AgLg/Lg;
 Af_lag = Af;
 An_lag = An;
 Ag_lag = Ag;
-x0= eval(symms.calib3);
+x0 = eval(symms.calib3);
 
 %- test
 % f= calibRem(log(x0), MOM, list, params, pol, targets,trProd, parsHelp, polhelp, Af, An, Ag);
 
 % solving model
-modF3 = @(x)calibRem(x, MOM, list, params, pol, targets, trProd, parsHelp, polhelp, Af, An, Ag); 
+modF3 = @(x)calibRem(x, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag); 
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
 [sol3, fval, exitf] = fsolve(modF3, log(x0), options);
@@ -167,7 +175,7 @@ trR=exp(sol3);
 
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
-f=laissez_faire(guess_transLF, params, list, pol, init, targets);
+f=laissez_faire(guess_transLF, params, list, pol, init);
 
 if max(abs(f))>1e-10
     error('calibration is not a solution to LF')

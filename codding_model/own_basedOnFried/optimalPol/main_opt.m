@@ -33,17 +33,20 @@ lengthh = 5; % number of zears per period
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-[params, targets,  pol, init, list, symms, Ems,  Sall, x0LF ]=get_params( T, indic, lengthh);
+% function 1) sets direct parameters, 
+%          2) calibrates model to indirect params.
+[params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
 
 
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 3: Laissez-Faire        %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 3: Laissez-Faire Simulation        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% in this section I simulate the economy starting from 2015-2019 
+[LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

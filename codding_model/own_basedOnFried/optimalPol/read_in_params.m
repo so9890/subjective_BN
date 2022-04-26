@@ -29,6 +29,6 @@ Af0 = params(list.params=='Af0');
 Ag0 = params(list.params=='Ag0');
 An0 = params(list.params=='An0');
 
-omegaa = targets(list.targets=='omegaa'); % carbon content of fossil energy
-deltaa = targets(list.targets=='deltaa'); % natural sink
+omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
+deltaa = params(list.params=='deltaa'); % natural sink
 %Ems    = Ems;   % vector of emission targets

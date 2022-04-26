@@ -1,8 +1,15 @@
 function [ C, Lnwln, Lgwlg, Lfwlf, pf, F, pn, pg, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, paramss, poll)
+            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, paramss, poll, quoi)
 
 % parameters
-read_in_pars_calib;
+if quoi== 'calib'
+    read_in_pars_calib;
+else
+    params=paramss;
+    pol=poll;
+    read_in_params;
+    read_in_pol;
+end
 
 pn=trProd(list.prod=='pn');
 pg=trProd(list.prod=='pg');

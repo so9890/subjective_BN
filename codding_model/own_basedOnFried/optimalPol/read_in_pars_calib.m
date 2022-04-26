@@ -15,7 +15,7 @@ rhof = paramss(list.paramsdir=='rhof');
 rhog = paramss(list.paramsdir=='rhog');
 rhon = paramss(list.paramsdir=='rhon');
 phii = paramss(list.paramsdir=='phii');
-
+deltaa = paramss(list.paramsdir=='deltaa');
 % policies
 taul    = poll(list.poldir=='taul');
 taus    = poll(list.poldir=='taus');

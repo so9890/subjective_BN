@@ -1,4 +1,4 @@
-function f=laissez_faire(x, params, list, pol, laggs, targets)
+function f=laissez_faire(x, params, list, pol, laggs)
 % Model
 % equilibrium for one period!
 % takes policy as given

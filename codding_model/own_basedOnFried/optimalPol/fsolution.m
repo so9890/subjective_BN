@@ -24,13 +24,13 @@ pn=SP.pn;
 pg=SP.pg;
 
 % parameters
-deltay=SP.deltay;
-omegaa=SP.omegaa;
+deltay = SP.deltay;
+omegaa = SP.omegaa;
 thetan = SL.thetan;
 thetaf = SL.thetaf;
 thetag = SL.thetag;
-zh = SL.zh;
-chii = SL.chii;
+zh     = SL.zh;
+chii   = SL.chii;
 lambdaa = SL.lambdaa;
 
 % Remaining variables
@@ -43,7 +43,8 @@ Ln = hhn.^thetan.*hln.^(1-thetan);
 Lf = hhf.^thetaf.*hlf.^(1-thetaf);
 
 [ C, Lnwln, Lgwlg, Lfwlf, pf, F, pn, pg, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, paramss, poll);
+            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, ...
+            paramss, poll, 'calib');
 
 muu = C^(-thetaa);
 
@@ -63,14 +64,18 @@ Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
 ws = SR.ws;
 
- A0  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
- Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
+ A  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
+ Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A/Ag0)^phii); 
  
  if abs(Ag-Agtest)>1e-10
      error('growth rate off')
  else
      fprintf('growth rate works!!')
  end
+SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
+            +tauf.*pf.*F;
+Emnet     = omegaa*F-deltaa; % net emissions
 
 % save
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);

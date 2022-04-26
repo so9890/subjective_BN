@@ -1,4 +1,4 @@
-function f= calibRem(x, MOM, list, params, pol, targets, trProd, paramss, poll, Af, An, Ag)
+function f= calibRem(x, MOM, list, params, pol, trProd, paramss, poll, Af, An, Ag)
 % this function backs out missing functions:
 % 
 
@@ -20,7 +20,7 @@ A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 % required vars from previous calibration steps
 [ ~, ~, ~, ~, pf, FF, pn, pg, ~, ~, ~, N, G,...
-    ~, ~, ~, ~, ~, ~, ~, ~]=resProd(list, trProd, MOM , paramss, poll); 
+    ~, ~, ~, ~, ~, ~, ~, ~]=resProd(list, trProd, MOM , paramss, poll, 'calib'); 
    
 wsf = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF*(1-alphaf)*Af_lag)./(rhof^etaa.*Af); 
 wsg = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag)*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);

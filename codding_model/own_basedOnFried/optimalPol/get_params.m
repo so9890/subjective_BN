@@ -1,4 +1,4 @@
-function [params, targets,  pol, init, list, symms, Ems,  Sall, x0LF ]=get_params( T, indic, lengthh)
+function [params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params( T, indic, lengthh)
 
 % function to read in parameter values and to calibrate direct parameters
 % calls on calibration_matching and calibration_emissions 
@@ -58,16 +58,11 @@ syms taul ...       % income tax progressivity
  
 symms.params = [sigmaa, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, S];   
+                gammaa, etaa, rhof, rhon, rhog, phii, S, deltaa, omegaa];   
 list.params  = string(symms.params);
 
 symms.init   = [Af0, An0, Ag0];
 list.init    = string(symms.init);
-symms.targets = [deltaa, omegaa];
-list.targets  = string(symms.targets);
-
-symms.tardir = [deltaa];
-list.tardir = string(symms.tardir);
 
 symms.pol     = [taul, taus, tauf, lambdaa];
 list.pol      = string(symms.pol);
@@ -75,7 +70,7 @@ list.pol      = string(symms.pol);
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
                 eppsy, eppse, S, ...
-                gammaa, etaa, rhof, rhon, rhog, phii];   
+                gammaa, etaa, rhof, rhon, rhog, phii, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
 symms.poldir     = [taul, taus, tauf];
@@ -122,9 +117,8 @@ MOM = calibration_moments();
 %% save directly calibrated variables
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
-targetsHelp = eval(symms.tardir);
 %%
-[x0LF, ~, ~, ~, Sall, ~, init, ~, ~, ~, params, pol, targets, symms]...
-    = calibration_matching(MOM, symms, list, parsHelp, polhelp, targetsHelp);
+[x0LF, ~, ~, ~, Sall, ~, init, Sparams, ~, params, pol, symms, MOM,indexx, list]...
+    = calibration_matching(MOM, symms, list, parsHelp, polhelp);
 
 end
