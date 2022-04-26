@@ -16,7 +16,7 @@ LF_SIM=zeros(length(list.allvars),T);
 
 %-- initialise values(technology in 2010-2014)
 laggs   = init; % 
-x0      = x0LF;
+x0      = x0LF; % initial from calibration 
 t       = 0; % number of periods: t=0: 2015-2019 base year period (in matrix on first row)
 
 while t<=T
@@ -36,7 +36,7 @@ while t<=T
     [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 
     % pass to standard algorithm
-    options = optimoptions('fsolve', 'TolFun', 10e-9, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol, fval, exitf] = fsolve(modFF, sol, options);
 
     %- transform results to bounded variables

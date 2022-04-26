@@ -51,7 +51,7 @@ muu      = C.^(-thetaa); % same equation in case thetaa == 1
 % scientists follow from LOW fossil and green 
 sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
 sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
-sn      =  S-(sff+sg); 
+sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
 
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
@@ -71,21 +71,19 @@ wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
-wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf))./(Af./Af_lag*rhof^etaa); 
-wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan))./(An./An_lag*rhon^etaa);
-wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag))./(Ag./Ag_lag*rhog^etaa);  % to include taus
+wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
+wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa);
+wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
 taus    = 1-wsgtil./wsf;
 wsg     = wsgtil./(1-taus); % this ensures wsg=ws
 
 % assuming interior solution households
 taul    = (exp(wh./wl)-sigmaa*exp(hhhl))./(exp(hhhl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-lambdaa = hl.^(sigmaa+taul)./(muu.*(1-taul).*wl.^(1-taul));     % from FOC on low skill supply (assuming interior solution)
 
-% auxiliary stuff depending on prices
-SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+% lambdaa so that gov budget is balanced
+lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
+            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
         % subsidies, profits and wages scientists cancel
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
@@ -101,7 +99,7 @@ xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
  % only for direct periods
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
-c = zeros(); %  periods and 2 additional ones: 
+c = zeros(T,1); %  periods and 2 additional ones: 
              %  IMP; skill time endowment
 
              % the constraints valid for T periods are:
@@ -142,7 +140,7 @@ c(1:T)= C-zh.*wh.*hh-(1-zh).*wl.*hl-tauf.*pf.*F;
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  ceq = [];
 
- ceq(1:T)       = SGov; % balanced budget
+ ceq(1:T)       = S-(sff+sg+sn);  % LOM neutral technology 
  ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
  % optimality skills (for fossil used to determined wage rates)
  ceq(T*3+1:T*4) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
@@ -151,7 +149,7 @@ c(1:T)= C-zh.*wh.*hh-(1-zh).*wl.*hl-tauf.*pf.*F;
  ceq(T*6+1:T*7) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
  ceq(T*7+1:T*8) = wsf-wsn; % wage scientists neutral
  ceq(T*8+1:T*9) = wsf-wsg; % wage scientists green
- ceq(T*9+1:T*10) = An_lag.*(1+gammaa*(sn./rhon).^etaa.*(A_lag./An_lag).^phii)-An; % LOM neutral technology 
+ %ceq(T*9+1:T*10) =
  %ceq(T*10+1:T*11) = C+xf+xn+xg-Y; % final good market clearing Should be
  %superfluous as other markets clear
 

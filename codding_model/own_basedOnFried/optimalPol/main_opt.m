@@ -46,12 +46,17 @@ indic.target =0; % ==1 if uses emission target
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-[LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);
-
+if ~isfile('LF_baseline.mat')
+    [LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);
+else
+    load('LF_baseline.mat')
+end
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 3: Solve for Optimal Allocation        %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 3: Solve for Optimal Allocation       %%%
+% Timing: starting from 2020-2025 the gov. chooses      %%
+% the optimal allocation                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 syms hhf hhg hlf hlg C F G Af Ag An hl hh real
 symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh];
 list.opt  = string(symms.opt); 
@@ -72,28 +77,44 @@ end
 %%% Initial Guess %%%
 %%%%%%%%%%%%%%%%%%%%%
 
+if indic.target==0
+    % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
+    taus=0;
+    tauf=0;
+    taul=0;
+    lambdaa=1; % balances budget with tauf= taul=0
+    pol=eval(symms.pol);
+    [LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);   
+end
+
 x0 = zeros(nn*T,1);
 
-x0(1:T)         =LF_SIM(list.allvars=='hhf',2:T+1); % hhf; first period in LF is baseline
-x0(T+1:T*2)     =LF_SIM(list.allvars=='hhg',2:T+1); % hhg
-x0(T*2+1:T*3)   =LF_SIM(list.allvars=='hlf',2:T+1); % hlf
-x0(T*3+1:T*4)   =LF_SIM(list.allvars=='hlg',2:T+1); % hlg 
-x0(T*4+1:T*5)   =LF_SIM(list.allvars=='C',2:T+1);   % C
+x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =LF_SIM(list.allvars=='hhf',2:T+1); % hhf; first period in LF is baseline
+x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =LF_SIM(list.allvars=='hhg',2:T+1); % hhg
+x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =LF_SIM(list.allvars=='hlf',2:T+1); % hlf
+x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =LF_SIM(list.allvars=='hlg',2:T+1); % hlg 
+x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =LF_SIM(list.allvars=='C',2:T+1);   % C
 if indic.target==1
-    x0(T*5+1:T*6)   =(Ems+params(list.params=='deltaa'))./params(list.params=='omegaa');   % F
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))) =(Ems+params(list.params=='deltaa'))./params(list.params=='omegaa');   % F
 else
-    x0(T*5+1:T*6)   =LF_SIM(list.allvars=='F',2:T+1);
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))) =LF_SIM(list.allvars=='F',2:T+1);
 end
-x0(T*6+1:T*7)   =LF_SIM(list.allvars=='G',2:T+1);   % G
-x0(T*7+1:T*8)   =LF_SIM(list.allvars=='Af',2:T+1);  % Af
-x0(T*8+1:T*9)   =LF_SIM(list.allvars=='Ag',2:T+1);  % Ag
-x0(T*9+1:T*10)  =LF_SIM(list.allvars=='An',2:T+1);  % An
-x0(T*10+1:T*11) =LF_SIM(list.allvars=='hl',2:T+1);  % hl
-x0(T*11+1:T*12) =LF_SIM(list.allvars=='hh',2:T+1);  % hh
+x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =LF_SIM(list.allvars=='G',2:T+1);   % G
+x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =LF_SIM(list.allvars=='Af',2:T+1);  % Af
+x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =LF_SIM(list.allvars=='Ag',2:T+1);  % Ag
+x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =LF_SIM(list.allvars=='An',2:T+1);  % An
+x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =LF_SIM(list.allvars=='hl',2:T+1);  % hl
+x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =LF_SIM(list.allvars=='hh',2:T+1);  % hh
 
+% initial values for An0, Ag0, Af0 refer to 2015-2019=> first period in
+% Laissez faire solution, not == init (which refers to 2010-2014)!
+Ag0 = LF_SIM(list.allvars=='Ag',1);
+Af0 = LF_SIM(list.allvars=='Af',1);
+An0 = LF_SIM(list.allvars=='An',1);
+initOPT= eval(symms.init);
 %%% Test Constraints and Objective Function %%%
 f =  objective(x0,T,params, list);
-[c, ceq] = constraints(x0, T, params, init, list, Ems);
+[c, ceq] = constraints(x0, T, params, initOPT, list, Ems);
 
 %%% Optimize %%%
 %%%%%%%%%%%%%%%%
@@ -103,11 +124,19 @@ f =  objective(x0,T,params, list);
 %utilize results to generate initial point and then re-run active-set algorithm.
 
 objf=@(x)objective(x,T,params, list);
-constf=@(x)constraints(x, T, params, init, list, Ems);
-%options = optimset('algorithm','sqp','Tolfun',1e-9,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+constf=@(x)constraints(x, T, params, initOPT, list, Ems);
+options = optimset('algorithm','sqp','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+% THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
+% options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
+
+%- test if output equals LF solution (in no target version)
+if indic.target==0
+if min(x0==output.bestfeasible.x)~=1
+    error('optimal policy is not the theoretically optimal one!')
+end
+end
 
 x0 = x;
 options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);

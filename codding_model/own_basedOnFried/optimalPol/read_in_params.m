@@ -32,5 +32,6 @@ if exist('init')~=7
     Ag0 = init(list.init=='Ag0');
     An0 = init(list.init=='An0');
 end
+
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
 deltaa = params(list.params=='deltaa'); % natural sink
