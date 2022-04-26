@@ -52,8 +52,12 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Solve for Optimal Allocation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+syms hhf hhg hlf hlg C F G Af Ag An hl hh gammalh gammall real
+symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh gammalh gammall];
+list.opt  = string(symms.opt); 
 
 %Preview: Structure of vector of allocations x:
+% ORDER AS IN LIST.OPT
 %  hhf    = x(1:T);
 %  hhg    = x(  T+1:2*T);
 %  hlf    = x(2*T+1:3*T);
@@ -66,15 +70,16 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 %  An     = x(9*T+1:10*T);
 %  hl     = x(10*T+1:11*T);
 %  hh     = x(11*T+1:12*T);
-
+%  gammalh = x(12*T+1:13*T);; % Lagrange multiplier on HH labour supply
+%  gammall = x(13*T+1:14*T);
 
 %%% Linear constraints optimisation %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-lb = zeros((12*T),1);
-ub = Inf*ones((12*T),1);
+lb = zeros((length(list.opt)*T),1);
+ub = Inf*ones((length(list.opt)*T),1);
 
-ub(10*T+1:11*T)=params(list.params=='upbarHl');
-ub(11*T+1:12*T)=params(list.params=='upbarHh');
+ub((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=params(list.params=='upbarH');
+ub((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=params(list.params=='upbarH');
 
 %%% Initial Guess %%%
 %%%%%%%%%%%%%%%%%%%%%

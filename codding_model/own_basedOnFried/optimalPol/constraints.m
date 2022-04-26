@@ -1,7 +1,7 @@
 function [c, ceq] = constraints(x, T, targets, params, list, Ems)
 % function to read in constraints on government problem
-REDO equations as in laissez faire
 % there is no order of constraints
+
 %% read in stuff
 % choice variables
 % hhf, hhg, => replace hhn by market clearing
@@ -22,7 +22,7 @@ REDO equations as in laissez faire
  An     = x(9*T+1:10*T);
  hl     = x(10*T+1:11*T);
  hh     = x(11*T+1:12*T);
- gammalh
+ gammalh = 
  
 % parameters
 
@@ -127,7 +127,6 @@ c(T*3+1:T*4)=hl-upbarH;
  % include missing equations here %
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  ceq = [];
- 
 
  ceq(1:T)       = pe.*E.^(1/eppse)-pg.*G.^(1/eppse); % green energy demand energy producers
  ceq(T+1:T*2)   = (deltay*E.^((eppsy-1)/eppsy)+(1-deltay)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
@@ -141,3 +140,4 @@ c(T*3+1:T*4)=hl-upbarH;
  ceq(T*9+1:T*10) = C+xf+xn+xg-Y; % final good market clearing
 
 ceq = ceq';
+end

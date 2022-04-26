@@ -1,4 +1,4 @@
-   function f = objective(x,T,params, list, indic)
+   function f = objective(x, T, params, list, indic)
 %% read in stuff
 % choice variables
 % hhf, hhg, => replace hhn by market clearing
@@ -48,6 +48,7 @@ end
 
 %Objective function value:
 f = (-1)*vec_discount*(Utilcon-Utillab);
+   end
 
 
 
