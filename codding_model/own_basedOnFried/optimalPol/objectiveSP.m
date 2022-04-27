@@ -1,22 +1,21 @@
-function f = objective(x, T, params, list)
-%% read in stuff
-% choice variables
-% hhf, hhg, => replace hhn by market clearing
-% hlf, hlg  => hln as above
-% C, F, G : intermediate outputs
-% Af, Ag, An : technology
-% hl, hh
+function f = objectiveSP(x, T, params, list)
 
+% read in stuff
 
-C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
-hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
-hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
- 
-% parameters
-thetaa = params(list.params=='thetaa');
-sigmaa = params(list.params=='sigmaa');
-betaa = params(list.params=='betaa');
-zh  = params(list.params=='zh');
+% pars
+read_in_params;
+
+% transform x: all are exponentially transformed
+% x=exp(y);
+% % except for hours
+% x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(y((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
+% x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(y((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
+
+% variables
+hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
+hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
+C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+
 
 %% social welfare
 

@@ -52,8 +52,23 @@ else
     load('LF_baseline.mat')
 end
 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 3: either tauf, taul How much needed to meet emissions?  %%%
+% Timing: starting from 2020-2025                                          %%
+% the gov. chooses tauf or taul to meet emission target                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% version 1: meet emission target by use of tauf, taul set =0 (optimal without emission target)
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 4: Sociel Planner allocation                             %%%
+% Timing: starting from 2020-2025                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 3: Solve for Optimal Allocation       %%%
+%%%      Section 5: Solve for Optimal Allocation       %%%
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
