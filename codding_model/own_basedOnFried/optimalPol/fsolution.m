@@ -64,8 +64,11 @@ Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
 ws = SR.ws;
 
- A  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
- Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A/Ag0)^phii); 
+A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+
+A0  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
+
+ Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
  
  if abs(Ag-Agtest)>1e-10
      error('growth rate off')

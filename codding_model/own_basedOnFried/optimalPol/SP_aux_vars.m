@@ -1,6 +1,8 @@
 function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
-            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg, ...
-            F, N, G, E, Y, C, hl, hh, A_lag]= SP_aux_vars(x, list, params, T, init)
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg, wln, wlg, wlf, ...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsf, taus, tauf, taul, lambdaa...
+            ]= SP_aux_vars(x, list, params, T, init)
 
 read_in_params;
 
@@ -40,13 +42,40 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
 
 sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
 sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
-%sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-sn      = S-sg-sff; 
+sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+%sn      = S-sg-sff; 
 
 N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
 
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+
+% prices compatible with sp solution 
+pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
+pn = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
+pf = (G./F).^(1/eppse).*pg; 
+tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
+pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
+wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+taus    = 1-wsgtil./wsf;
+wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
+        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
+        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+taul    = (exp(wh./wl)-sigmaa*exp(hh./hl))./(exp(hh./hl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
+            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
+SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+            +tauf.*pf.*F;
+Emnet     = omegaa*F-deltaa; % net emissions
+A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+muu = C.^(-thetaa);
+
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
+wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
 end

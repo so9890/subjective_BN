@@ -1,4 +1,4 @@
-function [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems)
+function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems)
 
 % pars
 read_in_params;
@@ -41,6 +41,7 @@ end
 
 if indic.target==0
     x0 = zeros(nn*T,1);
+    Ftarget = 0; % placeholder
     x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',2:T+1); % hhf; first period in LF is baseline
     x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',2:T+1); % hhg
     x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =LF_SIM(list.allvars=='hhn',2:T+1); % hhg
@@ -112,7 +113,7 @@ ub=[];
 %%% Test Constraints and Objective Function %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic);
+ f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic);
 [c, ceq] = constraintsSP(guess_trans, T, params, initOPT, list, Ems, indic);
 
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic);
@@ -132,9 +133,19 @@ out_trans=exp(x);
 out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
 out_trans((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
 
+% additional variables 
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg, wln, wlg, wlf,...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A, muu,...
+            pn, pg, pf, pee, wh, wl, ws, taus, tauf, taul, lambdaa]= SP_aux_vars(x, list, params, T, init);
+gammall = zeros(size(pn));
+gammalh = zeros(size(pn));
+
+sp_all=eval(symms.allvars);
+
 if indic.target==1
-    save('SP_target', 'out_trans')
+    save('SP_target', 'sp_all')
 else
-    save('SP_notarget', 'out_trans')
+    save('SP_notarget', 'sp_all')
 end
 end

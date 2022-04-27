@@ -39,7 +39,7 @@ indic.target =0; % ==1 if uses emission target
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
 [params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
-
+% save('params', )
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: Laissez-Faire Simulation        %%%
@@ -70,14 +70,14 @@ end
         load('SP_target.mat')
     else
         indic.target=1;
-        SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
+        [symms, list, sp_all_target]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
     end 
 
     if isfile('SP_notarget.mat')
         load('SP_notarget.mat')
     else
         indic.target=0;
-        SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
+        [symms, list, sp_all_notarget]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
     end 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

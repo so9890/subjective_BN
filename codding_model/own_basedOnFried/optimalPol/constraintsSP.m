@@ -15,8 +15,9 @@ end
 % variables
 
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
-            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg, ...
-            F, N, G, E, Y, C, hl, hh, A_lag]= SP_aux_vars(x, list, params, T, init);
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg, wln, wlg, wlf,...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A, muu,...
+            pn, pg, pf, pee, wh, wl, ws, taus, tauf, taul, lambdaa]= SP_aux_vars(x, list, params, T, init);
 
 % inequality constraints
 c=[];
@@ -34,6 +35,7 @@ ceq =[];
 ceq(1:T)       = zh*hh - (hhn + hhf+hhg); % high skill market clearing
 ceq(T+1:2*T)   = (1-zh)*hl - (hln + hlf+hlg);
 ceq(2*T+1:3*T) = C - (Y-xn-xg-xf);
-ceq(3*T+1:4*T) = sn-((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+% ceq(3*T+1:4*T) = sn-((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+ceq(3*T+1:4*T) = sn+sg+sff-S;
 ceq(4*T+1:5*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
 end
