@@ -2,9 +2,18 @@ function [tauf taul SWF] = polExp(pf, params, list)
 % function to find necessary taul or tauf to meet emission target
 % leaving the other one fixed at the optimal value absent emission target
 
-syms pn pg real
+syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
+    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A real
+
 symms.targprod=[pn pg];
 list.targprod = string(symms.targprod);
+
+if indic.tauffixed== 1
+    symms.targlab=[hhn hhg hhf hh hl gammalh gammall wh wl taul];
+else
+    symms.targlab=[hhn hhg hhf hh hl gammalh gammall wh wl tauf];
+end
+list.targlab=string(symms.targlab); 
 
 %- initial guess
 pf=ones(T,1);
@@ -25,5 +34,12 @@ trProd=exp(solProd);
 
 pn = trProd((find(list.targprod=='pn')-1)*T+1:find(list.targprod=='pn')*T);
 pg = trProd((find(list.targprod=='pg')-1)*T+1:find(list.targprod=='pg')*T);
+
+%- read in auxiliary variables following from pn,pf,pg
+[C, Lnwln, Lgwlg, Lfwlf, pf, F, pee, E, Y, N, G, xn, xg, xf, ...
+  AfLf, AgLg, AnLn]=resProdTarget(list, pn, pf, pg, params); 
+
+%- Household and labour side
+
 end
 

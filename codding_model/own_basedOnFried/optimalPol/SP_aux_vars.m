@@ -19,6 +19,7 @@ An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
 hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
 hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
 C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
 
 % initial values
 An0=init(list.init=='An0');
@@ -38,10 +39,10 @@ An_lag  = [An0;An(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
 
 sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
-sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
-sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
+%sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+sn      = S-sg-sff; 
 
-F       = xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
 N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
 

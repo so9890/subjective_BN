@@ -1,16 +1,17 @@
-function f = objectiveSP(x, T, params, list)
+function f = objectiveSP(y, T, params, list, Ftarget, indic)
 
 % read in stuff
 
 % pars
 read_in_params;
-
 % transform x: all are exponentially transformed
-% x=exp(y);
+ x=exp(y);
 % % except for hours
-% x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(y((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
-% x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(y((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
-
+ x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T) = upbarH./(1+exp(y((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
+ x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T) = upbarH./(1+exp(y((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
+if indic.target==1
+    x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)));
+end
 % variables
 hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
 hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
