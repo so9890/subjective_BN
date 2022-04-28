@@ -114,7 +114,9 @@ ub=[];
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic);
 constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
-options = optimset('algorithm','sqp','Tolfun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%  options = optimoptions('Algorithm','sqp','TolStep',1e-10,'TolFun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','Iter','MaxSQPIter',10000);
+
+options = optimset('algorithm','sqp','TolX', 1e-8, 'Tolfun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);

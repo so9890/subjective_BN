@@ -35,4 +35,6 @@ ceq(2*T+1:3*T) = C - (Y-xn-xg-xf);
 % ceq(3*T+1:4*T) = sn-((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
 ceq(3*T+1:4*T) = S-(sn+sg+sff);
 ceq(4*T+1:5*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
+
+ceq = ceq';
 end

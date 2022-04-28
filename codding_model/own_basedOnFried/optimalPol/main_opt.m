@@ -106,9 +106,8 @@ end
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-[symms, list, op_all]= OPT_solve(list, symms, params, Sparams, x0LF,  init201519, indexx, indic, T, Ems)
-
+indic.target=1;
+[symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%

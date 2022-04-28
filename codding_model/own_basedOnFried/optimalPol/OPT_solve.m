@@ -1,4 +1,4 @@
-function [symms, list, op_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems)
+function [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems)
 
 % pars
 read_in_params;
@@ -24,20 +24,20 @@ if indic.target==1
     end 
 
     x0 = zeros(nn*T,1);
+    kappaa=(1-3e-4); % to scale sp result
+    x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =kappaa*sp_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
+    x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =kappaa*0.2*sp_all(:,list.allvars=='hhg'); % hhg
+    x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =kappaa*sp_all(:,list.allvars=='hlf'); % hlf
+    x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =kappaa*1.2*sp_all(:,list.allvars=='hlg'); % hlg 
+    x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =kappaa*0.4*sp_all(:,list.allvars=='C');   % C
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =kappaa*0.4*sp_all(:,list.allvars=='F');
 
-    x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =sp_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
-    x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =sp_all(:,list.allvars=='hhg'); % hhg
-    x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =sp_all(:,list.allvars=='hlf'); % hlf
-    x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =sp_all(:,list.allvars=='hlg'); % hlg 
-    x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
-    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =sp_all(:,list.allvars=='F');
-
-    x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =sp_all(:,list.allvars=='G');   % G
+    x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =kappaa*0.6*sp_all(:,list.allvars=='G');   % G
     x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
     x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =sp_all(:,list.allvars=='Ag');  % Ag
     x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
-    x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =sp_all(:,list.allvars=='hl');  % hl
-    x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =sp_all(:,list.allvars=='hh');  % hh
+    x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =kappaa*0.4*sp_all(:,list.allvars=='hl');  % hl
+    x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =kappaa*0.3*sp_all(:,list.allvars=='hh');  % hh
    
     
     % initial values for An0, Ag0, Af0 refer to 2015-2019=> first period in
@@ -53,7 +53,7 @@ elseif indic.target==0
         pol=eval(symms.pol);
 
         if ~isfile('FB_LF_SIM_NOTARGET.mat')
-            [LF_SIM, polLF] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);   
+            [LF_SIM] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init201519, indexx);   
             save('FB_LF_SIM_NOTARGET','LF_SIM');
         else
             help=load('FB_LF_SIM_NOTARGET.mat');
@@ -75,12 +75,6 @@ elseif indic.target==0
     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =LF_SIM(list.allvars=='hl',1:T);  % hl
     x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
 
-%     % initial values for An0, Ag0, Af0 refer to 2015-2019=> first period in
-%     % Laissez faire solution, not == init (which refers to 2010-2014)!
-%     Ag0 = LF_SIM(list.allvars=='Ag',1);
-%     Af0 = LF_SIM(list.allvars=='Af',1);
-%     An0 = LF_SIM(list.allvars=='An',1);
-%     init201519= eval(symms.init);
 end
 
 %%% Transform to unbounded variables %%
@@ -104,9 +98,11 @@ ub=[];
 
 
 %%% Test Constraints and Objective Function %%%
-f =  objective(guess_trans, T, params, list, Ftarget, indic);
-[c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic);
-
+f =  objective(guess_trans, T, params, list, Ftarget, indic)
+[c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic)
+for i=1:length(symms.opt)
+model(i)=jacobian(f, symms.opt(i)); % should give derivative=0 if not present
+end
 %%% Optimize %%%
 %%%%%%%%%%%%%%%%
 %Note: Active-set algorithm is benchmark and assumed for calculations below 
@@ -129,26 +125,29 @@ if x==guess_trans
     fprintf('In version target=%d, the initial guess and the OPtimal pol are the same. With target=0 this is the LF and with target=1 it is the SP one.', indic.target);
 end
 
-% options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-% [x2,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-% 
-% x=savebfp;%  output.bestfeasible.x;
-% options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-% [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-
-%- test if output equals LF solution (in no target version)
-if indic.target==0
-if min(x0==output.bestfeasible.x)~=1
-    error('optimal policy is not the theoretically optimal one!')
-end
+% transform
+out_trans=exp(x);
+out_trans((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=upbarH./(1+exp(x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
+out_trans((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=upbarH./(1+exp(x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+if indic.target==1
+    out_trans((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
 end
 
-x0 = x;
-options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(@(x)COMET_Objective(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,multip),x0,[],[],[],[],lb,ub,@(x)COMET_Constraints(x,T,periods,N,K0,A_E,alphaE,S_t0,theta1,Z,alpha,v,Gct,Pc,Delta,phi_labor,gamma_labor,alpha0,alpha1,tao_l_fix,tao_l_const,tao_k_fix,tao_k_const,T_tao_E_fix,tao_E_fix,no_interm_tax,phi23,X0,phi33,Zt0,phi12,phi22,phi32,phi11,phi21,Qt0,ksi4,TC0,eta,Sbar,Fx,ksi1,ksi2,ksi3,E0,ELand0,ELand,gXt,beta,sigma,trans_share,tao_k_0,delta,K1,G,tao_l_0,distortionary,gamma,a1,a2,a3,a4,b1,b2,b3,B0,energy_wedge_fix),options);
-
-%Note: Check exit flags to ensure convergence. If program stops for other reasons
-%(e.g., max iterations exceeded), it needs to be re-started, either from
-%the current guess, or, in case of failure, from a revised guess.
+% save results
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, ws, wsn, wsg, taus, tauf, taul, lambdaa,...
+            wln, wlg, wlf]= OPT_aux_vars(out_trans, list, params, T, init201519);
+gammall = zeros(size(pn));
+gammalh = zeros(size(pn));
  
+ opt_all=eval(symms.allvars);
+
+if indic.target==1
+    save('OPT_target', 'opt_all')
+else
+    save('OPT_notarget', 'opt_all')
+end
+
 end

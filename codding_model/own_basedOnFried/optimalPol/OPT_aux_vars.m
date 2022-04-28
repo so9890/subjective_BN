@@ -19,7 +19,7 @@ read_in_params;
  hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
  hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
 
-% initial values
+% initial values: CALIBRATED dont change
 An0=init(list.init=='An0');
 Ag0=init(list.init=='Ag0');
 Af0=init(list.init=='Af0');
