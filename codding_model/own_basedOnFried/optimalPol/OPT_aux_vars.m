@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init)
+            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -18,7 +18,12 @@ read_in_params;
  An     = x((find(list.opt=='An')-1)*T+1:find(list.opt=='An')*T);
  hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
  hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
-
+ if indic.target==1
+     sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+     sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
+     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);    
+ end
+ 
 % initial values: CALIBRATED dont change
 An0=init(list.init=='An0');
 Ag0=init(list.init=='Ag0');
@@ -43,9 +48,11 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
 
 % scientists follow from LOW fossil and green 
-sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
-sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
-sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+if indic.target==0
+    sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
+    sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
+    sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+end
 
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green

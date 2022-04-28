@@ -1,6 +1,6 @@
 function f = target_lab(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, params, list, pol)
 
-% seconf function to find allocation when emission target is achieved by
+% second function to find allocation when emission target is achieved by
 % use of either taul or tauf
 
 % indic.tauffixed == 1 then tauf is fixed as under laissez faire/BAU

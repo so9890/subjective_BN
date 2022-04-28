@@ -5,10 +5,14 @@ read_in_params;
 Ftarget =  (Ems'+deltaa)/omegaa;
 
 % symbilic variables and lists
-syms hhf hhg hlf hlg C F G Af Ag An hl hh real
-symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh];
-list.opt  = string(symms.opt); 
-
+syms hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg real
+if indic.target==0
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh];
+    list.opt  = string(symms.opt); 
+else
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg];
+    list.opt  = string(symms.opt); 
+end
 nn= length(list.opt); % number of variables
 
 %%% Initial Guess %%%
@@ -30,7 +34,7 @@ if indic.target==1
     x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =kappaa*sp_all(:,list.allvars=='hlf'); % hlf
     x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =kappaa*1.2*sp_all(:,list.allvars=='hlg'); % hlg 
     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =kappaa*0.4*sp_all(:,list.allvars=='C');   % C
-    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =kappaa*0.4*sp_all(:,list.allvars=='F');
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =kappaa*0.1*sp_all(:,list.allvars=='F');
 
     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =kappaa*0.6*sp_all(:,list.allvars=='G');   % G
     x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
@@ -38,6 +42,9 @@ if indic.target==1
     x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =kappaa*0.4*sp_all(:,list.allvars=='hl');  % hl
     x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =kappaa*0.3*sp_all(:,list.allvars=='hh');  % hh
+   x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =sp_all(:,list.allvars=='sff');  % sff
+   x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =sp_all(:,list.allvars=='sn');  % sg
+   x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg');  % sn
    
     
     % initial values for An0, Ag0, Af0 refer to 2015-2019=> first period in
@@ -100,9 +107,9 @@ ub=[];
 %%% Test Constraints and Objective Function %%%
 f =  objective(guess_trans, T, params, list, Ftarget, indic)
 [c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic)
-for i=1:length(symms.opt)
-model(i)=jacobian(f, symms.opt(i)); % should give derivative=0 if not present
-end
+% for i=1:length(symms.opt)
+% model(i)=jacobian(f, symms.opt(i)); % should give derivative=0 if not present
+% end
 %%% Optimize %%%
 %%%%%%%%%%%%%%%%
 %Note: Active-set algorithm is benchmark and assumed for calculations below 
@@ -117,7 +124,7 @@ options = optimset('algorithm','sqp','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIte
 % options = optimset('algorithm','sqp','TolCon',1e-2,'Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
-% options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+ options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 % without target the SP and OPTIMAL POL are the best
 

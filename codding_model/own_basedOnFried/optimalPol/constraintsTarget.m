@@ -1,8 +1,10 @@
-function [c, ceq] = constraints(y, T, params, init, list, Ems, indic)
+function [c, ceq] = constraintsTarget(y, T, params, init, list, Ems, indic)
 % function to read in constraints on government problem
-
+% in difference to constraints without targets this version has scientists
+% as a choice variable
 % pars
 read_in_params;
+Ftarget=(Ems'+deltaa)./omegaa; 
 
 % transform x: all are exponentially transformed
  x=exp(y);
@@ -11,16 +13,18 @@ read_in_params;
 x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = upbarH./(1+exp(y((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
 x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = upbarH./(1+exp(y((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
 if indic.target==1
-    Ftarget=(Ems'+deltaa)./omegaa; 
     x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
 end
 
 %- auxiliary variables
+if indic.target==0
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init, indic);
+            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init);
+else
+    
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
  % only for direct periods
@@ -70,12 +74,6 @@ c(1:T)= C-zh.*wh.*hh-(1-zh).*wl.*hl-tauf.*pf.*F;
  ceq(T*5+1:T*6) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
  ceq(T*6+1:T*7) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
  ceq(T*7+1:T*8) = wsf-wsn; % wage scientists neutral
-
-if indic.target==1 % scientists are coded as a choice variable    
- ceq(T*8+1:T*9)   = sff - ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
- ceq(T*9+1:T*10)  = sg  - ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa);
- ceq(T*10+1:T*11) = sn  - ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-end
 
 ceq = ceq';
 end
