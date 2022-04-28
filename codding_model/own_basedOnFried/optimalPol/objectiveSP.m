@@ -4,6 +4,7 @@ function f = objectiveSP(y, T, params, list, Ftarget, indic)
 
 % pars
 read_in_params;
+
 % transform x: all are exponentially transformed
  x=exp(y);
 % % except for hours
@@ -31,7 +32,7 @@ if thetaa~=1
 elseif thetaa==1
  Utilcon = log(C);
 end
- Utillab = (zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+ Utillab = chii*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
 %Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
 % UtilTC_cont = (betaa^(T+periods-1))*N(T+periods)*(1/(1-betaa))*(((1+alpha0*(TC(T+periods)^alpha1))^((-1)*(1-sigma)))/(1-sigma));

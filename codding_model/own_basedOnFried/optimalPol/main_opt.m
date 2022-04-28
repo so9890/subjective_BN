@@ -38,19 +38,29 @@ indic.target =0; % ==1 if uses emission target
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-[params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
-% save('params', )
+if isfile(('params.mat'))
+    fprintf('loading parameter values')
+     load('params.mat')
+else
+    fprintf('calibrating model')
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
+    save('params')
+end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 3: Laissez-Faire Simulation        %%%
+%%%      Section 3: BAU Simulation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-if ~isfile('LF_baseline.mat')
-    [LF_SIM, pol] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init, indexx);
+if ~isfile('LF_BAU.mat')
+    [LF_SIM, pol, FVAL] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init201519, indexx);
+    save('LF_BAU', 'LF_SIM', 'pol', 'FVAL')
+    clearvars LF_SIM pol FVAL
+    LF_BAU=load('LF_BAU.mat');
 else
-    load('LF_baseline.mat')
+    LF_BAU=load('LF_BAU.mat');
 end
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: either tauf, taul How much needed to meet emissions?  %%%
@@ -67,17 +77,28 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % load all results
     if isfile('SP_target.mat')
+        fprintf('loading Social planner solution with target');
         load('SP_target.mat')
+        sp_all_target=sp_all;
+        clearvars sp_all
     else
+        % note: it does not make a difference to the result whether to
+        % include the upper bound on F or not when it is transformed to an
+        % unbounded variable!
         indic.target=1;
-        [symms, list, sp_all_target]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
+        fprintf('solving Social planner solution with target');
+        SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     end 
 
     if isfile('SP_notarget.mat')
+        fprintf('loading Social planner solution without target');
         load('SP_notarget.mat')
+        sp_all_notarget=sp_all;
+        clearvars sp_all
     else
         indic.target=0;
-        [symms, list, sp_all_notarget]=SP_solve(list, symms, params, Sparams, x0LF, init, indexx, indic, T, Ems);
+        fprintf('solving Social planner solution without target');
+        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     end 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,6 +106,10 @@ end
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[symms, list, op_all]= OPT_solve(list, symms, params, Sparams, x0LF,  init201519, indexx, indic, T, Ems)
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

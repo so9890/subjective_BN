@@ -1,4 +1,4 @@
-function [x0LF, SL, SP, SR, Sall, Sinit, init, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
+function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
     = calibration_matching(MOM, symms, list, parsHelp, polhelp)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
@@ -171,11 +171,11 @@ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter',
 trR=exp(sol3);
  
 %% save all results 
-[x0LF, SL, SP, SR, Sall, Sinit, init]=fsolution(symms, trProd, trLab, trR, parsHelp, list, polhelp, MOM); 
+[x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution(symms, trProd, trLab, trR, parsHelp, list, polhelp, MOM); 
 
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
-f=laissez_faire(guess_transLF, params, list, pol, init);
+f=laissez_faire(guess_transLF, params, list, pol, init201014);
 
 if max(abs(f))>1e-10
     error('calibration is not a solution to LF')

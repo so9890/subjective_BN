@@ -1,4 +1,5 @@
-function [x0LF, SL, SP, SR, Sall, Sinit, init]=fsolution(symms, trProd, trLab, trR, paramss, list, poll, MOM) 
+function [x0LF, SL, SP, SR, Sall, ...
+    Sinit201014, init201014 , Sinit201519, init201519]=fsolution(symms, trProd, trLab, trR, paramss, list, poll, MOM) 
 
 read_in_pars_calib;
 %soltions
@@ -51,6 +52,10 @@ muu = C^(-thetaa);
 Af   = AfLf/Lf; % production 
 Ag   = AgLg/Lg; % production 
 An   = AnLn/Ln; % production 
+% to save as initial values
+Af0=Af; An0=An; Ag0=Ag;
+init201519 = eval(symms.init);
+clearvars Af0 Ag0 An0
 
 wln   = Lnwln/Ln; % price labour input neutral sector
 wlg   = Lgwlg/Lg;
@@ -59,7 +64,7 @@ wlf   = Lfwlf/Lf;
 sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
-Af0 = SR.Af_lag;
+Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
 ws = SR.ws;
@@ -84,9 +89,11 @@ Emnet     = omegaa*F-deltaa; % net emissions
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);
 Sall=cell2struct(num2cell(eval(symms.allvars)), cell_par, 2);
 
-init = eval(symms.init);
+init201014 = eval(symms.init);
 cell_par=arrayfun(@char, symms.init, 'uniform', 0);
-Sinit=cell2struct(num2cell(init), cell_par, 2);
+Sinit201014=cell2struct(num2cell(init201014), cell_par, 2);
+Sinit201519=cell2struct(num2cell(init201519), cell_par, 2);
+
 
 
 %- save for laissez faire

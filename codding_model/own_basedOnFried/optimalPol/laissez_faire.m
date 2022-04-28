@@ -2,6 +2,9 @@ function f=laissez_faire(x, params, list, pol, laggs)
 % Model
 % equilibrium for one period!
 % takes policy as given
+
+% starts to solve the model in 2020-2024;
+% i.e. Aj_laggs  refer to 2015-2019 period
 % A_lag is except for the initial condition is 
 %- read in policy and parameters
 read_in_params;

@@ -1,4 +1,4 @@
-function [params, Sparams,  pol, init, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params( T, indic, lengthh)
+function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params( T, indic, lengthh)
 
 % function to read in parameter values and to calibrate direct parameters
 % calls on calibration_matching and calibration_emissions 
@@ -118,7 +118,6 @@ MOM = calibration_moments();
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
 %%
-[x0LF, ~, ~, ~, Sall, ~, init, Sparams, ~, params, pol, symms, MOM,indexx, list]...
+[x0LF, ~, ~, ~, Sall, ~,  init201014 , ~, init201519, Sparams, ~, params, pol, symms, MOM,indexx, list]...
     = calibration_matching(MOM, symms, list, parsHelp, polhelp);
-
 end
