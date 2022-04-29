@@ -1,4 +1,4 @@
-function [tauf taul SWF] = polExp(pf, params, list)
+function [tauf, taul, SWF] = polExp(pf, params, list)
 % function to find necessary taul or tauf to meet emission target
 % leaving the other one fixed at the optimal value absent emission target
 
@@ -7,6 +7,7 @@ syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
 
 symms.targprod=[pn pg];
 list.targprod = string(symms.targprod);
+indic.tauffixed=0;
 
 if indic.tauffixed== 1
     symms.targlab=[hhn hhg hhf hh hl gammalh gammall wh wl taul];

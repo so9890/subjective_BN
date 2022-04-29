@@ -29,10 +29,11 @@ list.calib3 =string(symms.calib3);
 
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
-    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A real
+    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
+    tauf taus taul lambdaa Ln Lg Lf SWF real
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
     hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
-    gammalh, gammall, SGov, Emnet, A ];
+    gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF ];
 list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire

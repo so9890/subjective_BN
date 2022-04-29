@@ -1,10 +1,12 @@
+function []=plotts(list, symms, T, params)
+
 if ~isfile('figures/testfig')
     mkdir('figures');
 end
 % this script plots results
 
-syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg real
-symms.plotsvars =[hh hl Y F E G  C xn xg xf sn sff sg Emnet]; % LG Lf LN missing in allvars! 
+syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF real
+symms.plotsvars =[hh hl Y F E G  C xn xg xf sn sff sg Emnet Ln Lg Lf Af Ag An SWF];  
 symms.plotspol = [tauf taul taus lambdaa]; 
 symms.plotsprices = [pg pn pf pee wh wl ws];
 
@@ -12,57 +14,74 @@ list.plotsvars=string(symms.plotsvars);
 list.plotspol=string(symms.plotspol);
 list.plotsprices=string(symms.plotsprices);
 
+lisst = containers.Map({'VARS', 'POL', 'PRICES'}, {list.plotsvars, list.plotspol, list.plotsprices});
+ 
 % read in results
-BAU=load('LF_BAU.mat');
-FB_LF=load('FB_LF_SIM_NOTARGET.mat');
-SP_T=load('SP_target.mat');
-SP_NOT=load('SP_notarget.mat');
+helper=load('LF_BAU.mat');
+bau=helper.LF_SIM;
+helper=load('FB_LF_SIM_NOTARGET.mat');
+fb_lf=helper.LF_SIM;
+helper=load('SP_target.mat');
+sp_t=helper.sp_all';
+helper=load('SP_notarget.mat');
+sp_not=helper.sp_all';
+helper=load('OPT_notarget.mat');
+opt_not=helper.opt_all';
 
+RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT'}, {bau, fb_lf, sp_t, sp_not});
+
+% SWF comparison
+betaa=params(list.params=='betaa');
+ disc=repmat(betaa, 1,T);
+ expp=0:T-1;
+ vec_discount= disc.^expp;
+ SWF_PV= zeros(length(keys(RES)),1);
+ 
 % x indices
 Year =transpose(year(['2025'; '2030';'2035'; '2040';'2045'; '2050';'2055'; '2060'; '2065';'2070';'2075';'2080'],'yyyy'));
 time = 1:T;
-% number of figures in row in subplot
-nn=5;
-% plot
-%allvars=BAU.LF_SIM'; % transpose in LF case so that same order as SP : each column a different period
-allvars= SP_T.sp_all';
-lisst=list.plotspol;
-% plot(time, allvars(find(list.allvars=='sff'),:))
-        %%% with subplots
-          gcf=figure('Visible','off');
+
+%% plot
+for i =keys(RES)
+    ii=string(i);
+    fprintf('plotting %s',ii );
+    allvars= RES(ii);
+    % SEF calculation 
+    SWF_PV(keys(RES)==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
+
+%% 
+for l =keys(lisst)
+    ll=string(l);
+    plotvars=lisst(ll);
+    % number of figures in row in subplot
+    if ll~='VARS'
+        nn=2;
+    else 
+        nn=4;
+    end
+    %%% with subplots
+    gcf=figure; %('Visible','off');
         
-        for i=1:length(lisst)
-            varr=string(lisst(i));
-        subplot(floor(length(lisst)/nn)+1,nn,i)
-        plot(time,allvars(find(list.allvars==varr),:),  'LineWidth', 1.3)
-        ytickformat('%.2f')
-        xticklabels(Year)
-        title(sprintf('%s', varr), 'Interpreter', 'latex')
+        for v=1:length(plotvars)
+            varr=string(plotvars(v));
+            subplot(floor(length(plotvars)/nn)+1,nn,v)
+            plot(time,allvars(find(list.allvars==varr),:),  'LineWidth', 1.1)
+            ytickformat('%.2f')
+            xticklabels(Year)
+            title(sprintf('%s', varr), 'Interpreter', 'latex')
         end
-        
-%         subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+1)
-%         plot(time, plottsLF(list.plot_mat=='yd',:)./plottsLF(list.plot_mat=='yc',:), time, plottsRam(list.plot_mat=='yd',:)./plottsRam(list.plot_mat=='yc',:), 'LineWidth', 1.6)
-%         %legend(sprintf('LF'), sprintf('Ramsey'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best');
-%         ytickformat('%.2f')
-%         xticklabels(Year)
-%         title('$y_d/y_c$', 'Interpreter', 'latex')
-%         %set(lgd, 'Interpreter', 'latex', 'box', 'off', 'Location', 'best')
-%         
-%         subplot(floor(length(list.plot)/nn)+1,nn,length(list.plot)+2)
-%         plot(time, opt_pol_simRam, 'LineWidth', 1.6)
-%         title(sprintf('Optimal $\\tau_l$'), 'Interpreter', 'latex')%, 'box', 'off', 'Location', 'best')
-%         ytickformat('%.2f')
-%         xticklabels(Year)
-        sgtitle('Social Planner Allocation')
-        path=sprintf('figures/sp_subplots_variables.png');
+ 
+%         sgtitle('Social Planner Allocation')
+        path=sprintf('figures/%s_subplots_%s.png', ii, ll);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
-        
+  end
+end      
 %% separate plots        
 
-for i= 1:length(lisst)
-    ss = lisst(i);
+for i= 1:length(list)
+    ss = list(i);
     
         gcf=figure('Visible','off');
         pp=plot(time, plottsLF(list.plot_mat==list.plot(i),:), 'LineWidth', 1.6);
@@ -82,5 +101,5 @@ for i= 1:length(lisst)
         exportgraphics(gcf,path,'Resolution', 400)
 end
   
-
+end
        

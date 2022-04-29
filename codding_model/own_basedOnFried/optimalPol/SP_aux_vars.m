@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= SP_aux_vars(x, list, params, T, init)
+            wln, wlg, wlf, SWF]= SP_aux_vars(x, list, params, T, init)
 
 read_in_params;
 
@@ -77,5 +77,14 @@ muu = C.^(-thetaa);
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+
+% utility
+if thetaa~=1
+ Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+ Utilcon = log(C);
+end
+ Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+ SWF = Utilcon-Utillab;
 
 end

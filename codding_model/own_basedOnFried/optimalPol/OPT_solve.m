@@ -105,8 +105,8 @@ ub=[];
 
 
 %%% Test Constraints and Objective Function %%%
-f =  objective(guess_trans, T, params, list, Ftarget, indic)
-[c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic)
+f =  objective(guess_trans, T, params, list, Ftarget, indic);
+[c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic);
 % for i=1:length(symms.opt)
 % model(i)=jacobian(f, symms.opt(i)); % should give derivative=0 if not present
 % end
@@ -119,14 +119,19 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic)
 
 objf=@(x)objective(x, T, params, list, Ftarget, indic);
 constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
-options = optimset('algorithm','sqp','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 
+if indic.target==0
+    options = optimset('algorithm','sqp','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+else
 % options = optimset('algorithm','sqp','TolCon',1e-2,'Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
  options = optimset('algorithm','active-set','Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+end
+
+ [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 % without target the SP and OPTIMAL POL are the best
+
 
 if x==guess_trans
     fprintf('In version target=%d, the initial guess and the OPtimal pol are the same. With target=0 this is the LF and with target=1 it is the SP one.', indic.target);
@@ -145,11 +150,11 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, ws, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= OPT_aux_vars(out_trans, list, params, T, init201519);
+            wln, wlg, wlf]= OPT_aux_vars(out_trans, list, params, T, init201519, indic);
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
  
- opt_all=eval(symms.allvars);
+opt_all=eval(symms.allvars);
 
 if indic.target==1
     save('OPT_target', 'opt_all')

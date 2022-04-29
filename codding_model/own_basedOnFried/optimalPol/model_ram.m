@@ -1,13 +1,14 @@
 % get objective function of ramsey planner
-function [OB_RAM, x, list, symms]= OPT_aux_vars( list, params, T, init, indic)
+function [OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init, indic, Ems, symms)
 
 % prepare variables
 syms    mu_IMP mu_MarketS mu_wageG mu_wageN mu_NProd mu_OPThhn...
-        mu_OPThhg mu_OPThln mu_OPThlg ...
+        mu_OPThhg mu_OPThln mu_OPThlg KT_hl KT_hh ...
         hhf hhg hlf hlg C F G Af Ag An ...
-        hl hh sn sff sg mu_target real
-symms.optsym=[ mu_IMP mu_MarketS mu_wageG mu_wageN mu_NProd mu_OPThhn...
-        mu_OPThhg mu_OPThln mu_OPThlg hhf hhg hlf hlg C F G Af Ag An hl hh];
+        HL HH sn sff sg mu_target real
+    
+symms.optsym=[ mu_IMP mu_MarketS  mu_wageN mu_NProd mu_OPThhn KT_hl KT_hh ...
+        mu_OPThhg mu_OPThln mu_OPThlg hhf hhg hlf hlg C F G Af Ag An HL HH]; % dropped: mu_wageG
 if indic.target== 1
     symms.optsym=[symms.optsym mu_target];
 end
@@ -20,7 +21,8 @@ vecs=sym('a',[T,length([list.optsym])]);
     end
 % stack into one column vector
 x=vecs(:); 
-
+list.optALL=string(x);
+symms.optALL=x;
 %% read in stuff
 % inputs: x is a symbolic vector of choice variables for T periods
 %params=symms.params; % by passing a symbolic vector read_in_params gives symbolic pars
@@ -37,8 +39,8 @@ read_in_params;
  Af     = x((find(list.optsym=='Af')-1)*T+1:find(list.optsym=='Af')*T);
  Ag     = x((find(list.optsym=='Ag')-1)*T+1:find(list.optsym=='Ag')*T);
  An     = x((find(list.optsym=='An')-1)*T+1:find(list.optsym=='An')*T);
- hl     = x((find(list.optsym=='hl')-1)*T+1:find(list.optsym=='hl')*T);
- hh     = x((find(list.optsym=='hh')-1)*T+1:find(list.optsym=='hh')*T);
+ hl     = x((find(list.optsym=='HL')-1)*T+1:find(list.optsym=='HL')*T);
+ hh     = x((find(list.optsym=='HH')-1)*T+1:find(list.optsym=='HH')*T);
 
  % lagrange multiplier
 mu_IMP     = x((find(list.optsym=='mu_IMP')-1)*T+1:find(list.optsym=='mu_IMP')*T);
@@ -48,8 +50,13 @@ mu_OPThhg  = x((find(list.optsym=='mu_OPThhg')-1)*T+1:find(list.optsym=='mu_OPTh
 mu_OPThhn  = x((find(list.optsym=='mu_OPThhn')-1)*T+1:find(list.optsym=='mu_OPThhn')*T);
 mu_OPThlg  = x((find(list.optsym=='mu_OPThlg')-1)*T+1:find(list.optsym=='mu_OPThlg')*T);
 mu_OPThln  = x((find(list.optsym=='mu_OPThln')-1)*T+1:find(list.optsym=='mu_OPThln')*T);
-mu_wageG   = x((find(list.optsym=='mu_wageG')-1)*T+1:find(list.optsym=='mu_wageG')*T);
+%mu_wageG   = x((find(list.optsym=='mu_wageG')-1)*T+1:find(list.optsym=='mu_wageG')*T);
 mu_wageN   = x((find(list.optsym=='mu_wageN')-1)*T+1:find(list.optsym=='mu_wageN')*T);
+if indic.target==1
+    mu_target  = x((find(list.optsym=='mu_target')-1)*T+1:find(list.optsym=='mu_target')*T);
+end    
+KT_hl       = x((find(list.optsym=='KT_hl')-1)*T+1:find(list.optsym=='KT_hl')*T);
+KT_hh       = x((find(list.optsym=='KT_hh')-1)*T+1:find(list.optsym=='KT_hh')*T);
 
 % initial values: CALIBRATED dont change
 An0=init(list.init=='An0');
@@ -73,7 +80,7 @@ An_lag  = [An0;An(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 
-muu      = C.^(-thetaa); % same equation in case thetaa == 1
+%muu      = C.^(-thetaa); % same equation in case thetaa == 1
 
 % scientists follow from LOW fossil and green 
 sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
@@ -89,7 +96,7 @@ pn      = ((1-deltay.*pee.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition 
 % output
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 N       = (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
-Y       = (deltay^(1/eppsy)*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+%Y       = (deltay^(1/eppsy)*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
 
 % wages and policy elements
 
@@ -147,7 +154,7 @@ end
  %% constraints
 IMP     = C-zh.*wh.*hh-(1-zh).*wl.*hl-tauf.*pf.*F; % one each period
 MarketS = (sff+sg+sn)-S;  % LOM neutral technology 
-wageG   = wsf-wsg; % wage scientists green
+%HOLDS BY CONSTRUCTION wageG   = wsf-wsg; % wage scientists green
 wageN   = wsf-wsn; % wage scientists neutral
 NProd   = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
 OPThhn  = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
@@ -155,13 +162,20 @@ OPThhg  = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
 OPThln  = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
 OPThlg  = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
 
-if indic.target==1
-    mu_target
+Ftarget = (Ems'+deltaa)/omegaa; 
+Target  = F-Ftarget; % emission target only enters constraints if indic.target==1 see below
+KTHH    = upbarH-hh;
+KTHL    = upbarH-hl;
  %% objective function 
-OB_RAM=vec_discount*(Utilcon-Utillab...
-        - mu_IMP.*IMP- mu_MarketS.*MarketS...
-        - mu_wageG.*wageG- mu_wageN.*wageN...
+OB_RAM=vec_discount*(Utilcon-Utillab)...
+        + sum(-mu_IMP.*IMP- mu_MarketS.*MarketS...
+        - mu_wageN.*wageN...
         - mu_NProd.*NProd-mu_OPThhn.*OPThhn...
         - mu_OPThhg.*OPThhg -mu_OPThln.*OPThln...
-        - mu_OPThlg.*OPThlg);
+        - mu_OPThlg.*OPThlg...
+        - KT_hl.*KTHL- KT_hh.*KTHH);
+
+if indic.target==1
+    OB_RAM=OB_RAM-sum(mu_target.*Target);
+end
 end

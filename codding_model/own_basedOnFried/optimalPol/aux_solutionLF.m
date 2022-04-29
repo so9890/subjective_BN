@@ -32,6 +32,9 @@ pee=SLF.pee;
 pf=SLF.pf;
 
 %- params
+sigmaa = Sparams.sigmaa;
+chii = Sparams.chii;
+
 eppse = Sparams.eppse;
 eppsy = Sparams.eppsy;
 deltay= Sparams.deltay;
@@ -46,6 +49,7 @@ zh     = Sparams.zh;
 lambdaa = pol(list.pol=='lambdaa');
 tauf = pol(list.pol=='tauf');
 taul = pol(list.pol=='taul');
+taus = pol(list.pol=='taus');
 alphag=Sparams.alphag;
 alphaf=Sparams.alphaf;
 alphan=Sparams.alphan;
@@ -77,6 +81,15 @@ wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
 Emnet     = omegaa*F-deltaa; % net emissions
+
+% utility
+if thetaa~=1
+ Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+ Utilcon = log(C);
+end
+ Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+ SWF = Utilcon-Utillab;
 
 % test market clearing
 if abs(C-Cincome)>1e-10

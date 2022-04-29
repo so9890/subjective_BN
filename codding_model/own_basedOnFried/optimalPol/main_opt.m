@@ -4,7 +4,6 @@
 
 %%Author: Lint Barrage, Brown University
 %%Version: August 2018
-
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
 cd '/home/sonja/Documents/projects/Overconsumption/codding_model/own_basedOnFried/optimalPol'
@@ -53,7 +52,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 if ~isfile('LF_BAU.mat')
-    [LF_SIM, pol, FVAL] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init201519, indexx);
+    [LF_SIM, pol, FVAL] = solve_LF(T, list, polCALIB, params, Sparams,  symms, x0LF, init201519, indexx);
     save('LF_BAU', 'LF_SIM', 'pol', 'FVAL')
     clearvars LF_SIM pol FVAL
     LF_BAU=load('LF_BAU.mat');
@@ -100,15 +99,39 @@ end
         fprintf('solving Social planner solution without target');
         [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     end 
+    
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Symbolic approach to solve Ramsey problem %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+indic.target=0;
+%1) get objective function 
+[OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms);
+%- x is a symbolic vector of choice variables! 
+
+%2) take derivatives and write resulting equations as function
+if indic.target==1
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target', list, indic, indexx);
+else
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget', list, indic, indexx);
+end
+%3) solve model using fsolve
+% THERE IS SOME MISTAKE IN THE CODE!
+RAM = solve_sym(symms, list, Ftarget, indic)
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 5: Solve for Optimal Allocation       %%%
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+indic.target=0;
 [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 6: PLOTS       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+plotts(list, symms, T);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

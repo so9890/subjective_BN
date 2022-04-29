@@ -7,7 +7,7 @@ function allo_trans=trans_allo_out(indexx, solution, params, listt)
 % indexx: structure of logical vector ==1 if respective transformation has
 %           to be performed
 % solution: raw, untransformed solution from fsolve or vpasolve
-% params: structure or double of parameter values
+% params: structure or double of parameter values: may be numeric
 
 
 
