@@ -32,3 +32,4 @@ end
 
 vec_discount=[betaa betaa^2 betaa^3 betaa^4 betaa^5 betaa^6 betaa^7 betaa^8 betaa^9 betaa^10 betaa^11 betaa^12 betaa^13 betaa^14 betaa^15 betaa^16 betaa^17 betaa^18 betaa^19 betaa^20 betaa^21 betaa^22 betaa^23 betaa^24 betaa^25 betaa^26 betaa^27 betaa^28 betaa^29 betaa^30];
 Obj_ramPA_dynamic= vec_discount*vec_Obj_ram;
+end

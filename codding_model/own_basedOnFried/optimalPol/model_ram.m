@@ -50,7 +50,7 @@ mu_OPThhg  = x((find(list.optsym=='mu_OPThhg')-1)*T+1:find(list.optsym=='mu_OPTh
 mu_OPThhn  = x((find(list.optsym=='mu_OPThhn')-1)*T+1:find(list.optsym=='mu_OPThhn')*T);
 mu_OPThlg  = x((find(list.optsym=='mu_OPThlg')-1)*T+1:find(list.optsym=='mu_OPThlg')*T);
 mu_OPThln  = x((find(list.optsym=='mu_OPThln')-1)*T+1:find(list.optsym=='mu_OPThln')*T);
-%mu_wageG   = x((find(list.optsym=='mu_wageG')-1)*T+1:find(list.optsym=='mu_wageG')*T);
+% mu_wageG   = x((find(list.optsym=='mu_wageG')-1)*T+1:find(list.optsym=='mu_wageG')*T);
 mu_wageN   = x((find(list.optsym=='mu_wageN')-1)*T+1:find(list.optsym=='mu_wageN')*T);
 if indic.target==1
     mu_target  = x((find(list.optsym=='mu_target')-1)*T+1:find(list.optsym=='mu_target')*T);
@@ -162,7 +162,7 @@ OPThhg  = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
 OPThln  = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
 OPThlg  = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
 
-Ftarget = (Ems'+deltaa)/omegaa; 
+Ftarget = (Ems(1:T)'+deltaa)/omegaa; 
 Target  = F-Ftarget; % emission target only enters constraints if indic.target==1 see below
 KTHH    = upbarH-hh;
 KTHL    = upbarH-hl;

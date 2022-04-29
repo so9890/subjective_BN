@@ -1,8 +1,8 @@
 function [ C, Lnwln, Lgwlg, Lfwlf, pf, F, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn]=resProdTarget(list, pn, pf, pg, params)
+            AfLf, AgLg, AnLn]=resProdTarget(list, pn, pf, pg, params, tauf, Ems)
 % params
 read_in_params;
-read_in_pol;
+%read_in_pol;
 
 % vars: VECTORS
 F       = (Ems+deltaa)/omegaa;
@@ -13,7 +13,7 @@ N       = (pee./pn).^eppsy*(1-deltay)./deltay.*E; % optimality final good
 Y       = (deltay.^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay).^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
 
 xn=pn.*alphan.*N;
-xg=pg.*alphag*G;
+xg=pg.*alphag.*G;
 xf=pf.*(1-tauf).*alphaf.*F;
 
 C= Y-xn-xf-xg; 

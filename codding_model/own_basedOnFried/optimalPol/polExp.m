@@ -3,7 +3,7 @@ function [tauf, taul, SWF] = polExp(pf, params, list)
 % leaving the other one fixed at the optimal value absent emission target
 
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
-    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A real
+    wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A taul tauf real
 
 symms.targprod=[pn pg];
 list.targprod = string(symms.targprod);
@@ -11,12 +11,23 @@ indic.tauffixed=0;
 
 if indic.tauffixed== 1
     symms.targlab=[hhn hhg hhf hh hl gammalh gammall wh wl taul];
+    symms.expi=[symms.choice, taul];
+    tauf=0;
+
 else
     symms.targlab=[hhn hhg hhf hh hl gammalh gammall wh wl tauf];
+    symms.expi=[symms.choice(list.choice~='F'), tauf];
 end
 list.targlab=string(symms.targlab); 
+list.expi=string(symms.expi);
+indexxLF=indexx('LF');
+indexxEXPI.lab=indexxLF.lab(list.choice~='F');
+indexxEXPI.sqr=indexxLF.sqr(list.choice~='F');
+indexxEXPI.oneab=indexxLF.oneab(list.choice~='F');
+indexxEXPI.exp=indexxLF.exp(list.choice~='F');
 
-%- initial guess
+indexx('EXPI')=indexxEXPI;
+%% - initial guess
 pf=ones(T,1);
 pn=ones(T,1);
 pg=ones(T,1);
@@ -38,9 +49,10 @@ pg = trProd((find(list.targprod=='pg')-1)*T+1:find(list.targprod=='pg')*T);
 
 %- read in auxiliary variables following from pn,pf,pg
 [C, Lnwln, Lgwlg, Lfwlf, pf, F, pee, E, Y, N, G, xn, xg, xf, ...
-  AfLf, AgLg, AnLn]=resProdTarget(list, pn, pf, pg, params); 
+  AfLf, AgLg, AnLn]=resProdTarget(list, pn, pf, pg, params, tauf, Ems'); 
 
 %- Household and labour side
 
+% directly use laissez faire with additional equation
 end
 
