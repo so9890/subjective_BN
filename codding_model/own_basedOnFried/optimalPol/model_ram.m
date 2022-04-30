@@ -80,7 +80,7 @@ An_lag  = [An0;An(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 
-%muu      = C.^(-thetaa); % same equation in case thetaa == 1
+muu      = C.^(-thetaa); % same equation in case thetaa == 1
 
 % scientists follow from LOW fossil and green 
 sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
@@ -113,7 +113,7 @@ taus    = 1-wsgtil./wsf;
 wsg     = wsgtil./(1-taus); % this ensures wsg=ws
 
 % assuming interior solution households
-taul    = (exp(wh./wl)-sigmaa*exp(hhhl))./(exp(hhhl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+taul    = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
 
 % lambdaa so that gov budget is balanced
 lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
@@ -128,9 +128,9 @@ wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 % xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf.*Af;
 % xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 % 
-% SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-%             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-%             +tauf.*pf.*F;
+ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+             +tauf.*pf.*F;
 %         
 % Emnet     = omegaa*F-deltaa; % net emissions
 % A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
@@ -152,7 +152,9 @@ end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
  %% constraints
-IMP     = C-zh.*wh.*hh-(1-zh).*wl.*hl-tauf.*pf.*F; % one each period
+%IMP     = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
+% replace by FOCS skill supply
+IMP     = C.*muu-zh*chii*hh.^(sigmaa+1)./(1-taul)-(1-zh)*chii*hl.^(sigmaa+1)./(1-taul)-muu.*SGov;
 MarketS = (sff+sg+sn)-S;  % LOM neutral technology 
 %HOLDS BY CONSTRUCTION wageG   = wsf-wsg; % wage scientists green
 wageN   = wsf-wsn; % wage scientists neutral

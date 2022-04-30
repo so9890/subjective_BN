@@ -87,6 +87,9 @@ end
         indic.target=1;
         fprintf('solving Social planner solution with target');
         SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+        indic.target=0;
+        fprintf('solving Social planner solution without target');
+        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     end 
 
     if isfile('SP_notarget.mat')
@@ -124,7 +127,7 @@ RAM = solve_sym(symms, list, Ftarget, indic)
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=0;
+indic.target=1;
 [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,4 +1,4 @@
-function f=laissez_faire(x, params, list, pol, laggs)
+function f=laissez_faire_LambdaFlex(x, params, list, pol, laggs)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -8,7 +8,9 @@ function f=laissez_faire(x, params, list, pol, laggs)
 % A_lag is except for the initial condition is 
 %- read in policy and parameters
 read_in_params;
-read_in_pol;
+taul    = pol(list.pol=='taul');
+taus    = pol(list.pol=='taus');
+tauf    = pol(list.pol=='tauf');
 
 %- initial condition
 Af_lag=laggs(list.init=='Af0');
@@ -43,6 +45,7 @@ Ag_lag=laggs(list.init=='Ag0');
  pn     = exp(x(list.choice=='pn'));
  pee     = exp(x(list.choice=='pee'));
  pf     = exp(x(list.choice=='pf'));
+ lambdaa  = exp(x(list.choice=='lambdaa'));
 
 %% - read in auxiliary equations
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
@@ -168,5 +171,8 @@ f(q)= gammalh.*(hh-upbarH);
 q=q+1;
 f(q)= gammall.*(hl-upbarH);
 
+%27 Gov Budget: government is passive but runs a balanced budget 
+q=q+1;
+f(q)= SGov;
 %fprintf('number equations: %d; number variables %d', q, length(list.choice));
 end

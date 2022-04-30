@@ -1,4 +1,4 @@
-function LF_t=aux_solutionLF(Sparams, SLF,pol, laggs, list, symms, indexx, params)
+function LF_t=aux_solutionLF_LambdaFlex(Sparams, SLF,pol, laggs, list, symms, indexx, params)
 
 % output
 % LF_t: column vector of simulated variables in period t
@@ -46,10 +46,12 @@ rhof   = Sparams.rhof;
 rhon   = Sparams.rhon;
 rhog   = Sparams.rhog;
 zh     = Sparams.zh; 
-lambdaa = pol(list.pol=='lambdaa');
+lambdaa = SLF.lambdaa;
+
 tauf = pol(list.pol=='tauf');
 taul = pol(list.pol=='taul');
 taus = pol(list.pol=='taus');
+
 alphag=Sparams.alphag;
 alphaf=Sparams.alphaf;
 alphan=Sparams.alphan;
@@ -64,7 +66,7 @@ N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good pro
 Y = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
 xn=SLF.pn*Sparams.alphan*N;
 xg=SLF.pg*Sparams.alphag*SLF.G;
-xf=SLF.pf*(1-pol(list.pol=='tauf'))*Sparams.alphaf*SLF.F;
+xf=SLF.pf*(1-tauf)*Sparams.alphaf*SLF.F;
 Cincome=Y-xn-xf-xg;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
@@ -100,8 +102,8 @@ end
 
 % test variables read in properly
 xx=eval(symms.choice);
-guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-f=laissez_faire(guess_trans, params, list, pol, laggs);
+guess_trans=trans_guess(indexx, xx, params, list.params);
+f=laissez_faire_LambdaFlex(guess_trans, params, list, pol, laggs);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')

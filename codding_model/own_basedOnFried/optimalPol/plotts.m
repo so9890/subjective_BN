@@ -5,7 +5,7 @@ if ~isfile('figures/testfig')
 end
 % this script plots results
 
-syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF real
+syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
 symms.plotsvars =[hh hl Y F E G  C xn xg xf sn sff sg Emnet Ln Lg Lf Af Ag An SWF];  
 symms.plotspol = [tauf taul taus lambdaa]; 
 symms.plotsprices = [pg pn pf pee wh wl ws];
@@ -28,7 +28,7 @@ sp_not=helper.sp_all';
 helper=load('OPT_notarget.mat');
 opt_not=helper.opt_all';
 
-RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT'}, {bau, fb_lf, sp_t, sp_not});
+RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT', 'OPT_NOT'}, {bau, fb_lf, sp_t, sp_not, opt_not});
 
 % SWF comparison
 betaa=params(list.params=='betaa');
@@ -72,7 +72,7 @@ for l =keys(lisst)
         end
  
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/%s_subplots_%s.png', ii, ll);
+        path=sprintf('figures/%s_subplots_%s_new.png', ii, ll);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf

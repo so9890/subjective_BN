@@ -1,4 +1,4 @@
-function RAM = solve_sym(symms, list, Ftarget, indic)
+function RAM = solve_sym(symms, list, Ftarget, indic, T, indexx, params)
 % function to solve Ramsey problem resulting from symbolic derivation 
 % using fsolve
 % order of variables in Ram_Model as in list.optALL

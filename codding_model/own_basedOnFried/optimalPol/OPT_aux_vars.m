@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init, indic)
+            wln, wlg, wlf, SWF]= OPT_aux_vars(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -80,7 +80,7 @@ taus    = 1-wsgtil./wsf;
 wsg     = wsgtil./(1-taus); % this ensures wsg=ws
 
 % assuming interior solution households
-taul    = (exp(wh./wl)-sigmaa*exp(hhhl))./(exp(hhhl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+taul    = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
 
 % lambdaa so that gov budget is balanced
 lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
@@ -101,5 +101,15 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+
+% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
+% utility
+if thetaa~=1
+ Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+ Utilcon = log(C);
+end
+ Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+ SWF = Utilcon-Utillab;
 
 end

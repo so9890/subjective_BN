@@ -82,7 +82,7 @@ model_trans=subs(model, x, allo_trans);
  % the second output gives the vector or input arguments!
  
 % the inputs are given by x: the non-transformed variables!
-if ~isfile(sprintf('%s.m', file_name))
+%if ~isfile(sprintf('%s.m', file_name))
     matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
-end
+%end
 end

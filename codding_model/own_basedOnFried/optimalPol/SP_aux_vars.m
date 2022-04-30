@@ -56,6 +56,7 @@ pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
 pn = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
 pf = (G./F).^(1/eppse).*pg; 
 tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
+% tauf2= 1-xf./(pf.*alphaf.*F); 
 pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
 wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
@@ -64,7 +65,7 @@ wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
-taul    = (exp(wh./wl)-sigmaa*exp(hh./hl))./(exp(hh./hl)+exp(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+taul    = (log(wh./wl)-sigmaa*log(hh./hl))./(log(hh./hl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
 lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
@@ -78,6 +79,7 @@ wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % pri
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
+% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
 % utility
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);
