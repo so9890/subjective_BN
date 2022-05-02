@@ -53,12 +53,12 @@ while t<=T
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
 
-%     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'trust-region');%, );%, );%, 'Display', 'Iter', );
-%     [sol, fval, exitf] = fsolve(modFF, guess_trans, options);
+   options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'trust-region');%, );%, );%, 'Display', 'Iter', );
+   [sol2, fval, exitf] = fsolve(modFF, sol, options);
 
     % pass to standard algorithm
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-    [sol, fval, exitf] = fsolve(modFF, sol, options);
+    [sol3, fval, exitf] = fsolve(modFF, sol2, options);
 
     %- transform results to bounded variables
     LF=trans_allo_out(indexx('LF'), sol, params, list.params);

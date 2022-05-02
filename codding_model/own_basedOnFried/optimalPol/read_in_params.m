@@ -8,6 +8,7 @@ if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
 S      = params(list.params=='S');
+%phis   = params(list.params=='phis');
 
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');

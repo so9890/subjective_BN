@@ -4,6 +4,8 @@ thetaa = paramss(list.paramsdir=='thetaa');
 sigmaa = paramss(list.paramsdir=='sigmaa');
 upbarH  = paramss(list.paramsdir=='upbarH');
 S      = paramss(list.paramsdir=='S');
+phis      = paramss(list.paramsdir=='phis');
+
 alphag = paramss(list.paramsdir=='alphag');
 alphaf = paramss(list.paramsdir=='alphaf');
 alphan = paramss(list.paramsdir=='alphan');

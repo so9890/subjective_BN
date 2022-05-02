@@ -22,32 +22,39 @@ function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201
 
 %- calibration research side
 syms Af_lag Ag_lag An_lag ...
-     sff sg sn ws real
+     sff sg sn  phis gammasf gammasn gammasg real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sff sg sn ws ];
+     sff sg sn gammasn gammasf gammasg phis ];
 list.calib3 =string(symms.calib3);
+
+symms.calib4 = [Af_lag Ag_lag An_lag ...
+     sff sg sn gammasn gammasf gammasg];
+list.calib4 =string(symms.calib4);
 
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
     wh wl ws pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
-    tauf taus taul lambdaa Ln Lg Lf SWF real
+     tauf taus taul lambdaa Ln Lg Lf SWF real
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
     hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
-    gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF ];
+    gammalh, gammall, gammmasf, gammasn, gammasg, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF ];
 list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire
-symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf, gammalh, gammall];
+symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn,...
+            gammmasf, gammasn, gammasg, wh, wl, ws, pg, pn, pee, pf, gammalh, gammall];
 list.choice  = string(symms.choice);
 
 indexxLF.lab = boolean(zeros(size(list.choice)));
 indexxLF.exp = boolean(zeros(size(list.choice)));
 indexxLF.sqr = boolean(zeros(size(list.choice)));
 indexxLF.oneab = boolean(zeros(size(list.choice)));
+indexxLF.sci = boolean(zeros(size(list.choice)));
 
 indexxLF.lab(list.choice=='hl'| list.choice=='hh')=1;
-indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list.choice~='gammalh' )=1;
-indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh')=1;
+indexxLF.exp(list.choice~='sff'& list.choice~='sn' & list.choice~='sg'&list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasn' & list.choice~='gammasf' )=1;
+indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasn' | list.choice=='gammasf' )=1;
+indexxLF.sci(list.choice=='sff'& list.choice=='sn' & list.choice=='sg')=1;
 
 %- calibration productivity
 syms omegaa deltay real
@@ -65,6 +72,7 @@ indexxcalib.lab = boolean(zeros(size(list.calib)));
 indexxcalib.exp = boolean(zeros(size(list.calib)));
 indexxcalib.sqr = boolean(zeros(size(list.calib)));
 indexxcalib.oneab = boolean(zeros(size(list.calib)));
+indexxcalib.sci = boolean(zeros(size(list.choice)));
 
 indexxcalib.lab(list.calib=='hl'| list.calib=='hh')=1;
 indexxcalib.exp(list.calib~='thetan' & list.calib~='thetaf' & list.calib~='thetag'& list.calib~='zh' ...
@@ -149,28 +157,73 @@ Ln = hhn.^Sparams.thetan.*hln.^(1-Sparams.thetan);
 Lf = hhf.^Sparams.thetaf.*hlf.^(1-Sparams.thetaf);
 
 % initial guess
-sg  = 0.2;
-sff = 0.4;
-sn  = 0.4;
-ws  = 2;
+sg  = log((Sparams.S-0.002)/0.002);
+% log((params(listt=='S')-guess(indexx.sci))./guess(indexx.sci))
+sff = log((Sparams.S-0.004)/0.004);
+sn  = log((Sparams.S-0.002)/0.002);
     Af = AfLf/Lf;
     An = AnLn/Ln;
     Ag = AgLg/Lg;
-Af_lag = Af;
-An_lag = An;
-Ag_lag = Ag;
+Af_lag = log(Af);
+An_lag = log(An);
+Ag_lag = log(Ag);
+phis = log(14);
+gammasn =sqrt(16);
+gammasf =sqrt(0);
+gammasg =sqrt(0);
 x0 = eval(symms.calib3);
 
 %- test
-f= calibRem(log(x0), MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag);
+f= calibRem_nows(x0, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag);
 
 % solving model
-modF3 = @(x)calibRem(x, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag); 
+modF3 = @(x)calibRem_nows(x, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag); 
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
-[sol3, fval, exitf] = fsolve(modF3, log(x0), options);
-trR=exp(sol3);
- 
+[x, fval, exitf] = fsolve(modF3, x0, options);
+[x, fval, exitf] = fsolve(modF3, x, options);
+
+%%
+Af_lag  = exp(x(list.calib3=='Af_lag'));
+Ag_lag  = exp(x(list.calib3=='Ag_lag'));
+An_lag  = exp(x(list.calib3=='An_lag'));
+phis  = exp(x(list.calib3=='phis'));
+sff      = S/(1+exp(x(list.calib3=='sff')));
+sg      = S/(1+exp(x(list.calib3=='sg')));
+sn      = S/(1+exp(x(list.calib3=='sn')));
+gammasg      = (x(list.calib3=='gammasg'))^2;
+gammasf      = (x(list.calib3=='gammasf'))^2;
+gammasn      = (x(list.calib3=='gammasn'))^2;
+
+% now rerun with phis as given 
+
+x40=x(list.calib3~='phis')
+f= calibRem_nows_nophis(x40, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag, phis);
+
+% solving model
+modF3 = @(x)calibRem_nows_nophis(x, MOM, list, params, pol, trProd, parsHelp, polhelp, Af, An, Ag, phis); 
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+
+[x, fval, exitf] = fsolve(modF3, x40, options);
+
+[x, fval, exitf] = fsolve(modF3, x, options);
+[x, fval, exitf] = fsolve(modF3, x, options);
+
+Af_lag  = exp(x(list.calib4=='Af_lag'));
+Ag_lag  = exp(x(list.calib4=='Ag_lag'));
+An_lag  = exp(x(list.calib4=='An_lag'));
+
+sff      = S/(1+exp(x(list.calib4=='sff')));
+sg      = S/(1+exp(x(list.calib4=='sg')));
+sn      = S/(1+exp(x(list.calib4=='sn')));
+gammasg      = (x(list.calib4=='gammasg'))^2;
+gammasf      = (x(list.calib4=='gammasf'))^2;
+gammasn      = (x(list.calib4=='gammasn'))^2;
+
+res=eval(symms.calib3); 
+cell_par=arrayfun(@char, symms.calib3, 'uniform', 0);
+SciL=cell2struct(num2cell(res), cell_par, 2);
+
 %% save all results 
 [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution(symms, trProd, trLab, trR, parsHelp, list, polhelp, MOM); 
 
