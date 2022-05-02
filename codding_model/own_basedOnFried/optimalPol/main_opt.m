@@ -102,7 +102,14 @@ end
         fprintf('solving Social planner solution without target');
         [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     end 
-    
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% find good initial starting point for target opt %%
+%%% as a function of taul
+taul= 0.5;
+pf= 1;
+exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Symbolic approach to solve Ramsey problem %%%
@@ -120,14 +127,14 @@ else
 end
 %3) solve model using fsolve
 % THERE IS SOME MISTAKE IN THE CODE!
-RAM = solve_sym(symms, list, Ftarget, indic)
+RAM = solve_sym(symms, list, Ftarget, indic);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 5: Solve for Optimal Allocation       %%%
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+indic.target=0;
 [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

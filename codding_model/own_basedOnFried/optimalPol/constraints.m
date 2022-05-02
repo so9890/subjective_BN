@@ -6,8 +6,11 @@ read_in_params;
 
 % transform x: all are exponentially transformed
  x=exp(y);
-% except for hours
 
+% except for taus
+x(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus')))=y(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus'))) ;
+
+% except for hours
 x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = upbarH./(1+exp(y((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
 x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = upbarH./(1+exp(y((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
 if indic.target==1
@@ -20,7 +23,7 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf]= OPT_aux_vars(x, list, params, T, init, indic);
+            wln, wlg, wlf, SWF, wsgtil]= OPT_aux_vars(x, list, params, T, init, indic);
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
  % only for direct periods
@@ -63,7 +66,7 @@ c = zeros(T,1); %  periods and 2 additional ones:
  ceq = [];
 
  ceq(1:T)       = S-(sff+sg+sn);  % LOM neutral technology 
- ceq(T+1:T*2)   = wsf-wsg; % wage scientists green
+ ceq(T+1:T*2)   = wsf-wsgtil./(1-taus); % wage scientists green/ taus
  ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
  % optimality skills (for fossil used to determine wage rates)
  ceq(T*3+1:T*4) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills

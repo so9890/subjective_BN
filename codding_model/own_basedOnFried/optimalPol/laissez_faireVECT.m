@@ -1,7 +1,7 @@
-function f=laissez_faireVECT(x, params, list, sp_not, laggs,T)
-% Model
-% equilibrium for one period!
-% takes policy as given
+function f=laissez_faireVECT(x, params, list, varrs, laggs,T)
+
+% called by script 'test_results.m'
+% takes optimal policy results as input
 
 % starts to solve the model in 2020-2024;
 % i.e. Aj_laggs  refer to 2015-2019 period
@@ -9,10 +9,9 @@ function f=laissez_faireVECT(x, params, list, sp_not, laggs,T)
 %- read in policy and parameters
 read_in_params;
 
-tauf=sp_not(list.allvars=='tauf', :)';
-taus=sp_not(list.allvars=='taus', :)';
-taul=sp_not(list.allvars=='taul', :)';
-lambdaa=sp_not(list.allvars=='lambdaa', :)';
+tauf=varrs(list.allvars=='tauf', :)';
+taus=varrs(list.allvars=='taus', :)';
+taul=varrs(list.allvars=='taul', :)';
 
 % choice variables
 %- transform variables directly instead of in code
@@ -42,6 +41,7 @@ lambdaa=sp_not(list.allvars=='lambdaa', :)';
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
  pf     = exp(x((find(list.test=='pf')-1)*T+1:(find(list.test=='pf'))*T));
+ lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
 
 %% - read in auxiliary equations
 %- initial condition
@@ -61,6 +61,7 @@ E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
+        
             % subsidies and profits and wages scientists cancel
 N       =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
@@ -78,7 +79,6 @@ q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 q=q+1;
-
 f(q:T)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
 %2
 q=q+1;
@@ -172,6 +172,9 @@ f((q-1)*T+1:T*q)= gammalh.*(hh-upbarH);
 %26
 q=q+1;
 f((q-1)*T+1:T*q)= gammall.*(hl-upbarH);
+
+q=q+1;
+f((q-1)*T+1:T*q)= SGov;
 
 %fprintf('number equations: %d; number variables %d', q, length(list.test));
 end

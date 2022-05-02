@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsn, wsg, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= OPT_aux_vars(x, list, params, T, init, indic)
+            wln, wlg, wlf, SWF, wsgtil]= OPT_aux_vars(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -17,9 +17,11 @@ read_in_params;
  Ag     = x((find(list.opt=='Ag')-1)*T+1:find(list.opt=='Ag')*T);
  An     = x((find(list.opt=='An')-1)*T+1:find(list.opt=='An')*T);
  hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
- hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
+ hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
+ taus   = x((find(list.opt=='taus')-1)*T+1:find(list.opt=='taus')*T);
+
  if indic.target==1
-     sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+     sff    = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
      sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
      sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);    
  end
@@ -76,7 +78,7 @@ wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(
 wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa);
 wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
-taus    = 1-wsgtil./wsf;
+%taus    = 1-wsgtil./wsf;
 wsg     = wsgtil./(1-taus); % this ensures wsg=ws
 
 % assuming interior solution households

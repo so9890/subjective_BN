@@ -1,4 +1,4 @@
-function f = target_lab(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, params, list, pol)
+function f = target_lab(x, T, Lnwln, Lgwlg, xn, xg, AgLg, AnLn, params, list, taul,pf, F, Y)
 
 % second function to find allocation when emission target is achieved by
 % use of either taul or tauf
@@ -8,81 +8,101 @@ function f = target_lab(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, params, list, pol)
 % parameters
 read_in_params; 
 
-if indic.tauffixed==1
-    tauf=pol(list.pold=='tauf'); 
-else
-    taul=pol(list.pol=='taul');
-end
-
 % variables
 
-hhn = exp(x(list.calib=='hhn'));
-hhg = exp(x(list.calib=='hhg'));
-hhf = exp(x(list.calib=='hhf'));
-gammalh = x(list.calib=='gammalh')^2;
-gammall = x(list.calib=='gammall')^2;
-hl    = upbarH/(1+exp(x(list.calib=='hl')));
-hh    = upbarH/(1+exp(x(list.calib=='hh')));
-wh = exp(x(list.calib=='wh'));
-wl = exp(x(list.calib=='wl'));
-pf = exp(x(list.calib=='pf')); % follows from AfLf from previous code  
-
-if indic.tauffixed==1
-    taul = 1/(1+exp(x(list.calib=='taul')));
-else
-    tauf = x(list.calib=='taul');
-end
-
+hhn = exp(x(list.targlab=='hhn'));
+hhg = exp(x(list.targlab=='hhg'));
+hhf = exp(x(list.targlab=='hhf'));
+gammalh = x(list.targlab=='gammalh')^2;
+gammall = x(list.targlab=='gammall')^2;
+hl    = upbarH/(1+exp(x(list.targlab=='HL')));
+hh    = upbarH/(1+exp(x(list.targlab=='HH')));
+wh = exp(x(list.targlab=='wh'));
+wl = exp(x(list.targlab=='wl'));
+tauf = 1/(1+exp(x(list.targlab=='tauf'))); % goods market clearing
+lambdaa = exp(x(list.targlab=='lambdaa'));
 
 % AUX
+xf=pf.*(1-tauf).*alphaf.*F; % includes optimal machine demand
 
-hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
-hlf = hhf*(1-thetaf)/(thetaf)*MOM.whwl; % hlf
-hlg = hhg*(1-thetag)/(thetag)*MOM.whwl; % hlg 
-muu = C^(-thetaa);
+C= Y-xn-xf-xg; 
+
+AfLf    = F./(alphaf*pf.*(1-tauf)).^(alphaf/(1-alphaf)); % production
+Lfwlf   = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*AfLf; % optimal labour demand
+
+hln = hhn*(1-thetan)/(thetan).*wh./wl; % hln
+hlf = hhf*(1-thetaf)/(thetaf).*wh./wl; % hlf
+hlg = hhg*(1-thetag)/(thetag).*wh./wl; % hlg 
+
+muu = C.^(-thetaa);
+SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+            +tauf.*pf.*F;
+        
+CHH =  zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov;% consumption determined by hh budget=> to have goods clearing
+
+Lg      = hhg.^thetag.*hlg.^(1-thetag);
+Ln      = hhn.^thetan.*hln.^(1-thetan);
+Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
+Ag  = AgLg/Lg; % labour good supply= labour good demand
+An  = AnLn/Ln;
+Af  = AfLf/Lf;
+A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+
+wln = Lnwln/Ln;
+wlg = Lgwlg/Lg;
+wlf = Lfwlf/Lf;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % equations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 q=0;
-%1)emission target
-q=q+1;
-f(q)= F-(Ems'+deltaa)./omegaa;
-
 
 % assume only=> demand hhn, hhg, hhf
 q=q+1;
-f(q)=(1-thetan)*Lnwln-wl.*hln;
+f((q-1)*T+1:T*q)=(1-thetan)*Lnwln-wl.*hln;
 % %27
 q=q+1;
-f(q)=(1-thetaf)*Lfwlf-wl.*hlf;
+f((q-1)*T+1:T*q)=(1-thetaf)*Lfwlf-wl.*hlf;
 % %27
 q=q+1;
-f(q)=(1-thetag)*Lgwlg-wl.*hlg;
+f((q-1)*T+1:T*q)=(1-thetag)*Lgwlg-wl.*hlg;
 
 % skill market clearing
 %9)
 q=q+1;
-f(q) = hh  - (hhn+hhf+hhg)/(zh); % high skill market clearing
+f((q-1)*T+1:T*q) = hh  - (hhn+hhf+hhg)/(zh); % high skill market clearing
 q=q+1;
-f(q) = hl  - (hln+hlf+hlg)/((1-zh)); % low skill market clearing
+f((q-1)*T+1:T*q) = hl  - (hln+hlf+hlg)/((1-zh)); % low skill market clearing
 
 % - Model
 
 %13-Labour supply and kuhnt tucker
 %- skill supply: so that each type is indifferent how much to work
+
 q=q+1;
-f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
+f((q-1)*T+1:T*q)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
 q=q+1;
-f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl)^(1-taul))-gammall/(1-zh)*hl^taul); %=> determines hl
+f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
 
 %12
 q=q+1;
-f(q)= gammalh*(upbarH-hh);
+f((q-1)*T+1:T*q)= gammalh*(upbarH-hh);
 %13
 q=q+1;
-f(q)= gammall*(upbarH-hl);
+f((q-1)*T+1:T*q)= gammall*(upbarH-hl);
 
-% fprintf('number equations: %d; number variables %d', q, length(list.calib));
+q=q+1;
+f((q-1)*T+1:T*q) = SGov;
+
+
+q=q+1;
+f((q-1)*T+1:T*q) = CHH-C;
+
+% optimality 
+
+% fprintf('number equations: %d; number variables %d', q, length(list.targlab));
 
 end

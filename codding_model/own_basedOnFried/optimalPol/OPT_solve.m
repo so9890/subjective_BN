@@ -5,12 +5,12 @@ read_in_params;
 Ftarget =  (Ems'+deltaa)/omegaa;
 
 % symbilic variables and lists
-syms hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg real
+syms hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg taus real
 if indic.target==0
-    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh];
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh taus];
     list.opt  = string(symms.opt); 
 else
-    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg];
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg taus];
     list.opt  = string(symms.opt); 
 end
 nn= length(list.opt); % number of variables
@@ -114,6 +114,7 @@ elseif indic.target==0
     x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =LF_SIM(list.allvars=='An',1:T);  % An
     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =LF_SIM(list.allvars=='hl',1:T);  % hl
     x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
+    x0(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus')))   =LF_SIM(list.allvars=='taus',1:T);  % hh
 
 end
 
@@ -122,6 +123,7 @@ end
 %- most of variables bounded by zero below
 guess_trans=log(x0);
 
+guess_trans(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus')))=x0(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus'))) ;
 %- exceptions with upper bound; hl, hh, F in case of target
 guess_trans(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl'))))./...
     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl'))));
@@ -161,7 +163,7 @@ objf=@(x)objective(x, T, params, list, Ftarget, indic);
 constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
 
 %if indic.target==0
-    options = optimset('algorithm','sqp','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    options = optimset('algorithm','sqp','Tolfun',1e-20,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %else
 % options = optimset('algorithm','sqp','TolCon',1e-2,'Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -173,12 +175,14 @@ constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
 % without target the SP and OPTIMAL POL are the best
 
 
-if x==guess_trans
+if min(x==guess_trans)
     fprintf('In version target=%d, the initial guess and the OPtimal pol are the same. With target=0 this is the LF and with target=1 it is the SP one.', indic.target);
 end
 
 % transform
 out_trans=exp(x);
+out_trans(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus')))=x(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus'))) ;
+
 out_trans((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=upbarH./(1+exp(x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
 out_trans((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=upbarH./(1+exp(x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
 if indic.target==1
