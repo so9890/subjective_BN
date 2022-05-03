@@ -23,9 +23,9 @@ c=[];
 %c(1:T) = sn +sg+ sff- S; % with this constraint it runs into singular
 %matrix
 
-%  if indic.target==1
-%      c(1:T)=F-Ftarget';
-%  end
+ if indic.target==1
+      c(1:T)=F-Ftarget';
+  end
 
 % equality constraints
 ceq =[];

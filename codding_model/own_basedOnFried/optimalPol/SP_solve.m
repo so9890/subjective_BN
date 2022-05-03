@@ -115,21 +115,22 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 %  options = optimoptions('Algorithm','sqp','TolStep',1e-10,'TolFun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','Iter','MaxSQPIter',10000);
 
-options = optimset('algorithm','sqp', 'TolCon',1e-12, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%options = optimset('algorithm','sqp', 'TolCon',1e-6, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
-[x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
- save('SP_solution_wse_withT')
-if abs(x-guess_trans)<1e-7
-    fprintf('In version target=%d, the LF and FB are the same.', indic.target);
-end
+%[x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
+gg=load('SP_solution_wse_withT');
+% if abs(x-guess_trans)<1e-7
+%     fprintf('In version target=%d, the LF and FB are the same.', indic.target);
+% end
 
 %
- if exitflag==2  %(otherwise does not solve)
-    options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-    [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
- end
-
+ %if exitflag==2  %(otherwise does not solve)
+    options = optimset('algorithm','active-set','TolCon',1e-7,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    [xas,fval,exitflag,output,lambda] = fmincon(objfSP,gg.x,[],[],[],[],lb,ub,constfSP,options);
+    save('active-set_solu_target')
+% end
+x=ss
 out_trans=exp(x);
 out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
 out_trans((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
@@ -148,7 +149,7 @@ gammalh = zeros(size(pn));
 sp_all=eval(symms.allvars);
 
 if indic.target==1
-    save('SP_target', 'sp_all')
+    save('SP_target_bestfeasible', 'sp_all')
 else
     save('SP_notarget', 'sp_all')
 end

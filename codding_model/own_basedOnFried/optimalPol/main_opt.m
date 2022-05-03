@@ -89,9 +89,7 @@ end
         indic.target=1;
         fprintf('solving Social planner solution with target');
         SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-        indic.target=0;
-        fprintf('solving Social planner solution without target');
-        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+    
     end 
 
     if isfile('SP_notarget.mat')
