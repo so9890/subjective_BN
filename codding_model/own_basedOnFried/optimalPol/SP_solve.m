@@ -32,7 +32,6 @@ else
      help=load('FB_LF_SIM_NOTARGET.mat');
      LF_SIM=help.LF_SIM;
 end
-
 if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
@@ -108,7 +107,7 @@ ub=[];
 %%% Test Constraints and Objective Function %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic);
+f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic);
 [c, ceq] = constraintsSP(guess_trans, T, params, initOPT, list, Ems, indic);
 
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic);
@@ -120,13 +119,14 @@ options = optimset('algorithm','sqp', 'TolCon',1e-12, 'Tolfun',1e-6,'MaxFunEvals
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-
+ save('SP_solution_wse_withT')
 if abs(x-guess_trans)<1e-7
     fprintf('In version target=%d, the LF and FB are the same.', indic.target);
 end
+
 %
  if exitflag==2  %(otherwise does not solve)
-    options = optimset('algorithm','active-set','Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
  end
 
@@ -140,8 +140,8 @@ end
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, ws, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars(out_trans, list, params, T, init201519);
+            pn, pg, pf, pee, wh, wl, wse, wsn, taus, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF]= SP_aux_vars_2S(out_trans, list, params, T, init201519);
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
 

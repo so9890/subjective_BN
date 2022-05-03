@@ -16,16 +16,16 @@ end
 
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag]= SP_aux_vars(x, list, params, T, init);
+            F, N, G, E, Y, C, hl, hh, A_lag]= SP_aux_vars_2S(x, list, params, T, init);
 % inequality constraints
 c=[];
 
 %c(1:T) = sn +sg+ sff- S; % with this constraint it runs into singular
 %matrix
 
- if indic.target==1
-     c(1:T)=F-Ftarget';
- end
+%  if indic.target==1
+%      c(1:T)=F-Ftarget';
+%  end
 
 % equality constraints
 ceq =[];
@@ -35,6 +35,6 @@ ceq(2*T+1:3*T) = C - (Y-xn-xg-xf);
 % ceq(3*T+1:4*T) = sn-((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
 ceq(3*T+1:4*T) = S*2/3-(sn); 
 ceq(4*T+1:5*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
-ceq(3*T+1:4*T) = S*1/3-(sg+sff);
+ceq(5*T+1:6*T) = S*1/3-(sg+sff);
 ceq = ceq';
 end
