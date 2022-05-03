@@ -70,7 +70,7 @@ list.pol      = string(symms.pol);
 
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
-                eppsy, eppse, S, phis, ...
+                eppsy, eppse, S, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
@@ -102,7 +102,7 @@ rhon     = 1;
 rhog     = 0.01;
 phii     = 0.5;            % Fried
 S        = 0.01; 
-phis = 1; % scaled
+% phis = 1; % scaled
 %- policies
 taul    = 0.181;
 taus    = 0; 

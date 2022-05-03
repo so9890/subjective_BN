@@ -1,10 +1,9 @@
-function f= calibRem_nows_nophis(x, MOM, list, params, pol, trProd, paramss, poll, Af, An, Ag, phis)
+function f= calibRem_nows_nophis(x, MOM, list, trProd, paramss, poll, Af, An, Ag, phis)
 % this function backs out missing functions:
 % 
-
-read_in_params;
-read_in_pol;
-
+% read_in_params;
+% read_in_pol;
+read_in_pars_calib;
 
 % calibration to 2019 (lag = 2010-2014)
 Af_lag  = exp(x(list.calib3=='Af_lag'));

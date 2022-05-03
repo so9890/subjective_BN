@@ -1,10 +1,8 @@
-function f= calibRem_nows(x, MOM, list, params, pol, trProd, paramss, poll, Af, An, Ag)
+function f= calibRem_nows(x, MOM, list, trProd, paramss, poll, Af, An, Ag)
 % this function backs out missing functions:
 % 
 
-read_in_params;
-read_in_pol;
-
+read_in_pars_calib
 
 % calibration to 2019 (lag = 2010-2014)
 Af_lag  = exp(x(list.calib3=='Af_lag'));

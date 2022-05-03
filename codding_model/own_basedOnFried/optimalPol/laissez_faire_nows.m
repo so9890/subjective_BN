@@ -1,4 +1,4 @@
-function f=laissez_faire_nows(x, params, list, pol, laggs, phis)
+function f=laissez_faire_nows(x, params, list, pol, laggs)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -163,20 +163,20 @@ f(q) = (1-zh).*hl-(hln + hlf+hlg); % low skill market clearing
 %13- Kuhn Tucker Labour supply and scientists
 %25
 q=q+1;
-f(q)= gammalh.*(hh-upbarH);
+f(q)= gammalh.*(upbarH-hh);
 %26
 q=q+1;
-f(q)= gammall.*(hl-upbarH);
+f(q)= gammall.*(upbarH-hl);
 
 %26
 q=q+1;
-f(q)= gammasf.*(sff-S);
+f(q)= gammasf.*(S-sff);
 
 q=q+1;
-f(q)= gammasn.*(sn-S);
+f(q)= gammasn.*(S-sn);
 
 q=q+1;
-f(q)= gammasg.*(sg-S);
+f(q)= gammasg.*(S-sg);
 
 % balanced budget
 q=q+1;

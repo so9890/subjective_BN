@@ -1,5 +1,5 @@
 function [x0LF, SL, SP, SR, Sall, ...
-    Sinit201014, init201014 , Sinit201519, init201519]=fsolution(symms, trProd, trLab, trR, paramss, list, poll, MOM) 
+    Sinit201014, init201014 , Sinit201519, init201519]=fsolution(symms, trProd, trLab, resSci, paramss, list, poll, MOM) 
 
 read_in_pars_calib;
 %soltions
@@ -8,8 +8,10 @@ cell_par=arrayfun(@char, symms.calib, 'uniform', 0);
 SL=cell2struct(num2cell(trLab), cell_par, 2);
 cell_par=arrayfun(@char, symms.prod, 'uniform', 0);
 SP=cell2struct(num2cell(trProd), cell_par, 2);
+% for science: calib3 contains phis from inital run and the rest from final
+% run with phis fixed
 cell_par=arrayfun(@char, symms.calib3, 'uniform', 0);
-SR=cell2struct(num2cell(trR), cell_par, 2);
+SR=cell2struct(num2cell(resSci), cell_par, 2);
 
 % - division into parameters and variables
 hhn = SL.hhn;
@@ -33,6 +35,7 @@ thetag = SL.thetag;
 zh     = SL.zh;
 chii   = SL.chii;
 lambdaa = SL.lambdaa;
+phis    = SR.phis;
 
 % Remaining variables
 hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
@@ -67,19 +70,22 @@ sn = SR.sn;
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
-ws = SR.ws;
+gammasf = SR.gammasf;
+gammasn = SR.gammasn;
+gammasg = SR.gammasg;
 
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 A0  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
 
- Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
+Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
  
  if abs(Ag-Agtest)>1e-10
      error('growth rate off')
  else
      fprintf('growth rate works!!')
  end
+ 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
             +tauf.*pf.*F;

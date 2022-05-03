@@ -1,4 +1,4 @@
-function [Sparams, Spol, params, pol]=parsSol(symms,trProd, trLab, paramss, list, poll) 
+function [Sparams, Spol, params, pol]=parsSol(symms,trProd, trLab, resSci, paramss, list, poll, phis) 
 % parameters
 read_in_pars_calib;
 
@@ -7,6 +7,8 @@ cell_par=arrayfun(@char, symms.calib, 'uniform', 0);
 SL=cell2struct(num2cell(trLab), cell_par, 2);
 cell_par=arrayfun(@char, symms.prod, 'uniform', 0);
 SP=cell2struct(num2cell(trProd), cell_par, 2);
+cell_par=arrayfun(@char, symms.calib3, 'uniform', 0);
+SciL=cell2struct(num2cell(resSci), cell_par, 2);
 
 % parameters
 deltay=SP.deltay;
@@ -17,9 +19,9 @@ thetag = SL.thetag;
 zh = SL.zh;
 chii = SL.chii;
 lambdaa = SL.lambdaa;
+phis=SciL.phis;
 
-
-params = eval(symms.params);
+params = eval(subs(symms.params));
 pol    = eval(symms.pol);
 
 cell_par=arrayfun(@char, symms.params, 'uniform', 0);
