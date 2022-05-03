@@ -25,12 +25,12 @@ gammalh=SLF.gammalh;
 gammall=SLF.gammall;
 wh=SLF.wh;
 wl=SLF.wl;
-ws=SLF.ws;
+%ws=SLF.ws;
 pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
 pf=SLF.pf;
-
+ws = SLF.ws; 
 %- params
 sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
@@ -46,7 +46,8 @@ rhof   = Sparams.rhof;
 rhon   = Sparams.rhon;
 rhog   = Sparams.rhog;
 zh     = Sparams.zh; 
-lambdaa = pol(list.pol=='lambdaa');
+% lambdaa = pol(list.pol=='lambdaa');
+lambdaa=SLF.lambdaa;
 tauf = pol(list.pol=='tauf');
 taul = pol(list.pol=='taul');
 taus = pol(list.pol=='taus');
@@ -101,7 +102,7 @@ end
 % test variables read in properly
 xx=eval(symms.choice);
 guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-f=laissez_faire(guess_trans, params, list, pol, laggs);
+f=laissez_faire_nows(guess_trans, params, list, pol, laggs);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')
