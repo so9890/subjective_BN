@@ -34,7 +34,8 @@ Ag_lag=laggs(list.init=='Ag0');
  sff    = exp(x(list.choice=='sff'));
  sg     = exp(x(list.choice=='sg'));
  sn     = exp(x(list.choice=='sn'));
- ws     = exp(x(list.choice=='ws'));
+ wse     = exp(x(list.choice=='wse'));
+ wsn     = exp(x(list.choice=='wsn'));
 %  gammasf = x(list.choice=='gammasf')^2;
 %  gammasn = x(list.choice=='gammasn')^2;
 %  gammasg = x(list.choice=='gammasg')^2;
@@ -101,13 +102,17 @@ f(q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 q=q+1;
-f(q)= phis - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+% f(q)= phissff - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+f(q)= wse - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+
 %8
 q=q+1;
-f(q)= phis - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+% f(q)= phis*sg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+f(q)= wse - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+
 %9
 q=q+1;
-f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+f(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 %10- LOM technology
 q=q+1;
@@ -170,7 +175,9 @@ q=q+1;
 f(q)= gammall.*(upbarH-hl);
 
 q=q+1;
-f(q)= sg+sff+sn-S; % determines wage in neutral sector
+f(q)= sn-S*2/3; % determines wage in neutral sector
+q=q+1;
+f(q)= sff+sg-S*1/3; % determines wage in neutral sector
 
 %26
 % q=q+1;

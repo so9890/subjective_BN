@@ -8,11 +8,13 @@ read_in_pars_calib
 Af_lag  = exp(x(list.calib3=='Af_lag'));
 Ag_lag  = exp(x(list.calib3=='Ag_lag'));
 An_lag  = exp(x(list.calib3=='An_lag'));
-phis    = exp(x(list.calib3=='phis'));
+% phis    = exp(x(list.calib3=='phis'));
 sff     = exp(x(list.calib3=='sff'));
 sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
-ws      = exp(x(list.calib3=='ws'));
+wsn      = exp(x(list.calib3=='wsn'));
+wse      = exp(x(list.calib3=='wse'));
+
 % sff      = S/(1+exp(x(list.calib3=='sff')));
 % sg      = S/(1+exp(x(list.calib3=='sg')));
 % sn      = S/(1+exp(x(list.calib3=='sn')));
@@ -42,13 +44,13 @@ q=q+1;
 ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
 % scientist demand
 q=q+1;
-ceq(q)= phis - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+ceq(q)= wse - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 %8
 q=q+1;
-ceq(q)= phis - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+ceq(q)= wse - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
 %9
 q=q+1;
-ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+ceq(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 % KT
 % q=q+1;
 % f(q)= gammasf.*(S-sff);
@@ -57,7 +59,9 @@ ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan)
 % q=q+1;
 % f(q)= gammasg.*(S-sg);
 q=q+1;
-ceq(q)= sn+sff+sg-S;
+ceq(q)= sn-S*2/3;
+q=q+1;
+ceq(q)= sff+sg-S*1/3;
 
 c=[];
 end

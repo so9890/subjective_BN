@@ -11,7 +11,7 @@ guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
 guess_trans(indexx.exp)=log(guess(indexx.exp));
 
 guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab))./guess(indexx.lab));
-% guess_trans(indexx.sci)=log((params(listt=='S')-guess(indexx.sci))./guess(indexx.sci));
+%guess_trans(indexx.sci)=log((params(listt=='S')-guess(indexx.sci))./guess(indexx.sci));
 
 guess_trans(indexx.oneab)=log((1-guess(indexx.oneab))./guess(indexx.oneab));
 end

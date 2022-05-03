@@ -35,7 +35,7 @@ thetag = SL.thetag;
 zh     = SL.zh;
 chii   = SL.chii;
 lambdaa = SL.lambdaa;
-phis    = SR.phis;
+% phis    = SR.phis;
 
 % Remaining variables
 hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
@@ -67,7 +67,8 @@ wlf   = Lfwlf/Lf;
 sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
-ws = SR.ws;
+wse = SR.wse;
+wsn = SR.wsn;
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;

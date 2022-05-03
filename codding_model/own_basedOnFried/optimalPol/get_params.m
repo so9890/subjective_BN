@@ -48,8 +48,9 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      Af0 ...        % initial technology level fossil
      Ag0 ...        % initial technology level green
      An0 ...        % initial technology level neutral 
-     phis ...       % cost of scientists fixed
-    real 
+        real 
+%      phis ...       % cost of scientists fixed
+   
  
 syms taul ...       % income tax progressivity
      taus ...       % subsidy on green research
@@ -59,7 +60,7 @@ syms taul ...       % income tax progressivity
  
 symms.params = [sigmaa, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, S, deltaa, omegaa, phis];   
+                gammaa, etaa, rhof, rhon, rhog, phii, S, deltaa, omegaa];   
 list.params  = string(symms.params);
 
 symms.init   = [Af0, An0, Ag0];

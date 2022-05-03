@@ -53,8 +53,8 @@ while t<=T+1 % because first iteration is base year
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        LF_SIM(:,t)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params);
-        FVAL(t)=max(abs(fval));
+        LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params);
+        FVAL(t-1)=max(abs(fval));
     end
     %% - update for next round
     x0 = LF; % initial guess

@@ -46,7 +46,7 @@ else
     save('params')
 end
 
-[LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
+% [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: BAU Simulation        %%%
@@ -54,7 +54,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 if ~isfile('LF_BAU.mat')
-    [LF_SIM, pol, FVAL] = solve_LF(T, list, polCALIB, params, Sparams,  symms, x0LF, init201519, indexx);
+    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
     save('LF_BAU', 'LF_SIM', 'pol', 'FVAL')
     clearvars LF_SIM pol FVAL
     LF_BAU=load('LF_BAU.mat');
@@ -88,10 +88,10 @@ end
         % unbounded variable!
         indic.target=1;
         fprintf('solving Social planner solution with target');
-        SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+        SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
         indic.target=0;
         fprintf('solving Social planner solution without target');
-        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
     end 
 
     if isfile('SP_notarget.mat')

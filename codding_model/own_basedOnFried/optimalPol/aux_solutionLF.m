@@ -30,7 +30,8 @@ pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
 pf=SLF.pf;
-ws = SLF.ws; 
+wse = SLF.wse;
+wsn = SLF.wsn;
 %- params
 sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
@@ -113,5 +114,4 @@ end
 % save stuff
 LF_t= eval(symms.allvars)';
 end
- 
  

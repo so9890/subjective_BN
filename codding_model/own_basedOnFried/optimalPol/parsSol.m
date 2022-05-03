@@ -19,7 +19,7 @@ thetag = SL.thetag;
 zh = SL.zh;
 chii = SL.chii;
 lambdaa = SL.lambdaa;
-phis=SciL.phis;
+% phis=SciL.phis;
 
 params = eval(subs(symms.params));
 pol    = eval(symms.pol);

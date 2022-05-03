@@ -22,9 +22,9 @@ function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201
 
 %- calibration research side
 syms Af_lag Ag_lag An_lag ...
-     sff sg sn  phis ws real
+     sff sg sn  wsn wse real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sff sg sn phis ws];
+     sff sg sn wse wsn];
 list.calib3 =string(symms.calib3);
 
 % symms.calib4 = [Af_lag Ag_lag An_lag ...
@@ -34,15 +34,15 @@ list.calib3 =string(symms.calib3);
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
     wh wl pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
-     tauf taus taul lambdaa Ln Lg Lf SWF ws real
+     tauf taus taul lambdaa Ln Lg Lf SWF real
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
-    hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
+    hl, hh,  sff, sg, sn, wh, wl, wse, wsn, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
     gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF ];
 list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire
 symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn,...
-             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, ws];
+             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, wse, wsn];
 list.choice  = string(symms.choice);
 
 indexxLF.lab = boolean(zeros(size(list.choice)));
@@ -158,7 +158,8 @@ Lf = hhf.^Sparams.thetaf.*hlf.^(1-Sparams.thetaf);
 
 % initial guess
 sg  = log(0.002);
-ws  = log(10);
+wsn  = log(10);
+wse  = log(10);
 % log((params(listt=='S')-guess(indexx.sci))./guess(indexx.sci))
 sff = log(0.004);
 sn  = log(Sparams.S); %log((Sparams.S-Sparams.S*(1-1e-10))/(Sparams.S*(1-1e-10)));
@@ -188,6 +189,8 @@ phis = log(20);
 % gammasg =sqrt(0);
 x0 = eval(symms.calib3);
 
+%%
+
 %- test
 % f= calibRem_nows(x0, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag);
 % 
@@ -209,8 +212,9 @@ options = optimset('algorithm','active-set','TolCon', 1e-12,'Tolfun',1e-26,'MaxF
 Af_lag  = exp(x(list.calib3=='Af_lag'));
 Ag_lag  = exp(x(list.calib3=='Ag_lag'));
 An_lag  = exp(x(list.calib3=='An_lag'));
-phis    = exp(x(list.calib3=='phis'));
-ws      = exp(x(list.calib3=='ws'));
+% phis    = exp(x(list.calib3=='phis'));
+wsn      = exp(x(list.calib3=='wsn'));
+wse      = exp(x(list.calib3=='wse'));
 
 sff     = exp(x(list.calib3=='sff'));
 sg      = exp(x(list.calib3=='sg'));

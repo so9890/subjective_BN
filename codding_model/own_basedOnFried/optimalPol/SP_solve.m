@@ -1,4 +1,4 @@
-function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems)
+function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems)
 
 % pars
 read_in_params;
@@ -23,7 +23,7 @@ taul=0;
 lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
 if ~isfile('FB_LF_SIM_NOTARGET.mat')
-    [LF_SIM, polLF, FVAL] = solve_LF_LambdaFlex(T, list, pol, params, Sparams,  symms, x0LF, init201519, indexx);
+    [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx)
     save('FB_LF_SIM_NOTARGET','LF_SIM');
     if pol~=polLF
         error('LF not solved under fb policy');
@@ -116,7 +116,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 %  options = optimoptions('Algorithm','sqp','TolStep',1e-10,'TolFun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','Iter','MaxSQPIter',10000);
 
-options = optimset('algorithm','sqp', 'Tolfun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','sqp', 'TolCon',1e-12, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
