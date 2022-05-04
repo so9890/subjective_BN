@@ -4,8 +4,8 @@ function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init
 read_in_params;
 
 % function to find social planner allocation 
-syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F real
-symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F];
+syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn real
+symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn];
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 
@@ -51,6 +51,9 @@ if indic.target==0
     x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
     x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =LF_SIM(list.allvars=='C',1:T);  % C
     x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =LF_SIM(list.allvars=='F',1:T);  % C
+    x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))     =LF_SIM(list.allvars=='sg',1:T);  % C
+    x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))     =LF_SIM(list.allvars=='sn',1:T);  % C
+    x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff')))     =LF_SIM(list.allvars=='sff',1:T);  % C
 
     % Rescale if model with emission target %%
 elseif indic.target==1  

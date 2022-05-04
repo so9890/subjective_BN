@@ -1,4 +1,4 @@
-function f = objectiveSP(y, T, params, list, Ftarget, indic)
+function f = objectiveSP(y, T, params, list, Ftarget, indic, init)
 
 % read in stuff
 
@@ -13,11 +13,10 @@ read_in_params;
 if indic.target==1
     x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T) = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)));
 end
-% variables
-hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
-hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
-C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
-S      = x((find(list.sp=='S')-1)*T+1:find(list.sp=='S')*T);
+
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, hl, hh, A_lag, S]= SP_aux_vars_2S(x, list, params, T, init);
 
 
 %% social welfare

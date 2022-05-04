@@ -32,9 +32,11 @@ ceq =[];
 ceq(1:T)       = zh*hh - (hhn + hhf+hhg); % high skill market clearing
 ceq(T+1:2*T)   = (1-zh)*hl - (hln + hlf+hlg);
 ceq(2*T+1:3*T) = C - (Y-xn-xg-xf);
-% ceq(3*T+1:4*T) = sn-((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-ceq(3*T+1:4*T) = S*2/3-(sn); 
-ceq(4*T+1:5*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
-ceq(5*T+1:6*T) = S*1/3-(sg+sff);
+ceq(3*T+1:4*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+ceq(4*T+1:5*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
+ceq(5*T+1:6*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
+ceq(6*T+1:7*T) = S*2/3-(sn); 
+ceq(7*T+1:8*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf); 
+ceq(8*T+1:9*T) = S*1/3-(sg+sff);
 ceq = ceq';
 end

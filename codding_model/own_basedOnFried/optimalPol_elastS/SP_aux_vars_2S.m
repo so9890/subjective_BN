@@ -1,6 +1,6 @@
 function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, init)
 
@@ -22,6 +22,10 @@ hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
 hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
 C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
+sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
+sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
+sn      = x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T);
+
 
 % initial values
 An0=init(list.init=='An0');
@@ -39,11 +43,11 @@ Ag_lag  = [Ag0;Ag(1:T-1)];
 An_lag  = [An0;An(1:T-1)];
 %A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
-
-sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
-sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
-sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-S   = sff+sg +sn;
+% 
+% sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
+% sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
+% sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
+S       = sff+sg +sn;
 % the absolute amount of scientists supplied is determined by scientist
 % preferences, the planner has to take this as given (otherwise there is no bound on science!)
 % alternatively add disutility from scientists to objective function 

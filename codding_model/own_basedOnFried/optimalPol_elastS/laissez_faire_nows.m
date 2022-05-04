@@ -62,7 +62,7 @@ E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*pf.*F; % with scientists belonging to household sector, scientists sallary dont cancel from profits
             % subsidies and profits and wages scientists cancel
 N       =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
@@ -174,19 +174,9 @@ q=q+1;
 f(q)= gammall.*(upbarH-hl);
 
 q=q+1;
-f(q)= S-(ws/chiis)^(1/sigmaa); % scientist hours supply
+f(q)= S-(ws*muu/(chiis))^(1/sigmaa); % scientist hours supply
 q=q+1;
 f(q)= sff+sg+sn-S; % determines wage in neutral sector
-
-%26
-% q=q+1;
-% f(q)= gammasf.*(S-sff);
-% 
-% q=q+1;
-% f(q)= gammasn.*(S-sn);
-% 
-% q=q+1;
-% f(q)= gammasg.*(S-sg);
 
 % balanced budget
 q=q+1;

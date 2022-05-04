@@ -18,7 +18,7 @@ chiis = exp(x(list.calib3=='chiis'));
 A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 % required vars from previous calibration steps
-[ ~, ~, ~, ~, pf, FF, pn, pg, ~, ~, ~, N, G,...
+[ C, ~, ~, ~, pf, FF, pn, pg, ~, ~, ~, N, G,...
     ~, ~, ~, ~, ~, ~, ~, ~]=resProd(list, trProd, MOM , paramss, poll, 'calib'); 
    
 % wsf = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF*(1-alphaf)*Af_lag)./(rhof^etaa.*Af); 
@@ -45,7 +45,7 @@ q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 q=q+1;
-ceq(q)= MOM.S-(ws/chiis)^(1/sigmaas); % hours supply by scientists to find sigmaas
+ceq(q)= MOM.S-(ws/(chiis.*C.^thetaa)).^(1/sigmaas); % hours supply by scientists to find sigmaas
 q=q+1;
 ceq(q)= sff+sg+sn-MOM.S;
 

@@ -1,20 +1,20 @@
-function []=plotts(list, symms, T, params)
+function []=plottsSP(list, symms, T, params)
 
 if ~isfile('figures/testfig')
-    mkdir('figures');
+    mkdir('figures/SP_0405');
 end
 % this script plots results
 
 syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
 symms.plotsvars =[hh hl Y F E G  C xn xg xf sn sff sg Emnet Ln Lg Lf Af Ag An SWF];  
-symms.plotspol = [tauf taul taus lambdaa]; 
-symms.plotsprices = [pg pn pf pee wh wl ws];
+% symms.plotspol = [tauf taul taus lambdaa]; 
+% symms.plotsprices = [pg pn pf pee wh wl ws];
 
 list.plotsvars=string(symms.plotsvars);
-list.plotspol=string(symms.plotspol);
-list.plotsprices=string(symms.plotsprices);
-
-lisst = containers.Map({'VARS', 'POL', 'PRICES'}, {list.plotsvars, list.plotspol, list.plotsprices});
+% list.plotspol=string(symms.plotspol);
+% list.plotsprices=string(symms.plotsprices);
+% 
+% lisst = containers.Map({'VARS', 'POL', 'PRICES'}, {list.plotsvars, list.plotspol, list.plotsprices});
  
 % read in results
 helper=load('LF_BAU.mat');
@@ -23,13 +23,12 @@ helper=load('FB_LF_SIM_NOTARGET.mat');
 fb_lf=helper.LF_SIM;
 helper=load('SP_target.mat');
 sp_t=helper.sp_all';
-helper=load('SP_notarget_405.mat');
+helper=load('SP_notarget_active_set_0405.mat');
 sp_not=helper.sp_all';
-helper=load('OPT_notarget.mat');
-opt_not=helper.opt_all';
+% helper=load('OPT_notarget.mat');
+% opt_not=helper.opt_all';
 
-% RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT', 'OPT_NOT'}, {bau, fb_lf, sp_t, sp_not, opt_not});
-RES = containers.Map({ 'SP_T'}, {sp_t});
+RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT', 'OPT_NOT'}, {bau, fb_lf, sp_t, sp_not, opt_not});
 
 % SWF comparison
 betaa=params(list.params=='betaa');
@@ -73,7 +72,7 @@ for l =keys(lisst)
         end
  
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/%s_subplots_%s_new0405.png', ii, ll);
+        path=sprintf('figures/%s_subplots_%s_new.png', ii, ll);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
