@@ -134,7 +134,8 @@ vv =output.bestfeasible.x
        [xas,fval,exitflag,output,lambda] = fmincon(objfSP,vv,[],[],[],[],lb,ub,constfSP,options);
        save('active-set_solu_target_405')
 % end
-
+% helper=load('active-set_solu_target_405.mat');
+% x=helper.x;
 out_trans=exp(x);
 out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
 out_trans((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
@@ -154,7 +155,7 @@ gammalh = zeros(size(pn));
 sp_all=eval(symms.allvars);
 
 if indic.target==1
-    save('SP_target_bestfeasible', 'sp_all')
+    save('SP_target_active_set_0405', 'sp_all')
 else
     save('SP_notarget_active_set_0405', 'sp_all')
 end

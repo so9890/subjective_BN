@@ -98,7 +98,11 @@ alphag   = 1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried
  
 gammaa   = 3.96;           % Fried
-etaa     = 0.79; 
+if indic.spillovers==0
+    etaa     = 0.79; 
+else
+    etaa     = 1.2; % positive spillovers=> to accomodate zero scientists in competitive eqbm 
+end
 rhof     = 0.01;
 rhon     = 1; 
 rhog     = 0.01;

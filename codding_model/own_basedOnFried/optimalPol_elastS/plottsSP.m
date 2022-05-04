@@ -5,30 +5,35 @@ if ~isfile('figures/testfig')
 end
 % this script plots results
 
-syms hh hl Y F E Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
-symms.plotsvars =[hh hl Y F E G  C xn xg xf sn sff sg Emnet Ln Lg Lf Af Ag An SWF];  
+syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
+symms.plotsvarsProd =[Y N E G F];  
+symms.plotsvarsHH =[hh hl C SWF Emnet];  
+symms.plotsvarsRes =[sn sff sg  Af Ag An];  
+symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
+
 % symms.plotspol = [tauf taul taus lambdaa]; 
 % symms.plotsprices = [pg pn pf pee wh wl ws];
 
-list.plotsvars=string(symms.plotsvars);
-% list.plotspol=string(symms.plotspol);
-% list.plotsprices=string(symms.plotsprices);
-% 
-% lisst = containers.Map({'VARS', 'POL', 'PRICES'}, {list.plotsvars, list.plotspol, list.plotsprices});
+list.plotsvarsProd=string(symms.plotsvarsProd);
+list.plotsvarsProdIn=string(symms.plotsvarsProdIn);
+list.plotsvarsHH=string(symms.plotsvarsHH);
+list.plotsvarsRes=string(symms.plotsvarsRes);
+
+lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH'}, {list.plotsvarsProd, list.plotsvarsProdIn, list.plotsvarsRes,list.plotsvarsHH,});
  
 % read in results
 helper=load('LF_BAU.mat');
 bau=helper.LF_SIM;
 helper=load('FB_LF_SIM_NOTARGET.mat');
 fb_lf=helper.LF_SIM;
-helper=load('SP_target.mat');
+helper=load('SP_target_active_set_0405.mat');
 sp_t=helper.sp_all';
 helper=load('SP_notarget_active_set_0405.mat');
 sp_not=helper.sp_all';
 % helper=load('OPT_notarget.mat');
 % opt_not=helper.opt_all';
 
-RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT', 'OPT_NOT'}, {bau, fb_lf, sp_t, sp_not, opt_not});
+RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT'}, {bau, fb_lf, sp_t, sp_not});
 
 % SWF comparison
 betaa=params(list.params=='betaa');
@@ -54,13 +59,13 @@ for l =keys(lisst)
     ll=string(l);
     plotvars=lisst(ll);
     % number of figures in row in subplot
-    if ll~='VARS'
-        nn=2;
-    else 
-        nn=4;
-    end
+%     if ll~='VARS'
+%         nn=2;
+%     else 
+    nn=3;
+%     end
     %%% with subplots
-    gcf=figure; %('Visible','off');
+    gcf=figure('Visible','off');
         
         for v=1:length(plotvars)
             varr=string(plotvars(v));
@@ -72,7 +77,7 @@ for l =keys(lisst)
         end
  
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/%s_subplots_%s_new.png', ii, ll);
+        path=sprintf('figures/SP_0405/%s_subplots_%s_new.png', ii, ll);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
