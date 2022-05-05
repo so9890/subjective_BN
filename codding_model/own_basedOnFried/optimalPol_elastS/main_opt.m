@@ -32,7 +32,6 @@ lengthh = 5; % number of zears per period
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
-saveind= indic;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -47,7 +46,6 @@ else
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
     save(sprintf('params_spillovers%d', indic.spillovers))
 end
-indic=saveind;
 % [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,11 +55,17 @@ indic=saveind;
 % order of variables in LF_SIM as in list.allvars
 if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
-    save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_SIM', 'pol', 'FVAL')
-    clearvars LF_SIM pol FVAL
-    LF_BAU=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+    helper.LF_SIM=LF_SIM;
+%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+   [LF_BAU]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
+   save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
+   clearvars LF_SIM pol FVAL
 else
-    LF_BAU=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+    helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_SIM');
+    LF_BAU=helper.LF_SIM;
+% 
+%     helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+%     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper);
 end
 
 %%
@@ -136,7 +140,7 @@ RAM = solve_sym(symms, list, Ftarget, indic);
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=0;
+indic.target=1;
 [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

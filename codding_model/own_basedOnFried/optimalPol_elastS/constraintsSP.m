@@ -23,9 +23,10 @@ end
             F, N, G, E, Y, C, hl, hh, A_lag, S]= SP_aux_vars_2S(x, list, params, T, init);
 % inequality constraints
 c=[];
+c(1:T)=S-0.01;
 
  if indic.target==1
-      c(1:T)=F-Ftarget';
+      c(T+1:2*T)=F-Ftarget';
   end
 
 % equality constraints

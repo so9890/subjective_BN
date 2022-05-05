@@ -1,4 +1,5 @@
-function f=laissez_faireVECT(x, params, list, varrs, laggs,T)
+function [c,ceq]=laissez_faireVECT_fmincon(x, params, list, varrs, laggs,T)
+c=[];
 
 % called by script 'test_results.m'
 % takes optimal policy results as input
@@ -81,104 +82,104 @@ q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 q=q+1;
-f(q:T)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
+ceq((q-1)*T+1:T*q)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
 %2
 q=q+1;
-f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
+ceq((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
 
 %3- budget
 q=q+1;
-f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
+ceq((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
 
 %4- output fossil
 q=q+1;
-f((q-1)*T+1:T*q) = ((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af.*Lf -F; 
+ceq((q-1)*T+1:T*q) = ((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af.*Lf -F; 
 
 %5- output neutral
 q=q+1;
-f((q-1)*T+1:T*q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan)); 
+ceq((q-1)*T+1:T*q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan)); 
 
 %6- output green
 q=q+1;
-f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
+ceq((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 q=q+1;
-f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+ceq((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 %8
 q=q+1;
-f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+ceq((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
 %9
 q=q+1;
-f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+ceq((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 %10- LOM technology
 q=q+1;
-f((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+ceq((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
 %11
 q=q+1;
-f((q-1)*T+1:T*q) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
+ceq((q-1)*T+1:T*q) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
 %12
 q=q+1;
-f((q-1)*T+1:T*q) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
+ceq((q-1)*T+1:T*q) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
  
 %13- optimality labour input producers
 q=q+1;
-f((q-1)*T+1:T*q) = thetan*Ln.*wln-wh.*hhn;
+ceq((q-1)*T+1:T*q) = thetan*Ln.*wln-wh.*hhn;
 %14
 q=q+1;
-f((q-1)*T+1:T*q)= thetag*Lg.*wlg-wh.*hhg;
+ceq((q-1)*T+1:T*q)= thetag*Lg.*wlg-wh.*hhg;
 %15
 q=q+1;
-f((q-1)*T+1:T*q)=(1-thetan)*Ln.*wln-wl.*hln;
+ceq((q-1)*T+1:T*q)=(1-thetan)*Ln.*wln-wl.*hln;
 %16
 q=q+1;
-f((q-1)*T+1:T*q)=(1-thetag)*Lg.*wlg-wl.*hlg;
+ceq((q-1)*T+1:T*q)=(1-thetag)*Lg.*wlg-wl.*hlg;
 
 % prices and wages
 %17- optimality energy producers
 q=q+1;
-f((q-1)*T+1:T*q) = pf.*F.^(1/eppse)- (G).^(1/eppse).*pg; 
+ceq((q-1)*T+1:T*q) = pf.*F.^(1/eppse)- (G).^(1/eppse).*pg; 
 
 %18- demand skill
 q=q+1;
-f((q-1)*T+1:T*q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+ceq((q-1)*T+1:T*q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 %19
 q=q+1;
-f((q-1)*T+1:T*q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+ceq((q-1)*T+1:T*q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
 
 %- definitions prices
 %20
 q=q+1;
-f((q-1)*T+1:T*q) = pee - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
+ceq((q-1)*T+1:T*q) = pee - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
 %21
 q=q+1;
-f((q-1)*T+1:T*q) =  1-(deltay.*pee.^(1-eppsy)+(1-deltay).*pn.^(1-eppsy)).^(1/(1-eppsy));
+ceq((q-1)*T+1:T*q) =  1-(deltay.*pee.^(1-eppsy)+(1-deltay).*pn.^(1-eppsy)).^(1/(1-eppsy));
 
 %22- market clearing (consumption good=> numeraire)
 q=q+1;
-f((q-1)*T+1:T*q) = zh.*hh-(hhn + hhf+hhg); % high skill market clearing
+ceq((q-1)*T+1:T*q) = zh.*hh-(hhn + hhf+hhg); % high skill market clearing
 %23
 q=q+1;
-f((q-1)*T+1:T*q) = (1-zh).*hl-(hln + hlf+hlg); % low skill market clearing
+ceq((q-1)*T+1:T*q) = (1-zh).*hl-(hln + hlf+hlg); % low skill market clearing
 %24
 q=q+1;
-f((q-1)*T+1:T*q) = S-(sn+sff+sg);
+ceq((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= S-(ws.*muu./chiis).^(1/sigmaa);
+ceq((q-1)*T+1:T*q)= S-(ws.*muu./chiis).^(1/sigmaa);
 %13- Kuhn Tucker Labour supply
 %25
 q=q+1;
-f((q-1)*T+1:T*q)= gammalh.*(hh-upbarH);
+ceq((q-1)*T+1:T*q)= gammalh.*(hh-upbarH);
 %26
 q=q+1;
-f((q-1)*T+1:T*q)= gammall.*(hl-upbarH);
+ceq((q-1)*T+1:T*q)= gammall.*(hl-upbarH);
 
 q=q+1;
-f((q-1)*T+1:T*q)= SGov;
+ceq((q-1)*T+1:T*q)= SGov;
 
 %fprintf('number equations: %d; number variables %d', q, length(list.test));
 end

@@ -22,21 +22,28 @@ tauf=0;
 taul=0;
 lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
-if ~isfile('FB_LF_SIM_NOTARGET.mat')
+if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers))
     [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
-    save('FB_LF_SIM_NOTARGET','LF_SIM');
+    save(sprintf('FB_LF_SIM_NOTARGET_spillover%d', indic.spillovers),'LF_SIM');
+    helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
+%      LF_SIM=help.LF_SIM;
+     [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper)
     if pol~=polLF
         error('LF not solved under fb policy');
     end
 else
-     help=load('FB_LF_SIM_NOTARGET.mat');
-     LF_SIM=help.LF_SIM;
+     helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
+%      LF_SIM=help.LF_SIM;
+     [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
+     LF_SIM=LF_SIM';
 end
+
 if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
 
     if ~isfile('SP_notarget_active_set_0405.mat')
+        
         x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
         x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg
         x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =LF_SIM(list.allvars=='hhn',1:T); % hhg
@@ -53,9 +60,9 @@ if indic.target==0
         x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
         x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =LF_SIM(list.allvars=='C',1:T);  % C
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =LF_SIM(list.allvars=='F',1:T);  % C
-        x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))     =LF_SIM(list.allvars=='sn',1:T);  % C
-        x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))     =LF_SIM(list.allvars=='sg',1:T);  % C
-        x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff')))     =LF_SIM(list.allvars=='sff',1:T);  % C
+        x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =LF_SIM(list.allvars=='sn',1:T);  % C
+        x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
+        x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
         helper=load('SP_notarget_active_set_0405.mat');
         sp_all=helper.sp_all;
@@ -104,7 +111,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =kappaa.*LF_SIM(list.allvars=='C',1:T);  % C
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
-        helper=load('SP_target_active_set_0405.mat');
+        helper= load(sprintf('SP_target_active_set_0505_spillover%d', indic.spillovers), 'sp_all');
         sp_all=helper.sp_all;
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -163,17 +170,20 @@ ub=[];
 
 f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic, initOPT);
 [c, ceq] = constraintsSP(guess_trans, T, params, initOPT, list, Ems, indic);
+ind=1:length(ceq);
+ss=ind(abs(ceq)>1e-9);
+whe=floor(ss/T);
 
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic, initOPT);
 constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 %  options = optimoptions('Algorithm','sqp','TolStep',1e-10,'TolFun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','Iter','MaxSQPIter',10000);
 
-options = optimset('algorithm','sqp', 'TolCon',1e-6, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-       save(sprintf('sqp_solu_target_505_spillover%d', indic.spillovers))
+       save(sprintf('sqp_solu_target_505_spillover%d_notzetsolved', indic.spillovers))
 
 % vv =output.bestfeasible.x
 %gg=load('SP_solution_wse_withT');
@@ -183,13 +193,16 @@ options = optimset('algorithm','sqp', 'TolCon',1e-6, 'Tolfun',1e-6,'MaxFunEvals'
 
 %
  %if exitflag==2  %(otherwise does not solve)
-    options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %     [xas,fval,exitflag,output,lambda] = fmincon(objfSP,gg.x,[],[],[],[],lb,ub,constfSP,options);
        [xas,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
-       save('active-set_solu_target_405')
+       save('active-set_solu_notarget_505_startedfromTarget')
+       save('active-set_solu_notarget_505_startedfromLF')
+
 % end
 % helper=load('active-set_solu_target_405.mat');
 % x=helper.x;
+% x=xas;
 out_trans=exp(x);
 out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
 out_trans((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)=upbarH./(1+exp(x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T)));
@@ -215,6 +228,6 @@ sp_all=eval(symms.allvars);
 if indic.target==1
     save(sprintf('SP_target_active_set_0505_spillover%d', indic.spillovers), 'sp_all')
 else
-    save('SP_notarget_active_set_0405', 'sp_all')
+    save(sprintf('SP_notarget_active_set_0505_spillover%d', indic.spillovers), 'sp_all')
 end
 end

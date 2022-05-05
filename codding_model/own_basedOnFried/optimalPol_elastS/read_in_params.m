@@ -10,7 +10,7 @@ if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
 chiis   = params(list.params=='chiis');
-
+upbS   = params(list.params=='upbS');
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');
 thetag = params(list.params=='thetag');

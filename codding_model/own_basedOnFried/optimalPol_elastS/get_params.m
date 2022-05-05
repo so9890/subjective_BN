@@ -46,6 +46,7 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      omegaa ...     % emission share of dirty output
      sigmaas ...    % Frisch elasticity labour supply scientists
      chiis ...      % disutility of labour scientists
+     upbS ...       % upper bound scientists
      Af0 ...        % initial technology level fossil
      Ag0 ...        % initial technology level green
      An0 ...        % initial technology level neutral 
@@ -60,7 +61,7 @@ syms taul ...       % income tax progressivity
      real
  
 symms.params = [sigmaa,sigmaas, chiis, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
-                thetaf, thetan, thetag, eppsy, eppse, deltay, ...
+                thetaf, thetan, thetag, eppsy, eppse, deltay, upbS, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa];   
 list.params  = string(symms.params);
 
@@ -72,7 +73,7 @@ list.pol      = string(symms.pol);
 
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
-                eppsy, eppse, sigmaas, ...
+                eppsy, eppse, sigmaas, upbS, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
@@ -107,6 +108,8 @@ rhof     = 0.01;
 rhon     = 1; 
 rhog     = 0.01;
 phii     = 0.5;            % Fried
+upbS     = 0.01;
+
 % phis = 1; % scaled
 %- policies
 taul    = 0.181;
