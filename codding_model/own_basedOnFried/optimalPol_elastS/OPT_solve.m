@@ -60,10 +60,11 @@ elseif indic.target==0
             save(sprintf('FB_LF_SIM_NOTARGET_spillover%d', indic.spillovers),'LF_SIM');
             helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
         %      LF_SIM=help.LF_SIM;
-             [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper)
+             [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
             if pol~=polLF
                 error('LF not solved under fb policy');
             end
+            LF_SIM=LF_SIM';
         else
              helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
              [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
@@ -86,29 +87,29 @@ elseif indic.target==0
      x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =LF_SIM(list.allvars=='S',1:T);  % hh
      x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % hh
      
-    helper=load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
-    sp_all=helper.sp_all;
-    
-    if ~isvarname('sp_all')
-        error('did not load sp solution')
-    end 
-% 
-   
-    x0 = zeros(nn*T,1);
-    x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =sp_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
-    x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =sp_all(:,list.allvars=='hhg'); % hhg
-    x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =sp_all(:,list.allvars=='hlf'); % hlf
-    x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =sp_all(:,list.allvars=='hlg'); % hlg 
-    x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
-    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =sp_all(:,list.allvars=='F');
-    x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =sp_all(:,list.allvars=='G');   % G
-    x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
-    x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =sp_all(:,list.allvars=='Ag');  % Ag
-    x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
-    x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =sp_all(:,list.allvars=='hl');  % hl
-    x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =sp_all(:,list.allvars=='hh');  % hh
-    x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =(1-1e-10)*sp_all(:,list.allvars=='S'); 
-    x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg');
+%     helper=load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
+%     sp_all=helper.sp_all;
+%     
+%     if ~isvarname('sp_all')
+%         error('did not load sp solution')
+%     end 
+% % 
+%    
+%     x0 = zeros(nn*T,1);
+%     x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =sp_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
+%     x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =sp_all(:,list.allvars=='hhg'); % hhg
+%     x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =sp_all(:,list.allvars=='hlf'); % hlf
+%     x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =sp_all(:,list.allvars=='hlg'); % hlg 
+%     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
+%     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =sp_all(:,list.allvars=='F');
+%     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =sp_all(:,list.allvars=='G');   % G
+%     x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
+%     x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =sp_all(:,list.allvars=='Ag');  % Ag
+%     x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
+%     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =sp_all(:,list.allvars=='hl');  % hl
+%     x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =sp_all(:,list.allvars=='hh');  % hh
+%     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =(1-1e-10)*sp_all(:,list.allvars=='S'); 
+%     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg');
 
 end
 
@@ -159,30 +160,31 @@ objf=@(x)objective(x, T, params, list, Ftarget, indic);
 constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
 
 %if indic.target==0
-options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %else
 % options = optimset('algorithm','sqp','TolCon',1e-2,'Tolfun',1e-12,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %options = optimset('Tolfun',1e-6,'MaxFunEvals',1000000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % THIS ONE DOES NOT WORK WELL WHEN OTHERS FIND SOLUTION:
 %options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %end
-
- [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-% without target the SP and OPTIMAL POL are the best
-     save(sprintf('sqp_solu_targetOPT_505_spillover%d', indic.spillovers))
-
-     % WHAT I did; 1) with LF as initial point started from active set with
-     % TolCOn= 1e-6, then increased to 1e-8 with previous result, then with 1e-10 
- options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-%end
-% FINAL RUN WITH RESULT FROM ACTIVE SET NOW IN SQP
-[xas,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
- save(sprintf('active_set_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
-x=xas;
-% if sum(x==xas)
-%     fprintf('In version target=%d, the initial guess and the OPtimal pol are the same. With target=0 this is the LF and with target=1 it is the SP one.', indic.target);
-% end
-
+if indic.target==1
+        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+        if indic.spillovers==1
+            options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        else
+            options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        end
+        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options); 
+%      save(sprintf('sqp_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
+elseif indic.target==0
+        options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+         options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+       % save(sprintf('active_set_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
+end
 % transform
 out_trans=exp(x);
 
@@ -213,7 +215,7 @@ opt_all=eval(symms.allvars);
 if indic.target==1
     save(sprintf('OPT_target_active_set_0505_spillover%d', indic.spillovers), 'opt_all')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d', indic.spillovers), 'opt_all')
+    save(sprintf('OPT_notarget_sqp_0505_spillover%d', indic.spillovers), 'opt_all')
 end
 
 end

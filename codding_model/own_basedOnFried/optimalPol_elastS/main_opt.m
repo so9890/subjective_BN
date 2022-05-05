@@ -61,9 +61,12 @@ if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
    save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
    clearvars LF_SIM pol FVAL
 else
-    helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_SIM');
-    LF_BAU=helper.LF_SIM;
-% 
+    helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers));
+    if indic.spillovers==1
+        LF_BAU=helper.LF_SIM;
+    else
+        LF_BAU=helper.LF_BAU;
+    end
 %     helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
 %     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper);
 end
