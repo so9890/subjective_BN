@@ -144,7 +144,7 @@ RAM = solve_sym(symms, list, Ftarget, indic);
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+indic.target=0;
 indic.taus =0; % with ==0 no taus possible!
 [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
 %%
