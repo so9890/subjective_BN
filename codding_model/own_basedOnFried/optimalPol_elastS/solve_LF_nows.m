@@ -39,18 +39,20 @@ while t<=T+1 % because first iteration is base year
     constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs);
 options = optimset('algorithm','active-set','TolCon', 1e-10,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
-
+[c,fval]=constrf(sol3);
 % 
-%    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'trust-region');%, );%, );%, 'Display', 'Iter', );
-%    [sol2, fval, exitf] = fsolve(modFF, sol, options);
+%- other solvers
+    modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs);
+
+    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+    [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
     % pass to standard algorithm
-%     modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs);
-%      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+%      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,);%, );%, );%, 'Display', 'Iter', );
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
-%     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-%     [sol3, fval, exitf] = fsolve(modFF, sol, options);
+     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+     [sol3, fval, exitf] = fsolve(modFF, sol2, options);
 
     %- transform results to bounded variables
     LF=trans_allo_out(indexx('LF'), sol3, params, list.params);

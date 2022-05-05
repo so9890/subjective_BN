@@ -175,7 +175,7 @@ q=q+1;
 ceq(q)= gammall.*(upbarH-hl);
 
 q=q+1;
-ceq(q)= S-(ws/chiis)^(1/sigmaa); % scientist hours supply
+ceq(q)= S-(ws*muu/chiis)^(1/sigmaa); % scientist hours supply
 q=q+1;
 ceq(q)= sff+sg+sn-S; % determines wage in neutral sector
 

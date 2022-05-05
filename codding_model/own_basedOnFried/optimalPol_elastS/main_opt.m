@@ -32,21 +32,22 @@ lengthh = 5; % number of zears per period
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
+saveind= indic;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-if isfile(('params.mat'))
+if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
     fprintf('loading parameter values')
-     load('params.mat')
+    load(sprintf('params_spillovers%d.mat', indic.spillovers))
 else
     fprintf('calibrating model')
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
     save(sprintf('params_spillovers%d', indic.spillovers))
 end
-
+indic=saveind;
 % [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,13 +55,13 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-if ~isfile('LF_BAU.mat')
+if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
     save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_SIM', 'pol', 'FVAL')
     clearvars LF_SIM pol FVAL
-    LF_BAU=load(sprintf('LF_BAU_spillovers%d', indic.spillovers));
+    LF_BAU=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
 else
-    LF_BAU=load('LF_BAU.mat');
+    LF_BAU=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
 end
 
 %%
