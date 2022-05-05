@@ -31,7 +31,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
-indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
+indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%

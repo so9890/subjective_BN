@@ -20,10 +20,13 @@ nn= length(list.opt); % number of variables
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
-
-    helper=load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers));
-    sp_all=helper.sp_all;
-    
+    if indic.spillovers==1
+        helper=load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers));
+        sp_all=helper.sp_all;
+    else
+        helper=load(sprintf('SP_target_active_set_0405_spillover%d.mat', indic.spillovers));
+        sp_all=helper.sp_all;
+    end
     if ~isvarname('sp_all')
         error('did not load sp solution')
     end 
