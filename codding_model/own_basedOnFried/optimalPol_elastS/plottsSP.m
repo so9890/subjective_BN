@@ -92,7 +92,7 @@ for l =keys(lisst)
         close gcf
   end
 end      
-%% separate plots        
+%% comparison with and without target    
 
 for i= 1:length(listt)
     ss = listt(i);

@@ -116,6 +116,9 @@ elseif indic.target==0
 
 end
 
+%%% initail conditions
+
+
 %%% Transform to unbounded variables %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %- most of variables bounded by zero below
@@ -170,7 +173,7 @@ constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
 %options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %end
 if indic.target==1
-        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','sqp','TolCon',1e-6,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
         if indic.spillovers==1
             options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -178,7 +181,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options); 
-%      save(sprintf('sqp_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
+      save(sprintf('sqp_solu_notargetOPT_505_spillover%d_possible_taus%d', indic.spillovers, indic.taus))
 elseif indic.target==0
         options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
@@ -186,7 +189,7 @@ elseif indic.target==0
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
          options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-       % save(sprintf('active_set_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
+       save(sprintf('active_set_solu_notargetOPT_505_spillover%d_possible', indic.spillovers))
 end
 % transform
 out_trans=exp(x);
@@ -205,11 +208,19 @@ if indic.target==1
 end
 
 % save results
+if indic.taus==1 % with taus
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, ws, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, wsgtil, S]= OPT_aux_vars(out_trans, list, params, T, init201519, indic);
+            wln, wlg, wlf, SWF, wsgtil, S]= OPT_aux_vars(x, list, params, T, init, indic);
+else
+    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, ws, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, S]= OPT_aux_vars_notaus(x, list, params, T, init201519, indic)
+end
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
  
@@ -218,7 +229,7 @@ opt_all=eval(symms.allvars);
 if indic.target==1
     save(sprintf('OPT_target_active_set_0505_spillover%d', indic.spillovers), 'opt_all')
 else
-    save(sprintf('OPT_notarget_sqp_0505_spillover%d', indic.spillovers), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_0505_spillover%d', indic.spillovers), 'opt_all')
 end
 
 end
