@@ -7,7 +7,11 @@ Ftarget =  (Ems'+deltaa)/omegaa;
 % symbilic variables and lists
 syms hhf hhg hlf hlg C F G Af Ag An hl hh S sg real
 % if indic.target==0
-symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh S sg];
+if indic.taus ==1
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh S sg];    
+else
+    symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh S];
+end
 list.opt  = string(symms.opt); 
 % else
 %     symms.opt = [hhf hhg hlf hlg C F G Af Ag An hl hh sn sff sg taus];
@@ -87,33 +91,10 @@ elseif indic.target==0
      x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =LF_SIM(list.allvars=='hl',1:T);  % hl
      x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
      x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =LF_SIM(list.allvars=='S',1:T);  % hh
-     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % hh
-     
-      helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
-      opt_all=helper.opt_all;
-%     helper=load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
-%     sp_all=helper.sp_all;
-%     
-%     if ~isvarname('sp_all')
-%         error('did not load sp solution')
-%     end 
-% % 
-        x0 = zeros(nn*T,1);
-     x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
-     x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =opt_all(:,list.allvars=='hhg'); % hhg
-     x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =opt_all(:,list.allvars=='hlf'); % hlf
-     x0(T*(find(list.opt=='hlg')-1)+1:T*(find(list.opt=='hlg'))) =opt_all(:,list.allvars=='hlg'); % hlg 
-    x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =opt_all(:,list.allvars=='C');   % C
-     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =opt_all(:,list.allvars=='F');
-     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
-     x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =opt_all(:,list.allvars=='Af');  % Af
-     x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =opt_all(:,list.allvars=='Ag');  % Ag
-     x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =opt_all(:,list.allvars=='An');  % An
-     x0(T*(find(list.opt=='hl')-1)+1:T*(find(list.opt=='hl')))   =opt_all(:,list.allvars=='hl');  % hl
-     x0(T*(find(list.opt=='hh')-1)+1:T*(find(list.opt=='hh')))   =opt_all(:,list.allvars=='hh');  % hh
-     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =opt_all(:,list.allvars=='S'); 
-     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');
-
+     if indic.taus==1
+        x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % hh
+     end
+  
 end
 
 

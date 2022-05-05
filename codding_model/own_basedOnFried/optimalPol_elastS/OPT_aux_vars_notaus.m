@@ -19,8 +19,8 @@ An     = x((find(list.opt=='An')-1)*T+1:find(list.opt=='An')*T);
 hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
 hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
 S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
-sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);    
-
+% sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);    
+% end
  
 % initial values: CALIBRATED dont change
 An0=init201519(list.init=='An0');

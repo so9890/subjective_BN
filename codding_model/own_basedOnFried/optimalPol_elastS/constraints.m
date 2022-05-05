@@ -15,8 +15,9 @@ if indic.target == 0
 else
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
 end
-x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
-
+if indic.taus==1
+    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+end
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
     x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
