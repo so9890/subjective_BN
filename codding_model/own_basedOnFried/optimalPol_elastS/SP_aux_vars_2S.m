@@ -96,6 +96,7 @@ elseif thetaa==1
  Utilcon = log(C);
 end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- SWF = Utilcon-Utillab;
+ Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ SWF = Utilcon-Utillab-Utilsci;
 
 end

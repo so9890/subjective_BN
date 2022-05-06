@@ -1,8 +1,10 @@
 function LF_SIM=aux_solutionLF_VECT(x, pol, list, symms,varrs, params, T)
 read_in_params;
+
 tauf=varrs(list.allvars=='tauf', :)';
 taus=varrs(list.allvars=='taus', :)';
 taul=varrs(list.allvars=='taul', :)';
+
 hhf    = exp(x((find(list.test=='hhf')-1)*T+1:(find(list.test=='hhf'))*T));
  hhg    = exp(x((find(list.test=='hhg')-1)*T+1:(find(list.test=='hhg'))*T));
  hhn    = exp(x((find(list.test=='hhn')-1)*T+1:(find(list.test=='hhn'))*T));
@@ -66,7 +68,9 @@ elseif thetaa==1
  Utilcon = log(C);
 end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- SWF = Utilcon-Utillab;
+ Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+ SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
 if max(abs(C-Cincome))>1e-10

@@ -28,9 +28,9 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri'}, {listt.plot
  
 % read in results
 helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-bau=helper.LF_SIM;
+bau=helper.LF_BAU';
 helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
-fb_lf=helper.LF_SIM;
+fb_lf=helper.LF_SIM';
 helper=load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers));
 sp_t=helper.sp_all';
 helper=load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
@@ -39,18 +39,23 @@ helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillo
 opt_not=helper.opt_all';
 helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 opt_t=helper.opt_all';
+% results without taus
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
+opt_not_notaus=helper.opt_all';
+helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
+opt_t_notaus=helper.opt_all';
 
+RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
 
-RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' , 'OPT_T', 'OPT_NOT'},...
-                        {bau, fb_lf, sp_t, sp_not, opt_t, opt_not});
-
-% SWF comparison
+                    
+%% SWF comparison
 betaa=params(list.params=='betaa');
  disc=repmat(betaa, 1,T);
  expp=0:T-1;
  vec_discount= disc.^expp;
- SWF_PV= zeros(length(keys(RES)),1);
- 
+ %SWF_PV= zeros(length(keys(RES)),1);
+ TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1));
 % x indices
 Year =transpose(year(['2025'; '2030';'2035'; '2040';'2045'; '2050';'2055'; '2060'; '2065';'2070';'2075';'2080'],'yyyy'));
 time = 1:T;
@@ -58,12 +63,12 @@ time = 1:T;
 %% plot
 for i =keys(RES)
     ii=string(i);
-    fprintf('plotting %s',ii );
     allvars= RES(ii);
     % SEF calculation 
-    SWF_PV(keys(RES)==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
+    TableSWF_PV.Var2(TableSWF_PV.Var1==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
 
 %% 
+fprintf('plotting %s',ii );
 for l =keys(lisst)
     ll=string(l);
     plotvars=lisst(ll);

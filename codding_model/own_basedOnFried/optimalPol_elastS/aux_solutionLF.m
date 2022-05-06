@@ -34,8 +34,8 @@ pf=SLF.pf;
 %- params
 sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
-% sigmaas = Sparams.sigmaas;
-% chiis = Sparams.chiis;
+sigmaas = Sparams.sigmaas;
+chiis = Sparams.chiis;
 
 eppse = Sparams.eppse;
 eppsy = Sparams.eppsy;
@@ -92,7 +92,9 @@ elseif thetaa==1
  Utilcon = log(C);
 end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- SWF = Utilcon-Utillab;
+ Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+ SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
 if abs(C-Cincome)>1e-10
