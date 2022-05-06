@@ -103,7 +103,11 @@ end
         % unbounded variable!
         indic.target=1;
         fprintf('solving Social planner solution with target');
-        SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        if indic.noskill==0
+            SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        else
+            SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        end
     end 
 
     if isfile(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
