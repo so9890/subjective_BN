@@ -33,6 +33,7 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
+indic.noskill =1; % == 1 if no skill calibration of model
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -122,7 +123,7 @@ end
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+indic.target=0;
 indic.taus =0; % with ==0 no taus possible!
 count=0;
 while count<=3

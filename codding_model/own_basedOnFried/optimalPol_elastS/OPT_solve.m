@@ -268,9 +268,9 @@ helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper);
 
 if indic.target==1
-    save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d', indic.spillovers, indic.taus), 'opt_all')
+    save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill), 'opt_all')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d', indic.spillovers, indic.taus), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill), 'opt_all')
 end
 
 end

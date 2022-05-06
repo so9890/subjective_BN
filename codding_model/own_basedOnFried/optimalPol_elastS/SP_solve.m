@@ -208,8 +208,8 @@ sp_all=eval(symms.allvars);
 
 
 if indic.target==1
-    save(sprintf('SP_target_active_set_0505_spillover%d', indic.spillovers), 'sp_all')
+    save(sprintf('SP_target_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all')
 else
-    save(sprintf('SP_notarget_active_set_0505_spillover%d', indic.spillovers), 'sp_all')
+    save(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all')
 end
 end
