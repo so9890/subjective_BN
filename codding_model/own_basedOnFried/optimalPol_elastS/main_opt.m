@@ -44,10 +44,12 @@ if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
     load(sprintf('params_spillovers%d.mat', indic.spillovers))
 else
     fprintf('calibrating model')
-    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx,...
+         params_noskill, Sparams_noskill]=get_params( T, indic, lengthh);
     save(sprintf('params_spillovers%d', indic.spillovers))
 end
-% [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
+
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: BAU Simulation        %%%
@@ -61,9 +63,19 @@ if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
    [LF_BAU]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
    save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
    clearvars LF_SIM pol FVAL
+   
+    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
+    helper.LF_SIM=LF_SIM;
+%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+   [LF_BAU]=solve_LF_VECT(T, list, pol, params_noskill,symms, init201519, helper);
+   save(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers), 'LF_BAU')
+   clearvars LF_SIM pol FVAL
 else
     helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers));
     LF_BAU=helper.LF_BAU;
+helper=load(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers));
+LF_BAU_noskill=helper.LF_BAU;
+
 end
 
 %%

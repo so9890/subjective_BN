@@ -1,4 +1,5 @@
-function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params( T, indic, lengthh)
+function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx,...
+                params_noskill, Sparams_noskill]=get_params( T, indic, lengthh)
 
 % function to read in parameter values and to calibrate direct parameters
 % calls on calibration_matching and calibration_emissions 
@@ -130,4 +131,20 @@ polhelp= eval(symms.poldir);
 %%
 [x0LF, ~, ~, ~, Sall, ~,  init201014 , ~, init201519, Sparams, ~, params, pol, symms, MOM,indexx, list]...
     = calibration_matching(MOM, symms, list, parsHelp, polhelp);
+
+
+%% - parameters for no-skill version
+Sparams_noskill=Sparams;
+Sparams_noskill.thetaf=0.5;
+Sparams_noskill.thetag=0.5;
+Sparams_noskill.thetan=0.5;
+Sparams_noskill.zh=0.5;
+
+params_noskill = params;
+params_noskil(list.params=='thetan')=0.5;
+params_noskil(list.params=='thetaf')=0.5;
+params_noskil(list.params=='thetag')=0.5;
+params_noskil(list.params=='zh')=0.5;
+
+
 end
