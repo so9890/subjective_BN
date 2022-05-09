@@ -15,7 +15,6 @@ end
 list.opt  = string(symms.opt); 
 
 nn= length(list.opt); % number of variables
-
 %%% Initial Guess %%%
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
@@ -92,30 +91,12 @@ elseif indic.target==0
             x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg'); 
         end
     else    
-        % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
-        % to get initial guess
-        taus=0;
-        tauf=0;
-        taul=0;
-        lambdaa=1; % balances budget with tauf= taul=0
-        pol=eval(symms.pol);
 
-        if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers))
-            [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
-            %save(sprintf('FB_LF_SIM_NOTARGET_spillover%d', indic.spillovers),'LF_SIM');
-            %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
-            helper.LF_SIM=LF_SIM;
-            [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper); % problem posed as vector
-            if pol~=polLF
-                error('LF not solved under fb policy');
-            end
-            LF_SIM=LF_SIM';
-        else
-             helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
-             helper.LF_SIM=helper.LF_SIM';
-             [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
-              LF_SIM=LF_SIM';
-        end
+    %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
+      helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
+      LF_SIM=helper.LF_SIM;
+
+
      x0 = zeros(nn*T,1);
 
      x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline

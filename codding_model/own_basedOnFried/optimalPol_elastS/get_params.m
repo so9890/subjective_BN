@@ -141,10 +141,10 @@ Sparams_noskill.thetan=0.5;
 Sparams_noskill.zh=0.5;
 
 params_noskill = params;
-params_noskil(list.params=='thetan')=0.5;
-params_noskil(list.params=='thetaf')=0.5;
-params_noskil(list.params=='thetag')=0.5;
-params_noskil(list.params=='zh')=0.5;
+params_noskill(list.params=='thetan')=0.5;
+params_noskill(list.params=='thetaf')=0.5;
+params_noskill(list.params=='thetag')=0.5;
+params_noskill(list.params=='zh')=0.5;
 
 
 end

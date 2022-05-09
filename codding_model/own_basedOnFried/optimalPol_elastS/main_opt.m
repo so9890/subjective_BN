@@ -61,23 +61,46 @@ if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-   [LF_BAU]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
-   save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
-   clearvars LF_SIM pol FVAL
+    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper);
+    save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
+    clearvars LF_SIM pol FVAL
    
+    % without skill heterogeneity
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-   [LF_BAU]=solve_LF_VECT(T, list, pol, params_noskill,symms, init201519, helper);
+   [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params_noskill,symms, init201519, helper);
    save(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers), 'LF_BAU')
    clearvars LF_SIM pol FVAL
 else
     helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers));
     LF_BAU=helper.LF_BAU;
-helper=load(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers));
-LF_BAU_noskill=helper.LF_BAU;
-
+    helper=load(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers));
+    LF_BAU_noskill=helper.LF_BAU;
 end
+%% Competitive equilibrium with policy optimal without spillovers
+% for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
+taus=0;
+tauf=0;
+taul=0;
+lambdaa=1; % balances budget with tauf= taul=0
+pol=eval(symms.pol);
+
+    if indic.noskill==0
+        indic.noskill=0;
+        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
+        helper.LF_SIM=LF_SIM;
+        [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
+    else
+        indic.noskill=1;
+        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
+        helper.LF_SIM=LF_SIM;
+        [LF_SIM]=solve_LF_VECT(T, list, pol, params_noskill,symms, init201519, helper);
+    end
+     save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
+%     if pol~=polLF
+%         error('LF not solved under fb policy');
+%     end
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,10 +117,10 @@ end
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % load all results
-    if isfile(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers))
-        fprintf('exists: Social planner solution with target');
-        %load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers)); 
-    else
+%     if isfile(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers))
+%         fprintf('exists: Social planner solution with target');
+%         %load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers)); 
+%     else
         % note: it does not make a difference to the result whether to
         % include the upper bound on F or not when it is transformed to an
         % unbounded variable!
@@ -108,32 +131,50 @@ end
         else
             SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
         end
-    end 
+%     end 
 
-    if isfile(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
-
-        fprintf('exists: Social planner solution without target');
-%         load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
-%         sp_all_notarget=sp_all;
-%         clearvars sp_all
-    else
+%     if isfile(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
+% 
+%         fprintf('exists: Social planner solution without target');
+% %         load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
+% %         sp_all_notarget=sp_all;
+% %         clearvars sp_all
+%     else
         indic.target=0;
         fprintf('solving Social planner solution without target');
-        [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-    end 
+        if indic.noskill==0
+            [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        else
+            [symms, list]=SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        end
+%     end 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 5: Solve for Optimal Allocation       %%%
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=0;
+indic.target=1;
 indic.taus =0; % with ==0 no taus possible!
-count=0;
-while count<=3
+% count=0;
+% while count<=3
+if indic.noskill==0
+     indic.noskill=0;
     [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-    count=count+1;
+else
+    indic.noskill=1;
+    [symms, list, opt_all]= OPT_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201519, indexx, indic, T, Ems);
 end
+%     count=count+1;
+% end
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 6: PLOTS       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+plottsSP(list, symms, T);
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% find good initial starting point for target opt %%
@@ -160,11 +201,6 @@ end
 % THERE IS SOME MISTAKE IN THE CODE!
 RAM = solve_sym(symms, list, Ftarget, indic);
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 6: PLOTS       %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-plottsSP(list, symms, T);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

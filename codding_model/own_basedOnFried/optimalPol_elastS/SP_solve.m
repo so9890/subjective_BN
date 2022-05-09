@@ -5,7 +5,7 @@ read_in_params;
 
 % function to find social planner allocation 
 syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn real
-symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn ];
+symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn];
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 
@@ -13,28 +13,10 @@ nn= length(list.sp);
 % Initial Guess %
 %%%%%%%%%%%%%%%%%%%%%
 
-% FIRST read in efficient allocation without emission target
-% in SECOND rescale so that emission target is reached.
-% for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
-% which is optimal as competitive economy is efficient
-taus=0;
-tauf=0;
-taul=0;
-lambdaa=1; % balances budget with tauf= taul=0
-pol=eval(symms.pol);
+%- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
+  helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
+  LF_SIM=helper.LF_SIM;
 
-if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers))
-    [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
-    helper.LF_SIM=LF_SIM;
-     [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
-     save(sprintf('FB_LF_SIM_NOTARGET_spillover%d', indic.spillovers),'LF_SIM');
-    if pol~=polLF
-        error('LF not solved under fb policy');
-    end
-else
-     helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
-     LF_SIM=helper.LF_SIM;
-end
 
 if indic.target==0
     x0 = zeros(nn*T,1);
@@ -183,6 +165,10 @@ options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals'
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
 options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
+
+% print results
+% fprintf('\"solved\" with precision %f', output.constrviolation);
+
 
 out_trans=exp(x);
 out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));
