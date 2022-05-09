@@ -1,0 +1,308 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+%\usepackage[noxcolor]{beamerarticle} % to get presentation as article ! if used also set documentclass to article!
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\setbeamercolor{alerted text}{bg={}, fg=cyan!100}
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+
+
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz}
+\institute[University of Bonn]{University of Bonn}
+\title{The net-zero emission target and fiscal policies}
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+\institute{University of Bonn} 
+\date{\today} 
+%\subject{} 
+\begin{document}
+	
+	{\setbeamertemplate{footline}{}
+		\begin{frame}
+		\titlepage
+	\end{frame}
+}
+%\addtocounter{framenumber}{-1}
+
+% {\setbeamertemplate{footline}{}
+% \begin{frame}{Content}
+% \vspace{4mm}
+% \tableofcontents
+% \end{frame}
+% }
+ %\addtocounter{framenumber}{-1}
+
+
+%---------------------------------------
+%            Intro
+%---------------------------------------
+%\section{ Reducing Consumption Levels}
+\begin{frame}{Motivation}
+
+\begin{itemize}[<+-| alert@+>]
+	\setbeamercolor{alerted text}{fg=black} %change the font color
+	\setbeamerfont{alerted text}{series=\bfseries} 
+\item natural scientists suggest net-emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.}
+\vspace{3mm}
+\item in economic models emissions arise from fossil energy utilisation
+\vspace{3mm}
+\item then, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)  \ar no balanced growth 
+\vspace{3mm}
+\item What is the optimal environmental policy?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Trade-offs}
+	\textbf{Starting from demand target}
+\begin{itemize}
+\item lowering demand for certain land and energy-intense products could be regressive but natural scientists call for such a reduction in demand to meet climate targets
+\item labour income taxation could be an alternative measure/ potentially less politically debated
+\item However, new trade-offs arise from a higher tax progressivity: 
+\begin{enumerate}
+	\item on the one hand, it lowers demand, on the other hand, it could imply a shift to dirty innovations and production through a skill-bias mechanism \ar a new equity-environment trade-off arises
+	\item the progressivity of the tax system affects the composition of aggregate demand: if the rich have a higher propensity to consume clean, it raises pollution
+\end{enumerate}
+\item if inequality suffers, look at alternative measure of lowering hours worked
+\item on the other hand, corrective taxes counter equity if they foster skill bias of innovations
+\end{itemize}
+\end{frame}
+\begin{frame}{Working hypotheses}	
+	\begin{enumerate}
+		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+		\vspace{3mm}
+		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+		\vspace{3mm}
+		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+		\vspace{3mm}
+		\item<+-> now households are willing to reduce their consumption deliberately: reduction in satiation point; of high energy goods only, meat etc. 
+		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{How}
+	\begin{itemize}
+		\item<+-> the emission target determines fossil output starting from 2050
+		\vspace{3mm}
+		\item<+-> model economy on BGP (with constant growth ratios) until today; then, allow for non-balanced trajectory under optimal policy
+		\vspace{3mm}
+		\item<+-> first pass: starting in 2020, the planner optimises over a \textbf{finite horizon} only (political economy argument), and has to meet emission target (adapt code in \cite{Barrage2019OptimalPolicy})
+	\end{itemize}
+\end{frame}
+
+\section{Model}
+\begin{frame}{Model: Household}
+\alert{	To start with, no heterogenous consumption yet}\\
+%\text{\textbf{Householdrt}}
+\begin{align*}
+& \max_{\{C_t\}_{t=0}^\infty, \{h_{ht}\}_{t=0}^\infty, \{h_{lt}\}_{t=0}^\infty, \{h_{st}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\\
+\vspace{3mm}
+\\
+\text{s.t.}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}+S_t\\
+\end{align*}
+\vspace{-15mm}
+\begin{itemize}
+	\item<+-> representative family with low-skill and high-skill workers, and scientists; distribution exogenous ($z_h,z_l, z_s$)
+	\vspace{2mm}
+	\item<+-> allow for potentially decreasing hours over time \citep{Boppart2019LaborPerspectiveb}
+	\vspace{2mm}
+	\item<+-> How to deal with Government transfers if don't want to assume linear consumption (no income effect)?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model: Producers}
+	\textbf{Final Good and Energy Producers }
+	\vspace{-3mm}
+\begin{align*}
+&Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+&E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
+\end{align*}
+\textbf{Intermediate Good Producers}
+\begin{align*}
+&F_{t}=L_{ft}^{1-\alpha_f}\int_{0}^{1}A^{1-\alpha_f}_{ift}x_{ift}^{\alpha_f}di \ \hspace{4mm}=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
+%& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
+&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di\ \hspace{4mm}=x_{nt}^{\alpha_n}\left(A_{nt}L_{nt}\right)^{1-\alpha_n}\\
+&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di\ \hspace{4mm}=x_{gt}^{\alpha_g}\left(A_{gt}L_{gt}\right)^{1-\alpha_g}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Model: Labour input good production}
+\begin{align*}& L_{ft}=h_{hft}^{\theta_{f}}h_{lft}^{1-\theta_{f}}\\
+& L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
+& L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}
+\end{align*}
+where $\theta_{g}>\theta_{f}$ \ar high-skill share in green energy, i.e. greener goods, higher
+\end{frame}
+\begin{frame}{Model: Machine Producers and Innovation}
+	\begin{itemize}
+		\item sector specific producers; machine production costs equal across sectors: $\psi=1$
+		\item monopolistic competition, set prices for machines, and hire scientists for research
+		\item correct for monopolistic competition with uniform subsidy 
+		\\ \ar no inefficiency (but motive to generate funds \ar log utility?)
+	\end{itemize}
+\pause
+\textbf{Innovation}
+\begin{align*}
+&A_{jit}=A_{jt-1}\left(1+\gamma\left(\frac{S_{jit}}{\rho_j}\right)^{\eta}\left(\frac{A_{t-1}}{A_{jt-1}}\right)^{\phi}\right) 
+\end{align*}
+\pause
+\textbf{Marginal product of innovation}
+\begin{align*}
+&
+w_{sjt}=\frac{\eta \gamma \alpha_f A_{jt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{jt}}{\rho_j}\right)^{\eta}p_{jt}J_t}{\frac{1}{1-\alpha_f}S_{jt}A_{jt}}\\
+\end{align*}
+\end{frame}
+\begin{frame}{Model: Government}
+	\begin{itemize}
+		\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ct})}F_t-c(L_{ft}, x_{ft})$
+		\item labour income tax
+		\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
+	\end{itemize}
+\begin{align*}
+&\max_{\{\tau_{ct}\}_{t=0}^{60}, \{\tau_{st}\}_{t=0}^{60}, \{\tau_{lt}\}_{t=0}^{60}} \sum_{t=0}^{60}\beta^t U_{t}\\
+s.t. \hspace{4mm}
+&(1)\ \ S_t+\tau_{st}w_{sgt}s_{gt}= \text{profits machines}+\text{tax income}+\tau_{ct}p_{ft}F_{t}\\
+&
+(2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,60]
+\end{align*}
+where 
+\begin{align*}
+\Omega =\left[\Omega_0,..., \Omega_{29}, \pmb{0}_{\{1\times 30\}}\right]
+\end{align*}
+\end{frame}
+\begin{frame}{Working hypotheses}	
+	\begin{itemize}
+		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+		\vspace{3mm}
+		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+		\vspace{3mm}
+		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Alternative strategies}
+	in case there is no role for fiscal policies under the baseline assumptions
+\begin{itemize}
+	\item<+-> add a \textbf{demand target} to gov. constraints;  shown to be important to meet sustainability goals (IPCC reports) and reduce reliance on uncertain carbon capture technologies \ar progressive tax 
+	\item<+-> demand target: keep imports of land and energy intense products low 
+	\item decouple demand and labour supply: \textbf{open economy} big enough to affect world prices for land etc. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Literature}
+	\begin{itemize}
+		\item public finance
+		\item environmental policy
+		\item directed technical change
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Current State and way forward}
+	\begin{enumerate}
+		\item Block
+		\begin{itemize}
+			\item model economy \checkmark
+			\item define planner's objective
+			\item derive relevant equations for Barrage
+			\item code in Barrage to find optimal policy ! use as little analytical solutions as possible to be able to quickly change equations
+		\end{itemize}
+		\ar What is the optimal tax progressivity? \ar hypothesis: regressive tax and recycling revenues as transfers to clean sector wages?
+		\item Block: How does adding a demand target change the result?
+		\begin{itemize}
+			\item hypothesis: a higher tax progressivity could be optimal to reduce high consumption levels
+		\end{itemize}
+	\item Block: accounting for non-homotheticities in demand
+	\begin{itemize}
+		\item redistribution to affect the externality through a demand channel
+	\end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Method: nonbalanced Growth Path}
+	\begin{itemize}
+		\item need to analytically derive a continuation value to derive optimal policy
+		\item how done in \cite{Barrage2019OptimalPolicy}? She assumes a balanced growth path to exist to derive the continuation value (she does not have several sectors)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions}
+\begin{itemize}
+	\item papers which study BGP with unequal growth?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]{References}
+	
+	\bibliography{../../bib_2_0}
+	\bibliographystyle{apa}
+\end{frame}
+\end{document}

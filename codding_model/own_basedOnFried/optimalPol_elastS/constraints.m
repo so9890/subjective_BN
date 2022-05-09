@@ -10,14 +10,17 @@ read_in_params;
 % except for hours
 x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = upbarH./(1+exp(y((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
 x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = upbarH./(1+exp(y((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+
 if indic.target == 0
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 else
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
 end
+
 if indic.taus==1
     x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
 end
+
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
     x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
@@ -43,7 +46,9 @@ end
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
 c = []; %  periods and 2 additional ones: 
+
 c(1:T)=S-upbS;
+
 if indic.target==1
     c(T+1:T*2) = F-Ftarget;
 end

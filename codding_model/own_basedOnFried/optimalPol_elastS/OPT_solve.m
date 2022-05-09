@@ -19,8 +19,8 @@ nn= length(list.opt); % number of variables
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
-    if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus))
-     helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
+    if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
+     helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill));
      opt_all=helper.opt_all;
     
        x0 = zeros(nn*T,1);
@@ -42,7 +42,7 @@ if indic.target==1
     end
     else
 
-     helper=load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers));
+     helper=load(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
      sp_all=helper.sp_all;
 
      if ~isvarname('sp_all')
@@ -69,8 +69,8 @@ if indic.target==1
   end  
 elseif indic.target==0
        
-    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus))
-         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
+    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
+         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill));
          opt_all=helper.opt_all;
 
         x0 = zeros(nn*T,1);
@@ -94,7 +94,7 @@ elseif indic.target==0
 
     %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
       helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
-      LF_SIM=helper.LF_SIM;
+      LF_SIM=helper.LF_SIM';
 
 
      x0 = zeros(nn*T,1);
@@ -249,9 +249,9 @@ helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper);
 
 if indic.target==1
-    save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill), 'opt_all')
+    save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 end
 
 end

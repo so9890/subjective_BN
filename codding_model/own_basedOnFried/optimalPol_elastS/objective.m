@@ -1,4 +1,4 @@
-function f = objective(y, T, params, list, Ftarget, indic, upbS)
+sfunction f = objective(y, T, params, list, Ftarget, indic, upbS)
 
 % pars
 read_in_params;

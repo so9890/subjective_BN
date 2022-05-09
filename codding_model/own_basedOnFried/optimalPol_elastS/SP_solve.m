@@ -22,7 +22,7 @@ if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
 
-    if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
+    if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
         
         x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
         x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg
@@ -44,7 +44,7 @@ if indic.target==0
         x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
         x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
-        helper=load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
+        helper=load(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
         sp_all=helper.sp_all;
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -71,7 +71,7 @@ elseif indic.target==1
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
     
-    if ~isfile(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers))
+    if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
         kappaa = Ftarget./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
         kappaa = kappaa*(1-1e-10);
         
@@ -92,7 +92,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =kappaa.*LF_SIM(list.allvars=='C',1:T);  % C
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
-        helper= load(sprintf('SP_target_active_set_0505_spillover%d', indic.spillovers), 'sp_all');
+        helper= load(sprintf('SP_target_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all');
         sp_all=helper.sp_all;
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg

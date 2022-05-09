@@ -34,6 +34,7 @@ indic.target =0; % ==1 if uses emission target
 indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =1; % == 1 if no skill calibration of model
+indic.notaul=0;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -86,18 +87,23 @@ taul=0;
 lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
 
-    if indic.noskill==0
+  %  if indic.noskill==0
+  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
         indic.noskill=0;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
-    else
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
+        clearvars LF_SIM helper
+%     else
         indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params_noskill,symms, init201519, helper);
-    end
-     save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
+        clearvars LF_SIM helper
+  end
+%     end
 %     if pol~=polLF
 %         error('LF not solved under fb policy');
 %     end
@@ -127,8 +133,10 @@ pol=eval(symms.pol);
         indic.target=1;
         fprintf('solving Social planner solution with target');
         if indic.noskill==0
+            indic.noskill=0;
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
         else
+            indic.noskill=1;
             SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
         end
 %     end 
@@ -143,8 +151,10 @@ pol=eval(symms.pol);
         indic.target=0;
         fprintf('solving Social planner solution without target');
         if indic.noskill==0
+            indic.noskill=0;
             [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
         else
+            indic.noskill=1;
             [symms, list]=SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
         end
 %     end 
@@ -156,6 +166,7 @@ pol=eval(symms.pol);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.target=1;
 indic.taus =0; % with ==0 no taus possible!
+indic.notaul =0; % ==0 if labour income tax is available
 % count=0;
 % while count<=3
 if indic.noskill==0
