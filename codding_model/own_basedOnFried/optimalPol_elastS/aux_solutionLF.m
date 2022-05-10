@@ -1,31 +1,45 @@
-function LF_t=aux_solutionLF(Sparams, SLF,pol, laggs, list, symms, indexx, params)
+function LF_t=aux_solutionLF(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic)
 
 % output
 % LF_t: column vector of simulated variables in period t
 
 % read in vars
-hhf=SLF.hhf;
-hhg=SLF.hhg;
-hhn=SLF.hhn;
-hln=SLF.hln;
-hlg=SLF.hlg;
-hlf=SLF.hlf;
+gammalh=SLF.gammalh;
+
+if indic.noskill==0
+    hhf=SLF.hhf;
+    hhg=SLF.hhg;
+    hhn=SLF.hhn;
+    hln=SLF.hln;
+    hlg=SLF.hlg;
+    hlf=SLF.hlf;
+    hl=SLF.hl;
+    hh=SLF.hh;
+    gammall=SLF.gammall;
+    wh=SLF.wh;
+    wl=SLF.wl;
+else
+    
+    Lg=SLF.Lg;
+    Ln=SLF.Ln;
+    Lf=SLF.Lf;
+    w=SLF.w;
+    h=SLF.h;
+    wh=w; wl=w; gammall=gammalh; hh=h; hl=h; hhn=0;hhg=0; hhf=0; hln=0; hlg=0; hlf=0; 
+end
+
 F=SLF.F;
 G=SLF.G;
 C=SLF.C;
 Af=SLF.Af;
 Ag=SLF.Ag;
 An=SLF.An;
-hl=SLF.hl;
-hh=SLF.hh;
+
 sff=SLF.sff;
 sg=SLF.sg;
 sn=SLF.sn;
 S= SLF.S;
-gammalh=SLF.gammalh;
-gammall=SLF.gammall;
-wh=SLF.wh;
-wl=SLF.wl;
+
 ws=SLF.ws;
 pg=SLF.pg;
 pn=SLF.pn;
@@ -72,13 +86,20 @@ Cincome=Y-xn-xf-xg;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-Lg      = hhg.^thetag.*hlg.^(1-thetag);
-Ln      = hhn.^thetan.*hln.^(1-thetan);
-Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
 muu     = C.^(-thetaa);
-SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
-        +tauf.*pf.*F;
+if indic.noskill==0
+    Lg      = hhg.^thetag.*hlg.^(1-thetag);
+    Ln      = hhn.^thetan.*hln.^(1-thetan);
+    Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
+            +tauf.*pf.*F;
+else
+    SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
+            +tauf.*pf.*F;
+end
+
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
@@ -87,11 +108,15 @@ Emnet     = omegaa*F-deltaa; % net emissions
 
 % utility
 if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
 elseif thetaa==1
- Utilcon = log(C);
+    Utilcon = log(C);
 end
- Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+if indic.noskill==0
+     Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+else
+     Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
+end
  Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
 
  SWF = Utilcon-Utillab-Utilsci;
@@ -105,8 +130,12 @@ end
 
 % test variables read in properly
 xx=eval(symms.choice);
-guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-f=laissez_faire_nows(guess_trans, params, list, pol, laggs);
+if indic.noskill==0
+    guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
+else
+    guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
+end
+f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')

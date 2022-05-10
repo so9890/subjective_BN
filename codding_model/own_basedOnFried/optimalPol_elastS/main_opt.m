@@ -59,24 +59,24 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
-    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx);
+    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper);
-    save(sprintf('LF_BAU_spillovers%d', indic.spillovers), 'LF_BAU')
+    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
+    save(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill), 'LF_BAU')
     clearvars LF_SIM pol FVAL
    
-    % without skill heterogeneity
-    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
-    helper.LF_SIM=LF_SIM;
-%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-   [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params_noskill,symms, init201519, helper);
-   save(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers), 'LF_BAU')
-   clearvars LF_SIM pol FVAL
+%     % without skill heterogeneity
+%     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx, indic);
+%     helper.LF_SIM=LF_SIM;
+% %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+%    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params_noskill,symms, init201519, helper, indic);
+%    save(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers), 'LF_BAU')
+%    clearvars LF_SIM pol FVAL
 else
-    helper=load(sprintf('LF_BAU_spillovers%d', indic.spillovers));
+    helper=load(sprintf('LF_BAU_spillovers%d_noskill0', indic.spillovers));
     LF_BAU=helper.LF_BAU;
-    helper=load(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers));
+    helper=load(sprintf('LF_BAU_spillovers%d_noskill1', indic.spillovers));
     LF_BAU_noskill=helper.LF_BAU;
 end
 %% Competitive equilibrium with policy optimal without spillovers
@@ -164,7 +164,7 @@ pol=eval(symms.pol);
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+indic.target=0;
 indic.taus =0; % with ==0 no taus possible!
 indic.notaul =0; % ==0 if labour income tax is available
 % count=0;

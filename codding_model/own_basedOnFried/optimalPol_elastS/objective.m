@@ -1,4 +1,4 @@
-sfunction f = objective(y, T, params, list, Ftarget, indic, upbS)
+function f = objective(y, T, params, list, Ftarget, indic, upbS)
 
 % pars
 read_in_params;
@@ -9,8 +9,13 @@ x=exp(y);
 % except for taus
 x(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus')))=y(T*(find(list.opt=='taus')-1)+1:T*(find(list.opt=='taus'))) ;
 % hours
-x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = upbarH./(1+exp(y((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
-x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = upbarH./(1+exp(y((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+if indic.noskill==0
+    x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T) = upbarH./(1+exp(y((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
+    x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T) = upbarH./(1+exp(y((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+else
+    x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T) = upbarH./(1+exp(y((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
+end
+% hours scientists
 if indic.target == 0
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 else
@@ -25,8 +30,13 @@ if indic.target==1
 end
 
 % variables
-hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
-hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
+if indic.noskill==0
+    hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
+    hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
+else
+    h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);
+end
+
 C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
 S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
 
@@ -39,11 +49,16 @@ S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
 
 %- vector of utilities
 if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
 elseif thetaa==1
- Utilcon = log(C);
+    Utilcon = log(C);
 end
- Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+
+if indic.noskill==0
+    Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+else
+    Utillab = chii.*h.^(1+sigmaa)./(1+sigmaa);
+end
  Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
 
 %Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
