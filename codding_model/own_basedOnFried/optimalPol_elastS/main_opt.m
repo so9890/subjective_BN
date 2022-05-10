@@ -58,21 +58,13 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-if ~isfile(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers))
+if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d.mat', indic.spillovers, indic.noskill))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
     save(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill), 'LF_BAU')
     clearvars LF_SIM pol FVAL
-   
-%     % without skill heterogeneity
-%     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx, indic);
-%     helper.LF_SIM=LF_SIM;
-% %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-%    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params_noskill,symms, init201519, helper, indic);
-%    save(sprintf('LF_BAU_spillovers%d_noskill', indic.spillovers), 'LF_BAU')
-%    clearvars LF_SIM pol FVAL
 else
     helper=load(sprintf('LF_BAU_spillovers%d_noskill0', indic.spillovers));
     LF_BAU=helper.LF_BAU;
@@ -89,20 +81,13 @@ pol=eval(symms.pol);
 
   %  if indic.noskill==0
   if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
-        indic.noskill=0;
-        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx);
+%         indic.noskill=1;
+        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
-        [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper);
+        [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
         save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
         clearvars LF_SIM helper
-%     else
-        indic.noskill=1;
-        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params_noskill, Sparams_noskill,  symms, x0LF, init201014, indexx);
-        helper.LF_SIM=LF_SIM;
-        [LF_SIM]=solve_LF_VECT(T, list, pol, params_noskill,symms, init201519, helper);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
-        clearvars LF_SIM helper
-  end
+ end
 %     end
 %     if pol~=polLF
 %         error('LF not solved under fb policy');
