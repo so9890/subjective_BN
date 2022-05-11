@@ -141,14 +141,14 @@ pol=eval(symms.pol);
 % %         sp_all_notarget=sp_all;
 % %         clearvars sp_all
 %     else
-        indic.target=0;
+        indic.target=1;
         fprintf('solving Social planner solution without target');
         if indic.noskill==0
             indic.noskill=0;
             [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
         else
             indic.noskill=1;
-            [symms, list]=SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
+            [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
         end
 %     end 
 %%

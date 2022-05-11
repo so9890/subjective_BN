@@ -2,24 +2,28 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, init)
+            wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, init, indic)
 
 read_in_params;
 
-hhf    = x((find(list.sp=='hhf')-1)*T+1:find(list.sp=='hhf')*T);
-hhg    = x((find(list.sp=='hhg')-1)*T+1:(find(list.sp=='hhg'))*T);
-hhn    = x((find(list.sp=='hhn')-1)*T+1:(find(list.sp=='hhn'))*T);
-hlf    = x((find(list.sp=='hlf')-1)*T+1:find(list.sp=='hlf')*T);
-hlg    = x((find(list.sp=='hlg')-1)*T+1:find(list.sp=='hlg')*T);
-hln    = x((find(list.sp=='hln')-1)*T+1:find(list.sp=='hln')*T);
+    hhf    = x((find(list.sp=='hhf')-1)*T+1:find(list.sp=='hhf')*T);
+    hhg    = x((find(list.sp=='hhg')-1)*T+1:(find(list.sp=='hhg'))*T);
+    hhn    = x((find(list.sp=='hhn')-1)*T+1:(find(list.sp=='hhn'))*T);
+    hlf    = x((find(list.sp=='hlf')-1)*T+1:find(list.sp=='hlf')*T);
+    hlg    = x((find(list.sp=='hlg')-1)*T+1:find(list.sp=='hlg')*T);
+    hln    = x((find(list.sp=='hln')-1)*T+1:find(list.sp=='hln')*T);
+    hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
+    hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
+
+
+    
 xn     = x((find(list.sp=='xn')-1)*T+1:find(list.sp=='xn')*T);
 xf     = x((find(list.sp=='xf')-1)*T+1:find(list.sp=='xf')*T);
 xg     = x((find(list.sp=='xg')-1)*T+1:find(list.sp=='xg')*T);
 Af     = x((find(list.sp=='Af')-1)*T+1:find(list.sp=='Af')*T);
 Ag     = x((find(list.sp=='Ag')-1)*T+1:find(list.sp=='Ag')*T);
 An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
-hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
-hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
+
 C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
 sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);

@@ -229,7 +229,7 @@ if indic.target==1
         if indic.spillovers==1
             options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         else
-            options = optimset('algorithm','sqp','TolCon',1e-12,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+            options = optimset('algorithm','sqp','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         save(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill))
