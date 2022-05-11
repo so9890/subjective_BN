@@ -37,9 +37,9 @@ chii   = SL.chii;
 lambdaa = SL.lambdaa;
 % phis    = SR.phis;
 chiis  = SR.chiis;
-rhog  = SR.rhog;
-rhon  = SR.rhon;
-rhof  = SR.rhof;
+% rhog  = SR.rhog;
+% rhon  = SR.rhon;
+% rhof  = SR.rhof;
 gammaa  = SR.gammaa;
 
 
@@ -74,8 +74,10 @@ sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
 S = sff+sg+sn; % determined by chii in science problem
+
 % wse = SR.wse;
 ws = SR.ws;
+% chiisT=ws/(C^thetaa*S^sigmaas);
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;

@@ -1,20 +1,20 @@
-function  [ceq]= calibRem_nows_fsolve(x, MOM, list, trProd, paramss, poll, Af, An, Ag)
+function  [ceq]= calibRem_nows_fixed(x, MOM, list, trProd, paramss, poll, Af, An, Ag, gammaa)
 % this function backs out missing functions:
 % 
 
 read_in_pars_calib
 
 % calibration to 2019 (lag = 2010-2014)
-Af_lag  = exp(x(list.calib3=='Af_lag'));
-Ag_lag  = exp(x(list.calib3=='Ag_lag'));
-An_lag  = exp(x(list.calib3=='An_lag'));
-sff     = exp(x(list.calib3=='sff'));
-sg      = exp(x(list.calib3=='sg'));
-sn      = exp(x(list.calib3=='sn'));
-ws      = exp(x(list.calib3=='ws'));
+Af_lag  = exp(x(list.calib4=='Af_lag'));
+Ag_lag  = exp(x(list.calib4=='Ag_lag'));
+An_lag  = exp(x(list.calib4=='An_lag'));
+sff     = exp(x(list.calib4=='sff'));
+sg      = exp(x(list.calib4=='sg'));
+sn      = exp(x(list.calib4=='sn'));
+ws      = exp(x(list.calib4=='ws'));
 % sigmaas = exp(x(list.calib3=='sigmaas'));
-chiis   = exp(x(list.calib3=='chiis'));
-gammaa  = exp(x(list.calib3=='gammaa'));
+ chiis   = exp(x(list.calib4=='chiis'));
+% gammaa  = exp(x(list.calib3=='gammaa'));
 % rhon  = exp(x(list.calib3=='rhon'));
 % rhog  = exp(x(list.calib3=='rhog'));
 % rhof  = exp(x(list.calib3=='rhof'));
@@ -39,22 +39,20 @@ A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 q=0;
 % % target gammaa
-%  q=q+1;
-%  ceq(q)= (A/A_lag-1)-MOM.growth; % targeting 5 year growth rate
- q=q+1;
- ceq(q)= gammaa - MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii);
-
-% ceq(q)=
+% q=q+1;
+% ceq(q)= (A/A_lag-1)-MOM.growth; % targeting 5 year growth rate
 % q=q+1;
 % ceq(q)= gammaa - MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii);
+
+% ceq(q)=
 
 % LOM => lagged technology
 q=q+1;
 ceq(q) = Af- Af_lag*(1+gammaa*(sff/rhof)^etaa*(A_lag/Af_lag)^phii);
 q=q+1;
 ceq(q) = Ag- Ag_lag*(1+gammaa*(sg/rhog)^etaa*(A_lag/Ag_lag)^phii);
-% q=q+1;
-% ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
+q=q+1;
+ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
 % scientist demand
 q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
@@ -67,8 +65,8 @@ ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan)
 
 q=q+1;
 ceq(q)= sff+sg+sn-MOM.targethour;
-q=q+1;
-ceq(q)= MOM.targethour-(ws/(chiis.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
+ q=q+1;
+ ceq(q)= MOM.targethour-(ws/(chiis.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 %  q=q+1;
 %  ceq(q)= MOM.rhon-rhon;  % equal disutility as for other labour => pins down ws
 

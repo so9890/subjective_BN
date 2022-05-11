@@ -74,7 +74,7 @@ list.pol      = string(symms.pol);
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
                 eppsy, eppse, sigmaas, upbS, ...
-                etaa, phii, deltaa];   
+                etaa, phii,  rhof, rhon, rhog, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
 symms.poldir     = [taul, taus, tauf];
@@ -104,6 +104,9 @@ if indic.spillovers==0
 else
     etaa     = 1.2; % positive spillovers=> to accomodate zero scientists in competitive eqbm 
 end
+rhof     = 0.01;
+rhon     = 1; 
+rhog     = 0.01;
 % rhof     = 0.01;
 % rhon     = 1; 
 % rhog     = 0.01;

@@ -19,7 +19,7 @@ nn= length(list.sp);
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
   helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
-  LF_SIM=helper.LF_SIM;
+  LF_SIM=helper.LF_SIM';
 
 
 if indic.target==0
@@ -27,7 +27,6 @@ if indic.target==0
     Ftarget = 0; % placeholder
 
     if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
-        CONTINUE
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg

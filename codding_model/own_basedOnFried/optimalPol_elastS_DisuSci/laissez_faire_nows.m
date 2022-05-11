@@ -218,7 +218,7 @@ end
 
 
 q=q+1;
-f(q)= S-(ws*muu/(chiis))^(1/sigmaa); % scientist hours supply
+f(q)= S-(ws*muu/(chiis))^(1/sigmaas); % scientist hours supply
 q=q+1;
 f(q)= sff+sg+sn-S; % determines wage in neutral sector
 

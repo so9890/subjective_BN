@@ -13,7 +13,7 @@ sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
 ws      = exp(x(list.calib3=='ws'));
 % sigmaas = exp(x(list.calib3=='sigmaas'));
-% chiis   = exp(x(list.calib3=='chiis'));
+ chiis   = exp(x(list.calib3=='chiis'));
 gammaa  = exp(x(list.calib3=='gammaa'));
 
 
@@ -27,7 +27,7 @@ A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 % gammaa = MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii); % n is growth rate in non-energy technology: n0=An'/An-1
 %  q=q+1;
 % ceq(q)= MOM.S-(ws/(chiis.*C.^thetaa)).^(1/sigmaas); % hours supply by scientists to find sigmaas
-chiis= ws/(C^thetaa*MOM.S^sigmaas);
+% chiis= ws/(C^thetaa*MOM.S^sigmaas);
 %% target equations
 c=[];
 
@@ -42,8 +42,8 @@ q=q+1;
 ceq(q) = Af- Af_lag*(1+gammaa*(sff/rhof)^etaa*(A_lag/Af_lag)^phii);
 q=q+1;
 ceq(q) = Ag- Ag_lag*(1+gammaa*(sg/rhog)^etaa*(A_lag/Ag_lag)^phii);
-q=q+1;
-ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
+% q=q+1;
+% ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
 % scientist demand
 q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
@@ -55,8 +55,12 @@ q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 q=q+1;
-ceq(q)= sff+sg+sn-MOM.S;
+ceq(q)= sff+sg+sn-MOM.targethour;
+q=q+1;
+ceq(q)= MOM.targethour-(ws/(chiis.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 
+% q=q+1;
+% ceq(q)= MOM.S-(ws/(chii.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 
 % fprintf('number equations %d, number variables %d', q, length(x));
 end

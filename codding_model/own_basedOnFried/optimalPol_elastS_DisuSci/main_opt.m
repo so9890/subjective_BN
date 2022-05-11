@@ -57,6 +57,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
+for i=[0,1]
+    indic.noskill=i;
 if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d.mat', indic.spillovers, indic.noskill))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
@@ -65,10 +67,12 @@ if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d.mat', indic.spillovers, indic.
     save(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill), 'LF_BAU')
     clearvars LF_SIM pol FVAL
 else
-    helper=load(sprintf('LF_BAU_spillovers%d_noskill0', indic.spillovers));
-    LF_BAU=helper.LF_BAU;
-    helper=load(sprintf('LF_BAU_spillovers%d_noskill1', indic.spillovers));
-    LF_BAU_noskill=helper.LF_BAU;
+     fprintf('LF_BAU no skill %d exists', indic.noskill);
+%     helper=load(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill));
+%     LF_BAU=helper.LF_BAU;
+%     helper=load(sprintf('LF_BAU_spillovers%d_noskill1', indic.spillovers));
+%     LF_BAU_noskill=helper.LF_BAU;
+end
 end
 %% Competitive equilibrium with policy optimal without spillovers
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
@@ -79,6 +83,8 @@ lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
 
   %  if indic.noskill==0
+  for i=[0,1]
+      indic.noskill=i;
   if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
 %         indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
@@ -86,7 +92,10 @@ pol=eval(symms.pol);
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
         save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
         clearvars LF_SIM helper
- end
+        else
+     fprintf('LF_FB no skill %d exists', indic.noskill)
+  end
+  end
 %     end
 %     if pol~=polLF
 %         error('LF not solved under fb policy');

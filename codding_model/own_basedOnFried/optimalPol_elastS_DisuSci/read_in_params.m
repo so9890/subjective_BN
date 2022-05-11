@@ -9,7 +9,7 @@ zh  = params(list.params=='zh');
 if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
-chiis   = params(list.params=='chiis');
+chiis  = params(list.params=='chiis');
 upbS   = params(list.params=='upbS');
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');

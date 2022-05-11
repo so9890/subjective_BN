@@ -21,9 +21,9 @@ chii = SL.chii;
 lambdaa = SL.lambdaa;
 chiis=SciL.chiis;
 gammaa=SciL.gammaa;
-rhog=SciL.rhog;
-rhon=SciL.rhon;
-rhof=SciL.rhof;
+% rhog=SciL.rhog;
+% rhon=SciL.rhon;
+% rhof=SciL.rhof;
 
 params = eval(subs(symms.params));
 pol    = eval(symms.pol);
