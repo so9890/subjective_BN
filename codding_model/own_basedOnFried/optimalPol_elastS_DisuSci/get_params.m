@@ -1,5 +1,4 @@
-function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx,...
-                params_noskill, Sparams_noskill]=get_params( T, indic, lengthh)
+function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params( T, indic, lengthh)
 
 % function to read in parameter values and to calibrate direct parameters
 % calls on calibration_matching and calibration_emissions 
@@ -75,7 +74,7 @@ list.pol      = string(symms.pol);
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
                 eppsy, eppse, sigmaas, upbS, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, deltaa];   
+                etaa, phii, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
 symms.poldir     = [taul, taus, tauf];
@@ -99,15 +98,15 @@ alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
 alphag   = 1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried
  
-gammaa   = 3.96;           % Fried
+% gammaa   = 3.96;           % Fried
 if indic.spillovers==0
     etaa     = 0.79; 
 else
     etaa     = 1.2; % positive spillovers=> to accomodate zero scientists in competitive eqbm 
 end
-rhof     = 0.01;
-rhon     = 1; 
-rhog     = 0.01;
+% rhof     = 0.01;
+% rhon     = 1; 
+% rhog     = 0.01;
 phii     = 0.5;            % Fried
 upbS     = 0.01;
 
@@ -120,7 +119,8 @@ tauf    = 0;
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
-MOM.S = 0.01; % from fried: Supply scientists in base year
+% MOM.S = 0.01; % from fried: Supply scientists in base year
+MOM.growth = (1.02)^5 -1; %5 year grwoth rate
 
 %% - emissions
 [deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 
@@ -133,18 +133,18 @@ polhelp= eval(symms.poldir);
     = calibration_matching(MOM, symms, list, parsHelp, polhelp);
 
 
-%% - parameters for no-skill version
-Sparams_noskill=Sparams;
-Sparams_noskill.thetaf=0.5;
-Sparams_noskill.thetag=0.5;
-Sparams_noskill.thetan=0.5;
-Sparams_noskill.zh=0.5;
-
-params_noskill = params;
-params_noskill(list.params=='thetan')=0.5;
-params_noskill(list.params=='thetaf')=0.5;
-params_noskill(list.params=='thetag')=0.5;
-params_noskill(list.params=='zh')=0.5;
+% %% - parameters for no-skill version
+% Sparams_noskill=Sparams;
+% Sparams_noskill.thetaf=0.5;
+% Sparams_noskill.thetag=0.5;
+% Sparams_noskill.thetan=0.5;
+% Sparams_noskill.zh=0.5;
+% 
+% params_noskill = params;
+% params_noskill(list.params=='thetan')=0.5;
+% params_noskill(list.params=='thetaf')=0.5;
+% params_noskill(list.params=='thetag')=0.5;
+% params_noskill(list.params=='zh')=0.5;
 
 
 end

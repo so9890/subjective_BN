@@ -46,8 +46,7 @@ if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
     load(sprintf('params_spillovers%d.mat', indic.spillovers))
 else
     fprintf('calibrating model')
-    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx,...
-         params_noskill, Sparams_noskill]=get_params( T, indic, lengthh);
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
     save(sprintf('params_spillovers%d', indic.spillovers))
 end
 

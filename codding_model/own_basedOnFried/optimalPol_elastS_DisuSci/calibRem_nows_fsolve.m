@@ -1,4 +1,4 @@
-function  [ceq]= calibRem_nows(x, MOM, list, trProd, paramss, poll, Af, An, Ag, chii)
+function  [ceq]= calibRem_nows(x, MOM, list, trProd, paramss, poll, Af, An, Ag)
 % this function backs out missing functions:
 % 
 
@@ -61,7 +61,7 @@ q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 q=q+1;
-ceq(q)= sff+sg+sn-MOM.S;
+ceq(q)= sff+sg+sn-MOM.targethour;
 % q=q+1;
 % ceq(q)= MOM.S-(ws/(chii.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 %  q=q+1;

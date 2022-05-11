@@ -37,6 +37,11 @@ chii   = SL.chii;
 lambdaa = SL.lambdaa;
 % phis    = SR.phis;
 chiis  = SR.chiis;
+rhog  = SR.rhog;
+rhon  = SR.rhon;
+rhof  = SR.rhof;
+gammaa  = SR.gammaa;
+
 
 % Remaining variables
 hln = hhn*(1-thetan)/(thetan)*MOM.whwl; % hln
@@ -74,9 +79,6 @@ ws = SR.ws;
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
-% gammasf = SR.gammasf;
-% gammasn = SR.gammasn;
-% gammasg = SR.gammasg;
 
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
