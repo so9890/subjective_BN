@@ -65,7 +65,7 @@ sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*A
 if indic.notaul==0
     taul0 = 0.2*ones(size(sn));
     lambdaa0=ones(size(sn));
-    ff=@(x)[(w.*h).^(1-x(1:T)).*x(T+1:2*T)-w.*h+tauf.*pf.*F;% balanced budget gov.
+    ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
             chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
    optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 

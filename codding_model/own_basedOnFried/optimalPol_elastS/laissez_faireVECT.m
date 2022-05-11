@@ -72,8 +72,7 @@ if indic.noskill==0
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
 else
-    SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
+    SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
 end
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
