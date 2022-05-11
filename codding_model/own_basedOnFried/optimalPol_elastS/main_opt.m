@@ -154,13 +154,13 @@ indic.taus =0; % with ==0 no taus possible!
 indic.notaul =0; % ==0 if labour income tax is available
 % count=0;
 % while count<=3
-if indic.noskill==0
+% if indic.noskill==0
      indic.noskill=0;
     [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-else
-    indic.noskill=1;
-    [symms, list, opt_all]= OPT_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201519, indexx, indic, T, Ems);
-end
+% else
+%     indic.noskill=1;
+%     [symms, list, opt_all]= OPT_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201519, indexx, indic, T, Ems);
+% end
 %     count=count+1;
 % end
 

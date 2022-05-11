@@ -51,7 +51,8 @@ gamma = n0/(sm0^eta*(a0/am0)^phi); % n is growth rate in non-energy technology: 
 lgm0 = (sg0^(1-eta)/sm0^(1-eta))*pm0^(1/(1-alpham))/pg0^(1/(1-alphag))*(am0/ag0)^(1-phi)*(1-alpham)/(1-alphag)*eta/eta...
     *pgix0^(alphag/(1-alphag))/pmix0^(alpham/(1-alpham))*alpham^(1/(1-alpham))/alphag^(1/(1-alphag))*(1/rhong)^(eta);
 
-% own calculations SOnja
+% own calculations SOnjagamma = n0/(sm0^eta*(a0/am0)^phi); % n is growth rate in non-energy technology: n0=An'/An-1
+
 lgmown = alpham/alphag*sg0/sm0; % correct
 lgfown = alphaf/alphag*sg0/sf0;
 
