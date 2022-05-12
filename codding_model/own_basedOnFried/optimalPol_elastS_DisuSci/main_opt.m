@@ -68,10 +68,6 @@ if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d.mat', indic.spillovers, indic.
     clearvars LF_SIM pol FVAL
 else
      fprintf('LF_BAU no skill %d exists', indic.noskill);
-%     helper=load(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill));
-%     LF_BAU=helper.LF_BAU;
-%     helper=load(sprintf('LF_BAU_spillovers%d_noskill1', indic.spillovers));
-%     LF_BAU_noskill=helper.LF_BAU;
 end
 end
 %% Competitive equilibrium with policy optimal without spillovers
@@ -142,20 +138,24 @@ pol=eval(symms.pol);
 % Timing: starting from 2020-2025 the gov. chooses      %%
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=1;
+
 indic.taus =0; % with ==0 no taus possible!
 indic.notaul =0; % ==0 if labour income tax is available
-% count=0;
-% while count<=3
-% if indic.noskill==0
-     indic.noskill=1;
-    [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-% else
-%     indic.noskill=1;
-%     [symms, list, opt_all]= OPT_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201519, indexx, indic, T, Ems);
-% end
-%     count=count+1;
-% end
+for i=0:1
+     indic.noskill=i;
+     if ~isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+         indic.target=1;
+         [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+     else 
+        fprintf('OPT solution with target, noskill%d exists', indic.noskill);
+     end
+    if ~isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+        indic.target=0;
+        [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+    else 
+       fprintf('OPT solution without target, noskill%d exists', indic.noskill);
+    end
+end
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

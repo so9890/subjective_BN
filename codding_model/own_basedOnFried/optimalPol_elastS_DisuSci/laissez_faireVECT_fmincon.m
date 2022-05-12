@@ -24,6 +24,7 @@ if indic.noskill==0
  hlf    = exp(x((find(list.test=='hlf')-1)*T+1:(find(list.test=='hlf'))*T));
  hlg    = exp(x((find(list.test=='hlg')-1)*T+1:(find(list.test=='hlg'))*T));
  gammall = x((find(list.test=='gammall')-1)*T+1:(find(list.test=='gammall'))*T).^2;
+
  wh     = exp(x((find(list.test=='wh')-1)*T+1:(find(list.test=='wh'))*T));
  wl     = exp(x((find(list.test=='wl')-1)*T+1:(find(list.test=='wl'))*T));
  hl     = upbarH./(1+exp(x((find(list.test=='HL')-1)*T+1:find(list.test=='HL')*T)));
@@ -46,7 +47,8 @@ end
  sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
  sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
  sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
- S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
+ S      = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
+ gammas = x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T).^2;
 
  gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
  ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
@@ -206,7 +208,10 @@ q=q+1;
 f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= S-(ws.*muu./chiis).^(1/sigmaa);
+f((q-1)*T+1:T*q)= S-((ws.*muu-gammas)./chiis).^(1/sigmaa);
+q=q+1;
+f((q-1)*T+1:T*q)= gammas.*(S-upbarH);
+
 %13- Kuhn Tucker Labour supply
 if indic.noskill==0
     %25

@@ -46,6 +46,7 @@ end
  sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
  sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
  S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
+ gammas = x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T).^2;
 
  gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
  ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
@@ -204,8 +205,13 @@ q=q+1;
 f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= S-(ws.*muu./chiis).^(1/sigmaa);
+f((q-1)*T+1:T*q)= S-((ws.*muu-gammas)./chiis).^(1/sigmaa);
+
+
 %13- Kuhn Tucker Labour supply
+q=q+1;
+f((q-1)*T+1:T*q)= gammas.*(S-upbarH);
+
 if indic.noskill==0
     %25
     q=q+1;

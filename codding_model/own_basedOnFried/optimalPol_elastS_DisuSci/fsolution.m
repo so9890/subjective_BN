@@ -119,6 +119,7 @@ Sinit201519=cell2struct(num2cell(init201519), cell_par, 2);
 
 
 %- save for laissez faire
+gammas =0;
 x0LF= eval(symms.choice);
 % test
 zh=paramss(list.paramsdir=='zh');

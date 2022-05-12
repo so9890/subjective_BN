@@ -47,8 +47,9 @@ end
  sff    = exp(x(list.choice=='sff'));
  sg     = exp(x(list.choice=='sg'));
  sn     = exp(x(list.choice=='sn'));
- S      = exp(x(list.choice=='S')); % total labour supply
-%  wse     = exp(x(list.choice=='wse'));
+ S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
+ gammas = x(list.choice=='gammas')^2;
+
  ws     = exp(x(list.choice=='ws'));
 %  gammasf = x(list.choice=='gammasf')^2;
 %  gammasn = x(list.choice=='gammasn')^2;
@@ -218,9 +219,14 @@ else
     f(q)= gammalh.*(h-upbarH);
 end
 
-
+% optimality scientists
 q=q+1;
-f(q)= S-(ws*muu/(chiis))^(1/sigmaa); % scientist hours supply
+f(q)= S-((ws*muu-gammas)/(chiis))^(1/sigmaas); % scientist hours supply
+% Kuhn tucker scientists
+q=q+1;
+f(q)= gammas.*(S-upbarH);
+
+%market for scientists
 q=q+1;
 f(q)= sff+sg+sn-S; % determines wage in neutral sector
 

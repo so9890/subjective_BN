@@ -38,13 +38,14 @@ end
  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
- sff     = exp(x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T));
- sg     = exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T));
- sn     = exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T));
- S     = exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T));
+ sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
+ sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
+ sn     =(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
+ S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
+ gammas     = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
 
  
- ws     = exp(x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T));
+ ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
  pg     = exp(x((find(list.test=='pg')-1)*T+1:(find(list.test=='pg'))*T));
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));

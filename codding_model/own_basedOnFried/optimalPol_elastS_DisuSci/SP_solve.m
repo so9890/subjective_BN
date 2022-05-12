@@ -91,10 +91,10 @@ elseif indic.target==1
     
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
-    
+    kappaa = Ftarget./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
+    kappaa = kappaa*(1-1e-10);
     if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
-        kappaa = Ftarget./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
-        kappaa = kappaa*(1-1e-10);
+        
         
         if indic.noskill==0
         x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =kappaa.*LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
@@ -148,7 +148,7 @@ elseif indic.target==1
             x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =sp_all(1:T, list.allvars=='An');  % An
 
             x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
-            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =sp_all(1:T, list.allvars=='F');  % C
+            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa*sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
             x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
             x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
@@ -203,16 +203,12 @@ f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic, initOPT);
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic, initOPT);
 constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
-%  options = optimoptions('Algorithm','sqp','TolStep',1e-10,'TolFun',1e-16,'MaxFunEvals',500000,'MaxIter',6200,'Display','Iter','MaxSQPIter',10000);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-save('sp_results_noskill')
+% ss=load('sp_results_noskill')
 options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
-
-% print results
-% fprintf('\"solved\" with precision %f', output.constrviolation);
 
 
 out_trans=exp(x);
@@ -235,13 +231,13 @@ if indic.noskill==0
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, initOPT);
+            wln, wlg, wlf, SWF]= SP_aux_vars_2S(out_trans, list, params, T, initOPT);
 else
     [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(x, list, params, T,initOPT);
+            wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(out_trans, list, params, T,initOPT);
         wh=w; wl=w;hhf=h; hhg=h; hhn=h; hlf=h; hlg=h; hln=h; hl=h; hh=h;
 end
 ws=wsn;

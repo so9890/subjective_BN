@@ -5,6 +5,7 @@ function LF_t=aux_solutionLF(Sparams, SLF,pol, laggs, list, symms, indexx, param
 
 % read in vars
 gammalh=SLF.gammalh;
+gammas=SLF.gammas;
 
 if indic.noskill==0
     hhf=SLF.hhf;

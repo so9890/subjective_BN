@@ -61,7 +61,7 @@ pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
 lambdaa=y(list.allvars=='lambdaa', :)';
 
-
+gammas =sqrt(zeros(size(lambdaa)));
 x0=eval(symms.test);
 x0=x0(:);
 

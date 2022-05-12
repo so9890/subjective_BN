@@ -89,7 +89,7 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill));
+         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul));
          opt_all=helper.opt_all;
 
           x0 = zeros(nn*T,1);

@@ -30,7 +30,7 @@ list.calib3 =string(symms.calib3);
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
     wh wl pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
-     tauf taus taul lambdaa Ln Lg Lf SWF S real
+     tauf taus taul lambdaa Ln Lg Lf SWF S gammas real
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
     hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
     gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF, S ];
@@ -38,7 +38,7 @@ list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire
 symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn,...
-             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, ws, S];
+             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, ws, S, gammas];
 list.choice  = string(symms.choice);
 
 indexxLF.lab = boolean(zeros(size(list.choice)));
@@ -46,9 +46,9 @@ indexxLF.exp = boolean(zeros(size(list.choice)));
 indexxLF.sqr = boolean(zeros(size(list.choice)));
 indexxLF.oneab = boolean(zeros(size(list.choice)));
 
-indexxLF.lab(list.choice=='hl'| list.choice=='hh')=1;
-indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammall'& list.choice~='gammalh' )=1;
-indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh' )=1;
+indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='S')=1;
+indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammas'&list.choice~='gammall'& list.choice~='gammalh'& list.choice~='S' )=1;
+indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammas' )=1;
 
 %- calibration productivity
 syms omegaa deltay real

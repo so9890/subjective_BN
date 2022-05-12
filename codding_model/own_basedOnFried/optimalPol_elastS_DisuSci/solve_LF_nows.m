@@ -31,7 +31,7 @@ if indic.noskill==1
                 &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
                 &list.choice~='wl'&list.choice~='gammall'), h, w, Lf, Lg, Ln];
     list.choice=string(symms.choice);
-    x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lf,Sall.Ln]; 
+    x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lf,Sall.Ln]; % order has to match how variables are added to symms.choice!
 
         
     indexxLF.lab = boolean(zeros(size(list.choice)));
@@ -39,9 +39,9 @@ if indic.noskill==1
     indexxLF.sqr = boolean(zeros(size(list.choice)));
     indexxLF.oneab = boolean(zeros(size(list.choice)));
 
-    indexxLF.lab( list.choice=='h')=1;
-    indexxLF.exp(list.choice~='h'& list.choice~='gammalh' )=1;
-    indexxLF.sqr(list.choice=='gammalh' )=1;
+    indexxLF.lab( list.choice=='h' | list.choice=='S')=1;
+    indexxLF.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
+    indexxLF.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
     indexx('LF_noskill')=indexxLF;
 end
 
