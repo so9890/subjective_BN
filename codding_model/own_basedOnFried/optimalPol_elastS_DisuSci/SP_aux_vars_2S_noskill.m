@@ -1,22 +1,17 @@
-function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+function [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, init)
+            F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(x, list, params, T, init)
 
 read_in_params;
 
-    hhf    = x((find(list.sp=='hhf')-1)*T+1:find(list.sp=='hhf')*T);
-    hhg    = x((find(list.sp=='hhg')-1)*T+1:(find(list.sp=='hhg'))*T);
-    hhn    = x((find(list.sp=='hhn')-1)*T+1:(find(list.sp=='hhn'))*T);
-    hlf    = x((find(list.sp=='hlf')-1)*T+1:find(list.sp=='hlf')*T);
-    hlg    = x((find(list.sp=='hlg')-1)*T+1:find(list.sp=='hlg')*T);
-    hln    = x((find(list.sp=='hln')-1)*T+1:find(list.sp=='hln')*T);
-    hl     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
-    hh     = x((find(list.sp=='hh')-1)*T+1:find(list.sp=='hh')*T);
 
+Lg    = x((find(list.sp=='Lg')-1)*T+1:find(list.sp=='Lg')*T);
+Ln    = x((find(list.sp=='Ln')-1)*T+1:find(list.sp=='Ln')*T);
+%Lf     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
+h     = x((find(list.sp=='h')-1)*T+1:find(list.sp=='h')*T);
 
-    
 xn     = x((find(list.sp=='xn')-1)*T+1:find(list.sp=='xn')*T);
 xf     = x((find(list.sp=='xf')-1)*T+1:find(list.sp=='xf')*T);
 xg     = x((find(list.sp=='xg')-1)*T+1:find(list.sp=='xg')*T);
@@ -38,19 +33,12 @@ Af0=init(list.init=='Af0');
 
 % aux variables
 
-Lg      = hhg.^thetag.*hlg.^(1-thetag);
-Ln      = hhn.^thetan.*hln.^(1-thetan);
-Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
 %A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
 Ag_lag  = [Ag0;Ag(1:T-1)];
 An_lag  = [An0;An(1:T-1)];
-%A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
-% 
-% sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
-% sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
-% sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
 S       = sff+sg +sn;
 % the absolute amount of scientists supplied is determined by scientist
 % preferences, the planner has to take this as given (otherwise there is no bound on science!)
@@ -61,6 +49,7 @@ G       = xg.^alphag.*(Ag.*Lg).^(1-alphag);
 
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+Lf      =  (F./xf.^alphaf).^(1/(1-alphaf))./Af;
 
 % prices compatible with sp solution 
 pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
@@ -74,19 +63,26 @@ wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An
 % S       = (wsn/chiis)^(1/sigmaas);
 wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 taus    = 1-wsgtil./wsn;
-wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
-wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
-taul    = (log(wh./wl)-sigmaa*log(hh./hl))./(log(hh./hl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
-            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
-SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+w      = pg.*(1-alphag).*G./Lg;
+muu = C.^(-thetaa);
+
+
+% finding lambdaa and taul
+taul0 = 0.2*ones(size(sn));
+lambdaa0=ones(size(sn));
+ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
+        chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
+optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+
+soll = fsolve(ff, [taul0; lambdaa0], optionsfs); 
+taul=soll(1:T);
+lambdaa=soll(T+1:T*2);
+
+
+SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-muu = C.^(-thetaa);
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
@@ -99,8 +95,10 @@ if thetaa~=1
 elseif thetaa==1
  Utilcon = log(C);
 end
- Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
+
+Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
  SWF = Utilcon-Utillab-Utilsci;
 
 end

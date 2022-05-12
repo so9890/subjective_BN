@@ -115,42 +115,27 @@ pol=eval(symms.pol);
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% load all results
-%     if isfile(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers))
-%         fprintf('exists: Social planner solution with target');
-%         %load(sprintf('SP_target_active_set_0505_spillover%d.mat', indic.spillovers)); 
-%     else
-        % note: it does not make a difference to the result whether to
-        % include the upper bound on F or not when it is transformed to an
-        % unbounded variable!
-        indic.target=1;
-        fprintf('solving Social planner solution with target');
-        if indic.noskill==0
-            indic.noskill=0;
-            SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-        else
-            indic.noskill=1;
-            SP_solve(list, symms, params_noskill, Sparams_noskill, x0LF, init201014, init201519, indexx, indic, T, Ems);
-        end
-%     end 
 
-%     if isfile(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
-% 
-%         fprintf('exists: Social planner solution without target');
-% %         load(sprintf('SP_notarget_active_set_0505_spillover%d.mat', indic.spillovers))
-% %         sp_all_notarget=sp_all;
-% %         clearvars sp_all
-%     else
-        indic.target=1;
-        fprintf('solving Social planner solution without target');
-        if indic.noskill==0
-            indic.noskill=0;
-            [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-        else
-            indic.noskill=1;
-            [symms, list]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+        for i =0:1
+            indic.noskill=i;
+            if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+                indic.target=1;
+                fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
+
+                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+            else
+              fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
+            end
+            if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+                indic.target=0;
+                fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
+
+                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+            else
+              fprintf('Social planner solution without target, noskill%d exists', indic.noskill);
+            end
         end
-%     end 
+           
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 5: Solve for Optimal Allocation       %%%
