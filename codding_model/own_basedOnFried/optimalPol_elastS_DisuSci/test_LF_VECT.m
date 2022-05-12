@@ -7,9 +7,9 @@ varrs=helper.LF_SIM;
 y=log(varrs);
 z=sqrt(varrs);
 % create new list
-syms HL HH H lambdaa w Lf Lg Ln real
+syms HL HH H w Lf Lg Ln real
 if indic.noskill==0
-    symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH, lambdaa];
+    symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH];
 else
     symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
                 &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
@@ -50,6 +50,7 @@ sff =z(list.allvars=='sff', :)';
 sg =z(list.allvars=='sg', :)';
 sn =z(list.allvars=='sn', :)';
 S =z(list.allvars=='S', :)';
+gammas =zeros(size(S));
 gammalh =z(list.allvars=='gammalh', :)';
 ws=z(list.allvars=='ws', :)';
 

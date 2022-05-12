@@ -40,9 +40,9 @@ sp_not=helper.sp_all';
 % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_t=helper.opt_all';
 % results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul%d.mat', indic.spillovers, indic.taus, indic.notaul));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul%d.mat', indic.spillovers, indic.taus, indic.notaul));
+helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
 opt_t_notaus=helper.opt_all';
 
 RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -62,14 +62,15 @@ sp_not_ns=helper.sp_all';
 % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_t=helper.opt_all';
 % results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul%d.mat', indic.spillovers, indic.taus, indic.notaul));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul0_alt.mat', indic.spillovers, indic.taus));
 opt_not_notaus_ns=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul%d.mat', indic.spillovers, indic.taus, indic.notaul));
+helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul0.mat', indic.spillovers, indic.taus));
 opt_t_notaus_ns=helper.opt_all';
 
 RES_ns = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                         {bau_ns, fb_lf_ns, sp_t_ns, sp_not_ns, opt_t_notaus_ns, opt_not_notaus_ns});
 
+%% optimal policy scenarios
 
 %% SWF comparison
 betaa=params(list.params=='betaa');
@@ -131,7 +132,6 @@ for i =keys(RES)
     % SEF calculation 
     TableSWF_PV_ns.FullModel(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
     TableSWF_PV_ns.NoSkillHeterogeneity(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
-
 %% 
 fprintf('plotting %s',ii );
 for l =keys(lisst)

@@ -99,15 +99,6 @@ pol=eval(symms.pol);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%      Section 3: either tauf, taul How much needed to meet emissions?  %%%
-% Timing: starting from 2020-2025                                          %%
-% the gov. chooses tauf or taul to meet emission target                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% version 1: meet emission target by use of tauf, taul set =0 (optimal without emission target)
-
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,9 +130,9 @@ pol=eval(symms.pol);
 % the optimal allocation                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-indic.taus =0; % with ==0 no taus possible!
-indic.notaul =0; % ==0 if labour income tax is available
-for i=0:1
+indic.taus  = 0; % with ==0 no taus possible!
+indic.notaul=0; % ==0 if labour income tax is available
+for i=1
      indic.noskill=i;
      if ~isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
          indic.target=1;

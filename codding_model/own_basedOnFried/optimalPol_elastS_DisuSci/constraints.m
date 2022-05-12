@@ -16,7 +16,7 @@ else
 end
 
 if indic.target == 0
-    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 else
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
 end
@@ -60,7 +60,7 @@ end
  % time period specific constraints! 
 c = []; %  periods and 2 additional ones: 
 
-c(1:T)=S-upbS;
+c(1:T)=S-upbarH;
 
 if indic.target==1
     c(T+1:T*2) = F-Ftarget;
@@ -86,6 +86,9 @@ end
         % add foc for one skill type (ratio respected in taul derivation) 
          ceq(T*9+1:T*10) = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
          ceq(T*10+1:T*11) = sg+sff+sn-S;
+         if indic.notaul==1
+            ceq(T*11+1:T*12) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
+         end
 
  elseif indic.noskill==1
      
@@ -97,7 +100,9 @@ end
         ceq(T*5+1:T*6) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
         ceq(T*6+1:T*7) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
         ceq(T*7+1:T*8) = C-lambdaa.*(w.*h).^(1-taul)-SGov;
-%         ceq(T*8+1:T*9) = sg+sff+sn-S;
+        if indic.notaul==1
+            ceq(T*8+1:T*9)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
+        end
  end
  %
 ceq = ceq';

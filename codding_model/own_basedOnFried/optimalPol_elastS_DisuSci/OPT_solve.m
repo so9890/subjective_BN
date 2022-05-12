@@ -81,7 +81,7 @@ if indic.target==1
      x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
      x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =sp_all(:,list.allvars=='Ag');  % Ag
      x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
-     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =sp_all(:,list.allvars=='S'); 
+     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =(0.9).*sp_all(:,list.allvars=='S'); 
      if indic.taus==1
          x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg'); 
      end
@@ -181,7 +181,7 @@ end
 if indic.target==1
     guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=sqrt(x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
 else
-    guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
+    guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))); 
 end
 
@@ -232,19 +232,19 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-%         save(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d', indic.spillovers, indic.taus, indic.noskill))
+%          save(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul', indic.spillovers, indic.taus, indic.noskill))
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
 %         [x,fval,exitflag,output,lambda] = fmincon(ss.objf,ss.x,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 elseif indic.target==0
-      options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-4,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])
@@ -265,7 +265,7 @@ else
 end
 
 if indic.target == 0
-    out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbS./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+    out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 else
     out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
 end

@@ -7,15 +7,15 @@ function [xn,xf,xg,Ag, An, Af,...
 read_in_params;
 
 % lambdaa = x((find(list.opt=='lambdaa')-1)*T+1:(find(list.opt=='lambdaa'))*T);
-Lf    = x((find(list.opt=='Lf')-1)*T+1:find(list.opt=='Lf')*T);
-Lg    = x((find(list.opt=='Lg')-1)*T+1:find(list.opt=='Lg')*T);
+Lf     = x((find(list.opt=='Lf')-1)*T+1:find(list.opt=='Lf')*T);
+Lg     = x((find(list.opt=='Lg')-1)*T+1:find(list.opt=='Lg')*T);
 C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
 Af     = x((find(list.opt=='Af')-1)*T+1:find(list.opt=='Af')*T);
 Ag     = x((find(list.opt=='Ag')-1)*T+1:find(list.opt=='Ag')*T);
 An     = x((find(list.opt=='An')-1)*T+1:find(list.opt=='An')*T);
-h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);  
+h      = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);  
 S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
  
 % initial values: CALIBRATED dont change
@@ -73,7 +73,8 @@ if indic.notaul==0
     taul=soll(1:T);
     lambdaa=soll(T+1:T*2);
 else
-    taul=0;
+    taul=zeros(size(sn));
+    lambdaa=tauf.*pf.*F./(w.*h)+1;
 end
 
 xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;

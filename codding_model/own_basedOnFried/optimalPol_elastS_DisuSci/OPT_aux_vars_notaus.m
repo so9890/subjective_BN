@@ -77,9 +77,9 @@ sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*A
 
 % assuming interior solution households
 if indic.notaul==0
-    taul    = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+    taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
 else
-    taul=0;
+    taul   = zeros(size(sn));
 end
 % lambdaa so that gov budget is balanced
 lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...

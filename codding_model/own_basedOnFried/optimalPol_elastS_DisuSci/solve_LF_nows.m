@@ -31,7 +31,7 @@ if indic.noskill==1
                 &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
                 &list.choice~='wl'&list.choice~='gammall'), h, w, Lf, Lg, Ln];
     list.choice=string(symms.choice);
-    x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lf,Sall.Ln]; % order has to match how variables are added to symms.choice!
+    x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lg,Sall.Ln]; % order has to match how variables are added to symms.choice!
 
         
     indexxLF.lab = boolean(zeros(size(list.choice)));

@@ -17,7 +17,7 @@ else
 end
 % hours scientists
 if indic.target == 0
-    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 else
     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
 end
