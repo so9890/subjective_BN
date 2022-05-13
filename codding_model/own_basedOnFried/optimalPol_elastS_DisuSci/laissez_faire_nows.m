@@ -81,7 +81,7 @@ Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((ep
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-% wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 % 
 % xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
 % xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
@@ -159,12 +159,10 @@ if indic.noskill==0
     f(q)=(1-thetag)*Lg.*wlg-wl.*hlg;
     %18- demand skill
     q=q+1;
-    f(q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-            ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+    f(q) = wh - thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
     %19
     q=q+1;
-    f(q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-            ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+    f(q) = wl-(1-thetaf)*Lf./hlf.*wlf;
 
 else
     q=q+1; % labour demand fossil

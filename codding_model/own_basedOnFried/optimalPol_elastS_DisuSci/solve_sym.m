@@ -4,24 +4,28 @@ function RAM = solve_sym(symms, list, Ftarget, indic, T, indexx, params)
 % order of variables in Ram_Model as in list.optALL
 
 %- guess: use sp allocation as starting point
-if indic.target==1
-    helper=load('SP_target');
-    sp_all=helper.sp_all;
+if indic.target==0
+    helper=load('OPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
+else
+    helper= load('OPT_target_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
+end
+    opt_all=helper.opt_all;
     x0=symms.optALL;
-   
-    x0(startsWith(list.optALL, 'hhf')) =sp_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
-    x0(startsWith(list.optALL, 'hhg')) =(0.7)*sp_all(:,list.allvars=='hhg'); % hhg
-    x0(startsWith(list.optALL, 'hlf')) =sp_all(:,list.allvars=='hlf'); % hlf
-    x0(startsWith(list.optALL, 'hlg')) =(0.5)*sp_all(:,list.allvars=='hlg'); % hlg 
-    x0(startsWith(list.optALL, 'C'))   =(0.8)*sp_all(:,list.allvars=='C');   % C
-    x0(startsWith(list.optALL, 'F'))   =(0.7)*sp_all(:,list.allvars=='F');
+       
+    x0(startsWith(list.optALL, 'hhf')) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
+    x0(startsWith(list.optALL, 'hhg')) =opt_all(:,list.allvars=='hhg'); % hhg
+    x0(startsWith(list.optALL, 'hlf')) =opt_all(:,list.allvars=='hlf'); % hlf
+    x0(startsWith(list.optALL, 'hlg')) =opt_all(:,list.allvars=='hlg'); % hlg 
+    x0(startsWith(list.optALL, 'C'))   =opt_all(:,list.allvars=='C');   % C
+    x0(startsWith(list.optALL, 'F'))   =opt_all(:,list.allvars=='F');
 
-    x0(startsWith(list.optALL, 'G'))    =(0.7)*sp_all(:,list.allvars=='G');   % G
-    x0(startsWith(list.optALL, 'Af'))   =0.5*sp_all(:,list.allvars=='Af');  % Af
-    x0(startsWith(list.optALL, 'Ag'))   =sp_all(:,list.allvars=='Ag');  % Ag
-    x0(startsWith(list.optALL, 'An'))   =sp_all(:,list.allvars=='An');  % An
-    x0(startsWith(list.optALL, 'HL'))   =sp_all(:,list.allvars=='hl');  % hl
-    x0(startsWith(list.optALL, 'HH'))   =sp_all(:,list.allvars=='hh');   % hh
+    x0(startsWith(list.optALL, 'G'))   =opt_all(:,list.allvars=='G');   % G
+    x0(startsWith(list.optALL, 'Af'))  =opt_all(:,list.allvars=='Af');  % Af
+    x0(startsWith(list.optALL, 'Ag'))  =opt_all(:,list.allvars=='Ag');  % Ag
+    x0(startsWith(list.optALL, 'An'))  =opt_all(:,list.allvars=='An');  % An
+    x0(startsWith(list.optALL, 'HL'))  =opt_all(:,list.allvars=='hl');  % hl
+    x0(startsWith(list.optALL, 'HH'))  =opt_all(:,list.allvars=='hh');   % hh
+    x0(startsWith(list.optALL, 'S'))   =opt_all(:,list.allvars=='S');   % hh
 
     % number of multipliers
     nm= sum(startsWith(list.optsym, 'mu_'));
@@ -29,59 +33,41 @@ if indic.target==1
     x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
     x0(startsWith(list.optALL, 'mu_target')) = 100;
     x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
-else
-    load('OPT_notarget.mat')
-    % use result from numeric problem
-    
-%         taus=0;
-%         tauf=0;
-%         taul=0;
-%         lambdaa=1; % balances budget with tauf= taul=0
-%         pol=eval(symms.pol);
-% 
-%         if ~isfile('FB_LF_SIM_NOTARGET.mat')
-%             [LF_SIM] = solve_LF(T, list, pol, params, Sparams,  symms, x0LF, init201519, indexx);   
-%             save('FB_LF_SIM_NOTARGET','LF_SIM');
-%         else
-%             help=load('FB_LF_SIM_NOTARGET.mat');
-%             LF_SIM=help.LF_SIM;
-%         end
-    
-    x0 =symms.optALL;
-   
-    x0(startsWith(list.optALL, 'hhf')) =opt_all(1:T,list.allvars=='hhf'); % hhf; first period in LF is baseline
-    x0(startsWith(list.optALL, 'hhg')) =opt_all(1:T,list.allvars=='hhg'); % hhg
-    x0(startsWith(list.optALL, 'hlf')) =opt_all(1:T,list.allvars=='hlf'); % hlf
-    x0(startsWith(list.optALL, 'hlg')) =opt_all(1:T,list.allvars=='hlg'); % hlg 
-    x0(startsWith(list.optALL, 'C'))     =opt_all(1:T,list.allvars=='C');   % C
-    x0(startsWith(list.optALL, 'F'))     =opt_all(1:T,list.allvars=='F');
-    x0(startsWith(list.optALL, 'G'))     =opt_all(1:T,list.allvars=='G');   % G
-    x0(startsWith(list.optALL, 'Af'))   =opt_all(1:T,list.allvars=='Af');  % Af
-    x0(startsWith(list.optALL, 'Ag'))   =opt_all(1:T,list.allvars=='Ag');  % Ag
-    x0(startsWith(list.optALL, 'An'))   =opt_all(1:T,list.allvars=='An');  % An
-    x0(startsWith(list.optALL, 'HL'))   =opt_all(1:T,list.allvars=='hl');  % hl
-    x0(startsWith(list.optALL, 'HH'))   =opt_all(1:T,list.allvars=='hh');  % hh
-
-    %multipliers
-    nm= sum(startsWith(list.optsym, 'mu_')); % number of multipliers
-    nkt= sum(startsWith(list.optsym, 'KT_'));
-    x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
-    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
-end
     
     x0=eval(x0);
     
-%-- transform to unbounded variables 
-indexxO=indexx('OPTSym');
-guess_trans=trans_guess(indexxO,symms.optALL, params, list.params);
-guess_trans=trans_guess(indexxO,x0, params, list.params);
+%% -- transform to unbounded variables 
+guess_trans=log(x0);
 
-% replace F manually
+%- exceptions with upper bound; hl, hh, S, and F in case of target
+
+if indic.noskill==0
+    guess_trans(startsWith(list.optALL, 'HL'))=log((params(list.params=='upbarH')-x0(startsWith(list.optALL, 'HL')))./...
+        x0(startsWith(list.optALL, 'HL')));
+    guess_trans(startsWith(list.optALL, 'HH'))=log((params(list.params=='upbarH')-x0(startsWith(list.optALL, 'HH')))./...
+        x0(startsWith(list.optALL, 'HH')));
+else
+        guess_trans(startsWith(list.optALL, 'H'))=log((params(list.params=='upbarH')-x0(startsWith(list.optALL, 'H')))./...
+        x0(startsWith(list.optALL, 'H')));
+end
+% initial value of scientists might be zero (in version with target; other transformation required)
 if indic.target==1
-   guess_trans(startsWith(list.optALL, 'F'))= log((Ftarget-x0(startsWith(list.optALL, 'F')))./x0(startsWith(list.optALL, 'F')));
+    guess_trans(startsWith(list.optALL, 'S'))=sqrt(x0(startsWith(list.optALL, 'S')));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+else
+       guess_trans(startsWith(list.optALL, 'S'))=log((params(list.params=='upbarH')-x0(startsWith(list.optALL, 'S')))./...
+        x0(startsWith(list.optALL, 'S'))); 
 end
 
-%-- test model and solve for optimal policy
+guess_trans(startsWith(list.optALL, 'sg'))=sqrt(x0(startsWith(list.optALL, 'sg')));
+
+if indic.target==1
+    guess_trans(startsWith(list.optALL, 'F'))=log((Ftarget-x0(startsWith(list.optALL, 'F')))./...
+     x0(startsWith(list.optALL, 'F')));
+end
+%- lagrange multipliers not transformed
+guess_trans(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'))=x0(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'));
+
+%% -- test model and solve for optimal policy
 
 if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
@@ -91,10 +77,73 @@ else
     modFF = @(x)Ram_Model_notarget(x);
 end
 
-options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-12, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 
 [outt, fval, exitflag] = fsolve(modFF, guess_trans, options);
+options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
+[outt2, fval, exitflag] = fsolve(modFF, outt, options);
 
-xx=real(outt);
-[outt, fval, exitflag] = fsolve(modFF, xx, options);
-fprintf('ramsey solved with exitflag %d ', exitflag );
+options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
+[x, fval, exitflag] = fsolve(modFF, outt2, options);
+options = optimoptions('fsolve', 'MaxFunEvals',10e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter');%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
+[x2, fval, exitflag] = fsolve(modFF, x, options);
+
+
+% with fmincon
+lb=[];
+ub=[];
+constf=@(x)sym_fmincon(x);
+objf=@(x)objectiveCALIBSCI(x);
+options = optimset('algorithm','sqp','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+[x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+
+save(sprintf('opt_sym_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
+% transform
+out_trans=exp(x);
+if indic.noskill==0
+    out_trans(contains(list.optALL,'HL'))=upbarH./(1+exp(x(contains(list.optALL,'HL'))));
+ out_trans(contains(list.optALL,'HH'))=upbarH./(1+exp(x(contains(list.optALL,'HH'))));
+else
+ out_trans(contains(list.optALL,'H'))=upbarH./(1+exp(x(contains(list.optALL,'H'))));
+end
+
+if indic.target == 0
+ out_trans(startsWith(list.optALL,'S'))=upbarH./(1+exp(x(startsWith(list.optALL,'S'))));
+else
+    out_trans(startsWith(list.optALL,'S')) = (x(startsWith(list.optALL,'S'))).^2;
+end
+out_trans(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'))=x(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'));
+% if indic.taus==1
+%     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+% end
+if indic.target==1
+    out_trans(startsWith(list.optALL,'F'))=Ftarget./(1+exp(x(startsWith(list.optALL,'F'))));
+end
+
+x=out_trans;
+read_in_SYMModel;
+taus = zeros(size(pn));
+gammall = zeros(size(pn));
+gammalh = zeros(size(pn));
+
+opt_all=eval(symms.allvars);
+
+%- test swf 
+%  disc=repmat(betaa, 1,T);
+%  expp=0:T-1;
+%  vec_discount= disc.^expp;
+% vec_discount*SWF
+% test if opt solution is a laissez faire solution 
+% function throws error if solution is not a solution to LF
+helper.LF_SIM=opt_all';
+f=test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
+ ind=1:length(f);
+ ss=ind(abs(f)>1e-5);
+ tt=floor(ss/T); 
+% save results
+if indic.target==1
+    save(sprintf('SYMOPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+else
+    save(sprintf('SYMOPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_alt', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+end
+end

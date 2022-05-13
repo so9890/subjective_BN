@@ -1,4 +1,4 @@
-function []=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
+function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
@@ -66,11 +66,12 @@ x0=x0(:);
 
 % test solution to 
 f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
+% to examine stuff
 
-if max(abs(f))>1e-9
-    error('LF function does not solve at 1e-9')
-else
-    fprintf('Solution solves LF problem')
-end
+% if max(abs(f))>1e-9
+%     error('LF function does not solve at 1e-9')
+% else
+%     fprintf('Solution solves LF problem')
+% end
 
 end

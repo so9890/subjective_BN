@@ -33,7 +33,7 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill =1; % == 1 if no skill calibration of model
+indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,6 +167,7 @@ exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 %%% Symbolic approach to solve Ramsey problem %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.target=0;
+indic.noskill=0;
 %1) get objective function 
 [OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms);
 %- x is a symbolic vector of choice variables! 
@@ -175,10 +176,9 @@ indic.target=0;
 if indic.target==1
     [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target', list, indic, indexx);
 else
-    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget', list, indic, indexx);
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_testbeta', list, indic, indexx);
 end
 %3) solve model using fsolve
-% THERE IS SOME MISTAKE IN THE CODE!
 RAM = solve_sym(symms, list, Ftarget, indic);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

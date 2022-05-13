@@ -39,6 +39,8 @@ end
 
 model(contains(list.optALL,'KT_hh'))=x(contains(list.optALL,'KT_hh')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HH')));
 model(contains(list.optALL,'KT_hl'))=x(contains(list.optALL,'KT_hl')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HL')));
+model(contains(list.optALL,'KT_S'))=x(contains(list.optALL,'KT_S')).*(params(list.params=='upbarH')-x(startsWith(list.optALL,'S')));
+
 
 if indic.target==1
     model(contains(list.optALL,'mu_target'))=x(contains(list.optALL,'mu_target')).*(Ftarget-x(contains(list.optALL,'F')));
@@ -55,28 +57,30 @@ end
 % get symbolic vector of transformed variables, AS THEY SHOULD OCCUR IN
 % MODEL FOR SUBSTITUTION
 % lagrange multis in ramsey are not transformed!
+upbarH=params(list.params=='upbarH');
+out_trans=exp(x);
+if indic.noskill==0
+    out_trans(contains(list.optALL,'HL'))=upbarH./(1+exp(x(contains(list.optALL,'HL'))));
+ out_trans(contains(list.optALL,'HH'))=upbarH./(1+exp(x(contains(list.optALL,'HH'))));
+else
+ out_trans(contains(list.optALL,'H'))=upbarH./(1+exp(x(contains(list.optALL,'H'))));
+end
 
-% indicator
-indexxO.lab = boolean(zeros(size(x)));
-indexxO.exp = boolean(zeros(size(x)));
-indexxO.sqr = boolean(zeros(size(x)));
-indexxO.oneab = boolean(zeros(size(x)));
-
-indexxO.exp = ~contains(list.optALL,'mu_')&~contains(list.optALL,'KT_')&~contains(list.optALL,'HH')& ~contains(list.optALL,'HL'); % all but lagrange multipliers hl,hn,F are transformed exponentially
-indexxO.lab = contains(list.optALL,'HH') | contains(list.optALL,'HL');
-% replace F manually
-
- indexx('OPTSym')=indexxO;
-%transformation: how variables should occur in model
-%- initialise vector of transformed variables
-
-allo_trans=trans_allo_out(indexxO, x, params, list.params);
+if indic.target == 0
+ out_trans(startsWith(list.optALL,'S'))=upbarH./(1+exp(x(startsWith(list.optALL,'S'))));
+else
+    out_trans(startsWith(list.optALL,'S')) = (x(startsWith(list.optALL,'S'))).^2;
+end
+out_trans(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'))=x(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'));
+% if indic.taus==1
+%     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+% end
 if indic.target==1
-    allo_trans(startsWith(list.optALL,'F'))= Ftarget./(1+exp(x((startsWith(list.optALL,'F')))));
+    out_trans(startsWith(list.optALL,'F'))=Ftarget./(1+exp(x(startsWith(list.optALL,'F'))));
 end
     % replace untransformed with transformed variables
 
-model_trans=subs(model, x, allo_trans);
+model_trans=subs(model, x, out_trans);
 
 %-- write model to file
  % the second output gives the vector or input arguments!
