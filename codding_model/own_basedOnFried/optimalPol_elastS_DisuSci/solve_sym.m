@@ -29,10 +29,10 @@ end
 
     % number of multipliers
     nm= sum(startsWith(list.optsym, 'mu_'));
-    nkt= sum(startsWith(list.optsym, 'KT_'));
+    %nkt= sum(startsWith(list.optsym, 'KT_'));
     x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
     x0(startsWith(list.optALL, 'mu_target')) = 100;
-    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
+   % x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
     
     x0=eval(x0);
     
@@ -73,8 +73,8 @@ if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
     modFF = @(x)Ram_Model_target(x);
 else
-    model_trans = Ram_Model_notarget(guess_trans);
-    modFF = @(x)Ram_Model_notarget(x);
+    model_trans = Ram_Model_notarget_testbeta(guess_trans);
+    modFF = @(x)Ram_Model_notarget_testbeta(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
@@ -94,11 +94,13 @@ lb=[];
 ub=[];
 constf=@(x)sym_fmincon(x);
 objf=@(x)objectiveCALIBSCI(x);
-options = optimset('algorithm','sqp','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+[xas,fval,exitflag,output,lambda] = fmincon(objf,ss.x,[],[],[],[],lb,ub,constf,options);
 
-save(sprintf('opt_sym_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
-% transform
+ss=load(sprintf('opt_sym_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
+%% transform
+upbarH=params(list.params=='upbarH');
 out_trans=exp(x);
 if indic.noskill==0
     out_trans(contains(list.optALL,'HL'))=upbarH./(1+exp(x(contains(list.optALL,'HL'))));
@@ -128,7 +130,7 @@ gammalh = zeros(size(pn));
 
 opt_all=eval(symms.allvars);
 
-%- test swf 
+%% - test swf 
 %  disc=repmat(betaa, 1,T);
 %  expp=0:T-1;
 %  vec_discount= disc.^expp;
@@ -138,7 +140,7 @@ opt_all=eval(symms.allvars);
 helper.LF_SIM=opt_all';
 f=test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
  ind=1:length(f);
- ss=ind(abs(f)>1e-5);
+ ss=ind(abs(f)>1e-6);
  tt=floor(ss/T); 
 % save results
 if indic.target==1

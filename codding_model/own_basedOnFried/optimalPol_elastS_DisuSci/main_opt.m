@@ -176,7 +176,7 @@ indic.noskill=0;
 if indic.target==1
     [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target', list, indic, indexx);
 else
-    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_testbeta', list, indic, indexx);
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_testbeta_nokt', list, indic, indexx);
 end
 %3) solve model using fsolve
 RAM = solve_sym(symms, list, Ftarget, indic);
