@@ -40,7 +40,7 @@ sp_not=helper.sp_all';
 % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_t=helper.opt_all';
 % results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0_alt.mat', indic.spillovers, indic.taus));
 opt_not_notaus=helper.opt_all';
 helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
 opt_t_notaus=helper.opt_all';
@@ -71,6 +71,21 @@ RES_ns = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_
                         {bau_ns, fb_lf_ns, sp_t_ns, sp_not_ns, opt_t_notaus_ns, opt_not_notaus_ns});
 
 %% optimal policy scenarios
+%- results without taul
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul1_alt.mat', indic.spillovers, indic.taus));
+opt_not_notaus_notaul=helper.opt_all';
+helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul1.mat', indic.spillovers, indic.taus));
+opt_t_notaus_notaul=helper.opt_all';
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul1_alt.mat', indic.spillovers, indic.taus));
+opt_not_notaus_notaul_ns=helper.opt_all';
+helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul1.mat', indic.spillovers, indic.taus));
+opt_t_notaus_notaul_ns=helper.opt_all';
+
+RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
+RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
+
+RES_polcomp_full_ns   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_ns, opt_not_notaus_ns});
+RES_polcomp_notaul_ns = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_ns, opt_not_notaus_notaul_ns});
 
 %% SWF comparison
 betaa=params(list.params=='betaa');
@@ -79,11 +94,13 @@ betaa=params(list.params=='betaa');
  vec_discount= disc.^expp;
  %SWF_PV= zeros(length(keys(RES)),1);
  TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1));
- TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
- TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHeterogeneity'};
+ TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
+ TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
 
 % x indices
 Year =transpose(year(['2025'; '2030';'2035'; '2040';'2045'; '2050';'2055'; '2060'; '2065';'2070';'2075';'2080'],'yyyy'));
+Year10 =transpose(year(['2030';'2040'; '2050'; '2060';'2070';'2080'],'yyyy'));
+
 time = 1:T;
 
 %% plot
@@ -131,8 +148,9 @@ for i =keys(RES)
     allvarsns=RES_ns(ii);
     % SEF calculation 
     TableSWF_PV_ns.FullModel(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
-    TableSWF_PV_ns.NoSkillHeterogeneity(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
-%% 
+    TableSWF_PV_ns.NoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
+% end
+%%
 fprintf('plotting %s',ii );
 for l =keys(lisst)
     ll=string(l);
@@ -169,28 +187,223 @@ for l =keys(lisst)
   end
 end      
 
-%% comparison with and without target    
 
-for i= 1:length(listt)
-    ss = listt(i);
-    
-        gcf=figure('Visible','off');
-        pp=plot(time, plottsLF(listt.plot_mat==listt.plot(i),:), 'LineWidth', 1.6);
-        set(pp, {'LineStyle'}, {'-'}, {'color'}, { 'k'}) 
+%% comparison with and without taul
+
+for j=0:1
+    indic.noskill=j;
+for i =keys(RES_polcomp_full)
+    ii=string(i);
+    if indic.noskill==0
+         allvars= RES_polcomp_full(ii);
+         allvarsns=RES_polcomp_notaul(ii);
+         TableSWF_PV_ns.Notaul(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
+
+    else
+        allvars= RES_polcomp_full_ns(ii);
+        allvarsns=RES_polcomp_notaul_ns(ii);
+        TableSWF_PV_ns.NoTaulNoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
+    end
+
+%% 
+fprintf('plotting %s',ii );
+for l =keys(lisst)
+    ll=string(l);
+    plotvars=lisst(ll);
+    % number of figures in row in subplot
+%     if ll~='VARS'
+%         nn=2;
+%     else 
+    nn=3;
+%     end
+    %%% with subplots
+    gcf=figure('Visible','off');
         
-%         if lgdd==1
-%             legend(sprintf('with target' ), sprintf('without target'), 'Interpreter', 'latex', 'box', 'off', 'Location', 'best','FontSize', 20)
-%         end
-        ytickformat('%.2f')
-        xticklabels(Year)
+        for v=1:length(plotvars)
+            varr=string(plotvars(v));
+            subplot(floor(length(plotvars)/nn)+1,nn,v)
+            main=plot(time,allvars(find(list.allvars==varr),:), time,allvarsns(find(list.allvars==varr),:), 'LineWidth', 1.1);
+            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
+           xticks(time)
             ax=gca;
             ax.FontSize=13;
-            xlabel('Periods', 'Fontsize', 20)
-        path=sprintf('figures/Rep_agent/%s_onlyBAU_%s_periods%d_eppsilon%.2f_zeta%.2f_Ad0%d_Ac0%d_thetac%.2f_thetad%.2f_HetGrowth%d_util%d_lgd%d.png', prob, listt.plot(i), T-1, ...
-            params(listt.params=='eppsilon'), params(listt.params=='zetaa'), Ad1,Ac1,...
-            params(listt.params=='thetac'), params(listt.params=='thetad') , indic.het_growth, indic.util,  lgdd);
+%             xlim([0.1, 0.9])
+            ytickformat('%.2f')
+            xticklabels(Year)
+            title(sprintf('%s', varr), 'Interpreter', 'latex')
+        end
+ 
+%         sgtitle('Social Planner Allocation')
+        path=sprintf('figures/all_0505/%s_subplots_%s_spillover%d_comp_notaul_noskill%d.png', ii, ll, indic.spillovers, indic.noskill);
         exportgraphics(gcf,path,'Resolution', 400)
+        % saveas(gcf,path)
+        close gcf
+  end
+end      
 end
-  
+ save('Table_SWF', 'TableSWF_PV_ns');
+ 
+ %% All figures single
+% RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+%                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+for j=0:1
+    indic.noskill=j;
+ 
+for i =keys(RES)
+    ii=string(i);
+
+    if indic.noskill==0
+         allvars= RES(ii);
+    else
+         allvars= RES_ns(ii);
+    end
+
+%% 
+fprintf('plotting %s',ii );
+for l =keys(lisst) % loop over variable groups
+    ll=string(l);
+    plotvars=lisst(ll);
+
+    for v=1:length(plotvars)
+    gcf=figure('Visible','off');
+        
+
+        varr=string(plotvars(v));
+        %subplot(floor(length(plotvars)/nn)+1,nn,v)
+        main=plot(time,allvars(find(list.allvars==varr),:), 'LineWidth', 1.1);            
+       set(main, {'LineStyle'},{'-'}, {'color'}, { 'k'} )   
+       xticks(2:2:time(end))
+       xlim([2, time(end)])
+
+        ax=gca;
+        ax.FontSize=13;
+        ytickformat('%.2f')
+        xticklabels(Year10)
+    path=sprintf('figures/all_0505/Single_%s_%s_spillover%d_noskill%d.png',  ii,varr, indic.spillovers, indic.noskill);
+    exportgraphics(gcf,path,'Resolution', 400)
+    % saveas(gcf,path)
+%    close gcf
+%    pause
+    end
+end
+end
+end      
+
+%% comparison to BAU
+% RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+%                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+for j=0:1
+    indic.noskill=j;
+    if indic.noskill==0
+        bau=RES('BAU');
+    else
+        bau=RES_ns('BAU');
+    end
+for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
+    ii=string(i);
+
+    if indic.noskill==0
+         allvars= RES(ii);
+    else
+         allvars= RES_ns(ii);
+    end
+
+%% 
+fprintf('plotting %s',ii );
+for l =keys(lisst) % loop over variable groups
+    ll=string(l);
+    plotvars=lisst(ll);
+    for lgdind=0:1
+    for v=1:length(plotvars)
+    gcf=figure(); %('Visible','off');
+        
+
+        varr=string(plotvars(v));
+        %subplot(floor(length(plotvars)/nn)+1,nn,v)
+        main=plot(time,allvars(find(list.allvars==varr),:), time,bau(find(list.allvars==varr),:), 'LineWidth', 1.1);            
+       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
+       xticks(2:2:time(end))
+       xlim([2, time(end)])
+
+        ax=gca;
+        ax.FontSize=13;
+        ytickformat('%.2f')
+        xticklabels(Year10)
+        title(sprintf('%s', varr), 'Interpreter', 'latex')
+       if lgdind==1
+           if contains(ii, 'SP')
+              lgd=legend('social planner', 'bau', 'Interpreter', 'latex');
+           else
+              lgd=legend('ramsey planner', 'bau', 'Interpreter', 'latex');
+           end
+        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+       end
+
+
+
+%         sgtitle('Social Planner Allocation')
+    path=sprintf('figures/all_0505/%s_BAUComp%s_spillover%d_noskill%d_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, lgdind);
+    exportgraphics(gcf,path,'Resolution', 400)
+    % saveas(gcf,path)
+%    close gcf
+%     pause
+    end
+    end
+  end
+end      
+end
+%% comparison with and without target    
+%- string to loop over 
+ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+for j=0:1
+    indic.noskill=j;
+for i =[1,3]
+
+    %- read in data
+    t=string(ssr(i));
+    nt=string(ssr(i+1));
+    
+    if indic.noskill==0
+         allvars= RES(t);
+         allvarsnot=RES(nt); 
+    else
+         allvars= RES_ns(t);
+         allvarsnot=RES_ns(nt);
+    end
+
+for l =keys(lisst) % loop over variable groups
+    ll=string(l);
+    plotvars=lisst(ll);
+    for lgdind=0:1
+    for v=1:length(plotvars)
+    gcf=figure('Visible','off');
+        
+
+        varr=string(plotvars(v));
+        %subplot(floor(length(plotvars)/nn)+1,nn,v)
+        main=plot(time,allvars(find(list.allvars==varr),:), time,allvarsnot(find(list.allvars==varr),:), 'LineWidth', 1.1);            
+       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
+       xticks(2:2:time(end))
+       xlim([2, time(end)])
+
+        ax=gca;
+        ax.FontSize=13;
+        ytickformat('%.2f')
+        xticklabels(Year10)
+       if lgdind==1
+          lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
+          set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+       end
+    path=sprintf('figures/all_0505/%s_TargetComp%s_spillover%d_noskill%d_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, lgdind);
+    exportgraphics(gcf,path,'Resolution', 400)
+    % saveas(gcf,path)
+%    close gcf
+%     pause
+    end
+    end
+  end
+end      
+end
 end
        

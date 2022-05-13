@@ -89,7 +89,8 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul));
+         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul0_alt.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul));
+         helper=load('OPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul1_alt.mat');
          opt_all=helper.opt_all;
 
           x0 = zeros(nn*T,1);
@@ -232,7 +233,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-%          save(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul', indic.spillovers, indic.taus, indic.noskill))
+%           ll=load(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul0', indic.spillovers, indic.taus, indic.noskill))
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
@@ -276,7 +277,7 @@ if indic.target==1
     out_trans((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
 end
 
-% save results
+%% save results
 if indic.taus==1 % with taus
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -316,7 +317,7 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 if indic.target==1
     save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_alt', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 end
 
 end

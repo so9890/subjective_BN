@@ -1,11 +1,13 @@
 \documentclass[11pt,aspectratio=169]{beamer}
-%\usepackage[noxcolor]{beamerarticle} % to get presentation as article ! if used also set documentclass to article!
+%\documentclass[11pt,aspectratio=169, handout]{beamer}
+%\usepackage{handoutWithNotes}
 \usetheme[outer/progressbar=foot,
 %outer/numbering=none
 ]{metropolis}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamercolor{frametitle}{bg={}, fg=black!80}
-\setbeamercolor{alerted text}{bg={}, fg=cyan!100}
+\definecolor{myorange}{rgb}{0.8500, 0.3250, 0.0980}
+\setbeamercolor{alerted text}{bg={}, fg=myorange }
 \setbeamercolor{block title}{bg=black!10, fg=black}
 \setbeamercolor{block body}{bg=black!10, fg=black}
 %\usecolortheme{seahorse}
@@ -34,6 +36,10 @@
 \usepackage{appendixnumberbeamer}
 \usepackage{xcolor}
 
+%table
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
 
 \usepackage[customcolors]{hf-tikz}
 \definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
@@ -63,10 +69,10 @@ preaction = {decorate},
 postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 
-
 %TITLE
-\author[Sonja Dobkowitz]{\small Sonja Dobkowitz}
-\institute[University of Bonn]{University of Bonn}
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz\\ \footnotesize{University of Bonn%, RTG 2281 The Macroeconomics of Inequality}
+	}\\ }
+\institute[University of Bonn]{}
 \title{The importance of fiscal policies in meeting emission targets}
 
 \newcommand{\ar}{$\Rightarrow$ \ }
@@ -78,8 +84,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %   \insertframenumber/\inserttotalframenumber
 %}
 
-\institute{University of Bonn} 
-\date{\today} 
+%\institute{University of Bonn} 
+\date{\small{BMLS\\ May 19, 2022 }} 
 %\subject{} 
 \begin{document}
 	
@@ -110,56 +116,112 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\setbeamerfont{alerted text}{series=\bfseries} 
 \item natural scientists suggest net C02 emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.} to meet temperature targets
 \vspace{3mm}
-\item economic models focus on emissions from fossil energy utilisation and usually assume (1) percentage reductions in fossil energy as targets or (2) allow for a trade-off between pollution and consumption
+\item but: economic models usually allow for a trade-off between pollution and consumption or model emission targets as percentage changes %\citep{Fried2018ClimateAnalysis}
+
 \vspace{3mm}
-\item With an exogenous and absolute emission target the capacity to innovate green and the elasticities of substitution between green and fossil energy are key to whether (a) consumption can continue to grow, and (b) corrective emission taxes are sufficient to meet targets 
+\item therefore, I study optimal environmental policies under an exogenous and absolute constraint on emissions
+\vspace{3mm}
+\item whether emission targets can be reached under standard policies depends on the speed of green innovation and the substituability of dirty and clean production methods %substhen, the capacity to innovate green and the elasticities of substitution between green and fossil energy are key to whether (a) consumption can continue to grow, and (b) corrective emission taxes are sufficient to meet targets 
 %\item then, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)  %\ar no balanced growth 
-\vspace{3mm}
-\item What is the optimal policy to meet emission targets?
+%\vspace{3mm}
+%\item What is the optimal policy to meet emission targets?
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Trade-offs}
-	\textbf{Starting from demand target}
+%\begin{frame}{Trade-offs}
+%	\textbf{Starting from demand target}
+%\begin{itemize}
+%\item lowering demand for certain land and energy-intense products could be regressive but natural scientists call for such a reduction in demand to meet climate targets
+%\item labour income taxation could be an alternative measure/ potentially less politically debated
+%\item However, new trade-offs arise from a higher tax progressivity: 
+%\begin{enumerate}
+%	\item on the one hand, it lowers demand, on the other hand, it could imply a shift to dirty innovations and production through a skill-bias mechanism \ar a new equity-environment trade-off arises
+%	\item the progressivity of the tax system affects the composition of aggregate demand: if the rich have a higher propensity to consume clean, it raises pollution
+%\end{enumerate}
+%\item if inequality suffers, look at alternative measure of lowering hours worked
+%\item on the other hand, corrective taxes counter equity if they foster skill bias of innovations
+%\end{itemize}
+%\end{frame}
+%\begin{frame}{Working hypotheses}	
+%	\begin{enumerate}
+%		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+%		\vspace{3mm}
+%		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+%		\vspace{3mm}
+%		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+%		\vspace{3mm}
+%		\item<+-> now households are willing to reduce their consumption deliberately: reduction in satiation point; of high energy goods only, meat etc. 
+%		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+%	\end{enumerate}
+%\end{frame}
+
+\begin{frame}{This paper}
 \begin{itemize}
-\item lowering demand for certain land and energy-intense products could be regressive but natural scientists call for such a reduction in demand to meet climate targets
-\item labour income taxation could be an alternative measure/ potentially less politically debated
-\item However, new trade-offs arise from a higher tax progressivity: 
-\begin{enumerate}
-	\item on the one hand, it lowers demand, on the other hand, it could imply a shift to dirty innovations and production through a skill-bias mechanism \ar a new equity-environment trade-off arises
-	\item the progressivity of the tax system affects the composition of aggregate demand: if the rich have a higher propensity to consume clean, it raises pollution
-\end{enumerate}
-\item if inequality suffers, look at alternative measure of lowering hours worked
-\item on the other hand, corrective taxes counter equity if they foster skill bias of innovations
+	\item endogenous growth model with three sectors: fossil and green energy and a non-energy sector
+	\item profitability of research in each sector determines sector growth
+	\item representative household provides low- and high-skilled labour and scientists
+	\item the government maximises utility of the representative household under the constraint to meet an emission target
+	\item government can use a tax on fossil producers and a potentially progressive labour income tax
+	\item emissions arise from fossil energy production
+	\item emission target: from 2020 to 2030: from 2050 onwards: net-zero emissions
 \end{itemize}
 \end{frame}
-\begin{frame}{Working hypotheses}	
-	\begin{enumerate}
-		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+
+%\begin{frame}{How}
+%	\begin{itemize}
+%		\item<+-> the emission target determines fossil output starting from 2050
+%		\vspace{3mm}
+%		\item<+-> model economy on BGP (with constant growth ratios) until today; then, allow for non-balanced trajectory under optimal policy
+%		\vspace{3mm}
+%		\item<+-> first pass: starting in 2020, the planner optimises over a \textbf{finite horizon} only (political economy argument), and has to meet emission target (adapt code in \cite{Barrage2019OptimalPolicy})
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}{Preview of results}
+\begin{enumerate}
+	\item<+-> growth in all sectors has to stop % (under a social planner and Ramsey planner)
+	\vspace{3mm}
+	\item<+-> the optimal distortionary income tax is progressive to lower emissions
 		\vspace{3mm}
-		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
-		\vspace{3mm}
-		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
-		\vspace{3mm}
-		\item<+-> now households are willing to reduce their consumption deliberately: reduction in satiation point; of high energy goods only, meat etc. 
-		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
-	\end{enumerate}
+	\item<+-> labour income taxes contribute to social welfare by xx\%
+\end{enumerate}
 \end{frame}
-
-
-\begin{frame}{How}
-	\begin{itemize}
-		\item<+-> the emission target determines fossil output starting from 2050
-		\vspace{3mm}
-		\item<+-> model economy on BGP (with constant growth ratios) until today; then, allow for non-balanced trajectory under optimal policy
-		\vspace{3mm}
-		\item<+-> first pass: starting in 2020, the planner optimises over a \textbf{finite horizon} only (political economy argument), and has to meet emission target (adapt code in \cite{Barrage2019OptimalPolicy})
-	\end{itemize}
+\begin{frame}{Roadmap}
+	\tableofcontents
 \end{frame}
 
 \section{Model}
-\begin{frame}{Model: Household}
-\alert{	To start with, no heterogenous consumption yet}\\
+\begin{frame}{Model}
+
+	\textbf{Structure}
+	\vspace{-2mm}
+	\begin{itemize}
+		\item a representative family consisting of
+		\begin{itemize}
+		\item a unit mass of scientists 
+		\item and a unit mass of workers: share $z_h$ of high-skilled workers the other one is low skilled
+		
+		\end{itemize}
+		\item competitive final and intermediate good producers
+		\item research
+		\item government
+	\end{itemize} 
+	\textbf{Production}
+	\vspace{-2mm}
+	\begin{itemize}
+		\item[-] two perfectly competitive sectors s and n 
+		\item[-] production function: $Y_j=A_jH_j,\ \text{for} \ j\in\{s,n\}$
+		\item[-] profits: $\pi_s=p_sY_s-wH_s$, \\ \hspace{12mm} $\pi_n=Y_n-w(1+\pmb{\textcolor{myorange}{\tau_n}})H_n$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Model}
+	Timin
+	The economy is populated by
+	\begin{itemize}
+	
+	\item firm owners who produce machines and invest in research
+	\end{itemize}
 %\text{\textbf{Householdrt}}
 \begin{align*}
 & \max_{\{C_t\}_{t=0}^\infty, \{h_{ht}\}_{t=0}^\infty, \{h_{lt}\}_{t=0}^\infty, \{h_{st}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
