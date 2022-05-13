@@ -157,13 +157,13 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \begin{frame}{This paper}
 \begin{itemize}
-	\item endogenous growth model with three sectors: fossil and green energy and a non-energy sector
-	\item profitability of research in each sector determines sector growth
-	\item representative household provides low- and high-skilled labour and scientists
-	\item the government maximises utility of the representative household under the constraint to meet an emission target
-	\item government can use a tax on fossil producers and a potentially progressive labour income tax
-	\item emissions arise from fossil energy production
-	\item emission target: from 2020 to 2030: from 2050 onwards: net-zero emissions
+	\item<+-> endogenous growth model with three sectors: fossil and green energy and a non-energy sector building on \cite{Fried2018ClimateAnalysis}
+	\item<+-> profitability of research in each sector determines sector growth
+	\item<+-> representative household provides low- and high-skilled labour and scientists
+	\item<+-> the government maximises utility of the representative household under the constraint to meet an emission target
+	\item<+-> government can use a tax on fossil producers and a potentially progressive labour income tax
+	\item<+-> emissions arise from fossil energy production
+	\item<+-> emission target: from 2020 to 2030: from 2050 onwards: net-zero emissions
 \end{itemize}
 \end{frame}
 
@@ -193,7 +193,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \section{Model}
 \begin{frame}{Model}
 
-	\textbf{Structure}
 	\vspace{-2mm}
 	\begin{itemize}
 		\item a representative family consisting of
@@ -206,54 +205,82 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\item research
 		\item government
 	\end{itemize} 
-	\textbf{Production}
-	\vspace{-2mm}
+\end{frame}
+
+\begin{frame}{Model: Household}
+
+%\text{\textbf{Householdrt}}
+\vspace{2mm}
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{first}(0.8,2.8)(-0.4,-2.6)
+	%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+ \max_{\{C_t\}_{t=0}^T, \{h_{ht}\}_{t=0}^T, \{h_{lt}\}_{t=0}^T, \{S_{t}\}_{t=0}^T} \sum_{t=0}^T \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-z_h\chi\frac{h_{ht}^{1+\sigma}}{1+\sigma}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{S_{t}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\\
+\vspace{4mm}
+\\
+s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}%+Gov_t
+	\tikzmarkend{first}
+	\end{align*}
+\end{minipage}
+
+%\begin{minipage}[t!]{0.4\textwidth}
+%
+%\begin{align*}
+%\hspace{4mm}c =
+%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+%\end{align*}
+%\end{minipage}
+
+\small
+\vspace{4mm}
+\begin{minipage}[t!]{0.4\textwidth}
+	\vspace{7mm}
 	\begin{itemize}
-		\item[-] two perfectly competitive sectors s and n 
-		\item[-] production function: $Y_j=A_jH_j,\ \text{for} \ j\in\{s,n\}$
-		\item[-] profits: $\pi_s=p_sY_s-wH_s$, \\ \hspace{12mm} $\pi_n=Y_n-w(1+\pmb{\textcolor{myorange}{\tau_n}})H_n$
+		\item[] $z_h$:\ \ share of high skilled labour \vspace{-2mm}
+		\item[] $h_{ht}$: hours high-skilled\vspace{-2mm}
+		\item[] $h_{lt}$:\ \ hours low-skilled\vspace{-2mm}
+		\item[] $S_{t}$:\ \  \ hours scientists\vspace{-2mm}
 	\end{itemize}
+\end{minipage}
+\begin{minipage}[t!]{0.35\textwidth}
+	\vspace{8mm}
+	\begin{itemize}
+		\item[] $\tau_{lt}$: labour tax progressivity
+		\vspace{-2mm}	
+		\item[] $\lambda_{t}$: scaling disposable income
+		\vspace{-2mm}	
+		\item[]%	$Gov_{t}$: government transfers
+	\end{itemize}
+\end{minipage}
 \end{frame}
 
 \begin{frame}{Model}
-	Timin
-	The economy is populated by
-	\begin{itemize}
-	
-	\item firm owners who produce machines and invest in research
-	\end{itemize}
-%\text{\textbf{Householdrt}}
-\begin{align*}
-& \max_{\{C_t\}_{t=0}^\infty, \{h_{ht}\}_{t=0}^\infty, \{h_{lt}\}_{t=0}^\infty, \{h_{st}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}+z_sh_{st}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
-\\
-\vspace{3mm}
-\\
-\text{s.t.}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+z_s\lambda_t(w_{st}h_{st})^{(1-\tau_{lt})}+S_t\\
+\textbf{Final Good and Energy Producers }
+\vspace{-5mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{second}(4,2.3)(-4,-1.8)
+Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
+\tikzmarkend{second}
 \end{align*}
-\vspace{-15mm}
-\begin{itemize}
-	\item<+-> representative family with low-skill and high-skill workers, and scientists; distribution exogenous ($z_h,z_l, z_s$)
-	\vspace{2mm}
-	\item<+-> allow for potentially decreasing hours over time \citep{Boppart2019LaborPerspectiveb}
-	\vspace{2mm}
-	\item<+-> How to deal with Government transfers if don't want to assume linear consumption (no income effect)?
-\end{itemize}
-\end{frame}
+	\end{minipage}
+\\
 
-\begin{frame}{Model: Producers}
-	\textbf{Final Good and Energy Producers }
+\vspace{10mm}
+\textbf{Intermediate Good Producers:} $J\ \in\{F,G,N\}$
 	\vspace{-3mm}
-\begin{align*}
-&Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
-&E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
-\end{align*}
-\textbf{Intermediate Good Producers}
-\begin{align*}
-&F_{t}=L_{ft}^{1-\alpha_f}\int_{0}^{1}A^{1-\alpha_f}_{ift}x_{ift}^{\alpha_f}di \ \hspace{4mm}=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{third}(3.6,1.9)(-6.4,-1.6)
+J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di \\  \pi_{ft}=p_{ft}(1-\alert{\pmb{\tau_{ft}}})F_t-w_{lft}L_{ft}-\int_{0}^{1}p_{fit}x_{fit}di %=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
 %& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
-&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di\ \hspace{4mm}=x_{nt}^{\alpha_n}\left(A_{nt}L_{nt}\right)^{1-\alpha_n}\\
-&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di\ \hspace{4mm}=x_{gt}^{\alpha_g}\left(A_{gt}L_{gt}\right)^{1-\alpha_g}
-\end{align*}
+%&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di; \ \hspace{4mm}\pi_{nt}=p_{nt}N_t-w_{lnt}L_{nt}-\int_{0}^{1}p_{nit}x_{nit}di\\
+%&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di; \ \hspace{4mm} \pi_{gt}=p_{gt}G_t-w_{lgt}L_{gt}-\int_{0}^{1}p_{git}x_{git}di
+	\tikzmarkend{third}
+	\end{align*}
+\end{minipage}
 \end{frame}
 
 
