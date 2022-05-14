@@ -11,7 +11,7 @@ else
 end
     opt_all=helper.opt_all;
     x0=symms.optALL;
-       
+
     x0(startsWith(list.optALL, 'hhf')) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
     x0(startsWith(list.optALL, 'hhg')) =opt_all(:,list.allvars=='hhg'); % hhg
     x0(startsWith(list.optALL, 'hlf')) =opt_all(:,list.allvars=='hlf'); % hlf
@@ -29,10 +29,10 @@ end
 
     % number of multipliers
     nm= sum(startsWith(list.optsym, 'mu_'));
-    nkt= sum(startsWith(list.optsym, 'KT_'));
+    %nkt= sum(startsWith(list.optsym, 'KT_'));
     x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
     x0(startsWith(list.optALL, 'mu_target')) = 100;
-    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
+    %x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
     
     x0=eval(x0);
     
@@ -73,15 +73,15 @@ if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
     modFF = @(x)Ram_Model_target(x);
 else
-    model_trans = Ram_Model_notarget_testbeta(guess_trans);
-    modFF = @(x)Ram_Model_notarget_testbeta(x);
+    model_trans = Ram_Model_notarget_testbeta_nokt(guess_trans);
+    modFF = @(x)Ram_Model_notarget_testbeta_nokt(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 
 [outt, fval, exitflag] = fsolve(modFF, guess_trans, options);
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
-[outt2, fval, exitflag] = fsolve(modFF, outt2, options);
+[outt2, fval, exitflag] = fsolve(modFF, outt, options);
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 [x, fval, exitflag] = fsolve(modFF, outt2, options);
@@ -98,9 +98,15 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 [x,fval,exitflag,output,lambda] = fmincon(objf,outt2,[],[],[],[],lb,ub,constf,options);
 [xsqp,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 
-ss=load(sprintf('opt_sym_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
+% ss=load(sprintf('opt_sym_1405_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
 %% transform
 upbarH=params(list.params=='upbarH');
+% x=zeros(size(list.optALL));
+% for j =1:length(list.optALL)
+%     jj=list.optALL(j);
+%     x(list.optALL==string(jj))=ss.x14(ss.list.optALL==string(jj));
+% end
+x=outt2
 out_trans=exp(x);
 if indic.noskill==0
     out_trans(contains(list.optALL,'HL'))=upbarH./(1+exp(x(contains(list.optALL,'HL'))));

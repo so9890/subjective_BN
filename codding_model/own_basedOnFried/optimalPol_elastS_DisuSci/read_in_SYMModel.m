@@ -72,7 +72,7 @@ Y       = (deltay^(1/eppsy)*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy
 
 % wages and policy elements
 
-tauf    = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf*pf); % production fossil
+tauf    = 1-((F./(Af.*Lf)).^((1-alphaf)/alphaf))./(alphaf*pf); % production fossil
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
@@ -83,10 +83,10 @@ wh      = thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, 
 wl      = (1-thetaf)*Lf./hlf.*wlf;
 
     
-ws      = chiis*S.^sigmaas./muu; 
-sff     = ((gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(ws.*Af.*rhof^etaa)).^(1/(1-etaa));
-sg      = ((gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)./(ws.*Ag.*rhog^etaa)).^(1/(1-etaa));
-sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*An.*rhon^etaa)).^(1/(1-etaa));
+ws      = chiis*S.^sigmaas./muu; % assuming inner solution
+sff     = ((ws.*Af.*rhof^etaa)./(gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)).^(1/(etaa-1));
+sg      = ((ws.*Ag.*rhog^etaa)./(gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)).^(1/(etaa-1));
+sn      = ((ws.*An.*rhon^etaa)./(gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)).^(1/(etaa-1));
 % sg      = S -(sff+sn);
 
 %wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus

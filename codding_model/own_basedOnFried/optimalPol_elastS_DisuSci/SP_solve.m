@@ -206,8 +206,8 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-% ss=load('sp_results_noskill')
-options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+% ss=load('sp_results_target_PV')
+options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-4,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 
 
@@ -237,7 +237,7 @@ else
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(out_trans, list, params, T,initOPT);
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(out_trans, list, params, T,initOPT);
         wh=w; wl=w;hhf=h; hhg=h; hhn=h; hlf=h; hlg=h; hln=h; hl=h; hh=h;
 end
 ws=wsn;

@@ -37,10 +37,10 @@ end
 % replace derivative wrt kt multiplier with complementary slackness
 % condition (economic time endowment)
 % 
- model(contains(list.optALL,'KT_hh'))=x(contains(list.optALL,'KT_hh')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HH')));
-model(contains(list.optALL,'KT_hl'))=x(contains(list.optALL,'KT_hl')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HL')));
- model(contains(list.optALL,'KT_S'))=x(contains(list.optALL,'KT_S')).*(params(list.params=='upbarH')-x(startsWith(list.optALL,'S')));
-% 
+%  model(contains(list.optALL,'KT_hh'))=x(contains(list.optALL,'KT_hh')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HH')));
+% model(contains(list.optALL,'KT_hl'))=x(contains(list.optALL,'KT_hl')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HL')));
+%  model(contains(list.optALL,'KT_S'))=x(contains(list.optALL,'KT_S')).*(params(list.params=='upbarH')-x(startsWith(list.optALL,'S')));
+% % 
 
 if indic.target==1
     model(contains(list.optALL,'mu_target'))=x(contains(list.optALL,'mu_target')).*(Ftarget-x(contains(list.optALL,'F')));
@@ -54,8 +54,8 @@ end
 
 %-- transform variables to undbounded ones
 
-% get symbolic vector of transformed variables, AS THEY SHOULD OCCUR IN
-% MODEL FOR SUBSTITUTION
+% get symbolic vector of transformed variables, 
+% AS THEY SHOULD OCCUR IN THE MODEL FOR SUBSTITUTION
 % lagrange multis in ramsey are not transformed!
 upbarH=params(list.params=='upbarH');
 out_trans=exp(x);
@@ -86,7 +86,7 @@ model_trans=subs(model, x, out_trans);
  % the second output gives the vector or input arguments!
  
 % the inputs are given by x: the non-transformed variables!
-%if ~isfile(sprintf('%s.m', file_name))
- %   matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
-%end
+if ~isfile(sprintf('%s.m', file_name))
+    matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
+end
 end

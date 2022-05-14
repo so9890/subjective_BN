@@ -1,5 +1,5 @@
 % get objective function of ramsey planner
-function [OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms)
+function [OB_RAM, list, symms, Ftarget]= model_ram_noskill( list, params, T, init201519, indic, Ems, symms)
 
 % prepare variables
 syms    mu_IMP mu_MarketS mu_NProd mu_OPThhn...
@@ -51,17 +51,16 @@ read_in_SYMModel;
  %% constraints
 %IMP     = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
 % replace by FOCS skill supply
-IMP     = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
+IMP     = C-lambdaa.*(w.*h).^(1-taul)-SGov;
 MarketS = (sff+sg+sn)-S;  % LOM neutral technology 
 LOMAg   = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
 LOMAn   = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
 LOMAf   = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
-NProd   = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
-OPThhn  = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
-OPThhg  = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
-OPThln  = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
-OPThlg  = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
-OPThh   = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
+NProd   = Ln -pn.*(1-alphan).*N./w;% from production function neutral good
+OPThhn  = Lg - pg.*(1-alphag).*G./w;% optimality labour good producers neutral high skills
+OPThhg  = Lf- h./(1+Ln./Lf+Lg./Lf); % optimality labour good producers green high
+
+
 
 Ftarget = (Ems(1:T)'+deltaa)/omegaa;
 Target  = Ftarget-F; % emission target only enters constraints if indic.target==1 see below

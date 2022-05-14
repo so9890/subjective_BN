@@ -101,7 +101,9 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
+pfT1 = 
+pift = 
+gammac =(1+pift)^(1/(1-alphaf)).*(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 % utility
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);
@@ -113,4 +115,9 @@ end
 
  SWF = Utilcon-Utillab-Utilsci;
 
+ contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
+ contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
+ contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
+ 
+ PVcontUtil = contUtil-contUtillab-contUtilsci;
 end

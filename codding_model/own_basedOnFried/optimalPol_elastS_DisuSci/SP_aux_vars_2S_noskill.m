@@ -2,7 +2,7 @@ function [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(x, list, params, T, init)
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init)
 
 read_in_params;
 
@@ -88,7 +88,10 @@ wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % pri
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
-% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
+% growth rate consumption
+
+gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
+
 % utility
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);
@@ -97,8 +100,13 @@ elseif thetaa==1
 end
 
 Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
-
 Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
- SWF = Utilcon-Utillab-Utilsci;
+SWF = Utilcon-Utillab-Utilsci;
+
+ 
+contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
+contUtillab =1/(1-betaa)*(chii*h(T).^(1+sigmaa)./(1+sigmaa));
+contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
+PVcontUtil = contUtil-contUtillab-contUtilsci;
 
 end
