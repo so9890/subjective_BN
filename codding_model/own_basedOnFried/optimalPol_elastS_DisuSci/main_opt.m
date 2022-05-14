@@ -102,7 +102,7 @@ pol=eval(symms.pol);
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% indic.noskill=0;
         for i =0:1
             indic.noskill=i;
             if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))

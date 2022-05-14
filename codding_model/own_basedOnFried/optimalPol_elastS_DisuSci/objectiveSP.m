@@ -25,7 +25,9 @@ end
 if indic.noskill==0
     [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, S]= SP_aux_vars_2S(x, list, params, T, init);
+            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S(x, list, params, T, init);
 else
    [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -33,6 +35,8 @@ else
             pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF]= SP_aux_vars_2S_noskill(x, list, params, T, init);
 end
+
+
 
 %% social welfare
 
@@ -59,7 +63,7 @@ end
 
 %Objective function value:
 %!! Dot product!!! so no dot.*
-f = (-1)*vec_discount*(Utilcon-Utillab- Utilsci);
+f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);
 end
 
 

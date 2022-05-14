@@ -148,7 +148,7 @@ elseif indic.target==1
             x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =sp_all(1:T, list.allvars=='An');  % An
 
             x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
-            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa*sp_all(1:T, list.allvars=='F');  % C
+            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa'.*sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
             x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
             x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
@@ -231,7 +231,7 @@ if indic.noskill==0
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S(out_trans, list, params, T, initOPT);
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S(out_trans, list, params, T, initOPT);
 else
     [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -248,8 +248,8 @@ sp_all=eval(symms.allvars);
 
 
 if indic.target==1
-    save(sprintf('SP_target_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all')
+    save(sprintf('SP_target_active_set_0505_spillover%d_noskill%d_PV', indic.spillovers, indic.noskill), 'sp_all')
 else
-    save(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all')
+    save(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d_PV', indic.spillovers, indic.noskill), 'sp_all')
 end
 end

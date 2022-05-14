@@ -29,10 +29,10 @@ end
 
     % number of multipliers
     nm= sum(startsWith(list.optsym, 'mu_'));
-    %nkt= sum(startsWith(list.optsym, 'KT_'));
+    nkt= sum(startsWith(list.optsym, 'KT_'));
     x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
     x0(startsWith(list.optALL, 'mu_target')) = 100;
-   % x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
+    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
     
     x0=eval(x0);
     
@@ -81,12 +81,12 @@ options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10
 
 [outt, fval, exitflag] = fsolve(modFF, guess_trans, options);
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
-[outt2, fval, exitflag] = fsolve(modFF, outt, options);
+[outt2, fval, exitflag] = fsolve(modFF, outt2, options);
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 [x, fval, exitflag] = fsolve(modFF, outt2, options);
-options = optimoptions('fsolve', 'MaxFunEvals',10e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter');%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
-[x2, fval, exitflag] = fsolve(modFF, x, options);
+options = optimoptions('fsolve', 'MaxFunEvals',20e6, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter');%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
+[x14, fval, exitflag] = fsolve(modFF, x13, options);
 
 
 % with fmincon
@@ -95,8 +95,8 @@ ub=[];
 constf=@(x)sym_fmincon(x);
 objf=@(x)objectiveCALIBSCI(x);
 options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-[xas,fval,exitflag,output,lambda] = fmincon(objf,ss.x,[],[],[],[],lb,ub,constf,options);
+[x,fval,exitflag,output,lambda] = fmincon(objf,outt2,[],[],[],[],lb,ub,constf,options);
+[xsqp,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 
 ss=load(sprintf('opt_sym_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
 %% transform

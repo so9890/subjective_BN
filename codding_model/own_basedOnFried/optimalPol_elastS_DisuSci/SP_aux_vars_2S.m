@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF]= SP_aux_vars_2S(x, list, params, T, init)
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S(x, list, params, T, init)
 
 read_in_params;
 
@@ -92,6 +92,12 @@ wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % pri
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
+
+%- continuation value: assuming after period T constant growth rate
+%  note that A and Af refer to the last direct period T so do not use lags
+%  here!, Assumption that research input sff is constant after period T
+gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
+
 % wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
 % utility
 if thetaa~=1
@@ -101,6 +107,12 @@ elseif thetaa==1
 end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
  Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ 
  SWF = Utilcon-Utillab-Utilsci;
-
+ 
+ contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
+ contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
+ contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
+ 
+ PVcontUtil = contUtil-contUtillab-contUtilsci;
 end

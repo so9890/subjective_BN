@@ -339,20 +339,22 @@ In equilibrium it has to hold that
 P_{Gt}G_t= P_{\tilde{F}t}\tilde{F}\left(\frac{P_{\tilde{F}t}}{P_{Gt}}\right)^{\varepsilon_e-1}.
 \end{align*} 
 
-\subsection{Fried amended}
+\subsection{Model}
 \begin{align}
-\text{\textbf{Household}}& \max \frac{C_t^{1-\theta}}{1-\theta}-\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\text{\textbf{Household}}& \max \frac{C_t^{1-\theta}}{1-\theta}-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{S^{1+\sigma}}{{1+\sigma}} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
 \text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}+T^{Gov}_t\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-\theta}= \mu_tp_{yt}\\
-& (h_{ht})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}\\
-& (h_{lt})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}\\
+& \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{ht}^{1-\tau_{lt}}h_{ht}^{-\tau_{lt}}-\gamma_{ht}/z_h\\
+& \chi h_{lt}^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{lt}^{1-\tau_{lt}}h_{lt}^{-\tau_{lt}}-\gamma_{lt}/(1-z_h)\\
 %&( h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{lt})w_{st}^{1-\tau_{lt}}h_{st}^{-\tau_{lt}}\\
-\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{lt}}{{\sigma+\tau_{lt}}}}
+\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{lt}}{{\sigma+\tau_{lt}}}}\ \text{(Interior solution)}
 \\
+& \chi_s S^\sigma =\mu w_s-\gamma_{st}\ \text{(scientist income confiscated by gov.)}\\
 \text{\textbf{Final good and Energy producers}}&\\
-\text{Optimality}\ \vspace{4mm}& p_{yt}\delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
+\text{Optimality}\ \vspace{4mm}&
+\frac{E_t}{N_t}=\frac{\delta_y}{(1-\delta_y)}\left(\frac{p_{Nt}}{p_{Et}}\right)^{\varepsilon_y} p_{yt}\delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
 & p_{yt}(1-\delta_y)Y_t^\frac{1}{\varepsilon_y}N_t^{-\frac{1}{\varepsilon_e}}=p_{Nt}\\
 &
 p_{Et}E_t^\frac{1}{\varepsilon_e}{F}_t^{-\frac{1}{\varepsilon_e}}=p_{{F}t}\\

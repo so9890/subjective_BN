@@ -60,7 +60,7 @@ pi1_k = x(5*T)/(x(5*T)+x(7*T+1));       %Period T share of capital in final good
 Kfut = ones(periods,1);                 %Continuation aggregate capital stock, bil. int. 2005 PPP dollars
 Kfut(1) = sT*(YT-Gct(T)+(1-Delta)*(N(T)*10000*(x(5*T)+x(7*T+1)))); % sonja: capital stock in first non-optimising 
                                         % period determined by savings
-L(T:1:T+periods) = L(T);
+L(T:1:T+periods) = L(T); % labour is assumed to be constant
 Yfut = zeros(periods,1);                %Continuation output, bil. int. 2005 PPP dollars
 for i = 1:1:(periods-1);
   Yfut(i) = ((((1+theta1*(TC(T+i))^2)^(-1))*Z(T)*(((x(4*T)*x(2*T)*N(T)*((1+gXt(T))^i))^(1-alpha-v))*((E(T)*((1+gXt(T))^(i)))^(v))*((pi1_k*Kfut(i))^alpha))));

@@ -36,11 +36,11 @@ end
 
 % replace derivative wrt kt multiplier with complementary slackness
 % condition (economic time endowment)
-
-model(contains(list.optALL,'KT_hh'))=x(contains(list.optALL,'KT_hh')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HH')));
+% 
+ model(contains(list.optALL,'KT_hh'))=x(contains(list.optALL,'KT_hh')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HH')));
 model(contains(list.optALL,'KT_hl'))=x(contains(list.optALL,'KT_hl')).*(params(list.params=='upbarH')-x(contains(list.optALL,'HL')));
-model(contains(list.optALL,'KT_S'))=x(contains(list.optALL,'KT_S')).*(params(list.params=='upbarH')-x(startsWith(list.optALL,'S')));
-
+ model(contains(list.optALL,'KT_S'))=x(contains(list.optALL,'KT_S')).*(params(list.params=='upbarH')-x(startsWith(list.optALL,'S')));
+% 
 
 if indic.target==1
     model(contains(list.optALL,'mu_target'))=x(contains(list.optALL,'mu_target')).*(Ftarget-x(contains(list.optALL,'F')));
@@ -87,6 +87,6 @@ model_trans=subs(model, x, out_trans);
  
 % the inputs are given by x: the non-transformed variables!
 %if ~isfile(sprintf('%s.m', file_name))
-    matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
+ %   matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
 %end
 end
