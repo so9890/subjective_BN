@@ -26,6 +26,8 @@ mu_OPThhg  = x((find(list.optsym=='mu_OPThhg')-1)*T+1:find(list.optsym=='mu_OPTh
 mu_OPThhn  = x((find(list.optsym=='mu_OPThhn')-1)*T+1:find(list.optsym=='mu_OPThhn')*T);
 mu_OPThlg  = x((find(list.optsym=='mu_OPThlg')-1)*T+1:find(list.optsym=='mu_OPThlg')*T);
 mu_OPThln  = x((find(list.optsym=='mu_OPThln')-1)*T+1:find(list.optsym=='mu_OPThln')*T);
+mu_OPTLg  = x((find(list.optsym=='mu_OPTLg')-1)*T+1:find(list.optsym=='mu_OPTLg')*T);
+mu_OPTLn  = x((find(list.optsym=='mu_OPTLn')-1)*T+1:find(list.optsym=='mu_OPTLn')*T);
 mu_OPThh  = x((find(list.optsym=='mu_OPThh')-1)*T+1:find(list.optsym=='mu_OPThh')*T);
 mu_LOMAf  = x((find(list.optsym=='mu_LOMAf')-1)*T+1:find(list.optsym=='mu_LOMAf')*T);
 mu_LOMAg  = x((find(list.optsym=='mu_LOMAg')-1)*T+1:find(list.optsym=='mu_LOMAg')*T);

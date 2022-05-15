@@ -5,7 +5,7 @@ function RAM = solve_sym(symms, list, Ftarget, indic, T, indexx, params)
 
 %- guess: use sp allocation as starting point
 if indic.target==0
-    helper=load('OPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
+    helper=load('SYMOPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
 else
     helper= load('OPT_target_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
 end
@@ -73,8 +73,8 @@ if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
     modFF = @(x)Ram_Model_target(x);
 else
-    model_trans = Ram_Model_notarget_testbeta_nokt(guess_trans);
-    modFF = @(x)Ram_Model_notarget_testbeta_nokt(x);
+    model_trans = Ram_Model_notarget_testbeta_nokt_join(guess_trans);
+    modFF = @(x)Ram_Model_notarget_testbeta_nokt_join(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
@@ -95,17 +95,16 @@ ub=[];
 constf=@(x)sym_fmincon(x);
 objf=@(x)objectiveCALIBSCI(x);
 options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(objf,outt2,[],[],[],[],lb,ub,constf,options);
+[x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 [xsqp,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-
-% ss=load(sprintf('opt_sym_1405_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
+ ss=load(sprintf('opt_sym_1405_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
 %% transform
 upbarH=params(list.params=='upbarH');
-% x=zeros(size(list.optALL));
-% for j =1:length(list.optALL)
-%     jj=list.optALL(j);
-%     x(list.optALL==string(jj))=ss.x14(ss.list.optALL==string(jj));
-% end
+%  x=zeros(size(list.optALL));
+%  for j =1:length(list.optALL)
+%      jj=list.optALL(j);
+%      x(list.optALL==string(jj))=ss.x14(ss.list.optALL==string(jj));
+%  end
 x=outt2
 out_trans=exp(x);
 if indic.noskill==0

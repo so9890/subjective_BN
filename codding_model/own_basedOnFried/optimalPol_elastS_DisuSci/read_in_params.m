@@ -10,7 +10,7 @@ if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
 chiis  = params(list.params=='chiis');
-upbS   = params(list.params=='upbS');
+% upbS   = params(list.params=='upbS');
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');
 thetag = params(list.params=='thetag');
@@ -29,11 +29,11 @@ rhog = params(list.params=='rhog');
 rhon = params(list.params=='rhon');
 phii = params(list.params=='phii');
 
-if exist('init')~=7
-    Af0 = init(list.init=='Af0');
-    Ag0 = init(list.init=='Ag0');
-    An0 = init(list.init=='An0');
-end
+% if exist('init')~=7
+%     Af0 = init(list.init=='Af0');
+%     Ag0 = init(list.init=='Ag0');
+%     An0 = init(list.init=='An0');
+% end
 
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
 deltaa = params(list.params=='deltaa'); % natural sink
