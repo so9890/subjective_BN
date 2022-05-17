@@ -35,8 +35,9 @@ thetag = SL.thetag;
 zh     = SL.zh;
 chii   = SL.chii;
 lambdaa = SL.lambdaa;
-% phis    = SR.phis;
+phii    = SR.phii;
 chiis  = SR.chiis;
+etaa  = SR.etaa;
 % rhog  = SR.rhog;
 % rhon  = SR.rhon;
 % rhof  = SR.rhof;
@@ -53,7 +54,7 @@ Ln = hhn.^thetan.*hln.^(1-thetan);
 Lf = hhf.^thetaf.*hlf.^(1-thetaf);
 
 [ C, Lnwln, Lgwlg, Lfwlf, pf, F, pn, pg, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, ...
+            AfLf, AgLg, AnLn, omegaa, deltay]=resProd_GE(list, trProd, MOM, ...
             paramss, poll, 'calib');
 
 muu = C^(-thetaa);
@@ -76,7 +77,9 @@ sn = SR.sn;
 S = sff+sg+sn; % determined by chii in science problem
 
 % wse = SR.wse;
-ws = SR.ws;
+wsf = SR.wsf;
+wsg = SR.wsg;
+wsn = SR.wsn;
 % chiisT=ws/(C^thetaa*S^sigmaas);
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
@@ -88,7 +91,7 @@ A0  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
 
 Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
  
- if abs(Ag-Agtest)>1e-10
+ if abs(Ag-Agtest)>1e-7
      error('growth rate off')
  else
      fprintf('growth rate works!!')
@@ -119,7 +122,9 @@ Sinit201519=cell2struct(num2cell(init201519), cell_par, 2);
 
 
 %- save for laissez faire
-gammas =0;
+gammasf =0;
+gammasg =0;
+gammasn =0;
 x0LF= eval(symms.choice);
 % test
 zh=paramss(list.paramsdir=='zh');

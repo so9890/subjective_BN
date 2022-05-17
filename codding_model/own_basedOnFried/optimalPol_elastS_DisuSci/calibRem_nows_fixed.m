@@ -1,4 +1,4 @@
-function  [ceq]= calibRem_nows_fixed(x, MOM, list, trProd, paramss, poll, Af, An, Ag, gammaa)
+function  [ceq]= calibRem_nows_fixed(x, MOM, list, trProd, paramss, poll, Af, An, Ag, gammaa, chiis, etaa, phii)
 % this function backs out missing functions:
 % 
 
@@ -11,9 +11,12 @@ An_lag  = exp(x(list.calib4=='An_lag'));
 sff     = exp(x(list.calib4=='sff'));
 sg      = exp(x(list.calib4=='sg'));
 sn      = exp(x(list.calib4=='sn'));
-ws      = exp(x(list.calib4=='ws'));
+wsn      = exp(x(list.calib4=='wsn'));
+wsf      = exp(x(list.calib4=='wsf'));
+wsg      = exp(x(list.calib4=='wsg'));
+
 % sigmaas = exp(x(list.calib3=='sigmaas'));
- chiis   = exp(x(list.calib4=='chiis'));
+% chiis   = exp(x(list.calib4=='chiis'));
 % gammaa  = exp(x(list.calib3=='gammaa'));
 % rhon  = exp(x(list.calib3=='rhon'));
 % rhog  = exp(x(list.calib3=='rhog'));
@@ -28,7 +31,7 @@ A_lag  = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
 % required vars from previous calibration steps
 [ C, ~, ~, ~, pf, FF, pn, pg, ~, ~, ~, N, G,...
-    ~, ~, ~, ~, ~, ~, ~, ~]=resProd(list, trProd, MOM , paramss, poll, 'calib'); 
+    ~, ~, ~, ~, ~, ~, ~, ~]=resProd_GE(list, trProd, MOM , paramss, poll, 'calib'); 
 
 % gammaa = MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii); % n is growth rate in non-energy technology: n0=An'/An-1
 %  q=q+1;
@@ -55,19 +58,26 @@ q=q+1;
 ceq(q) = An- An_lag*(1+gammaa*(sn/rhon)^etaa*(A_lag/An_lag)^phii);
 % scientist demand
 q=q+1;
-ceq(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+ceq(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*FF.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 %8
 q=q+1;
-ceq(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+ceq(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
 %9
 q=q+1;
-ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+ceq(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
-q=q+1;
-ceq(q)= sff+sg+sn-MOM.targethour;
+% q=q+1;
+% ceq(q)= sg+sff+sn-MOM.targethour;
  q=q+1;
- ceq(q)= MOM.targethour-(ws/(chiis.*C.^thetaa)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
-%  q=q+1;
+ ceq(q)= sn-(wsn/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
+
+ q=q+1;
+ ceq(q)= sg-(wsg/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
+
+ q=q+1;
+ ceq(q)= sff-(wsf/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
+
+ %  q=q+1;
 %  ceq(q)= MOM.rhon-rhon;  % equal disutility as for other labour => pins down ws
 
 % fprintf('number equations %d, number variables %d', q, length(x));

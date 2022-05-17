@@ -1,5 +1,5 @@
 function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
-    = calibration_matching(MOM, symms, list, parsHelp, polhelp)
+    = calibration_matching_tech(MOM, symms, list, parsHelp, polhelp)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
 % to this end, the model is solved 
@@ -22,23 +22,23 @@ function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201
 
 %- calibration research side
 syms Af_lag Ag_lag An_lag ...
-     sff sg sn  ws gammaa chiis real
+     sff sg sn  wsf wsg wsn gammaa chiis phii etaa real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sff sg sn ws gammaa chiis];
+     sff sg sn wsf wsg wsn gammaa chiis phii etaa];
 list.calib3 =string(symms.calib3);
 
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
     wh wl pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
-     tauf taus taul lambdaa Ln Lg Lf SWF S gammas real
+     tauf taus taul lambdaa Ln Lg Lf SWF S gammasn gammasf gammasg real
 symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
-    hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
+    hl, hh,  sff, sg, sn, wh, wl, wsf, wsg, wsn, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
     gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF, S ];
 list.allvars  = string(symms.allvars);
 
 %- variables and index for laissez faire
 symms.choice = [hhf, hhg, hhn, hln, hlf, hlg, C, F, G, Af, Ag, An, hl, hh,  sff, sg, sn,...
-             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, ws, S, gammas];
+             wh, wl, pg, pn, pee, pf, gammalh, gammall, lambdaa, wsf, wsg, wsn, gammasf, gammasn, gammasg];
 list.choice  = string(symms.choice);
 
 indexxLF.lab = boolean(zeros(size(list.choice)));
@@ -46,9 +46,9 @@ indexxLF.exp = boolean(zeros(size(list.choice)));
 indexxLF.sqr = boolean(zeros(size(list.choice)));
 indexxLF.oneab = boolean(zeros(size(list.choice)));
 
-indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='S')=1;
-indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammas'&list.choice~='gammall'& list.choice~='gammalh'& list.choice~='S' )=1;
-indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammas' )=1;
+indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='sff'| list.choice=='sn'| list.choice=='sg')=1;
+indexxLF.exp(list.choice~='hl'& list.choice~='hh'& list.choice~='sff'& list.choice~='sg'& list.choice~='sn' & list.choice~='gammasf'& list.choice~='gammasg'& list.choice~='gammasn'&list.choice~='gammall'& list.choice~='gammalh')=1;
+indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammasf' | list.choice=='gammasg' | list.choice=='gammasn' )=1;
 
 %- calibration productivity
 syms omegaa deltay real
@@ -87,16 +87,16 @@ deltay =  log((1-0.4)/0.4);
 x0=eval(symms.prod);
 
 %- solve
-f = calibProd(x0, MOM, list, parsHelp);
-prodf = @(x)calibProd(x,  MOM, list, parsHelp);
-options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-[solProd] = fsolve(prodf, x0, options);
+f = calibProd_GE(x0, MOM, list, parsHelp);
+prodf = @(x)calibProd_GE(x,  MOM, list, parsHelp);
+options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%,  );
+[solProd, fval] = fsolve(prodf, x0, options);
 trProd=exp(solProd);
 trProd(list.prod=='deltay')=1/(1+trProd(list.prod=='deltay'));
 
 % required for next functions
 [C, Lnwln, Lgwlg, Lfwlf, pf, F, pn, pg, pee, E, Y, N, G, xn, xg, xf, ...
-            AfLf, AgLg, AnLn, omegaa, deltay]=resProd(list, trProd, MOM, parsHelp, polhelp, 'calib');
+            AfLf, AgLg, AnLn, omegaa, deltay]=resProd_GE(list, trProd, MOM, parsHelp, polhelp, 'calib');
 
 %% Labour side
 
@@ -154,12 +154,17 @@ Lf = hhf.^Sparams.thetaf.*hlf.^(1-Sparams.thetaf);
 % initial guess
 % ss=load('calib_initRes');
 %%
- sg  = log(0.1);
- ws  = log(3);
+ sg  = log(0.33);
+ wsf  = log(3);
+ wsg  = log(3);
+ wsn  = log(3);
  gammaa =log(1);
- sff = log(0.1);
- 
- sn  = log(MOM.targethour-exp(sg)-exp(sff)); 
+ sff = log(0.33);
+LB_etaa = 0.9999; 
+  etaa = log(1.2-LB_etaa); %log(1.3);
+ phii =  log((1-0.4)/0.4);
+sn=sg;
+%  sn  = log(MOM.targethour-exp(sg)-exp(sff)); 
     Af = AfLf/Lf;
     An = AnLn/Ln;
     Ag = AgLg/Lg;
@@ -180,15 +185,17 @@ x0 = eval(symms.calib3);
 %  f= calibRem_nows_fsolve(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag);
 % 
 % % solving model
-modF3 = @(x)calibRem_nows_fsolve(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag); 
+modF3 = @(x)calibRem_nows_fsolve(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, LB_etaa); 
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter','Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
 % savex=x;
-sol3=load('calib_initResNEW');
- [x, fval, exitf] = fsolve(modF3, sol3.x, options);
-%  [x1, fval, exitf] = fsolve(modF3, x, options);
-  save('calib_initResNEW', 'x');
-%  [x2, fval, exitf] = fsolve(modF3, xsqp, options);
+ sol3=load('calib_initResNEW1605_test.mat');
+  [x, fval, exitf] = fsolve(modF3, sol3.x, options);
+  [x, fval, exitf] = fsolve(modF3, x, options);
+  save('calib_initResNEW1605', 'x');
+  options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+
+ [x2, fval, exitf] = fsolve(modF3, x, options);
 
 %   lb=[];
 %   ub=[];
@@ -201,42 +208,52 @@ sol3=load('calib_initResNEW');
 % % 
 %   options = optimset('algorithm','active-set','TolCon', 1e-10,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %   [xsqp,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,handf,options);
-
+ x=x2;
 %%
-%  Af_lag  = exp(x(list.calib3=='Af_lag'));
-%  Ag_lag  = exp(x(list.calib3=='Ag_lag'));
-%  An_lag  = exp(x(list.calib3=='An_lag'));
-%  chiis    = exp(x(list.calib3=='chiis'));
-%  ws       = exp(x(list.calib3=='ws'));
- gammaa   = exp(x(list.calib3=='gammaa'));
-  chiis   = exp(x(list.calib3=='chiis'));
-%  sff     = exp(x(list.calib3=='sff'));
-%  sg      = exp(x(list.calib3=='sg'));
-%  sn      = exp(x(list.calib3=='sn'));
-% rhof     = exp(x(list.calib3=='rhof'));
+ Af_lag  = exp(x(list.calib3=='Af_lag'));
+  Ag_lag  = exp(x(list.calib3=='Ag_lag'));
+  An_lag  = exp(x(list.calib3=='An_lag'));
+etaa    = (exp(x(list.calib3=='etaa'))+LB_etaa);
+chiis   = exp(x(list.calib3=='chiis'));
+gammaa  = exp(x(list.calib3=='gammaa'));
+phii    = 1/(1+exp(x(list.calib3=='phii')));
+  sff     = exp(x(list.calib3=='sff'));
+  sg      = exp(x(list.calib3=='sg'));
+  sn      = exp(x(list.calib3=='sn'));
+    wsf     = exp(x(list.calib3=='wsf'));
+  wsg      = exp(x(list.calib3=='wsg'));
+  wsn      = exp(x(list.calib3=='wsn'));
+%% rhof     = exp(x(list.calib3=='rhof'));
 % rhog      = exp(x(list.calib3=='rhog'));
 % rhon      = exp(x(list.calib3=='rhon'));
-symms.calib4=symms.calib3(list.calib3~='gammaa');
-list.calib4=string(symms.calib4);
+ symms.calib4=symms.calib3(list.calib3~='chiis'&list.calib3~='etaa'&list.calib3~='gammaa'&list.calib3~='phii');
+ list.calib4=string(symms.calib4);
+ x0=eval(symms.calib4);
+% % 
+% % x02=x(list.calib3~='gammaa' & list.calib3~='chiis');
+% % f=calibRem_nows_fixed(x02, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa, chiis);
 % 
-% x02=x(list.calib3~='gammaa' & list.calib3~='chiis');
-% f=calibRem_nows_fixed(x02, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa, chiis);
+% sol4=load('initcalib4NEW');
+% 
+ modF4=@(x)calibRem_nows_fixed(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa, chiis, etaa, phii);
+ options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e4, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+ [x4, fval, exitf] = fsolve(modF4, log(x0), options);
+% 
+% [x4, fval, exitf] = fsolve(modF4, sol4.x4, options);
+% save('initcalib4NEW', 'x4')
+%  %
+  Af_lag  = exp(x4(list.calib4=='Af_lag'));
+  Ag_lag  = exp(x4(list.calib4=='Ag_lag'));
+  An_lag  = exp(x4(list.calib4=='An_lag'));
+% chiis    = exp(x4(list.calib4=='chiis'));
+  wsn       = exp(x4(list.calib4=='wsn'));
+  wsg       = exp(x4(list.calib4=='wsg'));
 
-sol4=load('initcalib4NEW');
+  wsf       = exp(x4(list.calib4=='wsf'));
 
-modF4=@(x)calibRem_nows_fixed(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa);
-options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e4, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-[x4, fval, exitf] = fsolve(modF4, sol4.x4, options);
-save('initcalib4NEW', 'x4')
- %
- Af_lag  = exp(x4(list.calib4=='Af_lag'));
- Ag_lag  = exp(x4(list.calib4=='Ag_lag'));
- An_lag  = exp(x4(list.calib4=='An_lag'));
-chiis    = exp(x4(list.calib4=='chiis'));
- ws       = exp(x4(list.calib4=='ws'));
- sff     = exp(x4(list.calib4=='sff'));
- sg      = exp(x4(list.calib4=='sg'));
- sn      = exp(x4(list.calib4=='sn'));
+  sff     = exp(x4(list.calib4=='sff'));
+  sg      = exp(x4(list.calib4=='sg'));
+  sn      = exp(x4(list.calib4=='sn'));
 %%
 % syms chiis real
 % symms.calib3=[symms.calib3, chiis]; 
@@ -254,7 +271,7 @@ resSci=eval(symms.calib3);
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
 indic.noskill=0;
-f=laissez_faire_nows(guess_transLF, params, list, pol, init201014, indic);
+f=laissez_faire_nows_sep(guess_transLF, params, list, pol, init201014, indic);
 
 if max(abs(f))>1e-12
     error('calibration is not a solution to LF')

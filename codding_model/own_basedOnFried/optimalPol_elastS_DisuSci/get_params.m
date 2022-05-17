@@ -95,7 +95,7 @@ upbarH     = 1;
 eppse    = 1.5;            % Fried
 eppsy    = 0.05;           % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
-alphag   = 1-0.09;         % Fried
+alphag   = alphaf; %1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried
  
 % gammaa   = 3.96;           % Fried
