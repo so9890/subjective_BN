@@ -169,7 +169,7 @@ exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 indic.target=0;
 indic.noskill=0;
 %1) get objective function 
-[OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms);
+[OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201519, indic, Ems, symms);
 %- x is a symbolic vector of choice variables! 
 
 %2) take derivatives and write resulting equations as function
