@@ -23,11 +23,11 @@ if indic.target==1
 end
 
 if indic.noskill==0
-    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+   [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S(x, list, params, T, init);
+            pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(x, list, params, T, init, indic);
 else
    [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -52,18 +52,26 @@ elseif thetaa==1
  Utilcon = log(C);
 end
 if indic.noskill==0
- Utillab = chii*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+     Utillab = chii*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 else
      Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
 end
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+end
+
 %Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
 % UtilTC_cont = (betaa^(T+periods-1))*N(T+periods)*(1/(1-betaa))*(((1+alpha0*(TC(T+periods)^alpha1))^((-1)*(1-sigma)))/(1-sigma));
 % Util1_cont = (betaa^(T+periods-1))*N(T+periods)*(((Composite(T+periods)^(1-sigma))/(1-sigma))*(1/(1-betaa*(1+gXt(T))^(1-sigma)))); 
 
 %Objective function value:
 %!! Dot product!!! so no dot.*
-f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);
+% f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);
+f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci));
+
 end
 
 

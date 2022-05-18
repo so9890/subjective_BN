@@ -219,11 +219,11 @@ end
 
 % optimality scientists
 q=q+1;
-f(q)= sff-((wsf-gammasf)/(chiis))^(1/sigmaas); % scientist hours supply
+f(q)= (chiis)*sff^sigmaas-(wsf*muu-gammasf); % scientist hours supply
 q=q+1;
-f(q)= sg-((wsg-gammasg)/(chiis))^(1/sigmaas);
+f(q)= (chiis)*sg^sigmaas-((wsg*muu-gammasg));
 q=q+1;
-f(q)= sn-((wsn-gammasn)/(chiis))^(1/sigmaas);
+f(q)= (chiis)*sn^sigmaas-((wsn*muu-gammasn));
 % Kuhn tucker scientists
 q=q+1;
 f(q)= gammasf.*(sff-upbarH);

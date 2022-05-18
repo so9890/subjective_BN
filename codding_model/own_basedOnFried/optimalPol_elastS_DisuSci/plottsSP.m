@@ -27,20 +27,20 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri'}, {listt.plot
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri});
  
 % read in results
-helper=load(sprintf('LF_BAU_spillovers%d_noskill0.mat', indic.spillovers));
+helper=load(sprintf('LF_BAU_spillovers%d_noskill0_sep0.mat', indic.spillovers));
 bau=helper.LF_BAU';
-helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0.mat', indic.spillovers));
+helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
 fb_lf=helper.LF_SIM';
-helper=load(sprintf('SP_target_active_set_0505_spillover%d_noskill0.mat', indic.spillovers));
+helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill0_sep0_gammac.mat', indic.spillovers));
 sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_active_set_0505_spillover%d_noskill0.mat', indic.spillovers));
+helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill0_sep0_gammac.mat', indic.spillovers));
 sp_not=helper.sp_all';
 % helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_not=helper.opt_all';
 % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_t=helper.opt_all';
 % results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0_alt.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
 opt_not_notaus=helper.opt_all';
 helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
 opt_t_notaus=helper.opt_all';
@@ -49,34 +49,34 @@ RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT
                         {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
 
 %% results without skill heterogeneity
-helper=load(sprintf('LF_BAU_spillovers%d_noskill1.mat', indic.spillovers));
-bau_ns=helper.LF_BAU';
-helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill1.mat', indic.spillovers));
-fb_lf_ns=helper.LF_SIM';
-helper=load(sprintf('SP_target_active_set_0505_spillover%d_noskill1.mat', indic.spillovers));
-sp_t_ns=helper.sp_all';
-helper=load(sprintf('SP_notarget_active_set_0505_spillover%d_noskill1.mat', indic.spillovers));
-sp_not_ns=helper.sp_all';
-% helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
-% opt_not=helper.opt_all';
-% helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
-% opt_t=helper.opt_all';
-% results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul0_alt.mat', indic.spillovers, indic.taus));
-opt_not_notaus_ns=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul0.mat', indic.spillovers, indic.taus));
-opt_t_notaus_ns=helper.opt_all';
-
-RES_ns = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                        {bau_ns, fb_lf_ns, sp_t_ns, sp_not_ns, opt_t_notaus_ns, opt_not_notaus_ns});
+% helper=load(sprintf('LF_BAU_spillovers%d_noskill1.mat', indic.spillovers));
+% bau_ns=helper.LF_BAU';
+% helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill1.mat', indic.spillovers));
+% fb_lf_ns=helper.LF_SIM';
+% helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill1.mat', indic.spillovers));
+% sp_t_ns=helper.sp_all';
+% helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill1.mat', indic.spillovers));
+% sp_not_ns=helper.sp_all';
+% % helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
+% % opt_not=helper.opt_all';
+% % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
+% % opt_t=helper.opt_all';
+% % results without taus
+% helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul0_alt.mat', indic.spillovers, indic.taus));
+% opt_not_notaus_ns=helper.opt_all';
+% helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul0.mat', indic.spillovers, indic.taus));
+% opt_t_notaus_ns=helper.opt_all';
+% 
+% RES_ns = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+%                         {bau_ns, fb_lf_ns, sp_t_ns, sp_not_ns, opt_t_notaus_ns, opt_not_notaus_ns});
 
 %% optimal policy scenarios
 %- results without taul
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul1_alt.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul1.mat', indic.spillovers, indic.taus));
 opt_not_notaus_notaul=helper.opt_all';
 helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul1.mat', indic.spillovers, indic.taus));
 opt_t_notaus_notaul=helper.opt_all';
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul1_alt.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul1.mat', indic.spillovers, indic.taus));
 opt_not_notaus_notaul_ns=helper.opt_all';
 helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul1.mat', indic.spillovers, indic.taus));
 opt_t_notaus_notaul_ns=helper.opt_all';
@@ -84,8 +84,8 @@ opt_t_notaus_notaul_ns=helper.opt_all';
 RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
 RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
 
-RES_polcomp_full_ns   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_ns, opt_not_notaus_ns});
-RES_polcomp_notaul_ns = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_ns, opt_not_notaus_notaul_ns});
+% RES_polcomp_full_ns   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_ns, opt_not_notaus_ns});
+% RES_polcomp_notaul_ns = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_ns, opt_not_notaus_notaul_ns});
 
 %% SWF comparison
 betaa=params(list.params=='betaa');
@@ -93,9 +93,10 @@ betaa=params(list.params=='betaa');
  expp=0:T-1;
  vec_discount= disc.^expp;
  %SWF_PV= zeros(length(keys(RES)),1);
- TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1));
- TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
- TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
+ TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1));
+%  TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
+%  TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
+ TableSWF_PV.Properties.VariableNames={'Allocation','FullModel', 'NoTaul'};
 
 % x indices
 Year =transpose(year(['2025'; '2030';'2035'; '2040';'2045'; '2050';'2055'; '2060'; '2065';'2070';'2075';'2080'],'yyyy'));
@@ -108,7 +109,7 @@ for i =keys(RES)
     ii=string(i);
     allvars= RES(ii);
     % SEF calculation 
-    TableSWF_PV.Var2(TableSWF_PV.Var1==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
+    TableSWF_PV.FullModel(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
 
 %% 
 fprintf('plotting %s',ii );
@@ -190,21 +191,21 @@ end
 
 %% comparison with and without taul
 
-for j=0:1
+for j=0
     indic.noskill=j;
 for i =keys(RES_polcomp_full)
     ii=string(i);
     if indic.noskill==0
          allvars= RES_polcomp_full(ii);
-         allvarsns=RES_polcomp_notaul(ii);
-         TableSWF_PV_ns.Notaul(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
+         allvarsnt=RES_polcomp_notaul(ii); % here ns indicates no taul
+         TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(list.allvars=='SWF'),:)';
 
     else
         allvars= RES_polcomp_full_ns(ii);
-        allvarsns=RES_polcomp_notaul_ns(ii);
-        TableSWF_PV_ns.NoTaulNoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(list.allvars=='SWF'),:)';
+        allvarsnt=RES_polcomp_notaul_ns(ii);
+        TableSWF_PV_ns.NoTaulNoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsnt(find(list.allvars=='SWF'),:)';
     end
-
+% end
 %% 
 fprintf('plotting %s',ii );
 for l =keys(lisst)
@@ -222,7 +223,7 @@ for l =keys(lisst)
         for v=1:length(plotvars)
             varr=string(plotvars(v));
             subplot(floor(length(plotvars)/nn)+1,nn,v)
-            main=plot(time,allvars(find(list.allvars==varr),:), time,allvarsns(find(list.allvars==varr),:), 'LineWidth', 1.1);
+            main=plot(time,allvars(find(list.allvars==varr),:), time,allvarsnt(find(list.allvars==varr),:), 'LineWidth', 1.1);
             
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
            xticks(time)
@@ -242,12 +243,15 @@ for l =keys(lisst)
   end
 end      
 end
- save('Table_SWF', 'TableSWF_PV_ns');
- 
+ save('Table_SWF', 'TableSWF_PV');
+
+ % calculate contributes to SWF 
+load('Table_SWF', 'TableSWF_PV');
+TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100
  %% All figures single
 % RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
 %                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-for j=0:1
+for j=0
     indic.noskill=j;
  
 for i =keys(RES)

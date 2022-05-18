@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S]= OPT_aux_vars_notaus(x, list, params, T, init201519, indic)
+            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus(x, list, params, T, init201519, indic)
 
 read_in_params;
 
@@ -101,9 +101,7 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-pfT1 = 
-pift = 
-gammac =(1+pift)^(1/(1-alphaf)).*(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
+gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 % utility
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);

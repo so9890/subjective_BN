@@ -3,7 +3,7 @@ function [OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201
 
 % prepare variables
 syms    mu_IMP  mu_NProd ...
-         mu_OPThhn mu_OPThln mu_OPThlg mu_OPThhg  mu_OPThh...
+        mu_OPThhn mu_OPThln mu_OPThlg mu_OPThhg  mu_OPThh...
         mu_LOMAg mu_LOMAn mu_LOMAf mu_demSff mu_demSn mu_demSg... %KT_hh KT_hl KT_S...
         hhf hhg hlf hlg C F G Af Ag An ...
         HL HH sff sg sn mu_target real
@@ -67,9 +67,9 @@ read_in_SYMMODEL_sep;
  OPThln  = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
  OPThlg  = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
  OPThh   = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
-demSff   = sff - ((wsf.*Af.*rhof^etaa)./(gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)).^(1/(etaa-1));
-demSg    = sg  - ((wsg.*Ag.*rhog^etaa)./(gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)).^(1/(etaa-1));
-demSn    = sn  - ((wsn.*An.*rhon^etaa)./(gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)).^(1/(etaa-1));
+demSff   = wsf.*(rhof^etaa.*Af) - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag); 
+demSg    = wsg.*(rhog^etaa.*Ag) - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag);
+demSn    = wsn.*(rhon^etaa.*An) - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag);
 
 Ftarget = (Ems(1:T)'+deltaa)/omegaa;
 Target  = Ftarget-F; % emission target only enters constraints if indic.target==1 see below

@@ -2,6 +2,14 @@ function [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, 
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
+if indic.sep==1
+    %- new set of choice variables
+    list.choice=list.sepchoice;
+    symms.choice=symms.sepchoice;
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
+end
+
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
 varrs=helper.LF_SIM;
 y=log(varrs);
@@ -51,17 +59,26 @@ An =y(list.allvars=='An', :)';
 sff =z(list.allvars=='sff', :)';
 sg =z(list.allvars=='sg', :)';
 sn =z(list.allvars=='sn', :)';
-S =z(list.allvars=='S', :)';
+
 gammalh =z(list.allvars=='gammalh', :)';
-ws=z(list.allvars=='ws', :)';
 
 pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
 lambdaa=y(list.allvars=='lambdaa', :)';
-
-gammas =sqrt(zeros(size(lambdaa)));
+if indic.sep==0
+    gammas =sqrt(zeros(size(lambdaa)));
+    S =z(list.allvars=='S', :)';
+    ws=z(list.allvars=='ws', :)';
+else
+    gammasg =z(list.allvars=='gammasg', :)';
+    gammasn =z(list.allvars=='gammasn', :)';
+    gammasf =z(list.allvars=='gammasf', :)';
+    wsn=z(list.allvars=='wsn', :)';
+    wsf=z(list.allvars=='wsf', :)';
+    wsg=z(list.allvars=='wsg', :)';
+end
 x0=eval(symms.test);
 x0=x0(:);
 
@@ -80,16 +97,29 @@ lb=[];
 ub=[];
 
 objf=@(x)objectiveCALIBSCI(x);
-constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
-options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+if indic.sep==1
+    constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic);
+else
+    constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
+end
+options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constLF,options);
 
 % test solution to 
-f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
-if max(abs(f))>1e-9
+if indic.sep==0
+    f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
+else
+    f=laissez_faireVECT_sep(x, params, list, varrs, init201519,T, indic);
+end
+
+if max(abs(f))>1e-7
     error('LF function does not solve')
 end
 
 % save results
-LF_SIM=aux_solutionLF_VECT(x, pol, list, symms, varrs, params, T, indic);
+if indic.sep==0
+    LF_SIM=aux_solutionLF_VECT(x, pol, list, symms, varrs, params, T, indic);
+else
+    LF_SIM=aux_solutionLF_VECT_sep(x, pol, list, symms, varrs, params, T, indic);
+end
 end

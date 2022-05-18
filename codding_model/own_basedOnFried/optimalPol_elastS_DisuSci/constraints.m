@@ -43,7 +43,7 @@ else
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, ws, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S]= OPT_aux_vars_notaus(x, list, params, T, init, indic);
+            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus(x, list, params, T, init, indic);
     else
 %         fprintf('using noskill aux vars')
         [xn,xf,xg,Ag, An, Af,...
@@ -61,9 +61,12 @@ end
 c = []; %  periods and 2 additional ones: 
 
 c(1:T)=S-upbarH;
+% gammac is the bgp growth rate should be at least as high as average
+% growth in direct periods
+c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
 
 if indic.target==1
-    c(T+1:T*2) = F-Ftarget;
+    c(2*T+1:T*3) = F-Ftarget;
 end
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

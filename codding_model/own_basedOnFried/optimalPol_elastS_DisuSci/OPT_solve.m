@@ -89,11 +89,11 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-         helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul0_alt.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul));
-         helper=load('OPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul1_alt.mat');
-         opt_all=helper.opt_all;
+    helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all');
+         
+    opt_all=helper.opt_all;
 
-          x0 = zeros(nn*T,1);
+    x0 = zeros(nn*T,1);
     if indic.noskill==0
         x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =opt_all(:,list.allvars=='hhg'); % hhg
@@ -199,7 +199,7 @@ ub=[];
 
 %%
 % Test Constraints and Objective Function %%%
-f =  objective(guess_trans, T, params, list, Ftarget, indic);
+f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519);
 [c, ceq] = constraints(guess_trans, T, params, init201519, list, Ems, indic);
 
 % to examine stuff
@@ -214,7 +214,7 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic);
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
-objf=@(x)objective(x, T, params, list, Ftarget, indic);
+objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519);
 constf=@(x)constraints(x, T, params, init201519, list, Ems, indic);
 
 %if indic.target==0
@@ -239,14 +239,14 @@ if indic.target==1
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
 %         [x,fval,exitflag,output,lambda] = fmincon(ss.objf,ss.x,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 elseif indic.target==0
-         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+       %  [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-4,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])
             error('active set did not solve sufficiently well')
@@ -317,7 +317,7 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 if indic.target==1
     save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_alt', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
 end
 
 end

@@ -114,21 +114,37 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{itemize}[<+-| alert@+>]
 	\setbeamercolor{alerted text}{fg=black} %change the font color
 	\setbeamerfont{alerted text}{series=\bfseries} 
-\item natural scientists suggest net C02 emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.} to meet temperature targets
+\item natural scientists suggest net C02 emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.} to meet temperature targets:
 \vspace{3mm}
 \item but: economic models usually allow for a trade-off between pollution and consumption or model emission targets as percentage changes %\citep{Fried2018ClimateAnalysis}
 
 \vspace{3mm}
 \item therefore, I study optimal environmental policies under an exogenous and absolute constraint on emissions
 \vspace{3mm}
-\item Is it true that reduction policies are necessary?
-\item whether emission targets can be reached under standard policies depends on the speed of green innovation and the substituability of dirty and clean production methods %substhen, the capacity to innovate green and the elasticities of substitution between green and fossil energy are key to whether (a) consumption can continue to grow, and (b) corrective emission taxes are sufficient to meet targets 
+%\item Is it true that reduction policies are necessary?
+%\item whether emission targets can be reached under standard policies depends on the speed of green innovation and the substituability of dirty and clean production methods %substhen, the capacity to innovate green and the elasticities of substitution between green and fossil energy are key to whether (a) consumption can continue to grow, and (b) corrective emission taxes are sufficient to meet targets 
 %\item then, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)  %\ar no balanced growth 
 %\vspace{3mm}
-%\item What is the optimal policy to meet emission targets?
+\item Is there a role for income taxation to meet emission targets?
 \end{itemize}
 \end{frame}
 
+\begin{frame}{An environmental perspective on labour income taxes}
+\alert{\textbf{Distortionary income taxes affect emissions via two channels}}
+\begin{enumerate}
+	\item<+-> \underline{Reduction channel}: 
+	\begin{itemize}
+		\item the return to labour reduces \ar labour effort declines
+		\item \ar a reduction of emissions through lower production
+	\end{itemize}
+	\item<+-> \underline{Recomposition channel}:
+	\begin{itemize}
+		\item  high-skilled workers could react more strongly to a higher tax progressivity \ar the relative supply of low-skilled labour increases
+		\item the green sector relies more on high-skilled labour
+		\item non-green production becomes relatively cheaper
+	\end{itemize}
+\end{enumerate}
+\end{frame}
 %\begin{frame}{Trade-offs}
 %	\textbf{Starting from demand target}
 %\begin{itemize}
@@ -163,7 +179,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\item<+-> representative household provides low- and high-skilled labour and scientists
 	\item<+-> the government maximises utility of the representative household under the constraint to meet an emission target
 	\item<+-> government can use a tax on fossil producers and a potentially progressive labour income tax
-	\item<+-> emissions arise from fossil energy production
+%	\item<+-> emissions arise from fossil energy production
 	\item<+-> emission target: from 2020 to 2030: from 2050 onwards: net-zero emissions
 \end{itemize}
 \end{frame}
@@ -203,7 +219,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		
 		\end{itemize}
 		\item competitive final and intermediate good producers
-		\item research
+		\item endogenous research
 		\item government
 	\end{itemize} 
 \end{frame}
@@ -256,26 +272,29 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+(1-z_h) \lambda_t (w_{lt}h_
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Model}
+\begin{frame}{Model: Production}
 \textbf{Final Good and Energy Producers }
 \vspace{-5mm}
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
-		\tikzmarkin{second}(4,2.3)(-4,-1.8)
-Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+		\tikzmarkin{second}(1.9,1.2)(-1.5,-0.8)
+Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
 E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
 \tikzmarkend{second}
 \end{align*}
 	\end{minipage}
 \\
 
-\vspace{10mm}
+\vspace{12mm}
 \textbf{Intermediate Good Producers:} $J\ \in\{F,G,N\}$
 	\vspace{-3mm}
 \begin{minipage}[t!]{1\textwidth}
 	\begin{align*}
-	\tikzmarkin{third}(3.6,1.9)(-6.4,-1.6)
-J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di \\  \pi_{ft}=p_{ft}(1-\alert{\pmb{\tau_{ft}}})F_t-w_{lft}L_{ft}-\int_{0}^{1}p_{fit}x_{fit}di %=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
+	\tikzmarkin{third}(3.6,3.1)(-4,-2.6)
+\underset{\{x_{ijt}\}_{i=0}^1, L_{jt}}{\max}\ & \pi_{jt}=p_{jt}(1-\alert{\pmb{\tau_{jt}}})J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{ijt}x_{ijt}di\\ 
+ s.t.\ & J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di 
+%\pi_{jt}=p_{jt}J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{jit}x_{jit}di \ for\ j\in\{N,G\}
+%=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
 %& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
 %&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di; \ \hspace{4mm}\pi_{nt}=p_{nt}N_t-w_{lnt}L_{nt}-\int_{0}^{1}p_{nit}x_{nit}di\\
 %&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di; \ \hspace{4mm} \pi_{gt}=p_{gt}G_t-w_{lgt}L_{gt}-\int_{0}^{1}p_{git}x_{git}di
@@ -285,49 +304,58 @@ J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di \\
 \end{frame}
 
 
-\begin{frame}{Model: Labour input good production}
-\begin{align*}& L_{ft}=h_{hft}^{\theta_{f}}h_{lft}^{1-\theta_{f}}\\
-& L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
-& L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}
-\end{align*}
-where $\theta_{g}>\theta_{f}$ \ar high-skill share in green energy, i.e. greener goods, higher
+\begin{frame}{Model: Labour and machines}
+	
+	\textbf{Labour input good producers:} $J\ \in\{F,G,N\}$\\ \vspace{3mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{fourth}(5.8,1)(-5.6,-0.6)
+		 L_{jt}=h_{hjt}^{\theta_{j}}h_{ljt}^{1-\theta_{j}}
+		\tikzmarkend{fourth}
+		\end{align*}
+	\end{minipage}
+\\
+
+\vspace{10mm}
+	\textbf{Monopolistic competitive machine producers }\\ \vspace{-1mm}
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{sixth}(3.2,3)(-3.1,-3)
+\underset{p_{xijt}, s_{jit}}{\max}\ & p_{xijt}(1+\zeta_{jt})x_{ijt}-x_{ijt}-w_{sjt}s_{jt}\\
+s.t.\ & x_{ijt}= \left(\frac{p_{ft}(1-\tau_{jt})\alpha_j}{p_{xijt}}\right)^\frac{1}{1-\alpha_j}A_{ijt}L_{jt}\\
+& A_{jt}=A_{jt-1}\left(1+\gamma\left(\frac{s_{jt}}{\rho_f}\right)^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi\right)
+	\tikzmarkend{sixth}
+	\end{align*}
+\end{minipage}
 \end{frame}
-\begin{frame}{Model: Machine Producers and Innovation}
-	\begin{itemize}
-		\item sector specific producers; machine production costs equal across sectors: $\psi=1$
-		\item monopolistic competition, set prices for machines, and hire scientists for research
-		\item correct for monopolistic competition with uniform subsidy 
-		\\ \ar no inefficiency (but motive to generate funds \ar log utility?)
-	\end{itemize}
-\pause
-\textbf{Innovation}
-\begin{align*}
-&A_{jit}=A_{jt-1}\left(1+\gamma\left(\frac{S_{jit}}{\rho_j}\right)^{\eta}\left(\frac{A_{t-1}}{A_{jt-1}}\right)^{\phi}\right) 
-\end{align*}
-\pause
-\textbf{Marginal product of innovation}
-\begin{align*}
-&
-w_{sjt}=\frac{\eta \gamma \alpha_f A_{jt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{jt}}{\rho_j}\right)^{\eta}p_{jt}J_t}{\frac{1}{1-\alpha_f}S_{jt}A_{jt}}\\
-\end{align*}
-\end{frame}
+%\begin{frame}{Model: Machine Producers and Innovation}
+%
+%\textbf{Marginal product of innovation}
+%\begin{align*}
+%&
+%w_{sjt}=\frac{\eta \gamma \alpha_f A_{jt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{jt}}{\rho_j}\right)^{\eta}p_{jt}J_t}{\frac{1}{1-\alpha_f}S_{jt}A_{jt}}\\
+%\end{align*}
+%\end{frame}
+
+
 \begin{frame}{Model: Government}
-	\begin{itemize}
-		\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ct})}F_t-c(L_{ft}, x_{ft})$
-		\item labour income tax
-		\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
-	\end{itemize}
+
 \begin{align*}
-&\max_{\{\tau_{ct}\}_{t=0}^{60}, \{\tau_{st}\}_{t=0}^{60}, \{\tau_{lt}\}_{t=0}^{60}} \sum_{t=0}^{60}\beta^t U_{t}\\
+&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{st}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 s.t. \hspace{4mm}
 &(1)\ \ S_t+\tau_{st}w_{sgt}s_{gt}= \text{profits machines}+\text{tax income}+\tau_{ct}p_{ft}F_{t}\\
 &
-(2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,60]
+(2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,T]
 \end{align*}
 where 
 \begin{align*}
 \Omega =\left[\Omega_0,..., \Omega_{29}, \pmb{0}_{\{1\times 30\}}\right]
 \end{align*}
+	\begin{itemize}
+	\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ct})}F_t-c(L_{ft}, x_{ft})$
+	\item labour income tax
+	\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
+\end{itemize}
 \end{frame}
 \begin{frame}{Working hypotheses}	
 	\begin{itemize}

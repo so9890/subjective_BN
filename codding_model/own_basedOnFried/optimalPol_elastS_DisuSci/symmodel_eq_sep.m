@@ -1,6 +1,6 @@
 % function so derive problem symbolically by taking derivatives
 % parameters already numeric
-function [indexx, model, list]=symmodel_eq_sep(OB_RAM,  x, params,  Ftarget, file_name, list, indic, indexx)
+function [indexx, model]=symmodel_eq_sep(OB_RAM,  x, params,  Ftarget, file_name, list, indic, indexx)
 
 % function to differentiate the Objective functions 
 % and to return a model file of a numeric function that can be solved using fsolve. 
@@ -90,7 +90,7 @@ model_trans=subs(model, x, out_trans);
  % the second output gives the vector or input arguments!
  
 % the inputs are given by x: the non-transformed variables!
-if ~isfile(sprintf('%s.m', file_name))
+% if ~isfile(sprintf('%s.m', file_name))
     matlabFunction(model_trans, 'vars', {x(ismember(x,model_vars))}, 'File', file_name );
-end
+% end
 end

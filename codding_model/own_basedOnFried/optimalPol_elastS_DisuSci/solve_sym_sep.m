@@ -78,8 +78,8 @@ if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
     modFF = @(x)Ram_Model_target(x);
 else
-    model_trans = Ram_Model_notarget_sep(guess_trans);
-    modFF = @(x)Ram_Model_notarget_sep(x);
+    model_trans = Ram_Model_notarget_sep_2(guess_trans);
+    modFF = @(x)Ram_Model_notarget_sep_2(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
@@ -99,10 +99,10 @@ lb=[];
 ub=[];
 constf=@(x)sym_sep_fmincon(x);
 objf=@(x)objectiveCALIBSCI(x);
-options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-% [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-[xsqp,fval,exitflag,output,lambda] = fmincon(objf,outt2,[],[],[],[],lb,ub,constf,options);
- save(sprintf('opt_sym_1605_notarget_noskill%d_spillover%d_notaul%d_sep', indic.noskill, indic.spillovers, indic.notaul))
+options = optimset('algorithm','sqp','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+[x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+[xsqp,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+ss=load(sprintf('opt_sym_1605_notarget_noskill%d_spillover%d_notaul%d_sep.mat', indic.noskill, indic.spillovers, indic.notaul));
 %% transform
 upbarH=params(list.params=='upbarH');
 %  x=zeros(size(list.optALL));
@@ -110,7 +110,7 @@ upbarH=params(list.params=='upbarH');
 %      jj=list.optALL(j);
 %      x(list.optALL==string(jj))=ss.x14(ss.list.optALL==string(jj));
 %  end
-x=xsqp;
+x=outt;
 out_trans=exp(x);
 if indic.noskill==0
     out_trans(contains(list.optALL,'HL'))=upbarH./(1+exp(x(contains(list.optALL,'HL'))));
@@ -140,8 +140,11 @@ read_in_SYMMODEL_sep;
 taus = zeros(size(pn));
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
+gammasg = zeros(size(pn));
+gammasf = zeros(size(pn));
+gammasn = zeros(size(pn));
 
-opt_all=eval(symms.allvars);
+opt_all=eval(symms.sepallvars);
 
 %% - test swf 
 %  disc=repmat(betaa, 1,T);

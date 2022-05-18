@@ -2,6 +2,13 @@ function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
+if indic.sep==1
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
+    list.choice=list.sepchoice;
+    symms.choice=symms.sepchoice;
+end
+
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
 varrs=helper.LF_SIM;
 y=log(varrs);
@@ -49,11 +56,20 @@ An =y(list.allvars=='An', :)';
 sff =z(list.allvars=='sff', :)';
 sg =z(list.allvars=='sg', :)';
 sn =z(list.allvars=='sn', :)';
-S =z(list.allvars=='S', :)';
-gammas =zeros(size(S));
-gammalh =z(list.allvars=='gammalh', :)';
-ws=z(list.allvars=='ws', :)';
 
+gammalh =z(list.allvars=='gammalh', :)';
+if indic.sep==0
+    ws=z(list.allvars=='ws', :)';
+    S =z(list.allvars=='S', :)';
+    gammas =zeros(size(S));
+else
+    wsf=z(list.allvars=='wsf', :)';
+    wsg=z(list.allvars=='wsg', :)';
+    wsn=z(list.allvars=='wsn', :)';
+    gammasg=z(list.allvars=='gammasg', :)';
+    gammasn=z(list.allvars=='gammasn', :)';
+    gammasf=z(list.allvars=='gammasf', :)';    
+end
 pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
@@ -65,7 +81,12 @@ x0=eval(symms.test);
 x0=x0(:);
 
 % test solution to 
-f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
+if indic.sep==1
+    f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
+else
+    f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
+
+end
 % to examine stuff
 
  if max(abs(f))>1e-9

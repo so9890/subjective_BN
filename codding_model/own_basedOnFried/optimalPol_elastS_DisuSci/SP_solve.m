@@ -18,15 +18,19 @@ nn= length(list.sp);
 %%%%%%%%%%%%%%%%%%%%%
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
-  helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
+  helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep));
   LF_SIM=helper.LF_SIM';
 
+  %- new list if uses separate market
+  if indic.sep==1
+        list.allvars=list.sepallvars;
+  end
 
 if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
 
-    if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+    if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg
@@ -37,6 +41,7 @@ if indic.target==0
             x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =LF_SIM(list.allvars=='hl',1:T);  % hl
             x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =LF_SIM(list.allvars=='hh',1:T);  % hh
         else
+             error('not yet prepared no skill version');
             x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg'))) =LF_SIM(list.allvars=='Lg',1:T); % hlg 
             x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln'))) =LF_SIM(list.allvars=='Ln',1:T); % hlg 
           %  x0(T*(find(list.sp=='Lf')-1)+1:T*(find(list.sp=='hl')))   =LF_SIM(list.allvars=='hl',1:T);  % hl
@@ -56,7 +61,7 @@ if indic.target==0
         x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
         x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
-        helper=load(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
+        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
         sp_all=helper.sp_all;
         
         if indic.noskill==0
@@ -69,6 +74,7 @@ if indic.target==0
             x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
             x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
         else
+             error('not yet prepared no skill version');
             x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
             x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln')))   =sp_all(1:T, list.allvars=='Ln'); % hlg
             %x0(T*(find(list.sp=='Lf')-1)+1:T*(find(list.sp=='Lf')))   =sp_all(1:T, list.allvars=='Lf');  % hl
@@ -93,10 +99,10 @@ elseif indic.target==1
     x0 = zeros(nn*T,1);
     kappaa = Ftarget./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
     kappaa = kappaa*(1-1e-10);
-    if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
-        
-        
+    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
+         fprintf('using LF solution as initial value')
         if indic.noskill==0
+                       
         x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =kappaa.*LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
         x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =kappaa.*LF_SIM(list.allvars=='hhg',1:T); % hhg
         x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =kappaa.*LF_SIM(list.allvars=='hhn',1:T); % hhg
@@ -107,6 +113,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =kappaa.*LF_SIM(list.allvars=='hl',1:T);  % hl
         x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =kappaa.*LF_SIM(list.allvars=='hh',1:T);  % hh
         else
+             error('not yet prepared no skill version');
             x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg'))) =kappaa.*LF_SIM(list.allvars=='Lg',1:T); % hlg 
             x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln'))) =kappaa.*LF_SIM(list.allvars=='Ln',1:T); % hlg
             x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))   =kappaa.*LF_SIM(list.allvars=='hh',1:T);  % hl
@@ -121,8 +128,10 @@ elseif indic.target==1
         x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =kappaa.*LF_SIM(list.allvars=='C',1:T);  % C
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
-        helper= load(sprintf('SP_target_active_set_0505_spillover%d_noskill%d', indic.spillovers, indic.noskill), 'sp_all');
+        fprintf('using sp solution as initial value')
+        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
         sp_all=helper.sp_all;
+        
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -134,6 +143,7 @@ elseif indic.target==1
             x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
             
         else
+             error('not yet prepared no skill version');
             x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
             x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln')))   =sp_all(1:T, list.allvars=='Ln'); % hlg
             %x0(T*(find(list.sp=='Lf')-1)+1:T*(find(list.sp=='Lf')))   =sp_all(1:T, list.allvars=='Lf');  % hl
@@ -206,10 +216,9 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-% ss=load('sp_results_target_PV')
-options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-4,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%   ss=load('sp_results_target_gammac_sep1')
+options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-5,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
-
 
 out_trans=exp(x);
 if indic.noskill==0
@@ -227,11 +236,11 @@ if indic.target==1
 end
 
 if indic.noskill==0
-   [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S(out_trans, list, params, T, initOPT);
+            pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(out_trans, list, params, T, initOPT, indic);
 else
     [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -240,16 +249,24 @@ else
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(out_trans, list, params, T,initOPT);
         wh=w; wl=w;hhf=h; hhg=h; hhn=h; hlf=h; hlg=h; hln=h; hl=h; hh=h;
 end
+taus = zeros(size(pn));
 ws=wsn;
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
+gammasg = zeros(size(pn));
+gammasf = zeros(size(pn));
+gammasn = zeros(size(pn));
 
-sp_all=eval(symms.allvars);
 
+if indic.sep==0
+    sp_all=eval(symms.allvars);
+else
+    sp_all=eval(symms.sepallvars);
+end
 
 if indic.target==1
-    save(sprintf('SP_target_active_set_0505_spillover%d_noskill%d_PV', indic.spillovers, indic.noskill), 'sp_all')
+    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac', indic.spillovers, indic.noskill, indic.sep), 'sp_all')
 else
-    save(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d_PV', indic.spillovers, indic.noskill), 'sp_all')
+    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac', indic.spillovers, indic.noskill, indic.sep), 'sp_all')
 end
 end

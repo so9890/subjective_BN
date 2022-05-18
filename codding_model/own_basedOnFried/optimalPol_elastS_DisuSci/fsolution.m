@@ -91,7 +91,7 @@ A0  = (rhof*Af0+rhon*An0+rhog*Ag0)/(rhof+rhon+rhog);
 
 Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii); 
  
- if abs(Ag-Agtest)>1e-7
+ if abs(Ag-Agtest)>1e-10
      error('growth rate off')
  else
      fprintf('growth rate works!!')

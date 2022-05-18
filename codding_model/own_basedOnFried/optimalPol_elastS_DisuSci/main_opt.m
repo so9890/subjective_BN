@@ -6,7 +6,7 @@
 %%Version: August 2018
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
-cd '/home/sonja/Documents/projects/Overconsumption/codding_model/own_basedOnFried/optimalPol_elastS_DisuSci'
+cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/optimalPol_elastS_DisuSci'
 %%
 %M-File Outline%
 %%%%%%%%%%%%%%%%
@@ -35,7 +35,8 @@ indic.spillovers =1; % ==1 then there are positive spillover effects of scientis
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
-%
+indic.sep =1; % ==1 if uses models with separate markets for scientists
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,25 +47,34 @@ if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
     load(sprintf('params_spillovers%d.mat', indic.spillovers))
 else
     fprintf('calibrating model')
-    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
     save(sprintf('params_spillovers%d', indic.spillovers))
 end
 
-
+%% 
+%%%%% LIST for separate markets
+    symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
+    syms wsg wsn wsf gammasg gammasf gammasn real
+    symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
+    list.sepchoice=string(symms.sepchoice);
+    
+    symms.sepallvars=symms.allvars(list.allvars~='ws');
+    symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
+    list.sepallvars=string(symms.sepallvars);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: BAU Simulation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-for i=[0,1]
+for i=[0]
     indic.noskill=i;
-if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d.mat', indic.spillovers, indic.noskill))
+if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
-    save(sprintf('LF_BAU_spillovers%d_noskill%d', indic.spillovers, indic.noskill), 'LF_BAU')
+    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep), 'LF_BAU')
     clearvars LF_SIM pol FVAL
 else
      fprintf('LF_BAU no skill %d exists', indic.noskill);
@@ -79,14 +89,14 @@ lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
 
   %  if indic.noskill==0
-  for i=[0,1]
+  for i=[0]
       indic.noskill=i;
-  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep))
 %         indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d', indic.spillovers, indic.noskill),'LF_SIM');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep),'LF_SIM');
         clearvars LF_SIM helper
         else
      fprintf('LF_FB no skill %d exists', indic.noskill)
@@ -103,9 +113,9 @@ pol=eval(symms.pol);
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % indic.noskill=0;
-        for i =0:1
+        for i =0
             indic.noskill=i;
-            if ~isfile(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+            if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
                 indic.target=1;
                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
 
@@ -113,7 +123,7 @@ pol=eval(symms.pol);
             else
               fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
             end
-            if ~isfile(sprintf('SP_notarget_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill))
+            if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
                 indic.target=0;
                 fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
 
@@ -131,16 +141,17 @@ pol=eval(symms.pol);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.notaul=0; % ==0 if labour income tax is available
+indic.notaul=1; % ==0 if labour income tax is available
+indic.sep =0;
 for i=1
      indic.noskill=i;
-     if ~isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+     if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
          indic.target=1;
          [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
      else 
         fprintf('OPT solution with target, noskill%d exists', indic.noskill);
      end
-    if ~isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
         indic.target=0;
         [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     else 
@@ -168,18 +179,20 @@ exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.target=0;
 indic.noskill=0;
+indic.sep=1;
+indic.target=0; 
 %1) get objective function 
-[OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms);
+[OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201519, indic, Ems, symms);
 %- x is a symbolic vector of choice variables! 
 
 %2) take derivatives and write resulting equations as function
 if indic.target==1
     [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target', list, indic, indexx);
 else
-    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_testbeta_nokt_join', list, indic, indexx);
+    [indexx, model]=symmodel_eq_sep(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_sep_2', list, indic, indexx);
 end
 %3) solve model using fsolve
-RAM = solve_sym(symms, list, Ftarget, indic);
+RAM = solve_sym_sep(symms, list, Ftarget, indic);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%

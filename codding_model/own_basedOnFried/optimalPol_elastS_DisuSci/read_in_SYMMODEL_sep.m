@@ -92,18 +92,9 @@ wh      = thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, 
 wl      = (1-thetaf)*Lf./hlf.*wlf;
 
     
-wsf      = chiis*sff.^sigmaas; % assuming inner solution
-wsg      = chiis*sg.^sigmaas; % assuming inner solution
-wsn      = chiis*sn.^sigmaas; % assuming inner solution
-% 
-% sff     = ((wsf.*Af.*rhof^etaa)./(gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)).^(1/(etaa-1));
-% sg      = ((wsg.*Ag.*rhog^etaa)./(gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)).^(1/(etaa-1));
-% sn      = ((wsn.*An.*rhon^etaa)./(gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)).^(1/(etaa-1));
-% sg      = S -(sff+sn);
-
-%wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
-
-%taus    = 1-wsgtil./ws; % since (wsgtilde/(1-taus)=ws)
+wsf      = (chiis*sff.^sigmaas)./(muu); % assuming inner solution
+wsg      = chiis*sg.^sigmaas./(muu); % assuming inner solution
+wsn      = chiis*sn.^sigmaas./(muu); % assuming inner solution
 
 
 % assuming interior solution households
@@ -125,7 +116,7 @@ xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
-        
+S= sn+sff+sg;        
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 %- vector of utilities

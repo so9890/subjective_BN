@@ -24,9 +24,11 @@ end
 
 % variables
 if indic.noskill==0
-    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, S]= SP_aux_vars_2S(x, list, params, T, init);
+            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(x, list, params, T, init, indic);
 else
     [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -36,11 +38,24 @@ else
 end
 % inequality constraints
 c=[];
-c(1:T)=S-upbarH;
+if indic.sep==0
+    c(1:T)    = S-upbarH;
+    c(T+1:2*T) = gammac-gammaa.*(sff(T)./rhof).^etaa.*(A(T-1)./Af(T-1)).^phii; % the growth rate in T+1 should at least be as big as from T-1 to T
+ if indic.target==1
+      c(2*T+1:3*T)=F-Ftarget';
+ end
+ 
+else
+    c(1:T)=sn-upbarH;
+    c(T+1:2*T)=sff-upbarH;
+    c(2*T+1:3*T)=sg-upbarH;
+    c(3*T+1:4*T) = gammac-gammaa.*(sff(T)./rhof).^etaa.*(A(T-1)./Af(T-1)).^phii; % the growth rate in T+1 should at least be as big as from T-1 to T
 
  if indic.target==1
-      c(T+1:2*T)=F-Ftarget';
+      c(4*T+1:5*T)=F-Ftarget';
   end
+end
+
 
 % equality constraints
 ceq =[];

@@ -9,14 +9,38 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Spara
 % variables as ordered in list.allvars
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% prepare lists if using separate markets for scientists
+if indic.sep==1
+    %- new initial point
+    x0=[x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'), ...
+        x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), 0,0,0];
+    %- new set of choice variables
+    list.choice=list.sepchoice;
+    symms.choice=symms.sepchoice;
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
+    
+    %- new index for tranformation
+        
+    indexxLF.lab = boolean(zeros(size(list.choice)));
+    indexxLF.exp = boolean(zeros(size(list.choice)));
+    indexxLF.sqr = boolean(zeros(size(list.choice)));
+    indexxLF.oneab = boolean(zeros(size(list.choice)));
 
+    indexxLF.lab( list.choice=='hh'|list.choice=='hl' | list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
+    indexxLF.exp(list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+        &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
+    indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
+    indexx('LF_sep')=indexxLF;
+else
+    x0      = x0LF;
+end
 % initialise stuff
 %-- to save results
 % symms.allvars=[symms.allvars, gammasn, gammasg, gammasf];
 % list.allvars=string(symms.allvars);
 LF_SIM=zeros(length(list.allvars),T); 
 FVAL  = zeros(T,1);
-x0      = x0LF;
 
 %-- initialise values
 laggs   = init; % (init should refer to 2010-2014 period)
@@ -51,25 +75,39 @@ while t<=T+1 % because first iteration is base year
     %% - transforming variables to unbounded variables
     %-- index for transformation 
     if indic.noskill==0
-        guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
+        if indic.sep==0
+            guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
+        else
+            guess_trans=trans_guess(indexx('LF_sep'), x0, params, list.params);
+        end
     else
         guess_trans=trans_guess(indexx('LF_noskill'), x0, params, list.params);
     end
     % test
-    f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
-
+    if indic.sep==0
+        f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
+    else
+        f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic);
+    end
     %% - solving model
      lb=[];
      ub=[];
      objf=@(x)objectiveCALIBSCI(x);
-    constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
-options = optimset('algorithm','active-set','TolCon', 1e-10,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+     if indic.sep==0
+        constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
+     else
+         constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic);
+     end
+options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
-[c,fval]=constrf(sol3);
+%[c,fval]=constrf(sol3);
 % 
 %- other solvers
-    modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs, indic);
-
+    if indic.sep==0
+        modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs, indic);
+    else
+        modFF = @(x)laissez_faire_nows_sep(x, params, list, pol, laggs, indic);
+    end
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
@@ -82,8 +120,12 @@ options = optimset('algorithm','active-set','TolCon', 1e-10,'Tolfun',1e-26,'MaxF
 
     %- transform results to bounded variables
     if indic.noskill==0
-        LF=trans_allo_out(indexx('LF'), sol3, params, list.params);
-    else
+        if indic.sep==0
+            LF=trans_allo_out(indexx('LF'), sol3, params, list.params);
+        else
+            LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params);
+        end
+     else
         LF=trans_allo_out(indexx('LF_noskill'), sol3, params, list.params);
     
     end
@@ -92,7 +134,11 @@ options = optimset('algorithm','active-set','TolCon', 1e-10,'Tolfun',1e-26,'MaxF
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+        if indic.sep==0
+            LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+        else
+            LF_SIM(:,t-1)=aux_solutionLF_sep(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+        end
         FVAL(t-1)=max(abs(fval));
     end
     %% - update for next round
