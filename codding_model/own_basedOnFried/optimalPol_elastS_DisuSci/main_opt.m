@@ -31,7 +31,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
-indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
+indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
@@ -93,7 +93,7 @@ pol=eval(symms.pol);
   for i=[0]
       indic.noskill=i;
   if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep))
-%         indic.noskill=1;
+%       indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
@@ -119,7 +119,6 @@ pol=eval(symms.pol);
             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
                 indic.target=1;
                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-
                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
             else
               fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
@@ -127,7 +126,6 @@ pol=eval(symms.pol);
             if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
                 indic.target=0;
                 fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
-
                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
             else
               fprintf('Social planner solution without target, noskill%d exists', indic.noskill);

@@ -256,7 +256,7 @@ guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
 indic.noskill=0;
 f=laissez_faire_nows_CALIB(guess_transLF, params, list, pol, init201014, indic);
 
-if max(abs(f))>1e-12
+if max(abs(f))>1e-11
     error('calibration is not a solution to LF')
 else
     fprintf('Hurray!!! LF solves at baseline calibration!!!');
