@@ -23,7 +23,11 @@ eppsy = params(list.params=='eppsy');
 eppse = params(list.params=='eppse');
 deltay = params(list.params=='deltay');
 gammaa = params(list.params=='gammaa');
-etaa = params(list.params=='etaa');
+if indic.dim==1
+    etaa =0.79; % 
+else
+    params(list.params=='etaa');
+end
 rhof = params(list.params=='rhof');
 rhog = params(list.params=='rhog');
 rhon = params(list.params=='rhon');

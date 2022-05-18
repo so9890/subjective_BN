@@ -217,7 +217,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
 %   ss=load('sp_results_target_gammac_sep1')
-options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-5,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-5,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 
 out_trans=exp(x);
@@ -265,8 +265,8 @@ else
 end
 
 if indic.target==1
-    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac', indic.spillovers, indic.noskill, indic.sep), 'sp_all')
+    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac', indic.spillovers, indic.noskill, indic.sep, indic.dim), 'sp_all')
 else
-    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac', indic.spillovers, indic.noskill, indic.sep), 'sp_all')
+    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac', indic.spillovers, indic.noskill, indic.sep, indic.dim), 'sp_all')
 end
 end

@@ -65,11 +65,12 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
 
     
 ws      = chiis*S.^sigmaas./muu; 
-sff     = ((gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(ws.*Af.*rhof^etaa)).^(1/(1-etaa));
-sg      = ((gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)./(ws.*Ag.*rhog^etaa)).^(1/(1-etaa));
-sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*An.*rhon^etaa)).^(1/(1-etaa));
-% sg      = S -(sff+sn);
-
+if etaa~=1
+    sff     = ((gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(ws.*Af.*rhof^etaa)).^(1/(1-etaa));
+    sg      = ((gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)./(ws.*Ag.*rhog^etaa)).^(1/(1-etaa));
+    sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*An.*rhon^etaa)).^(1/(1-etaa));
+    % sg      = S -(sff+sn);
+end
 %wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
 %taus    = 1-wsgtil./ws; % since (wsgtilde/(1-taus)=ws)

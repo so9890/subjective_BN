@@ -35,7 +35,8 @@ indic.spillovers =1; % ==1 then there are positive spillover effects of scientis
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
-indic.sep =1; % ==1 if uses models with separate markets for scientists
+indic.sep =0; % ==1 if uses models with separate markets for scientists
+indic.dim=1; %==1 if uses diminishing returns to science
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -141,7 +142,7 @@ pol=eval(symms.pol);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.notaul=1; % ==0 if labour income tax is available
+indic.notaul=0; % ==0 if labour income tax is available
 indic.sep =0;
 for i=1
      indic.noskill=i;

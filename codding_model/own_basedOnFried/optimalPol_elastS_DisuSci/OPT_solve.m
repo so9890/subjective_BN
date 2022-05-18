@@ -54,7 +54,7 @@ if indic.target==1
     end
     else
 
-     helper=load(sprintf('SP_target_active_set_0505_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
+     helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep, indic.dim));
      sp_all=helper.sp_all;
 
      if ~isvarname('sp_all')
@@ -81,7 +81,7 @@ if indic.target==1
      x0(T*(find(list.opt=='Af')-1)+1:T*(find(list.opt=='Af')))   =sp_all(:,list.allvars=='Af');  % Af
      x0(T*(find(list.opt=='Ag')-1)+1:T*(find(list.opt=='Ag')))   =sp_all(:,list.allvars=='Ag');  % Ag
      x0(T*(find(list.opt=='An')-1)+1:T*(find(list.opt=='An')))   =sp_all(:,list.allvars=='An');  % An
-     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =(0.9).*sp_all(:,list.allvars=='S'); 
+     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))     =(0.999).*sp_all(:,list.allvars=='S'); 
      if indic.taus==1
          x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg'); 
      end
@@ -239,13 +239,13 @@ if indic.target==1
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
 %         [x,fval,exitflag,output,lambda] = fmincon(ss.objf,ss.x,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 elseif indic.target==0
-%         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+       options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        %  [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])

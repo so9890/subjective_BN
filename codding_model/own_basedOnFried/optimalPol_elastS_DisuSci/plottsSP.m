@@ -360,10 +360,10 @@ end
 %% comparison with and without target    
 %- string to loop over 
 ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
-for j=0:1
+for j=0
     indic.noskill=j;
 for i =[1,3]
-
+    ii=ssr(i);
     %- read in data
     t=string(ssr(i));
     nt=string(ssr(i+1));
@@ -381,11 +381,8 @@ for l =keys(lisst) % loop over variable groups
     plotvars=lisst(ll);
     for lgdind=0:1
     for v=1:length(plotvars)
-    gcf=figure('Visible','off');
-        
-
+        gcf=figure('Visible','off');
         varr=string(plotvars(v));
-        %subplot(floor(length(plotvars)/nn)+1,nn,v)
         main=plot(time,allvars(find(list.allvars==varr),:), time,allvarsnot(find(list.allvars==varr),:), 'LineWidth', 1.1);            
        set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
        xticks(2:2:time(end))
@@ -399,7 +396,7 @@ for l =keys(lisst) % loop over variable groups
           lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
           set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
        end
-    path=sprintf('figures/all_0505/%s_TargetComp%s_spillover%d_noskill%d_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, lgdind);
+    path=sprintf('figures/all_0505/%s_TargetComp%s_spillover%d_noskill%d_sep%d_lgd%d.png', varr, ii, indic.spillovers, indic.noskill,indic.sep, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
 %    close gcf

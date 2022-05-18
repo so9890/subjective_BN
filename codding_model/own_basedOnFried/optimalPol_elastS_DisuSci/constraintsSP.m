@@ -40,7 +40,7 @@ end
 c=[];
 if indic.sep==0
     c(1:T)    = S-upbarH;
-    c(T+1:2*T) = gammac-gammaa.*(sff(T)./rhof).^etaa.*(A(T-1)./Af(T-1)).^phii; % the growth rate in T+1 should at least be as big as from T-1 to T
+    c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
  if indic.target==1
       c(2*T+1:3*T)=F-Ftarget';
  end
@@ -49,7 +49,7 @@ else
     c(1:T)=sn-upbarH;
     c(T+1:2*T)=sff-upbarH;
     c(2*T+1:3*T)=sg-upbarH;
-    c(3*T+1:4*T) = gammac-gammaa.*(sff(T)./rhof).^etaa.*(A(T-1)./Af(T-1)).^phii; % the growth rate in T+1 should at least be as big as from T-1 to T
+    c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
 
  if indic.target==1
       c(4*T+1:5*T)=F-Ftarget';
