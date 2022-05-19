@@ -89,7 +89,7 @@ else
 end
 % to examine stuff
 
- if max(abs(f))>1e-9
+ if max(abs(f))>1e-10
      fprintf('LF function does not solve at 1e-9')
  else
      fprintf('Solution solves LF problem')

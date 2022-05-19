@@ -66,15 +66,22 @@ else
  out_trans(contains(list.optALL,'H'))=upbarH./(1+exp(x(contains(list.optALL,'H'))));
 end
 
-if indic.target == 0
- out_trans(startsWith(list.optALL,'sff'))=upbarH./(1+exp(x(startsWith(list.optALL,'sff'))));
-  out_trans(startsWith(list.optALL,'sn'))=upbarH./(1+exp(x(startsWith(list.optALL,'sn'))));
-   out_trans(startsWith(list.optALL,'sg'))=upbarH./(1+exp(x(startsWith(list.optALL,'sg'))));
+if params(list.params=='etaa')>=1
+    if indic.target == 0
+     out_trans(startsWith(list.optALL,'sff'))=upbarH./(1+exp(x(startsWith(list.optALL,'sff'))));
+      out_trans(startsWith(list.optALL,'sn'))=upbarH./(1+exp(x(startsWith(list.optALL,'sn'))));
+       out_trans(startsWith(list.optALL,'sg'))=upbarH./(1+exp(x(startsWith(list.optALL,'sg'))));
+    else
+        out_trans(startsWith(list.optALL,'sg')) = (x(startsWith(list.optALL,'sg'))).^2;
+          out_trans(startsWith(list.optALL,'sn')) = (x(startsWith(list.optALL,'sn'))).^2;
+            out_trans(startsWith(list.optALL,'sff')) = (x(startsWith(list.optALL,'sff'))).^2;
+    end
 else
-    out_trans(startsWith(list.optALL,'sg')) = (x(startsWith(list.optALL,'sg'))).^2;
-      out_trans(startsWith(list.optALL,'sn')) = (x(startsWith(list.optALL,'sn'))).^2;
-        out_trans(startsWith(list.optALL,'sff')) = (x(startsWith(list.optALL,'sff'))).^2;
+   out_trans(startsWith(list.optALL,'sff'))=upbarH./(1+exp(x(startsWith(list.optALL,'sff'))));
+   out_trans(startsWith(list.optALL,'sn'))=upbarH./(1+exp(x(startsWith(list.optALL,'sn'))));
+   out_trans(startsWith(list.optALL,'sg'))=upbarH./(1+exp(x(startsWith(list.optALL,'sg'))));
 end
+
 out_trans(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'))=x(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'));
 % if indic.taus==1
 %     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;

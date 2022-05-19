@@ -17,12 +17,21 @@ else
 end
 % hours scientists
 if indic.target == 0
-    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+    x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+    x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+
 else
-    x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = (y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)).^2;
-end
-if indic.taus==1
-    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+    if etaa<1
+        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+    else
+         x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+         x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+         x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+    end
+
 end
 % F if bounded above
 if indic.target==1
@@ -37,14 +46,20 @@ else
     h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);
 end
 
-% C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
-% S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
  if indic.noskill==0
+     if indic.sep==0
     [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, ws, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus(x, list, params, T, init201519, indic);
+     else
+          [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn,  tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_sep(x, list, params, T, init201519, indic);
+     end
      else
         [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -71,7 +86,11 @@ if indic.noskill==0
 else
     Utillab = chii.*h.^(1+sigmaa)./(1+sigmaa);
 end
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+end
 
 %Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
 % UtilTC_cont = (betaa^(T+periods-1))*N(T+periods)*(1/(1-betaa))*(((1+alpha0*(TC(T+periods)^alpha1))^((-1)*(1-sigma)))/(1-sigma));

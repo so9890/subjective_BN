@@ -85,10 +85,13 @@ wh      = thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, 
 wl      = (1-thetaf)*Lf./hlf.*wlf;
 
     
-ws      = chiis*S.^sigmaas./muu; % assuming inner solution
-sff     = ((ws.*Af.*rhof^etaa)./(gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)).^(1/(etaa-1));
-sg      = ((ws.*Ag.*rhog^etaa)./(gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)).^(1/(etaa-1));
-sn      = ((ws.*An.*rhon^etaa)./(gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)).^(1/(etaa-1));
+ws      = chiis*S.^sigmaas; % assuming inner solution
+
+    sff     = ((ws.*Af.*rhof^etaa)./(gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)).^(1/(etaa-1));
+    sg      = ((ws.*Ag.*rhog^etaa)./(gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)).^(1/(etaa-1));
+    sn      = ((ws.*An.*rhon^etaa)./(gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)).^(1/(etaa-1));
+
+
 % sg      = S -(sff+sn);
 
 %wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus

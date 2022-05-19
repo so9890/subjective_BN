@@ -92,9 +92,9 @@ wh      = thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, 
 wl      = (1-thetaf)*Lf./hlf.*wlf;
 
     
-wsf      = (chiis*sff.^sigmaas)./(muu); % assuming inner solution
-wsg      = chiis*sg.^sigmaas./(muu); % assuming inner solution
-wsn      = chiis*sn.^sigmaas./(muu); % assuming inner solution
+wsf      = (chiis*sff.^sigmaas); % assuming inner solution
+wsg      = chiis*sg.^sigmaas; % assuming inner solution
+wsn      = chiis*sn.^sigmaas; % assuming inner solution
 
 
 % assuming interior solution households
@@ -126,6 +126,9 @@ elseif thetaa==1
  Utilcon = log(C);
 end
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- %Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
-
- SWF = Utilcon-Utillab;%-Utilsci;
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+end
+ SWF = Utilcon-Utillab-Utilsci;

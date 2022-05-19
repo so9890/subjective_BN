@@ -7,7 +7,7 @@ function RAM = solve_sym_sep(symms, list, Ftarget, indic, T, indexx, params)
 if indic.target==0
     helper=load('SYMOPT_notarget_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
 else
-    helper= load('OPT_target_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
+    helper= load('OPT_notarget_active_set_1905_spillover0_taus0_noskill0_notaul0.mat');
 end
     opt_all=helper.opt_all;
     x0=symms.optALL;
@@ -78,8 +78,8 @@ if indic.target ==1
     model_trans = Ram_Model_target(guess_trans);
     modFF = @(x)Ram_Model_target(x);
 else
-    model_trans = Ram_Model_notarget_sep_2(guess_trans);
-    modFF = @(x)Ram_Model_notarget_sep_2(x);
+    model_trans = Ram_Model_notarget_sep_1905(guess_trans);
+    modFF = @(x)Ram_Model_notarget_sep_1905(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );

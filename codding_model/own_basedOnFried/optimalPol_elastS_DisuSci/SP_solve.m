@@ -18,8 +18,13 @@ nn= length(list.sp);
 %%%%%%%%%%%%%%%%%%%%%
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
-  helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep));
+if etaa ~=1 
+helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep));
   LF_SIM=helper.LF_SIM';
+else
+    helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+  LF_SIM=helper.LF_BAU';
+end
 
   %- new list if uses separate market
   if indic.sep==1
@@ -99,7 +104,7 @@ elseif indic.target==1
     x0 = zeros(nn*T,1);
     kappaa = Ftarget./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
     kappaa = kappaa*(1-1e-10);
-    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
+    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
          fprintf('using LF solution as initial value')
         if indic.noskill==0
                        
@@ -129,7 +134,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
         fprintf('using sp solution as initial value')
-        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
+        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
         sp_all=helper.sp_all;
         
         if indic.noskill==0
@@ -216,9 +221,10 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-%    ss=load('sp_results_target_gammac_sep0')
-options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-5,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
+  save('sp_results_notarget_sep1_spillover0_etaa079')
+  ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
+options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+[x,fval,exitflag,output,lambda] = fmincon(objfSP,ss.x,[],[],[],[],lb,ub,constfSP,options);
 
 out_trans=exp(x);
 if indic.noskill==0
@@ -265,8 +271,8 @@ else
 end
 
 if indic.target==1
-    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac', indic.spillovers, indic.noskill, indic.sep, indic.dim), 'sp_all')
+    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'sp_all', 'Sparams')
 else
-    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac', indic.spillovers, indic.noskill, indic.sep, indic.dim), 'sp_all')
+    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'sp_all', 'Sparams')
 end
 end

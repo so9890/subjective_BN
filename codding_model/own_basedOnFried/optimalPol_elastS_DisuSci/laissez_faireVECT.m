@@ -203,7 +203,7 @@ q=q+1;
 f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= S-((ws.*muu-gammas)./chiis).^(1/sigmaa);
+f((q-1)*T+1:T*q)= S-((ws-gammas)./chiis).^(1/sigmaa);
 
 
 %13- Kuhn Tucker Labour supply

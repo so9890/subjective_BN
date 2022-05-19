@@ -208,7 +208,7 @@ q=q+1;
 f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= chiis*S.^sigmaas-((ws.*muu-gammas));
+f((q-1)*T+1:T*q)= chiis*S.^sigmaas-((ws-gammas));
 q=q+1;
 f((q-1)*T+1:T*q)= gammas.*(S-upbarH);
 

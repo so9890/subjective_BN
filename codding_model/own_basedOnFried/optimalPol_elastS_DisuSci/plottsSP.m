@@ -1,7 +1,7 @@
 function []=plottsSP(list, symms, T, params)
 
 if ~isfile('figures/testfig')
-    mkdir(sprintf('figures/all_0505'));
+    mkdir(sprintf('figures/all_1705'));
 end
 % this script plots results
 
@@ -27,26 +27,26 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri'}, {listt.plot
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri});
  
 % read in results
-helper=load(sprintf('LF_BAU_spillovers%d_noskill0_sep0.mat', indic.spillovers));
+helper=load(sprintf('LF_BAU_spillovers%d_noskill0_sep1_etaa1.00.mat', indic.spillovers));
 bau=helper.LF_BAU';
-helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
-fb_lf=helper.LF_SIM';
-helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill0_sep0_gammac.mat', indic.spillovers));
+% helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
+% fb_lf=helper.LF_SIM';
+helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill0_sep1_etaa1.00.mat', indic.spillovers));
 sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill0_sep0_gammac.mat', indic.spillovers));
+helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill0_sep1_etaa1.00.mat', indic.spillovers));
 sp_not=helper.sp_all';
 % helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_not=helper.opt_all';
 % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
 % opt_t=helper.opt_all';
 % results without taus
-helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill0_notaul0_sep1_etaa1.00.mat', indic.spillovers, indic.taus));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill0_notaul0.mat', indic.spillovers, indic.taus));
+helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill0_notaul0_sep1_etaa1.00.mat', indic.spillovers, indic.taus));
 opt_t_notaus=helper.opt_all';
 
-RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+RES = containers.Map({'BAU', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+                        {bau,  sp_t, sp_not, opt_t_notaus, opt_not_notaus});
 
 %% results without skill heterogeneity
 % helper=load(sprintf('LF_BAU_spillovers%d_noskill1.mat', indic.spillovers));
@@ -110,7 +110,7 @@ for i =keys(RES)
     allvars= RES(ii);
     % SEF calculation 
     TableSWF_PV.FullModel(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(list.allvars=='SWF'),:)';
-
+end
 %% 
 fprintf('plotting %s',ii );
 for l =keys(lisst)
@@ -135,7 +135,7 @@ for l =keys(lisst)
         end
  
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/all_0505/%s_subplots_%s_spillover%d.png', ii, ll, indic.spillovers);
+        path=sprintf('figures/all_1705/%s_subplots_%s_spillover%d_etaa1_sep%d.png', ii, ll, indic.spillovers, indic.sep);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf

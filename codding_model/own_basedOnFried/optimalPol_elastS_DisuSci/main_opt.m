@@ -31,12 +31,13 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
-indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
+indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
-indic.sep =0; % ==1 if uses models with separate markets for scientists
+indic.sep =0;% ==1 if uses models with separate markets for scientists
 indic.dim=1; %==1 if uses diminishing returns to science
+% savedind=indic;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -45,7 +46,8 @@ indic.dim=1; %==1 if uses diminishing returns to science
 %          2) calibrates model to indirect params.
 if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
     fprintf('loading parameter values')
-    load(sprintf('params_spillovers%d.mat', indic.spillovers))
+    load(sprintf('params_spillovers%d.mat', indic.spillovers),...
+        'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
@@ -68,20 +70,23 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
+ params(list.params=='etaa')=1.1;
+ Sparams.etaa=1.1;
 for i=[0]
     indic.noskill=i;
-if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep))
+if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
-    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep), 'LF_BAU')
+    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
     clearvars LF_SIM pol FVAL
 else
      fprintf('LF_BAU no skill %d exists', indic.noskill);
 end
 end
 %% Competitive equilibrium with policy optimal without spillovers
+% DOES NOT SOLVE WITH ETAA ==1
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
 taus=0;
 tauf=0;
@@ -92,15 +97,15 @@ pol=eval(symms.pol);
   %  if indic.noskill==0
   for i=[0]
       indic.noskill=i;
-  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep))
+  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
 %       indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep),'LF_SIM');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
         else
-     fprintf('LF_FB no skill %d exists', indic.noskill)
+     fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
   end
   end
 %     end
@@ -108,6 +113,14 @@ pol=eval(symms.pol);
 %         error('LF not solved under fb policy');
 %     end
 
+%%% Check swf value in LF
+disc=repmat(Sparams.betaa, 1,T);
+ expp=0:T-1;
+ vec_discount= disc.^expp;
+hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+sswfbau=vec_discount*hhel.LF_BAU( :, list.allvars=='SWF');
+hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep));
+sswf=vec_discount*hhblf.LF_SIM( :, list.allvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Sociel Planner allocation                             %%%
@@ -176,22 +189,37 @@ exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Symbolic approach to solve Ramsey problem %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.target=0;
+indic.target=1;
 indic.noskill=0;
-indic.sep=1;
+indic.sep=0;
 indic.target=0; 
+%- with etaa=1
+params(list.params=='etaa')=1;
 %1) get objective function 
-[OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201519, indic, Ems, symms);
+if indic.sep==1
+    [OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201519, indic, Ems, symms);
+else
+    [OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519, indic, Ems, symms);
+end
 %- x is a symbolic vector of choice variables! 
 
 %2) take derivatives and write resulting equations as function
 if indic.target==1
-    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target', list, indic, indexx);
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target_1905', list, indic, indexx);
 else
-    [indexx, model]=symmodel_eq_sep(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_sep_2', list, indic, indexx);
+    if indic.sep==0
+        [indexx, model]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_1905', list, indic, indexx);
+    else
+        [indexx, model]=symmodel_eq_sep(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_sep_1905', list, indic, indexx);
+    end
 end
+
 %3) solve model using fsolve
-RAM = solve_sym_sep(symms, list, Ftarget, indic);
+if indic.sep==1
+    RAM = solve_sym_sep(symms, list, Ftarget, indic);
+else
+    RAM = solve_sym(symms, list, Ftarget, indic);
+end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Comptute Implementing Policies and Outcomes        %%%

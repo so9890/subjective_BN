@@ -1,5 +1,9 @@
-function [c, ceq]=sym_fmincon(x)
+function [c, ceq]=sym_fmincon(x, indic)
 
 c=[];
-ceq=Ram_Model_notarget_testbeta_nokt_join(x);
+if indic.target==0
+    ceq=Ram_Model_notarget_1905(x);
+else
+    ceq=Ram_Model_target_1905(x);
+end
 end

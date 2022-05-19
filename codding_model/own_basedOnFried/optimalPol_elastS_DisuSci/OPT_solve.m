@@ -54,7 +54,9 @@ if indic.target==1
     end
     else
 
-     helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_dim%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep, indic.dim));
+     helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, Sparams.etaa));
+     helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
+
      sp_all=helper.sp_all;
 
      if ~isvarname('sp_all')
@@ -89,7 +91,7 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-    helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all');
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, 0));
          
     opt_all=helper.opt_all;
 
@@ -122,8 +124,13 @@ elseif indic.target==0
     else    
 
     %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
-      helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d.mat', indic.spillovers, indic.noskill));
-      LF_SIM=helper.LF_SIM';
+if etaa ~=1 
+helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep));
+  LF_SIM=helper.LF_SIM';
+else
+    helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+  LF_SIM=helper.LF_BAU';
+end
 
 
      x0 = zeros(nn*T,1);
@@ -242,11 +249,11 @@ elseif indic.target==0
        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-       %  [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+       [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])
             error('active set did not solve sufficiently well')
@@ -315,9 +322,9 @@ helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.target==1
-    save(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all', 'Sparams')
 else
-    save(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all', 'Sparams')
 end
 
 end
