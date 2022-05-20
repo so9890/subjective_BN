@@ -5,9 +5,34 @@ function RAM = solve_sym(symms, list, Ftarget, indic, T, indexx, params)
 
 %- guess: use sp allocation as starting point
 if indic.target==0
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all', 'Sparams');
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover1_taus%d_noskill%d_notaul%d_sep0_etaa1.20.mat',  indic.taus, indic.noskill, indic.notaul), 'opt_all', 'Sparams');
+    helper= load('symbolic_notarget_solved_spillover0_1905_sep0_etaa0.79.mat');
+list.optall_nokts=list.optALL(~startsWith(list.optALL, 'KT_S'));
+   x0=symms.optALL;
+
+    x0(startsWith(list.optALL, 'hhf')) =helper.outt2(startsWith(list.optall_nokts, 'hhf')); % hhf; first period in LF is baseline
+    x0(startsWith(list.optALL, 'hhg')) =helper.outt2(startsWith(list.optall_nokts, 'hhg')); % hhg
+    x0(startsWith(list.optALL, 'hlf')) =helper.outt2(startsWith(list.optall_nokts, 'hlf')); % hlf
+    x0(startsWith(list.optALL, 'hlg')) =helper.outt2(startsWith(list.optall_nokts, 'hlg')); % hlg 
+    x0(startsWith(list.optALL, 'C'))   =helper.outt2(startsWith(list.optall_nokts, 'C'));   % C
+    x0(startsWith(list.optALL, 'F'))   =helper.outt2(startsWith(list.optall_nokts, 'F'));
+    
+    
+    x0(startsWith(list.optALL, 'G'))   =helper.outt2(startsWith(list.optall_nokts, 'G'));  % G
+    x0(startsWith(list.optALL, 'Af'))  =helper.outt2(startsWith(list.optall_nokts, 'Af'));  % Af
+    x0(startsWith(list.optALL, 'Ag'))  =helper.outt2(startsWith(list.optall_nokts, 'Ag')); % Ag
+    x0(startsWith(list.optALL, 'An'))  =helper.outt2(startsWith(list.optall_nokts, 'An'));  % An
+    x0(startsWith(list.optALL, 'HL'))  =helper.outt2(startsWith(list.optall_nokts, 'HL'));  % hl
+    x0(startsWith(list.optALL, 'HH'))  =helper.outt2(startsWith(list.optall_nokts, 'HH'));  % hh
+    x0(startsWith(list.optALL, 'S'))   =helper.outt2(startsWith(list.optall_nokts, 'S')); % hh
+    nm= sum(startsWith(list.optsym, 'mu_'));
+    nkt= sum(startsWith(list.optsym, 'KT_'));
+    x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
+    x0(startsWith(list.optALL, 'mu_target')) = 100;
+    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1); 
+    guess_trans=eval(x0);
 else
-    helper= load('OPT_target_active_set_0505_spillover1_taus0_noskill0_notaul0_alt.mat');
+    helper= load('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa1.00.mat');
 end
     opt_all=helper.opt_all;
     x0=symms.optALL;
@@ -33,10 +58,10 @@ end
 
     % number of multipliers
     nm= sum(startsWith(list.optsym, 'mu_'));
-    %nkt= sum(startsWith(list.optsym, 'KT_'));
+    nkt= sum(startsWith(list.optsym, 'KT_'));
     x0(startsWith(list.optALL, 'mu_'))       = ones(nm*T,1);   % lagraneg multipliers (for emission target updated later)
     x0(startsWith(list.optALL, 'mu_target')) = 100;
-    %x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
+    x0(startsWith(list.optALL, 'KT_'))       = zeros(nkt*T,1);  
     
     x0=eval(x0);
     
@@ -74,11 +99,11 @@ guess_trans(contains(list.optALL, 'mu')|contains(list.optALL, 'KT'))=x0(contains
 %% -- test model and solve for optimal policy
 
 if indic.target ==1
-    model_trans = Ram_Model_target_1905(guess_trans);
-    modFF = @(x)Ram_Model_target_1905(x);
+    model_trans = Ram_Model_target_1905_KTS(guess_trans);
+    modFF = @(x)Ram_Model_target_1905_KTS(x);
 else
-    model_trans = Ram_Model_notarget_1905(guess_trans);
-    modFF = @(x)Ram_Model_notarget_1905(x);
+    model_trans =Ram_Model_notarget_1905_KTS(guess_trans);
+    modFF = @(x)Ram_Model_notarget_1905_KTS(x);
 end
 
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter', 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
@@ -86,7 +111,7 @@ options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10
 [outt, fval, exitflag] = fsolve(modFF, guess_trans, options);
 options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 [outt2, fval, exitflag] = fsolve(modFF, outt, options);
-save(sprintf('symbolic_notarget_solved_spillover%d_1905', indic.spillovers), 'outt2', 'Sparams')
+save(sprintf('symbolic_notarget_solved_spillover%d_1905_KTS', indic.spillovers), 'outt2', 'Sparams')
 % options = optimoptions('fsolve', 'MaxFunEvals',8e5, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter'); %, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
 % [x, fval, exitflag] = fsolve(modFF, outt2, options);
 % options = optimoptions('fsolve', 'MaxFunEvals',20e6, 'MaxIter', 3e5, 'TolFun', 10e-10, 'Display', 'Iter');%, 'Algorithm', 'levenberg-marquardt');%, );%, );%, );
@@ -107,6 +132,7 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 % ss=load(sprintf('opt_sym_as_1905_notarget_noskill%d_spillover%d_notaul%d', indic.noskill, indic.spillovers, indic.notaul))
 %% transform
 upbarH=params(list.params=='upbarH');
+x=outt2;
 %  x=zeros(size(list.optALL));
 %  for j =1:length(list.optALL)
 %      jj=list.optALL(j);
@@ -156,8 +182,8 @@ f=test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %  tt=floor(ss/T); 
 % save results
 if indic.target==1
-    save(sprintf('SYMOPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('SYMOPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')), 'opt_all', 'params')
 else
-    save(sprintf('SYMOPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d', indic.spillovers, indic.taus, indic.noskill, indic.notaul), 'opt_all')
+    save(sprintf('SYMOPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')), 'opt_all', 'params')
 end
 end

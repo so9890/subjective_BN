@@ -4,22 +4,22 @@ function [OB_RAM, list, symms, Ftarget]= model_ram( list, params, T, init201519,
 % prepare variables
 syms    mu_IMP mu_MarketS mu_NProd ...
         mu_OPThhg mu_OPThln mu_OPThlg mu_OPThhn mu_OPThh...
-        mu_LOMAg mu_LOMAn mu_LOMAf ... %KT_hh KT_hl KT_S...
+        mu_LOMAg mu_LOMAn mu_LOMAf KT_S... %KT_hh KT_hl KT_S...
         hhf hhg hlf hlg C F G Af Ag An ...
-        HL HH S mu_target real
+        HL HH S  real %mu_target
     
 % symms.optsym=[ mu_IMP mu_MarketS  mu_NProd mu_OPThhn mu_OPThh ... %KT_hh KT_hl KT_S ...
 %         mu_OPThhg mu_OPThln mu_OPThlg mu_LOMAg mu_LOMAn mu_LOMAf...
 %         hhf hhg hlf hlg C F G Af Ag An HL HH S]; % dropped: mu_wageG
 %       
 
-symms.optsym=[ mu_IMP mu_MarketS  mu_NProd mu_OPThh ... %KT_hh KT_hl KT_S ...
+symms.optsym=[ mu_IMP mu_MarketS  mu_NProd mu_OPThh KT_S ... %KT_hh KT_hl KT_S ...
               mu_OPThhg mu_OPThln mu_OPThlg mu_OPThhn mu_LOMAg mu_LOMAf mu_LOMAn...
               hhf hhg hlf hlg C F G Af Ag An HL HH S]; % dropped: mu_wageG
       
-if indic.target== 1
-    symms.optsym=[symms.optsym mu_target];
-end
+% if indic.target== 1
+%     symms.optsym=[symms.optsym mu_target];
+% end
 list.optsym=string(symms.optsym);
     
 % create symbolic variables
@@ -80,9 +80,9 @@ read_in_SYMModel;
 
 
 Ftarget = (Ems(1:T)'+deltaa)/omegaa;
-Target  = Ftarget-F; % emission target only enters constraints if indic.target==1 see below
-KTHH    = upbarH-hh;
-KTHL    = upbarH-hl;
+% Target  = Ftarget-F; % emission target only enters constraints if indic.target==1 see below
+% KTHH    = upbarH-hh;
+% KTHL    = upbarH-hl;
 KTS     = upbarH-S;
  %% objective function 
  OB_RAM=vec_discount*(SWF)...
@@ -90,7 +90,7 @@ KTS     = upbarH-S;
          - mu_LOMAf.*LOMAf- mu_LOMAn.*LOMAn- mu_LOMAg.*LOMAg...
          - mu_NProd.*NProd-mu_OPThhn.*OPThhn...
          - mu_OPThhg.*OPThhg -mu_OPThln.*OPThln...
-         - mu_OPThlg.*OPThlg- mu_OPThh.*OPThh);% - KT_hl.*KTHL- KT_hh.*KTHH- KT_S.*KTS);
+         - mu_OPThlg.*OPThlg- mu_OPThh.*OPThh-KT_S.*KTS);% - KT_hl.*KTHL- KT_hh.*KTHH- );
 % OB_RAM=vec_discount*(SWF)...
 %         + vec_discount*(-mu_IMP.*IMP- mu_MarketS.*MarketS...
 %         - mu_LOMAf.*LOMAf- mu_LOMAg.*LOMAg- mu_LOMAn.*LOMAn...
@@ -98,7 +98,7 @@ KTS     = upbarH-S;
 %         - mu_OPTLn.*OPTLn- mu_OPTLg.*OPTLg...
 %         - mu_OPThh.*OPThh);% - KT_hl.*KTHL- KT_hh.*KTHH- KT_S.*KTS);
 
-if indic.target==1
-    OB_RAM=OB_RAM-sum(mu_target.*Target);
-end
+% if indic.target==1
+%     OB_RAM=OB_RAM-sum(mu_target.*Target);
+% end
 end

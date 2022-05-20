@@ -43,8 +43,8 @@ end
     [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_sep(x, list, params, T, init, indic);
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
     else
 %         fprintf('using noskill aux vars')
         [xn,xf,xg,Ag, An, Af,...
@@ -97,16 +97,23 @@ end
          ceq(T*4+1:T*5) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
          ceq(T*5+1:T*6) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
          ceq(T*6+1:T*7) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
-         ceq(T*7+1:T*8) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
-         ceq(T*8+1:T*9) = (chiis)*sg.^sigmaas-wsg;
-        % add foc for one skill type (ratio respected in taul derivation) 
-         ceq(T*9+1:T*10) = (chiis)*sn.^sigmaas-wsn;
+           if indic.sep==0
+            ceq(T*7+1:T*8) = ws-wsf; % wage clearing
+            ceq(T*8+1:T*9) = ws-wsg;
+            ceq(T*9+1:T*10) = ws-wsn;
+           else
+             ceq(T*7+1:T*8) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
+             ceq(T*8+1:T*9) = (chiis)*sg.^sigmaas-wsg;
+             ceq(T*9+1:T*10) = (chiis)*sn.^sigmaas-wsn;
+           end
+           
          ceq(T*10+1:T*11)= zh*hh-(hhf+hhg+hhn);
          ceq(T*11+1:T*12)= (1-zh)*hl-(hlf+hlg + hln );
+         
          if indic.notaul==1
             ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
          end
-
+       
  elseif indic.noskill==1
      error('not yet updated without skills')
         ceq(1:T)       = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);

@@ -63,11 +63,11 @@ c = []; %  periods and 2 additional ones:
 c(1:T)=S-upbarH;
 % gammac is the bgp growth rate should be at least as high as average
 % growth in direct periods
-c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-
-if indic.target==1
-    c(2*T+1:T*3) = F-Ftarget;
-end
+% c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+% 
+% if indic.target==1
+%     c(2*T+1:T*3) = F-Ftarget;
+% end
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%

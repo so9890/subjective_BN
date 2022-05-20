@@ -19,12 +19,12 @@ end
 list.opt  = string(symms.opt); 
 
 nn= length(list.opt); % number of variables
-%%% Initial Guess %%%
+%% Initial Guess %%%
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
     if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-     helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul));
+     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa1.00.mat'));
      opt_all=helper.opt_all;
     
     x0 = zeros(nn*T,1);
@@ -77,7 +77,7 @@ if indic.target==1
          x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h')))   =sp_all(:,list.allvars=='hh');  % hh    
      end
      x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
-     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =sp_all(:,list.allvars=='F');
+     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =(0.999)*sp_all(:,list.allvars=='F');
      x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =sp_all(:,list.allvars=='G');   % G
      x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))) =sp_all(:,list.allvars=='sff');  % Af
      x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg');  % Ag
@@ -87,7 +87,9 @@ elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
     helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, 0));
-         
+    
+%     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
+             
     opt_all=helper.opt_all;
 
     x0 = zeros(nn*T,1);
@@ -120,7 +122,7 @@ elseif indic.target==0
 
     %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
      if etaa ~=1 
-        helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d.mat', indic.spillovers, indic.noskill, indic.sep));
+        helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
         LF_SIM=helper.LF_SIM';
      else
         helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
@@ -244,7 +246,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        save('1905_opt_target_sep1_etaa1')
+        save('1905_opt_target_sep1_etaa120')
 %           ll=load(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul0', indic.spillovers, indic.taus, indic.noskill))
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
@@ -255,10 +257,10 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-       save('opt_1905_sqp_etaa1_sep_notarget')
+       save('opt_1905_as_etaa079_sep1_notarget_notaul')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])
@@ -300,19 +302,13 @@ if indic.target==1
 end
 
 %% save results
-if indic.taus==1 % with taus
-[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
-            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, ws, taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, wsgtil, S]= OPT_aux_vars(out_trans, list, params, T, init201519, indic);
-else
+
     if indic.noskill==0
     [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_sep(out_trans, list, params, T, init201519, indic);
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn,ws,  tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
      else
         [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -322,9 +318,7 @@ else
             wlf=w; wlg =w; wln=w; wh=w; wl=w; hh=h; hl=h; 
             hhf=zeros(size(pn));hhg=zeros(size(pn));hhn=zeros(size(pn));hlf=zeros(size(pn));hlg=zeros(size(pn));hln=zeros(size(pn));
     end
-    taus = zeros(size(pn));
-
-end
+taus = zeros(size(pn));
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
 gammasg = zeros(size(pn));
@@ -332,7 +326,11 @@ gammasf = zeros(size(pn));
 gammasn = zeros(size(pn));
 
 %%
-opt_all=eval(symms.sepallvars);
+if indic.sep==1
+    opt_all=eval(symms.sepallvars);
+else
+    opt_all=eval(symms.allvars);
+end
 
 % test if opt solution is a laissez faire solution 
 % function throws error if solution is not a solution to LF

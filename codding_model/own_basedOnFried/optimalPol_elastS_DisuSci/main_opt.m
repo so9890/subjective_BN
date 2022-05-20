@@ -35,7 +35,7 @@ indic.spillovers =1; % ==1 then there are positive spillover effects of scientis
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
-indic.sep =0;% ==1 if uses models with separate markets for scientists
+indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.dim=1; %==1 if uses diminishing returns to science
 % savedind=indic;
 %%
@@ -65,13 +65,18 @@ end
     symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars=string(symms.sepallvars);
 %%
+% update etaa if ==1
+
+%  params(list.params=='etaa')=1;
+%  Sparams.etaa=1;
+ 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: BAU Simulation        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
- params(list.params=='etaa')=1.1;
- Sparams.etaa=1.1;
+ 
 for i=[0]
     indic.noskill=i;
 if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
@@ -88,6 +93,7 @@ end
 %% Competitive equilibrium with policy optimal without spillovers
 % DOES NOT SOLVE WITH ETAA ==1
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
+% if Sparams.etaa~=1
 taus=0;
 tauf=0;
 taul=0;
@@ -108,19 +114,16 @@ pol=eval(symms.pol);
      fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
   end
   end
-%     end
-%     if pol~=polLF
-%         error('LF not solved under fb policy');
-%     end
 
+% end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);
  expp=0:T-1;
  vec_discount= disc.^expp;
 hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
-sswfbau=vec_discount*hhel.LF_BAU( :, list.allvars=='SWF');
-hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d', indic.spillovers, indic.noskill, indic.sep));
-sswf=vec_discount*hhblf.LF_SIM( :, list.allvars=='SWF');
+sswfbau=vec_discount*hhel.LF_BAU( :, list.sepallvars=='SWF');
+hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Sociel Planner allocation                             %%%
@@ -153,19 +156,19 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.allvars=='SWF');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.notaul=0; % ==0 if labour income tax is available
-indic.sep =0;
+indic.notaul=1; % ==0 if labour income tax is available
+indic.sep =1;
 for i=1
      indic.noskill=i;
      if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
          indic.target=1;
-         [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+         [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
      else 
         fprintf('OPT solution with target, noskill%d exists', indic.noskill);
      end
-    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+    if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')))
         indic.target=0;
-        [symms, list, opt_all]= OPT_solve(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+        [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
     else 
        fprintf('OPT solution without target, noskill%d exists', indic.noskill);
     end
@@ -194,7 +197,9 @@ indic.noskill=0;
 indic.sep=0;
 indic.target=0; 
 %- with etaa=1
-params(list.params=='etaa')=1;
+% params(list.params=='etaa')=1;
+% Sparams.etaa=params(list.params=='etaa');
+
 %1) get objective function 
 if indic.sep==1
     [OB_RAM, list, symms, Ftarget]= model_ram_sep( list, params, T, init201519, indic, Ems, symms);
@@ -205,10 +210,10 @@ end
 
 %2) take derivatives and write resulting equations as function
 if indic.target==1
-    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target_1905', list, indic, indexx);
+    [indexx, model, list]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_target_1905_KTS', list, indic, indexx);
 else
     if indic.sep==0
-        [indexx, model]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_1905', list, indic, indexx);
+        [indexx, model]=symmodel_eq(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_1905_KTS', list, indic, indexx);
     else
         [indexx, model]=symmodel_eq_sep(OB_RAM, symms.optALL, params,  Ftarget, 'Ram_Model_notarget_sep_1905', list, indic, indexx);
     end
