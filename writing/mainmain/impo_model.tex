@@ -1,0 +1,114 @@
+
+\section{Model}
+Labour demand by the green and fossil sector read
+\begin{align*}
+w=(p_f(1-\tau_f))^{\frac{1}{1-\alpha_f}}(1-\alpha_f)\alpha_f^{\frac{\alpha_f}{1-\alpha_f}}A_f
+\end{align*}
+
+
+\section{Model}
+This section presents the model which builds on \cite{Fried2018ClimateAnalysis}. 
+The demand side behaves as if there was a representative family. The representative household provides two skills: high and low which are used in different shares for the production of the neutral, fossil and green intermediate good.
+Endogenous growths is modeled in form of directed technical change resulting from research. The government seeks to maximise utility of the representative household under the constraint of meeting an exogenous emission target. Emissions arise from the usage of fossil energy in the final good production. 
+I study the model for a fixed amount of periods as I do not want to make any assumption on steady growth due to the absolute constraint on fossil production. 
+
+\paragraph{Households}
+% the rep agent
+ The household chooses hours of high- and low-skilled workers and average consumption taking prices as given. The share of worker types is fixed with a lower share of high-skilled workers, $z_h$, resulting in a skill premium. The household's problem reads
+
+\begin{align}
+%U=
+\underset{\{\{C_{t}\}_{t=0}^{T}, \{h_{lt}\}_{t=0}^{T}, \{h_{ht}\}_{t=0}^{T}\}}{max}&
+\sum_{t=0}^{T}\beta^t u(C_{t}, h_{lt}, h_{ht})\\
+%U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
+s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
+z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau}+T_t\\
+\ & h_{ht}\leq \bar{H}_t\\
+\ & h_{lt}\leq \bar{H}_t
+\end{align}
+The government levies a tax on skill-level income. The tax schedule is characterised by  a scaling factor, $\lambda$, and a parameter determining the progressivity of the tax schedule, $\tau_{lt}$, \citep[compare, e.g.,][]{Heathcote2017OptimalFramework}. 
+
+\paragraph{Production}
+Production separates into final good production, energy production, intermediate good production, and the production of machines and the intermediate labour input good. 
+
+The final good producing sector is perfectly competitive combining the neutral and energy intermediate input goods according to:
+\begin{align}
+Y_t=\left[\delta_y^\frac{1}{\varepsilon_y}E_{t}^{\frac{\varepsilon_y-1}{\varepsilon_Y}}+(1-\delta_y)^\frac{1}{\varepsilon_y}N_{t}^{\frac{\varepsilon_y-1}{\varepsilon_y}}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}
+\end{align} 
+I take the composite good as the numeraire and define its price as $p_t=\left[\delta_y^?p_{Et}^{1-\varepsilon_y}+(1-\delta_y)p_{Nt}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}$.
+
+Energy producers perfectly competitively combine fossil and green energy to a composite energy good:
+\begin{align}
+E_t=\left[F_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right]^\frac{\varepsilon_e}{\varepsilon_e-1}.
+\end{align}
+The price of Energy is determined as  $p_{Et}= \left[p_{Ft}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_e}\right]^\frac{1}{{1-\varepsilon_e}}$.
+
+Intermediate goods, $F_t, G_t$, and $N_t$ are again produced by competitive sectors by use of a sector-specific labour input good and machines. The production function in sector $J$ reads
+\begin{align}
+&J_{t}= L_{jt}^{1-\alpha_j}\int_{0}^{1}A_{jit}^{1-\alpha_j}x_{jit}^{\alpha_j} di.
+\end{align}
+$A_{jit}$ determines the productivity of machine i in sector j at time t: $x_{jit}$.
+
+The labour input good is produced by a perfectly competitive and sector-specific labour industry according to: 
+\begin{align}
+L_{jt}=h_{hjt}^{\theta_j}h_{ljt}^{1-\theta_j}.
+\end{align}
+This additional intermediate sector allows to capture differences in skills by sector, especially in the fossil and green sector.
+
+A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. I assume that the costs to produce one machine, $\psi$, are homogeneous across firms. % It follows that $p_{ijt}=\psi$.
+
+
+\paragraph{Technological progress}
+Technological progress is exogenous:
+\begin{align}
+A_{ijt+1}=(1+\upsilon_{jt}) A_{ijt}\ for \ j \in\{c,d\}. 
+\end{align}
+
+\begin{comment}
+\paragraph{Impossibility of reaching target in laissez-faire with exogenous growth}
+\tr{Note that this is wrong! There is an option for the gov to affect inflation which then redirects demand.}
+Note that with exogenous growth in each sector there is no possibility for the government to stop emissions from growing, since production of the dirty good is essential for the consumption good (no perfect substitution: $\varepsilon<\infty$). To meet the emission target, the government either needs to affect the growth rate in the economy; i.e., $\upsilon_j$ is a choice variable, or work and consumption need to be set to zero; or the emission target has to be defined in relative terms. The latter possibility contradicts the Paris Agreement which is concerned with absolute emissions.  
+I therefore assume, that the government can change the growth rate.
+
+The government chooses the growth rate in each sector, taking into account that research is constrained by an exogenous  amount of scientists
+\begin{align}
+\upsilon_{ct}+\upsilon_{dt}\leq\Upsilon
+\end{align}
+\end{comment} 
+  
+\paragraph{Government}
+
+The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established distortionary labour taxes are available. The planner solves:
+
+\begin{align*}
+\underset{\{\tau_{t}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
+s.t.\ %& (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+& (1)\ \kappa Y_{nt} -\delta \leq E_t \  \forall \ t\geq 0\hspace{3mm} \text{(emission target)}\\
+& (2)\ (w_{ht}h_{ht}+w_{lt}h_{lt})-\lambda_t (w_{ht}h_{ht}+w_{lt}h_{lt})^{1-\tau_{t}} = G_t\hspace{3mm} \text{(gov. budget)}\\
+%& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
+& (2)\ \text{behaviour of firms and households}\\
+& (3)\ \text{feasibility}
+\end{align*}
+
+$E_t$ are flow emissions per year.  The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors.  For simplicity, I assume that the regeneration rate is constant. $\kappa$ determines greenhouse-gas emission in CO2 equivalents caused by production. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
+%Hence, under the emission target it has to hold that $Y_{nt}=\frac{\delta+E_t}{\kappa}$ assuming that the analysis starts in 2020.
+The government generates revenues from taxing labour income and redistributes to run a balanced budget. 
+
+
+\paragraph{Markets}
+Three markets are modelled explicitly: a market for final goods, and one for each type of skill.
+\begin{align*}
+\text{final good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)+ G_t\\
+%\end{align*}
+% %I study two cases one with full disposal, i.e., $\iota=0$, and one without $\iota=1$. In the first scenario, the price of the final good is determined by the market clearing condition as Walras' law does not hold. 
+%\begin{align*}
+\text{high skill:}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
+\text{low skill:}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}.
+\end{align*}
+
+
+
+%\section{Results}
+%\subsection{Balanced Growth path}
+
+
