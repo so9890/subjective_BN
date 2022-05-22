@@ -37,8 +37,11 @@ else
     Lf     = exp(x(list.choice=='Lf'));
 end
 
-
+if indic.BN==0
  C      = exp(x(list.choice=='C'));
+else
+  C      =B/(1+exp(x(list.choice=='C')));
+end
  F      = exp(x(list.choice=='F'));
  G      = exp(x(list.choice=='G'));
  Af     = exp(x(list.choice=='Af'));
@@ -80,8 +83,14 @@ else
     SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;  
 end
-muu      = C.^(-thetaa); % same equation in case thetaa == 1
-E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+
+if indic.BN==0
+    muu   = C.^(-thetaa); % same equation in case thetaa == 1
+else
+    muu   = -(C-B).^(zetaa-1);
+end
+    
+    E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
 N       =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 

@@ -37,26 +37,27 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri'}, {listt.plot
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri});
  
 %% read in results
-helper=load(sprintf('LF_BAU_spillovers0_noskill0_sep1_etaa1.00.mat'));
+etaa=0.79;
+helper=load(sprintf('LF_BAU_spillovers0_noskill0_sep1_etaa%.2f.mat', etaa));
 bau=helper.LF_BAU';
 % helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
 % fb_lf=helper.LF_SIM';
-helper=load(sprintf('SP_target_active_set_1705_spillover0_noskill0_sep1_etaa1.00.mat'));
+helper=load(sprintf('SP_target_active_set_1705_spillover0_noskill0_sep1_etaa%.2f.mat', etaa));
 sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_active_set_1705_spillover0_noskill0_sep1_etaa1.00.mat'));
+helper=load(sprintf('SP_notarget_active_set_1705_spillover0_noskill0_sep1_etaa%.2f.mat', etaa));
 sp_not=helper.sp_all';
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa1.00.mat'));
+helper=load(sprintf('OPT_notarget_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa%.2f.mat', etaa));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa1.00.mat'));
+helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa%.2f.mat', etaa));
 opt_t_notaus=helper.opt_all';
 
 RES = containers.Map({'BAU', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                         {bau,  sp_t, sp_not, opt_t_notaus, opt_not_notaus});
 
 %- results without taul
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover0_taus0_noskill0_notaul1_sep1_etaa1.00.mat'));
+helper=load(sprintf('OPT_notarget_active_set_1905_spillover0_taus0_noskill0_notaul1_sep1_etaa%.2f.mat', etaa));
 opt_not_notaus_notaul=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul1_sep1_etaa1.00.mat'));
+helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul1_sep1_etaa%.2f.mat', etaa));
 opt_t_notaus_notaul=helper.opt_all';
 
 
@@ -133,7 +134,7 @@ for i =keys(RES)
     % SWF calculation 
     TableSWF_PV.FullModel(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)';
 end
- save('Table_SWF_etaa1', 'TableSWF_PV');
+ save(sprintf('Table_SWF_etaa%.2f', etaa), 'TableSWF_PV');
 
 for i =keys(RES_spill)
     varlist=list.allvars;
@@ -145,15 +146,14 @@ end
  save('Table_SWF_etaa1.20', 'TableSWF_PV_spill');
  
 %% plot: Subplots
-for i =keys(RES_spill)
+for i =keys(RES)
     %-- carefully update variable list (separate or no separate markets);
     %   and the value of etaa
-    varlist=list.allvars;
-    etaa = 1.2;
-    indic.sep=0;
+    varlist=list.sepallvars;
+    indic.sep=1;
     %- loop
     ii=string(i);
-    allvars= RES_spill(ii);
+    allvars= RES(ii);
 
 %% 
 fprintf('plotting %s',ii );

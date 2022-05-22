@@ -31,13 +31,15 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
-indic.spillovers =1; % ==1 then there are positive spillover effects of scientists within sectors! 
+indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
-indic.dim=1; %==1 if uses diminishing returns to science
+indic.BN = 1; %==1 if uses  model with subjective basic needs
+indic.ineq = 1; %== 1 if uses model with inequality: 2 households and with different skills
 % savedind=indic;
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -61,9 +63,17 @@ end
     symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice=string(symms.sepchoice);
     
+    %- allvars includes inequality!
     symms.sepallvars=symms.allvars(list.allvars~='ws');
     symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars=string(symms.sepallvars);
+
+    %- with inequality and sep
+    symms.sepchoice_ineq=symms.choice_ineq(list.choice_ineq~='S'&list.choice_ineq~='ws'& list.choice_ineq~='gammas');
+    syms wsg wsn wsf gammasg gammasf gammasn real
+    symms.sepchoice_ineq=[symms.sepchoice_ineq wsg wsn wsf gammasg gammasf gammasn];
+    list.sepchoice_ineq=string(symms.sepchoice_ineq);
+    
 %%
 % update etaa if ==1
 
@@ -79,17 +89,23 @@ end
  
 for i=[0]
     indic.noskill=i;
-if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
+if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, params(list.params=='etaa')))
+    if indic.ineq==0
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
 %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
     [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
-    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+    else
+            [LF_SIM, pol, FVAL] = solve_LF_nows_ineq(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+
+    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
     clearvars LF_SIM pol FVAL
-else
+end
      fprintf('LF_BAU no skill %d exists', indic.noskill);
 end
 end
+
+%- version with inequality
 %% Competitive equilibrium with policy optimal without spillovers
 % DOES NOT SOLVE WITH ETAA ==1
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
@@ -103,12 +119,12 @@ pol=eval(symms.pol);
   %  if indic.noskill==0
   for i=[0]
       indic.noskill=i;
-  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
+  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %       indic.noskill=1;
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
         else
      fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
@@ -120,9 +136,9 @@ pol=eval(symms.pol);
 disc=repmat(Sparams.betaa, 1,T);
  expp=0:T-1;
  vec_discount= disc.^expp;
-hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
 sswfbau=vec_discount*hhel.LF_BAU( :, list.sepallvars=='SWF');
-hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
 sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

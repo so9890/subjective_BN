@@ -29,9 +29,9 @@ list.calib3 =string(symms.calib3);
 
 %- all variables: to save base year variables!
 syms muu chii hhf hhg hhn hln hlf hlg C F G N Y E Af Ag An hl hh sff sg sn ...
-    wh wl pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A...
+    wh wl pg pn pee pf gammalh gammall wlg wln wlf xn xg xf SGov Emnet A Ch Cl...
      tauf taus taul lambdaa Ln Lg Lf SWF S gammas real
-symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, F, G, N, Y, E, Af, Ag, An, ...
+symms.allvars= [muu, hhf, hhg, hhn, hln, hlf, hlg, C, Ch, Cl, F, G, N, Y, E, Af, Ag, An, ...
     hl, hh,  sff, sg, sn, wh, wl, ws, pg, pn, pee, pf,  wlg, wln, wlf, xn, xg, xf, ...
     gammalh, gammall, SGov, Emnet, A, tauf, taus, taul, lambdaa, Ln, Lg, Lf, SWF, S ];
 list.allvars  = string(symms.allvars);
@@ -49,6 +49,19 @@ indexxLF.oneab = boolean(zeros(size(list.choice)));
 indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='S')=1;
 indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammas'&list.choice~='gammall'& list.choice~='gammalh'& list.choice~='S' )=1;
 indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammas' )=1;
+
+%- variables for version with inequality
+symms.choice_ineq=[symms.choice(list.choice~='C'), Ch, Cl];
+list.choice_ineq =string(symms.choice_ineq);
+
+indexxLF_ineq.lab = boolean(zeros(size(list.choice_ineq)));
+indexxLF_ineq.exp = boolean(zeros(size(list.choice_ineq)));
+indexxLF_ineq.sqr = boolean(zeros(size(list.choice_ineq)));
+indexxLF_ineq.oneab = boolean(zeros(size(list.choice_ineq)));
+
+indexxLF_ineq.lab(list.choice_ineq=='hl'| list.choice_ineq=='hh'| list.choice_ineq=='S')=1;
+indexxLF_ineq.exp(list.choice_ineq~='hl'& list.choice_ineq~='hh' & list.choice_ineq~='gammas'&list.choice_ineq~='gammall'& list.choice_ineq~='gammalh'& list.choice_ineq~='S' )=1;
+indexxLF_ineq.sqr(list.choice_ineq=='gammall'| list.choice_ineq=='gammalh'| list.choice_ineq=='gammas' )=1;
 
 %- calibration productivity
 syms omegaa deltay real
@@ -76,7 +89,7 @@ indexxcalib.oneab(list.calib=='thetag'| list.calib=='thetan'| ...
     list.calib=='thetaf' | list.calib=='zh') = 1;
 
 % save indices to map 
-indexx = containers.Map({'LF', 'calib'}, {indexxLF, indexxcalib});
+indexx = containers.Map({'LF', 'calib', 'LF_ineq'}, {indexxLF, indexxcalib, indexxLF_ineq});
  %% First calibration reduced model: ONLY producers' side
 
 pn=log(1);

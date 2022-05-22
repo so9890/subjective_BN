@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_ineq(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
 % simulate economy under laissez faire
 
 % input: 
@@ -9,18 +9,21 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Spara
 % variables as ordered in list.allvars
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % prepare lists if using separate markets for scientists
 if indic.sep==1
     %- new initial point
-    x0=[x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'), ...
-        x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), 0,0,0];
+    x0=[x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'& list.choice~='C'), ...
+        x0LF(list.choice=='C'),x0LF(list.choice=='C'),x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), 0,0,0];
+    
     %- new set of choice variables
-    list.choice=list.sepchoice;
-    symms.choice=symms.sepchoice;
+    list.choice=list.sepchoice_ineq;
+    symms.choice=symms.sepchoice_ineq;
+    
     list.allvars=list.sepallvars;
     symms.allvars=symms.sepallvars;
     
-    %- new index for tranformation
+    %- new index for tranformation: sep and inequality
         
     indexxLF.lab = boolean(zeros(size(list.choice)));
     indexxLF.exp = boolean(zeros(size(list.choice)));
@@ -32,23 +35,26 @@ if indic.sep==1
         &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
     indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
     
-    indexx('LF_sep')=indexxLF;
+    indexx('LF_sep_ineq')=indexxLF;
     
     %-version with BN
-   indexxLF.BN = boolean(zeros(size(list.choice)));
+   indexxLF.BNh = boolean(zeros(size(list.choice)));
+   indexxLF.BNl = boolean(zeros(size(list.choice)));
+
    indexxLF.exp = boolean(zeros(size(list.choice)));
 
-    indexxLF.exp(list.choice~='C' & list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+    indexxLF.exp(list.choice~='Cl' &list.choice~='Ch' & list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
         &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
 
-    indexxLF.BN(list.choice=='C')=1;
-    indexx('LF_sep_BN')=indexxLF;
+    indexxLF.BNh(list.choice=='Ch')=1;
+    indexxLF.BNl(list.choice=='Cl')=1;
+    indexx('LF_sep_BN_ineq')=indexxLF;
 
 else
-    x0      = x0LF;
+    x0      = [x0LF(list.choice~='C'), x0LF(list.choice=='C'),x0LF(list.choice=='C')];
 end
 
-% initialise stuff
+%% initialise stuff
 %-- to save results
 % symms.allvars=[symms.allvars, gammasn, gammasg, gammasf];
 % list.allvars=string(symms.allvars);
@@ -79,7 +85,7 @@ if indic.noskill==1
     indexxLF.lab( list.choice=='h' | list.choice=='S')=1;
     indexxLF.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
     indexxLF.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
-    indexx('LF_noskill')=indexxLF;
+    indexx('LF_noskill_ineq')=indexxLF;
 end
 
 
@@ -89,16 +95,16 @@ while t<=T+1 % because first iteration is base year
     %-- index for transformation 
     if indic.noskill==0
         if indic.sep==0
-            guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
+            guess_trans=trans_guess(indexx('LF_ineq'), x0, params, list.params);
         else
             if indic.BN==0
-               guess_trans=trans_guess(indexx('LF_sep'), x0, params, list.params);
+               guess_trans=trans_guess(indexx('LF_sep_ineq'), x0, params, list.params);
             else
-               guess_trans=trans_guess(indexx('LF_sep_BN'), x0, params, list.params);
+               guess_trans=trans_guess(indexx('LF_sep_BN_ineq'), x0, params, list.params);
             end
         end
     else
-        guess_trans=trans_guess(indexx('LF_noskill'), x0, params, list.params);
+        guess_trans=trans_guess(indexx('LF_noskill_ineq'), x0, params, list.params);
     end
     % test
     if indic.sep==0

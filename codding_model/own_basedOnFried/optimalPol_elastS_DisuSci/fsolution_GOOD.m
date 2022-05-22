@@ -99,14 +99,19 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +tauf.*pf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
 
+
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);
 elseif thetaa==1
  Utilcon = log(C);
 end
+
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
  SWF = Utilcon-Utillab;
 
+% placeholder inequality
+Cl=C;
+Ch=C;
 % save
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);
 Sall=cell2struct(num2cell(eval(symms.allvars)), cell_par, 2);

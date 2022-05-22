@@ -32,7 +32,11 @@ else
 
 end
 
+if indic.BN==0
  C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+else
+ C     = B./(1+exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T)));
+end
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
@@ -59,7 +63,11 @@ end
 
 % auxiliary variables 
 
-muu = C.^(-thetaa);
+if indic.BN==0
+    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+else
+    muu =-(C-B).^(zetaa-1);
+end
 E  = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1)); 
 N  =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
 Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1));
@@ -90,11 +98,16 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 Emnet     = omegaa.*F-deltaa; % net emissions
 
 % utility
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+     Utilcon = -(C-B).^(zetaa)./zetaa;
 end
+
 if indic.noskill==0
      Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 else

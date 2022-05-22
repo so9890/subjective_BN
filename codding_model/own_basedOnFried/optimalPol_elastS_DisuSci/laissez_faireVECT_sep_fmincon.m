@@ -38,7 +38,11 @@ else
 end
 
  
+if indic.BN==0
  C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+else
+ C     = B./(1+exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T)));
+end
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
@@ -82,8 +86,11 @@ else
     SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;
 end
-
-muu      = C.^(-thetaa); % same equation in case thetaa == 1
+if indic.BN==0
+    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+else
+    muu =-(C-B).^(zetaa-1);
+end
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
         
             % subsidies and profits and wages scientists cancel

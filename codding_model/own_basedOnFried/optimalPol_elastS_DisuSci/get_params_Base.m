@@ -49,7 +49,11 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      upbS ...       % upper bound scientists
      Af0 ...        % initial technology level fossil
      Ag0 ...        % initial technology level green
-     An0 ...        % initial technology level neutral 
+     An0 ...        % initial technology level neutral
+     B ...          % subjective basic needs
+     Bh ...         % subjective BN high skilled
+     Bl ...         % subjective BN low skilled
+     zetaa ...      % couverture utility with subjective basic needs
      real 
 %      phis ...       % cost of scientists fixed
    
@@ -62,7 +66,7 @@ syms taul ...       % income tax progressivity
  
 symms.params = [sigmaa,sigmaas, chiis, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
                 thetaf, thetan, thetag, eppsy, eppse, deltay, upbS, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa];   
+                gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa, B, Bh, Bl, zetaa];   
 list.params  = string(symms.params);
 
 symms.init   = [Af0, An0, Ag0];
@@ -74,20 +78,25 @@ list.pol      = string(symms.pol);
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
                 eppsy, eppse, sigmaas, upbS, ...
-                etaa, phii,  rhof, rhon, rhog, deltaa];   
+                etaa, phii,  rhof, rhon, rhog, deltaa, B, Bl, Bh, zetaa];   
 list.paramsdir  = string(symms.paramsdir);
 
 symms.poldir     = [taul, taus, tauf];
 list.poldir      = string(symms.poldir);
 %% Calibration 
+B=3; % big enough since output is normalised to 1, so that consumption is below B
+Bh= 3;
+Bl=3; 
 
 sigmaa   = 1/0.75;      % from Chetty et al 
 sigmaas  = sigmaa; 
+
 if indic.util== 0
     thetaa   = 1;
 else
     thetaa   = 2; % look up in Boppart
 end
+zetaa = 2; % in this case, thetaa needs to be even! 
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
 upbarH     = 1;

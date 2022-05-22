@@ -21,6 +21,9 @@ end
 if indic.target==1
  x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)));
 end
+if indic.BN==1
+ x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)   = B./(1+exp(y((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
+end
 
 % variables
 if indic.noskill==0

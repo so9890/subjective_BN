@@ -22,6 +22,10 @@ if indic.target==1
     x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T) = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)));
 end
 
+if indic.BN==1
+   x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T) = B./(1+exp(y((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
+end
+    
 if indic.noskill==0
    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -46,11 +50,16 @@ end
  vec_discount= disc.^expp;
 
 %- vector of utilities
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+     Utilcon = -(C-B).^(zetaa)./zetaa;
 end
+
 if indic.noskill==0
      Utillab = chii*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 else

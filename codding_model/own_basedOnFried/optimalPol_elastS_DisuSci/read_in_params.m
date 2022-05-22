@@ -1,7 +1,10 @@
 thetaa = params(list.params=='thetaa');
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
-
+B = params(list.params=='B');
+Bl = params(list.params=='Bl');
+Bh = params(list.params=='Bh');
+zetaa = params(list.params=='zetaa');
 upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');
 zh  = params(list.params=='zh');

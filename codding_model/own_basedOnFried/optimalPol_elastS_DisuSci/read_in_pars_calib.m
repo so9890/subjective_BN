@@ -1,11 +1,17 @@
 % params
-betaa = paramss(list.paramsdir=='betaa');
-thetaa = paramss(list.paramsdir=='thetaa');
-sigmaa = paramss(list.paramsdir=='sigmaa');
+betaa   = paramss(list.paramsdir=='betaa');
+thetaa  = paramss(list.paramsdir=='thetaa');
+sigmaa  = paramss(list.paramsdir=='sigmaa');
 upbarH  = paramss(list.paramsdir=='upbarH');
-S      = paramss(list.paramsdir=='S');
+S       = paramss(list.paramsdir=='S');
 sigmaas = paramss(list.paramsdir=='sigmaas');
-upbS   = paramss(list.paramsdir=='upbS');
+upbS    = paramss(list.paramsdir=='upbS');
+B       =  paramss(list.paramsdir=='B');
+
+Bl       =  paramss(list.paramsdir=='Bl');
+Bh       =  paramss(list.paramsdir=='Bh');
+zetaa   =  paramss(list.paramsdir=='zetaa');
+
 
 alphag = paramss(list.paramsdir=='alphag');
 alphaf = paramss(list.paramsdir=='alphaf');

@@ -55,6 +55,8 @@ sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
 sigmaas = Sparams.sigmaas;
 chiis = Sparams.chiis;
+B= Sparams.B;
+zetaa = Sparams.zetaa;
 
 eppse = Sparams.eppse;
 eppsy = Sparams.eppsy;
@@ -112,11 +114,16 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 Emnet     = omegaa*F-deltaa; % net emissions
 
 % utility
-if thetaa~=1
-    Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
-    Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+        Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+        Utilcon = log(C);
+    end
+else
+    Utilcon=-(C-B).^(zetaa)./(zetaa); 
 end
+
 if indic.noskill==0
      Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 else
@@ -136,7 +143,15 @@ end
 % test variables read in properly
 xx=eval(symms.choice);
 if indic.noskill==0
-    guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
+    if indic.sep==1
+        if indic.BN==0
+           guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
+        else
+           guess_trans=trans_guess(indexx('LF_sep_BN'), xx, params, list.params);
+        end
+    else
+       guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
+    end
 else
     guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
 end

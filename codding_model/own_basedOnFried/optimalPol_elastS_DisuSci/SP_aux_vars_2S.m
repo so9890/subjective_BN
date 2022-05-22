@@ -85,7 +85,12 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +tauf.*pf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-muu = C.^(-thetaa);
+
+if indic.BN==0
+    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+else
+    muu =-(C-B).^(zetaa-1);
+end
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
@@ -97,13 +102,17 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 %  here!, Assumption that research input sff is constant after period T
 gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
-% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
 % utility
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+     Utilcon = -(C-B).^(zetaa)./zetaa;
 end
+
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
  if indic.sep==0
         Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
