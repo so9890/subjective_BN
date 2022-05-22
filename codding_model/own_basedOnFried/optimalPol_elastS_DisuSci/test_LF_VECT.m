@@ -46,8 +46,11 @@ else
     Lg=y(list.allvars=='Lg', :)';
     
 end
-
-C=y(list.allvars=='C', :)';
+if indic.BN==0
+    C=y(list.allvars=='C', :)';
+else
+    C=log((params(list.params=='B')-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+end
 F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';
 Af=y(list.allvars=='Af', :)';
@@ -90,7 +93,7 @@ end
 % to examine stuff
 
  if max(abs(f))>1e-10
-     fprintf('LF function does not solve at 1e-9')
+     fprintf('LF function does not solve at 1e-10')
  else
      fprintf('Solution solves LF problem')
  end

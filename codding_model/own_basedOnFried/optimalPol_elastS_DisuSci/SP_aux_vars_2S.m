@@ -22,7 +22,13 @@ Af     = x((find(list.sp=='Af')-1)*T+1:find(list.sp=='Af')*T);
 Ag     = x((find(list.sp=='Ag')-1)*T+1:find(list.sp=='Ag')*T);
 An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
 
-C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+if indic.ineq==0
+    C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+else
+    Ch      = x((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T);
+    Cl      = x((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T);
+end
+
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
 sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
 sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
@@ -86,10 +92,20 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-if indic.BN==0
-    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+if indic.ineq==0
+    if indic.BN==0
+        muu      = C.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muu =-(C-B).^(zetaa-1);
+    end
 else
-    muu =-(C-B).^(zetaa-1);
+    if indic.BN==0
+        muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
+        muul      = Cl.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muul =-(Cl-Bl).^(zetaa-1);
+        muuh =-(Ch-Bh).^(zetaa-1);
+    end
 end
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
@@ -103,17 +119,31 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
 % utility
-if indic.BN==0
-    if thetaa~=1
-     Utilcon = (C.^(1-thetaa))./(1-thetaa);
-    elseif thetaa==1
-     Utilcon = log(C);
+if indic.ineq==0
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = (C.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = log(C);
+        end
+    else
+        Utilcon=-(C-B).^(zetaa)./(zetaa); 
     end
 else
-     Utilcon = -(C-B).^(zetaa)./zetaa;
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
+        end
+    else
+        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
+    end
+
 end
 
- Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+
+Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
  if indic.sep==0
         Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
  else

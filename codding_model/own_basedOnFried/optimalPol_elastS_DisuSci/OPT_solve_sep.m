@@ -19,12 +19,17 @@ end
 list.opt  = string(symms.opt); 
 
 nn= length(list.opt); % number of variables
+
+if indic.sep==1
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
+end
 %% Initial Guess %%%
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
     if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_etaa1.00.mat'));
+     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul%d_sep1_etaa%.2f.mat', indic.notaul, etaa));
      opt_all=helper.opt_all;
     
     x0 = zeros(nn*T,1);
@@ -85,8 +90,8 @@ if indic.target==1
   end  
 elseif indic.target==0
        
-    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, 0));
+    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, etaa))
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, etaa));
     
 %     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
              
@@ -205,7 +210,10 @@ if indic.target==1
     guess_trans(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))))./...
      x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))));
 end
-
+if indic.BN==1
+    guess_trans(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))=log((B-x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))))./...
+     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))));
+end
 lb=[];
 ub=[];
 
@@ -246,7 +254,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        save('1905_opt_target_sep1_etaa120')
+%         save('1905_opt_target_sep1_etaa120')
 %           ll=load(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul0', indic.spillovers, indic.taus, indic.noskill))
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
@@ -257,10 +265,10 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-       save('opt_1905_as_etaa079_sep1_notarget_notaul')
+%        ss=load('opt_1905_as_etaa079_sep1_notarget_notaul_BN1')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-12,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 %         ss=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus), 'x')
         if ~ismember(exitflag, [1,4,5])
@@ -300,7 +308,9 @@ end
 if indic.target==1
     out_trans((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
 end
-
+if indic.BN==1
+    out_trans((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)=B./(1+exp(x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+end
 %% save results
 
     if indic.noskill==0
@@ -328,6 +338,7 @@ gammasn = zeros(size(pn));
 %%
 if indic.sep==1
     opt_all=eval(symms.sepallvars);
+    
 else
     opt_all=eval(symms.allvars);
 end
@@ -338,9 +349,9 @@ helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.target==1
-    save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN,params(list.params=='etaa')), 'opt_all', 'Sparams')
 else
-    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, params(list.params=='etaa')), 'opt_all', 'Sparams')
 end
 
 end

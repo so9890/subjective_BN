@@ -4,10 +4,17 @@ read_in_params;
 
 if indic.sep==1
     %- new set of choice variables
-    list.choice=list.sepchoice;
-    symms.choice=symms.sepchoice;
-    list.allvars=list.sepallvars;
-    symms.allvars=symms.sepallvars;
+    if indic.ineq==0
+        list.choice=list.sepchoice;
+        symms.choice=symms.sepchoice;
+        list.allvars=list.sepallvars;
+        symms.allvars=symms.sepallvars;
+    else
+        list.choice=list.sepchoice_ineq;
+        symms.choice=symms.sepchoice_ineq;
+        list.allvars=list.sepallvars_ineq;
+        symms.allvars=symms.sepallvars_ineq;
+    end
 end
 
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
@@ -49,10 +56,20 @@ else
     Lg=y(list.allvars=='Lg', :)';
     
 end
-if indic.BN==0
-    C=y(list.allvars=='C', :)';
+if indic.ineq==0
+    if indic.BN==0
+        C=y(list.allvars=='C', :)';
+    else
+        C=log((params(list.params=='B')-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+    end
 else
-    C=log((params(list.params=='B')-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+    if indic.BN==0
+        Ch=y(list.allvars=='Ch', :)';
+        Cl=y(list.allvars=='Cl', :)';
+    else
+        Ch=log((params(list.params=='Bh')-varrs(list.allvars=='Ch', :))./(varrs(list.allvars=='Ch', :)))';
+        Cl=log((params(list.params=='Bl')-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
+    end
 end
 F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';

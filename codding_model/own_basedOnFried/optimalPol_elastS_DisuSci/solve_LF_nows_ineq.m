@@ -20,8 +20,8 @@ if indic.sep==1
     list.choice=list.sepchoice_ineq;
     symms.choice=symms.sepchoice_ineq;
     
-    list.allvars=list.sepallvars;
-    symms.allvars=symms.sepallvars;
+    list.allvars_ineq=list.sepallvars_ineq;
+    symms.allvars_ineq=symms.sepallvars_ineq;
     
     %- new index for tranformation: sep and inequality
         
@@ -58,7 +58,7 @@ end
 %-- to save results
 % symms.allvars=[symms.allvars, gammasn, gammasg, gammasf];
 % list.allvars=string(symms.allvars);
-LF_SIM=zeros(length(list.allvars),T); 
+LF_SIM=zeros(length(list.allvars_ineq),T); 
 FVAL  = zeros(T,1);
 
 %-- initialise values
@@ -141,15 +141,15 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
 
-    %- transform results to bounded variables
+%% - transform results to bounded variables
     if indic.noskill==0
         if indic.sep==0
-            LF=trans_allo_out(indexx('LF'), sol3, params, list.params);
+            LF=trans_allo_out(indexx('LF_ineq'), sol3, params, list.params);
         else
             if indic.BN==0
-                LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params);
+                LF=trans_allo_out(indexx('LF_sep_ineq'), sol3, params, list.params);
             else
-                LF=trans_allo_out(indexx('LF_sep_BN'), sol3, params, list.params);
+                LF=trans_allo_out(indexx('LF_sep_BN_ineq'), sol3, params, list.params);
             end
         end
      else

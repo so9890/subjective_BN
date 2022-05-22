@@ -33,7 +33,14 @@ end
 
 F=SLF.F;
 G=SLF.G;
-C=SLF.C;
+if indic.ineq==0
+    C=SLF.C;
+Cl=C;Ch=C;
+else
+    Cl=SLF.Cl;
+    Ch=SLF.Ch;
+C=Ch;
+end
 Af=SLF.Af;
 Ag=SLF.Ag;
 An=SLF.An;
@@ -56,6 +63,8 @@ chii = Sparams.chii;
 sigmaas = Sparams.sigmaas;
 chiis = Sparams.chiis;
 B= Sparams.B;
+Bl= Sparams.Bl;
+Bh= Sparams.Bh;
 zetaa = Sparams.zetaa;
 
 eppse = Sparams.eppse;
@@ -82,7 +91,6 @@ omegaa =Sparams.omegaa;
 
 % auxiliary variables 
 
-muu = C^(-thetaa);
 E  = (SLF.F^((eppse-1)/eppse)+SLF.G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
 N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good producers 
 Y = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
@@ -93,7 +101,25 @@ Cincome=Y-xn-xf-xg;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-muu     = C.^(-thetaa);
+if indic.ineq==0
+    if indic.BN==0
+        muu      = C.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muu      = -(C-B).^(zetaa-1);
+    end
+muhh=muu;
+muul=muu;
+else
+    if indic.BN==0
+        muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
+        muul      = Cl.^(-thetaa); % same equation in case thetaa == 1
+
+    else
+        muuh      = -(Ch-Bh).^(zetaa-1);
+        muul      = -(Cl-Bl).^(zetaa-1);
+    end
+muu=muuh;
+end
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
@@ -114,14 +140,27 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 Emnet     = omegaa*F-deltaa; % net emissions
 
 % utility
-if indic.BN==0
-    if thetaa~=1
-        Utilcon = (C.^(1-thetaa))./(1-thetaa);
-    elseif thetaa==1
-        Utilcon = log(C);
+if indic.ineq==0
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = (C.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = log(C);
+        end
+    else
+        Utilcon=-(C-B).^(zetaa)./(zetaa); 
     end
 else
-    Utilcon=-(C-B).^(zetaa)./(zetaa); 
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
+        end
+    else
+        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
+    end
+
 end
 
 if indic.noskill==0
@@ -134,7 +173,12 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-if abs(C-Cincome)>1e-10
+if indic.ineq==0
+    diff=C-Cincome;
+else
+    diff=zh.*Ch+(1-zh).*Cl-Cincome;
+end
+if max(abs(diff))>1e-10
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')
@@ -143,6 +187,8 @@ end
 % test variables read in properly
 xx=eval(symms.choice);
 if indic.noskill==0
+if indic.ineq==0
+
     if indic.sep==1
         if indic.BN==0
            guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
@@ -152,6 +198,18 @@ if indic.noskill==0
     else
        guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
     end
+else
+
+    if indic.sep==1
+        if indic.BN==0
+           guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
+        else
+           guess_trans=trans_guess(indexx('LF_sep_BN_ineq'), xx, params, list.params);
+        end
+    else
+       guess_trans=trans_guess(indexx('LF_ineq'), xx, params, list.params);
+    end
+end
 else
     guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
 end
@@ -164,6 +222,10 @@ else
 end
 
 % save stuff
-LF_t= eval(symms.allvars)';
+if indic.ineq==0
+    LF_t= eval(symms.allvars)';
+else
+    LF_t= eval(symms.allvars_ineq)';
+end
 end
  

@@ -21,10 +21,15 @@ end
 if indic.target==1
  x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T)));
 end
-if indic.BN==1
- x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)   = B./(1+exp(y((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
-end
 
+if indic.BN==1
+    if indic.ineq==0
+         x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)   = B./(1+exp(y((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
+    else
+         x((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T)   = Bh./(1+exp(y((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T)));
+         x((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T)   = Bl./(1+exp(y((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T)));
+    end
+end
 % variables
 if indic.noskill==0
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
@@ -62,7 +67,11 @@ end
 
 % equality constraints
 ceq =[];
-ceq(1:1*T)     = C - (Y-xn-xg-xf);
+if indic.ineq==0
+    ceq(1:1*T)     = C - (Y-xn-xg-xf);
+else
+    ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xn-xg-xf);
+end
 ceq(1*T+1:2*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
 ceq(2*T+1:3*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
 ceq(3*T+1:4*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);

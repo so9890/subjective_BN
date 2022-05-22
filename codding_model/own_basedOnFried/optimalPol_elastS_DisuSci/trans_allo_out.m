@@ -20,6 +20,12 @@ allo_trans(indexx.lab)=params(listt=='upbarH')./(1+exp(solution(indexx.lab)));
 if isfield(indexx, 'BN')
     allo_trans(indexx.BN)=params(listt=='B')./(1+exp(solution(indexx.BN)));
 end
+if isfield(indexx, 'BNh')
+    allo_trans(indexx.BNh)=params(listt=='Bh')./(1+exp(solution(indexx.BNh)));
+end
+if isfield(indexx, 'BNl')
+    allo_trans(indexx.BNl)=params(listt=='Bl')./(1+exp(solution(indexx.BNl)));
+end
 allo_trans(indexx.oneab)=1./(1+exp(solution(indexx.oneab)));
 
 end

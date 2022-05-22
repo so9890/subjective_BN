@@ -112,6 +112,8 @@ end
 % placeholder inequality
 Cl=C;
 Ch=C;
+muuh=muu;
+muul=muu;
 % save
 cell_par=arrayfun(@char, symms.allvars, 'uniform', 0);
 Sall=cell2struct(num2cell(eval(symms.allvars)), cell_par, 2);

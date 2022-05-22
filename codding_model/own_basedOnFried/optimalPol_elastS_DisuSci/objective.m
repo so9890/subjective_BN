@@ -37,6 +37,9 @@ end
 if indic.target==1
     x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
 end
+if indic.target==1
+    x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)   = B./(1+exp(y((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+end
 
 % variables
 if indic.noskill==0
@@ -75,11 +78,16 @@ end
  vec_discount= disc.^expp;
 
 %- vector of utilities
-if thetaa~=1
-    Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
-    Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+     Utilcon = -(C-B).^(zetaa)./zetaa;
 end
+
 
 if indic.noskill==0
     Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);

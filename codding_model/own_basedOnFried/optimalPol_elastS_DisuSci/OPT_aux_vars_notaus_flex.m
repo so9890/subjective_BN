@@ -60,7 +60,12 @@ Af_lag=Af_lag(1:end-1);
 An_lag=An_lag(1:end-1);
 Ag_lag=Ag_lag(1:end-1);
 
-muu = C.^(-thetaa); % same equation in case thetaa == 1
+if indic.BN==0
+    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+else
+    muu =-(C-B).^(zetaa-1);
+end
+
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
@@ -118,11 +123,16 @@ A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 
 % utility
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.BN==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+     Utilcon = -(C-B).^(zetaa)./zetaa;
 end
+
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
 if indic.sep==0

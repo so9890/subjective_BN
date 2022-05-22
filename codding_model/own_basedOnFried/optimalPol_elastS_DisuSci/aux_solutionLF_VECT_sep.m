@@ -32,10 +32,22 @@ else
 
 end
 
-if indic.BN==0
- C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+if indic.ineq==0
+    if indic.BN==0
+     C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+    else
+     C     = B./(1+exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T)));
+    end
+Ch=C; Cl=C; 
 else
- C     = B./(1+exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T)));
+    if indic.BN==0
+     Ch      = exp(x((find(list.test=='Ch')-1)*T+1:(find(list.test=='Ch'))*T));
+     Cl      = exp(x((find(list.test=='Cl')-1)*T+1:(find(list.test=='Cl'))*T));
+    else
+     Ch     = Bh./(1+exp(x((find(list.test=='Ch')-1)*T+1:(find(list.test=='Ch'))*T)));
+     Cl     = Bl./(1+exp(x((find(list.test=='Cl')-1)*T+1:(find(list.test=='Cl'))*T)));
+    end
+C=Ch;
 end
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
@@ -62,12 +74,25 @@ end
  lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
 
 % auxiliary variables 
-
-if indic.BN==0
-    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+if indic.ineq==0
+    if indic.BN==0
+        muu      = C.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muu =-(C-B).^(zetaa-1);
+    end
+muhh=muu;
+muul=muu;
 else
-    muu =-(C-B).^(zetaa-1);
+    if indic.BN==0
+        muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
+        muul      = Cl.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muul =-(Cl-Bl).^(zetaa-1);
+        muuh =-(Ch-Bh).^(zetaa-1);
+    end
+muu=muuh;
 end
+
 E  = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1)); 
 N  =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
 Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1));
@@ -98,15 +123,29 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 Emnet     = omegaa.*F-deltaa; % net emissions
 
 % utility
-if indic.BN==0
-    if thetaa~=1
-     Utilcon = (C.^(1-thetaa))./(1-thetaa);
-    elseif thetaa==1
-     Utilcon = log(C);
+if indic.ineq==0
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = (C.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = log(C);
+        end
+    else
+        Utilcon=-(C-B).^(zetaa)./(zetaa); 
     end
 else
-     Utilcon = -(C-B).^(zetaa)./zetaa;
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
+        end
+    else
+        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
+    end
+
 end
+
 
 if indic.noskill==0
      Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
@@ -118,7 +157,13 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-if max(abs(C-Cincome))>1e-10
+if indic.ineq==0
+    diff=C-Cincome;
+else
+    diff=zh.*Ch+(1-zh).*Cl-Cincome;
+end
+
+if max(abs(diff))>1e-10
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')

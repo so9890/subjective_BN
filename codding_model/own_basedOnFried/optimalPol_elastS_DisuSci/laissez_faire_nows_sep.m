@@ -37,10 +37,20 @@ else
     Lf     = exp(x(list.choice=='Lf'));
 end
 
-if indic.BN==0
- C      = exp(x(list.choice=='C'));
-else
-  C      =B/(1+exp(x(list.choice=='C')));
+if indic.ineq==0
+    if indic.BN==0
+      C      = exp(x(list.choice=='C'));
+    else
+      C      =B/(1+exp(x(list.choice=='C')));
+    end
+elseif indic.ineq==1
+    if indic.BN==0
+     Ch      = exp(x(list.choice=='Ch'));
+     Cl      = exp(x(list.choice=='Cl'));
+    else
+      Ch     =Bh/(1+exp(x(list.choice=='Ch')));
+      Cl     =Bl/(1+exp(x(list.choice=='Cl')));
+    end
 end
  F      = exp(x(list.choice=='F'));
  G      = exp(x(list.choice=='G'));
@@ -84,13 +94,24 @@ else
             +tauf.*pf.*F;  
 end
 
-if indic.BN==0
-    muu   = C.^(-thetaa); % same equation in case thetaa == 1
-else
-    muu   = -(C-B).^(zetaa-1);
+if indic.ineq==0
+    if indic.BN==0
+        muu   = C.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muu   = -(C-B).^(zetaa-1);
+    end
+elseif indic.ineq==1
+    if indic.BN==0
+        muuh   = Ch.^(-thetaa); % same equation in case thetaa == 1
+        muul   = Cl.^(-thetaa); % same equation in case thetaa == 1
+
+    else
+        muul   = -(Cl-Bl).^(zetaa-1);
+        muuh    = -(Ch-Bh).^(zetaa-1);
+    end
+
 end
-    
-    E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
 N       =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
@@ -108,15 +129,30 @@ q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 if indic.noskill==0
-    q=q+1;
-    f(q)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
-    %2
-    q=q+1;
-    f(q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
+    
+    if indic.ineq==0
+        q=q+1;
+        f(q)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
+        %2
+        q=q+1;
+        f(q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
+        %3- budget
+        q=q+1;
+        f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
 
-    %3- budget
-    q=q+1;
-    f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
+    else   
+        q=q+1;
+        f(q)= chii*hh.^(sigmaa+taul)- ((muuh.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh.*hh.^taul); %=> determines hh
+        %2
+        q=q+1;
+        f(q)= chii*hl.^(sigmaa+taul) - ((muul.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall.*hl.^taul); %=> determines hl
+    
+        %3- budget
+        q=q+1;
+        f(q) = lambdaa.*(wl.*hl).^(1-taul)+SGov-Cl; %=> determines C
+        q=q+1;
+        f(q) = lambdaa.*(wh.*hh).^(1-taul)+SGov-Ch;
+    end
 else
     q=q+1;
     f(q)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh

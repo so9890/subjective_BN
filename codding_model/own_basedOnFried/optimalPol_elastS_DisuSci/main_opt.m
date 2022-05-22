@@ -73,6 +73,11 @@ end
     syms wsg wsn wsf gammasg gammasf gammasn real
     symms.sepchoice_ineq=[symms.sepchoice_ineq wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice_ineq=string(symms.sepchoice_ineq);
+
+
+    symms.sepallvars_ineq=symms.allvars_ineq(list.allvars_ineq~='ws');
+    symms.sepallvars_ineq=[symms.sepallvars_ineq wsg wsn wsf gammasg gammasf gammasn]; 
+    list.sepallvars_ineq=string(symms.sepallvars_ineq);
     
 %%
 % update etaa if ==1
@@ -89,20 +94,21 @@ end
  
 for i=[0]
     indic.noskill=i;
-if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, params(list.params=='etaa')))
-    if indic.ineq==0
-    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-    helper.LF_SIM=LF_SIM;
-%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-    [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
-    else
+    if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, params(list.params=='etaa')))
+        if indic.ineq==0
+            [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+            helper.LF_SIM=LF_SIM;
+        %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+            [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
+        else
             [LF_SIM, pol, FVAL] = solve_LF_nows_ineq(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-
-    save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
-    clearvars LF_SIM pol FVAL
-end
+            helper.LF_SIM=LF_SIM;
+            [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
+        end
+        save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+        clearvars LF_SIM pol FVAL
+    end
      fprintf('LF_BAU no skill %d exists', indic.noskill);
-end
 end
 
 %- version with inequality
@@ -121,10 +127,14 @@ pol=eval(symms.pol);
       indic.noskill=i;
   if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %       indic.noskill=1;
+if indic.ineq==0
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+else
+        [LF_SIM, polLF, FVAL] =solve_LF_nows_ineq(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+end
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
         else
      fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
@@ -148,7 +158,7 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % indic.noskill=0;
         for i =0
             indic.noskill=i;
-            if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
+            if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
                 indic.target=1;
                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
@@ -172,7 +182,7 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.notaul=1; % ==0 if labour income tax is available
+indic.notaul=0; % ==0 if labour income tax is available
 indic.sep =1;
 for i=1
      indic.noskill=i;
