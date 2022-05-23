@@ -1,87 +1,156 @@
 \section{Calibration}\label{sec:calib}
-\paragraph{Sources data}
-\url{https://www.eia.gov/totalenergy/data/monthly/#prices}
+I calibrate the model to the US procreeding in three steps. First, I set certain parameter values in line with the literature, second, I calibrate the remaining variables requiring that equilibrium conditions hold. Finally, I calibrate parameters relating production, emissions and the emission target. Tables \ref{tab:calib} and \ref{tab:calib2} summarise the calibrated parameter values.
 
-Total energy data: \url{https://www.eia.gov/totalenergy/data/monthly/}
+In the first step, I draw from the calibration exercise performed by \cite{Fried2018ClimateAnalysis} to calibrate the parameters governing the research process, $\eta, \rho_f,\rho_n, \rho_g, \phi $, and production, $\varepsilon_e, \varepsilon_y, \alpha_f, \alpha_g, \alpha_n$.  Important for the present project, energy and the neutral intermediate good are complements, $\varepsilon_y=0.05$ and the labour share in the green sector is remarkably low: $\alpha_g=0.91$ \citep{Fried2018ClimateAnalysis}. The utility parameters, $\beta, \sigma$ are set to $0.984^5$ and $0.75$ following \cite{Barrage2019OptimalPolicy} and \cite{Chetty2011AreMargins}, respectively. The business as usula policy is set to $\tau_l=0.181, \tau_f=0$. The tax progressivity parameter is taken from \cite{Heathcote2017OptimalFramework}. 
 
-For data on skill and premium see references in 
-paper saved in data \citep{Slavik2020WagePremium}
+In the second step, I calibrate the weight on energy in final good production by matching the expenditure share on energy relative to GDP taken from the U.S. Energy Information Administration (EIA).\footnote{\ The data on energy was retrieved from \url{https://www.eia.gov/totalenergy/data/monthly/}
+ on April 06, 2022.}. The resulting weight on energy is $\delta_y=0.45$\footnote{\ Note that in difference to \cite{Fried2018ClimateAnalysis} I raise the weight on intermediate inputs in final production to the power $\frac{1}{\varepsilon_y}$, so that in the limit the function approaches the Leontief specification as $\varepsilon_y\rightarrow 0$ \citep{Herrendorf2014GrowthTransformation}.}. The data to match the high-skill share in labour production are taken from table 3 in \cite{Consoli2016DoCapital}. In particular, I derive from the information in \cite{Consoli2016DoCapital} the share of high-skill labour in the green sector and for the non-green sector. I also assume that within the non-green sector, i.e. sectors N and F in the model, $\theta_f=\theta_n$.  These three conditions determine $\theta_g=0.57$ and $\theta_f=\theta_n=0.42$. The share of high-skilled workers, $z_h$, is chosen to match a skill premium for the period 2005-2016 of $\frac{w_h}{w_l}=1.9$ following \cite{Slavik2020WagePremium}. The disutility of labour $\chi$ is set to match equilibrium average hours worked to average hours over the period from 2015-2019, 0.34, drawing from OECD data on annual average hours per worker worked. I normalise total economic time endowment per day to 1. The disutility of labour equals $\chi=10.02$. 
 
-The model is calibrated to parameter values common in the literature. I bestow more care on  calibrating the emission target. 
-I match emissions in the model to emission targets suggested in the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
-%How to determine the economy in 2050? Should the economy have reached a steady state? or should it be in a transitional path? Maybe no need to specify this...it will be a outcome. All I have to use is that for all years after 2050 net-emissions have to be zero. Whether the economy is on the transitional path or in a steady state is an outcome. 
-The IPCC prescribes net-zero emissions starting from 2050. In 2030 emissions should be between 25 and 30 GtCO2e per year.
+ To find the remaining variables which determine research, these are $\gamma \text{and} \chi_s$, I match an annual growth rate in the non-energy sector of 2\% following \cite{Fried2018ClimateAnalysis} and set total hours supplied by scientists to 0.34 as done for workers. As a result,  $\chi_s=0.032$ and $\gamma=0.042$. Initial productivity levels follow from normalising output in the base period to $y=1$ and matching the ratio of fossil to green energy utilisation over the years 2014-2019 which equals 7.33 according to the EIA. I find that $A_{n0}=4.3$, $A_{f0}=3350$, and $A_{g0}=95.4$ which refer to the period 2010-2014. The enormous difference in energy productivity levels follows from the low labour share in the green sector, $\alpha_g=0.09$ compared to $\alpha_f= 0.28$. 
+ 
+Information on emissions comes from the United States Environmental Protection Agency (EPA)\footnote{\ Retrieved on February 2, 2022 from\\ \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}. } In 2019, US greenhouse gas emissions amounted to 6,558 million metric tons of carbon dioxide equivalents; that is, 6.558Gt and to net-emissions of 5.7691Gt which amounts to a sink capacity of $\delta=0.7893$Gt in 2019, which I assume to be constant over the future periods considered.\footnote{\ This is a simplifying assumption. What is crucial qualitatively is the assumption that sinks are finite. Indeed, natural sinks, such as forests and moores, and carbon capture and storage (CCS) technologies rely on the use of land \citep{VanVuuren2018AlternativeTechnologies} which is, first, in limited supply. Second, the need of land for food production makes land even scarcer especially in light of a growing population.} %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO2 equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
+The most recent IPCC report \tr{(CITE)} suggests a reduction of emissions in the 2030s by 50\% relative to 2019 which amounts to a gros emission target for the US of  $E=4.0684$ assuming that each country contributes to the global reduction by the same percentage of 50\%.\footnote{\ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This should result in an even stricter target for the US which contributed almost 20\% to global greenhouse-gas emissions in 2019 (own calculations where total emissions are taken from the EIA global greenhouse gas information, see here \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions}).}
+Starting from 2050, the net-emission target is zero. In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as
+$\Omega_{2030-2050}$= 4.0684Gt and $\Omega_{2050-2080}$= 0. The parameter relating emissions and the use of fossil energy in the base period (note that I perceive fossil energy as the source of all greenhouse-gas emissions) equals $\omega=45.56$.  
+
+%
+%\paragraph{Sources data}
+%%\url{https://www.eia.gov/totalenergy/data/monthly/#prices}
+%
+%Total energy data: 
+%For data on skill and premium see references in 
+%paper saved in data \citep{Slavik2020WagePremium}
+%
+%The model is calibrated to parameter values common in the literature. I bestow more care on  calibrating the emission target. 
+%I match emissions in the model to emission targets suggested in the IPCC report \citep{Rogelj2018MitigationDevelopment.}. 
+%%How to determine the economy in 2050? Should the economy have reached a steady state? or should it be in a transitional path? Maybe no need to specify this...it will be a outcome. All I have to use is that for all years after 2050 net-emissions have to be zero. Whether the economy is on the transitional path or in a steady state is an outcome. 
+%The IPCC prescribes net-zero emissions starting from 2050. In 2030 emissions should be between 25 and 30 GtCO2e per year.
 
 
 	\begin{table}[hh!!!!!]
 		\begin{center}
 			\captionsetup{width=0.9\textwidth}
-			\caption{ Calibration baseline model}
+			\caption{ Calibration baseline model: Households, Research and Production}
 			\label{tab:calib}
-			\begin{tabular}{c|cll}
+			\begin{tabular}{c|lll}
 				%			\hline \hline
 				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
 				\hline \hline
-				Parameter& Target/Source& \makecell[c]{Calibration}& \makecell[c]{Meaning}\\ \hline
-				
+				Parameter& Target/Source& \makecell[l]{Calibration}& \makecell[l]{Meaning}\\ 
 				\hline
-				Utility&\multicolumn{3}{c}{}\\
+				\hline
+				Household&\multicolumn{3}{c}{}\\
 				\hline 
 				
 				\hline
 				$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity  \\
 				\hline
-				$\zeta$& -&1.4&\makecell[l]{additional disutility from\\  high skill labour} \\
-					\hline
-				$\bar{H}$& -&1&\makecell[l]{economic time endowment} \\
+				$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}&0.2121&\makecell[l]{share of\\ high-skilled workers} \\	
+				\hline			
+				$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.021 & inverse Frisch elasticity  \\
+				\hline
+				$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.9272 & 5 year discount factor  \\
+				\hline
+				$\bar{H}$& \makecell[l]{14.5 hours per day\\ \cite{Jones1993OptimalGrowth}}&5&\makecell[l]{economic time endowment \\per 5 years, normalised} \\
+				\hline
+				\hline
+				Research&\multicolumn{3}{c}{}\\
+				\hline
+				
+				\hline
+				$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity  \\
+				\hline
+				$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}} & 0.032 & disutility from science\\
+				\hline
+				$\eta$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.79 & spillover research\\
+				\hline			
+				$\rho_f$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 &\makecell[l]{research tasks in\\ fossil sector}\\
+				\hline			
+				$\rho_g$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 &\makecell[l]{research tasks in\\ green sector}\\
+				\hline			
+				$\rho_n$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 1 &\makecell[l]{research tasks in \\non-energy sector}\\
+				\hline			
+				$\phi$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.5 &across-sector research spillovers\\
+				\hline
+					$\gamma$ &\makecell[l]{growth in non-energy sector:\\2\% per annum \cite{Fried2018ClimateAnalysis}} & 0.0042 & productivity of research\\
 				\hline
 				\hline
 				Production&\multicolumn{3}{c}{}\\
 				\hline
 				
 				\hline
-				$\varepsilon$&- &\makecell[l]{0.4 if complements,\\  4 if substitutes}& \makecell[l]{substitutability of clean and dirty\\ production in final consumption good}\\			
+				$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05& \makecell[l]{substitutability \\ energy and non-energy}\\			
 				\hline
-				$\alpha$&- &$1/3$& capital share in production  \\
+				$\delta_y$&\makecell[l]{expenditure share \\ on energy IEA}&0.4496& \makecell[l]{weight on energy in\\ final good production}\\	
+				\hline
+				$\varepsilon_e$&\cite{Fried2018ClimateAnalysis}&1.5& \makecell[l]{substitutability \\ green and fossil energy}\\	
+				\hline
+				$\alpha_f$&\cite{Fried2018ClimateAnalysis} &0.72& capital share fossil  \\
+				\hline
+				$\alpha_g$&\cite{Fried2018ClimateAnalysis} &0.91& capital share green \\
+				\hline
+				$\alpha_n$&\cite{Fried2018ClimateAnalysis} &0.36& capital share non-energy  \\
 				%\hline
 				%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
 				\hline
-				$\psi$&\cite{Aghion2021EnvironmentalDirty} &$\alpha^2$& cost of machine production  \\
 				\hline
-				
-				$\theta_c$&-&0.7&\makecell[l]{high skill labour share\\ in clean sector}\\
-				\hline
-					$\theta_d$&-&0.56&\makecell[l]{high skill labour share\\ in dirty sector}\\
-				\hline
-				\hline
-				Technology&\multicolumn{3}{c}{}\\
-				\hline
-				\hline
-				$v_d$&- &0.07& annual TFP growth dirty sector\\
-					\hline
-			
-				$v_c$&- &0.01& annual TFP growth clean sector\\
-					\hline
-				$A_{d0}$&- &8& initial productivity in dirty sector\\
-				\hline
-					$A_{c0}$&- &4& initial productivity clean sector\\
-					\hline
-				\hline
-				Government&\multicolumn{3}{c}{}\\
-				\hline
-				\hline
-				$G$&- &0& Budget requirement government\\
+				Initial Productivity&\multicolumn{3}{c}{}\\
 				\hline
 				
 				\hline
-				Emissions&\multicolumn{3}{c}{}\\
+				$A_{f0}$&- &3350.5& \makecell[l]{initial productivity \\ fossil sector, 2014-2019}  \\
 				\hline
-				
+				$A_{g0}$&- &95.4& \makecell[l]{initial productivity \\ green sector, 2014-2019}  \\
 				\hline
-				$\delta$&from EIA in 2019&0.7893&natural sinks \\
-				\hline
-				$\kappa$& &5.7131& \makecell[l]{ gross emissions as a\\ fraction of dirty output}\\
+				$A_{n0}$&- &4.3& \makecell[l]{initial productivity \\ non-energy sector, 2014-2019}  \\
 				\hline \hline
 			\end{tabular}
 		\end{center}
 	\end{table}
+
+
+
+\begin{table}[hh!!!!!]
+	\begin{center}
+		\captionsetup{width=0.9\textwidth}
+		\caption{ Calibration baseline model: Labour, Government, and Emissions}
+		\label{tab:calib2}
+		\begin{tabular}{c|lll}
+			%			\hline \hline
+			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+			\hline \hline
+			Parameter& Target/Source& \makecell[l]{Calibration}& \makecell[l]{Meaning}\\ 
+			\hline
+			\hline
+			Labour Production&\multicolumn{3}{c}{}\\
+			\hline 
+			
+			\hline
+			$\theta_f$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.4194&\makecell[l]{income share high \\ skill fossil sector}\\
+			\hline
+			$\theta_g$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% }&0.5661&\makecell[l]{indome share high \\skill green sector}\\
+			\hline
+			$\theta_n$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.4194&\makecell[l]{income share high \\ skillnon-energy sector}\\
+			\hline
+			\hline
+			Government&\multicolumn{3}{c}{}\\
+			\hline
+			
+			\hline
+			$\tau_f$&- &0& sales tax on fossil energy\\
+			\hline
+			$\tau_l$&\cite{Heathcote2017OptimalFramework} &0.181& income tax progressivity\\
+			\hline	
+			\hline
+			Emissions&\multicolumn{3}{c}{}\\
+			\hline
+			
+			\hline
+			$\delta$& \makecell[l]{EPA}&0.7893&carbon sinks \\
+			\hline
+			$\omega$& EPA&45.5634& \makecell[l]{ gross emissions as a\\ fraction of fossil output}\\
+				$\Omega$& IPCC report April 2022&\makecell[l]{from 2030-2050: 4.0684Gt\\2050-2080: 0}& \makecell[l]{net emission target}\\
+			\hline \hline
+		\end{tabular}
+	\end{center}
+\end{table}

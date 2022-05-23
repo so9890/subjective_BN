@@ -34,7 +34,7 @@ end
 
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
-    x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T)));
+    x((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)));
 end
 
 if indic.BN==1

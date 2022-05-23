@@ -36,26 +36,30 @@ indic.taus =0; % ==1 if taus is present in ramsey problem
 indic.noskill =0; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
-indic.BN = 1; %==1 if uses  model with subjective basic needs
-indic.ineq = 1; %== 1 if uses model with inequality: 2 households and with different skills
+indic.BN = 0; %==1 if uses  model with subjective basic needs
+indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 % savedind=indic;
-
+indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-if isfile(sprintf('params_spillovers%d.mat', indic.spillovers))
+if isfile(sprintf('params.mat'))
     fprintf('loading parameter values')
-    load(sprintf('params_spillovers%d.mat', indic.spillovers),...
+    load(sprintf('params.mat'),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
-    save(sprintf('params_spillovers%d', indic.spillovers))
+    save(sprintf('params'))
 end
 
+if indic.spillovers==1
+    params(list.params=='etaa')=1.2;
+    Sparams=1.2;
+end
 %% 
 %%%%% LIST for separate markets
     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
@@ -204,8 +208,12 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: PLOTS       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-plottsSP(list, symms, T);
+etaa=params(list.params=='etaa');
+indic
+for BN=0:1
+    indic.BN=BN;
+    plottsSP(list, T, etaa, indic, params);
+end
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -220,8 +228,8 @@ exx = polExp(pf, params, polCALIB, list, taul, T, Ems, indexx);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.target=1;
 indic.noskill=0;
-indic.sep=0;
-indic.target=0; 
+% indic.sep=0;
+indic.target=1; 
 %- with etaa=1
 % params(list.params=='etaa')=1;
 % Sparams.etaa=params(list.params=='etaa');

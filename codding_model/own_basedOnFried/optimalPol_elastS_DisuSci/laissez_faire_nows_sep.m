@@ -57,7 +57,7 @@ end
  Af     = exp(x(list.choice=='Af'));
  Ag     = exp(x(list.choice=='Ag'));
  An     = exp(x(list.choice=='An'));
- sff      = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
+ sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
  sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
  sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
 
