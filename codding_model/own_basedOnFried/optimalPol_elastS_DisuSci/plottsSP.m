@@ -288,6 +288,7 @@ for i =keys(RES_polcomp_full)
 
 %% 
 fprintf('plotting %s',ii );
+for lgdind=1
 for l =keys(lisst)
     ll=string(l);
     plotvars=lisst(ll);
@@ -295,32 +296,39 @@ for l =keys(lisst)
 %     if ll~='VARS'
 %         nn=2;
 %     else 
-    nn=3;
+%     nn=3;
 %     end
     %%% with subplots
-    gcf=figure('Visible','off');
+       for v=1:length(plotvars)
+       gcf=figure('Visible','off');
         
-        for v=1:length(plotvars)
+     
             varr=string(plotvars(v));
-            subplot(floor(length(plotvars)/nn)+1,nn,v)
+%             subplot(floor(length(plotvars)/nn)+1,nn,v)
             main=plot(time,allvars(find(varlist==varr),:), time,allvarsnt(find(varlist==varr),:), 'LineWidth', 1.1);
             
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-           xticks(time)
+           xticks(txx)
+           xlim([1, time(end)])
             ax=gca;
             ax.FontSize=13;
-%             xlim([0.1, 0.9])
             ytickformat('%.2f')
-            xticklabels(Year)
-            title(sprintf('%s', varr), 'Interpreter', 'latex')
+            xticklabels(Year10)
+      
+        if lgdind==1
+          
+        lgd=legend('full model', 'no income tax', 'Interpreter', 'latex');
+           
+        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
         end
- 
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/all_1705/%s_subplots_%s_spillover%d_comp_notaul_sep%d_BN%d_ineq%d_etaa%.2f.png', ii, ll, indic.spillovers, indic.sep, indic.BN, indic.ineq, etaa);
+        path=sprintf('figures/all_1705/comp_notaul_%s_%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_lgd%d.png', ii, varr, indic.spillovers, indic.sep, indic.BN, indic.ineq, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
-  end
+       end % variables in group
+end % variable group
+end % legend
 end      
  % calculate contributes to SWF 
 % tt=load('Table_SWF_etaa1.mat', 'TableSWF_PV');

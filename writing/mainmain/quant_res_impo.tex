@@ -21,10 +21,27 @@ Subsection AA presents the optimal allocation and policy given the emission targ
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_etaa0.79.png}
 	\end{minipage}
 \end{figure} 
+%\begin{figure}[h!!]
+%	\centering
+%	\caption{Optimal Policy }\label{fig:optPol}
+%	\begin{minipage}[]{0.4\textwidth}
+%		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq0_etaa0.79.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{minipage}[]{0.4\textwidth}
+%		\centering{\footnotesize{(b) Fossil tax, $\tau_{ft}$ }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq0_etaa0.79.png}
+%	\end{minipage}
+%\end{figure}
+To optimally meet the IPCCs suggested emission target, the optimal income tax is progressive. As the emission target is less strict, between 2030 to 2045, optimal income tax progressivity is around $\tau_{lt}=0.02$. As the emission target jumps to net-zero emissions in 2050, optimal tax progressivity accelerates to above 0.08 and gradually increases in the subsequent years to around 0.09. 
+In the period without emission target from 2020 to 2030, the optimal income tax is regressive.
 
-To optimally meet the IPCCs suggested emission target, the optimal income tax is progressive. As the emission target is less strict, between 2030 to 2045, optimal income tax progressivity is around $\tau_{lt}=0.01$. As the emission target jumps to net-zero emissions, optimal tax progressivity accelerates by an order of magnitude. Over time, tax progressivity increases.  
-
-The optimal fossil tax displays a similar step pattern as the tax progressivity. Between 2030
+The optimal fossil tax displays a similar step pattern as income tax progressivity. From 2020 to the beginning of 2030, it is negative. It jumps to around 50\% as the emission target is to reduce emissions by 50\% relative to 2019 emissions. As the emission target rises  to net-zero emissions in 2050, the optimal tax on fossil sales is close to 95\%. 
 
 \begin{figure}[h!!]
 	\centering
@@ -75,4 +92,82 @@ The optimal fossil tax displays a similar step pattern as the tax progressivity.
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Emnet_spillover0_sep1_BN0_ineq0_etaa0.79.png}
 \end{minipage}
 \end{figure} 
-Under the assumptio
+
+\subsection{Discussion}
+To study the role of income tax progressivity, I compare the optimal policy and allocation in the full model to a  model where no labour income tax is available.
+
+The first thing to note is that a fossil tax suffices to meet the emission target, panel (a) in figure \ref{fig:Compno_taul}. The fossil tax is slightly higher in periods with emission target, compare panel (b).
+The advantage from relying on labour income taxes to meet the emission target stems from a higher utility from leisure especially from high-skilled workers which outweighs lower consumption levels, compare panels (c) to (e). In fact, the rise in social welfare arises from the periods with net-zero emission target as shown by panel (f) which compares social welfare levels across policy regimes. 
+
+Income tax progressivity increases social welfare in the net-zero emission world, as households work inefficiently high hours absent an income tax. Higher hours worked result in a higher share of green labour and research relative to the fossil sector where the allocation is the same under both policy regimes; compare panels (g) to (j). 
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Policy }\label{fig:Compno_taul}
+			\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Emnet_spillover0_sep1_BN0_ineq0_etaa0.79_lgd1.png}
+	\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Fossil tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) High skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_hh_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Low skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_hl_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(f) Social welfare}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_SWF_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(g) Labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Lf_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(h) Labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Lg_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(i) Labour non-energy}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Ln_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(j) Research fossil}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sff_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(k) Green research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sg_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(l) Non-energy research }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sn_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{(f) Emissions}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Emnet_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%	\end{minipage}
+\end{figure} 
