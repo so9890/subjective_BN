@@ -333,7 +333,7 @@ end
  % calculate contributes to SWF 
 % tt=load('Table_SWF_etaa1.mat', 'TableSWF_PV');
 TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-save(sprintf('Table_SWF_sep%d_etaa%.2f_BN%d_ineq%d.mat', indic.sep, etaa, indic.BN, indic.ineq), 'TableSWF_PV');
+%save(sprintf('Table_SWF_sep%d_etaa%.2f_BN%d_ineq%d.mat', indic.sep, etaa, indic.BN, indic.ineq), 'TableSWF_PV');
 
 %% comparison to BAU
 % RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -443,6 +443,56 @@ for l =keys(lisst) % loop over variable groups
     end
   end
 end      
+end
+
+%% comparison social planner and optimal policy (with and without labour tax)
+eff= string({'SP_T', 'SP_NOT'});
+opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+
+for withtaul=0:1
+for i =[1,2]
+    
+    ie=eff(i);
+    io=opt(i);
+    
+     if withtaul==1
+        allvars= RES(io);
+     else
+         allvars =RES_polcomp_notaul(io);
+     end
+     allvarseff=RES(ie); 
+    
+for l =keys(lisst) % loop over variable groups
+    ll=string(l);
+    plotvars=lisst(ll);
+    for lgdind=0:1
+    for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+        varr=string(plotvars(v));
+        main=plot(time,allvars(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), 'LineWidth', 1.1);            
+       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+       xticks(txx)
+       xlim([1, time(end)])
+
+        ax=gca;
+        ax.FontSize=13;
+        ytickformat('%.2f')
+        xticklabels(Year10)
+       if lgdind==1
+          lgd=legend('optimal allocation', 'first best allocation', 'Interpreter', 'latex');
+          set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+       end
+    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_withtaul%d_lgd%d.png', varr, ii, indic.spillovers, indic.sep,indic.BN, indic.ineq,etaa, withtaul, lgdind);
+    exportgraphics(gcf,path,'Resolution', 400)
+    % saveas(gcf,path)
+%    close gcf
+%     pause
+    end
+    end
+  end
+
+end
+
 end
 end
        
