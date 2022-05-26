@@ -1,6 +1,6 @@
 function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic)
 
@@ -12,7 +12,14 @@ hlf    = x((find(list.opt=='hlf')-1)*T+1:find(list.opt=='hlf')*T);
 hlg    = x((find(list.opt=='hlg')-1)*T+1:find(list.opt=='hlg')*T);
 hhn    = x((find(list.opt=='hhn')-1)*T+1:find(list.opt=='hhn')*T);
 hln    = x((find(list.opt=='hln')-1)*T+1:find(list.opt=='hln')*T);
-C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
+if indic.ineq==0
+    C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
+    Ch=C; Cl=C;
+else
+    Cl      = x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T);
+    Ch      = x((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T);
+    C=Ch;
+end
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
 sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
@@ -60,12 +67,23 @@ Af_lag=Af_lag(1:end-1);
 An_lag=An_lag(1:end-1);
 Ag_lag=Ag_lag(1:end-1);
 
-if indic.BN==0
-    muu      = C.^(-thetaa); % same equation in case thetaa == 1
+if indic.ineq==0
+    if indic.BN==0
+        muu      = C.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muu =-(C-B).^(zetaa-1);
+    end
+    muuh=muu; muul=muu;
 else
-    muu =-(C-B).^(zetaa-1);
+    if indic.BN==0
+        muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
+        muul      = Cl.^(-thetaa); % same equation in case thetaa == 1
+    else
+        muul =-(Cl-Bl).^(zetaa-1);
+        muuh =-(Ch-Bh).^(zetaa-1);
+    end
+    muu=muuh; 
 end
-
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
@@ -123,14 +141,27 @@ A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 
 % utility
-if indic.BN==0
-    if thetaa~=1
-     Utilcon = (C.^(1-thetaa))./(1-thetaa);
-    elseif thetaa==1
-     Utilcon = log(C);
+if indic.ineq==0
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = (C.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = log(C);
+        end
+    else
+        Utilcon=-(C-B).^(zetaa)./(zetaa); 
     end
 else
-     Utilcon = -(C-B).^(zetaa)./zetaa;
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
+        end
+    else
+        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
+    end
+
 end
 
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);

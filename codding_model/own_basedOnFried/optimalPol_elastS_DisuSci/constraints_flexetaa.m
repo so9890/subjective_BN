@@ -38,7 +38,12 @@ if indic.target==1
 end
 
 if indic.BN==1
-    x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)   = B./(1+exp(y((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+    if indic.ineq==0
+        x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)   = B./(1+exp(y((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+    else
+        x((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)   = Bh./(1+exp(y((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)));
+        x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)   = Bl./(1+exp(y((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)));
+    end
 end
 
 %- auxiliary variables
@@ -46,8 +51,8 @@ end
     if indic.noskill==0
     [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws, tauf, taul, lambdaa,...
+            F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
     else
 %         fprintf('using noskill aux vars')

@@ -188,13 +188,19 @@ elseif indic.target==1
             x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =sp_all(1:T, list.allvars=='Ag');  % Ag
             x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =sp_all(1:T, list.allvars=='An');  % An
 
-            x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
+            if indic.ineq==0
+                x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
+            else
+                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='C');  % C
+                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='C');  % C    
+            end
             x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =0.8999*0.1066/0.1159*sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
             x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
             x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
     end
 end
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % initial values for An0, Ag0, Af0 refer to 2015-2019=> first period in
 % Laissez faire solution; do not take init which refers to 2010-2014!
@@ -204,7 +210,7 @@ end
 
 initOPT= init201519; % as calibrated under BAU policy
 
-%%
+
 % Transform variables to unbounded vars => requires less constraints! %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  guess_trans=log(x0);
@@ -261,7 +267,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-    save('sp_results_notarget_sep1_spillover0_etaa0.79_BN1_ineq.mat')
+    save('sp_results_target_sep1_spillover0_etaa0.79_BN1_ineq.mat')
 %   ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
 options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
@@ -283,13 +289,19 @@ if indic.target==1
 end
 
 if indic.BN==1
-    out_trans((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)=B./(1+exp(x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
-end
+    if indic.ineq==0
+        out_trans((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)=B./(1+exp(x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T)));
+    else
+        out_trans((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T)=Bh./(1+exp(x((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T)));
+        out_trans((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T)=Bl./(1+exp(x((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T)));
 
+    end    
+end
+%%
 if indic.noskill==0
 [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
+            F, N, G, E, Y, C, Ch, Cl, hl, hh, A_lag, S, SGov, Emnet, A,muu, muuh, muul,...
             pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(out_trans, list, params, T, initOPT, indic);
 else
@@ -308,11 +320,11 @@ gammasg = zeros(size(pn));
 gammasf = zeros(size(pn));
 gammasn = zeros(size(pn));
 
-
+%%
 if indic.sep==0
     sp_all=eval(symms.allvars);
 else
-    sp_all=eval(symms.sepallvars);
+    sp_all=eval(symms.sepallvars_ineq);
 end
 
 %%

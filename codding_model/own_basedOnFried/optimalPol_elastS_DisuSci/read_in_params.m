@@ -3,7 +3,7 @@ sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
 
 if indic.BN_red==1
-    B = 1;
+    B = 0.75*params(list.params=='B');
 else
     B= params(list.params=='B');
 end

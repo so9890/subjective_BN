@@ -49,7 +49,7 @@ end
 if indic.BN==0
     C=y(list.allvars=='C', :)';
 else
-    C=log((params(list.params=='B')-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+    C=log((B-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
 end
 F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';

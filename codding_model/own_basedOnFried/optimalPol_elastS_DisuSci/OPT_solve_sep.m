@@ -5,15 +5,23 @@ read_in_params;
 Ftarget =  (Ems'+deltaa)/omegaa;
  
 % symbilic variables and lists
-syms hhf hhg hlf hlg hhn hln C F G Af Ag An hl hh S sff sn sg Lf Lg h real
+syms hhf hhg hlf hlg hhn hln C Ch Cl F G Af Ag An hl hh S sff sn sg Lf Lg h real
 
 if indic.taus ==1
     symms.opt = [hhf hhg hlf hlg hhn hln C F G Af Ag An hl hh s sg];    
 else
-    if indic.noskill==0
-        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg];
+    if indic.ineq==0
+        if indic.noskill==0
+            symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg];
+        else
+            symms.opt = [Lf Lg C F G Af Ag An h S];
+        end
     else
-        symms.opt = [Lf Lg C F G Af Ag An h S];
+         if indic.noskill==0
+             symms.opt = [hhf hhg hlf hlg hhn hln Ch Cl F G hl hh sn sff sg];
+         else
+            symms.opt = [Lf Lg Ch Cl F G Af Ag An h S];
+         end
     end
 end
 list.opt  = string(symms.opt); 
@@ -29,7 +37,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
     if isfile(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, etaa))
-     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_etaa%.2f.mat',indic.sep, indic.BN, etaa));
+     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN, indic.ineq,etaa));
      opt_all=helper.opt_all;
     
     x0 = zeros(nn*T,1);
@@ -115,7 +123,12 @@ elseif indic.target==0
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))) =opt_all(:,list.allvars=='hh'); % as starting value use hh
     end
     
-    x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =opt_all(:,list.allvars=='C');   % C
+    if indic.ineq==0
+        x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =opt_all(:,list.allvars=='C');   % C
+    else
+        x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =opt_all(:,list.allvars=='C');   % C
+        x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =opt_all(:,list.allvars=='C');   % C
+    end
     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =opt_all(:,list.allvars=='F');
     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
     x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
@@ -210,9 +223,18 @@ if indic.target==1
     guess_trans(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F'))))./...
      x0(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F'))));
 end
+
 if indic.BN==1
+    if indic.ineq==0
     guess_trans(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))=log((B-x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))))./...
      x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))));
+    else
+            guess_trans(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))=log((Bh-x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))))./...
+     x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))));
+    guess_trans(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))=log((Bl-x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))))./...
+     x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))));
+
+    end
 end
 lb=[];
 ub=[];
@@ -254,8 +276,8 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-          save('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN')
-%           ll=load(sprintf('as_solu_notargetOPT_1205_spillover%d_taus%d_noskill%d_notaul0', indic.spillovers, indic.taus, indic.noskill))
+          save('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red')
+           ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))
@@ -265,7 +287,7 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-%        ss=load('opt_1905_as_etaa079_sep1_notarget_notaul_BN1')
+       save('opt_1905_sqp_etaa079_sep1_notarget_BN1_ineq0_red075')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
         options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -314,10 +336,10 @@ end
 %% save results
 
     if indic.noskill==0
-    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn,ws,  tauf, taul, lambdaa,...
+            F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
      else
         [xn,xf,xg,Ag, An, Af,...
@@ -338,7 +360,6 @@ gammasn = zeros(size(pn));
 %%
 if indic.sep==1
     opt_all=eval(symms.sepallvars);
-    
 else
     opt_all=eval(symms.allvars);
 end
