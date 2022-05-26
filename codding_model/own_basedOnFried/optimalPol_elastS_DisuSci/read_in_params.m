@@ -1,7 +1,13 @@
 thetaa = params(list.params=='thetaa');
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
-B = params(list.params=='B');
+
+if indic.BN_red==1
+    B = 1;
+else
+    B= params(list.params=='B');
+end
+
 Bl = params(list.params=='Bl');
 Bh = params(list.params=='Bh');
 zetaa = params(list.params=='zetaa');

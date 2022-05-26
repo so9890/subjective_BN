@@ -1,6 +1,6 @@
 function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, hl, hh, A_lag, S, SGov, Emnet, A,muu,...
+            F, N, G, E, Y, C, Ch, Cl, hl, hh, A_lag, S, SGov, Emnet, A,muu, muuh, muul,...
             pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(x, list, params, T, init, indic)
 
@@ -24,9 +24,11 @@ An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
 
 if indic.ineq==0
     C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+    Ch=C; Cl=C;
 else
     Ch      = x((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T);
     Cl      = x((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T);
+    C=Ch;
 end
 
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
@@ -98,6 +100,7 @@ if indic.ineq==0
     else
         muu =-(C-B).^(zetaa-1);
     end
+    muuh=muu; muul=muu;
 else
     if indic.BN==0
         muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
@@ -106,6 +109,7 @@ else
         muul =-(Cl-Bl).^(zetaa-1);
         muuh =-(Ch-Bh).^(zetaa-1);
     end
+    muu=muuh; 
 end
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector

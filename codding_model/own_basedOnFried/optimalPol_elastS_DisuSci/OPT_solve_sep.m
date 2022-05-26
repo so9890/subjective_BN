@@ -91,7 +91,7 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, etaa))
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,0,indic.sep,indic.BN, etaa));
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,0,indic.sep,indic.BN, indic.ineq, etaa));
     
 %     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
              
@@ -349,9 +349,9 @@ helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.target==1
-    save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN,params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red,params(list.params=='etaa')), 'opt_all', 'Sparams')
 else
-    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'opt_all', 'Sparams')
 end
 
 end

@@ -38,7 +38,7 @@ indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
-% savedind=indic;
+indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

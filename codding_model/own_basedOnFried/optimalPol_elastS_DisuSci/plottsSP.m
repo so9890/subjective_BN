@@ -482,7 +482,7 @@ for l =keys(lisst) % loop over variable groups
           lgd=legend('optimal allocation', 'first best allocation', 'Interpreter', 'latex');
           set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
        end
-    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_withtaul%d_lgd%d.png', varr, ii, indic.spillovers, indic.sep,indic.BN, indic.ineq,etaa, withtaul, lgdind);
+    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_withtaul%d_lgd%d.png', varr, io, indic.spillovers, indic.sep,indic.BN, indic.ineq,etaa, withtaul, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
 %    close gcf

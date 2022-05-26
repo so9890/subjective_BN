@@ -4,12 +4,21 @@ function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init
 read_in_params;
 
 % function to find social planner allocation 
-syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn Lg Ln h real
+syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C Ch Cl hh hl F sff sg sn Lg Ln h real
+if indic.ineq==0
 if indic.noskill==0
     symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn];
 else
     symms.sp = [Lg Ln xn xf xg An Af Ag C h F sff sg sn];
 end
+else
+if indic.noskill==0
+    symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag Ch Cl hh hl F sff sg sn];
+else
+    symms.sp = [Lg Ln xn xf xg An Af Ag Ch Cl h F sff sg sn];
+end
+end
+
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 
@@ -20,16 +29,24 @@ nn= length(list.sp);
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
 if etaa ~=1 
-helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
+helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
   LF_SIM=helper.LF_SIM';
 else
-    helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
+    helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
   LF_SIM=helper.LF_BAU';
 end
 
   %- new list if uses separate market
+  if indic.ineq==0
   if indic.sep==1
         list.allvars=list.sepallvars;
+  end
+  else
+        if indic.sep==1
+            list.allvars=list.sepallvars_ineq;
+        else
+            list.allvars=list.allvars_ineq;
+        end
   end
 
 if indic.target==0
@@ -67,7 +84,7 @@ if indic.target==0
         x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
         x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
-        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
         sp_all=helper.sp_all;
         
         if indic.noskill==0
@@ -93,7 +110,12 @@ if indic.target==0
             x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =sp_all(1:T, list.allvars=='Ag');  % Ag
             x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =sp_all(1:T, list.allvars=='An');  % An
 
-            x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
+            if indic.ineq==0
+                x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
+            else
+                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='C');  % C
+                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='C');  % C
+            end                
             x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
             x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
@@ -200,8 +222,15 @@ initOPT= init201519; % as calibrated under BAU policy
  guess_trans(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))=sqrt(x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg'))));
 
 if indic.BN==1
-     guess_trans(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))=log((params(list.params=='B')-x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))))./...
+    if indic.ineq==1
+         guess_trans(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))=log((params(list.params=='Bl')-x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl'))))./...
+         x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl'))));
+         guess_trans(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))=log((params(list.params=='Bh')-x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch'))))./...
+         x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch'))));
+    else
+        guess_trans(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))=log((params(list.params=='B')-x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))))./...
      x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))));
+    end
 end
 if indic.target==1
     % only from the third period onwards F is contrained
@@ -232,7 +261,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-    save('sp_results_target_sep1_spillover0_etaa0.79_BN1_newems.mat')
+    save('sp_results_notarget_sep1_spillover0_etaa0.79_BN1_ineq.mat')
 %   ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
 options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
@@ -288,8 +317,8 @@ end
 
 %%
 if indic.target==1
-    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'sp_all', 'Sparams')
 else
-    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'sp_all', 'Sparams')
 end
 end
