@@ -60,15 +60,15 @@ if indic.ineq==0
     if indic.BN==0
         C=y(list.allvars=='C', :)';
     else
-        C=log((params(list.params=='B')-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+        C=log((B-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
     end
 else
     if indic.BN==0
         Ch=y(list.allvars=='Ch', :)';
         Cl=y(list.allvars=='Cl', :)';
     else
-        Ch=log((params(list.params=='Bh')-varrs(list.allvars=='Ch', :))./(varrs(list.allvars=='Ch', :)))';
-        Cl=log((params(list.params=='Bl')-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
+        Ch=log((Bh-varrs(list.allvars=='Ch', :))./(varrs(list.allvars=='Ch', :)))';
+        Cl=log((Bl-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
     end
 end
 F=y(list.allvars=='F', :)';

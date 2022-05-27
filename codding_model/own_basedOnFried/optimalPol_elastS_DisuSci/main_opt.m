@@ -98,7 +98,7 @@ end
  
 for i=[0]
     indic.noskill=i;
-    if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, params(list.params=='etaa')))
+    if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, indic.BN_red, params(list.params=='etaa')))
         if indic.ineq==0
             [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
             helper.LF_SIM=LF_SIM;
@@ -109,7 +109,7 @@ for i=[0]
             helper.LF_SIM=LF_SIM;
             [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
         end
-        save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+        save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
     end
      fprintf('LF_BAU no skill %d exists', indic.noskill);

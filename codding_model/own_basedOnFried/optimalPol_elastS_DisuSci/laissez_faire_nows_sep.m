@@ -48,8 +48,8 @@ elseif indic.ineq==1
      Ch      = exp(x(list.choice=='Ch'));
      Cl      = exp(x(list.choice=='Cl'));
     else
-      Ch     =Bh/(1+exp(x(list.choice=='Ch')));
-      Cl     =Bl/(1+exp(x(list.choice=='Cl')));
+      Ch     =Bh./(1+exp(x(list.choice=='Ch')));
+      Cl     =Bl./(1+exp(x(list.choice=='Cl')));
     end
 end
  F      = exp(x(list.choice=='F'));

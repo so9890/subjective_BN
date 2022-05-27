@@ -144,16 +144,16 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 %% - transform results to bounded variables
     if indic.noskill==0
         if indic.sep==0
-            LF=trans_allo_out(indexx('LF_ineq'), sol3, params, list.params);
+            LF=trans_allo_out(indexx('LF_ineq'), sol3, params, list.params, indic);
         else
             if indic.BN==0
-                LF=trans_allo_out(indexx('LF_sep_ineq'), sol3, params, list.params);
+                LF=trans_allo_out(indexx('LF_sep_ineq'), sol3, params, list.params, indic);
             else
-                LF=trans_allo_out(indexx('LF_sep_BN_ineq'), sol3, params, list.params);
+                LF=trans_allo_out(indexx('LF_sep_BN_ineq'), sol3, params, list.params, indic);
             end
         end
      else
-        LF=trans_allo_out(indexx('LF_noskill'), sol3, params, list.params);
+        LF=trans_allo_out(indexx('LF_noskill'), sol3, params, list.params, indic);
     
     end
     %% - save results

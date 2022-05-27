@@ -62,9 +62,16 @@ sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
 sigmaas = Sparams.sigmaas;
 chiis = Sparams.chiis;
-B= Sparams.B;
-Bl= Sparams.Bl;
-Bh= Sparams.Bh;
+if indic.BN_red==0
+    B= Sparams.B;
+    Bl= Sparams.Bl;
+    Bh= Sparams.Bh;
+else
+    B= 0.75*Sparams.B;
+    Bl= Sparams.Bl;
+    Bh= 0.75*Sparams.Bh;
+    
+end
 zetaa = Sparams.zetaa;
 
 eppse = Sparams.eppse;
@@ -216,7 +223,7 @@ end
 f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic);
 
 if (max(abs(f)))>1e-10
-    fprintf('f only solved at less than 1e-8')
+    fprintf('f only solved at less than 1e-10')
 else
     fprintf('saved variables are correct!')
 end

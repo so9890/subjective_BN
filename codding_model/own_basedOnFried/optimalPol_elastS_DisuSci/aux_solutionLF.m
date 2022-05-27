@@ -136,7 +136,7 @@ if indic.noskill==0
 else
     guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
 end
-f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
+    f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')
