@@ -449,18 +449,14 @@ end
 eff= string({'SP_T', 'SP_NOT'});
 opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
 
-for withtaul=0:1
+% for withtaul=0:1
 for i =[1,2]
     
     ie=eff(i);
     io=opt(i);
-    
-     if withtaul==1
-        allvars= RES(io);
-     else
-         allvars =RES_polcomp_notaul(io);
-     end
-     allvarseff=RES(ie); 
+    allvars= RES(io);
+    allvarsnotaul =RES_polcomp_notaul(io);
+    allvarseff=RES(ie); 
     
 for l =keys(lisst) % loop over variable groups
     ll=string(l);
@@ -469,8 +465,8 @@ for l =keys(lisst) % loop over variable groups
     for v=1:length(plotvars)
         gcf=figure('Visible','off');
         varr=string(plotvars(v));
-        main=plot(time,allvars(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), 'LineWidth', 1.1);            
-       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+        main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), 'LineWidth', 1.2);            
+       set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
        xticks(txx)
        xlim([1, time(end)])
 
@@ -479,10 +475,10 @@ for l =keys(lisst) % loop over variable groups
         ytickformat('%.2f')
         xticklabels(Year10)
        if lgdind==1
-          lgd=legend('optimal allocation', 'first best allocation', 'Interpreter', 'latex');
+          lgd=legend('efficient', 'with income tax', ' no income tax', 'Interpreter', 'latex');
           set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
        end
-    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_withtaul%d_lgd%d.png', varr, io, indic.spillovers, indic.sep,indic.BN, indic.ineq,etaa, withtaul, lgdind);
+    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.sep,indic.BN, indic.ineq,etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
 %    close gcf
@@ -494,5 +490,5 @@ for l =keys(lisst) % loop over variable groups
 end
 
 end
-end
+
        

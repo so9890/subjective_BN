@@ -29,15 +29,20 @@ list.opt  = string(symms.opt);
 nn= length(list.opt); % number of variables
 
 if indic.sep==1
+    if indic.ineq==0
     list.allvars=list.sepallvars;
     symms.allvars=symms.sepallvars;
+    else
+     list.allvars=list.sepallvars_ineq;
+    symms.allvars=symms.sepallvars_ineq;
+    end
 end
 %% Initial Guess %%%
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
     if isfile(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, etaa))
-     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN, indic.ineq,etaa));
+     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN,indic.ineq, indic.BN_red,etaa));
      opt_all=helper.opt_all;
     
     x0 = zeros(nn*T,1);
@@ -57,8 +62,13 @@ if indic.target==1
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))) =opt_all(:,list.allvars=='hh'); % as starting value use hh
     end
     
+    if indic.ineq==0
     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =opt_all(:,list.allvars=='C');   % C
-    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =0.8999*0.1066/0.1159*opt_all(:,list.allvars=='F');
+    else
+    x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =opt_all(:,list.allvars=='Ch');   % C
+    x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =opt_all(:,list.allvars=='Cl');   % C
+    end
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =0.8999*opt_all(:,list.allvars=='F');%0.8999*0.1066/0.1159*opt_all(:,list.allvars=='F');
     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
     x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
@@ -99,7 +109,7 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, etaa))
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,0,indic.sep,indic.BN, indic.ineq, etaa));
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,0,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
     
 %     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
              
@@ -126,8 +136,8 @@ elseif indic.target==0
     if indic.ineq==0
         x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =opt_all(:,list.allvars=='C');   % C
     else
-        x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =opt_all(:,list.allvars=='C');   % C
-        x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =opt_all(:,list.allvars=='C');   % C
+        x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =opt_all(:,list.allvars=='Ch');   % C
+        x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =opt_all(:,list.allvars=='Cl');   % C
     end
     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =opt_all(:,list.allvars=='F');
     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
@@ -226,13 +236,13 @@ end
 
 if indic.BN==1
     if indic.ineq==0
-    guess_trans(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))=log((B-x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))))./...
-     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))));
+         guess_trans(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))=log((B-x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))))./...
+         x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C'))));
     else
-            guess_trans(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))=log((Bh-x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))))./...
-     x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))));
-    guess_trans(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))=log((Bl-x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))))./...
-     x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))));
+         guess_trans(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))=log((Bh-x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))))./...
+         x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch'))));
+         guess_trans(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))=log((Bl-x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))))./...
+         x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl'))));
 
     end
 end
@@ -276,7 +286,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-          save('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red')
+          save('1905_opt_target_sep1_etaa079_emsnew_ineq_notaul_BN')
            ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
@@ -287,7 +297,7 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-       save('opt_1905_sqp_etaa079_sep1_notarget_BN1_ineq0_red075')
+       save('opt_1905_as_etaa079_sep1_target_BN1_ineq1_red0')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
         options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -331,12 +341,17 @@ if indic.target==1
     out_trans((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)));
 end
 if indic.BN==1
-    out_trans((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)=B./(1+exp(x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+    if indic.ineq==0
+        out_trans((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)=B./(1+exp(x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
+    else
+       out_trans((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)=Bh./(1+exp(x((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)));
+       out_trans((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)=Bl./(1+exp(x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)));
+    end
 end
 %% save results
 
     if indic.noskill==0
-[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
@@ -359,7 +374,11 @@ gammasn = zeros(size(pn));
 
 %%
 if indic.sep==1
-    opt_all=eval(symms.sepallvars);
+    if indic.ineq==1
+        opt_all=eval(symms.sepallvars_ineq);
+    else
+        opt_all=eval(symms.sepallvars);
+    end
 else
     opt_all=eval(symms.allvars);
 end

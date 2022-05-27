@@ -49,7 +49,7 @@ end
 %- auxiliary variables
 
     if indic.noskill==0
-    [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
@@ -98,30 +98,40 @@ end
  ceq = [];
 
  if indic.noskill==0
-         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
-         ceq(T+1:T*2)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
-         ceq(T*2+1:T*3) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
+         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muuh.*lambdaa.*(1-taul).*(wh).^(1-taul));
+         ceq(T*1+1:T*2) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
          % optimality skills (for fossil used to determine wage rates)
-         ceq(T*3+1:T*4) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
-         ceq(T*4+1:T*5) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
-         ceq(T*5+1:T*6) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
-         ceq(T*6+1:T*7) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
+         ceq(T*2+1:T*3) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
+         ceq(T*3+1:T*4) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
+         ceq(T*4+1:T*5) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
+         ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
            if indic.sep==0
-            ceq(T*7+1:T*8) = ws-wsf; % wage clearing
-            ceq(T*8+1:T*9) = ws-wsg;
-            ceq(T*9+1:T*10) = ws-wsn;
+            ceq(T*6+1:T*7) = ws-wsf; % wage clearing
+            ceq(T*7+1:T*8) = ws-wsg;
+            ceq(T*8+1:T*9) = ws-wsn;
            else
-             ceq(T*7+1:T*8) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
-             ceq(T*8+1:T*9) = (chiis)*sg.^sigmaas-wsg;
-             ceq(T*9+1:T*10) = (chiis)*sn.^sigmaas-wsn;
+             ceq(T*6+1:T*7) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
+             ceq(T*7+1:T*8) = (chiis)*sg.^sigmaas-wsg;
+             ceq(T*8+1:T*9) = (chiis)*sn.^sigmaas-wsn;
            end
            
-         ceq(T*10+1:T*11)= zh*hh-(hhf+hhg+hhn);
-         ceq(T*11+1:T*12)= (1-zh)*hl-(hlf+hlg + hln );
+         ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
+         ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
          
-         if indic.notaul==1
-            ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
+         % hh budget different for with and without inequality version
+         if indic.ineq==0
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
+            if indic.notaul==1
+                ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
+            end
+         else
+             ceq(T*11+1:T*12)   = Ch-lambdaa.*(wh.*hh).^(1-taul)-SGov;
+             ceq(T*12+1:T*13)   = Cl-lambdaa.*(wl.*hl).^(1-taul)-SGov;
+             if indic.notaul==1
+                ceq(T*13+1:T*14) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
+             end
          end
+       
        
  elseif indic.noskill==1
      error('not yet updated without skills')

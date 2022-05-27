@@ -3,13 +3,16 @@ sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
 
 if indic.BN_red==1
-    B = 0.75*params(list.params=='B');
+    B  = 0.75*params(list.params=='B');
+    Bl = params(list.params=='Bl');
+    Bh = 0.75* params(list.params=='Bh');
 else
     B= params(list.params=='B');
+    Bl = params(list.params=='Bl');
+    Bh = params(list.params=='Bh');
 end
 
-Bl = params(list.params=='Bl');
-Bh = params(list.params=='Bh');
+
 zetaa = params(list.params=='zetaa');
 upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');

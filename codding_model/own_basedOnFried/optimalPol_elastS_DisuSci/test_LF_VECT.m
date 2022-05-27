@@ -3,10 +3,18 @@ function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 read_in_params;
 
 if indic.sep==1
-    list.allvars=list.sepallvars;
-    symms.allvars=symms.sepallvars;
-    list.choice=list.sepchoice;
-    symms.choice=symms.sepchoice;
+    %- new set of choice variables
+    if indic.ineq==0
+        list.choice=list.sepchoice;
+        symms.choice=symms.sepchoice;
+        list.allvars=list.sepallvars;
+        symms.allvars=symms.sepallvars;
+    else
+        list.choice=list.sepchoice_ineq;
+        symms.choice=symms.sepchoice_ineq;
+        list.allvars=list.sepallvars_ineq;
+        symms.allvars=symms.sepallvars_ineq;
+    end
 end
 
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
@@ -46,10 +54,20 @@ else
     Lg=y(list.allvars=='Lg', :)';
     
 end
-if indic.BN==0
-    C=y(list.allvars=='C', :)';
+if indic.ineq==0
+    if indic.BN==0
+        C=y(list.allvars=='C', :)';
+    else
+        C=log((B-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+    end
 else
-    C=log((B-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
+    if indic.BN==0
+        Ch=y(list.allvars=='Ch', :)';
+        Cl=y(list.allvars=='Cl', :)';
+    else
+        Ch=log((Bh-varrs(list.allvars=='Ch', :))./(varrs(list.allvars=='Ch', :)))';
+        Cl=log((Bl-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
+    end
 end
 F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';

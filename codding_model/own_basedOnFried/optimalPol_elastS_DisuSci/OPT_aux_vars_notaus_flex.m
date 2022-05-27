@@ -50,19 +50,20 @@ A_lag=zeros(T,1);
 
 
 for i=1:T
-A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
+    A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
 
-Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
-Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
-An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
+    Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
+    Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
+    An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
 
-%-update lags
+    %-update lags
 
-Af_lag(i+1)=Af(i);
-Ag_lag(i+1)=Ag(i);
-An_lag(i+1)=An(i);
+    Af_lag(i+1)=Af(i);
+    Ag_lag(i+1)=Ag(i);
+    An_lag(i+1)=An(i);
 
 end
+
 Af_lag=Af_lag(1:end-1);
 An_lag=An_lag(1:end-1);
 Ag_lag=Ag_lag(1:end-1);
@@ -114,7 +115,11 @@ ws   = chiis*S.^sigmaas;
 
 % assuming interior solution households
 if indic.notaul==0
-    taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+    if indic.ineq==0
+        taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+    else
+        taul   = (log(wh./wl)+log(muuh./muul)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul        
+    end
 else
     taul   = zeros(size(sn));
 end

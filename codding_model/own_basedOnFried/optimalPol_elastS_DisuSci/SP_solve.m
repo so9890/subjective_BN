@@ -29,11 +29,11 @@ nn= length(list.sp);
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
 if etaa ~=1 
-helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
-  LF_SIM=helper.LF_SIM';
+    helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
+    LF_SIM=helper.LF_SIM';
 else
     helper= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
-  LF_SIM=helper.LF_BAU';
+    LF_SIM=helper.LF_BAU';
 end
 
   %- new list if uses separate market
@@ -84,7 +84,7 @@ if indic.target==0
         x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
         x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
-        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, params(list.params=='etaa')));
+        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
         sp_all=helper.sp_all;
         
         if indic.noskill==0
@@ -113,8 +113,8 @@ if indic.target==0
             if indic.ineq==0
                 x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
             else
-                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='C');  % C
-                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='C');  % C
+                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='Ch');  % C
+                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='Cl');  % C
             end                
             x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
@@ -157,7 +157,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
         fprintf('using sp solution as initial value')
-        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, params(list.params=='etaa')));
+        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq,indic.BN_red, params(list.params=='etaa')));
 %        helper= load(sprintf('OPT_target_active_set_1905_spillover%d_noskill%d_notaul0_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
 %        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
 
@@ -191,8 +191,8 @@ elseif indic.target==1
             if indic.ineq==0
                 x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
             else
-                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='C');  % C
-                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='C');  % C    
+                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='Cl');  % C
+                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='Ch');  % C    
             end
             x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =0.8999*0.1066/0.1159*sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
@@ -229,12 +229,12 @@ initOPT= init201519; % as calibrated under BAU policy
 
 if indic.BN==1
     if indic.ineq==1
-         guess_trans(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))=log((params(list.params=='Bl')-x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl'))))./...
+         guess_trans(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))=log((Bl-x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl'))))./...
          x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl'))));
-         guess_trans(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))=log((params(list.params=='Bh')-x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch'))))./...
+         guess_trans(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))=log((Bh-x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch'))))./...
          x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch'))));
     else
-        guess_trans(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))=log((params(list.params=='B')-x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))))./...
+        guess_trans(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))=log((B-x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))))./...
      x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C'))));
     end
 end
@@ -267,7 +267,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-    save('sp_results_target_sep1_spillover0_etaa0.79_BN1_ineq.mat')
+    save('sp_results_target_sep1_spillover0_etaa0.79_BN1_ineq1_red075.mat')
 %   ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
 options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
@@ -324,13 +324,17 @@ gammasn = zeros(size(pn));
 if indic.sep==0
     sp_all=eval(symms.allvars);
 else
-    sp_all=eval(symms.sepallvars_ineq);
+    if indic.ineq==1
+        sp_all=eval(symms.sepallvars_ineq);
+    else
+        sp_all=eval(symms.sepallvars);
+    end
 end
 
 %%
 if indic.target==1
     save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'sp_all', 'Sparams')
 else
-    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'sp_all', 'Sparams')
 end
 end
