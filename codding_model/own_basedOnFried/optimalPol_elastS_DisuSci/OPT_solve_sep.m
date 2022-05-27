@@ -286,7 +286,7 @@ if indic.target==1
             options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-          save('1905_opt_target_sep1_etaa079_emsnew_ineq_notaul_BN')
+          save('1905_opt_target_sep1_etaa079_emsnew_ineq_notaul_BN_red075')
            ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
