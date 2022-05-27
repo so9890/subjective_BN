@@ -1,12 +1,5 @@
 
 \section{Model}
-Labour demand by the green and fossil sector read
-\begin{align*}
-w=(p_f(1-\tau_f))^{\frac{1}{1-\alpha_f}}(1-\alpha_f)\alpha_f^{\frac{\alpha_f}{1-\alpha_f}}A_f
-\end{align*}
-
-
-\section{Model}
 This section presents the model which builds on \cite{Fried2018ClimateAnalysis}. 
 The demand side behaves as if there was a representative family. The representative household provides two skills: high and low which are used in different shares for the production of the neutral, fossil and green intermediate good.
 Endogenous growths is modeled in form of directed technical change resulting from research. The government seeks to maximise utility of the representative household under the constraint of meeting an exogenous emission target. Emissions arise from the usage of fossil energy in the final good production. 
@@ -55,9 +48,13 @@ L_{jt}=h_{hjt}^{\theta_j}h_{ljt}^{1-\theta_j}.
 \end{align}
 This additional intermediate sector allows to capture differences in skills by sector, especially in the fossil and green sector.
 
-A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. I assume that the costs to produce one machine, $\psi$, are homogeneous across firms. % It follows that $p_{ijt}=\psi$.
-
-
+Machine producers are imperfect monopolist and produce sector J specific machines. Machine producers maximise their profits by chosing the price at which to sell their machines to intermediate good producers internalising the responsiveness of demand to prices. Machine producers also decide on the amount of scientists to employ. Growth is machine specific. As the productivity of machine ij increases, demand for this machine increases too. 
+Each period, machine producers solve
+\begin{align}
+\underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1-\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit}.
+\end{align}
+The 
+The Thhhi
 \paragraph{Technological progress}
 Technological progress is exogenous:
 \begin{align}
