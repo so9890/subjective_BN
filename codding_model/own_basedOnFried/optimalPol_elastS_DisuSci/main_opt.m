@@ -210,7 +210,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
 indic
-for BN=0:1
+for BN=1
     indic.BN=BN;
     plottsSP(list, T, etaa, indic, params);
 end

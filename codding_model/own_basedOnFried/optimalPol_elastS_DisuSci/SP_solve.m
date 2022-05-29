@@ -48,7 +48,7 @@ end
             list.allvars=list.allvars_ineq;
         end
   end
-
+%%
 if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
@@ -209,7 +209,6 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 initOPT= init201519; % as calibrated under BAU policy
-
 
 % Transform variables to unbounded vars => requires less constraints! %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
