@@ -15,7 +15,7 @@ I study the model for a fixed amount of periods as I do not want to make any ass
 \sum_{t=0}^{T}\beta^t u(C_{t}, h_{lt}, h_{ht})\\
 %U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
 s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
-z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau}+T_t\\
+z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{lt}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{lt}}+T_t\\
 \ & h_{ht}\leq \bar{H}_t\\
 \ & h_{lt}\leq \bar{H}_t
 \end{align}
@@ -48,12 +48,13 @@ L_{jt}=h_{hjt}^{\theta_j}h_{ljt}^{1-\theta_j}.
 \end{align}
 This additional intermediate sector allows to capture differences in skills by sector, especially in the fossil and green sector.
 
-Machine producers are imperfect monopolist and produce sector J specific machines. Machine producers maximise their profits by chosing the price at which to sell their machines to intermediate good producers. Machine producers also decide on the amount of scientists to employ. Growth is machine specific. As the productivity of machine ij increases, demand for this machine increases too. 
+Machine producers are imperfect monopolist and produce sector $J$ specific machines. Machine producers maximise their profits by chosing the price at which to sell their machines to intermediate good producers. Machine producers also decide on the amount of scientists to employ. Growth is machine specific. As the productivity of machine $ij$ increases, demand for this machine increases too. Irrespective of the sector, the production of one machine costs one unit of the final output good.
 Each period, machine producers solve
 \begin{align}
 \underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1-\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit}.
 \end{align}
-taking as given the law of motion of technology and internalising demand for machines as a function of tecnology and the price of machines. 
+taking as given the law of motion of technology and internalising demand for machines as a function of technology and the price of machines. 
+The government subsidises machine production by $\zeta_{jt}$ which is set to implement the socially optimal level of machines and correct for the monopolistic structure of machine markets. 
 
 \paragraph{Research and technology}
 Technological growth is endogenously determined by research and spillover effects. The marginal product of research determines the amount of researchers employed and hence growth. 
@@ -61,7 +62,23 @@ The law of motion of technology is defined as
 \begin{align}
 A_{jit}=A_{jit-1}\left(1+\gamma\left(\frac{s_{jit}}{\rho_j}\right)^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi\right)
 \end{align}
+I make the following definitions
+\begin{align}
+A_{jt}=\int_{0}^{1}A_{jit}di\ \forall j,\\
+A_{t}=\frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_n A_{nt}}{\rho_f+\rho_g+\rho_n}.
+\end{align}
+The private benefits of research for machine producers diverges from the social benefits as they do not observe the effect of today's research on tomorrow's productivity due to the positive spillovers for all research sectors captured by the term $\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi$. 
 
+The supply of scientists is endogenous in my model. With this choice I depart from the standard assumption of a fixed supply of scientists in the literature on directed technical change \cite{Acemoglu2012TheChange, Fried2018ClimateAnalysis}. 
+
+Scientists form another sector in the economy, they are risk neutral. Modelling the supply of researchers flexibly gives more freedom for the planner to choose lower growth levels: no a-priori fixed amount of research has to be employed. Furthermore, I do not assume free movement of scientists which simplifies the numeric calculation of equilibria in a model without balanced growth. 
+Scientists in each sector behave according to 
+\begin{align}
+\underset{s_{jt}}{\max}\ \ & w_{jst}s_{jt}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\\
+s.t. \ \ & s_{jt}\leq \bar{H}.
+\end{align}
+
+I assume that all income of a scientist is confiscated by the government which simplifies notation. The assumption that scientists are risk neutral, introduces an additional externality as scientists do not internalise the social value of their research on society which is shaped by the shadow value of income. The advantage of this specification is that it prevents income tax parameters to affect the supply of scientists allowing to focus on the supply of hours by workers and consumption as the channels through which income taxes affect emissions. 
 \begin{comment}
 \paragraph{Impossibility of reaching target in laissez-faire with exogenous growth}
 \tr{Note that this is wrong! There is an option for the gov to affect inflation which then redirects demand.}
@@ -75,40 +92,29 @@ The government chooses the growth rate in each sector, taking into account that 
 \end{comment} 
   
 \paragraph{Markets}
-  
+In equilibrium markets have to clear. I explicitly model markets for skill and the final consumption good
+\begin{align}
+z_h h_{ht}&=h_{hft}+h_{hgt}+h_{hnt}\\
+(1-z_h) h_{lt}&=h_{lft}+h_{lgt}+h_{lnt}\\
+C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di
+\end{align}
 \paragraph{Government}
 
 The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Social welfare is defined as the equally weighted sum of utilities in the economy. The government can use income taxes and corrective taxes levied on fossil sales to maximise social welfare. The planner solves:
 
 \begin{align*}
-\underset{\{\tau_{t}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
+\underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{lt}\}_{t=0}^{T}}{max}&\sum_{t=0}^{T}\beta^t\left( u(C_{t}, h_{ht}, h_{lt})-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}\right) \\
 s.t.\ %& (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
-& (1)\ \kappa Y_{nt} -\delta \leq E_t \  \forall \ t\geq 0\hspace{3mm} \text{(emission target)}\\
-& (2)\ (w_{ht}h_{ht}+w_{lt}h_{lt})-\lambda_t (w_{ht}h_{ht}+w_{lt}h_{lt})^{1-\tau_{t}} = G_t\hspace{3mm} \text{(gov. budget)}\\
+& (1)\ \omega F_{t} -\delta \leq \Omega_t \  \forall \ t\geq 0 \\ %\hspace{3mm} \text{(emission target)}\\
+& (2)\ z_h\left(w_{ht}h_{ht}-\lambda_t \left(w_{ht}h_{ht}\right)^{1-\tau_{lt}}\right)+(1-z_h)\left(w_{lt}h_{lt}-\lambda_t\left(w_{lt}h_{lt}\right)^{1-\tau_{lt}}\right) +\tau_{ft}p_{ft}F_{t} \\ 
+& +\sum_{j\in\{f,g,n\}}\left(\int_{0}^{I}\pi_{jit}di-\zeta_{jt}\int_{0}^{I}p_{jixt}x_{jit}di+w_{sjt}s_{jt}\right)= T_t\hspace{3mm}\\
 %& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
-& (2)\ \text{behaviour of firms and households}\\
-& (3)\ \text{feasibility}
+& (3)\ \text{behaviour of firms and households}\\
+& (4)\ \text{feasibility}
 \end{align*}
 
-$E_t$ are flow emissions per year.  The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors.  For simplicity, I assume that the regeneration rate is constant. $\kappa$ determines greenhouse-gas emission in CO2 equivalents caused by production. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
+$\Omega_t$ are flow emissions in period $t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted CO2 through sinks, such as forests and moors.  For simplicity, I assume that the sink capacity is constant. The parameter $\omega$ determines greenhouse-gas emission in CO2 equivalents caused by the fossil sector which is assumed to be the sole source of emissions in the model. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
 %Hence, under the emission target it has to hold that $Y_{nt}=\frac{\delta+E_t}{\kappa}$ assuming that the analysis starts in 2020.
 The government generates revenues from taxing labour income and redistributes to run a balanced budget. 
-
-
-\paragraph{Markets}
-Three markets are modelled explicitly: a market for final goods, and one for each type of skill.
-\begin{align*}
-\text{final good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)+ G_t\\
-%\end{align*}
-% %I study two cases one with full disposal, i.e., $\iota=0$, and one without $\iota=1$. In the first scenario, the price of the final good is determined by the market clearing condition as Walras' law does not hold. 
-%\begin{align*}
-\text{high skill:}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
-\text{low skill:}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}.
-\end{align*}
-
-
-
-%\section{Results}
-%\subsection{Balanced Growth path}
 
 
