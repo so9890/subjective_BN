@@ -70,7 +70,7 @@ end
 % ratios
 AgAf=Ag./Af;
 sgsff= sg./sff;
-GF = G./F;
+GFF = G./F;
 EY= E./Y;
 if indic.ineq==0
     CY = C./Y;

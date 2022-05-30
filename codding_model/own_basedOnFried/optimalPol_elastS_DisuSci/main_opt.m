@@ -222,9 +222,14 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
 indic
+
 for BN=1
     indic.BN=BN;
-    plottsSP(list, T, etaa, indic, params);
+    for inn=0:1
+        indic.ineq=inn;
+        indic
+        plottsSP(list, T, etaa, indic, params);
+    end
 end
 
 %%

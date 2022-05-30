@@ -24,13 +24,17 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa Ch Cl C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
 %- additional vars
-syms AgAf sgsff GF EY CY hhhl whwl Utilcon Utillab Utilsci real
-symms.plotsvarsProd =[Y N E G F];  
-symms.plotsvarsHH =[hh hl Ch Cl C SWF Emnet];  
+syms AgAf sgsff GFF EY CY hhhl whwl Utilcon Utillab Utilsci real
+symms.plotsvarsProd =[Y N E G F];
+if indic.ineq==0
+    symms.plotsvarsHH =[hh hl C SWF Emnet]; 
+else
+    symms.plotsvarsHH =[hh hl Ch Cl  SWF Emnet];  
+end
 symms.plotsvarsRes =[sn sff sg  Af Ag An];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [AgAf sgsff GF EY CY hhhl whwl Utilcon Utillab Utilsci ];
+symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl Utilcon Utillab Utilsci ];
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
