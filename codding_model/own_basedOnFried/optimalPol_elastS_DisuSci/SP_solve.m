@@ -127,7 +127,7 @@ elseif indic.target==1
     x0 = zeros(nn*T,1);
     kappaa = [Ftarget(1),Ftarget(1),Ftarget]./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
     kappaa = kappaa*(1-1e-10);
-    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
+    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')))
          fprintf('using LF solution as initial value')
         if indic.noskill==0
                        
@@ -194,7 +194,7 @@ elseif indic.target==1
                 x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='Cl');  % C
                 x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='Ch');  % C    
             end
-            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =0.8999*0.1066/0.1159*sp_all(1:T, list.allvars=='F');  % C
+            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =0.8999*0.0720/0.1066*sp_all(1:T, list.allvars=='F');  % C
             x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
             x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
             x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
@@ -266,7 +266,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-    save('sp_results_target_sep1_spillover0_etaa0.79_BN1_ineq1_red075.mat')
+     save('sp_results_target_sep1_spillover0_etaa0.79_BN1_ineq1_red0.mat')
 %   ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
 options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);

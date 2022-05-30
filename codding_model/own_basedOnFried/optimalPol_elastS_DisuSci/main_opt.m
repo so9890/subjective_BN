@@ -160,21 +160,25 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % indic.noskill=0;
-        for i =0
-            indic.noskill=i;
-            if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
-                indic.target=1;
-                fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-            else
-              fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
-            end
-            if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
-                indic.target=0;
-                fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
-                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-            else
-              fprintf('Social planner solution without target, noskill%d exists', indic.noskill);
+        for BN=1
+            indic.BN=BN;
+            for inn=0:1
+                indic.ineq=inn;
+%             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
+%                 indic.target=1;
+%                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
+indic               
+SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+%             else
+%               fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
+%             end
+%             if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
+%                 indic.target=0;
+%                 fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
+%                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+%             else
+%               fprintf('Social planner solution without target, noskill%d exists', indic.noskill);
+%             end
             end
         end
            
@@ -186,22 +190,30 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.notaul=0; % ==0 if labour income tax is available
 indic.sep =1;
-for i=1
-     indic.noskill=i;
-     if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-         indic.target=1;
-         [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-     else 
-        fprintf('OPT solution with target, noskill%d exists', indic.noskill);
+indic.target=1;
+for BN=1
+     indic.BN=BN;
+     for inn =0:1
+         indic.ineq=inn;
+         for nnt=0:1
+             indic.notaul=nnt;
+             indic
+%      if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
+%          indic.target=1;
+         %[symms, list, opt_all]= 
+         OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+     %else 
+%         fprintf('OPT solution with target, noskill%d exists', indic.noskill);
+%      end
+%     if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')))
+%         indic.target=0;
+%         [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+%     else 
+%        fprintf('OPT solution without target, noskill%d exists', indic.noskill);
+%     end
+         end
      end
-    if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')))
-        indic.target=0;
-        [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-    else 
-       fprintf('OPT solution without target, noskill%d exists', indic.noskill);
-    end
 end
 
 %%

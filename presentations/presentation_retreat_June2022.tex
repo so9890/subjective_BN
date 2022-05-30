@@ -281,7 +281,7 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+(1-z_h) \lambda_t (w_{lt}h_
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
 		\tikzmarkin{second}(1.9,1.2)(-1.5,-0.8)
-Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
+Y_t=\left(\delta_y^{\frac{1}{\varepsilon_e}}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^{\frac{1}{\varepsilon_e}}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
 E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
 \tikzmarkend{second}
 \end{align*}
@@ -320,7 +320,7 @@ E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}
 \\
 
 \vspace{10mm}
-	\textbf{Monopolistic competitive machine producers }\\ \vspace{-1mm}
+	\textbf{Monopolistically competitive machine producers }\\ \vspace{-1mm}
 \begin{minipage}[t!]{1\textwidth}
 	\begin{align*}
 	\tikzmarkin{sixth}(3.2,3)(-3.1,-3)
@@ -344,9 +344,9 @@ s.t.\ & x_{ijt}= \left(\frac{p_{ft}(1-\tau_{jt})\alpha_j}{p_{xijt}}\right)^\frac
 \begin{frame}{Model: Government}
 
 \begin{align*}
-&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{st}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 s.t. \hspace{4mm}
-&(1)\ \ S_t+\tau_{st}w_{sgt}s_{gt}= \text{profits machines}+\text{tax income}+\tau_{ct}p_{ft}F_{t}\\
+&(1)\ \ T_t= \text{profits machines}+\text{tax income}+\tau_{ft}p_{ft}F_{t}\\
 &
 (2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,T]
 \end{align*}
@@ -355,7 +355,7 @@ where
 \Omega =\left[\Omega_0,..., \Omega_{29}, \pmb{0}_{\{1\times 30\}}\right]
 \end{align*}
 	\begin{itemize}
-	\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ct})}F_t-c(L_{ft}, x_{ft})$
+	\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ft})}F_t-c(L_{ft}, x_{ft})$
 	\item labour income tax
 	\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
 \end{itemize}
@@ -364,11 +364,53 @@ where
 \section{Calibration}
 
 \section{Results}
-\begin{frame}{Main Result}
-\includegraphics[width=0.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq1_red0_etaa0.79_lgd1}
+\begin{frame}{Main Result: Labour income tax is progressive to meet emission target}
+			\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq1_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Corrective tax, $\tau_{ft}$\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_TargetCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq1_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Transfers, T\\ \ }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_T_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12_xaxisms_circlesevol.png}
+%	\end{minipage}
+
 \end{frame}
 
+\begin{frame}{Main Result 2:  With satiation point}
+			\centering
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Same satiation point\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{High-skilled reduce satiation point\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+\end{minipage}
+\end{frame}
 
+\begin{frame}{Main Result 2: A reduction in consumption by HH no inequality}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Same satiation point\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{High-skilled reduce satiation point\\ \ }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd1}
+%	\end{minipage}
+\end{frame}
 \appendix
 \begin{frame}{Working hypotheses}	
 	\begin{itemize}

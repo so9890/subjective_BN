@@ -27,7 +27,7 @@ end
 list.opt  = string(symms.opt); 
 
 nn= length(list.opt); % number of variables
-
+%%
 if indic.sep==1
     if indic.ineq==0
     list.allvars=list.sepallvars;
@@ -41,11 +41,12 @@ end
 % uses social planner of LF allocation 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
-    if isfile(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, etaa))
-     helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN,indic.ineq, indic.BN_red,etaa));
-     opt_all=helper.opt_all;
+    if isfile(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN,indic.ineq, indic.BN_red,etaa))
     
-    x0 = zeros(nn*T,1);
+        helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat',indic.sep, indic.BN,indic.ineq, 0,etaa));
+        opt_all=helper.opt_all;
+
+        x0 = zeros(nn*T,1);
     if indic.noskill==0
         x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =opt_all(:,list.allvars=='hhg'); % hhg
@@ -68,7 +69,7 @@ if indic.target==1
     x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =opt_all(:,list.allvars=='Ch');   % C
     x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =opt_all(:,list.allvars=='Cl');   % C
     end
-    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =0.8999*opt_all(:,list.allvars=='F');%0.8999*0.1066/0.1159*opt_all(:,list.allvars=='F');
+    x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =0.999*[Ftarget(1); Ftarget(1); Ftarget];%0.8999*0.1066/0.1159*opt_all(:,list.allvars=='F');
     x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
     x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
@@ -76,7 +77,7 @@ if indic.target==1
 
     else
 
-     helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, Sparams.etaa));
+     helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, Sparams.etaa));
      sp_all=helper.sp_all;
 
      if ~isvarname('sp_all')
@@ -99,8 +100,13 @@ if indic.target==1
         % x0(T*(find(list.opt=='lambdaa')-1)+1:T*(find(list.opt=='lambdaa')))   =sp_all(:,list.allvars=='lambdaa');  % hl
          x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h')))   =sp_all(:,list.allvars=='hh');  % hh    
      end
-     x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
-     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =(0.999)*sp_all(:,list.allvars=='F');
+     if indic.ineq==0
+        x0(T*(find(list.opt=='C')-1)+1:T*(find(list.opt=='C')))     =sp_all(:,list.allvars=='C');   % C
+     else
+        x0(T*(find(list.opt=='Ch')-1)+1:T*(find(list.opt=='Ch')))     =sp_all(:,list.allvars=='C');   % C
+        x0(T*(find(list.opt=='Cl')-1)+1:T*(find(list.opt=='Cl')))     =sp_all(:,list.allvars=='C');   % C
+     end
+     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))     =0.072/0.1066*sp_all(:,list.allvars=='F');
      x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =sp_all(:,list.allvars=='G');   % G
      x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))) =sp_all(:,list.allvars=='sff');  % Af
      x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =sp_all(:,list.allvars=='sg');  % Ag
@@ -280,14 +286,16 @@ constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic);
 if indic.target==1
 %         options = optimset('algorithm','sqp','TolCon',1e-6,'Tolfun',1e-10,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        if indic.spillovers==1
-            options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        else
-            options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        end
-        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-          save('1905_opt_target_sep1_etaa079_emsnew_ineq0_notaul_BN_red075')
-           ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
+%         if indic.spillovers==1
+%             options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%         else
+        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%         end
+         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
+        options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+%           save('1905_opt_target_sep1_etaa079_emsnew_ineq0_notaul_BN_red075')
+%            ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
 %         [xsqp,fval,exitflag,output,lambda] = fmincon(ss.objf,xsqp,[],[],[],[],ss.lb,ss.ub,ss.constf,options);
 % 
 % ss=load(sprintf('sqp_solu_notargetOPT_1005_spillover%d_taus%d_noskill%d.mat', indic.spillovers, indic.taus, indic.noskill))

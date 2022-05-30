@@ -1,5 +1,5 @@
 function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
-    = calibration_matching_GOOD(MOM, symms, list, parsHelp, polhelp)
+    = calibration_matching_GOOD(MOM, symms, list, parsHelp, polhelp, indic)
 % function to match moments to model equations
 % i.e. solving model plus additional equations for paramters
 % to this end, the model is solved 
@@ -147,7 +147,7 @@ f =calibLabour(guess_trans,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list,
 Labf = @(x)calibLabour(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list, polhelp);
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [solLab, fval] = fsolve(Labf, guess_trans, options);
-trLab=trans_allo_out(indexxcalib, solLab, parsHelp, list.paramsdir);
+trLab=trans_allo_out(indexxcalib, solLab, parsHelp, list.paramsdir, indic);
 
 
 %% Research side

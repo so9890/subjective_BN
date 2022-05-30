@@ -22,8 +22,8 @@ netEmissionsUS2019  = 5.7691;
 
 %new report 2022: reducing emissions by 50\% compared to 2019
 
-deltaa      = emissionsUS2019-netEmissionsUS2019;  % sinks in the model given in Gt
-targetUS    = emissionsUS2019*0.5+deltaa; % I assume the reduction to be related to gros emissions, so that the target can be higher by delta
+deltaa         = emissionsUS2019-netEmissionsUS2019;  % sinks in the model given in Gt
+nettargetUS    = emissionsUS2019*0.5-deltaa; % I assume the reduction to be related to gros emissions, so that the target can be higher by delta
 
 % new share of US gros emissions when target is reached
 % shareUSnew  = targetUS/targetGlobal; % => the share reduces by 2 percentage points! 
@@ -31,7 +31,7 @@ targetUS    = emissionsUS2019*0.5+deltaa; % I assume the reduction to be related
                         % necessary reduction
 % emission target us as a vector      
 % starting from 2030s (3rd period in model)
-E_vec          = [repmat(targetUS,1, (50-30)/lengthh), zeros(1,(T*lengthh-(50-20))/lengthh)]; 
+E_vec          = [repmat(nettargetUS,1, (50-30)/lengthh), zeros(1,(T*lengthh-(50-20))/lengthh)]; 
                 % assume this is without sinks
                 % emissions in Gt (so far, globally)
                 % from t=1 to t=29 E=30; from t=30 (2050) to t=T E=0

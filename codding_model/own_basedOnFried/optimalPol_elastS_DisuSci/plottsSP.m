@@ -23,11 +23,15 @@ end
 % this script plots results
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa Ch Cl C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An real
+%- additional vars
+syms AgAf sgsff GF EY CY hhhl whwl Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];  
 symms.plotsvarsHH =[hh hl Ch Cl C SWF Emnet];  
 symms.plotsvarsRes =[sn sff sg  Af Ag An];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
+symms.plotsvarsAdd = [AgAf sgsff GF EY CY hhhl whwl Utilcon Utillab Utilsci ];
+
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
 else
@@ -43,9 +47,10 @@ listt.plotsvarsHH=string(symms.plotsvarsHH);
 listt.plotsvarsRes=string(symms.plotsvarsRes);
 listt.plotsvarsPol=string(symms.plotsvarsPol);
 listt.plotsvarsPri=string(symms.plotsvarsPri);
+listt.plotsvarsAdd=string(symms.plotsvarsAdd);
 
-lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri'}, {listt.plotsvarsProd, listt.plotsvarsProdIn, ...
-    listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri});
+lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {listt.plotsvarsProd, listt.plotsvarsProdIn, ...
+    listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
  
 %% read in results
 %- baseline results without reduction
@@ -64,6 +69,9 @@ opt_t_notaus=helper.opt_all';
 
 RES = containers.Map({'BAU', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                         {bau,  sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+%- add additional variables
+[RES]=add_vars(RES, list, params, indic, varlist, symms);
+varlist=[varlist, string(symms.plotsvarsAdd)];
 
 %- results without taul
 helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
@@ -74,6 +82,9 @@ opt_t_notaus_notaul=helper.opt_all';
 
 RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
 RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
+%- add additional variables
+RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
+RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
 
 %- results with reduction 
 % helper=load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red1_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
@@ -245,7 +256,7 @@ for l =keys(lisst) % loop over variable groups
     path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
-%    close gcf
+    close gcf
 %    pause
     end
 end
@@ -302,24 +313,10 @@ end
 
 for i =keys(RES_polcomp_full)
     
-%     if indic.sep==0
-%         lisst('Pri')= [pg pf pee pn wh wl ws];  
-%     else
-%         lisst('Pri')= [pg pf pee pn wh wl wsg wsn wsf];  
-%     end
-    
-    
     ii=string(i);
-%     if indic.noskill==0
          allvars= RES_polcomp_full(ii);
          allvarsnt=RES_polcomp_notaul(ii); 
          TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
-
-%     else
-%         allvars= RES_polcomp_full_ns(ii);
-%         allvarsnt=RES_polcomp_notaul_ns(ii);
-%         TableSWF_PV_ns.NoTaulNoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
-%     end
 
 %% 
 fprintf('plotting %s',ii );
@@ -368,7 +365,7 @@ end
  % calculate contributes to SWF 
 % tt=load('Table_SWF_etaa1.mat', 'TableSWF_PV');
 TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-%save(sprintf('Table_SWF_sep%d_etaa%.2f_BN%d_ineq%d.mat', indic.sep, etaa, indic.BN, indic.ineq), 'TableSWF_PV');
+save(sprintf('Table_SWF_sep%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
 
 %% comparison to BAU
 % RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -423,7 +420,7 @@ for l =keys(lisst) % loop over variable groups
     path=sprintf('figures/all_1705/%s_BAUComp%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
-%    close gcf
+    close gcf
 %     pause
     end
     end
@@ -471,9 +468,7 @@ for l =keys(lisst) % loop over variable groups
        end
     path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
-    % saveas(gcf,path)
-%    close gcf
-%     pause
+   close gcf
     end
     end
   end
@@ -515,14 +510,14 @@ for l =keys(lisst) % loop over variable groups
        end
     path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
-    % saveas(gcf,path)
-%    close gcf
-%     pause
+    close gcf
     end
     end
   end
 
 end
+
+
 
 end
 
