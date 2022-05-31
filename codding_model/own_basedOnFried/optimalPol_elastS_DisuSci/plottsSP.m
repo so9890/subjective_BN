@@ -56,6 +56,9 @@ listt.plotsvarsAdd=string(symms.plotsvarsAdd);
 lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {listt.plotsvarsProd, listt.plotsvarsProdIn, ...
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
  
+%- variables which to plot in one graph plus legend
+lissComp = containers.Map({'Labour', 'Science'}, {string([hh hl]), string([sff sg sn])});
+legg = containers.Map({'Labour', 'Science'}, {["high skill", "low skill"], ["fossil", "green", "non-energy"]});
 %% read in results
 %- baseline results without reduction
 helper=load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
@@ -266,6 +269,50 @@ for l =keys(lisst) % loop over variable groups
 end
 end
 
+%% figures single overlayed
+
+for lgdind=0:1
+for i =keys(RES)
+    ii=string(i);
+
+    %- loop
+    ii=string(i);
+    allvars= RES(ii);
+%% 
+fprintf('plotting %s',ii );
+for l =keys(lissComp) % loop over variable groups
+    ll=string(l);
+    plotvars=lissComp(ll); % here plotvars is a group of variable names which are to be plotted in the same graph
+
+    gcf=figure('Visible','off');
+
+    main=plot(time,allvars(ismember(varlist,plotvars),:), 'LineWidth', 1.1);    % plot vectors!        
+    if length(plotvars)==2
+       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
+    elseif length(plotvars)==3
+           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
+    end
+       xticks(txx)
+       xlim([1, time(end)])
+        ax=gca;
+        ax.FontSize=13;
+        ytickformat('%.2f')
+        xticklabels(Year10)
+     if lgdind==1
+        pp=legg(ll);
+        if length(pp)==2
+            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),  'Interpreter', 'latex');
+        elseif length(pp)==3
+            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)),  'Interpreter', 'latex');
+        end
+        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+    end
+    path=sprintf('figures/all_1705/SingleJoint_%s_%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+    exportgraphics(gcf,path,'Resolution', 400)
+    close gcf
+    end
+end
+end
 %% comparison without skill heterogeneity
 % for i =keys(RES)
 %     ii=string(i);
@@ -520,7 +567,6 @@ for l =keys(lisst) % loop over variable groups
   end
 
 end
-
 
 
 end

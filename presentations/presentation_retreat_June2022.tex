@@ -196,14 +196,14 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \begin{frame}{Preview of results}
 \begin{enumerate}
-	\item<+-> the optimal income tax progressivity increases by up to 1/3 to meet the emission target 
+	\item<+-> the optimal income tax is progressive  to meet emission targets
 		\vspace{3mm}
-		\item<+-> work effort is inefficiently high absent income taxes 
+		\item<+-> income taxes not necessary to meet emission target but utility enhancing through lower labour effort
 		\vspace{3mm}
 	\item<+-> labour income taxes contribute to social welfare by 0.1\% %over the 60 years from 2020 to 2080
 	
 	\vspace{3mm}
-	\item<+-> when high skill households voluntarily reduce their consumption, income taxes become more important COULD BE INEQUALITY
+	\item<+-> a voluntary reduction of consumption enables the gov to implement a more efficient allocation; but income tax still progressive \ar less need to reduce, better skill ratio?
 \end{enumerate}
 \end{frame}
 \begin{frame}{Roadmap}
@@ -363,54 +363,265 @@ where
 
 \section{Calibration}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
-\begin{frame}{Main Result: Labour income tax is progressive to meet emission target}
+
+\begin{frame}{Outline}
+\begin{enumerate}
+	\item Representative agent model
+	\item Voluntary reduction experiment
+\end{enumerate}
+\end{frame}
+\begin{frame}{Main Result: Optimal income tax is progressive to meet emission target}
 			\centering
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$\\ \ }}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$}}
 		%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq1_red0_etaa0.79_lgd1.png}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
 	\end{minipage}
+\begin{minipage}[]{0.05\textwidth}
+	\ \ \\ 
+	\ \ 
+\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Corrective tax, $\tau_{ft}$\\ \ }}
+		\centering{\footnotesize{Corrective tax, $\tau_{ft}$ }}
 		%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_TargetCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq1_red0_etaa0.79_lgd1.png}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
 	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{Transfers, T\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_T_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12_xaxisms_circlesevol.png}
-%	\end{minipage}
 
-\end{frame}
-
-\begin{frame}{Main Result 2:  With satiation point}
-			\centering
 \begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Same satiation point\\ \ }}
+	\centering{\footnotesize{Taul BN 1 }}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
 \end{minipage}
 \begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{High-skilled reduce satiation point\\ \ }}
+	\centering{\footnotesize{Tauf BN 1 }}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Main Result 2: A reduction in consumption by HH no inequality}
+\begin{frame}{Main Result: Allocation: Reduction}
+	\centering
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Consumption}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hh_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Low skill}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hl_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Fossil research}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sff_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Green research}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sg_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Non-energy research}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sn_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Output}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Y_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Welfare}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_SWF_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Disutility science}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilsci_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Utility consumption }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilcon_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+%\end{minipage}
+\end{frame}
+
+\begin{frame}{Main Result: Allocation: Reduction BN1}
 	\centering
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Same satiation point\\ \ }}
+		\centering{\footnotesize{Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
 	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{High-skilled reduce satiation point\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd1}
-%	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hh_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Low skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hl_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Fossil research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sff_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Green research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sg_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Non-energy research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sn_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Y_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Welfare}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_SWF_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{Disutility science}}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilsci_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	%\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{Utility consumption }}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilcon_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	%\end{minipage}
 \end{frame}
+
+
+\begin{frame}{Main Results: Recomposition}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Green to Fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_GFF_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{SgSf }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_sgsff_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{High to low skill }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hhhl_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Consumption ratio}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_CY_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Energy to Output}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_EY_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\end{frame}
+
+\section*{Mechanism}
+\begin{frame}{Efficient and optimal allocation }
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Low skill }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{itemize}
+%	\item the use of the income tax allows to prevent 
+	\item income tax is used to reduce the level of work effort closer to the efficient allocation
+	\item at the cost of a lower high to low skill ratio
+\end{itemize}
+\end{frame}
+
+
+\section*{Voluntary Reduction}
+\begin{frame}{Main Result 2: Households reduce their satiation point}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Same satiation point taul}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Rich reduce: taul }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_TargetCompOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd1.png}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Efficient and optimal allocation BN1}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Low skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Low skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red1_etaa0.79_lgd0.png}
+	\end{minipage}
+%	\begin{itemize}
+%		%	\item the use of the income tax allows to prevent 
+%		\item income tax is used to reduce the level of work effort closer to the efficient allocation
+%		\item at the cost of a lower high to low skill ratio
+%	\end{itemize}
+\end{frame}
+
 \appendix
 \begin{frame}{Working hypotheses}	
 	\begin{itemize}
