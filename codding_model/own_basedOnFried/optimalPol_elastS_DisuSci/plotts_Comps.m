@@ -170,13 +170,13 @@ Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
 %% All figures single: Comparison with BN and red
 
- for compp=0:1 % loop over comparison versions (reduction or utility (BN))
+ for compp=1 % loop over comparison versions (reduction or utility (BN))
      if compp==0 % Utility version
         RES=RES_BN1; % main results
         RES_gr = RES_BN0;
      elseif compp==1
-         RES = RES_RED;
-         RES_gr = RES_NORED;
+         RES = RES_NORED;
+         RES_gr = RES_RED;
      end
 for lgdind=0:1
 
