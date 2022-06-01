@@ -26,6 +26,8 @@ for k = keys(RES)
     S = varrs(varlist=='S',:)';
     Ag = varrs(varlist=='Ag',:)';
     Af = varrs(varlist=='Af',:)';
+    An = varrs(varlist=='An',:)';
+    A = varrs(varlist=='A',:)';
     Lg = varrs(varlist=='Lg',:)';
     Lf = varrs(varlist=='Lf',:)';
     G = varrs(varlist=='G',:)';
@@ -72,6 +74,8 @@ AgAf=Ag./Af;
 sgsff= sg./sff;
 GFF = G./F;
 EY= E./Y;
+LgLf = Lg./Lf;
+
 if indic.ineq==0
     CY = C./Y;
 else
@@ -79,6 +83,13 @@ else
 end
 hhhl = hh./hl;
 whwl = wh./wl;
+
+%- growth rates
+gAg = [(Ag(2:end)-Ag(1:end-1))./Ag(1:end-1);0]*100;
+gA = [(A(2:end)-A(1:end-1))./A(1:end-1);0]*100;
+
+gAn = [(An(2:end)-An(1:end-1))./An(1:end-1); 0]*100;
+gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;
 
 %- update variables and varlist to include additional variables
 jj= eval(symms.plotsvarsAdd); 

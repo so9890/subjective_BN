@@ -25,7 +25,7 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa Ch Cl C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An S real
 %- additional vars
-syms AgAf sgsff GFF EY CY hhhl whwl Utilcon Utillab Utilsci real
+syms AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gA Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 if indic.ineq==0
     symms.plotsvarsHH =[hh hl C SWF Emnet]; 
@@ -35,7 +35,7 @@ end
 symms.plotsvarsRes =[sn sff sg  S Af Ag An];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl Utilcon Utillab Utilsci ];
+symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl LgLf gA gAg gAf gAn Utilcon Utillab Utilsci ];
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
@@ -58,8 +58,8 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {lis
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
  
 %- variables which to plot in one graph plus legend
-lissComp = containers.Map({'Labour', 'Science'}, {string([hh hl]), string([sff sg sn S])});
-legg = containers.Map({'Labour', 'Science'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"]});
+lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string([hh hl]), string([sff sg sn S]), string([gAf gAg  gAn gA]), string([Lf Lg])});
+legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"], ["fossil", "green", "non-energy", "aggregate"], ["fossil", "green"]});
 %% read in results
 %- baseline results without reduction
 helper=load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
@@ -183,7 +183,6 @@ txx=1:2:T; % reducing indices
 %- using start year of beginning period 
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
-
 %% Tables
 for i =keys(RES)
     ii=string(i);
@@ -252,8 +251,17 @@ for l =keys(lisst) % loop over variable groups
 
         varr=string(plotvars(v));
         %subplot(floor(length(plotvars)/nn)+1,nn,v)
-        main=plot(time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);            
-       set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+        if ll=="HH" && varr=="Emnet"
+            main=plot(time,allvars(find(varlist==varr),:),time(3:end),Ems, 'LineWidth', 1.1);  
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+            lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+
+        else
+            main=plot(time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+
+        end
        xticks(txx)
        xlim([1, time(end)])
 
@@ -281,20 +289,34 @@ for i =keys(RES)
     allvars= RES(ii);
 %% 
 fprintf('plotting %s',ii );
-for l =keys(lissComp) % loop over variable groups
+for l ="LabourInp" %keys(lissComp) % loop over variable groups
     ll=string(l);
     plotvars=lissComp(ll); % here plotvars is a group of variable names which are to be plotted in the same graph
 
     gcf=figure('Visible','off');
 
-    main=plot(time,allvars(ismember(varlist,plotvars),:), 'LineWidth', 1.1);    % plot vectors!        
     if length(plotvars)==2
-       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
-    elseif length(plotvars)==4
+        main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
+        set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} ) 
+%    elseif ll=="LabourInp"
+%           main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),time,allvars(find(varlist==plotvars(3)),:), 'LineWidth', 1.1);    % plot vectors!        
+%           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
+   elseif ll=="Growth"
+          main=plot(time(1:end-1),allvars(find(varlist==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varlist==plotvars(2)),1:end-1),...
+          time(1:end-1),allvars(find(varlist==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varlist==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
+          set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
+
+    elseif ll=="Science"
+          main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),...
+              time,allvars(find(varlist==plotvars(3)),:), time,allvars(find(varlist==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
            set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
     end
        xticks(txx)
-       xlim([1, time(end)])
+       if ll=="Growth"
+          xlim([1, time(end-1)])
+       else
+          xlim([1, time(end)])
+       end
         ax=gca;
         ax.FontSize=13;
         ytickformat('%.2f')
@@ -303,6 +325,9 @@ for l =keys(lissComp) % loop over variable groups
         pp=legg(ll);
         if length(pp)==2
             lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),  'Interpreter', 'latex');
+        elseif length(pp)==3
+            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)),  'Interpreter', 'latex');
+        
         elseif length(pp)==4
             lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)), sprintf('%s',pp(4)),  'Interpreter', 'latex');
         end
@@ -369,10 +394,10 @@ for i =keys(RES_polcomp_full)
          allvars= RES_polcomp_full(ii);
          allvarsnt=RES_polcomp_notaul(ii); 
          TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
-
+% end
 %% 
 fprintf('plotting %s',ii );
-for lgdind=1
+for lgdind=0
 for l =keys(lisst)
     ll=string(l);
     plotvars=lisst(ll);
@@ -440,7 +465,7 @@ for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
 
 %% 
 fprintf('plotting %s',ii );
-for l =keys(lisst) % loop over variable groups
+for l ="Add"% keys(lisst) % loop over variable groups
     ll=string(l);
     plotvars=lisst(ll);
     for lgdind=0:1
@@ -540,7 +565,7 @@ for i =[1,2]
     allvarsnotaul =RES_polcomp_notaul(io);
     allvarseff=RES(ie); 
     
-for l =keys(lisst) % loop over variable groups
+for l ="Add" %keys(lisst) % loop over variable groups
     ll=string(l);
     plotvars=lisst(ll);
     for lgdind=0:1

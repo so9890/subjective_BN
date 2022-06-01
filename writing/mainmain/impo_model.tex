@@ -1,12 +1,13 @@
 
-\section{Model}
+\section{Model}\label{sec:model}
 This section presents the model building on \cite{Fried2018ClimateAnalysis}. 
-The demand side behaves as if there was a representative family. The representative household provides two skills: high and low which are used in different shares for the production of the neutral, fossil and green intermediate good.
+The demand side behaves as if there was a representative family.  The representative household provides two skills: high and low which are used in different shares for the production of the neutral, fossilm and green intermediate goods.
 Endogenous growth is modeled in form of directed technical change resulting from research. The government seeks to maximise utility of the representative household under the constraint of meeting an exogenous emission target. Emissions arise from the usage of fossil energy in the final good production. 
 I study the model for a fixed amount of periods as I do not want to make any assumption on steady growth due to the absolute constraint on fossil production. 
 
 \paragraph{Households}
 % the rep agent
+Modeling the economy as a representative family allows to abstract from inequality as a motive for government intervention while at the same time being able to study skill heterogeneity.
  The household chooses hours of high- and low-skilled workers and average consumption taking prices as given. The share of worker types is fixed with a lower share of high-skilled workers, $z_h$, resulting in a skill premium. The household's problem reads
 
 \begin{align}
@@ -17,15 +18,15 @@ I study the model for a fixed amount of periods as I do not want to make any ass
 s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
 z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{lt}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{lt}}+T_t\\
 \ & h_{ht}\leq \bar{H}_t\\
-\ & h_{lt}\leq \bar{H}_t
+\ & h_{lt}\leq \bar{H}_t.
 \end{align}
-The government levies a tax on skill-level income. The tax schedule is characterised by  a scaling factor, $\lambda$, and a parameter determining the progressivity of the tax schedule, $\tau_{lt}$, \citep[compare, e.g.,][]{Heathcote2017OptimalFramework}. The household receives lump-sum transfers from the government, $T_t$.
+The government levies a tax on skill-level income. The tax schedule is characterised by  a scaling factor, $\lambda$, and a parameter determining the progressivity of the tax schedule, $\tau_{lt}$, \citep[compare, e.g.,][]{Heathcote2017OptimalFramework}. The household receives lump-sum transfers from the government, $T_t$.  As $\tau_{lt}$ increases, the elasticity of disposable income with respect to hours worked decreases. In the specified model, the effect of a change in tax progressivity through lower income is similar across skill types; however, the substitution effect is higher for high-skilled workers. Therefore, as the tax schedule becomes more progressive, high-skilled workers decrease their time spent working relatively more.
 
-The choice to focus on a representative family enables to abstract from inequality as a motive for government intervention. 
+%The choice to focus on a representative family enables to abstract from inequality as a motive for government intervention. 
 \paragraph{Production}
 Production separates into final good production, energy production, intermediate good production, the production of machines and the intermediate labour input good. 
 
-The final good producing sector is perfectly competitive combining the neutral and energy intermediate input goods according to:
+The final good producing sector is perfectly competitive combining the non-energy and energy goods according to:
 \begin{align}
 Y_t=\left[\delta_y^\frac{1}{\varepsilon_y}E_{t}^{\frac{\varepsilon_y-1}{\varepsilon_Y}}+(1-\delta_y)^\frac{1}{\varepsilon_y}N_{t}^{\frac{\varepsilon_y-1}{\varepsilon_y}}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}
 \end{align} 
@@ -37,11 +38,14 @@ E_t=\left[F_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\
 \end{align}
 The price of Energy is determined as  $p_{Et}= \left[p_{Ft}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_e}\right]^\frac{1}{{1-\varepsilon_e}}$.
 
-Intermediate goods, $F_t, G_t$, and $N_t$ are again produced by competitive sectors using a sector-specific labour input good and machines. The production function in sector $J\in \{F,G,N\}$ reads
+Intermediate goods, fossil,$F_t$, green, $G_t$, and non-energy, $N_t$, are again produced by competitive sectors using a sector-specific labour input good and machines. The production function in sector $J\in \{F,G,N\}$ reads
 \begin{align}
 &J_{t}= L_{jt}^{1-\alpha_j}\int_{0}^{1}A_{jit}^{1-\alpha_j}x_{jit}^{\alpha_j} di.
 \end{align}
-$A_{jit}$ indicates the productivity of machine $i$ in sector $j$ at time $t$: $x_{jit}$.
+$A_{jit}$ indicates the productivity of machine $i$ in sector $j$ at time $t$: $x_{jit}$. In contrast to the two other sectors, the government may levy a sales tax on fossil producers. Their profits read
+\begin{align}
+\pi_{ft}=p_{ft}(1-\tau_{ft})F_t-w_{lft}L_{ft}-\int_{0}^{1}p_{xfit}x_{fit}di.
+\end{align}
 
 The labour input good, $L_{jt}$, is produced by a perfectly competitive and sector-specific labour industry according to: 
 \begin{align}
@@ -49,13 +53,13 @@ L_{jt}=h_{hjt}^{\theta_j}h_{ljt}^{1-\theta_j}.
 \end{align}
 This additional intermediate sector allows to capture differences in skills by sector, especially in the fossil and green sector.
 
-Machine producers are imperfect monopolists and produce sector specific machines. Machine producers maximise their profits by choosing the price at which to sell their machines to intermediate good producers. Machine producers also decide on the amount of scientists to employ. Productivity growth is machine specific. As the productivity of machine $ij$ increases, demand for this machine increases too; this provides the incentive for machine producers to invest in research. Irrespective of the sector, the costs of producing one machine is set to one unit of the final output good \citep[similar to][]{Fried2018ClimateAnalysis, Acemoglu2012TheChange}.
+Machine producers are imperfect monopolists and produce sector specific machines. Machine producers maximise their profits by choosing the price at which to sell their machines to intermediate good producers. They also decide on the amount of scientists to employ. As the productivity of machine $ij$ increases, demand for this machine increases too; this provides the incentive for machine producers to invest in research. Irrespective of the sector, the costs of producing one machine is set to one unit of the final output good \citep[similar to][]{Fried2018ClimateAnalysis, Acemoglu2012TheChange}.
 Each period, machine producers solve
 \begin{align}
-\underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1-\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit}
+\underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1-\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit},
 \end{align}
 internalising demand for machines as a function of technology and the price of machines. 
-The government subsidises machine production by $\zeta_{jt}$ which is chosen to correct for the monopolistic structure of machine markets. Profits are confiscated by the government which simplifies notation.
+The government subsidises machine production by $\zeta_{jt}$ which is chosen to correct for the monopolistic structure of machine markets. Profits are confiscated by the government to simplify notation.
 
 \paragraph{Research and technology}
 Technological growth is driven by research and spillover effects. The marginal product of research determines the amount of researchers employed and, thus, growth. 
@@ -63,16 +67,21 @@ The law of motion of technology in sector $J$ is modeled as
 \begin{align}
 A_{jit}=A_{jit-1}\left(1+\gamma\left(\frac{s_{jit}}{\rho_j}\right)^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi\right).
 \end{align}
-
-I define
+Where I define
 \begin{align}
 A_{jt}=\int_{0}^{1}A_{jit}di,\\
 A_{t}=\frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_n A_{nt}}{\rho_f+\rho_g+\rho_n}.
 \end{align}
 The parameters $\rho_j$ capture the number of research processes by sector. This ensures that returns to scale refer to the ratio of scientists to research processes \citep{Fried2018ClimateAnalysis}. In the baseline calibration $\eta$ is smaller unity implying diminishing returns to research within sector following \cite{Fried2018ClimateAnalysis}. 
-The private benefits of research for machine producers diverges from the social benefits as they do not observe the effect of today's research on tomorrow's productivity due to the positive spillovers for all research sectors captured by the term $\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi$ with $\phi>0$. 
+The private benefits of research for machine producers diverges from the social benefits as they do neither observe the effect of today's research on tomorrow's productivity nor the positive spillovers for all research sectors captured by the term $\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi$ with $\phi>0$. 
 
-The supply of scientists is endogenous in my model. With this choice I depart from the standard assumption of a fixed supply of scientists in the literature on directed technical change \cite{Acemoglu2012TheChange, Fried2018ClimateAnalysis}.  Modeling the supply of researchers flexibly gives more freedom for the planner to choose lower growth levels: no a-priori fixed amount of research has to be employed. Furthermore, I do not assume free movement of scientists which simplifies the numeric calculation of equilibria in a model without balanced growth. 
+The marginal return to research in equilibrium is determined as
+\begin{align}
+w_{sjt}= \frac{\eta \gamma \left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi (1-\alpha_j)s_{jt}^{\eta-1}\Pi_{jt}}{\gamma_{jt}\rho_j^\eta},
+\end{align}
+where $\Pi_{jt}$ denotes returns in sector $J$. Abstracting from price effects, revenues are increasing in labour and hence skill supply which again is affected by income tax progressivity. The term $\gamma_{jt}$ refers to the growth rate in sector $j$.
+
+The supply of scientists is endogenous in my model. With this choice, I depart from the standard assumption of a fixed supply of scientists in the literature on directed technical change \cite{Acemoglu2012TheChange, Fried2018ClimateAnalysis}.  Modeling the supply of researchers flexibly gives more freedom for the planner to choose lower growth levels: no a-priori fixed amount of research has to be employed. Furthermore, I do not assume free movement of scientists which simplifies the numeric calculation of equilibria in a model without balanced growth. 
 Scientists are risk  neutral and behave according to 
 \begin{align}
 \underset{s_{jt}}{\max}\ \ & w_{jst}s_{jt}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\\
