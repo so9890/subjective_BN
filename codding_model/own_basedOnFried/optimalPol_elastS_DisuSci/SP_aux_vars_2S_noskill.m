@@ -1,8 +1,8 @@
 function [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, w, wsn, wsf,  taus, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init)
+            pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -19,7 +19,14 @@ Af     = x((find(list.sp=='Af')-1)*T+1:find(list.sp=='Af')*T);
 Ag     = x((find(list.sp=='Ag')-1)*T+1:find(list.sp=='Ag')*T);
 An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
 
-C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+if indic.ineq==0
+    C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
+    Ch=C; Cl=C;
+else
+    Ch      = x((find(list.sp=='Ch')-1)*T+1:find(list.sp=='Ch')*T);
+    Cl      = x((find(list.sp=='Cl')-1)*T+1:find(list.sp=='Cl')*T);
+    C=Ch;
+end
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
 sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
 sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
@@ -60,9 +67,7 @@ tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf);
 pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
 wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-% S       = (wsn/chiis)^(1/sigmaas);
-wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
-taus    = 1-wsgtil./wsn;
+wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 w      = pg.*(1-alphag).*G./Lg;
 muu = C.^(-thetaa);
 
@@ -93,15 +98,23 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
 % utility
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.ineq==0
+    if thetaa~=1
+     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+    elseif thetaa==1
+     Utilcon = log(C);
+    end
+else
+    error('not yet separate science and inequality coded')
 end
 
 Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
-Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
-SWF = Utilcon-Utillab-Utilsci;
+ if indic.sep==0
+        Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+ end
+ SWF = Utilcon-Utillab-Utilsci;
 
  
 contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));

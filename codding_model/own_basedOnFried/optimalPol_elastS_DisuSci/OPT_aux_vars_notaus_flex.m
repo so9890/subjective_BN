@@ -6,12 +6,22 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
 
 read_in_params;
 
-hhf    = x((find(list.opt=='hhf')-1)*T+1:find(list.opt=='hhf')*T);
-hhg    = x((find(list.opt=='hhg')-1)*T+1:(find(list.opt=='hhg'))*T);
-hlf    = x((find(list.opt=='hlf')-1)*T+1:find(list.opt=='hlf')*T);
-hlg    = x((find(list.opt=='hlg')-1)*T+1:find(list.opt=='hlg')*T);
-hhn    = x((find(list.opt=='hhn')-1)*T+1:find(list.opt=='hhn')*T);
-hln    = x((find(list.opt=='hln')-1)*T+1:find(list.opt=='hln')*T);
+% if indic.noskill==0
+    hhf    = x((find(list.opt=='hhf')-1)*T+1:find(list.opt=='hhf')*T);
+    hhg    = x((find(list.opt=='hhg')-1)*T+1:(find(list.opt=='hhg'))*T);
+    hlf    = x((find(list.opt=='hlf')-1)*T+1:find(list.opt=='hlf')*T);
+    hlg    = x((find(list.opt=='hlg')-1)*T+1:find(list.opt=='hlg')*T);
+    hhn    = x((find(list.opt=='hhn')-1)*T+1:find(list.opt=='hhn')*T);
+    hln    = x((find(list.opt=='hln')-1)*T+1:find(list.opt=='hln')*T);
+    hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
+    hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
+% else
+%     
+%     Lf    = x((find(list.opt=='Lf')-1)*T+1:find(list.opt=='Lf')*T);
+%     Lg     = x((find(list.opt=='Lg')-1)*T+1:find(list.opt=='Lg')*T);
+%     h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T); 
+% end
+
 if indic.ineq==0
     C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
     Ch=C; Cl=C;
@@ -25,8 +35,6 @@ G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
 sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
 sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
 sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
-hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
-hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
 
 % end
  

@@ -1,7 +1,7 @@
 function [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee,  ws,  tauf, taul, lambdaa,...
+            pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
             w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
 
 read_in_params;
@@ -12,24 +12,40 @@ Lg     = x((find(list.opt=='Lg')-1)*T+1:find(list.opt=='Lg')*T);
 C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
-Af     = x((find(list.opt=='Af')-1)*T+1:find(list.opt=='Af')*T);
-Ag     = x((find(list.opt=='Ag')-1)*T+1:find(list.opt=='Ag')*T);
-An     = x((find(list.opt=='An')-1)*T+1:find(list.opt=='An')*T);
 h      = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);  
-S      = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
- 
-% initial values: CALIBRATED dont change
-An0=init201519(list.init=='An0');
-Ag0=init201519(list.init=='Ag0');
-Af0=init201519(list.init=='Af0');
+sn      = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
+sg      = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
+sff      = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
 
 %% auxiliary variables
+% loop over technology
+Af=zeros(T,1);
+Af_lag=[init201519(list.init=='Af0'); Af(1:T)]; % drop last value later
+Ag=zeros(T,1);
+Ag_lag=[init201519(list.init=='Ag0'); Ag(1:T)];
+An=zeros(T,1);
+An_lag=[init201519(list.init=='An0'); An(1:T)];
+A_lag=zeros(T,1);
 
-Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
-Ag_lag  = [Ag0;Ag(1:T-1)];
-An_lag  = [An0;An(1:T-1)];
-%A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
-A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
+
+for i=1:T
+    A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
+
+    Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
+    Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
+    An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
+
+    %-update lags
+
+    Af_lag(i+1)=Af(i);
+    Ag_lag(i+1)=Ag(i);
+    An_lag(i+1)=An(i);
+
+end
+
+Af_lag=Af_lag(1:end-1);
+An_lag=An_lag(1:end-1);
+Ag_lag=Ag_lag(1:end-1);
 
 
 muu = C.^(-thetaa); % same equation in case thetaa == 1
@@ -50,18 +66,16 @@ Ln      = N./(An.*(pn.*alphan).^(alphan./(1-alphan))); % production neutral
 tauf    = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf*pf); % production fossil
 w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; % labour demand fossil
     
-ws      = chiis*S.^sigmaas./muu; 
-sff     = ((gammaa*etaa*(A_lag./Af_lag).^phii.*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(ws.*Af.*rhof^etaa)).^(1/(1-etaa));
-sg      = ((gammaa*etaa*(A_lag./Ag_lag).^phii.*pg.*G*(1-alphag).*Ag_lag)./(ws.*Ag.*rhog^etaa)).^(1/(1-etaa));
-sn      = ((gammaa*etaa*(A_lag./An_lag).^phii.*pn.*N*(1-alphan).*An_lag)./(ws.*An.*rhon^etaa)).^(1/(1-etaa));
-% sg      = S -(sff+sn);
+%- wages scientists  
+wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
+wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
+wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
-%wsgtil  = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+%- relevant for code without separate markets
+S    = sn+sg+sff;
+ws   = chiis*S.^sigmaas; 
 
-%taus    = 1-wsgtil./ws; % since (wsgtilde/(1-taus)=ws)
-
-
-% assuming interior solution households
+% assuming interior solution households:
 if indic.notaul==0
     taul0 = 0.2*ones(size(sn));
     lambdaa0=ones(size(sn));
@@ -87,7 +101,7 @@ SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-% wh2 = thetag*(hhg./hlg).^(thetag-1).*wlg;
+gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 % utility
 if thetaa~=1
  Utilcon = (C.^(1-thetaa))./(1-thetaa);

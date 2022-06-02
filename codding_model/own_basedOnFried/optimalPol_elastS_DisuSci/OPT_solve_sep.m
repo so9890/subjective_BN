@@ -14,13 +14,13 @@ else
         if indic.noskill==0
             symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg];
         else
-            symms.opt = [Lf Lg C F G Af Ag An h S];
+            symms.opt = [Lf Lg C F G h sn sff sg];
         end
     else
          if indic.noskill==0
              symms.opt = [hhf hhg hlf hlg hhn hln Ch Cl F G hl hh sn sff sg];
          else
-            symms.opt = [Lf Lg Ch Cl F G Af Ag An h S];
+            symms.opt = [Lf Lg Ch Cl F G h sg sff sn];
          end
     end
 end
@@ -59,7 +59,6 @@ if indic.target==1
     else
         x0(T*(find(list.opt=='Lf')-1)+1:T*(find(list.opt=='Lf'))) =opt_all(:,list.allvars=='Lf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='Lg')-1)+1:T*(find(list.opt=='Lg'))) =opt_all(:,list.allvars=='Lg'); % hhg
-       % x0(T*(find(list.opt=='lambdaa')-1)+1:T*(find(list.opt=='lambdaa'))) =opt_all(:,list.allvars=='lambdaa'); % hlf
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))) =opt_all(:,list.allvars=='hh'); % as starting value use hh
     end
     
@@ -97,7 +96,6 @@ if indic.target==1
      else
          x0(T*(find(list.opt=='Lf')-1)+1:T*(find(list.opt=='Lf'))) =sp_all(:,list.allvars=='Lf'); % hlf
          x0(T*(find(list.opt=='Lg')-1)+1:T*(find(list.opt=='Lg'))) =sp_all(:,list.allvars=='Lg'); % hlg 
-        % x0(T*(find(list.opt=='lambdaa')-1)+1:T*(find(list.opt=='lambdaa')))   =sp_all(:,list.allvars=='lambdaa');  % hl
          x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h')))   =sp_all(:,list.allvars=='hh');  % hh    
      end
      if indic.ineq==0
@@ -114,14 +112,14 @@ if indic.target==1
   end  
 elseif indic.target==0
        
-    if isfile(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, etaa))
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,0,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
+    if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq,indic.BN_red,  etaa))
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,indic.notaul,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
     
 %     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
              
     opt_all=helper.opt_all;
-
     x0 = zeros(nn*T,1);
+    
     if indic.noskill==0
         x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =opt_all(:,list.allvars=='hhg'); % hhg
@@ -135,7 +133,6 @@ elseif indic.target==0
     else
         x0(T*(find(list.opt=='Lf')-1)+1:T*(find(list.opt=='Lf'))) =opt_all(:,list.allvars=='Lf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='Lg')-1)+1:T*(find(list.opt=='Lg'))) =opt_all(:,list.allvars=='Lg'); % hhg
-     %   x0(T*(find(list.opt=='lambdaa')-1)+1:T*(find(list.opt=='lambdaa'))) =opt_all(:,list.allvars=='lambdaa'); % hlf
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))) =opt_all(:,list.allvars=='hh'); % as starting value use hh
     end
     
@@ -151,8 +148,7 @@ elseif indic.target==0
     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
     x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
   
-    
-    else    
+else    
 
     %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
      if etaa ~=1 
@@ -178,7 +174,6 @@ elseif indic.target==0
      else
         x0(T*(find(list.opt=='Lf')-1)+1:T*(find(list.opt=='Lf'))) =LF_SIM(list.allvars=='Lf',1:T); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='Lg')-1)+1:T*(find(list.opt=='Lg'))) =LF_SIM(list.allvars=='Lg',1:T); % hhg
-     %   x0(T*(find(list.opt=='lambdaa')-1)+1:T*(find(list.opt=='lambdaa'))) =LF_SIM(list.allvars=='lambdaa',1:T);
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))) =LF_SIM(list.allvars=='hh',1:T);
      end
      
@@ -305,7 +300,7 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-       save('opt_1905_as_etaa079_sep1_notarget_notaul_BN1_ineq0_red075')
+       save('opt_1905_etaa079_sep1_notarget_notaul1_BN0_ineq0_red0_noskill')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
         options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -368,7 +363,7 @@ end
         [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee,  ws,  tauf, taul, lambdaa,...
+            pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
             w, SWF, S]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
             wlf=w; wlg =w; wln=w; wh=w; wl=w; hh=h; hl=h; 
             hhf=zeros(size(pn));hhg=zeros(size(pn));hhn=zeros(size(pn));hlf=zeros(size(pn));hlg=zeros(size(pn));hln=zeros(size(pn));

@@ -49,17 +49,16 @@ end
 %- auxiliary variables
 
     if indic.noskill==0
-[hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
     else
-%         fprintf('using noskill aux vars')
-        [xn,xf,xg,Ag, An, Af,...
+            [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee,  ws,  tauf, taul, lambdaa,...
+            pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
             w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
     end
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,18 +133,24 @@ end
        
        
  elseif indic.noskill==1
-     error('not yet updated without skills')
-        ceq(1:T)       = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
-        ceq(T+1:T*2)   = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
-        ceq(T*2+1:T*3) =  sg+sff+sn-S;%chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
-        ceq(T*3+1:T*4) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
-        ceq(T*4+1:T*5) = Lg - pg.*(1-alphag).*G./w;
-        ceq(T*5+1:T*6) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
-        ceq(T*6+1:T*7) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
-        ceq(T*7+1:T*8) = C-lambdaa.*(w.*h).^(1-taul)-SGov;
+        ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
+        ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
+        ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
+        ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov;
+          if indic.sep==0
+            ceq(T*4+1:T*5) = ws-wsf; % wage clearing
+            ceq(T*5+1:T*6) = ws-wsg;
+            ceq(T*6+1:T*7) = ws-wsn;
+           else
+             ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
+             ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-wsg;
+             ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-wsn;
+           end
+         
         if indic.notaul==1
-            ceq(T*8+1:T*9)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
+            ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
         end
+        
  end
  %
 ceq = ceq';
