@@ -99,7 +99,8 @@ end
 %Objective function value:
 %!! Dot product!!! so no dot.*
 % f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);
-f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci));
+f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci-indic.extern*weightext*(omegaa.*F).^extexpp));
+
 
 end
 

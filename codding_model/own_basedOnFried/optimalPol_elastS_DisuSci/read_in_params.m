@@ -53,3 +53,7 @@ phii = params(list.params=='phii');
 
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
 deltaa = params(list.params=='deltaa'); % natural sink
+
+% utility externality from emissions
+extexpp=1.02; 
+weightext=0.1; 

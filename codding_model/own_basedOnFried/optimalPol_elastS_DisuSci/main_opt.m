@@ -39,6 +39,13 @@ indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
+
+
+indic.extern=1;
+% but ensure no externality when target is used 
+if indic.target==1
+    indinc.extern=0;
+end
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -77,7 +84,6 @@ end
     syms wsg wsn wsf gammasg gammasf gammasn real
     symms.sepchoice_ineq=[symms.sepchoice_ineq wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice_ineq=string(symms.sepchoice_ineq);
-
 
     symms.sepallvars_ineq=symms.allvars_ineq(list.allvars_ineq~='ws');
     symms.sepallvars_ineq=[symms.sepallvars_ineq wsg wsn wsf gammasg gammasf gammasn]; 
@@ -225,7 +231,16 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
 indic
-plottsSP(list, T, etaa, indic, params);
+
+% choose sort of plots to be plotted
+plotts.single=0;
+plotts.singov=0;
+plotts.notaul=0; % this one needs to be switched on to get complete table
+plotts.bau=0; % do plot bau
+plotts.comptarg=1; % comparison with and without target
+plotts.compeff=1;
+
+plottsSP(list, T, etaa, indic, params, Ems, plotts);
 
 %%
 for BN=1
@@ -233,7 +248,7 @@ for BN=1
     for inn=0:1
         indic.ineq=inn;
         indic
-        plottsSP(list, T, etaa, indic, params);
+        plottsSP(list, T, etaa, indic, params, Ems, plotts);
     end
 end
 

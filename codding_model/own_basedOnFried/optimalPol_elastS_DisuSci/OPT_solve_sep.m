@@ -300,7 +300,7 @@ elseif indic.target==0
 
     %    options = optimset('algorithm','active-set','TolCon',1e-6,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-       save('opt_1905_etaa079_sep1_target_notaul0_BN0_ineq0_red0_noskill')
+       save('opt_1905_etaa079_sep1_notarget_notaul0_BN0_ineq0_red0_noskill_extern')
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         %[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
         options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -394,7 +394,7 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 if indic.target==1
     save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red,params(list.params=='etaa')), 'opt_all', 'Sparams')
 else
-    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern, params(list.params=='etaa')), 'opt_all', 'Sparams')
 end
 
 end

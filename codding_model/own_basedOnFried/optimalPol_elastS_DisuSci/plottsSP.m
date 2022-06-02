@@ -1,4 +1,4 @@
-function []=plottsSP(list, T, etaa, indic, params)
+function []=plottsSP(list, T, etaa, indic, params, Ems, plotts)
 
 if ~isfile('figures/all_1705')
     mkdir(sprintf('figures/all_1705'));
@@ -165,7 +165,13 @@ RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, s
 % RES_polcomp_full_ns   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_ns, opt_not_notaus_ns});
 % RES_polcomp_notaul_ns = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_ns, opt_not_notaus_notaul_ns});
 
-%% SWF comparison
+% x indices
+time = 1:T;
+txx=1:2:T; % reducing indices
+%- using start year of beginning period 
+Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
+Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
+%% Tables
 betaa=params(list.params=='betaa');
  disc=repmat(betaa, 1,T);
  expp=0:T-1;
@@ -176,21 +182,27 @@ betaa=params(list.params=='betaa');
 %  TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
  TableSWF_PV.Properties.VariableNames={'Allocation','FullModel', 'NoTaul'};
 
-% x indices
-time = 1:T;
-txx=1:2:T; % reducing indices
-%- using start year of beginning period 
-Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
-Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
-%% Tables
+%- all results
 for i =keys(RES)
     ii=string(i);
     allvars= RES(ii);
     % SWF calculation 
     TableSWF_PV.FullModel(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)';
 end
+%- without taul
+for i =keys(RES_polcomp_full)
 
-%% plot: Subplots
+     ii=string(i);
+     allvars= RES_polcomp_full(ii);
+     allvarsnt=RES_polcomp_notaul(ii); 
+     TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
+end
+
+TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
+save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
+
+%% Plots
+%% Subplots
 % for i =keys(RES)
 %     
 %     %- loop
@@ -229,112 +241,115 @@ end
 %   end
 % end     
 %% All figures single
+if plotts.single==1
+    fprintf('plotting single graphs')
+    for i =keys(RES)
+        ii=string(i);
 
-for i =keys(RES)
-    ii=string(i);
+        %- loop
+        ii=string(i);
+        allvars= RES(ii);
+    %% 
+    fprintf('plotting %s',ii );
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
 
-    %- loop
-    ii=string(i);
-    allvars= RES(ii);
-%% 
-fprintf('plotting %s',ii );
-for l =keys(lisst) % loop over variable groups
-    ll=string(l);
-    plotvars=lisst(ll);
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
 
-    for v=1:length(plotvars)
-    gcf=figure('Visible','off');
-        
 
-        varr=string(plotvars(v));
-        %subplot(floor(length(plotvars)/nn)+1,nn,v)
-        if ll=="HH" && varr=="Emnet"
-            main=plot(time,allvars(find(varlist==varr),:),time(3:end),Ems, 'LineWidth', 1.1);  
-            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-            lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+            varr=string(plotvars(v));
+            %subplot(floor(length(plotvars)/nn)+1,nn,v)
+            if ll=="HH" && varr=="Emnet"
+                main=plot(time,allvars(find(varlist==varr),:),time(3:end),Ems, 'LineWidth', 1.1);  
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+                lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+
+            else
+                main=plot(time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+
+            end
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+        path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa);
+        exportgraphics(gcf,path,'Resolution', 400)
+        % saveas(gcf,path)
+        close gcf
+    %    pause
+        end
+    end
+    end
+end
+    %% figures single overlayed
+if plotts.singov==1
+    fprintf('plotting single overlayed graphs')
+    for lgdind=0:1
+    for i =keys(RES)
+        ii=string(i);
+
+        %- loop
+        ii=string(i);
+        allvars= RES(ii);
+    %% 
+    fprintf('plotting %s',ii );
+    for l =keys(lissComp) % loop over variable groups
+        ll=string(l);
+        plotvars=lissComp(ll); % here plotvars is a group of variable names which are to be plotted in the same graph
+
+        gcf=figure('Visible','off');
+
+        if length(plotvars)==2
+            main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} ) 
+    %    elseif ll=="LabourInp"
+    %           main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),time,allvars(find(varlist==plotvars(3)),:), 'LineWidth', 1.1);    % plot vectors!        
+    %           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
+       elseif ll=="Growth"
+              main=plot(time(1:end-1),allvars(find(varlist==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varlist==plotvars(2)),1:end-1),...
+              time(1:end-1),allvars(find(varlist==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varlist==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
+              set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
+
+        elseif ll=="Science"
+              main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),...
+                  time,allvars(find(varlist==plotvars(3)),:), time,allvars(find(varlist==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
+               set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
+        end
+           xticks(txx)
+           if ll=="Growth"
+              xlim([1, time(end-1)])
+           else
+              xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+         if lgdind==1
+            pp=legg(ll);
+            if length(pp)==2
+                lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),  'Interpreter', 'latex');
+            elseif length(pp)==3
+                lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)),  'Interpreter', 'latex');
+
+            elseif length(pp)==4
+                lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)), sprintf('%s',pp(4)),  'Interpreter', 'latex');
+            end
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-
-        else
-            main=plot(time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
-
         end
-       xticks(txx)
-       xlim([1, time(end)])
-
-        ax=gca;
-        ax.FontSize=13;
-        ytickformat('%.2f')
-        xticklabels(Year10)
-    path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa);
-    exportgraphics(gcf,path,'Resolution', 400)
-    % saveas(gcf,path)
-    close gcf
-%    pause
-    end
-end
-end
-
-%% figures single overlayed
-
-for lgdind=0:1
-for i =keys(RES)
-    ii=string(i);
-
-    %- loop
-    ii=string(i);
-    allvars= RES(ii);
-%% 
-fprintf('plotting %s',ii );
-for l =keys(lissComp) % loop over variable groups
-    ll=string(l);
-    plotvars=lissComp(ll); % here plotvars is a group of variable names which are to be plotted in the same graph
-
-    gcf=figure('Visible','off');
-
-    if length(plotvars)==2
-        main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
-        set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} ) 
-%    elseif ll=="LabourInp"
-%           main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),time,allvars(find(varlist==plotvars(3)),:), 'LineWidth', 1.1);    % plot vectors!        
-%           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
-   elseif ll=="Growth"
-          main=plot(time(1:end-1),allvars(find(varlist==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varlist==plotvars(2)),1:end-1),...
-          time(1:end-1),allvars(find(varlist==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varlist==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
-          set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
-
-    elseif ll=="Science"
-          main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),...
-              time,allvars(find(varlist==plotvars(3)),:), time,allvars(find(varlist==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
-           set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
-    end
-       xticks(txx)
-       if ll=="Growth"
-          xlim([1, time(end-1)])
-       else
-          xlim([1, time(end)])
-       end
-        ax=gca;
-        ax.FontSize=13;
-        ytickformat('%.2f')
-        xticklabels(Year10)
-     if lgdind==1
-        pp=legg(ll);
-        if length(pp)==2
-            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),  'Interpreter', 'latex');
-        elseif length(pp)==3
-            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)),  'Interpreter', 'latex');
-        
-        elseif length(pp)==4
-            lgd=legend(sprintf('%s',pp(1)) ,sprintf('%s',pp(2)),sprintf('%s',pp(3)), sprintf('%s',pp(4)),  'Interpreter', 'latex');
+        path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
         end
-        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
     end
-    path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
-    exportgraphics(gcf,path,'Resolution', 400)
-    close gcf
     end
-end
 end
 %% comparison without skill heterogeneity
 % for i =keys(RES)
@@ -383,206 +398,204 @@ end
 % end      
 
 
-%% comparison with and without taul
+    %% comparison with and without taul
+if plotts.notaul==1
+    fprintf('plotting comparison no taul graphs')    
+    for i =keys(RES_polcomp_full)
 
-for i =keys(RES_polcomp_full)
-    
-    ii=string(i);
-         allvars= RES_polcomp_full(ii);
-         allvarsnt=RES_polcomp_notaul(ii); 
-         TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
-% end
-%% 
-fprintf('plotting %s',ii );
-for lgdind=0:1
-for l =keys(lisst)
-    ll=string(l);
-    plotvars=lisst(ll);
-    % number of figures in row in subplot
-%     if ll~='VARS'
-%         nn=2;
-%     else 
-%     nn=3;
-%     end
-    %%% with subplots
-       for v=1:length(plotvars)
-       gcf=figure('Visible','off');
-        
-     
+        ii=string(i);
+             allvars= RES_polcomp_full(ii);
+             allvarsnt=RES_polcomp_notaul(ii); 
+%              TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
+%     % end
+    %% 
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst)
+        ll=string(l);
+        plotvars=lisst(ll);
+        % number of figures in row in subplot
+    %     if ll~='VARS'
+    %         nn=2;
+    %     else 
+    %     nn=3;
+    %     end
+        %%% with subplots
+           for v=1:length(plotvars)
+           gcf=figure('Visible','off');
+
+
+                varr=string(plotvars(v));
+    %             subplot(floor(length(plotvars)/nn)+1,nn,v)
+                main=plot(time,allvars(find(varlist==varr),:), time,allvarsnt(find(varlist==varr),:), 'LineWidth', 1.1);
+
+               set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+               xticks(txx)
+               xlim([1, time(end)])
+                ax=gca;
+                ax.FontSize=13;
+                ytickformat('%.2f')
+                xticklabels(Year10)
+
+            if lgdind==1
+
+            lgd=legend('full model', 'no income tax', 'Interpreter', 'latex');
+
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+    %         sgtitle('Social Planner Allocation')
+            path=sprintf('figures/all_1705/comp_notaul_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', ii, varr, indic.spillovers,indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+            exportgraphics(gcf,path,'Resolution', 400)
+            % saveas(gcf,path)
+            close gcf
+           end % variables in group
+    end % variable group
+    end % legend
+    end      
+end
+
+%% comparison to BAU
+if plotts.bau==1
+    fprintf('plotting bau graphs')    
+    bau=RES('BAU');
+
+    for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
+        ii=string(i);
+        allvars= RES(ii);
+
+    %% 
+    fprintf('plotting %s',ii );
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
             varr=string(plotvars(v));
-%             subplot(floor(length(plotvars)/nn)+1,nn,v)
-            main=plot(time,allvars(find(varlist==varr),:), time,allvarsnt(find(varlist==varr),:), 'LineWidth', 1.1);
-            
+            %subplot(floor(length(plotvars)/nn)+1,nn,v)
+            main=plot(time,allvars(find(varlist==varr),:), time,bau(find(varlist==varr),:), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
            xlim([1, time(end)])
+
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-      
-        if lgdind==1
-          
-        lgd=legend('full model', 'no income tax', 'Interpreter', 'latex');
-           
-        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-        end
-%         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/all_1705/comp_notaul_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', ii, varr, indic.spillovers,indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+            title(sprintf('%s', varr), 'Interpreter', 'latex')
+           if lgdind==1
+               if contains(ii, 'SP')
+                  lgd=legend('social planner', 'bau', 'Interpreter', 'latex');
+               else
+                  lgd=legend('ramsey planner', 'bau', 'Interpreter', 'latex');
+               end
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_1705/%s_BAUComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
-       end % variables in group
-end % variable group
-end % legend
-end      
- % calculate contributes to SWF 
-% tt=load('Table_SWF_etaa1.mat', 'TableSWF_PV');
-TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
-
-%% comparison to BAU
-
-bau=RES('BAU');
-
-for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
-    ii=string(i);
-
-    if indic.noskill==0
-         allvars= RES(ii);
-    else
-         allvars= RES_ns(ii);
-    end
-
-%% 
-fprintf('plotting %s',ii );
-for l = keys(lisst) % loop over variable groups
-    ll=string(l);
-    plotvars=lisst(ll);
-    for lgdind=0:1
-    for v=1:length(plotvars)
-    gcf=figure('Visible','off');
-        
-
-        varr=string(plotvars(v));
-        %subplot(floor(length(plotvars)/nn)+1,nn,v)
-        main=plot(time,allvars(find(varlist==varr),:), time,bau(find(varlist==varr),:), 'LineWidth', 1.1);            
-       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-       xticks(txx)
-       xlim([1, time(end)])
-
-        ax=gca;
-        ax.FontSize=13;
-        ytickformat('%.2f')
-        xticklabels(Year10)
-        title(sprintf('%s', varr), 'Interpreter', 'latex')
-       if lgdind==1
-           if contains(ii, 'SP')
-              lgd=legend('social planner', 'bau', 'Interpreter', 'latex');
-           else
-              lgd=legend('ramsey planner', 'bau', 'Interpreter', 'latex');
-           end
-        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-       end
-
-    path=sprintf('figures/all_1705/%s_BAUComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
-    exportgraphics(gcf,path,'Resolution', 400)
-    % saveas(gcf,path)
-    close gcf
-%     pause
-    end
-    end
-  end
-end      
-
+    %     pause
+        end
+        end
+      end
+    end      
+end
 %% comparison with and without target    
 %- string to loop over 
-ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+if plotts.comptarg==1
+    fprintf('plotting comparison target graphs')    
+    ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
 
-for i =[1,3]
-    ii=ssr(i);
-    %- read in data
-    t=string(ssr(i));
-    nt=string(ssr(i+1));
-    
-    if indic.noskill==0
-         allvars= RES(t);
-         allvarsnot=RES(nt); 
-    else
-         allvars= RES_ns(t);
-         allvarsnot=RES_ns(nt);
-    end
+    for i =[1,3]
+        ii=ssr(i);
+        %- read in data
+        t=string(ssr(i));
+        nt=string(ssr(i+1));
 
-for l =keys(lisst) % loop over variable groups
-    ll=string(l);
-    plotvars=lisst(ll);
-    for lgdind=0:1
-    for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-        varr=string(plotvars(v));
-        main=plot(time,allvars(find(varlist==varr),:), time,allvarsnot(find(varlist==varr),:), 'LineWidth', 1.1);            
-       set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-       xticks(txx)
-       xlim([1, time(end)])
+%         if indic.noskill==0
+             allvars= RES(t);
+             allvarsnot=RES(nt); 
+%         else
+%              allvars= RES_ns(t);
+%              allvarsnot=RES_ns(nt);
+%         end
 
-        ax=gca;
-        ax.FontSize=13;
-        ytickformat('%.2f')
-        xticklabels(Year10)
-       if lgdind==1
-          lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
-          set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
-       end
-    path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
-    exportgraphics(gcf,path,'Resolution', 400)
-   close gcf
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            main=plot(time,allvars(find(varlist==varr),:), time,allvarsnot(find(varlist==varr),:), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+           end
+        path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+       close gcf
+        end
+        end
     end
-    end
+    end      
 end
-end      
-
 %% comparison social planner and optimal policy (with and without labour tax)
-eff= string({'SP_T', 'SP_NOT'});
-opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+if plotts.compeff==1
+    fprintf('plotting comparison efficient-optimal graphs')    
+    eff= string({'SP_T', 'SP_NOT'});
+    opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
 
-% for withtaul=0:1
-for i =[1,2]
-    
-    ie=eff(i);
-    io=opt(i);
-    allvars= RES(io);
-    allvarsnotaul =RES_polcomp_notaul(io);
-    allvarseff=RES(ie); 
-    
-for l =keys(lisst) % loop over variable groups
-    ll=string(l);
-    plotvars=lisst(ll);
-    for lgdind=0:1
-    for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-        varr=string(plotvars(v));
-        main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), 'LineWidth', 1.2);            
-       set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
-       xticks(txx)
-       xlim([1, time(end)])
+    % for withtaul=0:1
+    for i =[1,2]
 
-        ax=gca;
-        ax.FontSize=13;
-        ytickformat('%.2f')
-        xticklabels(Year10)
-       if lgdind==1
-          lgd=legend('efficient', 'with income tax', ' no income tax', 'Interpreter', 'latex');
-          set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
-       end
-    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
-    exportgraphics(gcf,path,'Resolution', 400)
-    close gcf
+        ie=eff(i);
+        io=opt(i);
+        allvars= RES(io);
+        allvarsnotaul =RES_polcomp_notaul(io);
+        allvarseff=RES(ie); 
+
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), 'LineWidth', 1.2);            
+           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('efficient', 'with income tax', ' no income tax', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+           end
+        path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+
     end
-    end
-  end
-
 end
-
 
 end
 
