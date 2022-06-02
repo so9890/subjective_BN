@@ -96,7 +96,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
  
-for i=[0]
+for i=1
     indic.noskill=i;
     if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, indic.BN_red, params(list.params=='etaa')))
         if indic.ineq==0
@@ -127,9 +127,9 @@ lambdaa=1; % balances budget with tauf= taul=0
 pol=eval(symms.pol);
 
   %  if indic.noskill==0
-  for i=[0]
+  for i=1
       indic.noskill=i;
-  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
+  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,indic.ineq, indic.BN_red, params(list.params=='etaa')))
 %       indic.noskill=1;
 if indic.ineq==0
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
@@ -138,7 +138,7 @@ else
 end
         helper.LF_SIM=LF_SIM;
         [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
-        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+        save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
         else
      fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
@@ -150,9 +150,9 @@ end
 disc=repmat(Sparams.betaa, 1,T);
  expp=0:T-1;
  vec_discount= disc.^expp;
-hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
+hhel= load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,params(list.params=='etaa')));
 sswfbau=vec_discount*hhel.LF_BAU( :, list.sepallvars=='SWF');
-hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')));
+hhblf = load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
 sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

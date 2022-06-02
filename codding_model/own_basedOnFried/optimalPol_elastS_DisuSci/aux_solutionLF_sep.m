@@ -218,7 +218,7 @@ else
     end
 end
 else
-    guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
+    guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);
 end
 f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic);
 
@@ -230,6 +230,7 @@ end
 
 % save stuff
 if indic.ineq==0
+
     LF_t= eval(symms.allvars)';
 else
     LF_t= eval(symms.allvars_ineq)';

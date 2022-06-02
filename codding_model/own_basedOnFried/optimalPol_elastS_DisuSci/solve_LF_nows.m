@@ -63,23 +63,41 @@ t       = 1; % number of periods: t=1: 2015-2019 => does include base year perio
 if indic.noskill==1
     x0=x0(list.choice~='hl'&list.choice~='hh'& list.choice~='hln'& list.choice~='hlf'&list.choice~='hlg'& list.choice~='gammall'&...
                 list.choice~='hhn'& list.choice~='hhg'& list.choice~='hhf'& list.choice~='wl'& list.choice~='wh');
-    syms h lambdaa w Lf Lg Ln real
+    syms h w Lf Lg Ln real
     symms.choice= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
                 &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
                 &list.choice~='wl'&list.choice~='gammall'), h, w, Lf, Lg, Ln];
     list.choice=string(symms.choice);
     x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lg,Sall.Ln]; % order has to match how variables are added to symms.choice!
 
-        
-    indexxLF.lab = boolean(zeros(size(list.choice)));
-    indexxLF.exp = boolean(zeros(size(list.choice)));
-    indexxLF.sqr = boolean(zeros(size(list.choice)));
-    indexxLF.oneab = boolean(zeros(size(list.choice)));
+    if indic.sep==0
+        indexxLFsep.lab = boolean(zeros(size(list.choice)));
+        indexxLFsep.exp = boolean(zeros(size(list.choice)));
+        indexxLFsep.sqr = boolean(zeros(size(list.choice)));
+        indexxLFsep.oneab = boolean(zeros(size(list.choice)));
 
-    indexxLF.lab( list.choice=='h' | list.choice=='S')=1;
-    indexxLF.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
-    indexxLF.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
-    indexx('LF_noskill')=indexxLF;
+        indexxLFsep.lab( list.choice=='h' | list.choice=='S')=1;
+        indexxLFsep.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
+        indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
+        indexx('LF_noskill_sep0')=indexxLFsep;
+        
+    elseif indic.sep==1
+        if indic.BN==1
+            error('not yet coded version with seperate markets, no skill, and BN')
+        end
+        indexxLFsep.lab = boolean(zeros(size(list.choice)));
+        indexxLFsep.exp = boolean(zeros(size(list.choice)));
+        indexxLFsep.sqr = boolean(zeros(size(list.choice)));
+        indexxLFsep.oneab = boolean(zeros(size(list.choice)));
+
+        indexxLFsep.lab( list.choice=='h'| list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
+        indexxLFsep.exp(list.choice~='h'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+            &list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
+        indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
+
+        indexx('LF_noskill_sep1')=indexxLFsep;
+
+    end
 end
 
 
@@ -98,7 +116,7 @@ while t<=T+1 % because first iteration is base year
             end
         end
     else
-        guess_trans=trans_guess(indexx('LF_noskill'), x0, params, list.params);
+        guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), x0, params, list.params);
     end
     % test
     if indic.sep==0
@@ -147,8 +165,7 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
             end
         end
      else
-        LF=trans_allo_out(indexx('LF_noskill'), sol3, params, list.params, indic);
-    
+        LF=trans_allo_out(indexx(sprintf('LF_noskill_sep%d', indic.sep)), sol3, params, list.params, indic);
     end
     %% - save results
     % this part also checks correctness of results!
