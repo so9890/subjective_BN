@@ -9,8 +9,10 @@ guess_trans=guess;
 
 guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
 guess_trans(indexx.exp)=log(guess(indexx.exp));
-
 guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab))./guess(indexx.lab));
+guess_trans(indexx.oneab)=log((1-guess(indexx.oneab))./guess(indexx.oneab));
+
+
 if isfield(indexx, 'BN')
     guess_trans(indexx.BN)=log((params(listt=='B')-guess(indexx.BN))./guess(indexx.BN));
 end
@@ -20,5 +22,4 @@ end
 if isfield(indexx, 'BNl')
     guess_trans(indexx.BNl)=log((params(listt=='Bl')-guess(indexx.BNl))./guess(indexx.BNl));
 end
-guess_trans(indexx.oneab)=log((1-guess(indexx.oneab))./guess(indexx.oneab));
 end

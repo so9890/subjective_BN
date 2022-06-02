@@ -33,7 +33,7 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill = 1; % == 1 if no skill calibration of model
+indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
@@ -83,6 +83,9 @@ end
     symms.sepallvars_ineq=[symms.sepallvars_ineq wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars_ineq=string(symms.sepallvars_ineq);
     
+    %- without growth
+    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag');
+    list.choice_xgrowth=string(symms.choice_xgrowth);
 %%
 % update etaa if ==1
 
@@ -222,7 +225,9 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
 indic
+plottsSP(list, T, etaa, indic, params);
 
+%%
 for BN=1
     indic.BN=BN;
     for inn=0:1

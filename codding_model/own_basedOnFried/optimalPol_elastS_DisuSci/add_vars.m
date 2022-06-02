@@ -86,7 +86,7 @@ whwl = wh./wl;
 
 %- growth rates
 gAg = [(Ag(2:end)-Ag(1:end-1))./Ag(1:end-1);0]*100;
-gA = [(A(2:end)-A(1:end-1))./A(1:end-1);0]*100;
+gAagg = [(A(2:end)-A(1:end-1))./A(1:end-1);0]*100;
 
 gAn = [(An(2:end)-An(1:end-1))./An(1:end-1); 0]*100;
 gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;

@@ -1,6 +1,6 @@
 function []=plottsSP(list, T, etaa, indic, params)
 
-if ~isfile('figures/testfig')
+if ~isfile('figures/all_1705')
     mkdir(sprintf('figures/all_1705'));
 end
 
@@ -25,7 +25,7 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa Ch Cl C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An S real
 %- additional vars
-syms AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gA Utilcon Utillab Utilsci real
+syms AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 if indic.ineq==0
     symms.plotsvarsHH =[hh hl C SWF Emnet]; 
@@ -35,7 +35,7 @@ end
 symms.plotsvarsRes =[sn sff sg  S Af Ag An];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl LgLf gA gAg gAf gAn Utilcon Utillab Utilsci ];
+symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci ];
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
@@ -58,7 +58,7 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {lis
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
  
 %- variables which to plot in one graph plus legend
-lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string([hh hl]), string([sff sg sn S]), string([gAf gAg  gAn gA]), string([Lf Lg])});
+lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string([hh hl]), string([sff sg sn S]), string([gAf gAg  gAn gAagg]), string([Lf Lg])});
 legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"], ["fossil", "green", "non-energy", "aggregate"], ["fossil", "green"]});
 %% read in results
 %- baseline results without reduction
@@ -175,7 +175,6 @@ betaa=params(list.params=='betaa');
 %  TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
 %  TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
  TableSWF_PV.Properties.VariableNames={'Allocation','FullModel', 'NoTaul'};
- TableSWF_PV_spill=TableSWF_PV;
 
 % x indices
 time = 1:T;
@@ -230,8 +229,6 @@ end
 %   end
 % end     
 %% All figures single
-% RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
 
 for i =keys(RES)
     ii=string(i);
@@ -269,7 +266,7 @@ for l =keys(lisst) % loop over variable groups
         ax.FontSize=13;
         ytickformat('%.2f')
         xticklabels(Year10)
-    path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa);
+    path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
     close gcf
@@ -289,7 +286,7 @@ for i =keys(RES)
     allvars= RES(ii);
 %% 
 fprintf('plotting %s',ii );
-for l ="LabourInp" %keys(lissComp) % loop over variable groups
+for l =keys(lissComp) % loop over variable groups
     ll=string(l);
     plotvars=lissComp(ll); % here plotvars is a group of variable names which are to be plotted in the same graph
 
@@ -333,7 +330,7 @@ for l ="LabourInp" %keys(lissComp) % loop over variable groups
         end
         set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
     end
-    path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+    path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     close gcf
     end
@@ -397,7 +394,7 @@ for i =keys(RES_polcomp_full)
 % end
 %% 
 fprintf('plotting %s',ii );
-for lgdind=0
+for lgdind=0:1
 for l =keys(lisst)
     ll=string(l);
     plotvars=lisst(ll);
@@ -431,7 +428,7 @@ for l =keys(lisst)
         set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
         end
 %         sgtitle('Social Planner Allocation')
-        path=sprintf('figures/all_1705/comp_notaul_%s_%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', ii, varr, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+        path=sprintf('figures/all_1705/comp_notaul_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', ii, varr, indic.spillovers,indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         % saveas(gcf,path)
         close gcf
@@ -442,18 +439,12 @@ end
  % calculate contributes to SWF 
 % tt=load('Table_SWF_etaa1.mat', 'TableSWF_PV');
 TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-save(sprintf('Table_SWF_sep%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
+save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
 
 %% comparison to BAU
-% RES = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                        {bau, fb_lf, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-for j=0
-    indic.noskill=j;
-    if indic.noskill==0
-        bau=RES('BAU');
-    else
-        bau=RES_ns('BAU');
-    end
+
+bau=RES('BAU');
+
 for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
     ii=string(i);
 
@@ -465,7 +456,7 @@ for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
 
 %% 
 fprintf('plotting %s',ii );
-for l ="Add"% keys(lisst) % loop over variable groups
+for l = keys(lisst) % loop over variable groups
     ll=string(l);
     plotvars=lisst(ll);
     for lgdind=0:1
@@ -494,7 +485,7 @@ for l ="Add"% keys(lisst) % loop over variable groups
         set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
        end
 
-    path=sprintf('figures/all_1705/%s_BAUComp%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+    path=sprintf('figures/all_1705/%s_BAUComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     % saveas(gcf,path)
     close gcf
@@ -503,12 +494,11 @@ for l ="Add"% keys(lisst) % loop over variable groups
     end
   end
 end      
-end
+
 %% comparison with and without target    
 %- string to loop over 
 ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
-for j=0
-    indic.noskill=j;
+
 for i =[1,3]
     ii=ssr(i);
     %- read in data
@@ -543,14 +533,13 @@ for l =keys(lisst) % loop over variable groups
           lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
           set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
        end
-    path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
+    path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
    close gcf
     end
     end
-  end
-end      
 end
+end      
 
 %% comparison social planner and optimal policy (with and without labour tax)
 eff= string({'SP_T', 'SP_NOT'});
@@ -565,7 +554,7 @@ for i =[1,2]
     allvarsnotaul =RES_polcomp_notaul(io);
     allvarseff=RES(ie); 
     
-for l ="Add" %keys(lisst) % loop over variable groups
+for l =keys(lisst) % loop over variable groups
     ll=string(l);
     plotvars=lisst(ll);
     for lgdind=0:1
@@ -585,7 +574,7 @@ for l ="Add" %keys(lisst) % loop over variable groups
           lgd=legend('efficient', 'with income tax', ' no income tax', 'Interpreter', 'latex');
           set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
        end
-    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
+    path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,etaa, lgdind);
     exportgraphics(gcf,path,'Resolution', 400)
     close gcf
     end
