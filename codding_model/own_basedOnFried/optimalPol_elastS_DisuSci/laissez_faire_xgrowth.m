@@ -1,4 +1,4 @@
-function f=laissez_faire_nows_sep_xgrowth(x, params, list, pol, laggs, indic)
+function f=laissez_faire_xgrowth(x, params, list, pol, laggs, indic)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -247,5 +247,5 @@ end
 % balanced budget
 q=q+1;
 f(q)= SGov;
-fprintf('number equations: %d; number variables %d', q, length(list.choice));
+% fprintf('number equations: %d; number variables %d', q, length(list.choice));
 end

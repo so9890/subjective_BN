@@ -106,7 +106,14 @@ opt_not_nt=helper.opt_all';
 RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
 RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
 
+%- results with counterfactual policy
+helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+count_taufopt=helper.LF_COUNT';
+helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+count_taulopt=helper.LF_COUNT';
 
+RES_count = containers.Map({ 'taufOpt' , 'taulOpt'},{count_taufopt, count_taulopt});
+RES_count = add_vars(RES_count, list, params, indic, varlist, symms);
 %% Tables
 betaa=params(list.params=='betaa');
  disc=repmat(betaa, 1,T);
@@ -129,7 +136,6 @@ end
 for i =keys(RES_polcomp_full)
 
      ii=string(i);
-     allvars= RES_polcomp_full(ii);
      allvarsnt=RES_polcomp_notaul(ii); 
      TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
 end
@@ -145,7 +151,53 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
-%% No exogenous target
+%% counterfactual comparison to full optimal allocation
+if plotts.countcomp==1
+    allvars=RES('OPT_T_NoTaus');
+    for cc=0:1
+        indic.tauf=cc;
+        if indic.tauf==1 % version with tauf optimal
+            allvars_count=RES_count('taufOpt');
+        else
+            allvars_count=RES_count('taulOpt');
+        end
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
+            varr=string(plotvars(v));
+            main=plot(time,allvars(find(varlist==varr),:),time,allvars_count(find(varlist==varr),:), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k';  orrange} )   
+
+           xticks(txx)
+           xlim([1, time(end)])
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if lgdind==1
+                if indic.tauf==1
+                    lgd=legend('full model', '$\tau_{f}$ optimal, $\tau_l=0$', 'Interpreter', 'latex');
+                else
+                    lgd=legend('full model', '$\tau_{l}$ optimal, $\tau_f=0$', 'Interpreter', 'latex');
+                end
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+        path=sprintf('figures/all_1705/CompCounterFac_taufopt%d_taulopt%d_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', indic.tauf, (1-indic.tauf), varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+    
+%% No exogenous target but externality
 %- comparison across efficient with taul no taul
 if plotts.extern==1
    fprintf('plotting externality graphs')

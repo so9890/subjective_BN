@@ -92,6 +92,8 @@ end
     %- without growth
     symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag');
     list.choice_xgrowth=string(symms.choice_xgrowth);
+    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S'&list.allvars~='Af'&list.allvars~='An'&list.allvars~='Ag');
+    list.allvars_xgrowth=string(symms.allvars_xgrowth);
 %%
 % update etaa if ==1
 
@@ -230,7 +232,7 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.tauf=0; % uses version with optimal tauf but taul=0
+indic.tauf=0; % ==1 uses version with optimal tauf but taul=0
 helper=load('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_BN0_ineq0_red0_etaa0.79_NEWems.mat');
 
 [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
@@ -244,6 +246,10 @@ etaa=params(list.params=='etaa');
 indic
 
 % choose sort of plots to be plotted
+plotts.countsing=1;
+
+plotts.countcomp=1;
+plotts.extern=0;
 plotts.single=0;
 plotts.singov=0;
 plotts.notaul=0; % this one needs to be switched on to get complete table

@@ -57,3 +57,8 @@ deltaa = params(list.params=='deltaa'); % natural sink
 % utility externality from emissions
 extexpp=1.02; 
 weightext=0.1; 
+
+% growth rates
+vn=0.1;
+vg=0.1;
+vf=0.1;
