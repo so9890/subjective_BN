@@ -71,32 +71,34 @@ c = []; %  periods and 2 additional ones:
 % gammac is the bgp growth rate should be at least as high as average
 % growth in direct periods
 %c(1:T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-if indic.sep==0
-    c(1:T)    = S-upbarH;
-    %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-%  if indic.target==1
-%       c(T+1:2*T)=F-Ftarget';
-%  end
-%  
-else
-    c(1:T)=sn-upbarH;
-    c(T+1:2*T)=sff-upbarH;
-    c(2*T+1:3*T)=sg-upbarH;
-    %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+if indic.xgrowth==0
+    if indic.sep==0
+        c(1:T)    = S-upbarH;
+        %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+    %  if indic.target==1
+    %       c(T+1:2*T)=F-Ftarget';
+    %  end
+    %  
+    else
+        c(1:T)=sn-upbarH;
+        c(T+1:2*T)=sff-upbarH;
+        c(2*T+1:3*T)=sg-upbarH;
+        %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
 
-%  if indic.target==1
-%       c(3*T+1:4*T)=F-Ftarget;
-%   end
+    %  if indic.target==1
+    %       c(3*T+1:4*T)=F-Ftarget;
+    %   end
+    end
 end
-
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%
  % include missing equations here %
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  ceq = [];
-
  if indic.noskill==0
+     if indic.xgrowth==0
+
          ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muuh.*lambdaa.*(1-taul).*(wh).^(1-taul));
          ceq(T*1+1:T*2) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
          % optimality skills (for fossil used to determine wage rates)
@@ -130,7 +132,21 @@ end
                 ceq(T*13+1:T*14) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
              end
          end
-       
+     elseif indic.xgrowth==1
+         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muuh.*lambdaa.*(1-taul).*(wh).^(1-taul));
+         ceq(T*1+1:T*2) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
+         % optimality skills (for fossil used to determine wage rates)
+         ceq(T*2+1:T*3) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
+         ceq(T*3+1:T*4) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
+         ceq(T*4+1:T*5) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
+         ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
+         ceq(T*6+1:T*7)= zh*hh-(hhf+hhg+hhn);
+         ceq(T*7+1:T*8)= (1-zh)*hl-(hlf+hlg + hln );
+         ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
+           if indic.notaul==1
+                ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
+            end
+     end
        
  elseif indic.noskill==1
         ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
@@ -152,6 +168,7 @@ end
         end
         
  end
+
  %
 ceq = ceq';
 end

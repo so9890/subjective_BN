@@ -39,8 +39,11 @@ indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
-
-indic.extern=1;
+indic.xgrowth=1;
+if indic.xgrowth==1
+    indic.sep=1;
+end
+indic.extern=0;
 % but ensure no externality when target is used 
 if indic.target==1
     indinc.extern=0;
@@ -89,10 +92,10 @@ end
     list.sepallvars_ineq=string(symms.sepallvars_ineq);
     
     %- without growth
-    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S');
+    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S');
     list.choice_xgrowth=string(symms.choice_xgrowth);
-    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
-    list.allvars_xgrowth=string(symms.allvars_xgrowth);
+     symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
+     list.allvars_xgrowth=string(symms.allvars_xgrowth);
 %%
 % update etaa if ==1
 
@@ -128,7 +131,9 @@ end
 
 %- version without growth
 [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-helper.LF_SIM=LF_SIM;
+% helper.LF_SIM=LF_SIM;
+save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+
 % under consrtuction:
 % indic.xgrowth=1;
 % [LF_Xgrowth]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);

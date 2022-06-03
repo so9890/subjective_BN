@@ -32,13 +32,22 @@ if indic.BN==1
 end
 % variables
 if indic.noskill==0
+    if indic.xgrowth==0
  [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, hl, hh, A_lag, S, SGov, Emnet, A,muu, muuh, muul,...
             pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil, gammac]= SP_aux_vars_2S(x, list, params, T, init, indic);
+    else
+        [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, sff, sg, sn, ...
+            F, N, G, E, Y, C, Ch, Cl, hl, hh, S, SGov, Emnet, A, muu, muuh, muul,...
+            pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_xgrowth(x, list, params, T, init, indic);
+    end
+        
 else
-[ xn,xf,xg,Ag, An, Af,...
+            [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
@@ -46,43 +55,59 @@ else
 end
 % inequality constraints
 c=[];
-if indic.sep==0
-    c(1:T)    = S-upbarH;
-    %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-%  if indic.target==1
-%       c(T+1:2*T)=F-Ftarget';
-%  end
- 
-else
-    c(1:T)=sn-upbarH;
-    c(T+1:2*T)=sff-upbarH;
-    c(2*T+1:3*T)=sg-upbarH;
-    %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+if indic.xgrowth==0
+    if indic.sep==0
+        c(1:T)    = S-upbarH;
+        %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+    %  if indic.target==1
+    %       c(T+1:2*T)=F-Ftarget';
+    %  end
 
-%  if indic.target==1
-%       c(3*T+1:4*T)=F-Ftarget';
-%   end
+    else
+        c(1:T)=sn-upbarH;
+        c(T+1:2*T)=sff-upbarH;
+        c(2*T+1:3*T)=sg-upbarH;
+        %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
+
+    %  if indic.target==1
+    %       c(3*T+1:4*T)=F-Ftarget';
+    %   end
+    end
 end
 
 
 % equality constraints
 ceq =[];
-if indic.ineq==0
-    ceq(1:1*T)     = C - (Y-xn-xg-xf);
-else
-    ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xn-xg-xf);
-end
-ceq(1*T+1:2*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
-ceq(2*T+1:3*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
-ceq(3*T+1:4*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
+if indic.xgrowth==0
+    if indic.ineq==0
+        ceq(1:1*T)     = C - (Y-xn-xg-xf);
+    else
+        ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xn-xg-xf);
+    end
+    ceq(1*T+1:2*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+    ceq(2*T+1:3*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
+    ceq(3*T+1:4*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
 
-if indic.noskill==0
-    ceq(4*T+1:5*T) = zh*hh - (hhn + hhf+hhg); % high skill market clearing
-    ceq(5*T+1:6*T) = (1-zh)*hl - (hln + hlf+hlg);
-    ceq(6*T+1:7*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
+    if indic.noskill==0
+        ceq(4*T+1:5*T) = zh*hh - (hhn + hhf+hhg); % high skill market clearing
+        ceq(5*T+1:6*T) = (1-zh)*hl - (hln + hlf+hlg);
+        ceq(6*T+1:7*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
+    else
+        ceq(4*T+1:5*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+    end
 else
-    ceq(4*T+1:5*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+    if indic.ineq==0
+        ceq(1:1*T)     = C - (Y-xn-xg-xf);
+    else
+        ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xn-xg-xf);
+    end
+     if indic.noskill==0
+        ceq(1*T+1:2*T) = zh*hh - (hhn + hhf+hhg); % high skill market clearing
+        ceq(2*T+1:3*T) = (1-zh)*hl - (hln + hlf+hlg);
+        ceq(3*T+1:4*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
+    else
+        ceq(1*T+1:2*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+    end
 end
-
 ceq = ceq';
 end

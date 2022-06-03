@@ -72,9 +72,9 @@ for i=1:T
     Ag(i)=(1+vg)*Ag_lag;
     Af(i)=(1+vf)*Af_lag;
     %- update laggs
-    An_lag=An;
-    Af_lag=Ag;
-    Ag_lag=Ag;
+    An_lag=An(i);
+    Af_lag=Af(i);
+    Ag_lag=Ag(i);
 end
 
 if indic.noskill==0

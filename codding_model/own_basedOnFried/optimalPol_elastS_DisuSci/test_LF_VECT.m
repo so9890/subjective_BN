@@ -17,6 +17,10 @@ if indic.sep==1
     end
 end
 
+if indic.xgrowth==1
+    list.choice=list.choice_xgrowth;
+    symms.choice=symms.choice_xgrowth;
+
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
 varrs=helper.LF_SIM;
 y=log(varrs);
@@ -71,26 +75,30 @@ else
 end
 F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';
-Af=y(list.allvars=='Af', :)';
-Ag =y(list.allvars=='Ag', :)';
-An =y(list.allvars=='An', :)';
-sff =z(list.allvars=='sff', :)';
-sg =z(list.allvars=='sg', :)';
-sn =z(list.allvars=='sn', :)';
+if indic.xgrowth==0
+    Af=y(list.allvars=='Af', :)';
+    Ag =y(list.allvars=='Ag', :)';
+    An =y(list.allvars=='An', :)';
+    sff =z(list.allvars=='sff', :)';
+    sg =z(list.allvars=='sg', :)';
+    sn =z(list.allvars=='sn', :)';
+    
+    if indic.sep==0
+        ws=z(list.allvars=='ws', :)';
+        S =z(list.allvars=='S', :)';
+        gammas =zeros(size(S));
+    else
+        wsf=z(list.allvars=='wsf', :)';
+        wsg=z(list.allvars=='wsg', :)';
+        wsn=z(list.allvars=='wsn', :)';
+        gammasg=z(list.allvars=='gammasg', :)';
+        gammasn=z(list.allvars=='gammasn', :)';
+        gammasf=z(list.allvars=='gammasf', :)';    
+    end
+
+end
 
 gammalh =z(list.allvars=='gammalh', :)';
-if indic.sep==0
-    ws=z(list.allvars=='ws', :)';
-    S =z(list.allvars=='S', :)';
-    gammas =zeros(size(S));
-else
-    wsf=z(list.allvars=='wsf', :)';
-    wsg=z(list.allvars=='wsg', :)';
-    wsn=z(list.allvars=='wsn', :)';
-    gammasg=z(list.allvars=='gammasg', :)';
-    gammasn=z(list.allvars=='gammasn', :)';
-    gammasf=z(list.allvars=='gammasf', :)';    
-end
 pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
@@ -102,11 +110,15 @@ x0=eval(symms.test);
 x0=x0(:);
 
 % test solution to 
-if indic.sep==1
-    f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
-else
-    f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
+if indic.xgrowth==0
+    if indic.sep==1
 
+        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
+    else
+        f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
+    end
+else
+    f=laissez_faireVECT_xgrowth(x0, params, list, varrs, init201519,T, indic);
 end
 % to examine stuff
 

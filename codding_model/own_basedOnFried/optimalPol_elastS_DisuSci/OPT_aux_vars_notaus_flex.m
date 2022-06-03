@@ -32,11 +32,15 @@ else
 end
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
-sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
-sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
-sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
-
-% end
+if indic.xgrowth==0
+    sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+    sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
+    sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
+else
+    sff=zeros(size(F));
+    sn=zeros(size(F));
+    sg=zeros(size(F));
+end
  
 
 %% auxiliary variables
@@ -48,33 +52,57 @@ Lg      = hhg.^thetag.*hlg.^(1-thetag);
 Ln      = hhn.^thetan.*hln.^(1-thetan);
 Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
 % loop over technology
-Af=zeros(T,1);
-Af_lag=[init201519(list.init=='Af0'); Af(1:T)]; % drop last value later
-Ag=zeros(T,1);
-Ag_lag=[init201519(list.init=='Ag0'); Ag(1:T)];
-An=zeros(T,1);
-An_lag=[init201519(list.init=='An0'); An(1:T)];
-A_lag=zeros(T,1);
+if indic.xgrowth==0
+    Af=zeros(T,1);
+    Af_lag=[init201519(list.init=='Af0'); Af(1:T)]; % drop last value later
+    Ag=zeros(T,1);
+    Ag_lag=[init201519(list.init=='Ag0'); Ag(1:T)];
+    An=zeros(T,1);
+    An_lag=[init201519(list.init=='An0'); An(1:T)];
+    A_lag=zeros(T,1);
 
 
-for i=1:T
-    A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
+    for i=1:T
+        A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
 
-    Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
-    Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
-    An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
+        Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
+        Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
+        An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
 
-    %-update lags
+        %-update lags
 
-    Af_lag(i+1)=Af(i);
-    Ag_lag(i+1)=Ag(i);
-    An_lag(i+1)=An(i);
+        Af_lag(i+1)=Af(i);
+        Ag_lag(i+1)=Ag(i);
+        An_lag(i+1)=An(i);
 
+    end
+
+    Af_lag=Af_lag(1:end-1);
+    An_lag=An_lag(1:end-1);
+    Ag_lag=Ag_lag(1:end-1);
+else
+    An_lag=init201519(list.init=='An0');
+    Ag_lag=init201519(list.init=='Ag0');
+    Af_lag=init201519(list.init=='Af0');
+
+    Af=zeros(size(F));
+    Ag=zeros(size(F));
+    An=zeros(size(F));
+
+    for i=1:T
+        An(i)=(1+vn)*An_lag;
+        Ag(i)=(1+vg)*Ag_lag;
+        Af(i)=(1+vf)*Af_lag;
+        %- update laggs
+        An_lag=An(i);
+        Af_lag=Af(i);
+        Ag_lag=Ag(i);
+    end
 end
-
-Af_lag=Af_lag(1:end-1);
-An_lag=An_lag(1:end-1);
-Ag_lag=Ag_lag(1:end-1);
+An_lag=An;
+Af_lag=Af;
+Ag_lag=Ag;
+A_lag=Ag_lag;
 
 if indic.ineq==0
     if indic.BN==0
@@ -113,14 +141,21 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
 
 %- wages scientists  
-wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
-wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+if indic.xgrowth==0
+    wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
+    wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
+    wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
-%- relevant for code without separate markets
-S    = sn+sg+sff;
-ws   = chiis*S.^sigmaas; 
-
+    %- relevant for code without separate markets
+    S    = sn+sg+sff;
+    ws   = chiis*S.^sigmaas; 
+else
+    ws=zeros(size(F));
+    S=zeros(size(F));
+    wsf =zeros(size(F));
+    wsg=zeros(size(F));
+    wsn=zeros(size(F));
+end
 % assuming interior solution households
 if indic.notaul==0
     if indic.ineq==0

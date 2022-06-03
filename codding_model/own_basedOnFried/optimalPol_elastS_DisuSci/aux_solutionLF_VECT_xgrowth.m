@@ -42,18 +42,18 @@ Af_lag=laggs(list.init=='Af0');
 An_lag=laggs(list.init=='An0');
 Ag_lag=laggs(list.init=='Ag0');
 
-Af=zeros(size(pf));
-Ag=zeros(size(pf));
-An=zeros(size(pf));
+Af=zeros(size(C));
+Ag=zeros(size(F));
+An=zeros(size(G));
 
 for i=1:T
     An(i)=(1+vn)*An_lag;
     Ag(i)=(1+vg)*Ag_lag;
     Af(i)=(1+vf)*Af_lag;
     %- update laggs
-    An_lag=An;
-    Af_lag=Ag;
-    Ag_lag=Ag;
+    An_lag=An(i);
+    Af_lag=Af(i);
+    Ag_lag=Ag(i);
 end
 sff=zeros(size(gammalh));
 sg=zeros(size(gammalh));
