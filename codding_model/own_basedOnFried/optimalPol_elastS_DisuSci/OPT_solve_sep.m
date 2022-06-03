@@ -114,7 +114,8 @@ elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq,indic.BN_red,  etaa))
     helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,indic.notaul,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
-    
+        helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
+
 %     helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d.mat', indic.spillovers, indic.taus));
              
     opt_all=helper.opt_all;

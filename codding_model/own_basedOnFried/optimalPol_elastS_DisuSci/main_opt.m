@@ -227,6 +227,17 @@ end
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      Section 6: Competitive equi 
+%%%      counterfactual policy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+indic.tauf=0; % uses version with optimal tauf but taul=0
+helper=load('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_BN0_ineq0_red0_etaa0.79_NEWems.mat');
+
+[LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
+save(sprintf('COMPEqu_SIM_taufopt%d_taulopt%d_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.tauf, (1-indic.tauf), indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: PLOTS       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');

@@ -1,4 +1,4 @@
-function LF_SIM=aux_solutionLF_VECT(x, pol, list, symms,varrs, params, T , indic)
+function LF_SIM=aux_solutionLF_VECT(x, list, symms,varrs, params, T , indic)
 read_in_params;
 
 tauf=varrs(list.allvars=='tauf', :)';
@@ -60,7 +60,7 @@ N  =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers
 Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1));
 xn=pn.*alphan.*N;
 xg=pg.*alphag.*G;
-xf=pf.*(1-pol(list.pol=='tauf')).*alphaf.*F;
+xf=pf.*(1-tauf).*alphaf.*F;
 Cincome=Y-xn-xf-xg;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);

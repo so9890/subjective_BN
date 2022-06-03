@@ -1,4 +1,4 @@
-function [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic)
+function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
@@ -138,8 +138,8 @@ end
 
 % save results
 if indic.sep==0
-    LF_SIM=aux_solutionLF_VECT(x, pol, list, symms, varrs, params, T, indic);
+    LF_SIM=aux_solutionLF_VECT(x, list, symms, varrs, params, T, indic);
 else
-    LF_SIM=aux_solutionLF_VECT_sep(x, pol, list, symms, varrs, params, T, indic);
+    LF_SIM=aux_solutionLF_VECT_sep(x, list, symms, varrs, params, T, indic);
 end
 end

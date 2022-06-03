@@ -94,83 +94,19 @@ RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_n
 RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
 RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
 
-%- results with reduction 
-% helper=load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red1_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
-% bau_red=helper.LF_BAU';
-% % helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
-% % fb_lf=helper.LF_SIM';
-% helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red1_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq,   etaa));
-% sp_t_red=helper.sp_all';
-% helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red1_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq,   etaa));
-% sp_not_red=helper.sp_all';
-% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red1_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
-% opt_not_notaus_red=helper.opt_all';
-% helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red1_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
-% opt_t_notaus_red=helper.opt_all';
-% 
-% RES_red = containers.Map({'BAU', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                         {bau_red,  sp_t_red, sp_not_red, opt_t_notaus_red, opt_not_notaus_red});
-% 
-% %- results without taul
-% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red1_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
-% opt_not_notaus_notaul_red=helper.opt_all';
-% helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red1_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, etaa));
-% opt_t_notaus_notaul_red=helper.opt_all';
-% 
-% RES_polcomp_full_red   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_red, opt_not_notaus_red});
-% RES_polcomp_notaul_red = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_red, opt_not_notaus_notaul_red});
-%            
-% %-- results with spillover 
-% 
-% % read in results
-% helper=load(sprintf('LF_BAU_spillovers1_noskill0_sep0_etaa1.20.mat'));
-% bau=helper.LF_BAU';
-% % helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill0_sep0.mat', indic.spillovers));
-% % fb_lf=helper.LF_SIM';
-% helper=load(sprintf('SP_target_active_set_1705_spillover1_noskill0_sep0_etaa1.20.mat'));
-% sp_t=helper.sp_all';
-% helper=load(sprintf('SP_notarget_active_set_1705_spillover1_noskill0_sep0_etaa1.20.mat'));
-% sp_not=helper.sp_all';
-% helper=load(sprintf('OPT_notarget_active_set_1905_spillover1_taus0_noskill0_notaul0_sep0_etaa1.20.mat'));
-% opt_not_notaus=helper.opt_all';
-% helper=load(sprintf('OPT_target_active_set_0505_spillover1_taus0_noskill0_notaul0_sep0_etaa1.20.mat'));
-% opt_t_notaus=helper.opt_all';
-% 
-% RES_spill= containers.Map({'BAU', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                         {bau,  sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-%% results without skill heterogeneity
-% helper=load(sprintf('LF_BAU_spillovers%d_noskill1.mat', indic.spillovers));
-% bau_ns=helper.LF_BAU';
-% helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill1.mat', indic.spillovers));
-% fb_lf_ns=helper.LF_SIM';
-% helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill1.mat', indic.spillovers));
-% sp_t_ns=helper.sp_all';
-% helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill1.mat', indic.spillovers));
-% sp_not_ns=helper.sp_all';
-% % helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d.mat', indic.spillovers));
-% % opt_not=helper.opt_all';
-% % helper=load(sprintf('OPT_target_active_set_0505_spillover%d.mat', indic.spillovers));
-% % opt_t=helper.opt_all';
-% % results without taus
-% helper=load(sprintf('OPT_notarget_active_set_0505_spillover%d_taus%d_noskill1_notaul0_alt.mat', indic.spillovers, indic.taus));
-% opt_not_notaus_ns=helper.opt_all';
-% helper=load(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill1_notaul0.mat', indic.spillovers, indic.taus));
-% opt_t_notaus_ns=helper.opt_all';
-% 
-% RES_ns = containers.Map({'BAU', 'FB_LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                         {bau_ns, fb_lf_ns, sp_t_ns, sp_not_ns, opt_t_notaus_ns, opt_not_notaus_ns});
+%- results with externality
+helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq,  indic.BN_red,  etaa));
+sp_not=helper.sp_all';
+helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
+opt_not_wt=helper.opt_all';
+helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
+opt_not_nt=helper.opt_all';
 
-%% optimal policy scenarios
 
-% RES_polcomp_full_ns   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_ns, opt_not_notaus_ns});
-% RES_polcomp_notaul_ns = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul_ns, opt_not_notaus_notaul_ns});
+RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
+RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
 
-% x indices
-time = 1:T;
-txx=1:2:T; % reducing indices
-%- using start year of beginning period 
-Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
-Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
+
 %% Tables
 betaa=params(list.params=='betaa');
  disc=repmat(betaa, 1,T);
@@ -202,51 +138,56 @@ TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(
 save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red), 'TableSWF_PV');
 
 %% Plots
-%% Subplots
-% for i =keys(RES)
-%     
-%     %- loop
-%     ii=string(i);
-%     allvars= RES(ii);
-% 
-% %% 
-% fprintf('plotting %s',ii );
-% for l =keys(lisst)
-%     ll=string(l);
-%     plotvars=lisst(ll);
-%     % number of figures in row in subplot
-% %     if ll~='VARS'
-% %         nn=2;
-% %     else 
-%     nn=3;
-% %     end
-%     %%% with subplots
-%     gcf=figure('Visible','off');
-%         
-%         for v=1:length(plotvars)
-%             varr=string(plotvars(v));
-%             subplot(floor(length(plotvars)/nn)+1,nn,v)
-%             plot(time,allvars(find(varlist==varr),:),  'LineWidth', 1.1)
-%             ytickformat('%.2f')
-%             xticks(txx)
-%             xticklabels(Year10)
-%             title(sprintf('%s', varr), 'Interpreter', 'latex')
-%         end
-%  
-% %         sgtitle('Social Planner Allocation')
-%         path=sprintf('figures/all_1705/%s_subplots_%s_spillover%d_etaa%.2f_sep%d_BN%d_ineq%d_red%d.png', ii, ll, indic.spillovers, etaa, indic.sep, indic.BN, indic.ineq, indic.BN_red);
-%         exportgraphics(gcf,path,'Resolution', 400)
-%         % saveas(gcf,path)
-%         close gcf
-%   end
-% end     
+%- axes
+time = 1:T;
+txx=1:2:T; % reducing indices
+%- using start year of beginning period 
+Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
+Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
+
+%% No exogenous target
+%- comparison across efficient with taul no taul
+if plotts.extern==1
+   fprintf('plotting externality graphs')
+    allvarseff= RES_ext('SP');
+    allvarsopt= RES_ext('OPT');
+    allvarsopt_nt= RES_ext('OPT_notaul');
+
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
+            varr=string(plotvars(v));
+            main=plot(time,allvarseff(find(varlist==varr),:),time,allvarsopt(find(varlist==varr),:), time,allvarsopt_nt(find(varlist==varr),:), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+
+           xticks(txx)
+           xlim([1, time(end)])
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if lgdind==1
+
+            lgd=legend('efficient', 'with income tax', 'no income tax', 'Interpreter', 'latex');
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+        path=sprintf('figures/all_1705/Extern_CompEff_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png',  varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
 %% All figures single
 if plotts.single==1
     fprintf('plotting single graphs')
     for i =keys(RES)
-        ii=string(i);
-
-        %- loop
         ii=string(i);
         allvars= RES(ii);
     %% 
