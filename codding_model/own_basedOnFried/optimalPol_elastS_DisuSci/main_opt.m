@@ -40,7 +40,6 @@ indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
 
-
 indic.extern=1;
 % but ensure no externality when target is used 
 if indic.target==1
@@ -90,9 +89,9 @@ end
     list.sepallvars_ineq=string(symms.sepallvars_ineq);
     
     %- without growth
-    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag');
+    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S');
     list.choice_xgrowth=string(symms.choice_xgrowth);
-    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S'&list.allvars~='Af'&list.allvars~='An'&list.allvars~='Ag');
+    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
     list.allvars_xgrowth=string(symms.allvars_xgrowth);
 %%
 % update etaa if ==1
@@ -107,6 +106,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
  
+% full model
 for i=1
     indic.noskill=i;
     if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,  indic.ineq, indic.BN_red, params(list.params=='etaa')))
@@ -126,7 +126,13 @@ for i=1
      fprintf('LF_BAU no skill %d exists', indic.noskill);
 end
 
-%- version with inequality
+%- version without growth
+[LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+helper.LF_SIM=LF_SIM;
+% under consrtuction:
+% indic.xgrowth=1;
+% [LF_Xgrowth]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
+        
 %% Competitive equilibrium with policy optimal without spillovers
 % DOES NOT SOLVE WITH ETAA ==1
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)

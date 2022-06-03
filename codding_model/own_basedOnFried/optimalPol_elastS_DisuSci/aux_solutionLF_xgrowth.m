@@ -1,11 +1,14 @@
-function LF_t=aux_solutionLF(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic)
+function LF_t=aux_solutionLF_xgrowth(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic)
 
 % output
 % LF_t: column vector of simulated variables in period t
 
+% read in variables
+read_in_params;
+
 % read in vars
 gammalh=SLF.gammalh;
-gammas=SLF.gammas;
+gammas=zeros(size(gammalh));
 
 if indic.noskill==0
     hhf=SLF.hhf;
@@ -33,16 +36,21 @@ F=SLF.F;
 G=SLF.G;
 C=SLF.C;
 
-Af=SLF.Af;
-Ag=SLF.Ag;
-An=SLF.An;
+%- initial condition
+Af_lag=laggs(list.init=='Af0');
+An_lag=laggs(list.init=='An0');
+Ag_lag=laggs(list.init=='Ag0');
 
-sff=SLF.sff;
-sg=SLF.sg;
-sn=SLF.sn;
-S= SLF.S;
+An=(1+vn)*An_lag;
+Ag=(1+vg)*Ag_lag;
+Af=(1+vf)*Af_lag;
 
-ws=SLF.ws;
+sff=zeros(size(gammalh));
+sg=zeros(size(gammalh));
+sn=zeros(size(gammalh));
+S=zeros(size(gammalh));
+ws=zeros(size(gammalh));
+
 pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
@@ -50,8 +58,8 @@ pf=SLF.pf;
 %- params
 sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
-sigmaas = Sparams.sigmaas;
-chiis = Sparams.chiis;
+% sigmaas = Sparams.sigmaas;
+% chiis = Sparams.chiis;
 
 eppse = Sparams.eppse;
 eppsy = Sparams.eppsy;
@@ -64,7 +72,6 @@ rhof   = Sparams.rhof;
 rhon   = Sparams.rhon;
 rhog   = Sparams.rhog;
 zh     = Sparams.zh; 
-% lambdaa = pol(list.pol=='lambdaa');
 lambdaa=SLF.lambdaa;
 tauf = pol(list.pol=='tauf');
 taul = pol(list.pol=='taul');
@@ -86,7 +93,7 @@ xg=SLF.pg*Sparams.alphag*SLF.G;
 xf=SLF.pf*(1-pol(list.pol=='tauf'))*Sparams.alphaf*SLF.F;
 Cincome=Y-xn-xf-xg;
 
-A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+A   = zeros(size(gammalh));
 
 muu     = C.^(-thetaa);
 if indic.noskill==0
@@ -119,7 +126,7 @@ if indic.noskill==0
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ Utilsci = zeros(size(gammalh));
 
  SWF = Utilcon-Utillab-Utilsci;
 
@@ -133,11 +140,15 @@ end
 % test variables read in properly
 xx=eval(symms.choice);
 if indic.noskill==0
-    guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
+    if indic.BN==0
+        guess_trans=trans_guess(indexx('LF_xgrowth'), xx, params, list.params);
+    else
+        guess_trans=trans_guess(indexx('LF_xgrowth_BN'), xx, params, list.params);
+    end
 else
-    guess_trans=trans_guess(indexx('LF_noskill'), xx, params, list.params);
+    guess_trans=trans_guess(indexx('LF_noskill_xgrowth'), xx, params, list.params);
 end
-    f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
+    f=laissez_faire_xgrowth(guess_trans, params, list, pol, laggs, indic);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')

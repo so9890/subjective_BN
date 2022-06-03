@@ -1,4 +1,4 @@
-function LF_SIM=aux_solutionLF_VECT(x, pol, list, symms,varrs, params, T , indic)
+function LF_SIM=aux_solutionLF_VECT_xgrowth(x, list, symms,varrs, params, T , indic, laggs)
 read_in_params;
 
 tauf=varrs(list.allvars=='tauf', :)';
@@ -35,17 +35,43 @@ end
  C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
- Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
- Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
- An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
- sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
- sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
- sn     =(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
- S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
- gammas     = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
 
- 
- ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
+%- initial condition
+
+Af_lag=laggs(list.init=='Af0');
+An_lag=laggs(list.init=='An0');
+Ag_lag=laggs(list.init=='Ag0');
+
+Af=zeros(size(pf));
+Ag=zeros(size(pf));
+An=zeros(size(pf));
+
+for i=1:T
+    An(i)=(1+vn)*An_lag;
+    Ag(i)=(1+vg)*Ag_lag;
+    Af(i)=(1+vf)*Af_lag;
+    %- update laggs
+    An_lag=An;
+    Af_lag=Ag;
+    Ag_lag=Ag;
+end
+sff=zeros(size(gammalh));
+sg=zeros(size(gammalh));
+sn=zeros(size(gammalh));
+S=zeros(size(gammalh));
+ws=zeros(size(gammalh));
+
+%  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
+%  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
+%  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
+%  sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
+%  sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
+%  sn     =(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
+%  S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
+%  gammas     = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
+% 
+%  
+%  ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
  pg     = exp(x((find(list.test=='pg')-1)*T+1:(find(list.test=='pg'))*T));
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
@@ -95,7 +121,7 @@ if indic.noskill==0
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ Utilsci = zeros(size(gammalh));
 
  SWF = Utilcon-Utillab-Utilsci;
 

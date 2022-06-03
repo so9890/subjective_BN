@@ -19,6 +19,10 @@ else
 end
 end
 
+if indic.xgrowth==1
+    symms.sp= [hhf hhg hhn hlf hlg hln xn xf xg C hh hl F];
+end
+
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 

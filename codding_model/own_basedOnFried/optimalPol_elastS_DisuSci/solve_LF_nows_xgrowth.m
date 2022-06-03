@@ -111,38 +111,31 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
 
-CONTINUE
+
     %- transform results to bounded variables
     if indic.noskill==0
-        if indic.sep==0
-            LF=trans_allo_out(indexx('LF'), sol3, params, list.params, indic);
-        else
             if indic.BN==0
-                LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params, indic);
+                LF=trans_allo_out(indexx('LF_xgrowth'), sol3, params, list.params, indic);
             else
-                LF=trans_allo_out(indexx('LF_sep_BN'), sol3, params, list.params, indic);
+                LF=trans_allo_out(indexx('LF_xgrowth_BN'), sol3, params, list.params, indic);
             end
-        end
      else
-        LF=trans_allo_out(indexx(sprintf('LF_noskill_sep%d', indic.sep)), sol3, params, list.params, indic);
+        LF=trans_allo_out(indexx('LF_noskill_xgrowth'), sol3, params, list.params, indic);
     end
     %% - save results
     % this part also checks correctness of results!
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        if indic.sep==0
-            LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
-        else
-            LF_SIM(:,t-1)=aux_solutionLF_sep(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
-        end
+        LF_SIM(:,t-1)=aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
         FVAL(t-1)=max(abs(fval));
     end
     %% - update for next round
     x0 = LF; % initial guess
-        Af0= SLF.Af; % today's technology becomes tomorrow's lagged technology
-        Ag0= SLF.Ag; 
-        An0= SLF.An; 
+        read_in_params;
+        An0=(1+vn)*laggs(list.init=='An0');
+        Ag0=(1+vg)*laggs(list.init=='Ag0');
+        Af0=(1+vf)*laggs(list.init=='Af0');
     laggs=eval(symms.init);
     t=t+1;
 end
