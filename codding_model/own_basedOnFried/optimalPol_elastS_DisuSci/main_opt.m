@@ -167,6 +167,12 @@ end
   end
   end
 
+if indic.xgrowth==1
+      %- version without growth
+    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+    % helper.LF_SIM=LF_SIM;
+    save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+end
 % end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);

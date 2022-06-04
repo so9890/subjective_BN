@@ -45,13 +45,6 @@ if indic.BN==1
         x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)   = Bl./(1+exp(y((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)));
     end
 end
-% variables
-if indic.noskill==0
-    hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
-    hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);
-else
-    h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);
-end
 
  if indic.noskill==0
             [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
