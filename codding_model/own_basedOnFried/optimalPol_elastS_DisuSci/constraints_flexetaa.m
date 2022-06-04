@@ -133,7 +133,7 @@ end
              end
          end
      elseif indic.xgrowth==1
-         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muuh.*lambdaa.*(1-taul).*(wh).^(1-taul));
+         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
          ceq(T*1+1:T*2) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
          % optimality skills (for fossil used to determine wage rates)
          ceq(T*2+1:T*3) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
