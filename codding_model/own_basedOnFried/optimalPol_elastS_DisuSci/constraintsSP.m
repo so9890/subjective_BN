@@ -14,9 +14,11 @@ else
  x((find(list.sp=='h')-1)*T+1:find(list.sp=='h')*T) = upbarH./(1+exp(y((find(list.sp=='h')-1)*T+1:find(list.sp=='h')*T)));
 end
 
+if indic.xgrowth==0
  x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T) = (y((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T)).^2;
  x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T) = (y((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T)).^2;
  x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T) = (y((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T)).^2;
+end
 
 if indic.target==1
  x((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)));
@@ -58,20 +60,10 @@ c=[];
 if indic.xgrowth==0
     if indic.sep==0
         c(1:T)    = S-upbarH;
-        %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-    %  if indic.target==1
-    %       c(T+1:2*T)=F-Ftarget';
-    %  end
-
     else
         c(1:T)=sn-upbarH;
         c(T+1:2*T)=sff-upbarH;
         c(2*T+1:3*T)=sg-upbarH;
-        %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-
-    %  if indic.target==1
-    %       c(3*T+1:4*T)=F-Ftarget';
-    %   end
     end
 end
 

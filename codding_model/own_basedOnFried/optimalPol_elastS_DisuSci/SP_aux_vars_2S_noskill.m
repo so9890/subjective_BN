@@ -15,9 +15,15 @@ h     = x((find(list.sp=='h')-1)*T+1:find(list.sp=='h')*T);
 xn     = x((find(list.sp=='xn')-1)*T+1:find(list.sp=='xn')*T);
 xf     = x((find(list.sp=='xf')-1)*T+1:find(list.sp=='xf')*T);
 xg     = x((find(list.sp=='xg')-1)*T+1:find(list.sp=='xg')*T);
-Af     = x((find(list.sp=='Af')-1)*T+1:find(list.sp=='Af')*T);
-Ag     = x((find(list.sp=='Ag')-1)*T+1:find(list.sp=='Ag')*T);
-An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
+
+if indic.xgrowth==0
+    Af     = x((find(list.sp=='Af')-1)*T+1:find(list.sp=='Af')*T);
+    Ag     = x((find(list.sp=='Ag')-1)*T+1:find(list.sp=='Ag')*T);
+    An     = x((find(list.sp=='An')-1)*T+1:find(list.sp=='An')*T);
+    sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
+    sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
+    sn      = x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T);
+end
 
 if indic.ineq==0
     C      = x((find(list.sp=='C')-1)*T+1:find(list.sp=='C')*T);
@@ -28,23 +34,46 @@ else
     C=Ch;
 end
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
-sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
-sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
-sn      = x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T);
 
 
-% initial values
-An0=init(list.init=='An0');
-Ag0=init(list.init=='Ag0');
-Af0=init(list.init=='Af0');
+if indic.xgrowth==0
+    % initial values
+    An0=init(list.init=='An0');
+    Ag0=init(list.init=='Ag0');
+    Af0=init(list.init=='Af0');
 
-% aux variables
+    % aux variables
 
 
-%A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
-Ag_lag  = [Ag0;Ag(1:T-1)];
-An_lag  = [An0;An(1:T-1)];
+    %A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+    Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
+    Ag_lag  = [Ag0;Ag(1:T-1)];
+    An_lag  = [An0;An(1:T-1)];
+else
+    % initial values
+    An_lag=init(list.init=='An0');
+    Ag_lag=init(list.init=='Ag0');
+    Af_lag=init(list.init=='Af0');
+
+    Af=zeros(size(xf));
+    Ag=zeros(size(xf));
+    An=zeros(size(xf));
+
+    for i=1:T
+        An(i)=(1+vn)*An_lag;
+        Ag(i)=(1+vg)*Ag_lag;
+        Af(i)=(1+vf)*Af_lag;
+        %- update laggs
+        An_lag=An(i);
+        Af_lag=Af(i);
+        Ag_lag=Ag(i);
+    end
+    sff     = zeros(size(xf));
+    sg      = zeros(size(xf));
+    sn      = zeros(size(xf));
+
+end
+
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
 S       = sff+sg +sn;
 % the absolute amount of scientists supplied is determined by scientist
@@ -65,9 +94,15 @@ pf = (G./F).^(1/eppse).*pg;
 tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
 % tauf2= 1-xf./(pf.*alphaf.*F); 
 pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
-wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
-wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+if indic.xgrowth==0
+    wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
+    wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
+    wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+else
+    wsf     = zeros(size(xf));
+    wsn     = zeros(size(xf));
+    wsg     = zeros(size(xf));
+end
 w      = pg.*(1-alphag).*G./Lg;
 muu = C.^(-thetaa);
 

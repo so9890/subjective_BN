@@ -59,6 +59,10 @@ extexpp=1.02;
 weightext=0.01; % high weight: 
 
 % growth rates
-vn=0.1;
-vg=0.1;
-vf=0.1;
+if indic.zero==0
+    vn=0.1;
+    vg=0.1;
+    vf=0.1;
+else
+    vn=0; vg=0; vf=0; 
+end

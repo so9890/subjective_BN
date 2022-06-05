@@ -74,20 +74,10 @@ c = []; %  periods and 2 additional ones:
 if indic.xgrowth==0
     if indic.sep==0
         c(1:T)    = S-upbarH;
-        %c(T+1:2*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-    %  if indic.target==1
-    %       c(T+1:2*T)=F-Ftarget';
-    %  end
-    %  
     else
         c(1:T)=sn-upbarH;
         c(T+1:2*T)=sff-upbarH;
         c(2*T+1:3*T)=sg-upbarH;
-        %c(3*T+1:4*T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-
-    %  if indic.target==1
-    %       c(3*T+1:4*T)=F-Ftarget;
-    %   end
     end
 end
  
@@ -149,6 +139,7 @@ end
      end
        
  elseif indic.noskill==1
+     if indic.xgrowth==0
         ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
         ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
         ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
@@ -166,7 +157,16 @@ end
         if indic.notaul==1
             ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
         end
-        
+     else
+        ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
+        ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
+        ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
+        ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov;
+         
+        if indic.notaul==1
+            ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
+        end
+     end
  end
 
  %

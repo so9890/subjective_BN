@@ -30,10 +30,10 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
-indic.target =0; % ==1 if uses emission target
+indic.target =1; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill = 0; % == 1 if no skill calibration of model
+indic.noskill = 1; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
@@ -48,6 +48,7 @@ indic.extern=0;
 if indic.target==1
     indinc.extern=0;
 end
+indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,11 +118,11 @@ for i=1
             [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
             helper.LF_SIM=LF_SIM;
         %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-            [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
+            [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
         else
             [LF_SIM, pol, FVAL] = solve_LF_nows_ineq(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
             helper.LF_SIM=LF_SIM;
-            [LF_BAU]=solve_LF_VECT(T, list, polCALIB, params,symms, init201519, helper, indic);
+            [LF_BAU]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
         end
         save(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
@@ -134,10 +135,23 @@ end
 % helper.LF_SIM=LF_SIM;
 save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
-% under consrtuction:
-% indic.xgrowth=1;
-% [LF_Xgrowth]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
-        
+%- version with counterfactual technology gap
+% An0=init201014(list.init=='An0');
+% Ag0=0.9*An0;
+% Af0=Ag0/0.4; 
+% initcount= eval(symms.init); % vector or counterfactual technology 
+iin=load('init_techgap.mat');
+[LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, initcount, indexx, indic, Sall);
+ helper.LF_SIM=LF_SIM;
+%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+%- initial gap 2015/19
+% An0=LF_SIM(list.sepallvars=='An', 1);
+% Ag0=LF_SIM(list.sepallvars=='Ag', 1);
+% Af0=LF_SIM(list.sepallvars=='Af', 1);
+% init1519count=eval(symms.init);
+[LF_BAU]=solve_LF_VECT(T, list, params,symms, init1519count, helper, indic);
+save(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+
 %% Competitive equilibrium with policy optimal without spillovers
 % DOES NOT SOLVE WITH ETAA ==1
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
@@ -176,6 +190,15 @@ if indic.xgrowth==1
     % helper.LF_SIM=LF_SIM;
     save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
+
+%- version LF with counterfac tec gap
+[LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, initcount, indexx, indic, Sall);
+helper.LF_SIM=LF_SIM;
+%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
+%- initial gap 2015/19
+[LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, init1519count, helper, indic);
+save(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+
 %% end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);
@@ -212,7 +235,10 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %             end
             end
         end
-           
+
+if indic.count_techgap==1
+    SP_solve(list, symms, params, Sparams, x0LF, initcount, init1519count, indexx, indic, T, Ems);
+end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 5: Solve for Optimal Allocation       %%%
@@ -227,13 +253,18 @@ for BN=1
      indic.BN=BN;
      for inn =0:1
          indic.ineq=inn;
-         for nnt=0:1
+         for nnt=1
              indic.notaul=nnt;
              indic
 %      if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
 %          indic.target=1;
          %[symms, list, opt_all]= 
-         OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+         if indic.count_techgap==0
+             OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+         else
+             OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems);
+         end
+        end
      %else 
 %         fprintf('OPT solution with target, noskill%d exists', indic.noskill);
 %      end
@@ -243,7 +274,7 @@ for BN=1
 %     else 
 %        fprintf('OPT solution without target, noskill%d exists', indic.noskill);
 %     end
-         end
+        
      end
 end
 
@@ -263,24 +294,25 @@ save(sprintf('COMPEqu_SIM_taufopt%d_taulopt%d_spillover%d_noskill%d_sep%d_bn%d_i
 %%%      Section 6: PLOTS       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
+weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=1;
-plotts.countsing=0;
-
+plotts.table=0;
+% plotts.countsing=0;
 plotts.countcomp=0;
-plotts.extern=0;
+plotts.extern=1;
 plotts.single=0;
 plotts.singov=0;
 plotts.notaul=0; % this one needs to be switched on to get complete table
-plotts.bau=0; % do plot bau
+plotts.bau=0; % do plot bau comparison
+plotts.lf=1; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
 plotts.compeff=0;
 
 for ns=0
     indic.noskill=ns;
-    plottsSP(list, T, etaa, indic, params, Ems, plotts);
+    plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
 %%
 for BN=1
@@ -288,7 +320,7 @@ for BN=1
     for inn=0:1
         indic.ineq=inn;
         indic
-        plottsSP(list, T, etaa, indic, params, Ems, plotts);
+        plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
     end
 end
 

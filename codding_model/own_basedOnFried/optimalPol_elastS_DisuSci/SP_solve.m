@@ -20,7 +20,11 @@ end
 end
 
 if indic.xgrowth==1
-    symms.sp= [hhf hhg hhn hlf hlg hln xn xf xg C hh hl F];
+    if indic.noskill==0
+        symms.sp= [hhf hhg hhn hlf hlg hln xn xf xg C hh hl F];
+    else
+        symms.sp= [Lg Ln xn xf xg C h F];
+    end        
 end
 
 list.sp  = string(symms.sp); 
@@ -42,6 +46,11 @@ end
 
 if indic.xgrowth==1
     helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+    LF_SIM=helper.LF_SIM;
+end
+
+if indic.count_techgap==1
+    helper=load(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
     LF_SIM=helper.LF_SIM;
 end
   %- new list if uses separate market
@@ -91,7 +100,7 @@ if indic.target==0
         x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =LF_SIM(list.allvars=='sg',1:T);  % C
         x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =LF_SIM(list.allvars=='sff',1:T);  % C
     else
-        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
         sp_all=helper.sp_all;
         
         
@@ -166,7 +175,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
     else
         fprintf('using sp solution as initial value')
-        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq,indic.BN_red, params(list.params=='etaa')));
+        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq,indic.BN_red,indic.xgrowth, params(list.params=='etaa')));
 %        helper= load(sprintf('OPT_target_active_set_1905_spillover%d_noskill%d_notaul0_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
 %        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
 
@@ -198,7 +207,7 @@ elseif indic.target==1
                 x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='Cl');  % C
                 x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='Ch');  % C    
             end
-            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =0.8999*0.0720/0.1066*sp_all(1:T, list.allvars=='F');  % C
+            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =sp_all(1:T, list.allvars=='F');  % C
             if indic.xgrowth==0
                 x0(T*(find(list.sp=='Af')-1)+1:T*(find(list.sp=='Af')))   =sp_all(1:T, list.allvars=='Af');  % Af
                 x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =sp_all(1:T, list.allvars=='Ag');  % Ag
@@ -349,9 +358,25 @@ else
 end
 
 %%
+if indic.count_techgap==0
 if indic.target==1
     save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
 else
-    save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    if indic.extern==1       
+        save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, weightext, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    else        
+        save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    end
+end
+elseif indic.count_techgap==1
+    if indic.target==1
+    save(sprintf('SP_target_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    else
+    if indic.extern==1       
+        save(sprintf('SP_notarget_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, weightext, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    else        
+        save(sprintf('SP_notarget_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    end
+    end
 end
 end

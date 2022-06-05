@@ -94,7 +94,12 @@ else
      Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
 end
 
-Utilsci = zeros(size(hh));
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+end
+
 
 %Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
 % UtilTC_cont = (betaa^(T+periods-1))*N(T+periods)*(1/(1-betaa))*(((1+alpha0*(TC(T+periods)^alpha1))^((-1)*(1-sigma)))/(1-sigma));

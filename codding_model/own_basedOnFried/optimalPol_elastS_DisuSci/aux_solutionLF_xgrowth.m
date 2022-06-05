@@ -50,6 +50,10 @@ sg=zeros(size(gammalh));
 sn=zeros(size(gammalh));
 S=zeros(size(gammalh));
 ws=zeros(size(gammalh));
+wsg=ws;
+wsn=ws;
+wsf=ws; 
+gammasg=ws; gammasn=ws; gammasf=ws;
 
 pg=SLF.pg;
 pn=SLF.pn;

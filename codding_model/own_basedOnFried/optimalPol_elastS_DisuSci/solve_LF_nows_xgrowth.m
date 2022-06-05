@@ -43,6 +43,10 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, param
 %-- to save results
 % symms.allvars=[symms.allvars, gammasn, gammasg, gammasf];
 % list.allvars=string(symms.allvars);
+if indic.sep==1
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
+end
 LF_SIM=zeros(length(list.allvars),T); 
 FVAL  = zeros(T,1);
 

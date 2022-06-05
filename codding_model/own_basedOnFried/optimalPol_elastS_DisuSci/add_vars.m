@@ -71,7 +71,11 @@ end
 
 % ratios
 AgAf=Ag./Af;
-sgsff= sg./sff;
+if indic.xgrowth==0
+    sgsff= sg./sff;
+else
+    sgsff=zeros(size(AgAf));
+end
 GFF = G./F;
 EY= E./Y;
 LgLf = Lg./Lf;

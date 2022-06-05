@@ -32,6 +32,7 @@ else
 end
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
+
 if indic.xgrowth==0
     sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
@@ -98,11 +99,12 @@ else
         Af_lag=Af(i);
         Ag_lag=Ag(i);
     end
+    
+    An_lag=An;
+    Af_lag=Af;
+    Ag_lag=Ag;
+    A_lag=Ag_lag;
 end
-An_lag=An;
-Af_lag=Af;
-Ag_lag=Ag;
-A_lag=Ag_lag;
 
 if indic.ineq==0
     if indic.BN==0
