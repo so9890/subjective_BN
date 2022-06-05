@@ -1,6 +1,7 @@
 function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
 % simulate economy under laissez faire
-
+indic.xgrowth=0;
+indic.ineq=0;
 % input: 
 % pol: numeric policy vector
 

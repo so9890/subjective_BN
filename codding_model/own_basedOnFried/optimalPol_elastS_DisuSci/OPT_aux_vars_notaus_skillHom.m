@@ -103,13 +103,37 @@ A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 % utility
-if thetaa~=1
- Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
- Utilcon = log(C);
+if indic.ineq==0
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = (C.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = log(C);
+        end
+    else
+        Utilcon=-(C-B).^(zetaa)./(zetaa); 
+    end
+else
+    if indic.BN==0
+        if thetaa~=1
+            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
+        elseif thetaa==1
+            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
+        end
+    else
+        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
+    end
+
 end
- Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
- Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
+
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+end
+
 
  SWF = Utilcon-Utillab-Utilsci;
 

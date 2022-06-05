@@ -145,7 +145,7 @@ if indic.xgrowth==0
         f=laissez_faireVECT_sep(x, params, list, varrs, init201519,T, indic);
     end
 else
-    laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
+    f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
 end
 if max(abs(f))>1e-7
     error('LF function does not solve')

@@ -20,7 +20,7 @@ end
 if indic.xgrowth==1
     list.choice=list.choice_xgrowth;
     symms.choice=symms.choice_xgrowth;
-
+end
 %helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
 varrs=helper.LF_SIM;
 y=log(varrs);

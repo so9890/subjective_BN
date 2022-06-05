@@ -230,7 +230,6 @@ end
 
 % save stuff
 if indic.ineq==0
-
     LF_t= eval(symms.allvars)';
 else
     LF_t= eval(symms.allvars_ineq)';

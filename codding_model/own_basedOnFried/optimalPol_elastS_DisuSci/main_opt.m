@@ -145,13 +145,14 @@ save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2
 taus=0;
 tauf=0;
 taul=0;
-lambdaa=1; % balances budget with tauf= taul=0
+lambdaa=1; % placeholder, determined in comp eqbm
 pol=eval(symms.pol);
 
   %  if indic.noskill==0
-  for i=1
+  for i=0:1
       indic.noskill=i;
-  if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,indic.ineq, indic.BN_red, params(list.params=='etaa')))
+      
+ % if ~isfile(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN,indic.ineq, indic.BN_red, params(list.params=='etaa')))
 %       indic.noskill=1;
 if indic.ineq==0
         [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
@@ -159,21 +160,23 @@ else
         [LF_SIM, polLF, FVAL] =solve_LF_nows_ineq(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
 end
         helper.LF_SIM=LF_SIM;
-        [LF_SIM]=solve_LF_VECT(T, list, pol, params,symms, init201519, helper, indic);
+        indic.xgrowth=0;
+        [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
         save(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
-        else
-     fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
+%        else
+%      fprintf('LF_FB spillover %d no skill %d exists',indic.spillovers, indic.noskill)
+%   end
   end
-  end
+%%  
 
 if indic.xgrowth==1
       %- version without growth
-    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
     % helper.LF_SIM=LF_SIM;
-    save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
-% end
+%% end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);
  expp=0:T-1;
@@ -263,19 +266,22 @@ etaa=params(list.params=='etaa');
 indic
 
 % choose sort of plots to be plotted
-plotts.countsing=1;
+plotts.table=1;
+plotts.countsing=0;
 
-plotts.countcomp=1;
+plotts.countcomp=0;
 plotts.extern=0;
 plotts.single=0;
 plotts.singov=0;
 plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau
-plotts.comptarg=1; % comparison with and without target
-plotts.compeff=1;
+plotts.comptarg=0; % comparison with and without target
+plotts.compeff=0;
 
-plottsSP(list, T, etaa, indic, params, Ems, plotts);
-
+for ns=0
+    indic.noskill=ns;
+    plottsSP(list, T, etaa, indic, params, Ems, plotts);
+end
 %%
 for BN=1
     indic.BN=BN;
