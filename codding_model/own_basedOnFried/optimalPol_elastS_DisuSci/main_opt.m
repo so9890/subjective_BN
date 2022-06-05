@@ -39,10 +39,11 @@ indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
-indic.xgrowth=1;
+indic.xgrowth=0;
 if indic.xgrowth==1
     indic.sep=1;
 end
+indic.zero=0; % ==1 then zero growth rates with xgrowth
 indic.extern=0;
 % but ensure no externality when target is used 
 if indic.target==1
@@ -283,12 +284,13 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.tauf=0; % ==1 uses version with optimal tauf but taul=0
-helper=load('OPT_target_active_set_1905_spillover0_taus0_noskill0_notaul0_sep1_BN0_ineq0_red0_etaa0.79_NEWems.mat');
+for tf=0:1
+indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
+helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill%d_notaul0_sep1_BN0_ineq0_red0_xgrowth%d_etaa0.79_NEWems.mat', indic.noskill, indic.xgrowth));
 
 [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
-save(sprintf('COMPEqu_SIM_taufopt%d_taulopt%d_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.tauf, (1-indic.tauf), indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
-
+save(sprintf('COMPEqu_SIM_taufopt%d_taulopt%d_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.tauf, (1-indic.tauf), indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: PLOTS       %%%
@@ -298,9 +300,10 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=1;
+plotts.table=0;
 % plotts.countsing=0;
 plotts.countcomp=0;
+plotts.countcomp2=1;
 plotts.extern=0;
 plotts.single=0;
 plotts.singov=0;
@@ -308,11 +311,14 @@ plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau comparison
 plotts.lf=0; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
-plotts.compeff=1;
+plotts.compeff=0;
 
+for gg=0:1
+    indic.xgrowth=gg;
 for ns=1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
+end
 end
 %%
 for BN=1

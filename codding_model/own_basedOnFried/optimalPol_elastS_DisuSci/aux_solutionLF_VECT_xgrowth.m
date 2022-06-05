@@ -60,7 +60,8 @@ sg=zeros(size(gammalh));
 sn=zeros(size(gammalh));
 S=zeros(size(gammalh));
 ws=zeros(size(gammalh));
-
+wsg=ws; wsf=ws; wsn=ws;
+gammasg=ws; gammasn=ws; gammasf=ws;
 %  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
 %  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
 %  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));

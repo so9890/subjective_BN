@@ -70,9 +70,9 @@ if indic.xgrowth==0
     helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, etaa));
     LF=helper.LF_SIM';
 else
-    helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
+    helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
     bau=helper.LF_SIM;
-    helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
+    helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
     LF=helper.LF_SIM;
 end
 helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,  indic.xgrowth, etaa));
@@ -134,11 +134,17 @@ RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_
 RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
 
 %- results with counterfactual policy
-helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, 0, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
-count_taufopt=helper.LF_COUNT';
-helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, 0, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
-count_taulopt=helper.LF_COUNT';
-
+if indic.xgrowth==1
+    helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
+    count_taufopt=helper.LF_COUNT';
+    helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
+    count_taulopt=helper.LF_COUNT';
+else
+    helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+    count_taufopt=helper.LF_COUNT';
+    helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,  params(list.params=='etaa')));
+    count_taulopt=helper.LF_COUNT';
+end
 RES_count = containers.Map({ 'taufOpt' , 'taulOpt'},{count_taufopt, count_taulopt});
 RES_count = add_vars(RES_count, list, params, indic, varlist, symms);
 
@@ -226,7 +232,53 @@ if plotts.countcomp==1
     end
     end
 end
-    
+    %% counterfactual comparison to full optimal allocation
+    %- with LF
+if plotts.countcomp2==1
+    allvars=RES('OPT_T_NoTaus');
+    allvarsLF=RES('LF');
+    for cc=0:1
+        indic.tauf=cc;
+        if indic.tauf==1 % version with tauf optimal
+            allvars_count=RES_count('taufOpt');
+        else
+            allvars_count=RES_count('taulOpt');
+        end
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
+            varr=string(plotvars(v));
+            main=plot(time,allvarsLF(find(varlist==varr),:), time,allvars_count(find(varlist==varr),:),time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k';  orrange; 'b'} )   
+
+           xticks(txx)
+           xlim([1, time(end)])
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if lgdind==1
+                if indic.tauf==1
+                    lgd=legend( 'laissez-faire', '$\tau_{f}$ optimal, $\tau_l=0$', 'optimal policy','Interpreter', 'latex');
+                else
+                    lgd=legend('laissez-faire',  '$\tau_{l}$ optimal, $\tau_f=0$', 'optimal policy','Interpreter', 'latex');
+                end
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+        path=sprintf('figures/all_1705/CompCounterFac_withLF_taufopt%d_taulopt%d_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', indic.tauf, (1-indic.tauf), varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
 %% No exogenous target but externality
 %- comparison across efficient with taul no taul
 if plotts.extern==1
