@@ -298,19 +298,19 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=0;
+plotts.table=1;
 % plotts.countsing=0;
 plotts.countcomp=0;
-plotts.extern=1;
+plotts.extern=0;
 plotts.single=0;
 plotts.singov=0;
 plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau comparison
-plotts.lf=1; %comparison to laissez faire allocation 
+plotts.lf=0; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
-plotts.compeff=0;
+plotts.compeff=1;
 
-for ns=0
+for ns=1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end

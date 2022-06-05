@@ -60,8 +60,10 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {lis
 %- variables which to plot in one graph plus legend
 lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string([hh hl]), string([sff sg sn S]), string([gAf gAg  gAn gAagg]), string([Lf Lg])});
 legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"], ["fossil", "green", "non-energy", "aggregate"], ["fossil", "green"]});
+
 %% read in results
 %- baseline results without reduction
+if indic.zero==0
 if indic.xgrowth==0
     helper=load(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa));
     bau=helper.LF_BAU';
@@ -84,22 +86,41 @@ opt_t_notaus=helper.opt_all';
 
 RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                         {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+else
+    helper=load(sprintf('SP_notarget_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_zero1_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
+    sp_not=helper.sp_all';
+    helper=load(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_zero1_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
+    opt_not_notaus=helper.opt_all';
+ 
+    RES = containers.Map({'SP_NOT', 'OPT_NOT_NoTaus'}, {sp_not, opt_not_notaus});
+end
+
 %- add additional variables
 [RES]=add_vars(RES, list, params, indic, varlist, symms);
 varlist=[varlist, string(symms.plotsvarsAdd)];
 
 %- results without taul
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-opt_not_notaus_notaul=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,  etaa));
-opt_t_notaus_notaul=helper.opt_all';
+if indic.zero==0
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
+    opt_not_notaus_notaul=helper.opt_all';
+    helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,  etaa));
+    opt_t_notaus_notaul=helper.opt_all';
+    RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
+    RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
+    %- add additional variables
+    RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
+    RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
 
+else
+    helper=load(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_zero%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.zero, etaa));
+    opt_not_notaus_notaul=helper.opt_all';
+    RES_polcomp_full   = containers.Map({'OPT_NOT_NoTaus'},{ opt_not_notaus});
+    RES_polcomp_notaul = containers.Map({'OPT_NOT_NoTaus'},{ opt_not_notaus_notaul});
+    %- add additional variables
+    RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
+    RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
 
-RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
-RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
-%- add additional variables
-RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
-RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
+end
 
 %- results with externality
 helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
@@ -150,7 +171,7 @@ for i =keys(RES_polcomp_full)
 end
 
 TableSWF_PV.ContributionPERC=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d_xgrowth%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth), 'TableSWF_PV');
+save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d_xgrowth%d_extern%d_zero%d_countec%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.extern, indic.zero, indic.count_techgap), 'TableSWF_PV');
 end
 %% Plots
 %- axes
@@ -396,52 +417,6 @@ if plotts.notaul==1
             if lgdind==1
 
             lgd=legend('full model', 'no income tax', 'Interpreter', 'latex');
-%% comparison without skill heterogeneity
-% for i =keys(RES)
-%     ii=string(i);
-%     allvars= RES(ii);
-%     allvarsns=RES_ns(ii);
-%     % SEF calculation 
-%     TableSWF_PV_ns.FullModel(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)';
-%     TableSWF_PV_ns.NoSkillHet(TableSWF_PV_ns.Allocation==ii)=vec_discount*allvarsns(find(varlist=='SWF'),:)';
-% % end
-% %%
-% fprintf('plotting %s',ii );
-% for l =keys(lisst)
-%     ll=string(l);
-%     plotvars=lisst(ll);
-%     % number of figures in row in subplot
-% %     if ll~='VARS'
-% %         nn=2;
-% %     else 
-%     nn=3;
-% %     end
-%     %%% with subplots
-%     gcf=figure('Visible','off');
-%         
-%         for v=1:length(plotvars)
-%             varr=string(plotvars(v));
-%             subplot(floor(length(plotvars)/nn)+1,nn,v)
-%             main=plot(time,allvars(find(varlist==varr),:), time,allvarsns(find(varlist==varr),:), 'LineWidth', 1.1);
-%             
-%            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
-%            xticks(time)
-%             ax=gca;
-%             ax.FontSize=13;
-% %             xlim([0.1, 0.9])
-%             ytickformat('%.2f')
-%             xticklabels(Year)
-%             title(sprintf('%s', varr), 'Interpreter', 'latex')
-%         end
-%  
-% %         sgtitle('Social Planner Allocation')
-%         path=sprintf('figures/all_0505/%s_subplots_%s_spillover%d_comp_noskill.png', ii, ll, indic.spillovers);
-%         exportgraphics(gcf,path,'Resolution', 400)
-%         % saveas(gcf,path)
-%         close gcf
-%   end
-% end      
-
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
     %         sgtitle('Social Planner Allocation')
@@ -555,10 +530,14 @@ if plotts.comptarg==1
 end
 %% comparison social planner and optimal policy (with and without labour tax)
 if plotts.compeff==1
-    fprintf('plotting comparison efficient-optimal graphs')    
-    eff= string({'SP_T', 'SP_NOT'});
-    opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
-
+    fprintf('plotting comparison efficient-optimal graphs')   
+    if indic.zero==0
+        eff= string({'SP_T', 'SP_NOT'});
+        opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+    else
+        eff= string({'SP_NOT'});
+         opt=string({'OPT_NOT_NoTaus'});
+    end
     % for withtaul=0:1
     for i =[1,2]
 
@@ -588,7 +567,7 @@ if plotts.compeff==1
               lgd=legend('efficient', 'with income tax', ' no income tax', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, etaa, lgdind);
+        path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
