@@ -1,0 +1,677 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+%\documentclass[11pt,aspectratio=169, handout]{beamer}
+%\usepackage{handoutWithNotes}
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\definecolor{myorange}{rgb}{0.8500, 0.3250, 0.0980}
+\setbeamercolor{alerted text}{bg={}, fg=myorange }
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+
+%table
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz\\ \footnotesize{University of Bonn%, RTG 2281 The Macroeconomics of Inequality}
+	}\\ }
+\institute[University of Bonn]{}
+\title{The role of fiscal policies in meeting climate targets}
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+%\institute{University of Bonn} 
+\date{\small{Retreat\\ June 11, 2022 }} 
+%\subject{} 
+\begin{document}
+	
+	{\setbeamertemplate{footline}{}
+		\begin{frame}
+		\titlepage
+	\end{frame}
+}
+%\addtocounter{framenumber}{-1}
+
+% {\setbeamertemplate{footline}{}
+% \begin{frame}{Content}
+% \vspace{4mm}
+% \tableofcontents
+% \end{frame}
+% }
+ %\addtocounter{framenumber}{-1}
+
+
+%---------------------------------------
+%            Intro
+%---------------------------------------
+%\section{ Reducing Consumption Levels}
+\begin{frame}{Motivation}
+
+\begin{itemize}[<+-| alert@+>]
+	\setbeamercolor{alerted text}{fg=black} %change the font color
+	\setbeamerfont{alerted text}{series=\bfseries} 
+\item natural scientists suggest net C02 emissions to be zero by mid-century \citep{Rogelj2018MitigationDevelopment.} to meet temperature targets.
+\vspace{3mm}
+\item<+-> but: economic models usually allow for a trade-off between pollution and consumption or model emission targets as percentage changes %\citep{Fried2018ClimateAnalysis}
+\vspace{3mm}
+\item<+-> therefore, I study optimal environmental policies under an exogenous and absolute constraint on emissions
+\vspace{3mm}
+%\item Is it true that reduction policies are necessary?
+%\item whether emission targets can be reached under standard policies depends on the speed of green innovation and the substituability of dirty and clean production methods %substhen, the capacity to innovate green and the elasticities of substitution between green and fossil energy are key to whether (a) consumption can continue to grow, and (b) corrective emission taxes are sufficient to meet targets 
+%\item then, growth in fossil energy production has to stop (assuming no infinite carbon capture-storage technology)  %\ar no balanced growth 
+%\vspace{3mm}
+\item<+-> Is there a role for distortionary fiscal policies to meet emission targets?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{An environmental perspective on labour income taxes}
+\alert{\textbf{Distortionary income taxes affect emissions via two channels}}
+\begin{enumerate}
+	\item<+-> \underline{Reduction channel}: 
+	\begin{itemize}
+		\item the return to labour reduces \ar labour effort declines
+		\item \ar a reduction of emissions through lower production
+	\end{itemize}
+	\item<+-> \underline{Recomposition channel}:
+	\begin{itemize}
+		\item  high-skilled workers could react more strongly to a higher tax progressivity \\ \ar the relative supply of low-skilled labour increases
+		\item the green sector relies more on high-skilled labour
+		\item non-green production becomes relatively cheaper
+	\end{itemize}
+\end{enumerate}
+\end{frame}
+
+%\begin{frame}{Trade-offs}
+%	\textbf{Starting from demand target}
+%\begin{itemize}
+%\item lowering demand for certain land and energy-intense products could be regressive but natural scientists call for such a reduction in demand to meet climate targets
+%\item labour income taxation could be an alternative measure/ potentially less politically debated
+%\item However, new trade-offs arise from a higher tax progressivity: 
+%\begin{enumerate}
+%	\item on the one hand, it lowers demand, on the other hand, it could imply a shift to dirty innovations and production through a skill-bias mechanism \ar a new equity-environment trade-off arises
+%	\item the progressivity of the tax system affects the composition of aggregate demand: if the rich have a higher propensity to consume clean, it raises pollution
+%\end{enumerate}
+%\item if inequality suffers, look at alternative measure of lowering hours worked
+%\item on the other hand, corrective taxes counter equity if they foster skill bias of innovations
+%\end{itemize}
+%\end{frame}
+%\begin{frame}{Working hypotheses}	
+%	\begin{enumerate}
+%		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+%		\vspace{3mm}
+%		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+%		\vspace{3mm}
+%		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+%		\vspace{3mm}
+%		\item<+-> now households are willing to reduce their consumption deliberately: reduction in satiation point; of high energy goods only, meat etc. 
+%		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+%	\end{enumerate}
+%\end{frame}
+
+\begin{frame}{This paper}
+\begin{itemize}
+	\item<+-> quantitative endogenous growth model building on \cite{Fried2018ClimateAnalysis}
+	\vspace{3mm}
+%	\item<+-> profitability of research in each sector determines sector growth
+	\item<+-> representative household provides low- and high-skilled labour 
+    \vspace{3mm}
+	\item<+-> the government is constrained by an emission limit when maximising social welfare 	
+	\vspace{3mm}
+	\item<+-> the government chooses fossil and distortionary income taxes
+	\vspace{3mm}
+\item<+-> in an extension: Households voluntarily reduce consumption and labour supply
+% as households reduce consumption themselves, (1) less need for reduction polices, (2) lower inefficiency through skill recomposition 
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{How}
+%	\begin{itemize}
+%		\item<+-> the emission target determines fossil output starting from 2050
+%		\vspace{3mm}
+%		\item<+-> model economy on BGP (with constant growth ratios) until today; then, allow for non-balanced trajectory under optimal policy
+%		\vspace{3mm}
+%		\item<+-> first pass: starting in 2020, the planner optimises over a \textbf{finite horizon} only (political economy argument), and has to meet emission target (adapt code in \cite{Barrage2019OptimalPolicy})
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}{Preview of results}
+\begin{enumerate}
+	\item<+-> the optimal income tax is progressive  to meet emission targets
+		\vspace{3mm}
+	\item<+-> labour income taxes contribute to social welfare by 0.1\% %over the 60 years from 2020 to 2080
+	
+	\vspace{3mm}
+	\item<+-> a voluntary reduction of consumption enables the gov to implement a more efficient allocation; but income tax still progressive \ar less need to reduce, better skill ratio?
+\end{enumerate}
+\end{frame}
+\begin{frame}{Roadmap}
+	\tableofcontents
+\end{frame}
+
+\section{Model}
+\begin{frame}{Model}
+
+	\vspace{-2mm}
+	\begin{itemize}
+		\item a representative family consisting of
+		\begin{itemize}
+		\item a unit mass of scientists 
+		\item and a unit mass of workers: share $z_h$ of high-skilled workers the other one is low skilled
+		
+		\end{itemize}
+		\item competitive final and intermediate good producers
+		\item endogenous research
+		\item government
+	\end{itemize} 
+\end{frame}
+
+\begin{frame}{Model: Household}
+
+%\text{\textbf{Householdrt}}
+\vspace{2mm}
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{first}(0.8,2.8)(-0.4,-2.6)
+	%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+ \max_{\{C_t\}_{t=0}^T, \{h_{ht}\}_{t=0}^T, \{h_{lt}\}_{t=0}^T, \{S_{t}\}_{t=0}^T} \sum_{t=0}^T \beta^t \left(\frac{C_t^{1-\theta}}{1-\theta}-z_h\chi\frac{h_{ht}^{1+\sigma}}{1+\sigma}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{S_{t}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\\
+\vspace{4mm}
+\\
+s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}%+Gov_t
+	\tikzmarkend{first}
+	\end{align*}
+\end{minipage}
+
+%\begin{minipage}[t!]{0.4\textwidth}
+%
+%\begin{align*}
+%\hspace{4mm}c =
+%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+%\end{align*}
+%\end{minipage}
+
+\small
+\vspace{4mm}
+\begin{minipage}[t!]{0.4\textwidth}
+	\vspace{7mm}
+	\begin{itemize}
+		\item[] $z_h$:\ \ share of high skilled labour \vspace{-2mm}
+		\item[] $h_{ht}$: hours high-skilled\vspace{-2mm}
+		\item[] $h_{lt}$:\ \ hours low-skilled\vspace{-2mm}
+		\item[] $S_{t}$:\ \  \ hours scientists\vspace{-2mm}
+	\end{itemize}
+\end{minipage}
+\begin{minipage}[t!]{0.35\textwidth}
+	\vspace{8mm}
+	\begin{itemize}
+		\item[] $\tau_{lt}$: labour tax progressivity
+		\vspace{-2mm}	
+		\item[] $\lambda_{t}$: scaling disposable income
+		\vspace{-2mm}	
+		\item[]%	$Gov_{t}$: government transfers
+	\end{itemize}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Model: Production}
+\textbf{Final Good and Energy Producers }
+\vspace{-5mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{second}(1.9,1.2)(-1.5,-0.8)
+Y_t=\left(\delta_y^{\frac{1}{\varepsilon_e}}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^{\frac{1}{\varepsilon_e}}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
+E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
+\tikzmarkend{second}
+\end{align*}
+	\end{minipage}
+\\
+
+\vspace{12mm}
+\textbf{Intermediate Good Producers:} $J\ \in\{F,G,N\}$
+	\vspace{-3mm}
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{third}(3.6,3.1)(-4,-2.6)
+\underset{\{x_{ijt}\}_{i=0}^1, L_{jt}}{\max}\ & \pi_{jt}=p_{jt}(1-\alert{\pmb{\tau_{jt}}})J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{ijt}x_{ijt}di\\ 
+ s.t.\ & J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di 
+%\pi_{jt}=p_{jt}J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{jit}x_{jit}di \ for\ j\in\{N,G\}
+%=x_{ft}^{\alpha_f}\left(A_{ft}L_{ft}\right)^{1-\alpha_f} \\
+%& F_t= (\alpha_f^2p_{Ft})^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
+%&N_t= L_{nt}^{1-\alpha_n}\int_{0}^{1}A^{1-\alpha_n}_{int}x_{int}^{\alpha_n}di; \ \hspace{4mm}\pi_{nt}=p_{nt}N_t-w_{lnt}L_{nt}-\int_{0}^{1}p_{nit}x_{nit}di\\
+%&G_t= L_{gt}^{1-\alpha_g}\int_{0}^{1}A^{1-\alpha_g}_{igt}x_{igt}^{\alpha_g}di; \ \hspace{4mm} \pi_{gt}=p_{gt}G_t-w_{lgt}L_{gt}-\int_{0}^{1}p_{git}x_{git}di
+	\tikzmarkend{third}
+	\end{align*}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Model: Labour and machines}
+	
+	\textbf{Labour input good producers:} $J\ \in\{F,G,N\}$\\ \vspace{3mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{fourth}(5.8,1)(-5.6,-0.6)
+		 L_{jt}=h_{hjt}^{\theta_{j}}h_{ljt}^{1-\theta_{j}}
+		\tikzmarkend{fourth}
+		\end{align*}
+	\end{minipage}
+\\
+
+\vspace{10mm}
+	\textbf{Monopolistically competitive machine producers }\\ \vspace{-1mm}
+\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{sixth}(3.2,3)(-3.1,-3)
+\underset{p_{xijt}, s_{jit}}{\max}\ & p_{xijt}(1+\zeta_{jt})x_{ijt}-x_{ijt}-w_{sjt}s_{jt}\\
+s.t.\ & x_{ijt}= \left(\frac{p_{ft}(1-\tau_{jt})\alpha_j}{p_{xijt}}\right)^\frac{1}{1-\alpha_j}A_{ijt}L_{jt}\\
+& A_{jt}=A_{jt-1}\left(1+\gamma\left(\frac{s_{jt}}{\rho_f}\right)^\eta\left(\frac{A_{t-1}}{A_{jt-1}}\right)^\phi\right)
+	\tikzmarkend{sixth}
+	\end{align*}
+\end{minipage}
+\end{frame}
+%\begin{frame}{Model: Machine Producers and Innovation}
+%
+%\textbf{Marginal product of innovation}
+%\begin{align*}
+%&
+%w_{sjt}=\frac{\eta \gamma \alpha_f A_{jt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{jt}}{\rho_j}\right)^{\eta}p_{jt}J_t}{\frac{1}{1-\alpha_f}S_{jt}A_{jt}}\\
+%\end{align*}
+%\end{frame}
+
+
+\begin{frame}{Model: Government}
+
+\begin{align*}
+&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+s.t. \hspace{4mm}
+&(1)\ \ T_t= \text{profits machines}+\text{tax income}+\tau_{ft}p_{ft}F_{t}\\
+&
+(2)\ \ \kappa F_t-\delta =\Omega_t\  \forall\ \  t\in[0,T]
+\end{align*}
+where 
+\begin{align*}
+\Omega =\left[\Omega_0,..., \Omega_{29}, \pmb{0}_{\{1\times 30\}}\right]
+\end{align*}
+	\begin{itemize}
+	\item corrective tax on fossil energy (excise sales tax): $\pi_{ft}=p_{ft}\pmb{(1-\tau_{ft})}F_t-c(L_{ft}, x_{ft})$
+	\item labour income tax
+	\item subsidy on green innovation: $\pi_{git}=p_{git}^x x_{git}-\psi x_{git}-w_{sgt}\pmb{(1-\tau_{st})}s_{gt}$
+\end{itemize}
+\end{frame}
+
+\section{Calibration}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+\begin{frame}{Outline}
+\begin{enumerate}
+	\item Representative agent model: \textbf{The optimality of income tax progressivity to meet emission targets}
+	\item No skill heterogeneity: \textbf{Progressive income tax is efficient; more growth optimal while meeting emission target}
+\end{enumerate}
+\end{frame}
+\section*{1st: Optimal policy and allocation}
+\begin{frame}{Main Result: Optimal income tax is progressive to meet emission target}
+			\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BNCOMP_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.05\textwidth}
+	\ \ \\ 
+	\ \ 
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Corrective tax, $\tau_{ft}$ }}
+		%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BNCOMP_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Taul BN 1 }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Tauf BN 1 }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+%\end{minipage}
+\end{frame}
+
+\begin{frame}{Optimal allocation i: Reduction}
+	% Reduction: consumption and hours worked reduce as target becomes stricter. 
+	% Recomposition: 
+	\centering
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Consumption}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJoint_OPT_T_NoTaus_labour_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Research}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Science_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Output}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Y_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Welfare}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_SWF_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Disutility science}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilsci_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Utility consumption }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilcon_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+%\end{minipage}
+\end{frame}
+
+\begin{frame}{Optimal allocation ii: Recomposition}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High to low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hhhl_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Green to fossil energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_GFF_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Consumption ratio}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_CY_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+%\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Energy to final output}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_EY_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+\end{minipage}
+\end{frame}
+
+\section*{Benefits of progressive income taxes}
+\begin{frame}{Efficient and optimal allocation }
+	\centering
+	\begin{minipage}[]{0.23\textwidth}
+		\centering{\footnotesize{Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.23\textwidth}
+		\centering{\footnotesize{High skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.23\textwidth}
+	\centering{\footnotesize{Low skill }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.23\textwidth}
+	\centering{\footnotesize{Skill ratio }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{itemize}
+%	\item the use of the income tax allows to prevent 
+	\item income tax is used to reduce the level of work effort closer to the efficient allocation
+	\item at the cost of a lower high to low skill ratio
+\end{itemize}
+\end{frame}
+
+%--------------------------------------------------------------
+%% Voluntary reduction
+%--------------------------------------------------
+	\section*{2nd: Voluntary Reduction}
+\begin{frame}{Main Result 2: Voluntary reduction}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq0_redCOMP_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Corrective tax, $\tau_{ft}$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq0_redCOMP_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{itemize}
+	\item less government intervention optimal; although growth is valued less \ar could intervene more; the effect that less intervention is needed dominates
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Comparison to efficient allocation}
+	\centering
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Consumption}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{High to low skill ratio}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{High skill supply}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq0_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\end{frame}
+
+%----------------------------
+%% Voluntary reduction Rich
+%--------------------------------------------------
+\section*{2nd: Voluntary Reduction Inequality}
+\begin{frame}{Main Result 2: Voluntary reduction by high skill}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_NOT_NoTaus_taul_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Corrective tax, $\tau_{ft}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{itemize}
+		\item still less intervention
+		\item sizable RISE in tax progressivity \ar could be driven by inequality!
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Comparison to efficient allocation}
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High to low skill ratio}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill supply}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{Low skill supply}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{GFF}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/GFF_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Green growth}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Fossil Growth}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_T_NoTaus_spillover0_sep1_BN1_ineq1_redCOMP_etaa0.79_lgd1.png}
+\end{minipage}
+\end{frame}
+\appendix
+\begin{frame}{Working hypotheses}	
+	\begin{itemize}
+		\item<+-> with short time until growth in fossil sector has to stop, green innovation rate could be too slow to only rely on corrective taxes and subsidies \ar role for fiscal policies (demand reduction policies) \ar progressive tax
+		\vspace{3mm}
+		\item<+-> Skill heterogeneity and skill-bias in green sector make a regressive tax optimal to subsidise green innovations
+		\vspace{3mm}
+		\item<+-> income-dependent marginal propensities to consume emissions make a a \textbf{higher progressivity} optimal if the rich have a higher marginal propensity to consume green (MPCG); and a \textbf{more regressive income} tax is optimal if the poor have a higher MPCG (need to include inequality) 
+		%\item<+-> could also have motive to reduce demand due to short time frame until emissions have to be zero and a too slow innovation rate (look at model without skill heterogeneity)
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Literature}
+	\begin{itemize}
+		\item public finance
+		\item environmental policy
+		\item directed technical change
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Current State and way forward}
+	\begin{enumerate}
+		\item Block
+		\begin{itemize}
+			\item model economy \checkmark
+			\item define planner's objective
+			\item derive relevant equations for Barrage
+			\item code in Barrage to find optimal policy ! use as little analytical solutions as possible to be able to quickly change equations
+		\end{itemize}
+		\ar What is the optimal tax progressivity? \ar hypothesis: regressive tax and recycling revenues as transfers to clean sector wages?
+		\item Block: How does adding a demand target change the result?
+		\begin{itemize}
+			\item hypothesis: a higher tax progressivity could be optimal to reduce high consumption levels
+		\end{itemize}
+	\item Block: accounting for non-homotheticities in demand
+	\begin{itemize}
+		\item redistribution to affect the externality through a demand channel
+	\end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Method: nonbalanced Growth Path}
+	\begin{itemize}
+		\item need to analytically derive a continuation value to derive optimal policy
+		\item how done in \cite{Barrage2019OptimalPolicy}? She assumes a balanced growth path to exist to derive the continuation value (she does not have several sectors)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Way forward}
+\begin{enumerate}
+	\item include household heterogeneity \ar some households are willing to voluntarily reduce their consumption
+	\begin{itemize}
+		\item \ar no keynesian resurgence of consumption or labour supply due to satiation point
+		\item is it helpful to meet emission target? Does it reduce the importance of income tax progressivity?
+		\item on the one hand, 
+	\end{itemize}
+\item would the government prefer to reduce hours worked instead of using the income tax?
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[shrink]{References}
+	
+	\bibliography{../../bib_2_0}
+	\bibliographystyle{apa}
+\end{frame}
+\end{document}

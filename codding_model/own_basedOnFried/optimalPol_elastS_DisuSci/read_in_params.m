@@ -31,9 +31,17 @@ alphag = params(list.params=='alphag');
 alphaf = params(list.params=='alphaf');
 alphan = params(list.params=='alphan');
 
-eppsy = params(list.params=='eppsy');
+if indic.subs==0
+    eppsy = params(list.params=='eppsy');
+else
+    eppsy=1.3;
+end
 eppse = params(list.params=='eppse');
-deltay = params(list.params=='deltay');
+if indic.noneutral==0
+    deltay = params(list.params=='deltay');
+else
+    deltay =1; % weight on energy good
+end
 gammaa = params(list.params=='gammaa');
 % if indic.dim==1
 %     etaa =0.79; % 

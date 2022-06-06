@@ -80,6 +80,7 @@ muu = C.^(-thetaa); % same equation in case thetaa == 1
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
 pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+
 pn      = ((1-deltay.*pee.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
 % output

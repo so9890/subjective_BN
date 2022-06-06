@@ -50,6 +50,8 @@ if indic.target==1
     indinc.extern=0;
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
+indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
+indic.noneutral =1; % there is no neutral good. deltay=1;
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -301,9 +303,11 @@ indic
 
 % choose sort of plots to be plotted
 plotts.table=0;
-% plotts.countsing=0;
+plotts.robust=0;
 plotts.countcomp=0;
 plotts.countcomp2=1;
+plotts.countcomp3=1;
+
 plotts.extern=0;
 plotts.single=0;
 plotts.singov=0;
@@ -311,11 +315,12 @@ plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau comparison
 plotts.lf=0; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
-plotts.compeff=0;
+plotts.compeff=1;
+plotts.compeff2=1;
 
-for gg=0:1
+for gg=0
     indic.xgrowth=gg;
-for ns=1
+for ns=0
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end

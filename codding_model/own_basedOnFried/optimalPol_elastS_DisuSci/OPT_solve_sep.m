@@ -126,7 +126,7 @@ if indic.target==1
 elseif indic.target==0
        
     if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth0_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq,indic.BN_red,  etaa))
-    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth1_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,1,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
+    helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext0.01_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,1,indic.sep,indic.BN, indic.ineq,indic.BN_red,indic.extern, indic.xgrowth, etaa));
    % helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.1_xgrowth0_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,indic.sep,indic.BN, indic.ineq,indic.BN_red, etaa));
          
     opt_all=helper.opt_all;
@@ -404,22 +404,22 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.count_techgap==0
     if indic.target==1
-        save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.zero, params(list.params=='etaa')), 'opt_all', 'Sparams')
+        save(sprintf('OPT_target_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_elasEN%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
     else
         if indic.extern==1
-            save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern,weightext, indic.xgrowth,indic.zero, params(list.params=='etaa')), 'opt_all', 'Sparams')
+            save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_elasEN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern,weightext, indic.xgrowth,indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
         else
-           save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth, indic.zero, params(list.params=='etaa')), 'opt_all', 'Sparams')
+           save(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_zero%d_elasEN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth, indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
         end
     end
 else
     if indic.target==1
-    save(sprintf('OPT_target_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.zero, params(list.params=='etaa')), 'opt_all', 'Sparams')
+    save(sprintf('OPT_target_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_elasEN%d_etaa%.2f_NEWems.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
 else
     if indic.extern==1
-        save(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern,weightext, indic.xgrowth, indic.zero,params(list.params=='etaa')), 'opt_all', 'Sparams')
+        save(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_elasEN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern,weightext, indic.xgrowth, indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
     else
-       save(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth,indic.zero, params(list.params=='etaa')), 'opt_all', 'Sparams')
+       save(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_zero%d_elasEN%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth,indic.zero, indic.subs, params(list.params=='etaa')), 'opt_all', 'Sparams')
     end
     end
 end
