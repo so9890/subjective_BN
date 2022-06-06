@@ -51,7 +51,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.noneutral =1; % there is no neutral good. deltay=1;
+indic.noneutral =0; % there is no neutral good. deltay=1;
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -216,29 +216,23 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% indic.noskill=0;
-        for BN=0
-            indic.BN=BN;
-            for inn=0:1
-                indic.ineq=inn;
+
+        for xgr=0
+            indic.xgrowth=xgr;
+            for ns=1
+                indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-                indic               
-                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-%             else
-%               fprintf('Social planner solution with target, noskill%d exists', indic.noskill);
-%             end
-%             if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep))
-%                 indic.target=0;
-%                 fprintf('solving Social planner solution without target, noskill%d', indic.noskill);
-%                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
-%             else
-%               fprintf('Social planner solution without target, noskill%d exists', indic.noskill);
-%             end
+               for tar=0:1
+                    indic.target=tar;
+                    indic               
+                    SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+               end            
             end
         end
 
+        %%
 if indic.count_techgap==1
     SP_solve(list, symms, params, Sparams, x0LF, initcount, init1519count, indexx, indic, T, Ems);
 end
@@ -302,11 +296,11 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=0;
+plotts.table=1;
 plotts.robust=0;
 plotts.countcomp=0;
-plotts.countcomp2=1;
-plotts.countcomp3=1;
+plotts.countcomp2=0;
+plotts.countcomp3=0;
 
 plotts.extern=0;
 plotts.single=0;
@@ -315,12 +309,12 @@ plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau comparison
 plotts.lf=0; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
-plotts.compeff=1;
-plotts.compeff2=1;
+plotts.compeff=0;
+plotts.compeff2=0;
 
 for gg=0
     indic.xgrowth=gg;
-for ns=0
+for ns=1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
