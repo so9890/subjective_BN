@@ -61,9 +61,12 @@ if indic.xgrowth==0
     if indic.sep==0
         c(1:T)    = S-upbarH;
     else
-        c(1:T)=sn-upbarH;
+        
+        c(1:T)=sg-upbarH;
         c(T+1:2*T)=sff-upbarH;
-        c(2*T+1:3*T)=sg-upbarH;
+        if indic.noneutral==0
+            c(2*T+1:3*T)=sn-upbarH;
+        end
     end
 end
 

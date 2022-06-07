@@ -52,12 +52,11 @@ Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
 Ag_lag  = [Ag0;Ag(1:T-1)];
 An_lag  = [An0;An(1:T-1)];
 %A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
-A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
+
 % 
 % sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
 % sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
 % sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-S       = sff+sg +sn;
 % the absolute amount of scientists supplied is determined by scientist
 % preferences, the planner has to take this as given (otherwise there is no bound on science!)
 % alternatively add disutility from scientists to objective function 
@@ -66,8 +65,19 @@ N       = xn.^alphan.*(An.*Ln).^(1-alphan);
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
 
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
-Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
 
+if indic.noneutral==0
+    A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
+    S       = sff+sg +sn;
+    A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+    Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+
+else
+    A_lag   = (rhof*Af_lag+rhog*Ag_lag)./(rhof+rhog);
+    A  = (rhof*Af+rhog*Ag)/(rhof+rhog);
+    S       = sff+sg;   
+    Y       = E ;
+end
 % prices compatible with sp solution 
 pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
 pn = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
@@ -92,13 +102,12 @@ SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
-A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 if indic.ineq==0
     if indic.BN==0
-        muu      = C.^(-thetaa); % same equation in case thetaa == 1
+        muu   = C.^(-thetaa); % same equation in case thetaa == 1
     else
-        muu =-(C-B).^(zetaa-1);
+        muu   = -(C-B).^(zetaa-1);
     end
     muuh=muu; muul=muu;
 else

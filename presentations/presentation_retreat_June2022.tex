@@ -124,7 +124,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{3mm}
 	\item but: economic models on optimal environmental policy abstract from reductive policy tools (e.g. distortionary fiscal policies)% inelastic labour supply, no income tax
 	\vspace{3mm}
-\item Is there a role for reductive policies to optimally meet emission limits?
+\item Is there a role for reductive policies in optimally meeting emission limits?
 \end{itemize}
 \end{frame}
 
@@ -217,7 +217,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{5mm}
 	\item<+->  meeting the emission limit is mainly accounted for by the corrective tax
 	\vspace{5mm}
-	\item<+-> income taxes contribute to social welfare by 0.11\%  \small{(with one skill only by 0.85\%)}  %but are nnot necessary to meet the emission limit %over the 60 years from 2020 to 2080
+	\item<+-> income taxes contribute to social welfare by 0.11\%  \small{(with one skill type by 0.85\%)}  %but are nnot necessary to meet the emission limit %over the 60 years from 2020 to 2080
 	
 	\vspace{5mm}
 	%\item<+->  \alert{sizable effect of skill heterogeneity}: \\ with only one skill, the optimal income tax increases social welfare by 0.85\%
@@ -304,7 +304,7 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{lt}}}}+(1-z_h) \lamb
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
 		\tikzmarkin{second}(1.3,1.2)(-1,-0.8)
-Y_t=\left(\delta_y^{\frac{1}{\varepsilon_e}}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^{\frac{1}{\varepsilon_e}}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
+Y_t=\left(\delta_y^{\frac{1}{\varepsilon_y}}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^{\frac{1}{\varepsilon_y}}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
 E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
 \tikzmarkend{second}
 \end{align*}
@@ -482,9 +482,10 @@ s.t. \hspace{4mm}
 %\end{frame}
 %\section*{Main Result}
 \begin{frame}{Main Result}
+	\vspace{4mm}
 			\centering
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$\\ \ }}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$ }}
 		%	\captionsetup{width=.45\linewidth}
 \includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
 	\end{minipage}
@@ -493,7 +494,7 @@ s.t. \hspace{4mm}
 	\ \ 
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Corrective tax, $\tau_{ft}$ \\ \ }}
+		\centering{\footnotesize{Corrective tax, $\tau_{ft}$  }}
 		%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
 	\end{minipage}
@@ -503,59 +504,22 @@ s.t. \hspace{4mm}
 	\ \\
 	\ \ \ \  The optimal income tax is progressive, when the government  \\ \ \ \ \ is constrained to meet an emission limit. \  \ \\ \ 
 \end{block}
-	\vspace{-3mm}
+	\vspace{-2mm}
 \hfill
-\hyperlink{notopt}{\tiny{$\rightarrow$ no emission target}} 
+\hyperlink{notopt}{\tiny{$\rightarrow$ no emission target,}} 
+\hyperlink{alloc}{\tiny{$\rightarrow$ allocation}} 
 \hypertarget{backmainres}{}
 \end{frame}
 
-\begin{frame}{Optimal allocation i: Reduction}
-	% Reduction: consumption and hours worked reduce as target becomes stricter. 
-	% Recomposition: 
-	\centering
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Consumption}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
-\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJoint_OPT_T_NoTaus_labour_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Emissions }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Emnet_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
-\end{minipage}
-\end{frame}
+%\begin{frame}{Optimal allocation ii: Recomposition}
+%	\centering
+%\end{frame}
 
-\begin{frame}{Optimal allocation ii: Recomposition}
-	\centering
 
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Research}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Science_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
-\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Green to fossil energy }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_GFF_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
-	\end{minipage}
-%\begin{minipage}[]{0.32\textwidth}
-%	\centering{\footnotesize{Consumption ratio}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_CY_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
-%\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Energy to GDP}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_EY_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
-\end{minipage}
-\end{frame}
 
+\hypertarget{benf}{}
 \section*{Benefits of progressive income taxes}
+
 % How income tax makes 
 \begin{frame}{Experiment}
 \hspace{-6mm}	\alert{\textbf{How does the availability of income taxes affect the optimal allocation and policy?}}
@@ -625,7 +589,7 @@ s.t. \hspace{4mm}
 	\item the corrective tax remains largely unchanged when an income tax is available
 	\vspace{2mm}
 %	\item corrective tax and emissions only negligibly affected by income tax
-	\item<2-> welfare gain of 0.11\% due to  the availability of an income tax
+	\item<2-> a welfare gain of 0.11\% due to  the availability of an income tax
 \end{itemize}
 \end{frame}
 \begin{frame}{Efficient and optimal allocation ii }
@@ -677,7 +641,7 @@ s.t. \hspace{4mm}
 \vspace{6mm}
 \begin{block}{}
 	\ \\ 	\ \ \ \ 
-	 The planner uses the income tax to reduce hours worked closer to the efficient \\ \ \ \ \  allocation and accepts lower consumption levels. \\ \ 
+	 The planner uses the income tax to reduce hours worked closer to the efficient \\ \ \ \ \  allocation, thereby accepting lower consumption.  \\ \ 
 \end{block}
 
 %\begin{itemize}
@@ -722,38 +686,6 @@ s.t. \hspace{4mm}
 %		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_NOT_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
 %	\end{minipage}
 %\end{frame}
-%------------------------------
-% Robustness
-%------------------------------
-\section*{Robustness}
-\begin{frame}{Robustness}
-	\hypertarget{robustness}{}
-	\centering \textbf{Income tax progressivity, $\tau_{lt}$}\\ \ \\
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Externality no emission limit\\ \  }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_extern_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
-	\end{minipage}
-\begin{minipage}[]{0.3\textwidth}
-	\centering{\footnotesize{Exogenous growth\\ \ }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_xgrowth_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
-\end{minipage}
-\begin{minipage}[]{0.3\textwidth}
-	\centering{\footnotesize{Low productivity gap\\ \  }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_countec_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
-\end{minipage}
-
-\vspace{6mm}
-\begin{itemize}
-\item a progressive income tax remains part of the optimal policy in all counterfactual versions studied	
-\end{itemize}
-	\vspace{4mm}
-\hfill
-\hyperlink{zerotaul}{\tiny{$\rightarrow$ exogenous growth and no externality: zero $\tau_{lt}$}}
-\hypertarget{backrob}{} 
-\end{frame}
 
 
 %------------------------------
@@ -772,7 +704,7 @@ s.t. \hspace{4mm}
 	\vspace{3mm}
 	\item emissions are mainly targeted by the corrective tax
 		\vspace{3mm}
-	\item welfare gains of income tax amount to 0.11\%  over the horizon from 2020 to 2080 \small{(and to 0.85\% with one skill type)}
+	\item the welfare gains of an income tax amount to 0.11\%  over the horizon from 2020 to 2080 %\small{(and to 0.85\% with one skill type)}
    \vspace{3mm}
 %	\item<+-> robust  qualitative finding is robust to
 %	\begin{itemize}
@@ -952,6 +884,57 @@ s.t. \hspace{4mm}
 	\hfill
 	\hyperlink{resback}{\tiny{$\rightarrow$ back}}
 \end{frame}
+%----------------------------------------
+%- Allocation 
+%----------------------------------------
+
+\begin{frame}{Optimal allocation i: Reduction}
+	\hypertarget{alloc}{}
+	\vspace{-2mm}
+	% Reduction: consumption and hours worked reduce as target becomes stricter. 
+	% Recomposition: 
+	\centering
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJoint_OPT_T_NoTaus_labour_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Emissions }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Emnet_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Science_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Green to fossil energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_GFF_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{Consumption ratio}}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_CY_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	%\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Energy to GDP}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_EY_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	
+	\vspace{-2mm}
+	\hfill
+	\hyperlink{benf}{\tiny{$\rightarrow$ back}} 
+\end{frame}
 
 %----------------------------------------
 %-- No emission target
@@ -1051,10 +1034,13 @@ s.t. \hspace{4mm}
 	
 	\vspace{4mm}
 	\begin{itemize}
-		\item scarcity of the high skill reduces fossil tax and income tax progressivity
-		\item sizeable effect on social welfare
+		\item scarcity of the high skill reduces fossil tax in the baseline model
+		\vspace{2mm}
+		\item stronger effect of income tax progressivity on high skill supply redcues the optimal income tax in the baseline model
+				\vspace{2mm}
+		\item sizeable effect on social welfare: increases by 0.85\%
 	\end{itemize}
-	\vspace{0mm}
+	\vspace{-2mm}
 	\hfill
 	\hyperlink{effalloback}{\tiny{$\rightarrow$ back}}
 \end{frame}
@@ -1119,7 +1105,7 @@ s.t. \hspace{4mm}
 		\item<+-> set income tax progressivity to optimal level\\ \ar additional effect of income tax progressivity
 	\end{enumerate}
 
-	\vspace{10mm}
+	\vspace{20mm}
 \hfill
 \hyperlink{effalloback}{\tiny{$\rightarrow$ back}} 
 \end{frame}
@@ -1261,16 +1247,48 @@ s.t. \hspace{4mm}
 %the income tax corrects for inefficiently high hours worked. 
 %\\ \ 
 %	\end{block}
-	\vspace{-5mm}
+	\vspace{-1mm}
 	\hfill
 	\hyperlink{effalloback}{\tiny{$\rightarrow$ back}} 
+\end{frame}
+%------------------------------
+% Robustness
+%------------------------------
+%\section*{Robustness}
+\begin{frame}{Robustness}
+	\hypertarget{robustness}{}
+	\centering \textbf{Income tax progressivity, $\tau_{lt}$}\\ \ \\
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Externality no emission limit\\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_extern_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Exogenous growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_xgrowth_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Low productivity gap\\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleROB_countec_OPT_T_NoTaus_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	
+	\vspace{6mm}
+	\begin{itemize}
+		\item a progressive income tax remains part of the optimal policy in all counterfactual versions studied	
+	\end{itemize}
+	\vspace{-1mm}
+	\hfill
+	\hyperlink{conc}{\tiny{$\rightarrow$ back}}
+%	\hypertarget{backrob}{} 
 \end{frame}
 
 %-------------------------------------------------
 %- Robustness: exogenus growth and no externality
 %-------------------------------------------------
 \begin{frame}{Exogenous growth and no emission target}
-	\hypertarget{zerotaul}{}
+%	\hypertarget{zerotaul}{}
 	\centering 
 	\begin{minipage}[]{0.4\textwidth}
 		\centering{\footnotesize{Income tax progressivity, $\tau_{lt}$\\ \ }}
@@ -1280,6 +1298,6 @@ s.t. \hspace{4mm}
 	
 	\vspace{1mm}
 	\hfill
-	\hyperlink{backrob}{\tiny{$\rightarrow$ back}}
+	\hyperlink{conc}{\tiny{$\rightarrow$ back}}
 \end{frame}
 \end{document}
