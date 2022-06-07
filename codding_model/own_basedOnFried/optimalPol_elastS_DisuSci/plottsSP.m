@@ -822,6 +822,8 @@ if plotts.comptarg==1
 end
 %% comparison social planner and optimal policy (with and without labour tax)
 if plotts.compeff==1
+    for withlff=1
+    lff=RES('LF');
     fprintf('plotting comparison efficient-optimal graphs')   
     if indic.zero==0
         eff= string({'SP_T', 'SP_NOT'});
@@ -846,8 +848,9 @@ if plotts.compeff==1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-            main=plot(time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), time,allvars(find(varlist==varr),:),  'LineWidth', 1.2);            
-           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
+           
+           main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), time,allvars(find(varlist==varr),:));            
+           set(main,{'LineWidth'}, {1; 1.2; 1.2; 1.2},  {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {grrey; 'k'; orrange; 'b'} )   
            xticks(txx)
            xlim([1, time(end)])
 
@@ -869,23 +872,25 @@ if plotts.compeff==1
                 ylim([0.31, 0.335]);                
             end
            if lgdind==1
-              lgd=legend('efficient',  ' no income tax', 'with income tax', 'Interpreter', 'latex');
+              lgd=legend('laissez-faire', 'efficient',  ' no income tax', 'with income tax', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
+        path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         end
       end
-
+    end
     end
 end
-
 %% comparison social planner and optimal policy (with and without labour tax)
 if plotts.compeff2==1
     %- only efficient and no income tax
     fprintf('plotting comparison efficient-optimal graphs')   
+    for withlff=1
+         lff=RES('LF');
+    
     if indic.zero==0
         eff= string({'SP_T', 'SP_NOT'});
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
@@ -909,8 +914,9 @@ if plotts.compeff2==1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-            main=plot(time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:), 'LineWidth', 1.2);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+      
+            main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:));            
+           set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {grrey; 'k'; orrange} )   
            xticks(txx)
            xlim([1, time(end)])
 
@@ -932,16 +938,16 @@ if plotts.compeff2==1
                 ylim([0.31, 0.335]);                
             end
            if lgdind==1
-              lgd=legend('efficient', ' no income tax', 'Interpreter', 'latex');
+              lgd=legend('laissez-faire', 'efficient', ' no income tax', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_1705/%s_CompEff%s_noopt_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
+        path=sprintf('figures/all_1705/%s_CompEff%s_noopt_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         end
       end
-
+    end
     end
 end
 
