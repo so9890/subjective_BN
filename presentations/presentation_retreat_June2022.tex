@@ -137,8 +137,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\item<+-> \underline{Reduction channel}: 
 	\vspace{2mm}
 	\begin{itemize}
-		\item<+-> the private return to labour reduces \ar labour effort declines
-		\item[\ar]<+->  lower emissions through diminished production
+		\item<+-> the private return to labour reduces \ar labour effort declines \ar lower emissions %through diminished production
 	%	\item<+-> amplification through endogenous innovation %(returns to research in general reduce)
 	\end{itemize}
 \vspace{3mm}
@@ -152,7 +151,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		%\item <+-> amplification through endogenous growth % innovation in non-green sector become more profitable
 	\end{itemize}
 \vspace{3mm}
-\item<+-> \underline{Amplification of both channels through endogenous growth}
+\item[-]<+-> \underline{Amplification of both channels through endogenous growth}
 \end{enumerate}
 \end{frame}
 
@@ -261,7 +260,7 @@ content...
 \\
 \vspace{4mm}
 \\
-s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{lt}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{lt}}%+Gov_t
+s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{lt}}}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{lt}}}}%+Gov_t
 \\
 \hspace{2mm}\ h_{ht}\leq \bar{H}; \hspace{4mm} h_{lt}\leq \bar{H}
 	\tikzmarkend{first}
@@ -310,10 +309,12 @@ E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}
 \tikzmarkend{second}
 \end{align*}
 	\end{minipage}
+\pause
 \\
 
 \vspace{12mm}
 \textbf{Intermediate Good Producers:} $J\ \in\{F,G,N\}$
+%\pause
 	\vspace{-3mm}
 \begin{minipage}[t!]{1\textwidth}
 	\begin{align*}
@@ -338,6 +339,7 @@ E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}
 		\end{align*}
 	\end{minipage}
 \\
+\pause
 
 \vspace{10mm}
 	\textbf{Monopolistically competitive machine producers }\\ \vspace{-1mm}
@@ -371,6 +373,7 @@ s.t. \ \ & s_{jt}\leq \bar{H}	\tikzmarkend{seventh}
 	\end{align*}
 \end{minipage}
 \\
+\pause
 
 \vspace{9mm}
 \textbf{Markets}\\ \vspace{1mm}
@@ -390,7 +393,7 @@ C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di
 		\tikzmarkin{9th}(7.5,4.2)(-3.6,-3.3)
 		&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 		s.t. \hspace{4mm}
-		&(1)\ \ T_t= \text{income tax}+\tau_{ft}p_{ft}F_{t}\\
+		&(1)\ \ T_t= \text{income tax revenues}(\lambda_t, \tau_{lt})+\tau_{ft}p_{ft}F_{t}\\
 		& (2)\ \text{behaviour of firms, scientists, and households}\\
 		& (3)\ \text{feasibility} \\
 		&\textcolor{black!10}{
@@ -404,8 +407,8 @@ C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di
 	\begin{minipage}[t!]{0.35\textwidth}
 		\vspace{7mm}
 		\begin{itemize}
-			\item[] $T_t$:\ \ $=0$  \vspace{0mm}
-			\item[] $\delta$: carbon sinks\vspace{-2mm}
+			\item[] $T_t$:\ \ $\overset{!}{=}0$  \vspace{0mm}
+		%	\item[] $\delta$: carbon sinks\vspace{-2mm}
 			\item[] 
 		\end{itemize}
 	\end{minipage}
@@ -444,7 +447,7 @@ s.t. \hspace{4mm}
 \begin{minipage}[t!]{0.35\textwidth}
 \vspace{7mm}
 \begin{itemize}
-	\item[] $T_t$:\ \ $=0$  \vspace{0mm}
+	\item[] $T_t$:\ \ $\overset{!}{=}0$  \vspace{0mm}
 	\item[] $\delta$: carbon sinks\vspace{-2mm}
 	\item[] 
 \end{itemize}
@@ -653,12 +656,12 @@ s.t. \hspace{4mm}
 \addtocounter{framenumber}{-1}
 \begin{frame}{Efficient and optimal allocation ii }
 
-\vspace{7mm}
+\vspace{6mm}
 	\centering
 	\begin{minipage}[]{0.3\textwidth}
 		\centering{\footnotesize{High skill }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1_lff1.png}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
 	\end{minipage}
 \begin{minipage}[]{0.3\textwidth}
 	\centering{\footnotesize{Low skill }}
@@ -672,18 +675,23 @@ s.t. \hspace{4mm}
 \end{minipage}
 
 \vspace{6mm}
-\begin{itemize}
-%	\item the use of the income tax allows to prevent 
-	\item<+-> income tax  reduces hours worked closer to the efficient allocation
+\begin{block}{}
+	\ \\ 	\ \ \ \ 
+	 The planner uses the income tax to reduce hours worked closer to the efficient \\ \ \ \ \  allocation and accepts lower consumption levels. \\ \ 
+\end{block}
+
+%\begin{itemize}
+%%	\item the use of the income tax allows to prevent 
+%%	\item<+-> income tax  reduces hours worked closer to the efficient allocation
+%%%	\vspace{2mm}
+%%%	\item<+-> accepting lower and less efficient consumption %and a lower high to low skill ratio and
+%%	\item[]<+-> \ar without income tax: private benefits of labour exceed social ones 
+%%	\item[]<+-> \ar welfare gains from  leisure 
 %	\vspace{2mm}
-%	\item<+-> accepting lower and less efficient consumption %and a lower high to low skill ratio and
-	\item[]<+-> \ar without income tax: private benefits of labour exceed social ones 
-%	\item[]<+-> \ar welfare gains from  leisure 
-	\vspace{2mm}
-	\item<+-> the planner accepts an inefficient skill ratio and lower consumption
-	
-\end{itemize}
-	\vspace{0mm}
+%	\item[-]<+-> 
+%	
+%\end{itemize}
+	\vspace{-3mm}
 \hfill
 \hyperlink{effalloOthers}{\tiny{$\rightarrow$ growth, ratios,}}
 \hyperlink{disen}{\tiny{$\rightarrow$ policy effects,}}
@@ -754,13 +762,17 @@ s.t. \hspace{4mm}
 \hypertarget{conc}{}
 \section*{Conclusion}
 \begin{frame}{Conclusion}
-	\begin{itemize}
-	\item<+-> I study the role of income tax progressivity for the optimal environmental policy % in a quantitative, 3 sector model 
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{fg=black} %change the font color
+		\setbeamerfont{alerted text}{series=\bfseries}
+	\item I study the role of income tax progressivity for the optimal environmental policy % in a quantitative, 3 sector model 
 	\vspace{3mm}
-	\item<+-> the optimal income tax is progressive to reduce inefficiently high
+	\item the optimal income tax is progressive to reduce inefficiently high
 	hours worked
 	\vspace{3mm}
-	\item<+-> welfare gains of income tax amount to 0.11\%  over the horizon from 2020 to 2080 \small{(0.85\% with one skill)}
+	\item emissions are mainly targeted by the corrective tax
+		\vspace{3mm}
+	\item welfare gains of income tax amount to 0.11\%  over the horizon from 2020 to 2080 \small{(and to 0.85\% with one skill type)}
    \vspace{3mm}
 %	\item<+-> robust  qualitative finding is robust to
 %	\begin{itemize}
@@ -977,6 +989,7 @@ s.t. \hspace{4mm}
 
 %-- Comp Laissez faire
 \begin{frame}{Comparison to laissez-faire without emission limit}
+	\vspace{-1mm}
 \begin{minipage}[]{0.32\textwidth}
 	\centering{\footnotesize{SP: hours worked }}
 	%	\captionsetup{width=.45\linewidth}
@@ -1243,11 +1256,11 @@ s.t. \hspace{4mm}
 		\end{itemize}
 	
 	
-	\begin{block}{}
-While the corrective tax is set to meet emission targets and recomposes production,
-the income tax corrects for inefficiently high hours worked. 
-\\ \ 
-	\end{block}
+%	\begin{block}{}
+%While the corrective tax is set to meet emission targets and recomposes production,
+%the income tax corrects for inefficiently high hours worked. 
+%\\ \ 
+%	\end{block}
 	\vspace{-5mm}
 	\hfill
 	\hyperlink{effalloback}{\tiny{$\rightarrow$ back}} 
