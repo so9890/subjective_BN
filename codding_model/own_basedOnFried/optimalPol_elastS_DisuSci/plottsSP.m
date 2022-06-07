@@ -6,7 +6,7 @@ end
 
 %- color for graphs
 orrange= [0.8500 0.3250 0.0980];
-grrey = [0.8 0.8 0.8];
+grrey = [0.6 0.6 0.6];
 
 if indic.ineq==0
     if indic.sep==1
@@ -233,11 +233,62 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+
+%% comparison laissez-faire
+if plotts.lf==1
+    fprintf('plotting LF comp graphs')    
+    lff=RES('LF');
+
+    for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
+        ii=string(i);
+        allvars= RES(ii);
+
+    %% 
+    fprintf('plotting %s',ii );
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
+            varr=string(plotvars(v));
+            %subplot(floor(length(plotvars)/nn)+1,nn,v)
+            main=plot(time,allvars(find(varlist==varr),:), time,lff(find(varlist==varr),:), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+%             title(sprintf('%s', varr), 'Interpreter', 'latex')
+           if lgdind==1
+               if contains(ii, 'SP')
+                  lgd=legend('social planner', 'laissez-faire', 'Interpreter', 'latex');
+               else
+                  lgd=legend('ramsey planner', 'laissez-faire', 'Interpreter', 'latex');
+               end
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_1705/%s_LFComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+        
+    end
+    end      
+end
+
 %% robustness comparison to full model
 if plotts.robust==1
     fprintf('plotting robustness graphs')
     for lgdind=0:1
-    for cc=0
+    for cc=1:2
         if cc==0
             whh='extern';
             RES_rob=RES_robext;
@@ -819,7 +870,7 @@ if plotts.compeff==1
             end
            if lgdind==1
               lgd=legend('efficient',  ' no income tax', 'with income tax', 'Interpreter', 'latex');
-              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
         path=sprintf('figures/all_1705/%s_CompEff%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
@@ -882,7 +933,7 @@ if plotts.compeff2==1
             end
            if lgdind==1
               lgd=legend('efficient', ' no income tax', 'Interpreter', 'latex');
-              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
         path=sprintf('figures/all_1705/%s_CompEff%s_noopt_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)

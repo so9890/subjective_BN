@@ -296,8 +296,8 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=1;
-plotts.robust=0;
+plotts.table=0;
+plotts.robust=1;
 plotts.countcomp=0;
 plotts.countcomp2=0;
 plotts.countcomp3=0;
@@ -314,7 +314,7 @@ plotts.compeff2=0;
 
 for gg=0
     indic.xgrowth=gg;
-for ns=1
+for ns=0
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
