@@ -50,7 +50,6 @@ Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
 %A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
 Ag_lag  = [Ag0;Ag(1:T-1)];
-An_lag  = [An0;An(1:T-1)];
 %A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
 
 % 
@@ -61,34 +60,44 @@ An_lag  = [An0;An(1:T-1)];
 % preferences, the planner has to take this as given (otherwise there is no bound on science!)
 % alternatively add disutility from scientists to objective function 
  
-N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
-
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
 if indic.noneutral==0
+    An_lag  = [An0;An(1:T-1)];
+    N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
+    pn      = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
     A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
     S       = sff+sg +sn;
     A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
     Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+    wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
+    wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 
 else
+    An      =zeros(size(E));
+    An_lag  =zeros(size(E));
+    N       =zeros(size(E));
+    pn      =zeros(size(E));
     A_lag   = (rhof*Af_lag+rhog*Ag_lag)./(rhof+rhog);
-    A  = (rhof*Af+rhog*Ag)/(rhof+rhog);
+    A       = (rhof*Af+rhog*Ag)/(rhof+rhog);
     S       = sff+sg;   
     Y       = E ;
+    wsn     =zeros(size(E));
+    wln     =zeros(size(E)); 
+    sn      =zeros(size(E));
+    xn      =zeros(size(E));
+    hln     =zeros(size(E));
+    hhn     =zeros(size(E));
 end
+
 % prices compatible with sp solution 
 pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
-pn = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
 pf = (G./F).^(1/eppse).*pg; 
 tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
 % tauf2= 1-xf./(pf.*alphaf.*F); 
 pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
-wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-
-% S       = (wsn/chiis)^(1/sigmaas);
 wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
 wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
@@ -121,7 +130,6 @@ else
     muu=muuh; 
 end
 
-wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
@@ -155,10 +163,10 @@ else
 
 end
 
-
 Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
- if indic.sep==0
-        Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
  else
       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
  end

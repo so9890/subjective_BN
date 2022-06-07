@@ -30,10 +30,10 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utilit, otherwise as in Boppart
-indic.target =1; % ==1 if uses emission target
+indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill = 1; % == 1 if no skill calibration of model
+indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
@@ -51,7 +51,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.noneutral =0; % there is no neutral good. deltay=1;
+indic.noneutral =1; % there is no neutral good. deltay=1;
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

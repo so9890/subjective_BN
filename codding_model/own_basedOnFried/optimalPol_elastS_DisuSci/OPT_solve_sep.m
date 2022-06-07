@@ -32,6 +32,7 @@ if indic.xgrowth==1
         symms.opt= [Lf Lg C F G h];
     end
 end
+
 list.opt  = string(symms.opt); 
 
 nn= length(list.opt); % number of variables

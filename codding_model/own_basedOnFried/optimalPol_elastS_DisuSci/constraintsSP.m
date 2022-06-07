@@ -79,7 +79,11 @@ if indic.xgrowth==0
     else
         ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xn-xg-xf);
     end
-    ceq(1*T+1:2*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+    if indic.noneutral==0
+        ceq(1*T+1:2*T) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii); 
+    else
+        ceq(1*T+1:2*T) = zeros(T,1);
+    end
     ceq(2*T+1:3*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
     ceq(3*T+1:4*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
 
