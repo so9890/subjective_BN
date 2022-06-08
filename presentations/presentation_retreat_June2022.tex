@@ -296,6 +296,12 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{lt}}}}+(1-z_h) \lamb
 %		\item[]%	$Gov_{t}$: government transfers
 	\end{itemize}
 \end{minipage}
+
+
+\vspace{6mm}
+\hfill
+\hyperlink{taxsc}{\tiny{$\rightarrow$ tax scheme,}} \hyperlink{opth}{\tiny{$\rightarrow$ optimal labour supply}} 
+
 \end{frame}
 
 \begin{frame}{Model: Production}
@@ -460,13 +466,22 @@ s.t. \hspace{4mm}
 		\item[] $\omega$:\ \ $CO_2$-equivalent emissions \\ \hspace{4mm} per unit of fossil energy
 \end{itemize}
 \end{minipage}
-
-	\vspace{0mm}
-\hfill
-\hyperlink{calib}{\tiny{$\rightarrow$ calibration}} 
 \end{frame}
 
+\begin{frame}{Emission limit}
+	\vspace{6mm}
+\centering
+	\begin{minipage}[]{0.5\textwidth}
+	\centering{\footnotesize{Emission limit, $\Omega_t$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/emission_lim.png}
+\end{minipage}
 
+\vspace{9mm}
+\hfill
+\hyperlink{calib}{\tiny{$\rightarrow$ calibration tables}} 
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -728,6 +743,58 @@ s.t. \hspace{4mm}
 %----------------------------------------
 \appendix
 
+%-----------------------------------------
+%- Model
+%-----------------------------------------
+\begin{frame}{Tax scheme}
+	\hypertarget{taxsc}{}
+\textbf{Tax progressivity}
+\begin{itemize}
+	\item the marginal tax payment exceeds average tax payments \ar as income increases, average tax payed increases
+	\item \cite{Heathcote2017OptimalFramework} show that for the studied tax scheme this is the case when $\tau_l>0$ for all levels of income. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Heterogeneous effects on households}
+	\begin{enumerate}
+		\item direct effect of tax progressivity on skill ratio\begin{align*}
+		&\frac{h_h}{h_l}=\left(\frac{w_h}{w_l}\right)^\frac{1-\tau_l}{\sigma+\tau_l}
+		\Rightarrow\ \  \frac{d\log(\frac{h_h}{h_l})}{d \tau_l}
+		= \frac{-(1+\sigma)}{(\sigma+\tau_l)^2}\log\left(\frac{w_h}{w_l}\right).
+		\end{align*}
+		when $w_h>w_l$ the semi-elasticity of the high-to-low skill ratio to tax progressivity, $\tau_l$, is negative. As the tax scheme becomes more progressive, high-skilled workers reduce their hours worked more. The effect vanishes as $\tau_l$ increases. The effect increases as the skill-premium rises. NOTE: a higher corrective tax implies a higher skill premium as the economy shifts to the more skill-biased sector!
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Heterogeneous effects on households i}
+	\hypertarget{opth}{}
+	\begin{enumerate}
+		\item[2.] elasticity of skill ratio to wage premium
+		\begin{align*}
+		\frac{d\frac{h_h}{h_l}}{d\frac{w_h}{w_l}}=\frac{1-\tau_l}{\sigma +\tau_l}
+		\end{align*}
+		The elasticity of the skill ratio to the wage premium decreases as the tax system becomes more regressiv: $\frac{d\frac{1-\tau_l}{\sigma+\tau_l}}{d \tau_l}=-\frac{1+\sigma}{(\sigma+\tau_l)^2}<0$
+	\end{enumerate}
+\end{frame}
+\begin{frame}[shrink]{Direct effect of tax progressivity}
+\vspace{-9mm}
+\begin{align*}
+h_h^*=\frac{\overbrace{\left((1-\tau_l)w_h^{1-\tau_l}\right)^{\frac{1}{\sigma+\tau_l}}}^{\text{substitution effect}}}{\underbrace{\left(z_h(w_hh_h)^{1-\tau_l}+(1-z_h)(w_lh_l)^{1-\tau_l}\right)^{\frac{1}{\sigma+\tau_l}}}_{\text{income effect}}}
+%& h_h^*=\frac{\overbrace{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}^{\text{substitution effect}}}{ \underbrace{\left(z_h+(1-z_h)\left(\frac{w_l}{w_h}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}\right)^{\frac{1}{1+\sigma}}}_{\text{income effect}}};& h_l^*=\frac{\overbrace{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}^{\text{substitution effect}}}{ \underbrace{\left(z_h\left(\frac{w_h}{w_l}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}+(1-z_h)\right)^{\frac{1}{1+\sigma}}}_{\text{income effect}}}
+		\end{align*}
+		rise in tax progressivity affects labour supply through two channels
+		\begin{enumerate}			
+			\item substitution effect: rise in $\tau_l$ \ar leisure becomes cheaper \ar labour supply dereases (assume $w_h>1$)
+			\item income effect: rise in $\tau_l$ \ar income reduces, an additional unit of income is valued more \ar work effort increases
+			\item[-]  Income effect homogeneous due to family structure. 
+			\item[-] Substitution effect  is heterogenous: the higher the wage rate the stronger the substitution effect.  1) Since leisure from high skilled more expensive for family, they work more. Then, an additional unit of leisure for this type is more valuable due to curvature of disutility from labour. 2) when the price of leisure is high, $w_h^{1-\tau_l}$, the reduction in its price is higher as the tax system becomes more progressive. 
+			\item the income effect reacts differently to the type of skill due to different wage rates. 1) As the high skill reduce their hours worked, income reduces more quickly than for low skill reduction. 2) there is a recompositional effect determined by the wage ratio. $h_h=\left(\frac{w_h}{w_l}\right)^{\frac{1-\tau_l}{\tau_l+\sigma}}h_l$
+		\end{enumerate}
+	 
+ Note that $\lambda_t$ cancels
+\end{frame}
+
+
 %----------------------------------------
 %- Calibration
 %----------------------------------------
@@ -905,7 +972,7 @@ s.t. \hspace{4mm}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJoint_OPT_T_NoTaus_labour_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Emissions }}
+		\centering{\footnotesize{Emissions (Limit) }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Emnet_spillover0_sep1_BN1_ineq0_red0_etaa0.79.png}
 	\end{minipage}

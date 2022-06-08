@@ -297,6 +297,7 @@ indic
 
 % choose sort of plots to be plotted
 plotts.table=0;
+plotts.limit=1; %==1 if plots emission target
 plotts.robust=0;
 plotts.countcomp=0;
 plotts.countcomp2=0;
@@ -308,7 +309,7 @@ plotts.notaul=0; % this one needs to be switched on to get complete table
 plotts.bau=0; % do plot bau comparison
 plotts.lf=0; %comparison to laissez faire allocation 
 plotts.comptarg=0; % comparison with and without target
-plotts.compeff=1;
+plotts.compeff=0;
 plotts.compeff2=0;
 
 for gg=0

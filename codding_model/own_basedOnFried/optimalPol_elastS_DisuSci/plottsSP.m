@@ -233,6 +233,29 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+%% plot emission limit
+
+gcf=figure(); %('Visible','off');
+
+main=plot(time(3:end), Ems, time(1:end), zeros(size(time)));   
+set(main,{'LineWidth'}, { 1.3; 1}, {'LineStyle'},{'-'; '--'}, {'color'}, { orrange; grrey} )   
+hold on 
+plot(time(1:3), [Ems(1), Ems(1), Ems(1)], 'LineWidth', 0.8, 'LineStyle', '--', 'color', orrange);
+hold off
+
+xticks(txx)
+ylim([-0.2, 3])
+xlim([time(1), time(end)])
+
+ax=gca;
+ax.FontSize=13;
+ytickformat('%.2f')
+xticklabels(Year10)
+%             title(sprintf('%s', varr), 'Interpreter', 'latex')
+
+path=sprintf('figures/all_1705/emission_lim.png');
+exportgraphics(gcf,path,'Resolution', 400)
+close gcf
 
 %% comparison laissez-faire
 if plotts.lf==1
