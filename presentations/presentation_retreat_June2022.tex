@@ -117,42 +117,15 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \begin{itemize}[<+-| alert@+>]
 	\setbeamercolor{alerted text}{} %change the font color
-	\setbeamerfont{alerted text}{series=\bfseries}
+	\setbeamerfont{alerted text}{}
 	\item Some scholars call for \textit{reductive policies} given planetary boundaries and an urgency to act  \citep{Schor2005SustainableReduction, Arrow2004AreMuch, Dasgupta2021},
 	\vspace{3mm}
-	\item and natural scientists suggest stricter emission limits to meet temperature targets  \citep[e.g. IPPC reports ][]{Rogelj2018MitigationDevelopment., IPCC2022}.
+	\item and natural scientists suggest stricter emission limits to meet temperature targets  \citep[e.g. IPCC reports ][]{Rogelj2018MitigationDevelopment., IPCC2022}.
 	\vspace{3mm}
 	\item but: economic models on optimal environmental policy abstract from reductive policy tools (e.g. distortionary fiscal policies)% inelastic labour supply, no income tax
 	\vspace{3mm}
-\item Is there a role for fiscal policies in optimally meeting emission limits?
+\item \textbf{Is there a role for fiscal policies in optimally meeting emission limits?}
 \end{itemize}
-\end{frame}
-
-\begin{frame}{}%{An environmental perspective on labour income taxes}
-
-\alert{\textbf{Distortionary income taxes affect emissions via two channels...}}
-\pause
-\vspace{4mm}
-\begin{enumerate}
-	\item<+-> \underline{Reduction channel}: 
-	\vspace{2mm}
-	\begin{itemize}
-		\item<+-> the private return to labour reduces \ar labour effort declines \ar lower emissions %through diminished production
-	%	\item<+-> amplification through endogenous innovation %(returns to research in general reduce)
-	\end{itemize}
-\vspace{3mm}
-	\item<+-> \underline{Recomposition channel}:
-		\vspace{2mm}
-	\begin{itemize}
-		\item<+->  high-skilled workers may react more strongly to a higher tax progressivity \\ \ar the relative supply of low-skilled labour increases
-		\item<+-> but: the green sector relies more on high-skilled labour \citep{Consoli2016DoCapital}
-		%\item<+-> \textbf{non-green} production becomes relatively cheaper 
-		\item[\ar]<+-> recomposition towards fossil energy
-		%\item <+-> amplification through endogenous growth % innovation in non-green sector become more profitable
-	\end{itemize}
-\vspace{3mm}
-\item[-]<+-> \underline{Amplification of both channels through endogenous growth}
-\end{enumerate}
 \end{frame}
 
 %\begin{frame}{Trade-offs}
@@ -186,12 +159,19 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{itemize}
 	\item<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
 	\vspace{3mm}
-%	\item<+-> profitability of research in each sector determines sector growth
-	\item<+-> representative household provides \alert{low- and high-skilled labour }
-    \vspace{3mm}
-	\item<+->  an \alert{emission limit constraints} the government when  \alert{maximising social welfare}
+	\item<+->  an \alert{emission limit constraints} the government when  {maximising social welfare}
 	\vspace{3mm}
-	\item<+-> the government can use \alert{corrective taxes } and \alert{distortionary income taxes}
+	\item<+-> the government can use \alert{corrective} and \alert{distortionary income taxes}
+	\vspace{3mm}
+	%	\item<+-> profitability of research in each sector determines sector growth
+	\item<+-> the representative household \alert{elastically} supplies \alert{low- and high-skilled labour }
+	\vspace{2mm}
+	\begin{itemize}
+		\item[-]<+-> \textit{reductive effect} of income taxes
+		\vspace{1mm}
+		\item[-]<+-> \textit{recomposing effect} income tax: green sector is skill-biased  \citep{Consoli2016DoCapital}
+	\end{itemize}
+	
 %	\vspace{3mm}
 %	\item<+-> the government chooses fossil and distortionary income taxes
 %	\vspace{3mm}
@@ -217,7 +197,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{5mm}
 	\item<+->  meeting the emission limit is mainly accounted for by the corrective tax
 	\vspace{5mm}
-	\item<+-> income taxes contribute to social welfare by 0.11\%  \small{(with one skill type by 0.85\%)}  %but are nnot necessary to meet the emission limit %over the 60 years from 2020 to 2080
+	\item<+-> income taxes contribute to social welfare by 0.11\%   %but are nnot necessary to meet the emission limit %
+	from 2020 to 2080 \\ \small{(without  skill heterogeneity by 0.85\%)}
 	
 	\vspace{5mm}
 	%\item<+->  \alert{sizable effect of skill heterogeneity}: \\ with only one skill, the optimal income tax increases social welfare by 0.85\%
@@ -249,7 +230,7 @@ content...
 \end{comment}
 
 \begin{frame}{Model: Household}
-
+\hypertarget{backhh}{}
 %\text{\textbf{Householdrt}}
 \vspace{2mm}
 \begin{minipage}[t!]{1\textwidth}
@@ -286,10 +267,11 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{lt}}}}+(1-z_h) \lamb
 %		\item[] $S_{t}$:\ \  \ hours scientists\vspace{-2mm}
 	\end{itemize}
 \end{minipage}
-\begin{minipage}[t!]{0.4\textwidth}
+\begin{minipage}[t!]{0.5\textwidth}
 	\vspace{8mm}
 	\begin{itemize}
-		\item[] $\tau_{lt}$: income tax progressivity
+		\item[] $\tau_{lt}$: income tax progressivity \vspace{-2mm}
+		\item[] \ \ \ \ \  $\tau_{lt}>0$ \ar progressive tax
 		\vspace{-2mm}	
 		\item[] $\lambda_{t}$: scaling disposable income
 %		\vspace{-2mm}	
@@ -298,10 +280,10 @@ s.t.\ C_t=z_h \lambda_t (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{lt}}}}+(1-z_h) \lamb
 \end{minipage}
 
 
-\vspace{6mm}
+\vspace{4mm}
 \hfill
 \hyperlink{taxsc}{\tiny{$\rightarrow$ tax scheme,}} \hyperlink{opth}{\tiny{$\rightarrow$ optimal labour supply}} 
-
+\hyperlink{skillr}{\tiny{$\rightarrow$ skill ratio}}
 \end{frame}
 
 \begin{frame}{Model: Production}
@@ -325,14 +307,42 @@ E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}
 \begin{minipage}[t!]{1\textwidth}
 	\begin{align*}
 	\tikzmarkin{third}(7.8,2.8)(-2.8,-2.3)
-\underset{\{x_{ijt}\}_{i=0}^1, L_{jt}}{\max}\ & \pi_{jt}=p_{jt}(1-\alert{\pmb{\tau_{jt}}})J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{ijt}x_{ijt}di\\ 
+\underset{\{x_{ijt}\}_{i=0}^1, L_{jt}}{\max}\ & \pi_{jt}=\textcolor{black!10}{(1-{\pmb{\tau_{jt}}})}p_{jt}J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{ijt}x_{ijt}di\\ 
  s.t.\ & J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di \\
- \ & \tau_{nt}=\tau_{gt}=0
+ \ & \textcolor{black!10}{\tau_{nt}=\tau_{gt}=0}
 	\tikzmarkend{third}
 	\end{align*}
 \end{minipage}
 \end{frame}
 
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model: Production}
+	\textbf{Final Good and Energy Producers }
+	\vspace{-5mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{second}(1.3,1.2)(-1,-0.8)
+		Y_t=\left(\delta_y^{\frac{1}{\varepsilon_y}}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^{\frac{1}{\varepsilon_y}}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}; \ \ 
+		E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}
+		\tikzmarkend{second}
+		\end{align*}
+	\end{minipage}
+	\\
+	
+	\vspace{12mm}
+	\textbf{Intermediate Good Producers:} $J\ \in\{F,G,N\}$
+	%\pause
+	\vspace{-3mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{third}(7.8,2.8)(-2.8,-2.3)
+		\underset{\{x_{ijt}\}_{i=0}^1, L_{jt}}{\max}\ & \pi_{jt}=(1-\alert{\pmb{\tau_{jt}}})p_{jt}J_t-w_{ljt}L_{jt}-\int_{0}^{1}p_{ijt}x_{ijt}di\\ 
+		s.t.\ & J_{t}=L_{jt}^{1-\alpha_j}\int_{0}^{1}A^{1-\alpha_j}_{ijt}x_{ijt}^{\alpha_j}di \\
+		\ & \tau_{nt}=\tau_{gt}=0
+		\tikzmarkend{third}
+		\end{align*}
+	\end{minipage}
+\end{frame}
 
 \begin{frame}{Model: Labour and machines}
 	
@@ -397,7 +407,7 @@ C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
 		\tikzmarkin{9th}(7.5,4.2)(-3.6,-3.3)
-		&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 		s.t. \hspace{4mm}
 		&(1)\ \ T_t= \text{income tax revenues}(\lambda_t, \tau_{lt})+\tau_{ft}p_{ft}F_{t}\\
 		& (2)\ \text{behaviour of firms, scientists, and households}\\
@@ -437,9 +447,9 @@ C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di
 \begin{minipage}[t!]{1\textwidth}
 	\begin{align*}
 	\tikzmarkin{9th}(7.5,4.2)(-3.6,-3.3)
-&\max_{\{\tau_{ct}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{lt}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 s.t. \hspace{4mm}
-&(1)\ \ T_t= \text{income tax}+\tau_{ft}p_{ft}F_{t}\\
+&(1)\ \ T_t= \text{income tax}(\lambda_t, \tau_{lt})+\tau_{ft}p_{ft}F_{t}\\
 & (2)\ \text{behaviour of firms, scientists, and households}\\
 & (3)\ \text{feasibility} \\
 &\alert{
@@ -753,48 +763,109 @@ s.t. \hspace{4mm}
 	\item the marginal tax payment exceeds average tax payments \ar as income increases, average tax payed increases
 	\item \cite{Heathcote2017OptimalFramework} show that for the studied tax scheme this is the case when $\tau_l>0$ for all levels of income. 
 \end{itemize}
+
+\vspace{0mm}
+\hfill
+\hyperlink{backhh}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
+
+\begin{frame}	\alert{\textbf{Distortionary income taxes affect emissions via two channels...}}
+	\pause
+	\vspace{4mm}
+	\begin{enumerate}
+		\item<+-> \underline{Reduction channel}: 
+		\vspace{2mm}
+		\begin{itemize}
+			\item<+-> the private return to labour reduces \ar labour effort declines \ar lower emissions %through diminished production
+			%	\item<+-> amplification through endogenous innovation %(returns to research in general reduce)
+		\end{itemize}
+		\vspace{3mm}
+		\item<+-> \underline{Recomposition channel}:
+		\vspace{2mm}
+		\begin{itemize}
+			\item<+->  high-skilled workers may react more strongly to a higher tax progressivity \\ \ar the relative supply of low-skilled labour increases
+			\item<+-> but: the green sector relies more on high-skilled labour \citep{Consoli2016DoCapital}
+			%\item<+-> \textbf{non-green} production becomes relatively cheaper 
+			\item[\ar]<+-> recomposition towards fossil energy
+			%\item <+-> amplification through endogenous growth % innovation in non-green sector become more profitable
+		\end{itemize}
+		\vspace{3mm}
+		\item[-]<+-> \underline{Amplification of both channels through endogenous growth}
+	\end{enumerate}
+\end{frame}
+
+%---------------------------------------
+%- Effect on labour supply
+%---------------------------------------
 \begin{frame}{Heterogeneous effects on households}
 	\begin{enumerate}
 		\item direct effect of tax progressivity on skill ratio\begin{align*}
 		&\frac{h_h}{h_l}=\left(\frac{w_h}{w_l}\right)^\frac{1-\tau_l}{\sigma+\tau_l}
 		\Rightarrow\ \  \frac{d\log(\frac{h_h}{h_l})}{d \tau_l}
-		= \frac{-(1+\sigma)}{(\sigma+\tau_l)^2}\log\left(\frac{w_h}{w_l}\right).
+		= - \frac{(1+\sigma)}{(\sigma+\tau_l)^2}\log\left(\frac{w_h}{w_l}\right).
 		\end{align*}
 		when $w_h>w_l$ the semi-elasticity of the high-to-low skill ratio to tax progressivity, $\tau_l$, is negative. As the tax scheme becomes more progressive, high-skilled workers reduce their hours worked more. The effect vanishes as $\tau_l$ increases. The effect increases as the skill-premium rises. NOTE: a higher corrective tax implies a higher skill premium as the economy shifts to the more skill-biased sector!
 	\end{enumerate}
+\vspace{0mm}
+\hfill
+\hyperlink{backhh}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 \begin{frame}{Heterogeneous effects on households i}
-	\hypertarget{opth}{}
+	\hypertarget{skillr}{}
 	\begin{enumerate}
 		\item[2.] elasticity of skill ratio to wage premium
 		\begin{align*}
-		\frac{d\frac{h_h}{h_l}}{d\frac{w_h}{w_l}}=\frac{1-\tau_l}{\sigma +\tau_l}
+		\frac{d\log\left(\frac{h_h}{h_l}\right)}{d\log\left(\frac{w_h}{w_l}\right)}=\frac{1-\tau_l}{\sigma +\tau_l}
 		\end{align*}
 		The elasticity of the skill ratio to the wage premium decreases as the tax system becomes more regressiv: $\frac{d\frac{1-\tau_l}{\sigma+\tau_l}}{d \tau_l}=-\frac{1+\sigma}{(\sigma+\tau_l)^2}<0$
 	\end{enumerate}
+\vspace{0mm}
+\hfill
+\hyperlink{backhh}{\tiny{$\rightarrow$ back}}
 \end{frame}
-\begin{frame}[shrink]{Direct effect of tax progressivity}
+\begin{frame}[shrink]{Direct effect of tax progressivity}	\hypertarget{opth}{}
 \vspace{-9mm}
 \begin{align*}
 h_h^*=\frac{\overbrace{\left((1-\tau_l)w_h^{1-\tau_l}\right)^{\frac{1}{\sigma+\tau_l}}}^{\text{substitution effect}}}{\underbrace{\left(z_h(w_hh_h)^{1-\tau_l}+(1-z_h)(w_lh_l)^{1-\tau_l}\right)^{\frac{1}{\sigma+\tau_l}}}_{\text{income effect}}}
-%& h_h^*=\frac{\overbrace{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}^{\text{substitution effect}}}{ \underbrace{\left(z_h+(1-z_h)\left(\frac{w_l}{w_h}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}\right)^{\frac{1}{1+\sigma}}}_{\text{income effect}}};& h_l^*=\frac{\overbrace{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}^{\text{substitution effect}}}{ \underbrace{\left(z_h\left(\frac{w_h}{w_l}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}+(1-z_h)\right)^{\frac{1}{1+\sigma}}}_{\text{income effect}}}
 		\end{align*}
 		rise in tax progressivity affects labour supply through two channels
 		\begin{enumerate}			
 			\item substitution effect: rise in $\tau_l$ \ar leisure becomes cheaper \ar labour supply dereases (assume $w_h>1$)
 			\item income effect: rise in $\tau_l$ \ar income reduces, an additional unit of income is valued more \ar work effort increases
-			\item[-]  Income effect homogeneous due to family structure. 
-			\item[-] Substitution effect  is heterogenous: the higher the wage rate the stronger the substitution effect.  1) Since leisure from high skilled more expensive for family, they work more. Then, an additional unit of leisure for this type is more valuable due to curvature of disutility from labour. 2) when the price of leisure is high, $w_h^{1-\tau_l}$, the reduction in its price is higher as the tax system becomes more progressive. 
-			\item the income effect reacts differently to the type of skill due to different wage rates. 1) As the high skill reduce their hours worked, income reduces more quickly than for low skill reduction. 2) there is a recompositional effect determined by the wage ratio. $h_h=\left(\frac{w_h}{w_l}\right)^{\frac{1-\tau_l}{\tau_l+\sigma}}h_l$
-		\end{enumerate}
+			\end{enumerate}
 	 
  Note that $\lambda_t$ cancels
+ \vspace{-8mm}
+ \hfill
+ \hyperlink{backhh}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
+\begin{frame}{\ \ }
+	\begin{enumerate}
+		\item[-]  Income effect homogeneous due to family structure. 
+		\item[-] Substitution effect  is heterogenous: the higher the wage rate the stronger the substitution effect.  1) Since leisure from high skilled more expensive for family, they work more. Then, an additional unit of leisure for this type is more valuable due to curvature of disutility from labour. 2) when the price of leisure is high, $w_h^{1-\tau_l}$, the reduction in its price is higher as the tax system becomes more progressive. 
+		\item[-] the income effect reacts differently to the initial reaction in hours by type of skill due to different wage rates. 1) As the high skill reduce their hours worked, income reduces more quickly than for low skill reduction. 2) there is a recompositional effect determined by the wage ratio. $h_h=\left(\frac{w_h}{w_l}\right)^{\frac{1-\tau_l}{\tau_l+\sigma}}h_l$
+	\end{enumerate}
+ \vspace{0mm}
+\hfill
+\hyperlink{backhh}{\tiny{$\rightarrow$ back}}
+\end{frame}
+\begin{frame}
+Combining all mechanisms discussed on the previous slide, the aggregate effect reads
 
+\begin{align*}
+& h_h^*=\frac{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}{\left(z_h+(1-z_h)\left(\frac{w_l}{w_h}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}\right)^{\frac{1}{1+\sigma}}};& h_l^*=\frac{\left(\frac{1-\tau_l}{\chi}\right)^{\frac{1}{1+\sigma}}}{ \left(z_h\left(\frac{w_h}{w_l}\right)^{\frac{(1-\tau_l)^3}{\sigma+\tau_l}}+(1-z_h)\right)^{\frac{1}{1+\sigma}}}
+\end{align*}
+\begin{itemize}
+	\item in sum, the wage premium intensifies the reduction in high skill labour supply as the tax scheme becomes more progressive
+	\item for the low skill type the reduction is muted
+\end{itemize}
+\vspace{-8mm}
+\hfill
+\hyperlink{backhh}{\tiny{$\rightarrow$ back}}
+\end{frame}
 %----------------------------------------
 %- Calibration
 %----------------------------------------
