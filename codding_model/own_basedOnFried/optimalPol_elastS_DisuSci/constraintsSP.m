@@ -49,11 +49,20 @@ if indic.noskill==0
     end
         
 else
+    if indic.noneutral==0
             [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init, indic);
+    elseif indic.noneutral==1
+                [ xf,xg,Ag, Af,...
+            Lg, Lf, Af_lag, Ag_lag, sff, sg,  ...
+            F, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
+             pg, pf, pee, w, wsf, wsg, tauf, taul, lambdaa,...
+             wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill_noneutral(x, list, params, T, init, indic);
+
+    end
 end
 % inequality constraints
 c=[];
@@ -95,6 +104,7 @@ if indic.xgrowth==0
         ceq(4*T+1:5*T)       = h - (Ln + Lf+Lg); % high skill market clearing
     end
 else
+    if indic.noneutral==0
     if indic.ineq==0
         ceq(1:1*T)     = C - (Y-xn-xg-xf);
     else
@@ -106,6 +116,20 @@ else
         ceq(3*T+1:4*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
     else
         ceq(1*T+1:2*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+     end
+    elseif indic.noneutral==1
+        if indic.ineq==0
+            ceq(1:1*T)     = C - (Y-xg-xf);
+        else
+            ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xg-xf);
+        end
+         if indic.noskill==0
+            ceq(1*T+1:2*T) = zh*hh - ( hhf+hhg); % high skill market clearing
+            ceq(2*T+1:3*T) = (1-zh)*hl - (+ hlf+hlg);
+            ceq(3*T+1:4*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
+        else
+            ceq(1*T+1:2*T)       = h - (Lf+Lg); % high skill market clearing
+         end
     end
 end
 ceq = ceq';

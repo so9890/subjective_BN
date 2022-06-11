@@ -51,7 +51,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.noneutral =1; % there is no neutral good. deltay=1;
+indic.noneutral =0; % there is no neutral good. deltay=1;
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -296,21 +296,22 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=0;
-plotts.limit=1; %==1 if plots emission target
-plotts.robust=0;
-plotts.countcomp=0;
-plotts.countcomp2=0;
-plotts.countcomp3=0;
-plotts.extern=0;
-plotts.single=0;
-plotts.singov=0;
-plotts.notaul=0; % this one needs to be switched on to get complete table
-plotts.bau=0; % do plot bau comparison
-plotts.lf=0; %comparison to laissez faire allocation 
-plotts.comptarg=0; % comparison with and without target
-plotts.compeff=0;
-plotts.compeff2=0;
+plotts.table=       0;
+plotts.limit=       0; %==1 if plots emission target
+plotts.robust=      0;
+plotts.countcomp=   0;
+plotts.countcomp2=  0;
+plotts.countcomp3=  0;
+plotts.extern=      0;
+plotts.single=      0;
+plotts.singov=      0;
+plotts.notaul=      0; % this one needs to be switched on to get complete table
+plotts.bau=         0; % do plot bau comparison
+plotts.lf=          0; %comparison to laissez faire allocation 
+plotts.comptarg=    0; % comparison with and without target
+plotts.compeff=     0;
+plotts.compeff1=    1;
+plotts.compeff2=    0;
 
 for gg=0
     indic.xgrowth=gg;

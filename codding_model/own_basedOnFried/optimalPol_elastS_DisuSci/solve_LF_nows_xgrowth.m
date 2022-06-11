@@ -108,7 +108,7 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
-    % pass to standard algorithm
+    % pass to standard algorithmop
 %      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,);%, );%, );%, 'Display', 'Iter', );
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 

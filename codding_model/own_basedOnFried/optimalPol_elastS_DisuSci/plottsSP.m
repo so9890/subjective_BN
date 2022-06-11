@@ -234,7 +234,7 @@ Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
 %% plot emission limit
-
+if plotts.limit==1
 gcf=figure(); %('Visible','off');
 
 main=plot(time(3:end), Ems, time(1:end), zeros(size(time)));   
@@ -252,11 +252,11 @@ ax.FontSize=13;
 ytickformat('%.2f')
 xticklabels(Year10)
 %             title(sprintf('%s', varr), 'Interpreter', 'latex')
-
+ylabel('GtCO2-eq') 
 path=sprintf('figures/all_1705/emission_lim.png');
 exportgraphics(gcf,path,'Resolution', 400)
 close gcf
-
+end
 %% comparison laissez-faire
 if plotts.lf==1
     fprintf('plotting LF comp graphs')    
@@ -576,7 +576,7 @@ if plotts.single==1
     else
         RESS=RES;
     end
-    for i =keys(RESS)
+    for i ="LF"%keys(RESS)
         ii=string(i);
         allvars= RESS(ii);
     %% 
@@ -775,7 +775,7 @@ if plotts.bau==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            title(sprintf('%s', varr), 'Interpreter', 'latex')
+%             title(sprintf('%s', varr), 'Interpreter', 'latex')
            if lgdind==1
                if contains(ii, 'SP')
                   lgd=legend('social planner', 'bau', 'Interpreter', 'latex');
@@ -845,7 +845,7 @@ if plotts.comptarg==1
 end
 %% comparison social planner and optimal policy (with and without labour tax)
 if plotts.compeff==1
-    for withlff=1
+    for withlff=0
     lff=RES('LF');
     fprintf('plotting comparison efficient-optimal graphs')   
     if indic.zero==0
@@ -907,6 +907,69 @@ if plotts.compeff==1
     end
     end
 end
+%% comparison social planner and optimal policy (with and without labour tax)
+if plotts.compeff1==1
+%     lff=RES('LF');
+    fprintf('plotting comparison efficient-optimal graphs')   
+    if indic.zero==0
+        eff= string({'SP_T', 'SP_NOT'});
+%         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+    else
+        eff= string({'SP_NOT'});
+%         opt=string({'OPT_NOT_NoTaus'});
+    end
+    % for withtaul=0:1
+    for i =[1,2]
+
+        ie=eff(i);
+%       io=opt(i);
+%         allvars= RES(io);
+%         allvarsnotaul =RES_polcomp_notaul(io);
+        allvarseff=RES(ie); 
+
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+           
+           main=plot( time,allvarseff(find(varlist==varr),:));            
+           set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if startsWith(varr,"gA")
+               xlim([1, time(end-1)])
+            else
+               xlim([1, time(end)])
+            end
+
+            if varr=="C"
+                ylim([0.56, 0.72]);
+            elseif varr=="hh"
+                ylim([0.46, 0.51]);
+            elseif varr=="hl"
+                ylim([0.31, 0.335]);                
+            end
+           if lgdind==1
+              lgd=legend('efficient', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
+           end
+        path=sprintf('figures/all_1705/%s_CompEff%s_onlyeff_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d.png', varr, ie, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    end
+end
+
 %% comparison social planner and optimal policy (with and without labour tax)
 if plotts.compeff2==1
     %- only efficient and no income tax

@@ -48,11 +48,20 @@ if indic.noskill==0
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_xgrowth(x, list, params, T, init, indic);
     end
 else
+    if indic.noneutral==0
         [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init, indic);
+    elseif indic.noneutral==1
+        [ xf,xg,Ag, Af,...
+            Lg, Lf, Af_lag, Ag_lag, sff, sg,  ...
+            F, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
+             pg, pf, pee, w, wsf, wsg, tauf, taul, lambdaa,...
+             wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill_noneutral(x, list, params, T, init, indic);
+
+    end
 end
 
 
@@ -96,8 +105,12 @@ end
 
 if indic.sep==0
       Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
- else
+else
+     if indic.noneutral==0
       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+     else
+               Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas);
+     end
 end
 
 

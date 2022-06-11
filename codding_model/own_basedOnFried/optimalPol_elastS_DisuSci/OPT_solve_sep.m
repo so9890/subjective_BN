@@ -89,7 +89,10 @@ if indic.target==1
     else
 
      helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth0_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, Sparams.etaa));
-     sp_all=helper.sp_all;
+    helper=load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_etaa%.2f_nonneut%d_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.zero, params(list.params=='etaa'), indic.noneutral), 'sp_all', 'Sparams');
+helper= load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_etaa%.2f_nonneut%d.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, weightext, indic.xgrowth, indic.zero, params(list.params=='etaa'), indic.noneutral), 'sp_all', 'Sparams');
+
+    sp_all=helper.sp_all;
 
      if ~isvarname('sp_all')
          error('did not load sp solution')
@@ -296,10 +299,10 @@ if indic.target==1
 %         if indic.spillovers==1
 %             options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %         else
-        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %         end
          [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 %           save('1905_opt_target_sep1_etaa079_emsnew_ineq0_notaul_BN_red075')
 %            ll=load('1905_opt_notarget_sep1_etaa079_emsnew_notaul_BN_red1')
@@ -371,13 +374,23 @@ end
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
-     else
+    else
+         if indic.noneutral==0
        [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
             w, SWF, S]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
-            wlf=w; wlg =w; wln=w; wh=w; wl=w; hh=h; hl=h; 
+         elseif indic.noneutral==1
+        [xf,xg,Ag, Af,...
+            Lg, Lf, Af_lag, Ag_lag,sff, sg,  ...
+            F, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
+            pg, pf, pee,  ws, wsf, wsg,  tauf, taul, lambdaa,...
+            w, SWF, S]= OPT_aux_vars_notaus_skillHom_nn(out_trans, list, params, T, init201519, indic);
+              wln=zeros(size(xf)); xn=zeros(size(xf));  An=zeros(size(xf)); Ln=zeros(size(xf)); sn=zeros(size(xf));pn=zeros(size(xf));
+                N=zeros(size(xf)); wsn=zeros(size(xf));
+         end
+        wlf=w; wlg =w; wln=w; wh=w; wl=w; hh=h; hl=h; 
             hhf=zeros(size(pn));hhg=zeros(size(pn));hhn=zeros(size(pn));hlf=zeros(size(pn));hlg=zeros(size(pn));hln=zeros(size(pn));
     end
 taus = zeros(size(pn));
@@ -386,7 +399,7 @@ gammalh = zeros(size(pn));
 gammasg = zeros(size(pn));
 gammasf = zeros(size(pn));
 gammasn = zeros(size(pn));
-
+save('1006_target_taul_noskill_xgrowth_nonneutral')
 %%
 if indic.sep==1
     if indic.ineq==1

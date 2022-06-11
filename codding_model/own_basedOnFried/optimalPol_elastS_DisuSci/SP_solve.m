@@ -5,32 +5,46 @@ read_in_params;
 
 % function to find social planner allocation 
 syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C Ch Cl hh hl F sff sg sn Lg Ln h real
-if indic.ineq==0
-if indic.noskill==0
-    symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn];
-else
-    symms.sp = [Lg Ln xn xf xg An Af Ag C h F sff sg sn];
-end
-else
-if indic.noskill==0
-    symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag Ch Cl hh hl F sff sg sn];
-else
-    symms.sp = [Lg Ln xn xf xg An Af Ag Ch Cl h F sff sg sn];
-end
-end
-
-if indic.xgrowth==1
+if indic.noneutral==0
+    if indic.ineq==0
     if indic.noskill==0
-        symms.sp= [hhf hhg hhn hlf hlg hln xn xf xg C hh hl F];
+        symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C hh hl F sff sg sn];
     else
-        symms.sp= [Lg Ln xn xf xg C h F];
-    end        
-end
+        symms.sp = [Lg Ln xn xf xg An Af Ag C h F sff sg sn];
+    end
+    else
+    if indic.noskill==0
+        symms.sp = [hhf hhg hhn hlf hlg hln xn xf xg An Af Ag Ch Cl hh hl F sff sg sn];
+    else
+        symms.sp = [Lg Ln xn xf xg An Af Ag Ch Cl h F sff sg sn];
+    end
+    end
 
-if indic.noneutral==1
-    symms.sp=[hhf hhg hlf hlg xf xg Af Ag C hh hl F sff sg];
-end
+    if indic.xgrowth==1
+        if indic.noskill==0
+            symms.sp= [hhf hhg hhn hlf hlg hln xn xf xg C hh hl F];
+        else
+            symms.sp= [Lg Ln xn xf xg C h F];
+        end        
+    end
+elseif indic.noneutral==1
+    if indic.noskill==0
+        if indic.xgrowth==0
+            symms.sp=[hhf hhg hlf hlg xf xg Af Ag C hh hl F sff sg];
 
+        elseif indic.xgrowth==1
+           symms.sp=[hhf hhg hlf hlg xf xg C hh hl F];
+        end
+    elseif indic.noskill==1
+        
+        if indic.xgrowth==0
+            symms.sp=[Lg xf xg Af Ag C hh hl F sff sg];
+
+        elseif indic.xgrowth==1
+           symms.sp=[Lg xf xg C h F];
+        end
+    end
+end
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 
@@ -135,21 +149,21 @@ if indic.target==0
         sp_all=helper.sp_all;
         
         if indic.noneutral==0
-        if indic.noskill==0
-            x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
-            x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
-            x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =sp_all(1:T, list.allvars=='hhn'); % hhg
-            x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =sp_all(1:T, list.allvars=='hlf'); % hlf
-            x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =sp_all(1:T, list.allvars=='hlg'); % hlg 
-            x0(T*(find(list.sp=='hln')-1)+1:T*(find(list.sp=='hln'))) =sp_all(1:T, list.allvars=='hln'); % hlg
-            x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
-            x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
-        else
-            x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
-            x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln')))   =sp_all(1:T, list.allvars=='Ln'); % hlg
-            %x0(T*(find(list.sp=='Lf')-1)+1:T*(find(list.sp=='Lf')))   =sp_all(1:T, list.allvars=='Lf');  % hl
-            x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))     =sp_all(1:T, list.allvars=='hh');  % hh
-        end
+            if indic.noskill==0
+                x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
+                x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
+                x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =sp_all(1:T, list.allvars=='hhn'); % hhg
+                x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =sp_all(1:T, list.allvars=='hlf'); % hlf
+                x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =sp_all(1:T, list.allvars=='hlg'); % hlg 
+                x0(T*(find(list.sp=='hln')-1)+1:T*(find(list.sp=='hln'))) =sp_all(1:T, list.allvars=='hln'); % hlg
+                x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
+                x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
+            else
+                x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
+                x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln')))   =sp_all(1:T, list.allvars=='Ln'); % hlg
+                %x0(T*(find(list.sp=='Lf')-1)+1:T*(find(list.sp=='Lf')))   =sp_all(1:T, list.allvars=='Lf');  % hl
+                x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))     =sp_all(1:T, list.allvars=='hh');  % hh
+            end
             x0(T*(find(list.sp=='xf')-1)+1:T*(find(list.sp=='xf')))   =sp_all(1:T, list.allvars=='xf'); % hlf
             x0(T*(find(list.sp=='xg')-1)+1:T*(find(list.sp=='xg')))   =sp_all(1:T, list.allvars=='xg'); % hlg 
             x0(T*(find(list.sp=='xn')-1)+1:T*(find(list.sp=='xn')))   =sp_all(1:T, list.allvars=='xn'); % hlg 
@@ -170,18 +184,18 @@ if indic.target==0
                 x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =sp_all(1:T, list.allvars=='Ag');  % Ag
                 x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =sp_all(1:T, list.allvars=='An');  % An
             end
-        elseif indic.noneutral==1
+       elseif indic.noneutral==1
             if indic.noskill==0
-            x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
-            x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
-            x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =sp_all(1:T, list.allvars=='hlf'); % hlf
-            x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =sp_all(1:T, list.allvars=='hlg'); % hlg 
-            x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
-            x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
-        else
-            x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
-            x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))     =sp_all(1:T, list.allvars=='hh');  % hh
-        end
+                x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
+                x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
+                x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =sp_all(1:T, list.allvars=='hlf'); % hlf
+                x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =sp_all(1:T, list.allvars=='hlg'); % hlg 
+                x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
+                x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
+            else
+                x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
+                x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))     =sp_all(1:T, list.allvars=='hh');  % hh
+            end
             x0(T*(find(list.sp=='xf')-1)+1:T*(find(list.sp=='xf')))   =sp_all(1:T, list.allvars=='xf'); % hlf
             x0(T*(find(list.sp=='xg')-1)+1:T*(find(list.sp=='xg')))   =sp_all(1:T, list.allvars=='xg'); % hlg 
             
@@ -241,7 +255,7 @@ elseif indic.target==1
 %        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_gammac.mat', indic.spillovers, indic.noskill, indic.sep));
 
         sp_all=helper.sp_all;
-        
+        if indic.noneutral==0
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -277,7 +291,38 @@ elseif indic.target==1
                 x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))   =sp_all(1:T, list.allvars=='sn');  % C
                 x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
             end
-      end
+        elseif indic.noneutral==1
+            if indic.noskill==0
+                x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
+                x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
+                x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =sp_all(1:T, list.allvars=='hlf'); % hlf
+                x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =sp_all(1:T, list.allvars=='hlg'); % hlg 
+                x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =sp_all(1:T, list.allvars=='hl');  % hl
+                x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =sp_all(1:T, list.allvars=='hh');  % hh
+            
+            else
+                x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg')))   =sp_all(1:T, list.allvars=='Lg'); % hlg
+                x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))     =sp_all(1:T, list.allvars=='hh');  % hh
+            end
+        
+            x0(T*(find(list.sp=='xf')-1)+1:T*(find(list.sp=='xf')))   =sp_all(1:T, list.allvars=='xf'); % hlf
+            x0(T*(find(list.sp=='xg')-1)+1:T*(find(list.sp=='xg')))   =sp_all(1:T, list.allvars=='xg'); % hlg 
+            
+            if indic.ineq==0
+                x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =sp_all(1:T, list.allvars=='C');  % C
+            else
+                x0(T*(find(list.sp=='Cl')-1)+1:T*(find(list.sp=='Cl')))     =sp_all(1:T, list.allvars=='Cl');  % C
+                x0(T*(find(list.sp=='Ch')-1)+1:T*(find(list.sp=='Ch')))     =sp_all(1:T, list.allvars=='Ch');  % C    
+            end
+            x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =sp_all(1:T, list.allvars=='F');  % C
+            if indic.xgrowth==0
+                x0(T*(find(list.sp=='Af')-1)+1:T*(find(list.sp=='Af')))   =sp_all(1:T, list.allvars=='Af');  % Af
+                x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =sp_all(1:T, list.allvars=='Ag');  % Ag
+                x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))   =sp_all(1:T, list.allvars=='sg');  % C
+                x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))) =sp_all(1:T, list.allvars=='sff');  % C
+            end
+        end
+        end
 end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -345,9 +390,9 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
 
 options = optimset('algorithm','sqp', 'TolCon',1e-8, 'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
-     save('sp_results_target_sep1_spillover0_noskill1_etaa0.79_BN0_ineq0_red0_xgrowth.mat')
+     save('sp_results_notarget_ext_sep1_spillover0_noskill1_etaa0.79_xgrowth_noneutral.mat')
 %   ss=load('sp_results_target_sep1_spillover0_etaa079.mat')
-options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 
 %%
@@ -391,11 +436,21 @@ if indic.noskill==0
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_xgrowth(out_trans, list, params, T, initOPT, indic);
     end
 else
+    if indic.noneutral==0
             [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(out_trans, list, params, T,initOPT, indic);
+    elseif indic.noneutral==1
+           [ xf,xg,Ag, Af,...
+            Lg, Lf, Af_lag, Ag_lag, sff, sg,  ...
+            F, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
+             pg, pf, pee, w, wsf, wsg, tauf, taul, lambdaa,...
+             wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill_noneutral(out_trans, list, params, T, initOPT, indic);
+            wln=zeros(size(xf)); xn=zeros(size(xf));  An=zeros(size(xf)); Ln=zeros(size(xf)); sn=zeros(size(xf));pn=zeros(size(xf));
+            N=zeros(size(xf)); wsn=zeros(size(xf));
+    end
         
         wh=w; wl=w;hhf=h; hhg=h; hhn=h; hlf=h; hlg=h; hln=h; hl=h; hh=h;
 end
@@ -421,10 +476,10 @@ end
 %%
 if indic.count_techgap==0
 if indic.target==1
-    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.zero, params(list.params=='etaa')), 'sp_all', 'Sparams')
+    save(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_etaa%.2f_nonneut%d_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.zero, params(list.params=='etaa'), indic.noneutral), 'sp_all', 'Sparams')
 else
     if indic.extern==1       
-        save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, weightext, indic.xgrowth, indic.zero, params(list.params=='etaa')), 'sp_all', 'Sparams')
+        save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_weightext%.2f_xgrowth%d_zero%d_etaa%.2f_nonneut%d.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, weightext, indic.xgrowth, indic.zero, params(list.params=='etaa'), indic.noneutral), 'sp_all', 'Sparams')
     else        
         save(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern%d_xgrowth%d_zero%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.extern, indic.xgrowth,indic.zero, params(list.params=='etaa')), 'sp_all', 'Sparams')
     end
