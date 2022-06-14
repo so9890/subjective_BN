@@ -175,19 +175,32 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %\end{frame}
 
 
-\begin{frame}{Results in a Nutshell}
+\begin{frame}{Paper in a nutshell}
+	\vspace{-2mm}
 	\pause
-\begin{enumerate}
-	\item<+-> the \alert{optimal income tax is progressive}  to reduce inefficiently high hours worked
-	\vspace{5mm}
-	\item<+->  meeting the emission limit is mainly accounted for by the fossil tax
-	\vspace{5mm}
-	\item<+-> the use of income taxes \alert{raises social welfare by 0.11\%}   %but are nnot necessary to meet the emission limit %
-	from 2020 to 2080 \\ \small{(without  skill heterogeneity by 0.85\%)}
-	
-	\vspace{5mm}
-	%\item<+->  \alert{sizable effect of skill heterogeneity}: \\ with only one skill, the optimal income tax increases social welfare by 0.85\%
-\end{enumerate}
+	\underline{Model}
+	\pause
+	\vspace{-1mm}
+		\begin{itemize}
+		\item[-]<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
+		\vspace{3mm}
+		\item[-]<+->  \alert{emission limit constraints} the government when  {maximising social welfare}
+		\vspace{3mm}
+		\item[-]<+-> the government can use \alert{fossil} and \alert{distortionary income taxes}
+		\vspace{3mm}
+		%	\item<+-> profitability of research in each sector determines sector growth
+		\item[-]<+->  \alert{representative} household  {elastically} supplies labour  
+	\end{itemize}
+	\pause
+	\underline{Results}
+\begin{itemize}
+	\item[-]<+-> the \alert{optimal income tax is progressive}  to reduce inefficiently high hours worked
+	\vspace{3mm}
+	\item[-]<+->  meeting the emission limit is mainly accounted for by the fossil tax
+	\vspace{3mm}
+%	\item[-]<+-> the use of income taxes \alert{raises social welfare by 0.11\%}   %but are nnot necessary to meet the emission limit %
+%	from 2020 to 2080 \\ \small{(without  skill heterogeneity by 0.85\%)}
+\end{itemize}
 \end{frame}
 %\begin{frame}{Roadmap}
 %	\tableofcontents
@@ -244,32 +257,33 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 	\vspace{-2mm}
 	\begin{itemize} 
-		\item<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
+	%	\item<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
 		\item<+-> \textbf{representative household}
 		 \begin{itemize}
-			\item[-]<+->\alert{elastic} labour supply \ar \textit{reductive effect} of income tax
-			\vspace{1mm}
-			\item[-]<+->  \alert{low and high skill} \ar \textit{recomposing effect} of income tax:\\ \hspace{32mm} green sector is skill-biased  \small{\citep{Consoli2016DoCapital}}
+			\item[-]<+->{elastic}  supply \textit{(reductive effect)} of {low- and high-skilled} labour 
+			\item[-]<+-> green sector is skill-biased {\citep{Consoli2016DoCapital}} \ar \textit{recomposing effect} of income tax 
 		\end{itemize}
-		 	\item<+-> \textbf{government} \begin{itemize}
-		 	\item[-]<+-> maximises social welfare but constrained by an \alert{emission limit constraints}
-		 	\vspace{1mm}
-		 	\item[-]<+-> can use \alert{fossil} and \alert{distortionary income taxes}
-		 \end{itemize}
+			\vspace{1mm}
 		\item<+-> \textbf{production}
 		\begin{itemize}
-			\item<+-> competitive final good producers ($Y$)
-			\item<+-> non-energy ($N$) and energy producers ($ E$)
-			\item<+-> fossil and green energy producers ($F,G$)
-			\item<+-> labour input good producers ($h_h, h_l \rightarrow L_f, L_g, L_n$)
-			\item<+-> monopolistically competitive machine producers ($x_n, x_f, x_g$)
+			\item[-]<+-> competitive final good producers ($Y$)
+			\item[-]<+-> non-energy ($N$) and energy producers ($ E$)
+			\item[-]<+-> fossil and green energy producers ($F,G$)
+			\item[-]<+-> labour input good producers ($h_h, h_l \rightarrow L_f, L_g, L_n$)
+			\item[-]<+-> monopolistically competitive machine producers ($x_n, x_f, x_g$)
 		\end{itemize}
-		\vspace{2mm}
+		\vspace{1mm}
 		\item<+-> \textbf{research}
 		\begin{itemize}
-			\item<+-> machine producers (demand research)
-			\item<+-> scientists (supply research)
+			\item[-]<+-> machine producers (demand research)
+			\item[-]<+-> scientists (supply research)
 		\end{itemize}
+			\vspace{1mm}
+			 	\item<+-> \textbf{government}
+			 	 \begin{itemize}
+			 	\item[-]<+-> constrained welfare maximisation relying on {fossil} and {distortionary income taxes}
+			 \end{itemize}
+	
 	\end{itemize} 
 \vspace{9mm}
 \hfill
@@ -357,29 +371,58 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %\begin{frame}{Optimal allocation ii: Recomposition}
 %	\centering
 %\end{frame}
+\begin{frame}{Benefits of progressive income taxes: Social planner allocation}
+	\pause
+	\centering	
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Social costs of emissions }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
+	\end{minipage}
+\pause
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\vspace{3mm}
+	\pause
+	\begin{itemize}
+		\item[] %<+-> it is efficient to reduce hours worked as emission limits become stricter 
+		\item[] %the fossil tax leaves hours worked almost unaffected
+	\end{itemize}
+\end{frame}
 
-\begin{frame}{Benefits of progressive income taxes}
+\addtocounter{framenumber}{-1}
+
+\begin{frame}{Benefits of progressive income taxes: No income tax}
 	\centering
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{High skill hours worked\\ \ }}
+		\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{High skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
 	\end{minipage}
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Low skill hours worked\\ \ }}
+		\centering{\footnotesize{Low skill hours worked }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
 	\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Social costs of emissions and corrective tax}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
 	
-	\vspace{3mm}
+	\vspace{6mm}
 	\begin{itemize}
-		\item<+-> the fossil tax is close to the Pigouvian tax
+		\item<+-> the fossil tax is close to the social cost of emissions
 		\item<+-> it is efficient to reduce hours worked as emission limits become stricter 
+		
 		\item[] %the fossil tax leaves hours worked almost unaffected
 	\end{itemize}
 \end{frame}
@@ -389,6 +432,12 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	
 	\vspace{4mm}
 	\centering
+	
+	\begin{minipage}[]{0.3\textwidth}
+		\centering{\footnotesize{Social costs of emissions and corrective tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
 	\begin{minipage}[]{0.3\textwidth}
 		\centering{\footnotesize{High skill hours worked\\ \  }}
 		%	\captionsetup{width=.45\linewidth}
@@ -398,11 +447,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\centering{\footnotesize{Low skill hours worked\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Social costs of emissions and corrective tax}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
 	\end{minipage}
 	\pause
 	\vspace{4mm}
