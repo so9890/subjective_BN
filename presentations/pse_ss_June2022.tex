@@ -120,11 +120,12 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\setbeamerfont{alerted text}{}
 %	\item we are facing  environmental limits 
 %	\vspace{3mm}
-	\item 	natural scientists suggest stricter emission limits to meet temperature targets \\ \small{(Intergovernmental Panel on Climate Change \citep{Rogelj2018MitigationDevelopment., IPCC2022})}
+	\item %we are approaching and overstepping planetary boundaries \citep{Rockstrom2009AHumanity}	
+	natural scientists suggest stricter emission limits to meet temperature targets \\ \small{(Intergovernmental Panel on Climate Change \citep{Rogelj2018MitigationDevelopment., IPCC2022})}
 \vspace{3mm}
-	\item some scholars argue for \textit{reductive policies} to handle environmental limits\\ \small{\citep{Schor2005SustainableReduction, Arrow2004AreMuch, Dasgupta2021}}
+	\item some scholars discuss the idea of \textit{reductive policies} to handle environmental limits\\ \small{\citep{Schor2005SustainableReduction, Arrow2004AreMuch, Dasgupta2021}}
 	\vspace{3mm}
-	\item but: models on optimal environmental policy abstract from reductive policy tools % (e.g. distortionary fiscal policies)% inelastic labour supply, no income tax
+	\item but: models on optimal environmental policy by and large abstract from reductive policy tools % (e.g. distortionary fiscal policies)% inelastic labour supply, no income tax
 	\vspace{3mm}
 \item \textbf{Can fiscal policies help meet emission limits?}
 \end{itemize}
@@ -179,22 +180,27 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{-2mm}
 \begin{itemize}
 	\item<+-> \textbf{Model}
-	\vspace{0mm}
+	\vspace{2mm}
 		\begin{itemize}
 		\item[-]<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
 		\vspace{2mm}
 		\item[-]<+->  \alert{emission limit constraints} the government when  {maximising social welfare}
 		\vspace{2mm}
-		\item[-]<+-> the government can use \alert{fossil} and \alert{distortionary income taxes} to maximize social welfare, but is \alert{constrained by an emission limit}
+		\item[-]<+-> the government can use \alert{fossil} and \alert{distortionary income taxes} % to maximize social welfare, but is \alert{constrained by an emission limit}
 		\vspace{2mm}
 		%	\item<+-> profitability of research in each sector determines sector growth
-		\item[-]<+->  \alert{representative} household  supplies labour  {elastically}
+		\item[-]<+->  \alert{representative} household  \alert{elastically} supplies labour \textit{(reductive effect)}
+		\begin{itemize}
+\item[-]<+-> of two types: 
+\alert{high and low skill} \ar \textit{recomposing effect} due to skill  bias of green sector \footnotesize{\citep{Consoli2016DoCapital}}
+		\end{itemize}
 	\end{itemize}
 
 \end{itemize}
 
 \begin{itemize}
 	\item<+-> \textbf{Results}
+	\vspace{2mm}
 \begin{itemize}
 	\item[-]<+-> the \alert{optimal income tax is progressive}  to reduce inefficiently high hours worked
 	\vspace{2mm}
@@ -261,11 +267,11 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{-2mm}
 	\begin{itemize} 
 	%	\item<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
-		\item<+-> \textbf{representative household}
-		 \begin{itemize}
-			\item[-]<+->{elastic}  supply \textit{(reductive effect)} of {low- and high-skilled} labour 
-			\item[-]<+-> green sector is skill-biased {\citep{Consoli2016DoCapital}} \ar \textit{recomposing effect} of income tax 
-		\end{itemize}
+%		\item<+-> \textbf{representative household}
+%		 \begin{itemize}
+%			\item[-]<+->{elastic}  supply \textit{(reductive effect)} of {low- and high-skilled} labour 
+%			\item[-]<+-> green sector is skill-biased {\citep{Consoli2016DoCapital}} \ar \textit{recomposing effect} of income tax 
+%		\end{itemize}
 			\vspace{1mm}
 		\item<+-> \textbf{production}
 		\begin{itemize}
@@ -288,21 +294,75 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			 \end{itemize}
 	
 	\end{itemize} 
-\vspace{9mm}
+\vspace{-2mm}
 \hfill
-\hyperlink{backhh}{\tiny{$\rightarrow$ model}}
+\hyperlink{backhh}{\tiny{$\rightarrow$ model,}}\hyperlink{modgov}{\tiny{$\rightarrow$ objective}}
 \end{frame}
 
-%content...
-%\end{comment}
+\begin{frame}{Model: Household}
+	\hypertarget{backhh}{}
+	%\text{\textbf{Householdrt}}
+	\vspace{2mm}
+	\begin{minipage}[t!]{1\textwidth}
+		\begin{align*}
+		\tikzmarkin{first}(1.5,3.4)(-1.2,-2.7)
+		%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+		\max_{\{C_t\}_{t=0}^\infty, \{h_{ht}\}_{t=0}^\infty, \{h_{lt}\}_{t=0}^\infty} \sum_{t=0}^\infty \beta^t \left(\log(C_t)-z_h\chi\frac{h_{ht}^{1+\sigma}}{1+\sigma}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{1+\sigma}\right) %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+		\\
+		\vspace{4mm}
+		\\
+		s.t.\ C_t=z_h \alert{\pmb{\lambda_t}} (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}}+(1-z_h) \pmb{\alert{\lambda_t}} (w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{\iota t}}}}%+Gov_t
+		\\
+		\hspace{2mm}\ h_{ht}\leq \bar{H}; \hspace{4mm} h_{lt}\leq \bar{H}
+		\tikzmarkend{first}
+		\end{align*}
+	\end{minipage}
+	
+	%\begin{minipage}[t!]{0.4\textwidth}
+	%
+	%\begin{align*}
+	%\hspace{4mm}c =
+	%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+	%\end{align*}
+	%\end{minipage}
+	
+	\small
+	\vspace{4mm}
+	\begin{minipage}[t!]{0.4\textwidth}
+		\vspace{7mm}
+		\begin{itemize}
+			\item[] $z_h$:\ \ share of high-skilled labour \vspace{-2mm}
+			\item[] $h_{ht}$: hours high skilled\vspace{-2mm}
+			\item[] $h_{lt}$:\ \ hours low skilled\vspace{-2mm}
+			%		\item[] $S_{t}$:\ \  \ hours scientists\vspace{-2mm}
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}[t!]{0.5\textwidth}
+		\vspace{8mm}
+		\begin{itemize}
+			\item[] $\tau_{\iota t}$: income tax progressivity \vspace{-2mm}
+			\item[] \ \ \ \ \  $\tau_{\iota t}>0$ \ar progressive tax
+			\vspace{-2mm}	
+			\item[] $\lambda_{t}$: shifts average tax payments
+			%		\vspace{-2mm}	
+			%		\item[]%	$Gov_{t}$: government transfers
+		\end{itemize}
+	\end{minipage}
+	
+	
+	\vspace{4mm}
+	\hfill
+	\hyperlink{taxsc}{\tiny{$\rightarrow$ tax scheme,}} \hyperlink{opth}{\tiny{$\rightarrow$ optimal labour supply,}} 
+	\hyperlink{skillr}{\tiny{$\rightarrow$ skill ratio}}
+\end{frame}
 
-
-\begin{frame}{Emission limit}
+\begin{frame}{Net emission limit}
 	\hypertarget{backems}{}
+	\pause
 	\vspace{6mm}
 \centering
 	\begin{minipage}[]{0.5\textwidth}
-\centering{\footnotesize{Emission limit, $\Omega_t$}}
+\centering{\footnotesize{Net emission limit}}
 \includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/emission_lim.png}
 \end{minipage}
 
@@ -378,7 +438,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\pause
 	\centering	
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Social costs of emissions }}
+		\centering{\footnotesize{Social cost of emissions }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
 	\end{minipage}
@@ -403,6 +463,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \addtocounter{framenumber}{-1}
 
 \begin{frame}{Benefits of progressive income taxes: No income tax}
+	\vspace{4mm}
 	\centering
 	\begin{minipage}[]{0.3\textwidth}
 		\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
@@ -423,6 +484,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{6mm}
 	\begin{itemize}
 		\item<+-> the fossil tax is close to the social cost of emissions
+		\vspace{1mm}
 		\item<+-> hours worked are inefficiently high % it is efficient to reduce hours worked as emission limits become stricter 
 		
 		\item[] %the fossil tax leaves hours worked almost unaffected
@@ -436,26 +498,32 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\centering
 	
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Social costs of emissions and corrective tax}}
+		\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{High skill hours worked\\ \  }}
+		\centering{\footnotesize{High skill hours worked }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
 	\end{minipage}
 	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Low skill hours worked\\ \ }}
+		\centering{\footnotesize{Low skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
 	\end{minipage}
 	\pause
-	\vspace{4mm}
-	\begin{block}{}
-		\ \\ 	\ \ \ \ 
-		The planner uses the income tax to reduce hours worked closer to the efficient \\ \ \ \ \  allocation.  \\ \ 
-	\end{block}
+	\vspace{6mm}
+	\begin{itemize}
+		\item<+-> the fossil tax remains almost unchanged
+				\vspace{1mm}
+		\item<+-> 	the income tax serves to reduce hours worked closer to the efficient  allocation
+	\end{itemize}
+%	\vspace{4mm}
+%	\begin{block}{}
+%		\ \\ 	\ \ \ \ 
+%	.  \\ \ 
+%	\end{block}
 	
 	%\begin{itemize}
 	%%	\item the use of the income tax allows to prevent 
@@ -468,7 +536,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	%	\item[-]<+-> 
 	%	
 	%\end{itemize}
-	\vspace{-4mm}
+	\vspace{9mm}
 	\hfill
 	\hyperlink{effalloOthers}{\tiny{$\rightarrow$ growth, ratios,}}
 	\hyperlink{disen}{\tiny{$\rightarrow$ policy effects,}}
@@ -768,8 +836,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{frame}{ Government}
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
-		\tikzmarkin{9th}(9.7,4.5)(-1.3,-4)
-		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+		\tikzmarkin{9th}(9.7,5)(-1.3,-4)
+		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t \left(U_{t}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)\\
 		\textcolor{black!10}{s.t.} \hspace{4mm}
 		&\textcolor{black!10}{ (1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{{\pmb{1-\tau_{\iota t}}}})}\\ & \hspace{15mm } \textcolor{black!10}{+{\pmb{\tau_{ft}}}p_{ft}F_{t}}\\
 		& \textcolor{black!10}{(2)\ \text{behaviour of firms, scientists, and households}}\\
@@ -798,19 +866,20 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\item[] %$\omega$:\ \ $CO_2$ equivalent emissions \\ \hspace{4mm} per unit of fossil energy
 		\end{itemize}
 	\end{minipage}
-
-\vspace{0mm}
-\hfill
-\hyperlink{backems}{\tiny{$\rightarrow$ back}}
+	
+	\vspace{0mm}
+	\hfill
+	\hyperlink{backems}{\tiny{$\rightarrow$ back}}
 \end{frame}
 \addtocounter{framenumber}{-1}
 \begin{frame}{Model: Government}
+	\hypertarget{modgov}{}
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
-		\tikzmarkin{9th}(9.7,4.5)(-1.3,-4)
-		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+		\tikzmarkin{9th}(9.7,5)(-1.3,-4)
+		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t \left(U_{t}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)\\
 		s.t. \hspace{4mm}
-		&(1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
+		&(1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
 		& \textcolor{black!10}{(2)\ \text{behaviour of firms, scientists, and households}}\\
 		& \textcolor{black!10}{(3)\ \text{feasibility} }\\
 		&\textcolor{black!10}{
@@ -837,17 +906,17 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\item[] %$\omega$:\ \ $CO_2$ equivalent emissions \\ \hspace{4mm} per unit of fossil energy
 		\end{itemize}
 	\end{minipage}
-
-\vspace{0mm}
-\hfill
-\hyperlink{backems}{\tiny{$\rightarrow$ back}}
+	
+	\vspace{0mm}
+	\hfill
+	\hyperlink{backems}{\tiny{$\rightarrow$ back}}
 \end{frame}
 \addtocounter{framenumber}{-1}
 \begin{frame}{Model: Government}
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
-		\tikzmarkin{9th}(9.7,4.5)(-1.3,-4)
-		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+		\tikzmarkin{9th}(9.7,5)(-1.3,-4)
+		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t \left(U_{t}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)\\
 		s.t. \hspace{4mm}
 		&(1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
 		& (2)\ \text{behaviour of firms, scientists, and households}\\
@@ -886,10 +955,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{frame}{Model: Government}
 	\begin{minipage}[t!]{1\textwidth}
 		\begin{align*}
-		\tikzmarkin{9th}(9.7,4.5)(-1.3,-4)
-		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
+		\tikzmarkin{9th}(9.7,5)(-1.3,-4)
+		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t \left(U_{t}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)\\
 		s.t. \hspace{4mm}
-		&(1)\ \ T_t = z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\pmb{\alert{1-\tau_{\iota t}}}})+(1-z_h)(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\pmb{\alert{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
+		&(1)\ \ T_t = z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\pmb{\alert{1-\tau_{\iota t}}}})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{\pmb{\alert{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
 		& (2)\ \text{behaviour of firms, scientists, and households}\\
 		& (3)\ \text{feasibility} \\
 		&\pmb{\alert{
@@ -923,6 +992,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\hfill
 	\hyperlink{backems}{\tiny{$\rightarrow$ back}}
 \end{frame}
+
 
 %-----------------------------------
 %- tax scheme and household behaviour
