@@ -33,7 +33,7 @@ indic.util =0; % ==0 log utilit, otherwise as in Boppart
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill = 0; % == 1 if no skill calibration of model
+indic.noskill = 1; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
@@ -51,7 +51,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.noneutral =0; % there is no neutral good. deltay=1;
+indic.noneutral =1; % there is no neutral good. deltay=1;
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,6 +100,16 @@ end
     list.choice_xgrowth=string(symms.choice_xgrowth);
      symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
      list.allvars_xgrowth=string(symms.allvars_xgrowth);
+     
+     %- nonneutral sector, no growth,
+     symms.choice_non=symms.sepchoice(list.sepchoice~='sn'&list.sepchoice~='wsn'&list.sepchoice~='pee' &list.sepchoice~='pg'...
+                        &list.sepchoice~='An'&list.sepchoice~='ws'&list.sepchoice~='gammas'&list.sepchoice~='S'&list.sepchoice~='pn'...
+                        &list.sepchoice~='hhn'&list.sepchoice~='hln'&list.sepchoice~='gammasn');
+     list.choice_non=string(symms.choice_non);
+%      symms.allvars_nonxg=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S'...
+%                             list.allvars~='wln'&list.allvars~='hhn'&list.allvars~='hln'&list.allvars~='xn'&list.allvars~='pn'&list.allvars~='N');
+%      list.allvars_nonxg=string(symms.allvars_nonxg);
+     
 %%
 % update etaa if ==1
 
@@ -186,6 +196,14 @@ end
 %   end
   end
 %%  
+
+if indic.noneutral==1
+      %- version without growth
+    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+    % helper.LF_SIM=LF_SIM;
+    save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+end
+
 
 if indic.xgrowth==1
       %- version without growth
