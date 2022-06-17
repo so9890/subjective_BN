@@ -49,7 +49,7 @@ indic.extern=0;
 if indic.target==1
     indinc.extern=0;
 end
-indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
+indic.count_techgap=1; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.noneutral =1; % there is no neutral good. deltay=1;
 indic
