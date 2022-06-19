@@ -24,10 +24,9 @@ Ag_lag=laggs(list.init=='Ag0');
  pf     = exp(x(list.choice=='pf'));
  Af     = exp(x(list.choice=='Af'));
  Ag     = exp(x(list.choice=='Ag'));
- Lg     = exp(x(list.choice=='Lg'));
-
- sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
- sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
+ minn   =indic.minn;
+ sff     = upbarH*minn/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
+ sg      = upbarH*minn/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
  wsf     = exp(x(list.choice=='wsf'));
  wsg     = exp(x(list.choice=='wsg'));
  gammalh = x(list.choice=='gammalh')^2;
@@ -42,13 +41,12 @@ w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 lambdaa =(w.*h+tauf.*pf.*F)./(w.*h).^(1-taul); 
 SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
          +tauf.*pf.*F; 
-C       =    lambdaa.*(w.*h).^(1-taul)+SGov;
+C       = lambdaa.*(w.*h).^(1-taul)+SGov;
 
 Lf      = F./(((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af); 
-
-G       = (F.*pf.*(1-alphag)./(Lg.*w)).^(1/(1-eppse)); % green labour demand + green good demand
-pg      = Lg.*w./((1-alphag).*G); % labour demand green
-
+pg      = (w/((1-alphag)*alphag^(alphag/(1-alphag))*Ag))^(1-alphag);
+G       = F.*(pf./pg).^eppse; % green demand
+Lg      = G./(Ag*(pg.*alphag).^(alphag./(1-alphag)));
 
 muu   = C.^(-thetaa); % same equation in case thetaa == 1
 E     = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
@@ -59,10 +57,6 @@ q=0;
 % market clearing labour
 q=q+1;
 f(q) = Lg +Lf - h;
-
-% labour demand green
-q=q+1;
-f(q) = G - Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 q=q+1;
 f(q) = 1 - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
@@ -85,7 +79,7 @@ f(q) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa*(A_lag./Ag_lag).^phii);
 %- definitions prices
 %15
 q=q+1;
-f(q)= gammalh.*(h-upbarH);
+f(q)= gammalh.*(upbarH-h);
 % optimality scientists
 q=q+1;
 f(q)= (chiis)*sff^sigmaas-(wsf-gammasf); % scientist hours supply
@@ -93,9 +87,9 @@ q=q+1;
 f(q)= (chiis)*sg^sigmaas-((wsg-gammasg));
 % Kuhn tucker scientists
 q=q+1;
-f(q)= gammasf.*(sff-upbarH);
+f(q)= gammasf.*(upbarH-sff);
 q=q+1;
-f(q)= gammasg.*(sg-upbarH);
+f(q)= gammasg.*(upbarH-sg);
 
 % fprintf('number equations: %d; number variables %d', q, length(list.choice));
 end

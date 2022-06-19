@@ -16,7 +16,7 @@ read_in_params;
 allo_trans=solution;
 allo_trans(indexx.sqr)=solution(indexx.sqr).^2;
 allo_trans(indexx.exp)=exp(solution(indexx.exp));
-allo_trans(indexx.lab)=params(listt=='upbarH')./(1+exp(solution(indexx.lab)));
+allo_trans(indexx.lab)=params(listt=='upbarH')*indic.minn./(1+exp(solution(indexx.lab)));
 if isfield(indexx, 'BN')
     allo_trans(indexx.BN)=B./(1+exp(solution(indexx.BN)));
 end

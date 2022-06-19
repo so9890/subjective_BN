@@ -52,6 +52,8 @@ end
 indic.count_techgap=1; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.noneutral =1; % there is no neutral good. deltay=1;
+indic.minn = 1+1e-10;
+
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,6 +177,7 @@ taul=0;
 lambdaa=1; % placeholder, determined in comp eqbm
 pol=eval(symms.pol);
 
+%%
   %  if indic.noskill==0
   for i=0:1
       indic.noskill=i;
@@ -203,12 +206,16 @@ if indic.noneutral==1
     
     %- load alternative technology gap: calibrated one too big for code to
     %  solve
+    if indic.count_techgap==1
         iin=load('init_techgap.mat');
         init = iin.initcount; % 201014 values
-  
+    else
+        init=init201014;
+    end
     [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms,  init, indexx, indic, Sall);
-    % helper.LF_SIM=LF_SIM;
-    save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    helper.LF_SIM=LF_SIM;
+    [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
+    save(sprintf('LF_nonneutral_techgap%d_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat',indic.count_techgap, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
 
 

@@ -2,12 +2,11 @@ function LF_t=aux_solutionLF_sep_non_small(Sparams, SLF,pol, laggs, list, symms,
 
 % output
 % LF_t: column vector of simulated variables in period t
-
+minn=indic.minn;
 % read in vars
 gammalh=SLF.gammalh;
 gammasg=SLF.gammasg;
 gammasf=SLF.gammasf;
-Lg=SLF.Lg;
 F=SLF.F;
 Af=SLF.Af;
 Ag=SLF.Ag;
@@ -46,7 +45,6 @@ rhof   = Sparams.rhof;
 rhon   = Sparams.rhon;
 rhog   = Sparams.rhog;
 zh     = Sparams.zh; 
-% lambdaa = pol(list.pol=='lambdaa');
 tauf = pol(list.pol=='tauf');
 taul = pol(list.pol=='taul');
 taus = pol(list.pol=='taus');
@@ -63,16 +61,15 @@ w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 lambdaa =(w.*h+tauf.*pf.*F)./(w.*h).^(1-taul); 
 SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
          +tauf.*pf.*F; 
-C       =    lambdaa.*(w.*h).^(1-taul)+SGov;
+C       = lambdaa.*(w.*h).^(1-taul)+SGov;
 
 Lf      = F./(((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af); 
+pg      = (w/((1-alphag)*alphag^(alphag/(1-alphag))*Ag))^(1-alphag);
+G       = F.*(pf./pg).^eppse; % green demand
+Lg      = G./(Ag*(pg.*alphag).^(alphag./(1-alphag)));
 
-G       = (F.*pf.*(1-alphag)./(Lg.*w)).^(1/(1-eppse)); % green labour demand + green good demand
-pg      = Lg.*w./((1-alphag).*G); % labour demand green
-
-muu     = 1./C;
-
-E   = (F^((eppse-1)/eppse)+G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
+muu   = C.^(-thetaa); % same equation in case thetaa == 1
+E     = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 pee = ones(size(E));
 Y   = E; %(deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
 xg  = pg*Sparams.alphag*G;
@@ -101,10 +98,11 @@ hhf     = zeros(size(E));
 hhg     = zeros(size(E));
 hlf     = zeros(size(E));
 hlg     = zeros(size(E));
-hhf     = zeros(size(E)); 
-hhg     = zeros(size(E));
-wh      = zeros(size(E));
-wl      = zeros(size(E));
+
+hl     = h;
+hh     = h;
+wh      = w;
+wl      = w;
 
 Cincome=Y-xf-xg;
 
@@ -151,7 +149,7 @@ else
     diff=zh.*Ch+(1-zh).*Cl-Cincome;
 end
 if max(abs(diff))>1e-10
-    error('market clearing does not hold')
+    fprintf('market clearing does not hold, diff=%f', diff)
 else
     fprintf('goods market cleared!')
 end
@@ -159,7 +157,7 @@ end
 % test variables read in properly
 xx=eval(symms.choice_small);
 
-guess_trans=trans_guess(indexx('LF_noneutral_sep_noskill'), xx, params, list.params);
+guess_trans=trans_guess(indexx('LF_noneutral_sep_noskill'), xx, params, list.params, minn);
 f=laissez_faire_nows_sep_non_noskillSmall(guess_trans, params, list, pol, laggs, indic);
 
 if (max(abs(f)))>1e-7

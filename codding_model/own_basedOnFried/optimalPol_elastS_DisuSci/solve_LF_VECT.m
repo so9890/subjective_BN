@@ -31,9 +31,16 @@ syms HL HH H w Lf Lg Ln real
 if indic.noskill==0
     symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH];
 else
+    if indic.noneutral==0
     symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
                 &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
                 &list.choice~='wl'&list.choice~='gammall'), H, w, Lf, Lg, Ln];
+    else
+            symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
+                &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
+                &list.choice~='wl'&list.choice~='gammall'...
+                &list.choice~='An' &list.choice~='sn'&list.choice~='pee' &list.choice~='pn'&list.choice~='gammasn' &list.choice~='wsn'), H, w, Lf, Lg];
+    end
 end
 
 list.test=string(symms.test);
@@ -43,13 +50,16 @@ if indic.noskill==0
     HL= log((params(list.params=='upbarH')-varrs(list.allvars=='hl', :))./(varrs(list.allvars=='hl', :)))';
     HH= log((params(list.params=='upbarH')-varrs(list.allvars=='hh', :))./(varrs(list.allvars=='hh', :)))';
     hhf=y(list.allvars=='hhf', :)';
-    hhn=y(list.allvars=='hhn', :)'; 
     hhg=y(list.allvars=='hhg', :)';
-    hln =y(list.allvars=='hln', :)';
     hlg=y(list.allvars=='hlg', :)';
     hlf=y(list.allvars=='hlf', :)';
     wh =y(list.allvars=='wh', :)';
     wl=y(list.allvars=='wl', :)';
+    
+    if indic.noneutral==1
+        hhn=y(list.allvars=='hhn', :)'; 
+        hln =y(list.allvars=='hln', :)';
+    end
     gammall =sqrt(varrs(list.allvars=='gammall', :))';
 
 else
@@ -82,10 +92,11 @@ G=y(list.allvars=='G', :)';
 if indic.xgrowth==0
     Af=y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
-    An =y(list.allvars=='An', :)';
     sff =z(list.allvars=='sff', :)';
     sg =z(list.allvars=='sg', :)';
     sn =z(list.allvars=='sn', :)';
+    An =y(list.allvars=='An', :)';
+
     if indic.sep==0
         gammas =sqrt(zeros(size(lambdaa)));
         S =z(list.allvars=='S', :)';
@@ -125,40 +136,50 @@ lb=[];
 ub=[];
 
 objf=@(x)objectiveCALIBSCI(x);
-if indic.xgrowth==0
-    if indic.sep==1
-        constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic);
+    if indic.xgrowth==0
+        if indic.sep==1
+            constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic);
+        else
+            constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
+        end
     else
-        constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
+        constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic);
     end
-else
-    constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic);
-end
+
 options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constLF,options);
 
 % test solution to 
-if indic.xgrowth==0
-    if indic.sep==0
-        f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
+if indic.noneutral==0
+    if indic.xgrowth==0
+        if indic.sep==0
+            f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
+        else
+            f=laissez_faireVECT_sep(x, params, list, varrs, init201519,T, indic);
+        end
     else
-        f=laissez_faireVECT_sep(x, params, list, varrs, init201519,T, indic);
+        f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
     end
 else
-    f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
+    f=laissez_faireVECT_sep_non(x, params, list, varrs, init201519, T, indic);
 end
 if max(abs(f))>1e-7
     error('LF function does not solve')
 end
 
 % save results
-if indic.xgrowth==0
-if indic.sep==0
-    LF_SIM=aux_solutionLF_VECT(x, list, symms, varrs, params, T, indic);
+if indic.noneutral==0
+    if indic.xgrowth==0
+    if indic.sep==0
+        LF_SIM=aux_solutionLF_VECT(x, list, symms, varrs, params, T, indic);
+    else
+        LF_SIM=aux_solutionLF_VECT_sep(x, list, symms, varrs, params, T, indic);
+    end
+    else
+        LF_SIM=aux_solutionLF_VECT_xgrowth(x, list, symms,varrs, params, T , indic, init201519);
+    end
 else
-    LF_SIM=aux_solutionLF_VECT_sep(x, list, symms, varrs, params, T, indic);
-end
-else
-    LF_SIM=aux_solutionLF_VECT_xgrowth(x, list, symms,varrs, params, T , indic, init201519);
+    LF_SIM=aux_solutionLF_VECT_sep_non(x, list, symms,varrs, params, T , indic);
+
 end
 end

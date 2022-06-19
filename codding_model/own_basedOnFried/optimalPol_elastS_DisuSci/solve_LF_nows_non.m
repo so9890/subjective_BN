@@ -8,9 +8,10 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, S
 % LF_SIM: matrix of simulated results in LF, rows= time period, column =
 % variables as ordered in list.allvars
 
-%% first run version with only one skill type
-syms F pf Lg Af Ag sff sg wsf wsg gammalh gammasg gammasf real
-symms.choice_small = [F pf Lg Af Ag sff sg wsf wsg gammalh gammasg gammasf];
+%% 
+% first run version with only one skill type
+syms F pf Af Ag sff sg wsf wsg gammalh gammasg gammasf real
+symms.choice_small = [F pf Af Ag sff sg wsf wsg gammalh gammasg gammasf];
 list.choice_small=string(symms.choice_small);
 
 %- indexx for transformation
@@ -42,30 +43,27 @@ sff = helper.LF(list.choice_small=='sff');
 sg = helper.LF(list.choice_small=='sg');
 wsf = helper.LF(list.choice_small=='wsf');
 wsg = helper.LF(list.choice_small=='wsg');
-Lg = helper.LF(list.choice_small=='Lg');
 gammalh =helper.LF(list.choice_small=='gammalh');
 gammasg = helper.LF(list.choice_small=='gammasg');
 gammasf = helper.LF(list.choice_small=='gammasf');
 
 %- starting from calibrated model
-F = x0LF(list.choice=='F');
-pf = x0LF(list.choice=='pf');
-Af = x0LF(list.choice=='Af');
-Ag = x0LF(list.choice=='Ag');
-sff = x0LF(list.choice=='sff');
-sg = x0LF(list.choice=='sg');
-wsf = x0LF(list.choice=='ws');
-wsg = x0LF(list.choice=='ws');
-alphag=Sparams.alphag;
-Lg = x0LF(list.choice=='G')./(Ag*(x0LF(list.choice=='pg').*alphag).^(alphag./(1-alphag)));
-gammalh = x0LF(list.choice=='gammalh');
-gammasg = x0LF(list.choice=='gammas');
-gammasf = x0LF(list.choice=='gammas');
+% F = x0LF(list.choice=='F')*4;
+% pf = x0LF(list.choice=='pf')*0.2;
+% Af = x0LF(list.choice=='Af');
+% Ag = x0LF(list.choice=='Ag');
+% sff = x0LF(list.choice=='sff');
+% sg = x0LF(list.choice=='sg');
+% wsf = x0LF(list.choice=='ws');
+% wsg = x0LF(list.choice=='ws');
+% gammalh = x0LF(list.choice=='gammalh');
+% gammasg = x0LF(list.choice=='gammas');
+% gammasf = x0LF(list.choice=='gammas');
 
 x0=eval(symms.choice_small);
 
 %- initialise storing stuff
-LF_SIM = zeros(length(list.allvars),T); 
+LF_SIM = zeros(length(list.sepallvars),T); 
 FVAL   = zeros(T,1);
 
 %-- initialise values
@@ -76,9 +74,9 @@ while t<=T+1 % because first iteration is base year
     fprintf('entering simulation of period %d', t);
 
     % transform data
-    guess_trans=trans_guess(indexx('LF_noneutral_sep_noskill'), x0, params, list.params);
+    guess_trans=trans_guess(indexx('LF_noneutral_sep_noskill'), x0, params, list.params, indic.minn);
     % test
- f=laissez_faire_nows_sep_non_noskillSmall(guess_trans, params, list, pol, init, indic);
+    f=laissez_faire_nows_sep_non_noskillSmall(guess_trans, params, list, pol, init, indic);
 
 %     %- solve
 %      lb=[];
@@ -86,16 +84,18 @@ while t<=T+1 % because first iteration is base year
 %      objf=@(x)objectiveCALIBSCI(x);
 %      
 %      constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, init, indic);
-%      
+%      options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+% 
 %     options = optimset('algorithm','active-set','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %     [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
+%     [sol3,fval,exitflag,output,lambda] = fmincon(objf,sol2,[],[],[],[],lb,ub,constrf,options);
 
     modFF = @(x)laissez_faire_nows_sep_non_noskillSmall(x, params, list, pol, laggs, indic);
-    options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e4, 'MaxIter', 5e5,  'Algorithm', 'levenberg-marquardt', 'Display', 'Iter');%, );%, );%, );
+    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e4, 'MaxIter', 5e5,  'Algorithm', 'levenberg-marquardt', 'Display', 'Iter');%, );%, );%, );
     [sol2, fval, exitf] = fsolve(modFF, guess_trans, options);
 
-    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e6, 'MaxIter', 5e5, 'Display', 'Iter');%, );%, );%, );
-    [sol2, fval, exitf] = fsolve(modFF, sol2, options);
+%     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e6, 'MaxIter', 5e5, 'Display', 'Iter');%, );%, );%, );
+     [sol2, fval, exitf] = fsolve(modFF, sol2, options);
 
     % transform
     LF=trans_allo_out(indexx('LF_noneutral_sep_noskill'), sol2, params, list.params, indic);
