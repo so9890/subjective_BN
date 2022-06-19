@@ -3,16 +3,16 @@ function f=laissez_faire_nows_sep_non_noskillSmall(x, params, list, pol, laggs, 
 % equilibrium for one period!
 % takes policy as given
 list.choice=list.choice_small;
-if indic.util==1
-    error('wrong utility specification')
-end
+
 % starts to solve the model in 2020-2024;
 % i.e. Aj_laggs  refer to 2015-2019 period
 % A_lag is except for the initial condition is 
 %- read in policy and parameters
 read_in_params;
 read_in_pol;
-
+if indic.util==1 || thetaa~=1
+    error('wrong utility specification')
+end
 %- initial condition
 Af_lag=laggs(list.init=='Af0');
 Ag_lag=laggs(list.init=='Ag0');
@@ -46,46 +46,21 @@ C       =    lambdaa.*(w.*h).^(1-taul)+SGov;
 
 Lf      = F./(((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af); 
 
-G       = F.*(pf.*(1-alphag)./(Lg.*w)).^(1/(1-eppse)); % green labour demand + green good demand
+G       = (F.*pf.*(1-alphag)./(Lg.*w)).^(1/(1-eppse)); % green labour demand + green good demand
 pg      = Lg.*w./((1-alphag).*G); % labour demand green
 
 
-if indic.ineq==0
-    if indic.BN==0
-        muu   = C.^(-thetaa); % same equation in case thetaa == 1
-    else
-        muu   = -(C-B).^(zetaa-1);
-    end
-elseif indic.ineq==1
-    if indic.BN==0
-        muuh   = Ch.^(-thetaa); % same equation in case thetaa == 1
-        muul   = Cl.^(-thetaa); % same equation in case thetaa == 1
-
-    else
-        muul   = -(Cl-Bl).^(zetaa-1);
-        muuh    = -(Ch-Bh).^(zetaa-1);
-    end
-
-end
-E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
-
-%N       =  (1-deltay)/deltay.*(1./pn)^(eppsy).*E; % demand N final good producers 
-%Y       =  E; %(deltay^(1/eppsy).*E.^((eppsy-1)/e=ppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
-
-%wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-% wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-% wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
-% 
-% xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
-% xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
-% xg      = (alphag*pg).^(1/(1-alphag)).*Lg*Ag;
+muu   = C.^(-thetaa); % same equation in case thetaa == 1
+E     = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
 %% model equations
 q=0;
 
+% market clearing labour
 q=q+1;
 f(q) = Lg +Lf - h;
 
+% labour demand green
 q=q+1;
 f(q) = G - Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 

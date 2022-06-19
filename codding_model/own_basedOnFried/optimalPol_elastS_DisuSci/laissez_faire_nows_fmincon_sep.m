@@ -4,6 +4,6 @@ c=[];
 if indic.noneutral==0
     ceq=laissez_faire_nows_sep(x, params, list, pol, laggs, indic);
 else
-    ceq=laissez_faire_nows_sep_non(x, params, list, pol, laggs, indic);
+    ceq=laissez_faire_nows_sep_non_noskillSmall(x, params, list, pol, laggs, indic);
 end
 end

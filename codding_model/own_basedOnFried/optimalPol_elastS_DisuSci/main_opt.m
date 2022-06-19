@@ -198,8 +198,15 @@ end
 %%  
 
 if indic.noneutral==1
-      %- version without growth
-    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+    % version with xgrowth but without skill heterogeneity and only works
+    % with log utility
+    
+    %- load alternative technology gap: calibrated one too big for code to
+    %  solve
+        iin=load('init_techgap.mat');
+        init = iin.initcount; % 201014 values
+  
+    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms,  init, indexx, indic, Sall);
     % helper.LF_SIM=LF_SIM;
     save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
