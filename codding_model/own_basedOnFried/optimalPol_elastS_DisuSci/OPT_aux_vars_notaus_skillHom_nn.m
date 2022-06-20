@@ -16,6 +16,8 @@ h      = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T);
 if indic.xgrowth==0
     sg      = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sff      = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+%     gammasg      = x((find(list.opt=='gammasg')-1)*T+1:find(list.opt=='gammasg')*T);
+%     gammasf      = x((find(list.opt=='gammasf')-1)*T+1:find(list.opt=='gammasf')*T);
 end
 %% auxiliary variables
 % loop over technology
@@ -28,7 +30,7 @@ if indic.xgrowth==0
 
 
     for i=1:T
-        A_lag(i)   = (rhof*Af_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
+        A_lag(i)   = (rhof*Af_lag(i)+rhog*Ag_lag(i))./(rhof+rhog);
 
         Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
         Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
@@ -93,15 +95,20 @@ ws   = chiis*S.^sigmaas;
 % assuming interior solution households:
 
 if indic.notaul==0
-    taul0 = 0.2*ones(size(sg));
-    lambdaa0=ones(size(sg));
-    ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
-            chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
-   optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+    if thetaa~=1
+        taul0 = 0.2*ones(size(sg));
+        lambdaa0=ones(size(sg));
+        ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
+                chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
+       optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
-    soll = fsolve(ff, [taul0; lambdaa0], optionsfs); 
-    taul=soll(1:T);
-    lambdaa=soll(T+1:T*2);
+        soll = fsolve(ff, [taul0; lambdaa0], optionsfs); 
+        taul=soll(1:T);
+        lambdaa=soll(T+1:T*2);
+    else
+        taul    = 1-chii.*h.^(sigmaa+1);
+        lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);  
+    end
 else
     taul=zeros(size(sg));
     lambdaa=tauf.*pf.*F./(w.*h)+1;

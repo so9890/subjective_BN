@@ -5,18 +5,37 @@ function LF_t=aux_solutionLF_sep_non_small(Sparams, SLF,pol, laggs, list, symms,
 minn=indic.minn;
 % read in vars
 gammalh=SLF.gammalh;
-gammasg=SLF.gammasg;
-gammasf=SLF.gammasf;
 F=SLF.F;
-Af=SLF.Af;
-Ag=SLF.Ag;
-sff=SLF.sff;
-sg=SLF.sg;
-S= sff+sg;
-wsg=SLF.wsg;
-wsf=SLF.wsf;
 pf=SLF.pf;
 
+if indic.xgrowth==0
+    gammasg=SLF.gammasg;
+    gammasf=SLF.gammasf;
+
+    Af=SLF.Af;
+    Ag=SLF.Ag;
+    sff=SLF.sff;
+    sg=SLF.sg;
+    wsg=SLF.wsg;
+    wsf=SLF.wsf;
+    S= sff+sg;
+
+else
+
+    %- initial condition
+    read_in_params;
+    Af_lag=laggs(list.init=='Af0');
+    Ag_lag=laggs(list.init=='Ag0');
+
+    Ag=(1+vg)*Ag_lag;
+    Af=(1+vf)*Af_lag;
+    sff=zeros(size(gammalh));
+    sg=zeros(size(gammalh));
+    S=zeros(size(gammalh));
+    ws=zeros(size(gammalh));
+    wsg=ws; wsf=ws; 
+    gammasg=ws;  gammasf=ws;
+end
 %- params
 sigmaa = Sparams.sigmaa;
 chii = Sparams.chii;
@@ -73,12 +92,9 @@ E     = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 pee = ones(size(E));
 Y   = E; %(deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
 xg  = pg*Sparams.alphag*G;
-% xg      = (Sparams.alphag*pg).^(1/(1-Sparams.alphag)).*Lg*Ag;
-%  xf      = (Sparams.alphaf*pf.*(1-tauf)).^(1/(1-Sparams.alphaf)).*Lf*Af;
 xf  = pf*(1-pol(list.pol=='tauf'))*Sparams.alphaf*F;
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
-
 %- non neutral placeholders
 N       = zeros(size(E));
 pn      = zeros(size(E));
@@ -106,8 +122,8 @@ wl      = w;
 
 Cincome=Y-xf-xg;
 
-A   = (rhof*Af+rhog*Ag)/(rhof+rhog);
-Emnet     = omegaa*F-deltaa; % net emissions
+A     = (rhof*Af+rhog*Ag)/(rhof+rhog);
+Emnet = omegaa*F-deltaa; % net emissions
 
 % utility
 if indic.ineq==0
@@ -148,7 +164,7 @@ if indic.ineq==0
 else
     diff=zh.*Ch+(1-zh).*Cl-Cincome;
 end
-if max(abs(diff))>1e-10
+if max(abs(diff))>1e-7
     fprintf('market clearing does not hold, diff=%f', diff)
 else
     fprintf('goods market cleared!')

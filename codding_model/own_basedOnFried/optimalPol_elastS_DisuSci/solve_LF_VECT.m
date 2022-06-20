@@ -55,11 +55,8 @@ if indic.noskill==0
     hlf=y(list.allvars=='hlf', :)';
     wh =y(list.allvars=='wh', :)';
     wl=y(list.allvars=='wl', :)';
-    
-    if indic.noneutral==1
-        hhn=y(list.allvars=='hhn', :)'; 
-        hln =y(list.allvars=='hln', :)';
-    end
+    hhn=y(list.allvars=='hhn', :)'; 
+    hln =y(list.allvars=='hln', :)';
     gammall =sqrt(varrs(list.allvars=='gammall', :))';
 
 else

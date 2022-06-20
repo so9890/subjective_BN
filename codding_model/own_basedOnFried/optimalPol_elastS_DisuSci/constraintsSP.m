@@ -73,6 +73,7 @@ if indic.xgrowth==0
         
         c(1:T)=sg-upbarH;
         c(T+1:2*T)=sff-upbarH;
+       
         if indic.noneutral==0
             c(2*T+1:3*T)=sn-upbarH;
         end
@@ -83,6 +84,7 @@ end
 % equality constraints
 ceq =[];
 if indic.xgrowth==0
+    if indic.noneutral==0
     if indic.ineq==0
         ceq(1:1*T)     = C - (Y-xn-xg-xf);
     else
@@ -102,6 +104,26 @@ if indic.xgrowth==0
         ceq(6*T+1:7*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
     else
         ceq(4*T+1:5*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+    end
+    elseif indic.noneutral==1
+        if indic.ineq==0
+            ceq(1:1*T)     = C - (Y-xg-xf);
+        else
+            ceq(1:1*T)     = zh.*Ch+(1-zh).*Cl - (Y-xg-xf);
+        end
+       
+        
+        ceq(1*T+1:2*T) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
+        ceq(2*T+1:3*T) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
+
+        if indic.noskill==0
+            ceq(3*T+1:4*T) = zh*hh - ( hhf+hhg); % high skill market clearing
+            ceq(4*T+1:5*T) = (1-zh)*hl - ( hlf+hlg);
+            ceq(5*T+1:6*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
+        else
+            ceq(3*T+1:4*T)       = h - (Lf+Lg); % high skill market clearing
+        end
+
     end
 else
     if indic.noneutral==0
@@ -125,7 +147,7 @@ else
         end
          if indic.noskill==0
             ceq(1*T+1:2*T) = zh*hh - ( hhf+hhg); % high skill market clearing
-            ceq(2*T+1:3*T) = (1-zh)*hl - (+ hlf+hlg);
+            ceq(2*T+1:3*T) = (1-zh)*hl - (hlf+hlg);
             ceq(3*T+1:4*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
         else
             ceq(1*T+1:2*T)       = h - (Lf+Lg); % high skill market clearing

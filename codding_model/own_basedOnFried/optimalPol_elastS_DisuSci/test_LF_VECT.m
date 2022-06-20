@@ -73,8 +73,8 @@ else
         Cl=log((Bl-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
     end
 end
-F=y(list.allvars=='F', :)';
-G=y(list.allvars=='G', :)';
+    F=y(list.allvars=='F', :)';
+    G=y(list.allvars=='G', :)';
 if indic.xgrowth==0
     Af=y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
@@ -112,8 +112,11 @@ x0=x0(:);
 % test solution to 
 if indic.xgrowth==0
     if indic.sep==1
-
-        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
+        if indic.noneutral==0
+             f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
+        else
+            f=laissez_faireVECT_sep_non(x0, params, list, varrs, init201519, T, indic);
+        end
     else
         f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
     end
@@ -122,7 +125,7 @@ else
 end
 % to examine stuff
 
- if max(abs(f))>1e-10
+ if max(abs(f))>1e-8
      fprintf('LF function does not solve at 1e-10')
  else
      fprintf('Solution solves LF problem')

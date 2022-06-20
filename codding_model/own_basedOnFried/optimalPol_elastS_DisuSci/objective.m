@@ -18,21 +18,26 @@ end
 % hours scientists
 
 if indic.target == 0
-    x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-    x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+    x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+    x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
 
 else
     if etaa<1
-        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
     else
          x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
          x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
          x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
     end
 
+end
+%- kuhn tucker on scientists
+if indic.noneutral==1
+    x(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))=(y(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))).^2;    
+    x(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))=(y(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))).^2;
 end
 % F if bounded above
 if indic.target==1

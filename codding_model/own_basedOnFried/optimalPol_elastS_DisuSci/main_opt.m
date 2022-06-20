@@ -39,7 +39,7 @@ indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
-indic.xgrowth=0;
+indic.xgrowth=1;
 if indic.xgrowth==1
     indic.sep=1;
 end
@@ -49,7 +49,7 @@ indic.extern=0;
 if indic.target==1
     indinc.extern=0;
 end
-indic.count_techgap=1; % if ==1 then uses technology gap as in Fried
+indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.noneutral =1; % there is no neutral good. deltay=1;
 indic.minn = 1+1e-10;
@@ -70,11 +70,14 @@ else
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
     save(sprintf('params'))
 end
-
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
     Sparams=1.2;
 end
+
+% set upper bound of scientists higher to have internal solution
+ params(list.params=='chiis')=Sparams.chii;
+ Sparams.chiis=Sparams.chii;
 %% 
 %%%%% LIST for separate markets
     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
@@ -212,10 +215,13 @@ if indic.noneutral==1
     else
         init=init201014;
     end
-    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms,  init, indexx, indic, Sall);
+    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms,  init, indexx, indic, Sall, init201519);
     helper.LF_SIM=LF_SIM;
-    [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
-    save(sprintf('LF_nonneutral_techgap%d_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat',indic.count_techgap, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    indic.noneutral=1;
+    if indic.xgrowth==0
+        [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
+    end
+    save(sprintf('LF_nonneutral_techgap%d_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat',indic.count_techgap, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
 
 

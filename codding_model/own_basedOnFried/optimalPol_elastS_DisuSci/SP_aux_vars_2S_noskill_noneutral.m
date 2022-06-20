@@ -8,7 +8,6 @@ read_in_params;
 
 
 Lg    = x((find(list.sp=='Lg')-1)*T+1:find(list.sp=='Lg')*T);
-%Lf     = x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T);
 h     = x((find(list.sp=='h')-1)*T+1:find(list.sp=='h')*T);
 xf     = x((find(list.sp=='xf')-1)*T+1:find(list.sp=='xf')*T);
 xg     = x((find(list.sp=='xg')-1)*T+1:find(list.sp=='xg')*T);
@@ -91,20 +90,9 @@ muu = C.^(-thetaa);
 
 
 % finding lambdaa and taul
-if indic.noneutral==0
-taul0 = 0.2*ones(size(E));
-lambdaa0=ones(size(E));
-ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
-        chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
-optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-
-soll = fsolve(ff, [taul0; lambdaa0], optionsfs); 
-taul=soll(1:T);
-lambdaa=soll(T+1:T*2);
-
-else
-    lambdaa=zeros(size(E));
-    taul=zeros(size(E));
+if thetaa==1
+    taul    = 1-chii.*h.^(sigmaa+1);
+    lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);
 end
 
 SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...

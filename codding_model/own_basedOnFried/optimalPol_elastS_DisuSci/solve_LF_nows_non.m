@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms, init, indexx, indic, Sall)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, Sparams,  symms, init, indexx, indic, Sall, init201519)
 % simulate economy under laissez faire
 
 % input: 
@@ -11,7 +11,11 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_non(T, list, pol, params, S
 %% 
 % first run version with only one skill type
 syms F pf Af Ag sff sg wsf wsg gammalh gammasg gammasf real
-symms.choice_small = [F pf Af Ag sff sg wsf wsg gammalh gammasg gammasf];
+if indic.xgrowth==0
+    symms.choice_small = [F pf Af Ag sff sg wsf wsg gammalh gammasg gammasf];
+else
+    symms.choice_small = [F pf gammalh];
+end
 list.choice_small=string(symms.choice_small);
 
 %- indexx for transformation
@@ -43,7 +47,7 @@ sff = helper.LF(list.choice_small=='sff');
 sg = helper.LF(list.choice_small=='sg');
 wsf = helper.LF(list.choice_small=='wsf');
 wsg = helper.LF(list.choice_small=='wsg');
-gammalh =helper.LF(list.choice_small=='gammalh');
+gammalh =0; %helper.LF(list.choice_small=='gammalh');
 gammasg = helper.LF(list.choice_small=='gammasg');
 gammasf = helper.LF(list.choice_small=='gammasf');
 
@@ -62,6 +66,8 @@ gammasf = helper.LF(list.choice_small=='gammasf');
 
 x0=eval(symms.choice_small);
 
+%- read in parameters
+read_in_params;
 %- initialise storing stuff
 LF_SIM = zeros(length(list.sepallvars),T); 
 FVAL   = zeros(T,1);
@@ -94,7 +100,7 @@ while t<=T+1 % because first iteration is base year
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e4, 'MaxIter', 5e5,  'Algorithm', 'levenberg-marquardt', 'Display', 'Iter');%, );%, );%, );
     [sol2, fval, exitf] = fsolve(modFF, guess_trans, options);
 
-%     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e6, 'MaxIter', 5e5, 'Display', 'Iter');%, );%, );%, );
+     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e6, 'MaxIter', 5e5, 'Display', 'Iter');%, );%, );%, );
      [sol2, fval, exitf] = fsolve(modFF, sol2, options);
 
     % transform
@@ -108,9 +114,20 @@ while t<=T+1 % because first iteration is base year
     end
     %% - update for next round
     x0 = LF; % initial guess
+    if indic.xgrowth==0
         Af0= SLF.Af; % today's technology becomes tomorrow's lagged technology
         Ag0= SLF.Ag; 
-        An0 =zeros(size(Ag0));
+    else
+        if t==1
+            % in this case, use calibrated value as initial value!
+            Af0=init201519(list.init=='Af0');
+            Ag0=init201519(list.init=='Ag0');
+        else
+            Af0=laggs(list.init=='Af0')*(1+vf);
+            Ag0=laggs(list.init=='Ag0')*(1+vg);
+        end
+    end
+    An0=zeros(size(Af0)); % placeholder
     laggs=eval(symms.init);
     t=t+1;
 end
