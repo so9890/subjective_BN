@@ -88,8 +88,9 @@
 %First version: January 9, 2022\\
 This version: \today }
 \usepackage{graphicx,caption}
-\usepackage{hyperref}
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
 \usepackage{minitoc}
 \setcounter{secttocdepth}{5}
 \usetikzlibrary{shapes.geometric}
@@ -144,6 +145,7 @@ This version: \today }
 \input{intro_impo}
 %\input{intro_simple_fisc}
 %\input{input_lit} %<- contains summaries of potentially relevant papers
+\input{model_ana_impo}
 \input{impo_model}
 %\input{simplemodel_fisc}
 %\input{theory_simple_fisc}
