@@ -1,9 +1,7 @@
+function [SolAn]=easy_opt_analy(params, list, indic, init201519, pol)
 read_in_params;
 read_in_pol;
  
-% Lg = exp(x(1)); 
-% Lf = exp(x(2));
-% lambdaa =exp(x(3));
 
 % exogenous variables: tauf, taul
 % endogenous variables: pg, pf, w, h, Lf, Lg, C, lambdaa, G, F, Y

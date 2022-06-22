@@ -22,16 +22,16 @@ function f = easy_opt(x, params, list, pol,  init201519, indic)
 
     G = Ag*Lg;
     w = pg*Ag;
-    pf = Ag/((1+tauf)*Af);
+    pf = w/((1-tauf)*Af); % wage clearing 
     Lf = pg/pf*Ag/Af*eppsy/(1-eppsy)*Lg;
     F = Af*Lf;
-    Y = (F)^(eppsy)*(G)^(1-eppsy);
+%   Y = (F)^(eppsy)*(G)^(1-eppsy);
     hdem = Lf+Lg;
-    lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-tauf));
+    lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-taul));
     hsup =  (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
-
+%    C  = lambdaa*(w*hdem)^(1-taul);
+    
     % 
-    f(1)= 1- (eppsy*pf+(1-eppsy)*pg); % determines pg
-    f(2)= hdem-hsup ; % labour market clearing determines Lg; (goods market clears by walras law)
-
+    f(1)= 1-(pf/eppsy)^eppsy*(pg/(1-eppsy))^(1-eppsy); % determines pg; could have alternatively 
+    f(2)= hdem-hsup; % labour market clearing determines Lg; (goods market clears by walras law)
 end
