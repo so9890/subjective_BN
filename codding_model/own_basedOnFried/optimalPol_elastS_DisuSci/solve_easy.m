@@ -22,10 +22,17 @@ Sp.F=Sp.Af*Sp.Lf;
 Sp.G=Sp.Ag*Sp.Lg;
 Sp.Y=(Sp.F)^(eppsy)*(Sp.G)^(1-eppsy);
 Sp.C=Sp.Y;
-
+Sp.pigou =1-(1-eppsy)/eppsy*Sp.Lf/Sp.Lg;
+% prigou from a households problem:
+% Uf = -weightext*extexpp*(omegaa)^extexpp*Sp.F.^(extexpp-1);
+% Sp.pimarket= -Uf./Sp.C^(-thetaa)/;
 %% Optimal solution 
 x0=log([0.4,0.4]);
-
+tauf=Sp.pigou;
+taul=0;
+taus=0;
+lambdaa=1;
+pol=eval(symms.pol);
 modFF = @(x)easy_opt(x, params, list, pol,  init201519, indic);
 options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt','Display', 'Iter');%, );%, );%,  );
 [sol2, fval, exitf] = fsolve(modFF, x0, options);
@@ -53,3 +60,5 @@ Opt.hsup =  (Opt.lambdaa^(1-thetaa)*(1-taul)*Opt.w^((1-taul)*(1-thetaa))/chii)^(
 Opt.C  = Opt.lambdaa*(Opt.w*Opt.h)^(1-taul);
 Opt.Cd= Opt.w*Opt.h+tauf*Opt.pf*Opt.F;
 % test goods market clearing
+
+% optimal policy: tauf as a function of taul 

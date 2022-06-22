@@ -27,10 +27,12 @@ function f = easy_opt(x, params, list, pol,  init201519, indic)
     F = Af*Lf;
 %   Y = (F)^(eppsy)*(G)^(1-eppsy);
     hdem = Lf+Lg;
-    lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-taul));
-    hsup =  (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
-%    C  = lambdaa*(w*hdem)^(1-taul);
-    
+    if indic.taxsch==0
+        lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-taul));
+        hsup =  (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
+    %    C  = lambdaa*(w*hdem)^(1-taul);
+    else
+        
     % 
     f(1)= 1-(pf/eppsy)^eppsy*(pg/(1-eppsy))^(1-eppsy); % determines pg; could have alternatively 
     f(2)= hdem-hsup; % labour market clearing determines Lg; (goods market clears by walras law)

@@ -27,6 +27,7 @@ Uc=C^(-thetaa);
 Uh=-chii*h^sigmaa;
 
 %-externality
+
 Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
 
 %- derivatives production 
@@ -35,5 +36,5 @@ dYdLf= G^(1-eppsy)*(eppsy)*Af^(eppsy)*Lf^(eppsy-1);
 
 % model
 f(1) = Uc*dYdLg+Uh;
-f(2) = Uc*dYdLf+Uh+Uf;
+f(2) = Uc*dYdLf+Uh+indic.extern*Uf;
 end

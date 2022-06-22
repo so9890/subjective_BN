@@ -35,6 +35,7 @@ if indic.util~=0
                  % income effect stronger than substitution effect and
                  % thetaa > 1
 end
+
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
@@ -58,7 +59,7 @@ indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.noneutral =1; % there is no neutral good. deltay=1;
 indic.minn = 1+1e-10;
-
+indic.taxsch=1; %==0 then uses HSV tax schedule, otherwise linear tax with transfers
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
