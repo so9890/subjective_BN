@@ -180,7 +180,7 @@ save(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2
 % for version without emission target solve LF at (taul=0, taus=0, lambdaa=1, tauf=0)
 % if Sparams.etaa~=1
 taus=0;
-tauf=0;
+tauf=0.5;
 taul=0;
 lambdaa=1; % placeholder, determined in comp eqbm
 pol=eval(symms.pol);

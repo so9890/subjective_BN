@@ -24,3 +24,10 @@ Sp.Y=(Sp.F)^(eppsy)*(Sp.G)^(1-eppsy);
 Sp.C=Sp.Y;
 
 %% Optimal solution 
+x0=log([0.4,0.4]);
+
+modFF = @(x)easy_opt(x, params, list, pol,  init201519, indic);
+options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt','Display', 'Iter');%, );%, );%,  );
+[sol2, fval, exitf] = fsolve(modFF, x0, options);
+options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Display', 'Iter');%, );%, );%,  );
+[sol3, fval, exitf] = fsolve(modFF, sol2, options);

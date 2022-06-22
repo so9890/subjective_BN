@@ -1,50 +1,37 @@
 % simple model to compare social planner and 
 % competitive equilibrium
 
-function f=easy_opt(x, params, list, indic, init201519, pol)
-
-read_in_params;
-read_in_pol;
-
-Lg = exp(x(1)); 
-Lf = exp(x(2));
-lambdaa =exp(x(3));
-
-% auxiliary stuff
-Af=(1+vf)*init201519(list.init=='Af0');
-Ag=(1+vg)*init201519(list.init=='Ag0');
-h=Lg+Lf;
-F=Af*Lf;
-G=Ag*Lg;
-Y=(F)^(eppsy)*(G)^(1-eppsy);
-%- utility
-if indic.util==1
-    thetaa=2;
-    Ucon=(C^(1-thetaa)-1)/(1-thetaa);
-else
-    Ucon=log(C);
-end
-Uc=C^(-thetaa);
-Uh=-chii*h^sigmaa;
-
-%-externality
-Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
-
-%- derivatives production 
-pg =F^eppsy*(1-eppsy)*G^(-eppsy);
-pf =G^(1-eppsy)*(eppsy)*F^(eppsy-1);
-wg= pg*Ag;
-wf= pf*Af*(1-tauf);
 
 
-% model
-f(1) = Uc*w+Uh; %HH optimality
-f(2) = C-lambdaa*(w*h)^(1-taul); % budget
-% gov budget
-f(3) = lambdaa -(w*h+tauf*pf*F)/((w*h)^(1-tauf));
-% production 
-f(4)=1-(pf^(1-eppsy)+pg^(1-eppsy))^(1/(1-eppsy));
-% labour market
-f(5)=wg-wf;
+%- model for numeric solution as function of pg and Lg
+function f = easy_opt(x, params, list, pol,  init201519, indic)
+
+    pg = exp(x(1));
+    Lg = exp(x(2));
+
+    % auxiliary
+
+    read_in_params;
+    read_in_pol;
+
+    % exogenous variables: tauf, taul
+    % endogenous variables: pg, pf, w, h, Lf, Lg, C, lambdaa, G, F, Y
+
+    Af=(1+vf)*init201519(list.init=='Af0');
+    Ag=(1+vg)*init201519(list.init=='Ag0');
+
+    G = Ag*Lg;
+    w = pg*Ag;
+    pf = Ag/((1+tauf)*Af);
+    Lf = pg/pf*Ag/Af*eppsy/(1-eppsy)*Lg;
+    F = Af*Lf;
+    Y = (F)^(eppsy)*(G)^(1-eppsy);
+    hdem = Lf+Lg;
+    lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-tauf));
+    hsup =  (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
+
+    % 
+    f(1)= 1- (eppsy*pf+(1-eppsy)*pg); % determines pg
+    f(2)= hdem-hsup ; % labour market clearing determines Lg; (goods market clears by walras law)
 
 end
