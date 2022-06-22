@@ -9,25 +9,26 @@ read_in_pol;
 Af=(1+vf)*init201519(list.init=='Af0');
 Ag=(1+vg)*init201519(list.init=='Ag0');
 
-% analytic solution
-pg = Af*(1-tauf)/(eppsy*Ag+(1-eppsy)*Af*(1-tauf));
+% analytic solution: only with thetaa=1
+pg = (Af*(1-tauf)/Ag)^eppsy*eppsy^eppsy*(1-eppsy)^(1-eppsy);
 pf= Ag/((1-tauf)*Af)*pg;
 w= Ag*pg;
-Lg = tauf*((Ag^3*eppsy*Af)...
-    /(Ag^(3-eppsy)*eppsy*Af*(eppsy*Ag+(1-eppsy)*Af*(1-tauf))...
-        - Ag*(1-tauf)*(Ag^2*eppsy+(1-tauf)*(1-eppsy)*Af^2)));
-Lf = pg/pf*Ag/Af*eppsy/(1-eppsy)*Lg;
-h = Lf+Lg;
+% variables in relation to h
+Lgh= (1-eppsy)/((1-tauf)*eppsy+1-eppsy);
+Lfh=(1-tauf)*eppsy/(1-eppsy)*Lgh;
+hlpp=w+tauf*pf*Af*Lfh;
+h = (((1-taul)/chii)*hlpp^(1-thetaa))^(1/(thetaa+sigmaa)); % from labour market clearing h supply and h demand 
+
+Lg = Lgh*h;
+Lf = Lfh*h;
 F = Lf*Af;
-lambdaa = (w*h+tauf*pf*F)/((w*h)^(1-tauf));
-C  = lambdaa*(w*h)^(1-taul);
 G = Lg*Ag;
-Y = C; 
+lambdaa = (w*h+tauf*pf*F)/((w*h)^(1-taul));
+C  = lambdaa*(w*h)^(1-taul);
 
 % to test labour market clearing
-hsup  = (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
 Ysup =(F)^(eppsy)*(G)^(1-eppsy);
-
+end
 %- utility
 % if indic.util==1
 %     thetaa=2;

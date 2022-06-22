@@ -29,7 +29,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
 lengthh = 5; % number of zears per period         
-indic.util =0; % ==0 log utilit, otherwise as in Boppart
+indic.util =0; % ==0 log utility, otherwise as in Boppart
 if indic.util~=0
     indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and

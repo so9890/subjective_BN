@@ -48,8 +48,8 @@ Opt.Lf = Opt.pg/Opt.pf*Opt.Ag/Opt.Af*eppsy/(1-eppsy)*Opt.Lg;
 Opt.F = Opt.Af*Opt.Lf;
 Opt.Y = (Opt.F)^(eppsy)*(Opt.G)^(1-eppsy);
 Opt.h = Opt.Lf+Opt.Lg;
-Opt.lambdaa = (Opt.w*Opt.h+tauf*Opt.pf*Opt.F)/((Opt.w*Opt.h)^(1-tauf));
-hsup =  (Opt.lambdaa^(1-thetaa)*(1-taul)*Opt.w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
+Opt.lambdaa = (Opt.w*Opt.h+tauf*Opt.pf*Opt.F)/((Opt.w*Opt.h)^(1-taul));
+Opt.hsup =  (Opt.lambdaa^(1-thetaa)*(1-taul)*Opt.w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
 Opt.C  = Opt.lambdaa*(Opt.w*Opt.h)^(1-taul);
 Opt.Cd= Opt.w*Opt.h+tauf*Opt.pf*Opt.F;
 % test goods market clearing

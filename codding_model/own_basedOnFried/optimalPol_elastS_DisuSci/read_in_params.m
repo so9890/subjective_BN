@@ -1,4 +1,8 @@
-thetaa = params(list.params=='thetaa');
+if indic.util==0
+    thetaa = params(list.params=='thetaa');
+else
+    thetaa=2;
+end
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
 
