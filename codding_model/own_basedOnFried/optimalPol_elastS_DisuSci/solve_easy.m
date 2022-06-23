@@ -13,7 +13,7 @@ options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter',
 
 % save solution
 read_in_params;
-
+clear Sp;
 Sp.Lf=exp(sol3(2));
 Sp.Lg=exp(sol3(1));
 Sp.Af=(1+vf)*init201519(list.init=='Af0');
@@ -45,7 +45,7 @@ Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 %% Competitive equilibrium
 indic.taxsch=1; %==1 then uses linear tax schedule
 
-x0=log([0.4,0.4]);
+x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
 taul=0;
 taus=0;
