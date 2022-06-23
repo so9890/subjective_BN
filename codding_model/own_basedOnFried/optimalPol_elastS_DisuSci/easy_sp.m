@@ -4,7 +4,6 @@
 function f=easy_sp(x, params, list, indic, init201519)
 
 read_in_params;
-
 Lg = exp(x(1)); 
 Lf = exp(x(2));
 

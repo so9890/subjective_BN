@@ -4,8 +4,7 @@
 
 
 %- model for numeric solution as function of pg and Lg
-function f = easy_opt(x, params, list, pol,  init201519, indic)
-
+function f = easy_lf(x, params, list, pol,  init201519, indic)
 
     pg = exp(x(1));
     Lg = exp(x(2));

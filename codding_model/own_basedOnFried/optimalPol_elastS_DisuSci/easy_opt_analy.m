@@ -28,6 +28,8 @@ C  = lambdaa*(w*h)^(1-taul);
 
 % to test labour market clearing
 Ysup =(F)^(eppsy)*(G)^(1-eppsy);
+s= Lf/h;
+taufopt = 1-(1-eppsy)/eppsy*s/(1-s);
 end
 %- utility
 % if indic.util==1
