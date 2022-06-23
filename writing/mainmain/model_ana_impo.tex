@@ -31,7 +31,14 @@ To simplify, I assume sinks to be zero: $\delta=0$.
 The first order conditions read
 \begin{align}
 wrt.\ h:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon_y}(A_g(1-s))^{1-\varepsilon_y}}_{MPL}=\chi h^\sigma+\varphi \eta (\omega A_f s)^\eta h^{\eta-1}\\
-wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon_y}(A_g(1-s))^{1-\varepsilon_y}}_{MPL}\underbrace{\left(\frac{\varepsilon_y(1-s)-s(1-\varepsilon_y)}{s(1-s)}\right)}_{\text{how s changes MPL}}=\underbrace{\varphi \eta (\omega A_f s h)^{\eta-1}\omega }_{dExt/dF} A_f h
+wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon_y}(A_g(1-s))^{1-\varepsilon_y}}_{MPL}h\underbrace{\left(\frac{\varepsilon_y(1-s)-s(1-\varepsilon_y)}{s(1-s)}\right)}_{\text{how s changes MPL}}=\underbrace{\varphi \eta (\omega A_f s h)^{\eta-1}\omega }_{dExt/dF} A_f h
 \end{align}
 
 Without externality, the efficient allocation of fossil and green labour, s, is to maximise the marginal product of each hour worked.
+
+The Ramsey planner's problem is given by
+\begin{align}
+\underset{s, h}{\max}\ & \frac{C^{1-\theta}}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-\varphi E_{net}^{\eta}\\
+s.t\ \ & C=\left(A_fs\right)^{\varepsilon_y}\left(A_g(1-s)\right)^{1-\varepsilon_y}h\\
+& E_{net}=\omega A_fsh-\delta
+\end{align}

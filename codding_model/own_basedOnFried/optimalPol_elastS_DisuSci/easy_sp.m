@@ -15,13 +15,7 @@ F=Af*Lf;
 G=Ag*Lg;
 Y=(F)^(eppsy)*(G)^(1-eppsy);
 C=Y;
-%- utility
-if indic.util==1
-    thetaa=2;
-    Ucon=(C^(1-thetaa)-1)/(1-thetaa);
-else
-    Ucon=log(C);
-end
+
 Uc=C^(-thetaa);
 Uh=-chii*h^sigmaa;
 
@@ -32,8 +26,8 @@ Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
 %- derivatives production 
 dYdLg= F^eppsy*(1-eppsy)*Ag^(1-eppsy)*Lg^(-eppsy);
 dYdLf= G^(1-eppsy)*(eppsy)*Af^(eppsy)*Lf^(eppsy-1);
-
+dFdLf = Af;
 % model
 f(1) = Uc*dYdLg+Uh;
-f(2) = Uc*dYdLf+Uh+indic.extern*Uf;
+f(2) = Uc*dYdLf+Uh+indic.extern*Uf*dFdLf;
 end
