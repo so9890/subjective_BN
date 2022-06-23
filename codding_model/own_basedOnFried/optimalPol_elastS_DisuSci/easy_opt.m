@@ -39,7 +39,7 @@ if indic.notaul==0
    
     % derivatives
     dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
-    dCds = dCdh*h*(eppsy*(1-s)-s*(1-eppsy))/(s*(1-s));
+    dCds = dCdh*h*(eppsy/s-(1-eppsy)/(1-s));
     Uc = C^(-thetaa);
     Uh = -chii*h^sigmaa;
     Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
@@ -48,7 +48,7 @@ if indic.notaul==0
     
     % Optimality conditions planner 
     f(1) = Uc*dCdh + Uh +indic.extern* Uf*dFdh; % optimality wrt h => taul
-    f(2) = Uc*dCds + indic.extern*Uf*dFdh; % optimality government wrt s => tauf
+    f(2) = Uc*dCds + indic.extern*Uf*dFds; % optimality government wrt s => tauf
 
 elseif indic.notaul==1
     
@@ -87,7 +87,7 @@ elseif indic.notaul==1
     
     % Optimality conditions planner 
     %f(1) = Uc*dCdh + Uh +indic.extern* Uf*dFdh; % optimality wrt h => taul
-    f(1) = Uc*dCds + indic.extern*Uf*dFdh; % optimality government wrt s => tauf
+    f(1) = Uc*dCds + indic.extern*Uf*dFds; % optimality government wrt s => tauf
 
 end
 end

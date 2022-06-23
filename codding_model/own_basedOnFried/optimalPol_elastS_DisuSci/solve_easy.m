@@ -25,7 +25,8 @@ Sp.Y=(Sp.F)^(eppsy)*(Sp.G)^(1-eppsy);
 Sp.C=Sp.Y;
 Sp.pigou =1-(1-eppsy)/eppsy*Sp.Lf/Sp.Lg;
 Sp.s = Sp.Lf/Sp.h; % share of labour in fossil sector Lf/h
-Sp.weff= (Sp.Af*Sp.s)^eppsy*(Sp.Ag*(1-Sp.s))^(1-eppsy);
+Sp.w= (Sp.Af*Sp.s)^eppsy*(Sp.Ag*(1-Sp.s))^(1-eppsy);
+Sp.pg= eppsy^eppsy*(1-eppsy)^(1-eppsy)*((1-eppsy)/eppsy*Sp.Lf*Af/Ag/Sp.Lg)^eppsy;
 % %- utility
 if indic.util==1
     thetaa=2;
@@ -43,6 +44,7 @@ Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 % Sp.pimarket= -Uf./Sp.C^(-thetaa)/;
 %% Competitive equilibrium
 indic.taxsch=1; %==1 then uses linear tax schedule
+
 x0=log([0.4,0.4]);
 tauf=Sp.pigou;
 taul=0;
@@ -97,12 +99,12 @@ LF.Ulab = -chii*LF.h^(1+sigmaa)/(1+sigmaa);
 LF.SWF = LF.Ucon+LF.Ulab+indic.extern*LF.Ext;
 %% optimal policy
 indic.notaul=0;
-indic.taxsch=1;
+indic.taxsch=0;
 clear Opt
 if indic.notaul==0
-    x0=log([0.4,0.4]);
+    x0=log([Sp.s,Sp.h]);
 else
-    x0=log([0.4]);
+    x0=log([Sp.s]);
 end
 modFF = @(x)easy_opt(x, params, list,  init201519, indic);
 options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt','Display', 'Iter');%, );%, );%,  );
