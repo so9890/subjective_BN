@@ -26,7 +26,7 @@ Sp.C=Sp.Y;
 Sp.pigou =1-(1-eppsy)/eppsy*Sp.Lf/Sp.Lg;
 Sp.s = Sp.Lf/Sp.h; % share of labour in fossil sector Lf/h
 Sp.w= (Sp.Af*Sp.s)^eppsy*(Sp.Ag*(1-Sp.s))^(1-eppsy);
-Sp.pg= eppsy^eppsy*(1-eppsy)^(1-eppsy)*((1-eppsy)/eppsy*Sp.Lf*Af/Ag/Sp.Lg)^eppsy;
+Sp.pg= eppsy^eppsy*(1-eppsy)^(1-eppsy)*((1-eppsy)/eppsy*Sp.Lf*Sp.Af/Sp.Ag/Sp.Lg)^eppsy;
 % %- utility
 if indic.util==1
     thetaa=2;
@@ -43,7 +43,7 @@ Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 % Uf = -weightext*extexpp*(omegaa)^extexpp*Sp.F.^(extexpp-1);
 % Sp.pimarket= -Uf./Sp.C^(-thetaa)/;
 %% Competitive equilibrium
-indic.taxsch=1; %==1 then uses linear tax schedule
+indic.taxsch=0; %==1 then uses linear tax schedule
 
 x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
@@ -77,7 +77,7 @@ LF.lambdaa = (LF.w*LF.h+tauf*LF.pf*LF.F)/((LF.w*LF.h)^(1-taul));
 LF.s =LF.Lf/LF.h;
 if indic.taxsch==0
     LF.hsup =  (LF.lambdaa^(1-thetaa)*(1-taul)*LF.w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
-    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+LF.tauf*LF.pf*LF.Af*LF.s)^(thetaa-1);
+    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa-1);
 
 else % linear tax schedule
     LF.hsup = (((LF.w+tauf*LF.pf*LF.F/LF.h)^(-thetaa)*LF.w*(1-taul))/(chii))^(1/(sigmaa+thetaa));
