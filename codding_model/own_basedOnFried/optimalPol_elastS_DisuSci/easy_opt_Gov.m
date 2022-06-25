@@ -1,6 +1,8 @@
-function f = easy_opt(x, params, list,  init201519, indic)
+function f = easy_opt_Gov(x, params, list,  init201519, indic)
 % solves for optimal allocation by choosing s and h, where s=Lf/h 
+% VERSION: with government consumption
 
+some mistake in code
   read_in_params;
     % exogenous variables: tauf, taul
     % endogenous variables: pg, pf, w, h, Lf, Lg, C, lambdaa, G, F, Y
@@ -14,7 +16,6 @@ if indic.notaul==0
     h = exp(x(2));
     
     % auxiliary
-
   
     tauf = 1-((1-eppsy)/eppsy)*s/(1-s); % tauf determines s
     pg = eppsy^eppsy*(1-eppsy)^(1-eppsy)*((1-tauf)*Af/Ag)^eppsy;
@@ -27,32 +28,27 @@ if indic.notaul==0
     G = Ag*Lg;
     F = Af*Lf;
     % income tax/ gov budget
-    if indic.taxsch==0
-        taul= 1-h^(thetaa+sigmaa)*chii*(w+tauf*pf*Af*s)^(thetaa-1);
-        lambdaa = (w*h+tauf*pf*F)/((w*h)^(1-taul));
-    elseif indic.taxsch==1
-        taul = 1-h^(thetaa+sigmaa)*chii*(w+tauf*pf*Af*s)^(thetaa)/w;
-        T  = w*taul*h+pf*tauf*F;
-    elseif indic.taxsch==2 %linear but no transfers
+    if indic.taxsch==2 %linear but no transfers
         taul = 1-(h^(thetaa+sigmaa)*chii)/(w)^(1-thetaa);
         Gov = tauf*pf*F;
     end
     % good market clearing and final production 
     Y = (F)^(eppsy)*(G)^(1-eppsy); 
    
-    if indic.taxsch<=1
-        C=Y;
-    else
-        C=Y-Gov;
-    end
+    C=Y-Gov;
+   
     % derivatives
-    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
-    dCds = dCdh*h*(eppsy/s-(1-eppsy)/(1-s));
+    dFdh = Af*s;
+    dFds = Af*h;
+    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy)-tauf*pf*dFdh;
+    dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
+    dpfds = pg*Ag/Af/(1-tauf)^2*dtaufds;
+    dGovds = pf+F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
+    dCds = dCdh*h*(eppsy/s-(1-eppsy)/(1-s))-dGovds;
     Uc = C^(-thetaa);
     Uh = -chii*h^sigmaa;
     Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
-    dFdh = Af*s;
-    dFds = Af*h;
+    
     
     % Optimality conditions planner 
     f(1) = Uc*dCdh + Uh +indic.extern* Uf*dFdh; % optimality wrt h => taul

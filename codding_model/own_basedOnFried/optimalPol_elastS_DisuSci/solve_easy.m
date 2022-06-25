@@ -43,7 +43,7 @@ Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 % Uf = -weightext*extexpp*(omegaa)^extexpp*Sp.F.^(extexpp-1);
 % Sp.pimarket= -Uf./Sp.C^(-thetaa)/;
 %% Competitive equilibrium
-indic.taxsch=0; %==1 then uses linear tax schedule
+indic.taxsch=2; %==1 then uses linear tax schedule
 
 x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
@@ -78,13 +78,19 @@ LF.s =LF.Lf/LF.h;
 if indic.taxsch==0
     LF.hsup =  (LF.lambdaa^(1-thetaa)*(1-taul)*LF.w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
     LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa-1);
+    LF.C  = LF.lambdaa*(LF.w*LF.h)^(1-taul);
 
-else % linear tax schedule
+elseif indic.taxsch==1 % linear tax schedule
     LF.hsup = (((LF.w+tauf*LF.pf*LF.F/LF.h)^(-thetaa)*LF.w*(1-taul))/(chii))^(1/(sigmaa+thetaa));
     LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa)/LF.w;
+    LF.C= LF.w*LF.h+tauf*LF.pf*LF.F;
+
+elseif indic.taxsch==2 % linear tax schedule but no transfers
+    LF.hsup = ((LF.w)^(1-thetaa)*(1-taul)/chii)^(1/(thetaa+sigmaa));
+    LF.Gov = tauf*LF.pf*LF.F;
+    LF.C = LF.w*LF.h; % transfers from labour tax
+    LF.aggdemand =LF.Gov+LF.C;
 end
-LF.C  = LF.lambdaa*(LF.w*LF.h)^(1-taul);
-LF.Cd= LF.w*LF.h+tauf*LF.pf*LF.F;
 
 % %- utility
 if indic.util==1
@@ -99,14 +105,18 @@ LF.Ulab = -chii*LF.h^(1+sigmaa)/(1+sigmaa);
 LF.SWF = LF.Ucon+LF.Ulab+indic.extern*LF.Ext;
 %% optimal policy
 indic.notaul=0;
-indic.taxsch=0;
+indic.taxsch=2;
 clear Opt
 if indic.notaul==0
     x0=log([Sp.s,Sp.h]);
 else
     x0=log([Sp.s]);
 end
-modFF = @(x)easy_opt(x, params, list,  init201519, indic);
+if indic.taxsch<=1
+    modFF = @(x)easy_opt(x, params, list,  init201519, indic);
+else
+    modFF = @(x)easy_opt_Gov(x, params, list,  init201519, indic);
+end
 options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt','Display', 'Iter');%, );%, );%,  );
 [sol2, fval, exitf] = fsolve(modFF, x0, options);
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Display', 'Iter');%, );%, );%,  );
@@ -150,10 +160,20 @@ if indic.taxsch==0
 elseif indic.taxsch==1
     Opt.taul = 1-Opt.h^(thetaa+sigmaa)*chii*(Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(thetaa)/Opt.w;
     Opt.T = Opt.w*Opt.taul*Opt.h+Opt.pf*Opt.tauf*Opt.F;
+elseif indic.taxsch ==2
+    Opt.taul= 1-(Opt.h^(thetaa+sigmaa)*chii)/(Opt.w)^(1-thetaa);
+    Opt.Gov = tauf*Opt.pf*Opt.F;
+    Opt.T =Opt.w*Opt.h*taul;
+    Opt.Cdem = Opt.w*Opt.h;
 end
 % good market clearing and final production 
-Opt.C = (Opt.F)^(eppsy)*(Opt.G)^(1-eppsy); 
+Opt.Y = (Opt.F)^(eppsy)*(Opt.G)^(1-eppsy); 
 
+if indic.taxsch<=1
+    Opt.C=Opt.Y;
+else
+    Opt.C=Opt.Y-Opt.Gov;
+end
 % %- utility
 if indic.util==1
     thetaa=2;

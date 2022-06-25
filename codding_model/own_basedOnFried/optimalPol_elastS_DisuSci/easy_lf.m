@@ -30,9 +30,17 @@ function f = easy_lf(x, params, list, pol,  init201519, indic)
         lambdaa = (w*hdem+tauf*pf*F)/((w*hdem)^(1-taul));
         hsup =  (lambdaa^(1-thetaa)*(1-taul)*w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
     %    C  = lambdaa*(w*hdem)^(1-taul);
-    else
+    elseif indic.taxsch==1 % linear tax system with env tax revenues in gov budgte
         lambdaa = 0;
         hsup = (((w+tauf*pf*F/hdem)^(-thetaa)*w*(1-taul))/(chii))^(1/(sigmaa+thetaa));
+    elseif indic.taxsch==2 % linear tax but no transfers; gov consumes
+        lambdaa=0; 
+        Gov = tauf*pf*F;
+        hsup = (w^(1-thetaa)*(1-taul)/chii)^(1/(thetaa+sigmaa));
+    elseif indic.taxsch==3 % non linear and no transfers
+        lambdaa=w*h/(w*h)^(1-taul);
+        Gov=tauf*pf*F;
+        hsup=(w^(1-thetaa)*(1-taul)/chii)^(1/(thetaa+sigmaa));
     end
         
     % 
