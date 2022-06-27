@@ -39,11 +39,9 @@ Sp.Ulab = -chii*Sp.h^(1+sigmaa)/(1+sigmaa);
 
 Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 
-% prigou from a households problem:
-% Uf = -weightext*extexpp*(omegaa)^extexpp*Sp.F.^(extexpp-1);
-% Sp.pimarket= -Uf./Sp.C^(-thetaa)/;
 %% Competitive equilibrium
-indic.taxsch=2; %==1 then uses linear tax schedule
+indic.taxsch=1
+; %==1 then uses linear tax schedule
 
 x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
@@ -84,7 +82,7 @@ elseif indic.taxsch==1 % linear tax schedule
     LF.hsup = (((LF.w+tauf*LF.pf*LF.F/LF.h)^(-thetaa)*LF.w*(1-taul))/(chii))^(1/(sigmaa+thetaa));
     LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa)/LF.w;
     LF.C= LF.w*LF.h+tauf*LF.pf*LF.F;
-
+    LF.T=tauf*LF.pf*LF.F;
 elseif indic.taxsch==2 % linear tax schedule but no transfers
     LF.hsup = ((LF.w)^(1-thetaa)*(1-taul)/chii)^(1/(thetaa+sigmaa));
     LF.Gov = tauf*LF.pf*LF.F;
@@ -100,9 +98,22 @@ else
     LF.Ucon=log(LF.C);
 end
 LF.Ext = -weightext*(omegaa*LF.F)^extexpp;
+LF.dEdF = LF.Ext*extexpp/(LF.F); % negative!
 LF.Ulab = -chii*LF.h^(1+sigmaa)/(1+sigmaa);
 
 LF.SWF = LF.Ucon+LF.Ulab+indic.extern*LF.Ext;
+
+% social cost of carbon as: what would a household be willing to pay
+LF.scc = -LF.dEdF*LF.C^thetaa/LF.pf;
+
+% analytic derivation of transfers so that competitive eqbm = First Best
+% only if utility = log
+if indic.util==0
+   LF.Tana=-LF.dEdF*LF.Af*LF.s*LF.h^thetaa/(1+LF.dEdF*LF.Af*LF.s*LF.h^thetaa)*LF.w*LF.h;
+   LF.Tana_gov= tauf/(1-tauf)*LF.w*LF.s*LF.h;
+   LF.taufcheckk=-LF.dEdF*LF.Af*LF.h/(1-LF.dEdF*LF.Af*LF.h*(1-LF.s));
+end
+
 %% optimal policy
 indic.notaul=0;
 indic.taxsch=2;
