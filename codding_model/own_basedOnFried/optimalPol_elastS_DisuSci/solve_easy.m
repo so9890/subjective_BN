@@ -4,10 +4,10 @@ addpath('tools')
 keySet={'<1', 'log', 'Bop'};
 valueSet= repmat({struct([])},1,length(keySet));
 resultsTHETA=containers.Map(keySet, valueSet);
-indic.taxsch=1; %==0 uses nonlinear, no lump sum trans
+indic.taxsch=2; %==0 uses nonlinear, no lump sum trans
                 %==1 then uses linear tax schedule with lump sum transfers
                 %==2 linear tax without lump sum transfers
-indic.notaul=0; % relevant for optimal solution
+indic.notaul=1; % relevant for optimal solution
 
 for tth=0:1 
     indic.util=tth;
@@ -165,11 +165,12 @@ Opt.w = Opt.pg*Opt.Ag;
 Opt.pf = Opt.w/((1-Opt.tauf)*Opt.Af); 
 
 if indic.notaul==1
-    if indic.taxsch==0
+    if indic.taxsch==0 % baseline model
         Opt.h = ((Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(1-thetaa)/chii)^(1/(sigmaa+thetaa));
-    elseif indic.taxsch==1
-        % with linear tax: 
+    elseif indic.taxsch==1 % with linear tax and transfers
         Opt.h = ((Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(-thetaa)*Opt.w/chii)^(1/(sigmaa+thetaa));
+    elseif indic.taxsch==2 % with linear tax no transfers
+        Opt.h = (Opt.w^(1-thetaa)/chii)^(1/(sigmaa+thetaa));
     end
 end
 % labour market clearing: 

@@ -70,7 +70,7 @@ Under the value for $\theta$ suggested by \cite{Boppart2019LaborPerspectiveb}, t
 When the efficient level of hours increases, though, the dirty labor share reduces even more to outweigh the increase in the externality.
 
 \subsection{Decentralized economy}
-\tr{Note that labor supply can be too high or too low in the decentralised economy depending on $\theta$}
+
 How can the efficient allocation be decentralized by the use of taxes in a competitive economy? For now, I assume that the income tax is not available and $\tau_{\iota}=0$, $\lambda=0$.
 I will show that lump-sum redistribution of environmental tax revenues are essential to implement the first-best allocation in the competitive equilibrium. This is the first main result summarized by proposition \ref{prop:1}. 
 
@@ -81,7 +81,8 @@ the optimal allocation is inefficient absent additional measures to adjust hours
 
 %\textbf{Show: derive optimal amount of lump-sum transfers.}
 
-To proof this claim, I show that lump-sum transfers which implement the efficient amount of hours worked are positive when the corrective tax is set to the social cost of carbon. Through an income effect the additional income reduces work effort to the efficient level. Transfers equal exactly the amount raised by the environmental tax. 
+To proof this claim, I first show that hours worked in an economy with neither transfers nor labor income taxes exceed the level in the efficient allocation. The proof is depicted in appendix section \ref{app:derivations}. 
+show that lump-sum transfers which implement the efficient amount of hours worked are positive when the corrective tax is set to the social cost of carbon. Through an income effect the additional income reduces work effort to the efficient level. Transfers equal exactly the amount raised by the environmental tax. 
 
 Note that in the competitive economy, the environmental tax determines the share of dirty labor, $s$. 
 
@@ -161,6 +162,19 @@ Interestingly, when the planner transfers environmental tax revenues through the
 
 Only when the Ramsey planner can implement the efficient level of work, the environmental tax is set to equal the social cost of carbon.   
 
+\begin{table}
+	\caption{Neither lump-sum transfers nor labor income tax in linear tax system (comparable to table \ref{tab:lin_nolst})}\label{tab:lin_nolst_notaul}
+\begin{tabular}{lllllllll}
+	Thetaa & FB hours & FB Pigou & CE hours & CE scc & Opt hours & Opt taul & Opt tauf & Opt scc \\ 
+	\hline 
+	<1 & 1.192 & 0.99326 & 1.2061 & 0.97804 & 1.2061 & 1.1102e-16 & 0.99326 & 0.97804 \\ 
+	Bop & 0.13601 & 0.99959 & 0.14026 & 0.96001 & 0.14026 & 1.1102e-16 & 0.99959 & 0.96001 \\ 
+	log & 0.36434 & 0.99853 & 0.37243 & 0.97015 & 0.37243 & 1.1102e-16 & 0.99853 & 0.97015 \\ 
+	\hline 
+\end{tabular}
+\end{table}
+
+
 \textbf{In a nutshell}
 \begin{itemize}
 	\item hours worked without transfers are always too low even if efficient tax rate is chosen
@@ -170,42 +184,6 @@ Only when the Ramsey planner can implement the efficient level of work, the envi
 	Nevertheless, the allocation in LF without lump sum transfers always features too high hours worked. 
 	\item why does the optimal policy with taul but no lump-sum transfers not implement the efficient level? \ar income taxes are not a measure to implement the efficient allocation; only similar when income and substitution effect cancel. Too high when income effect dominates, too low when substitution effect dominates.
  \ar general consumption tax should neither be able to implement efficient allocation! 
+ \item when there is no income tax, the optimal policy is to set the efficient dirty labour share (compare table \ref{tab:lin_nolst_notaul}). Labor supply is always too high but the optimal tax exceeds the social cost of carbon
 \end{itemize}
 
-\subsection{Proofs}
-\subsubsection{Hours worked without transfers or income tax are too high}
-
-The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
-	In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, denoted by $h_{CE, s^{eff}}$\footnote{\ In the competitive equilibrium, the share of dirty labor is solely determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing: $\tau_f=1-\frac{1-\varepsilon}{\varepsilon}\frac{s}{1-s}$.}, exceeds the efficient level of hours worked, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available.
-	
-\textit{Step 1: $\frac{dE}{dF}>0$ \ar $\varepsilon>s$}
-Rewriting equation \ref{eq:fbs} it follows that
-\begin{align}
-\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
-\end{align}
-When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
-Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
-\begin{align}
-\varepsilon(1-s)-s(1-\varepsilon)>0,
-\end{align}
-which holds true if and only if $\varepsilon>s$.
-
-
-\textit{Step 2: $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$}
-I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
-
-\begin{align}
-&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
-\\
-\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
-\end{align}
-
-Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
-\begin{align}
-\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
-\end{align}
-which holds true whenever
-\begin{align}
-\varepsilon<s.
-\end{align}
-This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 

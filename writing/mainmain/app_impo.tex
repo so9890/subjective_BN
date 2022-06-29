@@ -23,8 +23,8 @@
 &E_{net}=\omega F-\delta
 \end{align}
 
-\subsection{Derivations}\label{app:derivations}
-\textbf{Derivation expression for $h^{FB}$}
+\section{Derivations and proofs}\label{app:derivations}
+\subsection{Derivation expression for $h^{FB}$}
 Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
 \begin{align}
 h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f s^{FB}\left(h^{FB}\right)^\theta \right)^\frac{1}{\sigma+\theta}.\label{eq:heff_1}
@@ -36,6 +36,43 @@ Note that an explicit expression for $h^{FB}$ follows from equation \ref{eq:fbs}
 h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)
 \end{align}
 and the result follows from substituting the last expression in expression  \ref{eq:heff_1}.
+
+\subsection{Proof: Hours worked with only the efficient share of dirty labor are inefficiently high}
+
+The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
+In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, denoted by $h_{CE, s^{eff}}$\footnote{\ In the competitive equilibrium, the share of dirty labor is solely determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing: $\tau_f=1-\frac{1-\varepsilon}{\varepsilon}\frac{s}{1-s}$.}, exceeds the efficient level of hours worked, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available.
+
+\paragraph{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
+Rewriting equation \ref{eq:fbs} yields
+\begin{align}
+\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
+\end{align}
+When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
+Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
+\begin{align}
+\varepsilon(1-s)-s(1-\varepsilon)>0,
+\end{align}
+which holds true if and only if $\varepsilon>s$.
+
+
+\paragraph{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
+I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
+
+\begin{align}
+&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\\
+\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\end{align}
+
+Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
+\begin{align}
+\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
+\end{align}
+which holds true whenever
+\begin{align}
+\varepsilon<s.
+\end{align}
+This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
 
 \section{Results}
 \begin{figure}[h!!]
