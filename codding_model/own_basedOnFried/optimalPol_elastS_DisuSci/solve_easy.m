@@ -7,7 +7,7 @@ resultsTHETA=containers.Map(keySet, valueSet);
 indic.taxsch=2; %==0 uses nonlinear, no lump sum trans
                 %==1 then uses linear tax schedule with lump sum transfers
                 %==2 linear tax without lump sum transfers
-indic.notaul=1; % relevant for optimal solution
+indic.notaul=0; % relevant for optimal solution
 
 for tth=0:1 
     indic.util=tth;
@@ -62,7 +62,7 @@ Sp.htest = (Sp.w^(1-thetaa)/chii*(1-eppsy)/(1-Sp.s))^(1/(sigmaa+thetaa));
 clear LF
 x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
-taul=0;
+taul=1-((1-eppsy)/(1-Sp.s))^thetaa;
 taus=0;
 lambdaa=1;
 pol=eval(symms.pol);
@@ -189,8 +189,8 @@ elseif indic.taxsch==1 % linear tax scheme with transfers
     Opt.T = Opt.w*Opt.taul*Opt.h+Opt.pf*Opt.tauf*Opt.F;
 elseif indic.taxsch ==2
     Opt.taul= 1-(Opt.h^(thetaa+sigmaa)*chii)/(Opt.w)^(1-thetaa);
-    Opt.Gov = tauf*Opt.pf*Opt.F;
-    Opt.T =Opt.w*Opt.h*taul;
+    Opt.Gov = Opt.tauf*Opt.pf*Opt.F;
+    Opt.T =Opt.w*Opt.h*Opt.taul;
     Opt.Cdem = Opt.w*Opt.h;
 end
 % good market clearing and final production 
@@ -213,6 +213,8 @@ Opt.Ulab = -chii*Opt.h^(1+sigmaa)/(1+sigmaa);
 
 Opt.SWF = Opt.Ucon+Opt.Ulab+indic.extern*Opt.Ext;
 Opt.scc = -Opt.dEdF*Opt.C^thetaa/Opt.pf;
+% test taul
+Opt.taultest= 1-((1-eppsy)/(1-Opt.s))^thetaa;
 if indic.notaul==1
     Optnotaul=Opt;
 else

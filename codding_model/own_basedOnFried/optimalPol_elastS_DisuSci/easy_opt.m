@@ -56,7 +56,7 @@ if indic.notaul==0
         dCdh =dCdh-tauf*pf*dFdh;
         dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
         dpfds =-pf*(eppsy-1)/(1-tauf)*dtaufds;
-        dGovds = pf+F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
+        dGovds = pf*F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
         dCds = dCds-dGovds;
     end
     
@@ -69,7 +69,8 @@ if indic.notaul==0
     f(2) = Uc*dCds + indic.extern*Uf*dFds; % optimality government wrt s => tauf
 
 elseif indic.notaul==1
-    
+    if indic.taxsch>1
+        error('not yet coded no taul with linear tax no transfers')
     s = exp(x(1));
 
     tauf = 1-((1-eppsy)/eppsy)*s/(1-s); % tauf determines s

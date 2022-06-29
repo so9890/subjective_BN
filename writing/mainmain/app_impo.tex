@@ -39,10 +39,11 @@ and the result follows from substituting the last expression in expression  \ref
 
 \subsection{Proof: Hours worked with only the efficient share of dirty labor are inefficiently high}
 
+\begin{proof}
 The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
 In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, denoted by $h_{CE, s^{eff}}$\footnote{\ In the competitive equilibrium, the share of dirty labor is solely determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing: $\tau_f=1-\frac{1-\varepsilon}{\varepsilon}\frac{s}{1-s}$.}, exceeds the efficient level of hours worked, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available.
 
-\paragraph{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
+\textbf{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
 Rewriting equation \ref{eq:fbs} yields
 \begin{align}
 \frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
@@ -55,7 +56,7 @@ Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce th
 which holds true if and only if $\varepsilon>s$.
 
 
-\paragraph{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
+\textbf{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
 I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
 
 \begin{align}
@@ -73,6 +74,7 @@ which holds true whenever
 \varepsilon<s.
 \end{align}
 This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
+\end{proof}
 
 \section{Results}
 \begin{figure}[h!!]
