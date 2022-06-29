@@ -30,11 +30,10 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utility, otherwise as in Boppart
-if indic.util~=0
-    indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
+
+indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
-end
 
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
@@ -50,7 +49,7 @@ if indic.xgrowth==1
     indic.sep=1;
 end
 indic.zero=0; % ==1 then zero growth rates with xgrowth
-indic.extern=0;
+indic.extern=1;
 % but ensure no externality when target is used 
 if indic.target==1
     indinc.extern=0;

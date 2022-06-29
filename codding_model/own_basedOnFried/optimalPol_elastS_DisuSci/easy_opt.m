@@ -27,7 +27,7 @@ if indic.notaul==0
     G = Ag*Lg;
     F = Af*Lf;
     % income tax/ gov budget
-    if indic.taxsch==0
+    if indic.taxsch==0 % non-linear and no lump sum redistribution
         taul= 1-h^(thetaa+sigmaa)*chii*(w+tauf*pf*Af*s)^(thetaa-1);
         lambdaa = (w*h+tauf*pf*F)/((w*h)^(1-taul));
     elseif indic.taxsch==1
@@ -45,14 +45,24 @@ if indic.notaul==0
     else
         C=Y-Gov;
     end
+    
     % derivatives
+    dFdh = Af*s;
+    dFds = Af*h;
     dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
     dCds = dCdh*h*(eppsy/s-(1-eppsy)/(1-s));
+    
+    if indic.taxsch>1
+        dCdh =dCdh-tauf*pf*dFdh;
+        dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
+        dpfds =-pf*(eppsy-1)/(1-tauf)*dtaufds;
+        dGovds = pf+F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
+        dCds = dCds-dGovds;
+    end
+    
     Uc = C^(-thetaa);
     Uh = -chii*h^sigmaa;
     Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
-    dFdh = Af*s;
-    dFds = Af*h;
     
     % Optimality conditions planner 
     f(1) = Uc*dCdh + Uh +indic.extern* Uf*dFdh; % optimality wrt h => taul

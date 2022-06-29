@@ -1,8 +1,22 @@
 % to solve easy sp and op problems
+addpath('tools')
+% to save results of loop
+keySet={'<1', 'log', 'Bop'};
+valueSet= repmat({struct([])},1,length(keySet));
+resultsTHETA=containers.Map(keySet, valueSet);
+indic.taxsch=1; %==0 uses nonlinear, no lump sum trans
+                %==1 then uses linear tax schedule with lump sum transfers% loop over thetaa
+                %==2 linear tax without lump sum transfers
+indic.notaul=0; % relevant for optimal solution
 
+for tth=0:1 
+    indic.util=tth;
+for bbp=0:indic.util % if indic.util==0 then loop is independent of BOP
+    indic.Bop=bbp;
+
+    
 %% sp solution 
-%  iin=load('init_techgap.mat');
-%  init201519_co = iin.initcount;
+clear Sp
 x0=log([0.4,0.4]);
 
 modFF = @(x)easy_sp(x, params, list, indic, init201519);
@@ -29,20 +43,23 @@ Sp.w= (Sp.Af*Sp.s)^eppsy*(Sp.Ag*(1-Sp.s))^(1-eppsy);
 Sp.pg= eppsy^eppsy*(1-eppsy)^(1-eppsy)*((1-eppsy)/eppsy*Sp.Lf*Sp.Af/Sp.Ag/Sp.Lg)^eppsy;
 % %- utility
 if indic.util==1
-    thetaa=2;
     Sp.Ucon=(Sp.C^(1-thetaa)-1)/(1-thetaa);
 else
     Sp.Ucon=log(Sp.C);
 end
 Sp.Ext = -weightext*(omegaa*Sp.F)^extexpp;
+Sp.dEdF = -weightext*extexpp*(omegaa*Sp.F)^extexpp/Sp.F;
 Sp.Ulab = -chii*Sp.h^(1+sigmaa)/(1+sigmaa);
 
 Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 
-%% Competitive equilibrium
-indic.taxsch=1
-; %==1 then uses linear tax schedule
+% test analytic derivation of Sp.h
+Sp.htest= ((Sp.w^(1-thetaa)+Sp.dEdF*Sp.Af*Sp.s*Sp.h^thetaa)/chii)^(1/(sigmaa+thetaa));
+%- has to be smaller 
 
+%% Competitive equilibrium
+
+clear LF
 x0=log([Sp.pg,Sp.Lg]);
 tauf=Sp.pigou;
 taul=0;
@@ -58,7 +75,7 @@ options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter',
 % save solution
 read_in_params;
 read_in_pol;
-clear LF
+
 LF.Af=(1+vf)*init201519(list.init=='Af0');
 LF.Ag=(1+vg)*init201519(list.init=='Ag0');
 LF.pg=exp(sol3(1));
@@ -92,7 +109,6 @@ end
 
 % %- utility
 if indic.util==1
-    thetaa=2;
     LF.Ucon=(LF.C^(1-thetaa)-1)/(1-thetaa);
 else
     LF.Ucon=log(LF.C);
@@ -115,19 +131,18 @@ if indic.util==0
 end
 
 %% optimal policy
-indic.notaul=0;
-indic.taxsch=2;
+
 clear Opt
 if indic.notaul==0
     x0=log([Sp.s,Sp.h]);
 else
     x0=log([Sp.s]);
 end
-if indic.taxsch<=1
+% if indic.taxsch<=1
     modFF = @(x)easy_opt(x, params, list,  init201519, indic);
-else
-    modFF = @(x)easy_opt_Gov(x, params, list,  init201519, indic);
-end
+% else
+%     modFF = @(x)easy_opt_Gov(x, params, list,  init201519, indic);
+% end
 options = optimoptions('fsolve', 'TolFun', 10e-8, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt','Display', 'Iter');%, );%, );%,  );
 [sol2, fval, exitf] = fsolve(modFF, x0, options);
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Display', 'Iter');%, );%, );%,  );
@@ -187,17 +202,58 @@ else
 end
 % %- utility
 if indic.util==1
-    thetaa=2;
     Opt.Ucon=(Opt.C^(1-thetaa)-1)/(1-thetaa);
 else
     Opt.Ucon=log(Opt.C);
 end
 Opt.Ext = -weightext*(omegaa*Opt.F)^extexpp;
+Opt.dEdF = -weightext*extexpp*(omegaa*Opt.F)^extexpp/Opt.F;
 Opt.Ulab = -chii*Opt.h^(1+sigmaa)/(1+sigmaa);
 
 Opt.SWF = Opt.Ucon+Opt.Ulab+indic.extern*Opt.Ext;
+Opt.scc = -Opt.dEdF*Opt.C^thetaa/Opt.pf;
 if indic.notaul==1
     Optnotaul=Opt;
 else
     Opttaul=Opt;
 end
+% save results
+%- create structure
+st.Sp=Sp;
+st.Opt=Opt;
+st.LF=LF;
+st.thetaa = thetaa;
+%- save to map
+if indic.util==0
+    resultsTHETA('log')= st;
+elseif indic.util==1
+    if indic.Bop==0
+        resultsTHETA('<1')= st;
+    else
+        resultsTHETA('Bop')= st;
+
+    end
+end
+end
+end
+
+% - create table from results 
+kk=keys(resultsTHETA);
+Table=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
+Table.Properties.VariableNames={'Thetaa','FB hours', 'FB SWF', 'FB MPL','FB Pigou', 'Only tauf=pigou hours' , 'Only tauf=pigou SWF' , 'Only tauf=pigou scc', 'Only tauf=pigou wage', ...
+                                       'Optimal hours', 'Optimal SWF', 'Optimal wage', 'Optimal taul', 'Optimal tauf', 'Optimal scc'};
+
+%- only hours, and policy
+TableH=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
+TableH.Properties.VariableNames={'Thetaa','FB hours', 'FB Pigou', 'CE hours',  'CE scc',  ...
+                                       'Opt hours','Opt taul', 'Opt tauf', 'Opt scc'};
+
+for i=1:3
+    st=resultsTHETA(string(kk(i)));
+    Table(i,2:end)={st.Sp.h, st.Sp.SWF,st.Sp.w, st.Sp.pigou, st.LF.h, st.LF.SWF, st.LF.scc, st.LF.w, ...
+                    st.Opt.h, st.Opt.SWF, st.Opt.w, Opt.taul, st.Opt.tauf, st.Opt.scc};
+    TableH(i,2:end)={st.Sp.h, st.Sp.pigou, st.LF.h, st.LF.scc, ...
+                    st.Opt.h, Opt.taul, st.Opt.tauf, st.Opt.scc};
+end
+
+table2latex(TableH)

@@ -1,7 +1,11 @@
 if indic.util==0
     thetaa = params(list.params=='thetaa');
 else
-    thetaa=2;
+    if indic.Bop==1 % income effect dominates!
+        thetaa=2;
+    else
+        thetaa=0.4;
+    end
 end
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');

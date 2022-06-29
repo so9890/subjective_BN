@@ -1,7 +1,7 @@
 \section{Analytic results}
 \textbf{Points to be made}
 \begin{enumerate}
-\item the efficient allocation consists of both a recomposing and a reductive element \ar discuss social planner allocation
+\item the efficient allocation consists of both a recomposing and a reductive element \ar discuss social planner allocation \checkmark
 \item lump-sum transfers implement the efficient reduction in hours worked \checkmark
 \item absent lump-sum transfers, households work too much \checkmark
 \item the income tax which implements the efficient allocation is positive/ progressive \checkmark
@@ -9,57 +9,159 @@
 
 This section develops a tractable model to investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of. 
 
-\subsection{Model}
-The representative household a consumption and supply decision of the only skill, $h$. There is only one skill type in the analytical model. The final consumption good is a composite of a dirty and a clean good. For simplicity the clean sector does not induce any externality. The model also abstracts from endogenous growth and becomes static. 
+\subsection{Core model}
+The representative household faces a consumption and labor supply decision. The final consumption good is a composite of a dirty and a clean good. labor is the only input to production. For simplicity the clean sector does not induce any externality. The model also abstracts from endogenous growth and becomes static. The planner levies income taxes on labor income using a tax scheme common in the public finance literature \citep{Heathcote2017OptimalFramework, Benabou2002TaxEfficiency}.\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
+
+The representative household maximises its period utility
+\begin{align}
+\frac{C^{1-\theta}-1}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)
+\end{align}
+subject to a budget constraint
+\begin{align}
+	 C= \lambda(wh)^{1-\tau_{\iota}}+T.
+\end{align}
+The household derives utility from consumption but experiences disutility from working. An externality from dirty (or fossil) production, $F$, decreases household utility and is taken as given by the household.
+
+All sectors of production are perfectly competitive. The final consumption goodm $Y$, is a Cobb-Douglas composite of the dirty, $F$, and the clean good, $G$. Intermediate good $j\in \{f,g\}$ is produced from labor, $L_j$m and total factor technology, $A_j$. 
+\begin{align}
+Y=F^{\varepsilon}G^{1-
+	\varepsilon}, \hspace{4mm}
+F=A_fL_f, \hspace{4mm}
+G=A_gL_g.
+\end{align}
+The government raises income taxes and levies sales taxes, $\tau_f$, on dirty production revenues $p_fF$. Revenues from the income tax and the environmental tax are treated separately by the government. Environmental tax revenues are transferred lump-sum, while income tax revenues are fully redistributed through the income tax schedule:
+\begin{align}
+T=\tau_{f}p_fF, \hspace{4mm}
+0={w h}-\lambda(w h)^{1-\tau_{\iota}}.
+\end{align}
+The market for labor clears, $h=L_f+L_g$, and the final consumption good is the numéraire.
+I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
+
+\subsection{Social planner}
+Let the share of dirty to total labor be denoted by $s=L_f/h$. The social planner's problem reads
+\begin{align}
+\underset{s, h}{\max}\ & \frac{C^{1-\theta}-1}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)\\
+s.t\ \ & C=\left(A_fs\right)^{\varepsilon}\left(A_g(1-s)\right)^{1-\varepsilon}h
+\end{align}
+The first order conditions are given by
+\begin{align}
+wrt.\ h:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}}_{MPL}=\chi h^\sigma+\frac{dE}{dF}\frac{dF}{dh}\label{eq:fbh},\\
+wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}}_{MPL}h\underbrace{\left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\right)}_{\text{how s changes MPL}}=\frac{dE}{dF}\frac{dF}{ds}. \label{eq:fbs}
+\end{align}
+These equations determine the efficient or first-best allocation. 
+Absent an externality, $\frac{dE}{dF}=0$, the efficient share of labor in the dirty sector is to maximise the marginal product of each hour worked and $s^{FB,E=0}=\varepsilon$, compare equation \ref{eq:fbs}. Efficient hours equalize the marginal utility gain and the disutility from working. 
+
+When there is an externality, the social planner adjusts the allocation by two modulations: a (i) recomposing and a (ii) reductive one. 
+The recomposition is determined by equation \ref{eq:fbs}. The negative externality of dirty production lowers the efficient share of labor allocated to  the dirty sector and $s^{FB,E>0}<s^{FB,E=0}$. 
+
+The reductive effect is summarized by equation \ref{eq:fbh}. There are two reasons for why the efficient amount of hours worked changes. 
 
 
+ 
+Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
+\begin{align}
+h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(\frac{(A_f s^{FB})^{\varepsilon}(A_g(1-s^{FB}))^{1-\varepsilon}}{\left[(A_f s^{FB})^{\varepsilon}(A_g(1-s^{FB}))^{1-\varepsilon}h^{FB}\right]^{\theta}}-\frac{dE}{dF}A_f s^{FB} \right)^\frac{1}{\sigma}.\label{eq:heff}
+\end{align}
+First, the recomposition of labor input towards the  clean sector reduces the marginal product of labor as determined by equation \ref{eq:fbs}. This effect is captured by
+ the first term in brackets in equation \ref{eq:heff}. On the one hand, labor becomes less productive which makes leisure less costly and the efficient amount of hours worked reduces. This is the numerator. The denominator captures that the reduction in the marginal product of labor reduces total consumption. Equivalently to the income effect in a competitive equilibrium a higher marginal utility of consumption renders labor more valuable. In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor increases the efficient amount of hours worked. 
+Second, the social planner reduces hours worked due to their negative exeternality through production, as indicated by the second term in brackets, $\frac{dE}{dF}A_fs^{FB}$.
+
+
+
+\subsection{Decentralized economy}
+\tr{Note that labor supply can be too high or too low in the decentralised economy depending on $\theta$}
+How can the efficient allocation be decentralized by the use of taxes in a competitive economy? For now, I assume that the income tax is not available and $\tau_{\iota}=0$, $\lambda=0$.
+I will show that lump-sum redistribution of environmental tax revenues are essential to implement the first-best allocation in the competitive equilibrium. This is the first main result summarized by proposition \ref{prop:1}. 
+
+\begin{prop}\label{prop:1}
+Even if the Ramsey planner sets the environmental tax to the social cost of carbon, %to implement the first-best share of clean labor, $s$,
+the optimal allocation is inefficient absent additional measures to adjust hours worked. Lump-sum transferring environmental tax revenues are one means to change hours worked to the efficient level. 
+\end{prop}
+
+%\textbf{Show: derive optimal amount of lump-sum transfers.}
+
+To proof this claim, I show that lump-sum transfers which implement the efficient amount of hours worked are positive when the corrective tax is set to the social cost of carbon. Through an income effect the additional income reduces work effort to the efficient level. Transfers equal exactly the amount raised by the environmental tax. 
+
+Note that in the competitive economy, the environmental tax determines the share of dirty labor, $s$. 
+
+The competitive level of hours worked as a function of lump-sum transfers and the income tax is given by
 
 \begin{align}
-\text{Utility}\hspace{5mm}& \frac{C_t^{1-\theta}-1}{1-\theta}-\chi \frac{h_t^{1+\sigma}}{1+\sigma}-\varphi(\omega F)^\eta\\
-\text{Budget}\hspace{5mm}& C_t = \lambda_t(w_th_t)^{1-\tau_{\iota t}}\\
-\text{optimality HH}\hspace{5mm}& h^{\sigma+\tau_{\iota t}+\theta(1-\tau_{\iota t})}=\lambda_t^{1-\theta}(1-\tau_{\iota t})w_t^{(1-\tau_{\iota t})(1-\theta)}\\
-\text{Final Production}\hspace{5mm}&Y=F^{\varepsilon_y}G^{1-
-\varepsilon_y}\\ %\left[F^\frac{\varepsilon_y-1}{\varepsilon_y}+G^\frac{\varepsilon_y-1}{\varepsilon_y}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}\\
-\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\\
-\text{Demand final prod}\hspace{5mm}&\frac{F}{G}=\left(\frac{\varepsilon_y}{1-\varepsilon_y}\right)\left(\frac{p_g}{p_f}\right)\\
-\text{Production F and G}\hspace{5mm}&F=A_fL_f\\\
-& G=A_gL_g\\
-\text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
-& w=p_gA_g\\
-\text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
-&A_{gt+1}=(1+\nu_g)A_{gt}\\
-\text{Government}\hspace{5mm}&\lambda_t=\frac{w_t h_t+\tau_{ft}p_fF}{(w_t h_t)^{1-\tau_{\iota t}}}\ \ \text{(balanced budget, zero expenditures)}\\
-&E_{net}=\omega F-\delta
+h = \left[\frac{w^{1-\theta}\left(1+\frac{T}{wh}\right)^{-\theta}(1-\tau_{\iota})}{\chi}\right]^{\frac{1}{\sigma+\theta}}.\label{eq:hopt}
 \end{align}
+When neither transfers nor income taxation is available the expression simplifies to $h=\left(\frac{w^{1-\theta}}{\chi}\right)^\frac{1}{\sigma +\theta}$.
 
-Let $s=L_f/h$. The social planner's problem reads
+
+In the competitive equilibrium, the wage rate is
 \begin{align}
-\underset{s, h}{\max}\ & \frac{C^{1-\theta}}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-\varphi E_{net}^{\eta}\\
-s.t\ \ & C=\left(A_fs\right)^{\varepsilon_y}\left(A_g(1-s)\right)^{1-\varepsilon_y}h\\
-& E_{net}=\omega A_fsh-\delta
-\end{align}
-To simplify, I assume sinks to be zero: $\delta=0$.
-The first order conditions read
-\begin{align}
-wrt.\ h:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon_y}(A_g(1-s))^{1-\varepsilon_y}}_{MPL}=\chi h^\sigma+\varphi \eta (\omega A_f s)^\eta h^{\eta-1}\label{eq:fbh}\\
-wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon_y}(A_g(1-s))^{1-\varepsilon_y}}_{MPL}h\underbrace{\left(\frac{\varepsilon_y(1-s)-s(1-\varepsilon_y)}{s(1-s)}\right)}_{\text{how s changes MPL}}=\underbrace{\varphi \eta (\omega A_f s h)^{\eta-1}\omega }_{dExt/dF} A_f h \label{eq:fbs}
+w= (1-\varepsilon)(A_fs)^\varepsilon (A_g)^{1-\varepsilon}(1-s)^{-\varepsilon}.
 \end{align}
 
-Without externality, the efficient allocation of fossil and green labour, s, is to maximise the marginal product of each hour worked.
 
+\begin{prop}
+	If lump-sum transfers are not available, income taxes allow to replicate the efficient amount of hours worked.
+\end{prop}
+
+I will first proof that lump-sum transfers are positive. Then I will derive the income tax progressivity which replicates the efficient allocation. 
 The Ramsey planner's problem is given by
 \begin{align}
-\underset{s, h}{\max}\ & \frac{C^{1-\theta}}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-\varphi E_{net}^{\eta}\\
-s.t\ \ & C=\left(A_fs\right)^{\varepsilon_y}\left(A_g(1-s)\right)^{1-\varepsilon_y}h\\
-& E_{net}=\omega A_fsh-\delta
+\underset{s, h}{\max}\ & \frac{C^{1-\theta}}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)\\
+s.t\ \ & C=\left(A_fs\right)^{\varepsilon}\left(A_g(1-s)\right)^{1-\varepsilon}h
 \end{align}
-
-\subsection{Social planner allocation: a combination of reduction and recomposition}
-Equation \ref{eq:fbh} can be solved for hours worked:
-\begin{align}
-h^{FB}=\left(\frac{\left[(A_f s^{FB})^{\varepsilon_y}(A_g(1-s^{FB}))^{1-\varepsilon_y}\right]^{1-\theta}-\frac{dE}{dF}A_f s^{FB} \left(h^{FB}\right)^\theta}{\chi}\right)^\frac{1}{\sigma+ \theta}
-\end{align}
-When there is no externality, the social planner equalizes the marginal gain from hours worked and the marginal disutility. With an externality, there are two channels through which the social planner reduces hours worked. First, the recomposition of labour input towards the green sector reduces the marginal product of labour as determined by equation \ref{eq:fbs}. Second, the social planner reduces hours worked due to their negative exeternality through production. I will show in the following that lump-sum redistribution of the environmental tax revenues are an essential to implement the first best allocation in the Ramsey problem: Even if the Ramsey planner implements the first best share of fossil labour, $s$, the optimal allocation is inefficient, if no lump-sum transfers are assumed. 
 
 \subsection{Source of inefficiency}
-With a linear tax schedule and lump-sum transfers, labour supply reacts sufficiently to the reduction in income and the efficient allocation can be implemented solely by the use of the corrective tax. Under the more flexible benchmark tax schedule, transfers, $\lambda$, are multiplicative which raises the returns to labour intensifying the substitution (?) effect of the wage rate. As the wage rate falls, households work more. To counteract this tendency, the government has to impose a progressive tax scheme, given that 
+With a linear tax schedule and lump-sum transfers, labor supply reacts sufficiently to the reduction in income and the efficient allocation can be implemented solely by the use of the corrective tax. Under the more flexible benchmark tax schedule, transfers, $\lambda$, are multiplicative which raises the returns to labor intensifying the substitution (?) effect of the wage rate. As the wage rate falls, households work more. To counteract this tendency, the government has to impose a progressive tax scheme, given that 
+
+
+\subsection{Numeric results in simple model}
+\begin{table}[h!!]
+	\caption{Linear tax scheme and lump-sum transfers}\label{tab:lin_lst}
+	\begin{tabular}{lllllllll}
+		Thetaa & FB hours & FB Pigou & CE hours & CE scc & Opt hours & Opt taul & Opt tauf & Opt scc \\ 
+		\hline 
+		<1 & 1.192 & 0.99326 & 1.192 & 0.99326 & 1.192 & -3.7748e-15 & 0.99326 & 0.99326 \\ 
+		Bop & 0.13601 & 0.99959 & 0.13601 & 0.99959 & 0.13601 & -3.7748e-15 & 0.99959 & 0.99959 \\ 
+		log & 0.36434 & 0.99853 & 0.36434 & 0.99853 & 0.36434 & -3.7748e-15 & 0.99853 & 0.99853 \\ 
+		\hline 
+	\end{tabular}
+\end{table}
+\begin{table}
+	\caption{Linear tax scheme, env. tax revenues not transferred lump-sum}\label{tab:lin_nolst}
+	\begin{tabular}{lllllllll}
+		Thetaa & FB hours & FB Pigou & CE hours & CE scc & Opt hours & Opt taul & Opt tauf & Opt scc \\ 
+		\hline 
+		<1 & 1.192 & 0.99326 & 1.2061 & 0.97804 & 1.1706 & 0.049876 & 0.9934 & 0.94584 \\ 
+		Bop & 0.13601 & 0.99959 & 0.14026 & 0.96001 & 0.13808 & 0.049876 & 0.99958 & 0.94766 \\ 
+		log & 0.36434 & 0.99853 & 0.37243 & 0.97015 & 0.36435 & 0.049876 & 0.99853 & 0.94804 \\ 
+		\hline 
+	\end{tabular}
+\end{table}
+\begin{table}[h!!]
+	\caption{Baseline model env. revenues transferred via income tax scheme ($\lambda$)}\label{tab:base}
+	\begin{tabular}{lllllllll}
+		Thetaa & FB hours & FB Pigou & CE hours & CE scc & Opt hours & Opt taul & Opt tauf & Opt scc \\ 
+		\hline 
+		<1 & 1.192 & 0.99326 & 1.2275 & 1.0056 & 1.192 & 0.049979 & 0.99326 & 0.99326 \\ 
+		Bop & 0.13601 & 0.99959 & 0.13811 & 1.0311 & 0.13601 & 0.049979 & 0.99959 & 0.99959 \\ 
+		log & 0.36434 & 0.99853 & 0.37243 & 1.0211 & 0.36434 & 0.049979 & 0.99853 & 0.99853 \\ 
+		\hline 
+	\end{tabular}
+\end{table}
+
+
+
+Table 1 to 3 compare the efficient allocation to an allocation resulting in the competitive equilibrium when the environmental tax is set to equal the social cost of carbon in the efficient allocation. The rationale being that without any further distortions setting environmental taxes to the social cost of carbon implements the efficient allocation. The last four columns of each table show hours worked, the optimal policy and the social cost of carbon in equilibrium resulting in the Ramsey planner allocation. 
+
+Table \ref{tab:lin_lst} reveals that indeed, setting the corrective tax equal to the social cost of carbon under the social planner implements the first-best allocation when lump-sum transfers are available. The optimal policy chooses zero income taxes. 
+
+The picture changes once no lump-sum transfers are available, compare table \ref{tab:lin_nolst}. In the competitive equilibrium setting the environmental tax to the social costs of carbon under the social planner results in inefficiently high hours worked for all values of $\theta$ considered. The optimal policy is to set a positive income tax rate; the optimal income tax code is progressive. When the substitution effect outweighs the income effect, i.e., $\theta<1$, then the optimal allocation results in inefficiently \textit{low} hours worked. When the income effect is at least as strong than the substitution effect, that is $\theta\geq 1$, then hours worked remain inefficiently high under the optimal policy. 
+
+Interestingly, when the planner transfers environmental tax revenues through the income tax scheme, table \ref{tab:base}, then the efficient allocation is attainable for all values of $\theta$ considered through a progressive tax scheme. 
+
+Only when the Ramsey planner can implement the efficient level of work, the environmental tax is set to equal the social cost of carbon.   
+
+\textbf{In a nutshell}
+\begin{itemize}
+	\item when hours are not efficient, then the environmental tax does not match the social cost of carbon
+	\item when revenues are transferred through the income tax, the planner can implement the efficient allocation with the help of a progressive income tax
+\end{itemize}

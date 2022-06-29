@@ -2,7 +2,6 @@ function f = easy_opt_Gov(x, params, list,  init201519, indic)
 % solves for optimal allocation by choosing s and h, where s=Lf/h 
 % VERSION: with government consumption
 
-some mistake in code
   read_in_params;
     % exogenous variables: tauf, taul
     % endogenous variables: pg, pf, w, h, Lf, Lg, C, lambdaa, G, F, Y
@@ -31,6 +30,8 @@ if indic.notaul==0
     if indic.taxsch==2 %linear but no transfers
         taul = 1-(h^(thetaa+sigmaa)*chii)/(w)^(1-thetaa);
         Gov = tauf*pf*F;
+    else
+        Gov=0;
     end
     % good market clearing and final production 
     Y = (F)^(eppsy)*(G)^(1-eppsy); 
@@ -40,11 +41,18 @@ if indic.notaul==0
     % derivatives
     dFdh = Af*s;
     dFds = Af*h;
-    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy)-tauf*pf*dFdh;
-    dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
-    dpfds = pg*Ag/Af/(1-tauf)^2*dtaufds;
-    dGovds = pf+F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
-    dCds = dCdh*h*(eppsy/s-(1-eppsy)/(1-s))-dGovds;
+    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
+    dCds = dCdh*h*(eppsy*(1-s)-s*(1-eppsy))/(s*(1-s));
+
+
+    if indic.taxsch>1
+        dCdh =dCdh-tauf*pf*dFdh;
+        dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
+        dpfds =-pf*(eppsy-1)/(1-tauf)*dtaufds;
+        dGovds = pf+F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
+        dCds = dCds-dGovds;
+    end
+    
     Uc = C^(-thetaa);
     Uh = -chii*h^sigmaa;
     Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
