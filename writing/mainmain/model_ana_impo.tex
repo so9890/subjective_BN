@@ -51,22 +51,23 @@ wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon}(A_g(1-s))^{1-\varepsilon
 These equations determine the efficient or first-best allocation. 
 Absent an externality, $\frac{dE}{dF}=0$, the efficient share of labor in the dirty sector is to maximise the marginal product of each hour worked and $s^{FB,E=0}=\varepsilon$, compare equation \ref{eq:fbs}. Efficient hours equalize the marginal utility gain and the disutility from working. 
 
-When there is an externality, the social planner adjusts the allocation by two modulations: a (i) recomposing and a (ii) reductive one. 
+When there is an externality, the social planner adjusts the allocation by two modulations: a (i) recomposing and a (ii) scaling one. 
 The recomposition is determined by equation \ref{eq:fbs}. The negative externality of dirty production lowers the efficient share of labor allocated to  the dirty sector and $s^{FB,E>0}<s^{FB,E=0}$. 
 
-The reductive effect is summarized by equation \ref{eq:fbh}. There are two reasons for why the efficient amount of hours worked changes. 
+The scaling effect is summarized by equation \ref{eq:fbh}. There are two reasons for why the efficient amount of hours worked changes. 
 
-
- 
-Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
 \begin{align}
-h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(\frac{(A_f s^{FB})^{\varepsilon}(A_g(1-s^{FB}))^{1-\varepsilon}}{\left[(A_f s^{FB})^{\varepsilon}(A_g(1-s^{FB}))^{1-\varepsilon}h^{FB}\right]^{\theta}}-\frac{dE}{dF}A_f s^{FB} \right)^\frac{1}{\sigma}.\label{eq:heff}
+h_{FB}= \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}\label{eq:heff}
 \end{align}
-First, the recomposition of labor input towards the  clean sector reduces the marginal product of labor as determined by equation \ref{eq:fbs}. This effect is captured by
- the first term in brackets in equation \ref{eq:heff}. On the one hand, labor becomes less productive which makes leisure less costly and the efficient amount of hours worked reduces. This is the numerator. The denominator captures that the reduction in the marginal product of labor reduces total consumption. Equivalently to the income effect in a competitive equilibrium a higher marginal utility of consumption renders labor more valuable. In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor increases the efficient amount of hours worked. 
-Second, the social planner reduces hours worked due to their negative exeternality through production, as indicated by the second term in brackets, $\frac{dE}{dF}A_fs^{FB}$.
+where $w_{FB}=(A_f s)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}$.\footnote{\ For the derivation see appendix section \ref{app:derivations}.}
 
 
+First, the recomposition of labor input towards the  clean sector reduces the marginal product of labor, and the marginal increase in consumption for an additional hour worked declines.  This effect is captured by $w_{FB}$. On the one hand, there is a substitution effect and leisure becomes less costly and the efficient amount of hours reduces. On the other hand, the economy becomes poorer and more work effort might therefore be efficient; an income effect. In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor decreases the efficient amount of hours worked. 
+Second, the social planner reduces hours worked due to their negative exeternality through production. This effect is captured by the fraction $\frac{1-\varepsilon}{1-s}$; a measure of the distance of $s$ to $\varepsilon$ and hence the severity of the externality. 
+
+One can show that the total effect of a drop in the dirty labour share on hours worked is positive, i.e. $\frac{dh_{FB}}{ds}>0$, if $\theta<\frac{\varepsilon}{\varepsilon-s}$. If the income effect dominates, the social planner increases hours worked as the economy becomes less productive. 
+Under the value for $\theta$ suggested by \cite{Boppart2019LaborPerspectiveb}, the efficient scale effect is to increase hours worked. When, however, the substitution effect outweighs or dominates the income effect - as commonly assumed in the public finance literature \citep{Heathcote2017OptimalFramework, LansBovenberg1994EnvironmentalTaxation, LansBovenberg1996OptimalAnalyses} \tr{CHECK this}- 
+When the efficient level of hours increases, though, the dirty labor share reduces even more to outweigh the increase in the externality.
 
 \subsection{Decentralized economy}
 \tr{Note that labor supply can be too high or too low in the decentralised economy depending on $\theta$}
@@ -94,7 +95,7 @@ When neither transfers nor income taxation is available the expression simplifie
 
 In the competitive equilibrium, the wage rate is
 \begin{align}
-w= (1-\varepsilon)(A_fs)^\varepsilon (A_g)^{1-\varepsilon}(1-s)^{-\varepsilon}.
+w= (1-\varepsilon)(A_fs)^\varepsilon (A_g)^{1-\varepsilon}(1-s)^{-\varepsilon}. \label{eq:compw}
 \end{align}
 
 
@@ -162,6 +163,49 @@ Only when the Ramsey planner can implement the efficient level of work, the envi
 
 \textbf{In a nutshell}
 \begin{itemize}
+	\item hours worked without transfers are always too low even if efficient tax rate is chosen
 	\item when hours are not efficient, then the environmental tax does not match the social cost of carbon
-	\item when revenues are transferred through the income tax, the planner can implement the efficient allocation with the help of a progressive income tax
+	\item when revenues are transferred through the income tax, the planner can implement the efficient allocation with the help of a progressive income tax \textit{(interesting!)}
+	\item with $\theta<\frac{\varepsilon}{\varepsilon-s}$ optimal hours worked reduce, otherwise the income effect is too strong and hours worked increase! 
+	Nevertheless, the allocation in LF without lump sum transfers always features too high hours worked. 
+	\item why does the optimal policy with taul but no lump-sum transfers not implement the efficient level? \ar income taxes are not a measure to implement the efficient allocation; only similar when income and substitution effect cancel. Too high when income effect dominates, too low when substitution effect dominates.
+ \ar general consumption tax should neither be able to implement efficient allocation! 
 \end{itemize}
+
+\subsection{Proofs}
+\subsubsection{Hours worked without transfers or income tax are too high}
+
+The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
+	In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, denoted by $h_{CE, s^{eff}}$\footnote{\ In the competitive equilibrium, the share of dirty labor is solely determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing: $\tau_f=1-\frac{1-\varepsilon}{\varepsilon}\frac{s}{1-s}$.}, exceeds the efficient level of hours worked, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available.
+	
+\textit{Step 1: $\frac{dE}{dF}>0$ \ar $\varepsilon>s$}
+Rewriting equation \ref{eq:fbs} it follows that
+\begin{align}
+\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
+\end{align}
+When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
+Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
+\begin{align}
+\varepsilon(1-s)-s(1-\varepsilon)>0,
+\end{align}
+which holds true if and only if $\varepsilon>s$.
+
+
+\textit{Step 2: $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$}
+I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
+
+\begin{align}
+&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\\
+\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\end{align}
+
+Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
+\begin{align}
+\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
+\end{align}
+which holds true whenever
+\begin{align}
+\varepsilon<s.
+\end{align}
+This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 

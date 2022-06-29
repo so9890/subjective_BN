@@ -5,7 +5,7 @@ keySet={'<1', 'log', 'Bop'};
 valueSet= repmat({struct([])},1,length(keySet));
 resultsTHETA=containers.Map(keySet, valueSet);
 indic.taxsch=1; %==0 uses nonlinear, no lump sum trans
-                %==1 then uses linear tax schedule with lump sum transfers% loop over thetaa
+                %==1 then uses linear tax schedule with lump sum transfers
                 %==2 linear tax without lump sum transfers
 indic.notaul=0; % relevant for optimal solution
 
@@ -54,8 +54,8 @@ Sp.Ulab = -chii*Sp.h^(1+sigmaa)/(1+sigmaa);
 Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
 
 % test analytic derivation of Sp.h
-Sp.htest= ((Sp.w^(1-thetaa)+Sp.dEdF*Sp.Af*Sp.s*Sp.h^thetaa)/chii)^(1/(sigmaa+thetaa));
-%- has to be smaller 
+% Sp.htest= ((Sp.w^(1-thetaa)+Sp.dEdF*Sp.Af*Sp.s*Sp.h^thetaa)/chii)^(1/(sigmaa+thetaa));
+Sp.htest = (Sp.w^(1-thetaa)/chii*(1-eppsy)/(1-Sp.s))^(1/(sigmaa+thetaa));
 
 %% Competitive equilibrium
 
@@ -167,7 +167,7 @@ Opt.pf = Opt.w/((1-Opt.tauf)*Opt.Af);
 if indic.notaul==1
     if indic.taxsch==0
         Opt.h = ((Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(1-thetaa)/chii)^(1/(sigmaa+thetaa));
-    else
+    elseif indic.taxsch==1
         % with linear tax: 
         Opt.h = ((Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(-thetaa)*Opt.w/chii)^(1/(sigmaa+thetaa));
     end
@@ -180,10 +180,10 @@ Opt.G = Opt.Ag*Opt.Lg;
 Opt.F = Opt.Af*Opt.Lf;
 % income tax/ gov budget
 
-if indic.taxsch==0
+if indic.taxsch==0 % non linear tax scheme 
     Opt.taul= 1-Opt.h^(thetaa+sigmaa)*chii*(Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(thetaa-1);
     Opt.lambdaa = (Opt.w*Opt.h+Opt.tauf*Opt.pf*Opt.F)/((Opt.w*Opt.h)^(1-Opt.taul));
-elseif indic.taxsch==1
+elseif indic.taxsch==1 % linear tax scheme with transfers
     Opt.taul = 1-Opt.h^(thetaa+sigmaa)*chii*(Opt.w+Opt.tauf*Opt.pf*Opt.Af*Opt.s)^(thetaa)/Opt.w;
     Opt.T = Opt.w*Opt.taul*Opt.h+Opt.pf*Opt.tauf*Opt.F;
 elseif indic.taxsch ==2
@@ -217,7 +217,7 @@ if indic.notaul==1
 else
     Opttaul=Opt;
 end
-% save results
+%% save results
 %- create structure
 st.Sp=Sp;
 st.Opt=Opt;
