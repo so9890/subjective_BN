@@ -29,11 +29,14 @@ Y=F^{\varepsilon}G^{1-
 F=A_fL_f, \hspace{4mm}
 G=A_gL_g.
 \end{align}
-The government raises income taxes and levies sales taxes, $\tau_f$, on dirty production revenues $p_fF$. Revenues from the income tax and the environmental tax are treated separately by the government. Environmental tax revenues are transferred lump-sum, while income tax revenues are fully redistributed through the income tax schedule:
+The government raises income taxes and levies sales taxes, $\tau_f$, on dirty production revenues $p_fF$. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule:
 \begin{align}
 T=\tau_{f}p_fF, \hspace{4mm}
 0={w h}-\lambda(w h)^{1-\tau_{\iota}}.
 \end{align}
+Environmental tax revenues are either transferred lump-sum, fully consumed by the government, or transferred through the income tax schedule.
+
+
 The market for labor clears, $h=L_f+L_g$, and the final consumption good is the numéraire.
 I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
 
@@ -109,21 +112,25 @@ w= (1-\varepsilon)(A_fs)^\varepsilon (A_g)^{1-\varepsilon}(1-s)^{-\varepsilon}. 
 
 
 \begin{prop}
-	If lump-sum transfers are not available and environmental tax revenues are consumed by the government, income taxes allow to reduce hours to the efficient level, but private consumption becomes inefficiently low. %The optimal policy is to choose an inefficient level of hours worked to avoid too low consumption. 
-	The efficient allocation is infeasible.
+	If lump-sum transfers are not available and environmental tax revenues are consumed by the government, the efficient allocation is infeasible. Income taxes  cannot restore the efficient allocation. 
 \end{prop}
 
-\begin{prop}
+
+How can the government establish the efficient allocation when no lump-sum transfers are available? One possibility is to redistribute environmental tax revenues through the income tax schedule. The marginal tax rate which supports the efficient allocation is progressive. 
+
+Under this policy, the government runs a combined budget of environmental and labor income tax revenues.  
+\begin{align}
+Gov= wh-\lambda (wh)^{1-\tau_\iota}+\tau_f p_fF.
+\end{align}
+The budget is balanced and $Gov = 0$ which determines $\lambda=\frac{w_h + \tau_f p_f F}{(wh)^{1-\tau_{\iota}}}$. The efficiency result is summarized in proposition \ref{prop:eff_nonlin}
+\begin{prop}\label{prop:eff_nonlin}
 	If lump-sum transfers are not available, the government can implement the efficient allocation by  transferring environmental tax revenues through a progressive income tax scheme.
 \end{prop}
+The proof is given in the appendix. 
 
-I will first proof that lump-sum transfers are positive. Then I will derive the income tax progressivity which replicates the efficient allocation. 
-The Ramsey planner's problem is given by
-\begin{align}
-\underset{s, h}{\max}\ & \frac{C^{1-\theta}}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)\\
-s.t\ \ & C=\left(A_fs\right)^{\varepsilon}\left(A_g(1-s)\right)^{1-\varepsilon}h
-\end{align}
-
+\begin{prop}
+Effect of using progressive income scheme on inequality (maybe as opposed to lump-sum transfers)
+\end{prop}
 \subsection{Source of inefficiency}
 With a linear tax schedule and lump-sum transfers, labor supply reacts sufficiently to the reduction in income and the efficient allocation can be implemented solely by the use of the corrective tax. Under the more flexible benchmark tax schedule, transfers, $\lambda$, are multiplicative which raises the returns to labor intensifying the substitution (?) effect of the wage rate. As the wage rate falls, households work more. To counteract this tendency, the government has to impose a progressive tax scheme, given that 
 
