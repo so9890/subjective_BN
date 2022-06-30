@@ -61,9 +61,11 @@ Sp.htest = (Sp.w^(1-thetaa)/chii*(1-eppsy)/(1-Sp.s))^(1/(sigmaa+thetaa));
 
 clear LF
 x0=log([Sp.pg,Sp.Lg]);
-tauf=Sp.pigou;
-taul=1-((1-eppsy)/(1-Sp.s))^thetaa;
+LF.tauf=Sp.pigou;
+LF.taul=1-((1-eppsy)/(1-Sp.s))^thetaa; % this tax implements efficient hours worked given tauf=SP.pigou
 taus=0;
+tauf=LF.tauf;
+taul=LF.taul;
 lambdaa=1;
 pol=eval(symms.pol);
 modFF = @(x)easy_lf(x, params, list, pol,  init201519, indic);
@@ -83,26 +85,26 @@ LF.Lg=exp(sol3(2));
 
 LF.G = LF.Ag*LF.Lg;
 LF.w = LF.pg*LF.Ag;
-LF.pf = LF.w/((1-tauf)*LF.Af);
+LF.pf = LF.w/((1-LF.tauf)*LF.Af);
 LF.Lf = LF.pg/LF.pf*LF.Ag/LF.Af*eppsy/(1-eppsy)*LF.Lg;
 LF.F = LF.Af*LF.Lf;
 LF.Y = (LF.F)^(eppsy)*(LF.G)^(1-eppsy);
 LF.h = LF.Lf+LF.Lg;
-LF.lambdaa = (LF.w*LF.h+tauf*LF.pf*LF.F)/((LF.w*LF.h)^(1-taul));
+LF.lambdaa = (LF.w*LF.h+LF.tauf*LF.pf*LF.F)/((LF.w*LF.h)^(1-LF.taul));
 LF.s =LF.Lf/LF.h;
 if indic.taxsch==0
-    LF.hsup =  (LF.lambdaa^(1-thetaa)*(1-taul)*LF.w^((1-taul)*(1-thetaa))/chii)^(1/(sigmaa+taul+thetaa*(1-taul)));
-    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa-1);
-    LF.C  = LF.lambdaa*(LF.w*LF.h)^(1-taul);
+    LF.hsup =  (LF.lambdaa^(1-thetaa)*(1-LF.taul)*LF.w^((1-LF.taul)*(1-thetaa))/chii)^(1/(sigmaa+LF.taul+thetaa*(1-LF.taul)));
+    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+LF.tauf*LF.pf*LF.Af*LF.s)^(thetaa-1);
+    LF.C  = LF.lambdaa*(LF.w*LF.h)^(1-LF.taul);
 
 elseif indic.taxsch==1 % linear tax schedule
-    LF.hsup = (((LF.w+tauf*LF.pf*LF.F/LF.h)^(-thetaa)*LF.w*(1-taul))/(chii))^(1/(sigmaa+thetaa));
-    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+tauf*LF.pf*LF.Af*LF.s)^(thetaa)/LF.w;
-    LF.C= LF.w*LF.h+tauf*LF.pf*LF.F;
-    LF.T=tauf*LF.pf*LF.F;
+    LF.hsup = (((LF.w+LF.tauf*LF.pf*LF.F/LF.h)^(-thetaa)*LF.w*(1-LF.taul))/(chii))^(1/(sigmaa+thetaa));
+    LF.taul =  1-LF.h^(thetaa+sigmaa)*chii*(LF.w+LF.tauf*LF.pf*LF.Af*LF.s)^(thetaa)/LF.w;
+    LF.C= LF.w*LF.h+LF.tauf*LF.pf*LF.F;
+    LF.T=LF.tauf*LF.pf*LF.F;
 elseif indic.taxsch==2 % linear tax schedule but no transfers
-    LF.hsup = ((LF.w)^(1-thetaa)*(1-taul)/chii)^(1/(thetaa+sigmaa));
-    LF.Gov = tauf*LF.pf*LF.F;
+    LF.hsup = ((LF.w)^(1-thetaa)*(1-LF.taul)/chii)^(1/(thetaa+sigmaa));
+    LF.Gov = LF.tauf*LF.pf*LF.F;
     LF.C = LF.w*LF.h; % transfers from labour tax
     LF.aggdemand =LF.Gov+LF.C;
 end
@@ -126,7 +128,7 @@ LF.scc = -LF.dEdF*LF.C^thetaa/LF.pf;
 % only if utility = log
 if indic.util==0
    LF.Tana=-LF.dEdF*LF.Af*LF.s*LF.h^thetaa/(1+LF.dEdF*LF.Af*LF.s*LF.h^thetaa)*LF.w*LF.h;
-   LF.Tana_gov= tauf/(1-tauf)*LF.w*LF.s*LF.h;
+   LF.Tana_gov= LF.tauf/(1-LF.tauf)*LF.w*LF.s*LF.h;
    LF.taufcheckk=-LF.dEdF*LF.Af*LF.h/(1-LF.dEdF*LF.Af*LF.h*(1-LF.s));
 end
 
@@ -214,7 +216,8 @@ Opt.Ulab = -chii*Opt.h^(1+sigmaa)/(1+sigmaa);
 Opt.SWF = Opt.Ucon+Opt.Ulab+indic.extern*Opt.Ext;
 Opt.scc = -Opt.dEdF*Opt.C^thetaa/Opt.pf;
 % test taul
-Opt.taultest= 1-((1-eppsy)/(1-Opt.s))^thetaa;
+Opt.taultest= 1-((1-eppsy)/(1-Opt.s))^thetaa; % expression for taul to have optimal h
+% Opt.wtest=
 if indic.notaul==1
     Optnotaul=Opt;
 else
@@ -242,9 +245,9 @@ end
 
 % - create table from results 
 kk=keys(resultsTHETA);
-Table=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
-Table.Properties.VariableNames={'Thetaa','FB hours', 'FB SWF', 'FB MPL','FB Pigou', 'Only tauf=pigou hours' , 'Only tauf=pigou SWF' , 'Only tauf=pigou scc', 'Only tauf=pigou wage', ...
-                                       'Optimal hours', 'Optimal SWF', 'Optimal wage', 'Optimal taul', 'Optimal tauf', 'Optimal scc'};
+Table=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
+Table.Properties.VariableNames={'Thetaa','FB hours', 'FB SWF', 'FB s', 'FB MPL','FB Pigou', 'Only tauf=pigou hours' , 'Only tauf=pigou SWF' , 'Only tauf=pigou s' , 'Only tauf=pigou scc', 'Only tauf=pigou wage', ...
+                                       'Optimal hours', 'Optimal SWF','Optimal s', 'Optimal wage', 'Optimal taul', 'Optimal tauf', 'Optimal scc'};
 
 %- only hours, and policy
 TableH=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
@@ -253,8 +256,8 @@ TableH.Properties.VariableNames={'Thetaa','FB hours', 'FB Pigou', 'CE hours',  '
 
 for i=1:3
     st=resultsTHETA(string(kk(i)));
-    Table(i,2:end)={st.Sp.h, st.Sp.SWF,st.Sp.w, st.Sp.pigou, st.LF.h, st.LF.SWF, st.LF.scc, st.LF.w, ...
-                    st.Opt.h, st.Opt.SWF, st.Opt.w, Opt.taul, st.Opt.tauf, st.Opt.scc};
+    Table(i,2:end)={st.Sp.h, st.Sp.SWF,st.Sp.s, st.Sp.w, st.Sp.pigou, st.LF.h, st.LF.SWF, st.LF.s, st.LF.scc, st.LF.w, ...
+                    st.Opt.h, st.Opt.SWF, st.Opt.s, st.Opt.w, Opt.taul, st.Opt.tauf, st.Opt.scc};
     TableH(i,2:end)={st.Sp.h, st.Sp.pigou, st.LF.h, st.LF.scc, ...
                     st.Opt.h, Opt.taul, st.Opt.tauf, st.Opt.scc};
 end

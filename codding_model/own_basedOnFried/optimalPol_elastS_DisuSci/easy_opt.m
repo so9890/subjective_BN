@@ -69,8 +69,6 @@ if indic.notaul==0
     f(2) = Uc*dCds + indic.extern*Uf*dFds; % optimality government wrt s => tauf
 
 elseif indic.notaul==1
-    if indic.taxsch>1
-        error('not yet coded no taul with linear tax no transfers')
     s = exp(x(1));
 
     tauf = 1-((1-eppsy)/eppsy)*s/(1-s); % tauf determines s
@@ -80,9 +78,12 @@ elseif indic.notaul==1
     % labour supply
     if indic.taxsch==0
         h = ((w+tauf*pf*Af*s)^(1-thetaa)/chii)^(1/(sigmaa+thetaa));
-    else
+    elseif indic.taxsch==1
         % with linear tax: 
         h = ((w+tauf*pf*Af*s)^(-thetaa)*w/chii)^(1/(sigmaa+thetaa));
+    elseif indic.taxsch == 2
+        h = (w^(1-thetaa)/chii)^(1/(sigmaa+thetaa));
+        Gov = tauf*pf*F;
     end
     % labour market clearing: 
     Lg = (1-s)*h; 
@@ -93,16 +94,32 @@ elseif indic.notaul==1
     % gov budget: without income tax prog lambdaa s.t. hh consume all
     lambdaa = (w*h+tauf*pf*F)/((w*h));
     % good market clearing and final production 
-    C = (F)^(eppsy)*(G)^(1-eppsy); 
-   
+    Y = (F)^(eppsy)*(G)^(1-eppsy); 
+    
+    if indic.taxsch<=1
+        C=Y;
+    else
+        C=Y-Gov;
+    end
+    
     % derivatives
-    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
-    dCds = dCdh*h*(eppsy*(1-s)-s*(1-eppsy))/(s*(1-s));
-    Uc = C^(-thetaa);
-    Uh = -chii*h^sigmaa;
-    Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
     dFdh = Af*s;
     dFds = Af*h;
+    dCdh = (Af*s)^(eppsy)*(Ag*(1-s))^(1-eppsy);
+    dCds = dCdh*h*(eppsy*(1-s)-s*(1-eppsy))/(s*(1-s));
+    
+    if indic.taxsch>1
+%         dCdh =dCdh-tauf*pf*dFdh;
+        dtaufds = -(1-eppsy)/eppsy*(1/(1-s)^2);
+        dpfds =-pf*(eppsy-1)/(1-tauf)*dtaufds;
+        dGovds = pf*F*dtaufds+tauf*F*dpfds+tauf*pf*dFds;
+        dCds = dCds-dGovds;
+    end
+    
+        
+    Uc = C^(-thetaa);
+%     Uh = -chii*h^sigmaa;
+    Uf = -weightext*extexpp*(omegaa)^extexpp*F.^(extexpp-1);
     
     % Optimality conditions planner 
     %f(1) = Uc*dCdh + Uh +indic.extern* Uf*dFdh; % optimality wrt h => taul
