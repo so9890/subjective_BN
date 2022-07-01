@@ -9,10 +9,11 @@
 \text{optimality HH}\hspace{5mm}& h^{\sigma+\tau_{\iota t}+\theta(1-\tau_{\iota t})}=\lambda_t^{1-\theta}(1-\tau_{\iota t})w_t^{(1-\tau_{\iota t})(1-\theta)}\\
 \text{Final Production}\hspace{5mm}&Y=F^{\varepsilon_y}G^{1-
 	\varepsilon_y}\\ %\left[F^\frac{\varepsilon_y-1}{\varepsilon_y}+G^\frac{\varepsilon_y-1}{\varepsilon_y}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}\\
-\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\\
-\text{Demand final prod}\hspace{5mm}&\frac{F}{G}=\left(\frac{\varepsilon_y}{1-\varepsilon_y}\right)\left(\frac{p_g}{p_f}\right)\\
-\text{Production F and G}\hspace{5mm}&F=A_fL_f\\\
-& G=A_gL_g\\
+%\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\label{eq:ana_pr}\\
+\text{Demand clean good}\hspace{5mm}&p_g=(1-\varepsilon)\left(\frac{F}{G}\right)^\varepsilon\label{eq:ana_dem_clean}\\
+\text{Demand clean good}\hspace{5mm}&p_f=\varepsilon\left(\frac{F}{G}\right)^{\varepsilon-1}\label{eq:ana_dem_dirty}\\
+\text{Production F and G}\hspace{5mm}&F=A_fL_f\label{eq:ana_prod_F}\\\
+& G=A_gL_g\label{eq:ana_prod_G}\\
 \text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
 & w=p_gA_g\\
 \text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
@@ -22,6 +23,29 @@
 \text{Balanced income tax revenues}\hspace{5mm}&\lambda_t=\frac{w_t h_t}{(w_t h_t)^{1-\tau_{\iota t}}}\\
 &E_{net}=\omega F-\delta
 \end{align}
+
+\subsection{Solving the model}
+%Demand for intermediate goods determines the price ratio, $\frac{p_g}{p_f}$ in equilibrium, equation \ref{eq:ana_dem_fin}. 
+%Intermediate good market clearing, i.e. substituting intermediate good production functions, equations \ref{eq:ana_prod_F} and \ref{eq:ana_prod_G}, in \ref{eq:ana_dem_fin} yields
+%\begin{align}
+%\frac{p_g}{p_f}=\frac{A_f}{Ag}\frac{s}{1-s}\frac{1-\varepsilon}{\varepsilon},
+%\end{align}
+%where I used that $s=\frac{L_f}{h}$ and the labor market clearing condition. Solving the price definition of the final goods price, equation \ref{eq:ana_pr} for $p_g$ as a function of $\frac{p_g}{p_f}$ and substituting the previous expression for the price ratio gives the price of the clean good in equilibrium as a function of labor shares:
+%\begin{align}
+%p_g=(1-\varepsilon)\left(\frac{A_f}{A_g}\right)^\varepsilon\left(\frac{s}{1-s}\right)^{1-\varepsilon}.
+%\end{align}
+%The equilibrium price paid for the clean good 
+
+\subsection{Inefficiency in the wage rate with externality}
+
+The wage rate in the competitive equilibrium is below the marginal product of hours worked. 
+The reason is that the lower labor share in the dirty sector has to be sustained by a tax on dirty production. 
+Otherwise, market forces would equilibrate the marginal product of labor in both sectors and $\varepsilon=s$. Yet, this disregards the negative externality of dirty production. 
+
+In the competitive equilibrium, hence, the environmental tax serves to sustain the wedge between marginal products of labor across intermediate sectors: it is higher in the dirty and lower in the green sector.
+
+This comes at the cost of lowering the aggregate wage rate in the economy to the marginal product of labor in the green sector. 
+Nevertheless, the marginal product of labor in the fossil sector is higher. As a result, the aggregate wage rate, $w$, falls short of the aggregate marginal product of labor in the economy. This mechanism on its own renders labor supply inefficiently low in the competitive economy. However, as shown in proof \ref{prop:1}, the equilibrium hours supplied are inefficiently high in the competitve allocation. 
 
 \section{Derivations and proofs}\label{app:derivations}
 \subsection{Derivation expression for $h^{FB}$}
@@ -33,7 +57,7 @@ h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f 
 Note that an explicit expression for $h^{FB}$ follows from equation \ref{eq:fbs} when there is an externality and $\frac{dE}{dF}\neq 0$. Then 
 
 \begin{align}
-h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)
+h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)^\frac{1}{\theta}
 \end{align}
 and the result follows from substituting the last expression in expression  \ref{eq:heff_1}.
 
@@ -45,7 +69,7 @@ In the second step, I show that even if the environmental tax is set to the tax 
 
 First note that the share of dirty labor is fully determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing 
 \begin{align}
-\tau_f = \frac{\varepsilon-s}{1-\varepsilon}\label{eq:tauf}
+\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}\label{eq:tauf}
 \end{align}
 
 \textbf{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
@@ -80,10 +104,21 @@ which holds true whenever
 This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
 \end{proof}
 
+\textit{Intuition:} the fact that the wage rate in the competitive equilibrium understates the marginal product of labor  depresses labor supply due to a substituion effect. When the income effect is more pronounced, that is, $\theta>1$, the low wage rate increases labor supply above the efficient level. When the substitution effect is stronger when $\theta<1$, then the distortion in the wage rate decreases labor supply. 
+The neglected contribution to the externality by households in the competitive equilibrium makes hours inefficiently high irrespective of parameter values. 
+Hence, with $\theta<1$ the overall distortion in hours worked is mitigated has households the stronger substitution effect offsets part of the inefficient high labor supply due to the neglect of the externality. ¸
+
+In the model, it does so by exactly the same amount as hours contribute to the externality. 
+than compensated for by the neglect of the negative effect of hours on the externality due to the concave curvature of the utility function, $\theta>0$. If $\theta=0$, then the two effects would exactly offset. 
+
+
+
 \subsection{Proof: lump-sum transfers restore the efficient allocation}
 \begin{proof}\label{pr:lst_eff}
 To establish that lump-sum transfers of environmental tax revenues restore the efficient allocation, I first derive the size of lump-sum transfers which implement the efficient level of hours worked given that the efficient dirty labor share is established by choice of the environmental tax. In a second step, I show that this level of transfers coincides with the revenues from the environmental tax when this is set to implement the efficient dirty labor share. 
 These two steps prove that the efficient amount of hours results from lump-sum transferring environmental tax revenues. Finally, I show that the resulting level of consumption is efficient. This completes the proof.
+
+
 
 \textbf{Step 1:} Solve for transfers which implement efficient level of hours\\
 I equalize equation \ref{eq:heff} and \ref{eq:hopt} setting the income tax progressivity, $\tau_{\iota}$, to zero.
@@ -102,7 +137,7 @@ T^* = \left(\frac{\varepsilon-s}{1-\varepsilon}\right)wh_{FB},
 \end{align}
 
 \textbf{Step 2:} $T^*=\tau_f^*p_fF$\\
-The environmental tax in equilibrium is determined by equation \ref{eq:tauf}: $\tau_f = \frac{\varepsilon-s}{1-\varepsilon}$. Free labor movement enforcing a unique wage rate implies that $p_f=p_g\frac{A_g}{(1-\tau_f)A_f}$. The price for the clean good, $p_g$, in equilibrium, balances clean demand and wages paid: $p_g=\varepsilon^\varepsilon(1-\varepsilon)^{1-\varepsilon}\left(\frac{(1-\tau_f)A_f}{A_g}\right)^\varepsilon$. Dirty output, $F$, is given by $F=A_fsh$. 
+The environmental tax in equilibrium is determined by equation \ref{eq:tauf}: $\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}$. Free labor movement enforcing a unique wage rate implies that $p_f=p_g\frac{A_g}{(1-\tau_f)A_f}$. The price for the clean good, $p_g$, in equilibrium, balances clean demand and wages paid: $p_g=\varepsilon^\varepsilon(1-\varepsilon)^{1-\varepsilon}\left(\frac{(1-\tau_f)A_f}{A_g}\right)^\varepsilon$. Dirty output, $F$, is given by $F=A_fsh$. 
 Substituting these expressions in the expression for $T^*$ above and observing that $w=(1-\varepsilon)\left(\frac{A_f}{A_g}\frac{s}{1-s}\right)^\varepsilon A_g$ yields the result.
 
 \textbf{Step 3: } Consumption under $T^*$ is efficient\\
