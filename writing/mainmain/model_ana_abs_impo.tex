@@ -3,66 +3,81 @@
 \begin{enumerate}
 \item the efficient allocation consists of both a recomposing and a scaling element \ar discuss social planner allocation \checkmark
 \item in the Ramsey planner allocation, eqbm hours are too high
-\item lump-sum transfers implement the efficient reduction in hours worked \checkmark
-\item absent lump-sum transfers, households work too much \checkmark
-\item the income tax which implements the efficient allocation is positive/ progressive \checkmark
+\item lump-sum transfers implement the efficient reduction in hours worked and ensure the efficient amount of consumption \checkmark
+\item absent lump-sum transfers, households work too much and consume too low \ar the optimal env. tax is not characterised by the Pigou principle  \checkmark;  there is a role for the labor income tax already here to \tr{to be shown}
+\item redistribution through the income tax scheme establishes the efficient allocation if the income tax is progressive \textit{Intuition: in contrast to lump-sum transfers, transferring environmental tax revenues through the income tax scheme constitutes a positive multiplication of labor income \ar this increases labor efforts. The progressive tax counters this tendency.} \checkmark
 \end{enumerate}
 
-This section develops a tractable model to investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of. 
+This section develops a tractable model to establish the main theoretical results. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of. 
 
 \subsection{Core model}
-The representative household faces a consumption and labor supply decision. The final consumption good is a composite of a dirty and a clean good. Labor is the only input to production. For simplicity the clean sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly clean. The model also abstracts from endogenous growth and becomes static. The planner levies income taxes on labor income using a non-linear tax scheme common in the public finance literature \citep{Heathcote2017OptimalFramework, Benabou2002TaxEfficiency}.\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
+The representative household faces a consumption and labor supply decision. The final consumption good is a composite of a dirty and a clean good. Labor is the only input to production. For simplicity the clean sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly clean. The model abstracts from endogenous growth and becomes static. 
 
-
-
-
-
-The representative household maximises its period utility
+\paragraph{Representative household}
+The representative household maximises its life-time utility which in the static model corresponds to maximising the period utility
 \begin{align}
-\frac{C^{1-\theta}-1}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)
-\end{align}
-subject to a budget constraint
-\begin{align}
-	 C= \lambda(wh)^{1-\tau_{\iota}}+T.
-\end{align}
-The household derives utility from consumption but experiences disutility from working. An externality from dirty (or fossil) production, $F$, decreases household utility and is taken as given by the household.
+U(C,H; F)
+\end{align} 
 
-All sectors of production are perfectly competitive. The final consumption goodm $Y$, is a Cobb-Douglas composite of the dirty, $F$, and the clean good, $G$. Intermediate good $j\in \{f,g\}$ is produced from labor, $L_j$m and total factor technology, $A_j$. 
+The household derives utility from consumption, $C$, but experiences disutility from the hours spent working, $H$. An externality from dirty (or fossil) production, $F$, decreases household utility and is taken as given by the household.
+I assume additive separability of consumption, hours, and the externality. I further assume that utility of consumption is increasing and concave. As regards hours and the externality, utilty is decreasing and convex.
+Utility maximization is subject to a budget constraint
 \begin{align}
-Y=F^{\varepsilon}G^{1-
-	\varepsilon}, \hspace{4mm}
-F=A_fL_f, \hspace{4mm}
-G=A_gL_g.
+	 C= \lambda(wH)^{1-\tau_{\iota}}+T_{ls}.
 \end{align}
-The government raises income taxes and levies sales taxes, $\tau_f$, on dirty production revenues $p_fF$. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule:
+
+The varibale $w$ indicates the wage rate, and $T_{ls}$ denotes lump-sum transfers from the government.
+The planner levies income taxes on labor income using a non-linear tax scheme common in the public finance literature \citep{Heathcote2017OptimalFramework, Benabou2002TaxEfficiency}. The tax scheme is
+characterized by a scaling factor, $\lambda$, which determines the level of average tax revenues in the economy and a measure of the tax progressivity denoted by $\tau_{\iota}$. 
+\cite{Heathcote2017OptimalFramework} show that whenever $\tau_{\iota}>0$ the tax scheme is progressive since the marginal tax rate exceeds the average tax rate irrespective of  pre-tax labor income. Hence, as labor income increases, average tax payments increase, too. An alternative intuition is that when $\tau_{\iota}>0$, the elasticity of post- to pre-tax labor income is smaller unity for all levels of pre-tax labor income.  %\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
+
+\paragraph{Production}
+All sectors of production are perfectly competitive. The final consumption good, $Y$, is a composite of the dirty, $F$, and the clean intermediate good, $G$. 
+Intermediate goods are produced from labor, $L_j$, and technology, $A_j$, where $j\in \{f,g\}$ indicates the dirty and the clean sector.
 \begin{align}
-T=\tau_{f}p_fF, \hspace{4mm}
-0={w h}-\lambda(w h)^{1-\tau_{\iota}}.
+Y=F_Y(F, G), \hspace{5mm} F=F_F(A_f, L_f),\hspace{5mm} G=F_G(A_g, L_g)
 \end{align}
-Environmental tax revenues are either transferred lump-sum, fully consumed by the government, or transferred through the income tax schedule.
 
+\paragraph{Government}
+The government raises income taxes from households and levies ad-valorem sales taxes, $\tau_f$, on dirty producers' revenues $p_fF$, where $p_f$ denotes the price of the dirty good paid by final good producers. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule while environmental tax revenues are either lump-sum redistributed to households, $T_{ls}$, consumed by the government, $Gov$, or redistributed through the income tax scheme, $T_\iota$:
+\begin{align}
+\tau_{f}p_fF=T_{ls}+T_\iota+Gov, \hspace{7mm}
+0={w h}-\lambda(w h)^{1-\tau_{\iota}}+T_\iota.
+\end{align}
+%Environmental tax revenues are either transferred lump-sum, fully consumed by the government, or transferred through the income tax schedule.
 
-The market for labor clears, $h=L_f+L_g$, and the final consumption good is the numéraire.
-I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
+\paragraph{Markets}
+The market for labor and the final good both clear: $H=L_f+L_g$ and $Y=C+Gov$. The final good, $Y$, is the numéraire.
+%I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
 
 \subsection{Social planner}
-Let the share of dirty to total labor be denoted by $s=L_f/h$. The social planner's problem reads
+Let the share of dirty to total labor be denoted by $s=L_f/H$. The social planner's problem reads
 \begin{align}
-\underset{s, h}{\max}\ & \frac{C^{1-\theta}-1}{1-\theta}-\chi \frac{h^{1+\sigma}}{1+\sigma}-E(F)\\
-s.t\ \ & C=\left(A_fs\right)^{\varepsilon}\left(A_g(1-s)\right)^{1-\varepsilon}h
+\underset{s, H}{\max}\ & U(C,H; F)\\ s.t\ \ & C=Y.
 \end{align}
 The first order conditions are given by
 \begin{align}
-wrt.\ h:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}}_{MPL}=\chi h^\sigma+\frac{dE}{dF}\frac{dF}{dh}\label{eq:fbh},\\
-wrt.\ s:\ & C^{-\theta}\underbrace{(A_fs)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}}_{MPL}h\underbrace{\left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\right)}_{\text{how s changes MPL}}=\frac{dE}{dF}\frac{dF}{ds}. \label{eq:fbs}
+wrt.\ H:\hspace{4mm} & U_C\frac{dY}{dH}=-U_H+U_F\frac{dF}{dH}\label{eq:fbh},\\
+wrt.\ s:\hspace{4mm} & U_C\left(\frac{dY}{dF}\frac{dF}{ds}+\frac{dY}{dG}\frac{dG}{ds}\right)=-U_F\frac{dF}{ds}. \label{eq:fbs}
 \end{align}
 These equations determine the efficient or first-best allocation. 
-Absent an externality, $\frac{dE}{dF}=0$, the efficient share of labor in the dirty sector is to maximise the marginal product of each hour worked and $s^{FB,E=0}=\varepsilon$, compare equation \ref{eq:fbs}. Efficient hours equalize the marginal utility gain and the disutility from working. 
+Absent an externality, $U_F=0$, the efficient distribution of labor across sectors is to equalize the marginal product of labor across sectors; compare equation \ref{eq:fbs}. Efficient hours balance the marginal utility gain from consumption and the disutility from working. 
 
 When there is an externality, the social planner adjusts the allocation by two modulations: a (i) recomposing and a (ii) scaling one. 
-The recomposition is determined by equation \ref{eq:fbs}. The negative externality of dirty production lowers the efficient share of labor allocated to  the dirty sector and $s^{FB,E>0}<s^{FB,E=0}$. 
+The recomposition is determined by equation \ref{eq:fbs}.
 
-The scaling effect is summarized by equation \ref{eq:heff} below which follows from the social planner's first order conditions.\footnote{\ For the derivation see appendix section \ref{app:derivations}.} There are two reasons for why the efficient amount of hours worked changes. 
+The negative externality of dirty production  lowers the efficient share of labor allocated to  the dirty sector so that the marginal product of labor in the dirty sector exceeds the marginal product in the clean sector; note that $U_F<0$ by assumption so that the right-hand side is positive and that $\frac{dG}{ds}<0$.
+\begin{comment}
+The equation 
+\begin{align}
+\frac{-U_F}{U_C \frac{dY}{dF}}=1+\frac{\frac{dY}{dG}\frac{dG}{ds}}{\frac{dY}{dF}\frac{dF}{ds}}.
+\end{align}
+The term on the left-hand side is the social cost of the externality: it measures what the representative household is willing to pay for a further reduction in dirty production. 
+\end{comment}
+
+The scaling effect is summarized by equation \ref{eq:fbh}.
+\tr{CONTINUE}
+\footnote{\ For the derivation see appendix section \ref{app:derivations}.} There are two reasons for why the efficient amount of hours worked changes. 
 
 \begin{align}
 h_{FB}= \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}\label{eq:heff}
