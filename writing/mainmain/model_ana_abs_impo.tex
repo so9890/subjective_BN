@@ -57,15 +57,15 @@ Let the share of dirty to total labor be denoted by $s=L_f/H$. The social planne
 \end{align}
 The first order conditions are given by
 \begin{align}
-wrt.\ H:\hspace{4mm} & U_C\frac{dY}{dH}=-U_H+U_F\frac{dF}{dH}\label{eq:fbh},\\
-wrt.\ s:\hspace{4mm} & U_C\left(\frac{dY}{dF}\frac{dF}{ds}+\frac{dY}{dG}\frac{dG}{ds}\right)=-U_F\frac{dF}{ds}. \label{eq:fbs}
+wrt.\ s:\hspace{4mm} & U_C\left(\frac{dY}{dF}\frac{dF}{ds}+\frac{dY}{dG}\frac{dG}{ds}\right)=-U_F\frac{dF}{ds}, \label{eq:fbs}
+\\
+wrt.\ H:\hspace{4mm} & U_C\frac{dY}{dH}+U_F\frac{dF}{dH}=-U_H\label{eq:fbh}. 
 \end{align}
 These equations determine the efficient or first-best allocation. 
 Absent an externality, $U_F=0$, the efficient distribution of labor across sectors is to equalize the marginal product of labor across sectors; compare equation \ref{eq:fbs}. Efficient hours balance the marginal utility gain from consumption and the disutility from working. 
 
 When there is an externality, the social planner adjusts the allocation by two modulations: a (i) recomposing and a (ii) scaling one. 
 The recomposition is determined by equation \ref{eq:fbs}.
-
 The negative externality of dirty production  lowers the efficient share of labor allocated to  the dirty sector so that the marginal product of labor in the dirty sector exceeds the marginal product in the clean sector; note that $U_F<0$ by assumption so that the right-hand side is positive and that $\frac{dG}{ds}<0$.
 \begin{comment}
 The equation 
@@ -76,18 +76,15 @@ The term on the left-hand side is the social cost of the externality: it measure
 \end{comment}
 
 The scaling effect is summarized by equation \ref{eq:fbh}.
-\tr{CONTINUE}
-\footnote{\ For the derivation see appendix section \ref{app:derivations}.} There are two reasons for why the efficient amount of hours worked changes. 
+There are two reasons for why the efficient amount of hours worked changes. 
+First, the recomposition of labor input towards the  clean sector reduces the marginal product of labor, and the marginal increase in consumption for an additional hour worked declines.  This effect is captured by $\frac{dY}{dH}$ and has two opposing impacts on the efficient labor supply. On the one hand, there is a substitution effect: as leisure becomes less costly, the efficient amount of hours reduces (note that the right-hand side is increasing in $H$). On the other hand, the economy becomes poorer and more work effort might therefore be efficient. This is an income effect captured by the term $U_C$. 
+%In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor decreases the efficient amount of hours worked. 
+Second, the social planner reduces hours worked due to their negative exeternality through dirty production. This effect is captured by the fraction $U_F\frac{dF}{dH}<0$. 
+Depending on the importance of the income effect, efficient hours worked may be higher or lower than in the efficient allocation absent externality.\footnote{ \ I discuss in the appendix conditions on parameter values when assuming functional forms of the model.}
+I will show in the following, that irrespective of whether the social planner de- or increases hours, the decentralized economy always features higher hours when the environmental tax is the only instrument, that is, lump-sum transfers are not available and environmental tax revenues are consumed by the government. 
 
-\begin{align}
-h_{FB}= \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}\label{eq:heff}
-\end{align}
-where $w_{FB}=(A_f s)^{\varepsilon}(A_g(1-s))^{1-\varepsilon}$.
 
-
-First, the recomposition of labor input towards the  clean sector reduces the marginal product of labor, and the marginal increase in consumption for an additional hour worked declines.  This effect is captured by $w_{FB}$. On the one hand, there is a substitution effect and leisure becomes less costly and the efficient amount of hours reduces. On the other hand, the economy becomes poorer and more work effort might therefore be efficient: an income effect. In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor decreases the efficient amount of hours worked. 
-Second, the social planner reduces hours worked due to their negative exeternality through production. This effect is captured by the fraction $\frac{1-\varepsilon}{1-s}$; a (negative) measure of the distance of $s$ to $\varepsilon$ and hence the severity of the externality. This factor is shown to be below unity in step 1 in the appendix section \ref{app:derivations}.
-
+\hrule
 One can show that the total effect of a drop in the dirty labor share on hours worked is positive, i.e. $\frac{dh_{FB}}{ds}>0$, if $\theta<\frac{\varepsilon}{\varepsilon-s}$. If the income effect dominates, the social planner increases hours worked as the economy becomes less productive. 
 Under the value for $\theta$ suggested by \cite{Boppart2019LaborPerspectiveb}, the efficient scale effect is to increase hours worked. When, however, the substitution effect outweighs or dominates the income effect - as commonly assumed in the public finance literature \citep{Heathcote2017OptimalFramework, LansBovenberg1994EnvironmentalTaxation, LansBovenberg1996OptimalAnalyses} \tr{CHECK this}!.
 Nevertheless, the level of hours worked exceeds the efficient level irrespective of $\theta$ when no lump-sum transfers are available. 
