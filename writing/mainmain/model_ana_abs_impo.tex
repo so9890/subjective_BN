@@ -23,7 +23,7 @@ The household derives utility from consumption, $C$, but experiences disutility 
 I assume additive separability of consumption, hours, and the externality. I further assume that utility of consumption is increasing and concave. As regards hours and the externality, utilty is decreasing and convex.
 Utility maximization is subject to a budget constraint
 \begin{align}
-	 C= \lambda(wH)^{1-\tau_{\iota}}+T_{ls}.
+	 C= \lambda(wH)^{1-\tau_{\iota}}+T_{ls}. \label{eq:hhbudget}
 \end{align}
 
 The varibale $w$ indicates the wage rate, and $T_{ls}$ denotes lump-sum transfers from the government.
@@ -35,7 +35,7 @@ characterized by a scaling factor, $\lambda$, which determines the level of aver
 All sectors of production are perfectly competitive. The final consumption good, $Y$, is a composite of the dirty, $F$, and the clean intermediate good, $G$. 
 Intermediate goods are produced from labor, $L_j$, and technology, $A_j$, where $j\in \{f,g\}$ indicates the dirty and the clean sector.
 \begin{align}
-Y=F_Y(F, G), \hspace{5mm} F=F_F(A_f, L_f),\hspace{5mm} G=F_G(A_g, L_g)
+Y=F_Y(F, G), \hspace{5mm} F=F_F(A_f, L_f),\hspace{5mm} G=F_G(A_g, L_g) \label{eq:prod}
 \end{align}
 
 \paragraph{Government}
@@ -49,7 +49,17 @@ The government raises income taxes from households and levies ad-valorem sales t
 \paragraph{Markets}
 The market for labor and the final good both clear: $H=L_f+L_g$ and $Y=C+Gov$. The final good, $Y$, is the numéraire.
 %I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
-
+\subsection{Competitive equilibrium}
+In a competitive equilibrium, household behavior is described by the budget constraint, equation \ref{eq:hhbudget}, and labor supply which follows from the household first order conditions and substituion of $\lambda$ from the government's budget on the income tax:
+\begin{align}
+-U_H=U_C(1-\tau_{\iota})w\left(1-\frac{T_\iota}{wH}\right). \label{eq:hsup}
+\end{align}
+Production is described by equations \ref{eq:prod} and prices follow from firms' profit maximization:
+\begin{align}
+p_g=\frac{\partial Y}{\partial G}, \hspace{5mm}
+p_f = \frac{\partial Y}{\partial F}, \hspace{5mm}
+w= p_f(1-\tau_f)\frac{\partial F}{\partial L_f}=p_g\frac{\partial G´}{\partial L_g}\label{eq:profmax}
+\end{align}
 \subsection{Social planner}
 Let the share of dirty to total labor be denoted by $s=L_f/H$. The social planner's problem reads
 \begin{align}
@@ -110,24 +120,61 @@ The government is characterized by a Ramsey planner: it seeks to maximize utilit
 
 The Ramsey problem is defined as
 \begin{align}
-\underset{s, H}{\max}\ & U(C,H; F)\\ s.t\ \ & C=Y-Gov\\ & \text{behavior of firms and household}.
+\underset{s, H}{\max}\ & U(C,H; F)\\ s.t\ \ & C=Y-Gov\\ & \text{behavior of firms and households}.
 \end{align}
 
 The optimality conditions differ from the social planner's ones in through the derivatives on government revenues, $Gov$:
 \begin{align}
-wrt.\ s:\hspace{4mm} & U_C\left(\frac{dY}{dF}\frac{dF}{ds}+\frac{dY}{dG}\frac{dG}{ds}-\frac{dGov}{ds}\right)=-U_F\frac{dF}{ds}, \label{eq:sbs}
+wrt.\ s:\hspace{4mm} & U_C\left(\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial Gov}{ \partial s}\right)=-U_F\frac{\partial F}{\partial s}, \label{eq:sbs}
 \\
-wrt.\ H:\hspace{4mm} & U_C\left(\frac{dY}{dH}-\frac{dGov}{dH}\right)+U_F\frac{dF}{dH}=-U_H\label{eq:sbh}. 
+wrt.\ H:\hspace{4mm} & U_C\left(\frac{\partial Y}{\partial H}-\frac{\partial Gov}{\partial H}\right)+U_F\frac{\partial F}{\partial H}=-U_H\label{eq:sbh}. 
 \end{align}
-\subsubsection{Lump-sum transfers form an integer part of the optimal environmental policy}
-\paragraph{Proofs}
-This is the first main result summarized by proposition \ref{prop:1}. 
 
+When environmental tax revenues are fully redistributed lump-sum, i.e. $Gov=0$, $T_\iota=0$, then the Pigou principle implements the efficient allocation and the optimal income tax scheme is linear. 
+To see this, note that equation \ref{eq:sbs} ensures that the social planner's first order condition, equation \ref{eq:fbs}, is satisfied. 
+The condition can be rewritten to highlight that the optimal environmental tax equals the social cost of pollution: The Pigou principle. 
+\begin{align}
+\underbrace{\frac{-U_F}{U_C\frac{\partial C}{\partial F}}}_{\text{marginal social cost of dirty production}}=1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}=\tau^*_f.
+\end{align}
+Where the second equality follows from substituting intermediate firms' profit maximization conditions. 
+As discussed previously, absent an externality of production it is efficient to equalize the marginal products of labor across sectors. However, when there is an externality, the social planner lower the dirty share of labor which results in a higher marginal product of labor in the dirty sector. To sustain this gap between marginal products, the government has to introduce a dirt tax so that market forces do not pull labor towards the sector with the higher marginal product. The dirt tax is set so that the wage rates equalize despite heterogeneous marginal products of labor. As a result of this intervention, the equilibrium wage rate is below the marginal product of labor; these are efficiency costs associated with a use of the dirty tax and the source of the competition between environmental good provision and raising government funds or equity alluded to in the literature \citep{LansBovenberg1994EnvironmentalTaxation}.  
+
+In a next step, I show, that setting the environmental tax optimally, implies that the second first order condition of the Ramsey planner is satisfied at $\tau_\iota=0$ when $Gov=0$ and $T_\iota=0$, that is, all environmental tax revenues are redistributed lump-sum $T_{ls}=\tau_{f}p_fF$.
+
+Noticing that $\frac{\partial Y}{\partial H}= \frac{\partial Y}{\partial s}\frac{s}{H}-\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}$ and that $\frac{\partial F}{\partial H}=\frac{\partial F}{\partial s}\frac{s}{H}$, and substituting equation \ref{eq:sbs} in equation \ref{eq:sbh} yields
+\begin{align}
+-U_C \frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}=-U_H
+\end{align}
+Substituting $U_H$ from household optimality, equation \ref{eq:hsup}, and the clean sectors' profit maximizing condition from equations \ref{eq:profmax} yields
+\begin{align}
+1=1-\tau^*_\iota.
+\end{align}
+Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income tax is not used in optimum. 
+
+
+\subsubsection{Lump-sum transfers form an integer part of the optimal environmental policy}
+
+\begin{prop}
+When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then the Pigou principle is violated and a motive for labor taxation arises. The optimal income tax scheme is progressive. Absent further measures, hours are inefficiently high.  
+\end{prop}
 \begin{prop}\label{prop:1}
-Even if the Ramsey planner implements the efficient share of dirty production, %to implement the first-best share of clean labor, $s$,
-the optimal allocation is inefficient absent additional measures to reduce hours worked. Lump-sum transferring environmental tax revenues are one means to establish the efficient allocation. 
+	Even if the Ramsey planner implements the efficient share of dirty production, %to implement the first-best share of clean labor, $s$,
+	the optimal allocation is inefficient absent additional measures to reduce hours worked. Lump-sum transferring environmental tax revenues are one means to establish the efficient allocation. 
 \end{prop}
 
+\paragraph{Proofs}
+
+The optimal environmental tax deviates from the social cost of pollution driven by two mechanisms:
+\begin{align}
+\tau_{f}^*= SCC{\frac{\frac{\partial C}{\partial F}}{\frac{\partial Y}{\partial F}}}+\frac{\partial Gov}{\partial s}\frac{1}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}
+\end{align}
+
+and following similar steps than in the previous section yields 
+\begin{align}
+\tau_\iota^*=\frac{\frac{\partial Gov}{\partial s}+ \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}.
+\end{align}
+
+To gain some intuition on the optimal policy tuple and how they deviate from the scenario with lump-sum transfers,  I introduce functional forms frequently used in the literature.  
 %\textbf{Show: derive optimal amount of lump-sum transfers.}
 
 
