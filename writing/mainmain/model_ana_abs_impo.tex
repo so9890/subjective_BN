@@ -92,15 +92,35 @@ When the efficient level of hours increases, though, the dirty labor share reduc
 
 \subsection{Decentralized economy}
 
-\begin{prop}
-When environmental tax revenues are not redistributed, the competitive allocation is not efficient. The Pigou principle is violated 
-\end{prop}
 How can the efficient allocation be decentralized by the use of taxes and transfers in a competitive economy? %For now, I assume that the income tax is not available and $\tau_{\iota}=0$, $\lambda=0$.
-I will show that lump-sum redistribution of environmental tax revenues are essential to implement the first-best allocation in the competitive equilibrium. 
-When environmental tax revenues are instead consumed by the government, the efficient allocation is not feasible. 
-However, redistributing environmental tax revenues through a progressive income tax scheme restores the efficient allocation. 
+I show in this section that the redistribution of environmental tax revenues are essential to implement the first-best allocation in the competitive equilibrium. Only in combination with a lump-sum transfers of  environmental tax revenues, does an environmental tax suffice to implement the efficient allocation. 
+When lump-sum transfers are not available, a role for income taxes to lower hours worked arises. I consider two cases.
+First, when environmental tax revenues are consumed by the government, it becomes optimal to use progressive labor income taxes to reduce hours worked. This is optimal in concert with environmental taxes which recompose production towards the cleaner alternative.  Nevertheless, the efficient allocation is not feasible as consumption is too low.
+However, second, redistributing environmental tax revenues through the income tax scheme may restore the efficient allocation. I show that, then, the tax scheme is necessarily progressive to lower hours worked.
 As a consequence, the optimal environmental policy features - as a side effect - a more equal distribution of income (either through lump-sum transfers or through a progressive tax scheme.% \tr{Not sure though if this holds true in progressive scheme as lambda multiplies labor income}).
 
+\begin{enumerate}
+\item lump-sum transfers important for Pigou principle to hold and for no need for distortionary fiscal policy: Proposition \ref{prop:1}
+\item when transfers are not redistributed: infeasibility of efficient allocation and role for labor tax
+\item redistribution through income tax scheme with progressive income tax restores efficient allocation
+\end{enumerate}
+
+\subsubsection{Government problem}
+The government is characterized by a Ramsey planner: it seeks to maximize utility of the representative household but can only revert to tax instruments and transfers to implement the optimal allocation. Furthermore, the behavior of firms and households constrain the government's optimization problem. 
+
+The Ramsey problem is defined as
+\begin{align}
+\underset{s, H}{\max}\ & U(C,H; F)\\ s.t\ \ & C=Y-Gov\\ & \text{behavior of firms and household}.
+\end{align}
+
+The optimality conditions differ from the social planner's ones in through the derivatives on government revenues, $Gov$:
+\begin{align}
+wrt.\ s:\hspace{4mm} & U_C\left(\frac{dY}{dF}\frac{dF}{ds}+\frac{dY}{dG}\frac{dG}{ds}-\frac{dGov}{ds}\right)=-U_F\frac{dF}{ds}, \label{eq:sbs}
+\\
+wrt.\ H:\hspace{4mm} & U_C\left(\frac{dY}{dH}-\frac{dGov}{dH}\right)+U_F\frac{dF}{dH}=-U_H\label{eq:sbh}. 
+\end{align}
+\subsubsection{Lump-sum transfers form an integer part of the optimal environmental policy}
+\paragraph{Proofs}
 This is the first main result summarized by proposition \ref{prop:1}. 
 
 \begin{prop}\label{prop:1}
@@ -110,8 +130,9 @@ the optimal allocation is inefficient absent additional measures to reduce hours
 
 %\textbf{Show: derive optimal amount of lump-sum transfers.}
 
+
 %To proof this claim, I first show that hours worked in an economy with neither transfers nor labor income taxes exceed the level in the efficient allocation.
- The proof is depicted in appendix section \ref{app:derivations}. I first show that absent lump-sum transfers of environmental tax revenues or labor income taxes hours worked in the decentralized economy but with the efficient share of fossil taxes implemented are inefficiently high. In a second proof, I show that lump-sum transfers of environmental tax revenues, which implement the efficient dirty production share, establish the efficient allocation.  The environmental tax then corresponds to the social cost of carbon. % \textit{When there are no lump sum transfers, the environmental tax which establishes the efficient share of dirty production falls short of the social cost of carbon, since hours worked are inefficiently high. TO DO: linear tax scheme but neither transfers nor income tax. }
+ The proof is depicted in appendix section \ref{app:derivations}. I first show that absent lump-sum transfers of environmental tax revenues or labor income taxes hours worked in the decentralized economy but with the efficient share of fossil taxes implemented are inefficiently high. In a second step, I show that lump-sum transfers of environmental tax revenues, which implement the efficient dirty production share, establish the efficient allocation.  The environmental tax then corresponds to the social cost of carbon. % \textit{When there are no lump sum transfers, the environmental tax which establishes the efficient share of dirty production falls short of the social cost of carbon, since hours worked are inefficiently high. TO DO: linear tax scheme but neither transfers nor income tax. }
  
   Through an income effect the additional income reduces work effort to the efficient level. Transfers equal exactly the amount raised by the environmental tax. 
 
@@ -130,21 +151,19 @@ In the competitive equilibrium, the wage rate is
 w= (1-\varepsilon)(A_fs)^\varepsilon (A_g)^{1-\varepsilon}(1-s)^{-\varepsilon}. \label{eq:compw}
 \end{align}
 
+\paragraph{Discussion}
+\textit{Thus, my findings counter the idea of a double dividend of environmental taxation more generally than \cite{LansBovenberg1994EnvironmentalTaxation}. They argue that there is no double dividend because env. taxes exert efficiency costs. In this paper, I argue that to implement the efficient allocation, there is no choice how to use environmental tax revenues. They form an integer part of the optimal environmental policy to lower hours worked while keeping consumption high.}
 
-\begin{prop}
-	If lump-sum transfers are not available and environmental tax revenues are consumed by the government, the efficient allocation is infeasible. Income taxes  cannot restore the efficient allocation. 
+
+\subsubsection{If lump-sum transfers are not available}
+\begin{prop}\label{prop:no_red}
+	If lump-sum transfers are not available and environmental tax revenues are consumed by the government, the efficient allocation is infeasible. Income taxes are optimally used to lower inefficiently high hours worked. The Pigou principle is violated. \tr{See Table \ref{tab:lin_nolst}.}
 \end{prop}
 
 
-\begin{prop}
-	The optimal environmental tax does not satisfy the Pigou principle when environmental tax revenues are not redistributed. \tr{See Table \ref{tab:lin_nolst}.}
-\end{prop}
-
-
-\subsection{With non-linear tax scheme}
-How can the government establish the efficient allocation when no lump-sum transfers are available? One possibility is to redistribute environmental tax revenues through the income tax schedule. The marginal tax rate which supports the efficient allocation is progressive. 
-
-Under this policy, the government runs a combined budget of environmental and labor income tax revenues.  
+\subsubsection{With non-linear tax scheme}
+In this subsection, I still assume that lump-sum transfers are not available, yet, government redistributes environmental tax revenues via the income tax scheme.
+Under this policy, the government runs a combined budget of environmental and labor income tax revenues:  
 \begin{align}
 Gov= wh-\lambda (wh)^{1-\tau_\iota}+\tau_f p_fF.
 \end{align}
