@@ -223,6 +223,28 @@ if indic.notaul==1
 else
     Opttaul=Opt;
 end
+
+%check derivative Gov
+    
+    % derivatives
+    dFdh = Opt.Af*Opt.s;
+    dFds = Opt.Af*Opt.h;
+    dCdh = (Opt.Af*Opt.s)^(eppsy)*(Opt.Ag*(1-Opt.s))^(1-eppsy);
+    dCds = dCdh*Opt.h*(eppsy/Opt.s-(1-eppsy)/(1-Opt.s));
+    
+    if indic.taxsch>1
+        dGovdh=Opt.tauf*Opt.pf*dFdh;
+        dCdh =dCdh-dGovdh;
+        dtaufds = -(1-eppsy)/eppsy*(1/(1-Opt.s)^2);
+        dpfds =-Opt.pf*(eppsy-1)/(1-Opt.tauf)*dtaufds;
+        dGovds = Opt.pf*Opt.F*dtaufds+Opt.tauf*Opt.F*dpfds+Opt.tauf*Opt.pf*dFds;
+        dCds = dCds-dGovds;
+        
+    end
+    
+    % analytic solution to check
+    dGovdscheck= Opt.pf*Opt.F*(-(1-eppsy)/eppsy/(1-Opt.s)^2 *(eppsy/Opt.s)+(eppsy-Opt.s)/((1-Opt.s)*eppsy*Opt.s)); %correct!
+    taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag);
 %% save results
 %- create structure
 st.Sp=Sp;

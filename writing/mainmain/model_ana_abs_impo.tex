@@ -152,7 +152,7 @@ Substituting $U_H$ from household optimality, equation \ref{eq:hsup}, and the cl
 Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income tax is not used in optimum. 
 
 
-\subsubsection{Lump-sum transfers form an integer part of the optimal environmental policy}
+\subsubsection{Without lump-sum transfers  optimal environmental policy}
 
 \begin{prop}
 When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then the Pigou principle is violated and a motive for labor taxation arises. The optimal income tax scheme is progressive. Absent further measures, hours are inefficiently high.  
@@ -164,19 +164,40 @@ When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and
 
 \paragraph{Proofs}
 
-The optimal environmental tax deviates from the social cost of pollution driven by two mechanisms:
+The optimal environmental tax deviates from the social cost of pollution:
 \begin{align}
-\tau_{f}^*= SCC{\frac{\frac{\partial C}{\partial F}}{\frac{\partial Y}{\partial F}}}+\frac{\partial Gov}{\partial s}\frac{1}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}
+\tau_{f}^*= SCC+\frac{\partial Gov}{\partial s}\frac{1}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}.
 \end{align}
 
-and following similar steps than in the previous section yields 
-\begin{align}
-\tau_\iota^*=\frac{\frac{\partial Gov}{\partial s}+ \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}.
-\end{align}
+If government revenues increase with the share of dirty labor, then does the optimal environmental tax exceed the social cost of pollution. 
 
+Following similar steps than in the previous section yields 
+\begin{align}
+\tau_\iota^*=\frac{\frac{s}{H}\frac{\partial Gov}{\partial s}- \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}}.
+\end{align}
+ I now derive conditions on the production functions which allow to determine the progressivity of the optimal income tax scheme. 
+ 
+ Note that
+ \begin{align}
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial H}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial H}\\
+ \end{align}
+
+
+\paragraph{Starting with functional forms}
 To gain some intuition on the optimal policy tuple and how they deviate from the scenario with lump-sum transfers,  I introduce functional forms frequently used in the literature.  
+
+\paragraph{functional forms}
 %\textbf{Show: derive optimal amount of lump-sum transfers.}
 
+\textbf{Derivatives}
+\begin{align}
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial s}=p_f F \frac{\partial \tau_f}{\partial s}+\tau_f F \frac{\partial p_f}{\partial s}+\tau_f p_f \frac{\partial F}{\partial s}\\
+\frac{\partial \tau_f}{\partial s}= -\frac{1-\varepsilon}{\varepsilon}\frac{1}{(1-s)^2}, \\
+\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
+\frac{\partial F}{\partial s}=\frac{F}{s}
+\end{align}
 
 %To proof this claim, I first show that hours worked in an economy with neither transfers nor labor income taxes exceed the level in the efficient allocation.
  The proof is depicted in appendix section \ref{app:derivations}. I first show that absent lump-sum transfers of environmental tax revenues or labor income taxes hours worked in the decentralized economy but with the efficient share of fossil taxes implemented are inefficiently high. In a second step, I show that lump-sum transfers of environmental tax revenues, which implement the efficient dirty production share, establish the efficient allocation.  The environmental tax then corresponds to the social cost of carbon. % \textit{When there are no lump sum transfers, the environmental tax which establishes the efficient share of dirty production falls short of the social cost of carbon, since hours worked are inefficiently high. TO DO: linear tax scheme but neither transfers nor income tax. }
