@@ -115,7 +115,7 @@ As a consequence, the optimal environmental policies which restore the efficient
 \item redistribution through income tax scheme with progressive income tax restores efficient allocation
 \end{enumerate}
 
-\subsubsection{Government problem}
+\subsubsection{Government problem}\label{subsec:Rams}
 The government is characterized by a Ramsey planner: it seeks to maximize utility of the representative household but can only revert to tax instruments and transfers to implement the optimal allocation. Furthermore, the behavior of firms and households constrain the government's optimization problem. 
 
 The Ramsey problem is defined as
@@ -224,10 +224,13 @@ Gov= wh-\lambda (wH)^{1-\tau_\iota}+\tau_f p_fF.
 \end{align}
 The budget is balanced and $Gov = 0$ which determines $\lambda=\frac{w_h + \tau_f p_f F}{(wh)^{1-\tau_{\iota}}}$. The efficiency result is summarized in proposition \ref{prop:eff_nonlin_abs}
 \begin{prop}\label{prop:eff_nonlin_abs}
-	If lump-sum transfers are not available, the government can implement the efficient allocation by  transferring environmental tax revenues through the income tax scheme. The optimal tax scheme is progressive if the efficiency costs of the environmental tax are costly, i.e. $\frac{wH}{Y}<1$.
+	If lump-sum transfers are not available, the government can implement the efficient allocation by  transferring environmental tax revenues through the income tax scheme. The optimal tax scheme is progressive if aggregate production features constant or decreasing returns to labor.
 \end{prop}
 
-\textbf{Proof}
+\begin{proof}\textit{The optimal allocation is efficient}
+\end{proof}
+
+\begin{proof} \textit{The optimal income tax scheme is progressive if aggregate production features decreasing or constant returns to scale}\\
 Under the new policy, the household's labor supply is determined by
 \begin{align}
 -U_H=\frac{U_C (1-\tau_{\iota})(wH+\tau_f p_fF)}{H}.
@@ -242,11 +245,17 @@ Noticing that $\frp{Y}{G}\frp{G}{L_g}=w$ and replacing household's labor supply 
 \Leftrightarrow\ & \tau_\iota=1-\frac{wH}{Y}. 
 \end{align} 
 
-The optimal income tax scheme is progressive if
+
+Observe that $Y\geq MPL \times H$, where $MPL$ stands in for the marginal product of labor, if the aggregate production function features decreasing or constant returns to scale. Under such a production function one can rewrite the last expression as
 \begin{align}
-& \tau_{\iota}>0\\
-\Leftrightarrow\ & 1>\frac{w H}{Y}.
+\tau_{\iota}=1-\frac{wH}{Y}\geq 1-\frac{w H}{MPL \times H}
 \end{align}
+ Note further that the marginal product of labor exceeds the wage rate whenever the environmental tax is different from zero; compare the disucssion in subsection \ref{subsec:Rams}. It follows that the right-hand side is positive, hence
+\begin{align}
+\tau_{\iota}>0,
+\end{align}
+and the optimal tax scheme is progressive.
+\end{proof}
 
 \begin{prop}
 Effect of using progressive income scheme on inequality (maybe as opposed to lump-sum transfers)
