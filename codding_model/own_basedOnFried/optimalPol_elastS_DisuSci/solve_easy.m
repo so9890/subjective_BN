@@ -209,15 +209,19 @@ if indic.util==1
 else
     Opt.Ucon=log(Opt.C);
 end
+Opt.dUcondC = Opt.C^(-thetaa);
 Opt.Ext = -weightext*(omegaa*Opt.F)^extexpp;
 Opt.dEdF = -weightext*extexpp*(omegaa*Opt.F)^extexpp/Opt.F;
 Opt.Ulab = -chii*Opt.h^(1+sigmaa)/(1+sigmaa);
 
 Opt.SWF = Opt.Ucon+Opt.Ulab+indic.extern*Opt.Ext;
 Opt.scc = -Opt.dEdF*Opt.C^thetaa/Opt.pf;
-% test taul
-Opt.taultest= 1-((1-eppsy)/(1-Opt.s))^thetaa; % expression for taul to have optimal h
-% Opt.wtest=
+
+% check analytic version of taul if taxsch==0
+if indic.taxsch==0
+    Opt.taulcheck = 1-Opt.w*Opt.h/(Opt.Y);
+    Opt.taultest= 1-((1-eppsy)/(1-Opt.s))^thetaa; % expression for taul to have optimal h in taxsche==0
+end
 if indic.notaul==1
     Optnotaul=Opt;
 else
@@ -239,12 +243,11 @@ end
         dpfds =-Opt.pf*(eppsy-1)/(1-Opt.tauf)*dtaufds;
         dGovds = Opt.pf*Opt.F*dtaufds+Opt.tauf*Opt.F*dpfds+Opt.tauf*Opt.pf*dFds;
         dCds = dCds-dGovds;
-        
-    end
-    
     % analytic solution to check
     dGovdscheck= Opt.pf*Opt.F*(-(1-eppsy)/eppsy/(1-Opt.s)^2 *(eppsy/Opt.s)+(eppsy-Opt.s)/((1-Opt.s)*eppsy*Opt.s)); %correct!
-    taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag);
+    taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag);    
+    end
+    
 %% save results
 %- create structure
 st.Sp=Sp;
