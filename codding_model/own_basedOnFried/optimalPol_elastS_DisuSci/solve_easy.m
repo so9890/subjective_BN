@@ -234,8 +234,10 @@ end
     dFdh = Opt.Af*Opt.s;
     dFds = Opt.Af*Opt.h;
     dCdh = (Opt.Af*Opt.s)^(eppsy)*(Opt.Ag*(1-Opt.s))^(1-eppsy);
+    MPL  = dCdh;
     dCds = dCdh*Opt.h*(eppsy/Opt.s-(1-eppsy)/(1-Opt.s));
-    
+    dwdH = 0;
+    dwds = (1-eppsy)*Opt.Af^eppsy*Opt.Ag^(1-eppsy)*eppsy*(Opt.s/(1-Opt.s))^(eppsy-1)/(1-Opt.s)^2;
     if indic.taxsch>1
         dGovdh=Opt.tauf*Opt.pf*dFdh;
         dCdh =dCdh-dGovdh;
@@ -245,7 +247,9 @@ end
         dCds = dCds-dGovds;
     % analytic solution to check
     dGovdscheck= Opt.pf*Opt.F*(-(1-eppsy)/eppsy/(1-Opt.s)^2 *(eppsy/Opt.s)+(eppsy-Opt.s)/((1-Opt.s)*eppsy*Opt.s)); %correct!
-    taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag);    
+    taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag); 
+    taulcheck2= 1+(Opt.h*dCdh-Opt.s*dCds)/(-Opt.h*Opt.w);
+    taulcc=dwds*(Opt.s/Opt.w)-dwdH*(Opt.h/Opt.w); 
     end
     
 %% save results

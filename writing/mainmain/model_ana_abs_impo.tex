@@ -134,8 +134,9 @@ When environmental tax revenues are fully redistributed lump-sum, i.e. $Gov=0$, 
 To see this, note that equation \ref{eq:sbs} ensures that the social planner's first order condition, equation \ref{eq:fbs}, is satisfied. 
 The condition can be rewritten to highlight that the optimal environmental tax equals the social cost of pollution: The Pigou principle. 
 \begin{align}
-\underbrace{\frac{-U_F}{U_C\frac{\partial C}{\partial F}}}_{\text{marginal social cost of dirty production}}=1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}=\tau^*_f.
+\underbrace{\frac{-U_F}{U_C\frac{\partial Y}{\partial F}}}_{\text{marginal social cost of dirty production}}=1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}=\tau^*_f.
 \end{align}
+\tr{Derive scc from hh problem!}
 Where the second equality follows from substituting intermediate firms' profit maximization conditions. 
 As discussed previously, absent an externality of production it is efficient to equalize the marginal products of labor across sectors. However, when there is an externality, the social planner lower the dirty share of labor which results in a higher marginal product of labor in the dirty sector. To sustain this gap between marginal products, the government has to introduce a dirt tax so that market forces do not pull labor towards the sector with the higher marginal product. The dirt tax is set so that the wage rates equalize despite heterogeneous marginal products of labor. As a result of this intervention, the equilibrium wage rate is below the marginal product of labor; these are efficiency costs associated with a use of the dirty tax and the source of the competition between environmental good provision and raising government funds or equity alluded to in the literature \citep{LansBovenberg1994EnvironmentalTaxation}.  
 
@@ -155,7 +156,7 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 \subsubsection{Optimal environmental policy without lump-sum transfers}
 \tr{Better focus this section on the observation that the efficient allocation is infeasible.}
 \begin{prop}
-When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then a motive for labor taxation arises and the Pigou principle is violated. The efficient allocation is infeasible.  
+When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then a motive for labor taxation arises and the Pigou principle is violated. The optimal income tax scheme is progressive if the aggregate production function features decreasing or constant returns to scale. The efficient allocation is infeasible.  
 \end{prop}
 \begin{comment}
 \begin{prop}\label{prop:1}
@@ -170,17 +171,42 @@ The optimal environmental tax deviates from the social cost of pollution:
 \begin{align}
 \tau_{f}^*= SCC+\frac{\partial Gov}{\partial s}\frac{1}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}.
 \end{align}
-\tr{Weiter auflösen nach $\tau_{f}$ in $\frac{\partial F}{\partial s}$ \ar rewrite as with clean derivative }
+
+Above expression can be further simplified to show that in optimum the marginal social cost of the externality is equalized with the marginal gain from a higher dirty labor share:
+
+\begin{align}
+H\frp{w}{s}=SCC.
+\end{align}
+%\tr{Weiter auflösen nach $\tau_{f}$ in $\frac{\partial F}{\partial s}$ \ar rewrite as with clean derivative }
 
 If government revenues increase with the share of dirty labor, then the optimal environmental tax exceeds the social cost of pollution. 
 
 Following similar steps than in the previous section, the optimal labor income tax progressivity parameter is given by 
-\begin{align}
+\begin{align}\label{eq:nls_taulopt}
 \tau_\iota^*=\frac{\frac{s}{H}\frac{\partial Gov}{\partial s}- \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}}.
 \end{align}
  I now derive conditions on the production functions which allow to determine the progressivity of the optimal income tax scheme. 
  
- \tr{Possible interpretation of regressive income taxes: –  then it is more important to increase consumption! }
+ \begin{proof}\textit{The optimal income tax scheme is progressive if clean production features decreasing or constant returns to scale.}
+ 	\\
+ 	Using the market clearing condition for final output to replace government spending and noticing the relations of derivatives with respect to aggregate labor supply and the dirty labor share, one can write the expression for $\tau_{\iota}$, equation \ref{eq:nls_taulopt}, as
+ 	\begin{align}
+\tau_{\iota}=1-\frac{H\frp{C}{H}-s\frp{C}{s}}{wH}.
+ 	\end{align}
+ 	Substituting $\frp{C}{H}=H\frp{w}{H}+w$ and $\frp{C}{s}=\frp{w}{s}$ from the household's budget constraint gives
+ 	\begin{align}
+\tau_{\iota}=\frac{s}{w}\frp{w}{s}-\frac{H}{w}\frp{w}{H}.
+ 	\end{align}
+ 	Note that $\frp{w}{s}>0$ as the environmental tax reduces $s$ implementing a lower wage rate than in the optimum without externality. Assuming decreasing or constant returns to scale $\frp{w}{H}=(1-s)\frp{Y}{G}\frac{\partial^2G}{\partial L_g^2}\leq0$, thus
+ 	\begin{align}
+& 	\frac{s}{w}\frp{w}{s}>0\geq\frac{H}{w}\frp{w}{H}\\
+ 	\Leftrightarrow\ &\tau_{\iota}>0.
+ 	\end{align}
+ \end{proof}
+ 
+ 
+ 
+% \tr{Possible interpretation of regressive income taxes: –  then it is more important to increase consumption! }
  
  Note that
  \begin{align}
