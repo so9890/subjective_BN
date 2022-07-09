@@ -1,6 +1,7 @@
 \clearpage
 \appendix
 \section{Model}\label{app:model}
+
 \subsection{Competitive equilibrium in simple model}
 
 \begin{align}
@@ -52,6 +53,30 @@ Nevertheless, the marginal product of labor in the fossil sector is higher. As a
 
 When the effect of a decreased wage  en gros reduces labor supply, it makes it more costly for the government to generate funds due to a smaller tax base for the income tax. This is the mechanism pointed to by the double dividend literature.
 \section{Derivations and proofs}\label{app:derivations}
+
+\subsection{General model from section \ref{sec:mod_an}}
+
+
+
+\paragraph{Useful relations}
+\begin{align}
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial H}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial H}\\
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial s}=p_f F \frac{\partial \tau_f}{\partial s}+\tau_f F \frac{\partial p_f}{\partial s}+\tau_f p_f \frac{\partial F}{\partial s}\\
+%\frac{\partial \tau_f}{\partial s}= -\frac{1-\varepsilon}{\varepsilon}\frac{1}{(1-s)^2}, \\
+%\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
+\frac{\partial F}{\partial s}=\frac{F}{s}
+\\
+\text{Translation derivates H and s and L}\\
+\frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
+\\
+\frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
+\\\frp{G}{s}=-H\frp{G}{L_g}\\
+\frp{F}{H}=\frac{s}{H}\frp{F}{s}\\
+\frp{F}{s}=H\frp{F}{L_f}
+\end{align}
+
 \subsection{Derivation expression for $h^{FB}$}
 Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
 \begin{align}

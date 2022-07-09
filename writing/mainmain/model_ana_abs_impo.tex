@@ -1,10 +1,10 @@
-\section{Analytic results}
+\section{Analytic results}\label{sec:mod_an}
 \textbf{Points to be made}
 \begin{enumerate}
 \item the efficient allocation consists of both a recomposing and a scaling element \ar discuss social planner allocation \checkmark
-\item in the Ramsey planner allocation, eqbm hours are too high
+\item if $tau_f$ was to replicate share of marginal products, then $H^*\geq H_{FB}$ \checkmark
 \item lump-sum transfers implement the efficient reduction in hours worked and ensure the efficient amount of consumption \checkmark
-\item absent lump-sum transfers, households work too much and consume too low \ar the optimal env. tax is not characterised by the Pigou principle  \checkmark;  there is a role for the labor income tax already here to \tr{to be shown}
+\item absent lump-sum transfers and income, households work too much  \checkmark; This follows from setting $\tau_\iota>0$.
 \item redistribution through the income tax scheme establishes the efficient allocation if the income tax is progressive \textit{Intuition: in contrast to lump-sum transfers, transferring environmental tax revenues through the income tax scheme constitutes a positive multiplication of labor income \ar this increases labor efforts. The progressive tax counters this tendency.} \checkmark
 \end{enumerate}
 
@@ -52,7 +52,7 @@ The market for labor and the final good both clear: $H=L_f+L_g$ and $Y=C+Gov$. T
 \subsection{Competitive equilibrium}
 In a competitive equilibrium, household behavior is described by the budget constraint, equation \ref{eq:hhbudget}, and labor supply which follows from the household first order conditions and substituion of $\lambda$ from the government's budget on the income tax:
 \begin{align}
--U_H=U_C(1-\tau_{\iota})w\left(1-\frac{T_\iota}{wH}\right). \label{eq:hsup}
+-U_H=U_C(1-\tau_{\iota})w\left(1+\frac{T_\iota}{wH}\right). \label{eq:hsup}
 \end{align}
 Production is described by equations \ref{eq:prod} and prices follow from firms' profit maximization:
 \begin{align}
@@ -123,7 +123,7 @@ The Ramsey problem is defined as
 \underset{s, H}{\max}\ & U(C,H; F)\\ s.t\ \ & C=Y-Gov\\ & \text{behavior of firms and households}.
 \end{align}
 
-The optimality conditions differ from the social planner's ones in through the derivatives on government revenues, $Gov$:
+The optimality conditions differ from the social planner's ones through the derivatives on government revenues, $Gov$:
 \begin{align}
 wrt.\ s:\hspace{4mm} & U_C\left(\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial Gov}{ \partial s}\right)=-U_F\frac{\partial F}{\partial s}, \label{eq:sbs}
 \\
@@ -155,7 +155,7 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 
 \subsubsection{Optimal environmental policy without lump-sum transfers}
 \tr{Better focus this section on the observation that the efficient allocation is infeasible.}
-\begin{prop}
+\begin{prop}\label{prop:2}
 When environmental tax revenues are not redistributed, i.e. $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then a motive for labor taxation arises and the Pigou principle is violated. The optimal income tax scheme is progressive if the aggregate production function features decreasing or constant returns to scale. The efficient allocation is infeasible.  
 \end{prop}
 \begin{comment}
@@ -172,15 +172,21 @@ The optimal environmental tax deviates from the social cost of pollution:
 \tau_{f}^*= SCC+\frac{\partial Gov}{\partial s}\frac{1}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}.
 \end{align}
 
-Above expression can be further simplified to show that in optimum the marginal social cost of the externality is equalized with the marginal gain from a higher dirty labor share:
-
+Above expression can be further simplified:
 \begin{align}
-H\frp{w}{s}=SCC.
+\tau_f = 1-\frac{SCC}{\frp{w}{s}}w. 
 \end{align}
-%\tr{Weiter auflösen nach $\tau_{f}$ in $\frac{\partial F}{\partial s}$ \ar rewrite as with clean derivative }
+\tr{checked}
+The optimal environmental tax deviates from the social cost of the externality. 
 
+A condition for $\tau_f$ to exceed the social cost of the externality reads
+\begin{align}
+SCC<\frac{1}{1+\frac{w}{\frp{w}{s}}}
+\end{align}
+\tr{Continue the above}
 If government revenues increase with the share of dirty labor, then the optimal environmental tax exceeds the social cost of pollution. 
 
+\textbf{Labor tax}
 Following similar steps than in the previous section, the optimal labor income tax progressivity parameter is given by 
 \begin{align}\label{eq:nls_taulopt}
 \tau_\iota^*=\frac{\frac{s}{H}\frac{\partial Gov}{\partial s}- \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}}.
@@ -204,39 +210,79 @@ Following similar steps than in the previous section, the optimal labor income t
  	\end{align}
  \end{proof}
  
+ \begin{corollary}
+Absent income taxes, hours worked are inefficiently high when production features decreasing or constant returns to scale. 
+ \end{corollary}
+ As a corollary of proposition \ref{prop:2}, it follows that absent income taxes, hours worked are inefficiently high. This follows directly from the houeshold's first order condition:  a positive value of $\tau_\iota$ is reduces the right-hand side. Since the marginal utility is decreasing in hours the left-hand side is a positive function of labor supply. Hence, as the right-hand side decreases, hours diminish.   
  
- 
+ \begin{proof}\textit{The efficient allocation is infeasible (under the assumption of constant or decreasing returns to scale)}
+ 	To prove this claim, I assume that the government chooses the optimal policy; which is the highest social welfare the Ramsey planner can achieve. I show that the optimal policy does not satisfy the social planner's allocation. Since the social planner could have chosen the Ramsey planner's allocation  but did not, it follows that the social planner's allocation features a higher social welfare.
+ 	
+For the optimal allocation to be efficient, it must be the case that $s^*=s_{FB}$, (i) $C^*=C_{FB}$, and (ii) $H^*=H_{FB}$. I show that, under the assumption that $s^*=s_{FB}$, either (i) or (ii) can hold at a time by demonstrating that assuming (i), (ii) is violated and vice versa.
+
+
+\begin{lemma}{If $s^*=s_{FB}$ and $H^*=H_{FB}$, then $w<MPL_{FB}$}.
+\end{lemma}
+
+%\begin{lemma}\textit{$\tau_f=0$ is not optimal}
+%When $\tau_f=0$ then $Gov=0$ and $\frp{Gov}{s}=0$. Furthermore, market forces then imply that the marginal products of labor are equal so that $\frp{Y}{F}\frp{F}{s}=-\frp{Y}{G}\frp{G}{s}$. Substituting this in equation \ref{eq:sbs} yields
+%\begin{align}
+%0=-U_F\frp{F}{s}>0,
+%\end{align}
+%a contradiction. 
+%\end{lemma}
+%
+%\textit{(i) Assume $C^*=C_{FB}$ and $s^*=s_{FB}$:}
+%Since $\tau_f\neq0$, it follows that $Gov>0$ and hence $Y^*=C^*+Gov>Y_{FB}$. Since the allocation of labor is the same in the efficient and the optimal allocation and output is rising in labor, it follows that $H^*>H_{FB}$. 
+%\tr{Missing: if $\tau_f<0$ then $Gov<0$ }
+
+Assume, 
+The social planner's first order condition on labor supply can be written as
+\begin{align}
+-U_{H, FB}=U_{C, FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}
+\end{align}
+and optimal labor supply is determined by
+\begin{align}
+-U^*_{H}&=U^*_C(1-\tau_\iota)w
+\end{align}
+Equalizing yields
+\begin{align}
+U_C^*(1-\tau_\iota)w=U_{C,FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB},
+\end{align}
+a condition for optimal labor supply to be efficient. 
+
+In the following, I demonstrate that (i) assuming $C^*=C_{FB}$ violates the condition above and $H^*\neq H_{FB}$ and that (ii) assuming $H^*=H_{FB}$ results in $C^*<C_{FB}$. 
+
+\textit{(i) Assume $C^*=C_{FB}$:}
+then
+\begin{align}
+(1-\tau_\iota)w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+\end{align}
+Assume by contradiction that $H^*=H_{FB}$, since $s^*=s_{FB}$ by assumption, it follows that $w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}$. 
+Since $\tau_\iota\neq 0$ under constant or decreasing returns to scale, it holds that $H^*<H_{FB}$, a contradiction. 
+
+
+%Hence,
+%\begin{align}
+%(1-\tau_\iota)w<\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+%\end{align}
+%
+%Labor supply in the competitive equilibrium is lower than in the efficient allocation when consumption is equal under the optimal policy. WHY?
+%It follows, that optimal labor supply does not equal its efficient counterpart when optimal consumption is efficient.
+
+\textit{(ii) Assume $H^*=H_{FB}$:} 
+It follows that 
+\begin{align}
+\frac{U_C^*}{U_{C,FB}}=\frac{\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}}{w}\frac{1}{1-\tau_\iota}=\frac{1}{1-\tau_\iota}>1.
+\end{align}
+From concavity of the utility function it follows that $C^*<C_{FB}$. 
+ \end{proof}
+
+
+\begin{proof}\textit{With an environmental tax alone, hours worked are inefficiently high } \tr{waiting; to be done}
+\end{proof}
 % \tr{Possible interpretation of regressive income taxes: –  then it is more important to increase consumption! }
  
- Note that
- \begin{align}
-\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
-\frac{\partial Gov}{\partial H}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial H}\\
- \end{align}
-
-
-\paragraph{Starting with functional forms}
-To gain some intuition on the optimal policy tuple and how they deviate from the scenario with lump-sum transfers,  I introduce functional forms frequently used in the literature.  
-
-\paragraph{functional forms}
-%\textbf{Show: derive optimal amount of lump-sum transfers.}
-
-\textbf{Derivatives}
-\begin{align}
-\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial s}-\frac{\partial C}{\partial s}\\
-\frac{\partial Gov}{\partial s}=p_f F \frac{\partial \tau_f}{\partial s}+\tau_f F \frac{\partial p_f}{\partial s}+\tau_f p_f \frac{\partial F}{\partial s}\\
-\frac{\partial \tau_f}{\partial s}= -\frac{1-\varepsilon}{\varepsilon}\frac{1}{(1-s)^2}, \\
-\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
-\frac{\partial F}{\partial s}=\frac{F}{s}
-\\
-\text{Translation derivates H and s and L}\\
-\frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
-\\
-\frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
-\\\frp{G}{s}=-H\frp{G}{L_g}\\
-\frp{F}{H}=\frac{s}{H}\frp{F}{s}\\
-\frp{F}{s}=H\frp{F}{L_f}
-\end{align}
 
 \paragraph{Discussion}
 \textit{Thus, my findings counter the idea of a double dividend of environmental taxation more generally than \cite{LansBovenberg1994EnvironmentalTaxation}. They argue that there is no double dividend because env. taxes exert efficiency costs. In this paper, I argue that to implement the efficient allocation, there is no choice how to use environmental tax revenues. They form an integer part of the optimal environmental policy to lower hours worked while keeping consumption high.}

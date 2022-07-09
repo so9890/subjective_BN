@@ -52,11 +52,12 @@ Sp.dEdF = -weightext*extexpp*(omegaa*Sp.F)^extexpp/Sp.F;
 Sp.Ulab = -chii*Sp.h^(1+sigmaa)/(1+sigmaa);
 
 Sp.SWF = Sp.Ucon+Sp.Ulab+indic.extern*Sp.Ext;
-
+Sp.Ul = -chii*Sp.h^sigmaa;
 % test analytic derivation of Sp.h
 % Sp.htest= ((Sp.w^(1-thetaa)+Sp.dEdF*Sp.Af*Sp.s*Sp.h^thetaa)/chii)^(1/(sigmaa+thetaa));
 Sp.htest = (Sp.w^(1-thetaa)/chii*(1-eppsy)/(1-Sp.s))^(1/(sigmaa+thetaa));
 
+Sp.Ultest = -Sp.C^(-thetaa)*Sp.Y/Sp.G*(1-eppsy)*Sp.Ag; % marginal disutility of labour 
 %% Competitive equilibrium
 
 clear LF
@@ -250,6 +251,11 @@ end
     taulcheck= (dGovds*Opt.s/Opt.h-dGovdh)/((1-eppsy)*Opt.Y/Opt.G*(-1)*Opt.Ag); 
     taulcheck2= 1+(Opt.h*dCdh-Opt.s*dCds)/(-Opt.h*Opt.w);
     taulcc=dwds*(Opt.s/Opt.w)-dwdH*(Opt.h/Opt.w); 
+    % check tauf
+    taufcheckk = Opt.scc+dGovds/(Opt.w*Opt.h)*(1-Opt.tauf); 
+    taufcheck = Opt.scc+ Opt.tauf-(1-Opt.tauf)/Opt.w*dwds;
+    tauff= 1-Opt.scc*Opt.w/dwds; 
+    Uh = -chii*Opt.h^(sigmaa);
     end
     
 %% save results
