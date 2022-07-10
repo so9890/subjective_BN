@@ -5,7 +5,7 @@ keySet={'<1', 'log', 'Bop'};
 valueSet= repmat({struct([])},1,length(keySet));
 resultsTHETA=containers.Map(keySet, valueSet);
 indic.taxsch=0; %==0 uses nonlinear, no lump sum trans
-                %==1 then uses linear tax schedule with lump sum transfers
+              me  %==1 then uses linear tax schedule with lump sum transfers
                 %==2 linear tax without lump sum transfers
 indic.notaul=0; % relevant for optimal solution
 

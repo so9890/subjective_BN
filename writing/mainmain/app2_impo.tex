@@ -71,6 +71,10 @@ U_C=\mu.
 Substituting the Lagrange multiplier gives the negative of the equilibrium price the household is willing to pay for a reduction in dirty prodction: $\tilde{p}_f=\frac{U_F}{U_C}$. Since the environmental tax in the model is a percentage of revenues, the price producers pay per unit of dirty production is $\tau_f p_f$. Thus, the social cost of pollution to be deducted from to producers' revenues in percent is $\tau^{Pigou}=\frac{-U_F}{U_Cp_f}$.
 \subsubsection{With an environmental tax, the wage rate in the competitive equilibrium is below the marginal product of labor}
 
+\begin{lemma}{If $s^*=s_{FB}$ and $H^*=H_{FB}$, then $w<MPL_{FB}$}.
+\end{lemma}
+
+
 \subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}
 \begin{proof}\textit{Absent lump-sum transfers, hours are inefficiently high when the environmental tax implements efficient share of dirty production and the wage rate is decreasing in equilibrium hours worked.}
 	
@@ -100,11 +104,12 @@ Substituting the Lagrange multiplier gives the negative of the equilibrium price
 \end{proof}
 
 
-\subsection{Derivation $\tau_f^*$ without lump-sum transfers, propositions \ref{prop:2}}
+\subsection{Derivation $\tau_f^*$ without lump-sum transfers, proposition \ref{prop:2} part 1}
 	
 Solving the Ramsey planner's first order condition with respect to $s$, yields
 
-\subsubsection{Derivation $\tau_l$, proposition \ref{prop:2}}\label{app:subsub_nltaul}
+
+\subsubsection{Derivation $\tau_l$ proof proposition \ref{prop:2} part 2}\label{app:subsub_nltaul}
 
 \begin{proof}\textit{Absent lump-sum transfers, the optimal income tax scheme is progressive}
 Following similar steps as in section \ref{subsec:Rams}, the optimal labor income tax progressivity parameter is given by
@@ -140,6 +145,108 @@ Note that, the right-hand side of the previous expression equals the partial der
 Since the presence of the environmental tax artificially increases labor in the green sector depressing the wage rate, the wage rate rises by a reduction of the green labor share. Thus, $\tau_\iota$ is positive. 
 \tr{I guess I can show this from the first order condition of the Ramsey planner}
 	\end{proof}
+
+\subsubsection{Proof proposition \ref{prop:2} part 3: Infeasibility of efficient allocation}
+\begin{proof}\textit{The efficient allocation is infeasible (under the assumption of constant or decreasing returns to scale)}
+	To prove this claim, I assume that the government chooses the optimal policy; which is the highest social welfare the Ramsey planner can achieve. I show that the optimal policy does not satisfy the social planner's allocation. Since the social planner could have chosen the Ramsey planner's allocation  but did not, it follows that the social planner's allocation features a higher social welfare.
+	
+	For the optimal allocation to be efficient, it must be the case that $s^*=s_{FB}$, (i) $C^*=C_{FB}$, and (ii) $H^*=H_{FB}$. I show that, under the assumption that $s^*=s_{FB}$, either (i) or (ii) can hold at a time by demonstrating that assuming (i) violates (ii) and vice versa.
+	
+	
+	
+	%\begin{lemma}\textit{$\tau_f=0$ is not optimal}
+	%When $\tau_f=0$ then $Gov=0$ and $\frp{Gov}{s}=0$. Furthermore, market forces then imply that the marginal products of labor are equal so that $\frp{Y}{F}\frp{F}{s}=-\frp{Y}{G}\frp{G}{s}$. Substituting this in equation \ref{eq:sbs} yields
+	%\begin{align}
+	%0=-U_F\frp{F}{s}>0,
+	%\end{align}
+	%a contradiction. 
+	%\end{lemma}
+	%
+	%\textit{(i) Assume $C^*=C_{FB}$ and $s^*=s_{FB}$:}
+	%Since $\tau_f\neq0$, it follows that $Gov>0$ and hence $Y^*=C^*+Gov>Y_{FB}$. Since the allocation of labor is the same in the efficient and the optimal allocation and output is rising in labor, it follows that $H^*>H_{FB}$. 
+	%\tr{Missing: if $\tau_f<0$ then $Gov<0$ }
+	
+	If $s^*=s_{E>0,FB}<s_{E=0,FB}$ then it must be the case that the environmental tax is positive to sustain a gap between marginal productivities in the dirty and the clean sector: $\tau_f>0$. Then, $Gov=\tau_fp_fF>0$. 
+	First assume that (i) holds true: $C^*=C_{FB}$. From the good's market clearing condition and resource constraint of the social planner's problem it follows that
+	$Y^*-Gov=C^*=C_{FB}=Y_{FB}$, due to  $Gov>0$ we have that $Y^*>Y_{FB}$. Since hours are the only production input, positively affect output, and $s^*=s_{FB}$ the higher output in the optimal allocation implies that $H^*>H_{FB}$. A violation of condition (ii). 
+	
+	Assume now that condition (ii) holds: $H^*=H_{FB}$. Since $s^*=s_{FB}$ by assumption it holds that $Y^*=Y_{FB}$ and, by the same argument as before: $Gov>0$. Thus, by the resource and market clearing condition: $C_{FB}=Y_{FB}>Y^*-Gov=C^*$. When labor supply is efficient, then consumption is inefficiently low; condition (i) is violated. 
+	
+	\begin{comment} (Proof building on first order conditions)
+	Assume, 
+	The social planner's first order condition on labor supply can be written as
+	\begin{align}
+	-U_{H, FB}=U_{C, FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}
+	\end{align}
+	and optimal labor supply is determined by
+	\begin{align}
+	-U^*_{H}&=U^*_C(1-\tau_\iota)w
+	\end{align}
+	Equalizing yields
+	\begin{align}
+	U_C^*(1-\tau_\iota)w=U_{C,FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB},
+	\end{align}
+	a condition for optimal labor supply to be efficient. 
+	
+	In the following, I demonstrate that (i) assuming $C^*=C_{FB}$ violates the condition above and $H^*\neq H_{FB}$ and that (ii) assuming $H^*=H_{FB}$ results in $C^*<C_{FB}$. 
+	
+	\textit{(i) Assume $C^*=C_{FB}$:}
+	then
+	\begin{align}
+	(1-\tau_\iota)w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+	\end{align}
+	Assume by contradiction that $H^*=H_{FB}$, since $s^*=s_{FB}$ by assumption, it follows that $w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}$. 
+	Since $\tau_\iota\neq 0$ under constant or decreasing returns to scale, it holds that $H^*<H_{FB}$, a contradiction. 
+	
+	
+	%Hence,
+	%\begin{align}
+	%(1-\tau_\iota)w<\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+	%\end{align}
+	%
+	%Labor supply in the competitive equilibrium is lower than in the efficient allocation when consumption is equal under the optimal policy. WHY?
+	%It follows, that optimal labor supply does not equal its efficient counterpart when optimal consumption is efficient.
+	
+	\textit{(ii) Assume $H^*=H_{FB}$:} 
+	It follows that 
+	\begin{align}
+	\frac{U_C^*}{U_{C,FB}}=\frac{\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}}{w}\frac{1}{1-\tau_\iota}=\frac{1}{1-\tau_\iota}>1.
+	\end{align}
+	From concavity of the utility function it follows that $C^*<C_{FB}$. 
+	
+	content...
+	\end{comment}
+\end{proof}
+
+\subsection{Proof proposition \ref{prop:3}}
+\begin{proof} \textit{The optimal income tax scheme is progressive if the optimal environmental tax is positive.}\\
+	Under the new policy, the household's labor supply is determined by
+	\begin{align}
+	-U_H=\frac{U_C (1-\tau_{\iota})(wH+\tau_f p_fF)}{H}.
+	\end{align}
+	Expressing the derivatives in the Ramsey planner's first order condition with respect to hours as derivatives with respect to the dirty labor share, $s$, and substituting the first order condition with respect to $s$ yields:
+	\begin{align}
+	U_C \frp{Y}{G}\frp{G}{L_g}=-U_H.
+	\end{align}
+	%This equation is equivalent to the social planner's first order condition on hours, equation \ref{eq:fbh}. The optimal policy is to choose
+	%\tr{Does this give a hint to why inefficiency without redistribution? The Ramsey planner's foc and household optimality always coincide. But, when Gov does not cancel the two do not coincide! ? the two do not coincide, Bcs consumption is too low so that $U_C$ too high which increases}
+	Noticing that $\frp{Y}{G}\frp{G}{L_g}=w$ and replacing household's labor supply condition gives
+	\begin{align}
+	& w=\frac{(1-\tau_\iota)Y}{H}\\
+	\Leftrightarrow\ & \tau_\iota=1-\frac{wH}{Y}. 
+	\end{align} 
+	Since $Y=C=wH+\tau_fp_fF$ from the market clearing and household budget constraint, it follows that $wH<Y$ whenever $\tau^*_f>0$. Hence, $\tau_f^*>0$ implies $\tau^*_{\iota}>0$.
+	%
+	%Observe that $Y\geq MPL \times H$, where $MPL$ stands in for the marginal product of labor, if the aggregate production function features decreasing or constant returns to scale. Under such a production function one can rewrite the last expression as
+	%\begin{align}
+	%\tau_{\iota}=1-\frac{wH}{Y}\geq 1-\frac{w H}{MPL \times H}
+	%\end{align}
+	% Note further that the marginal product of labor exceeds the wage rate whenever the environmental tax is different from zero; compare the disucssion in subsection \ref{subsec:Rams}. It follows that the right-hand side is positive, hence
+	%\begin{align}
+	%\tau_{\iota}>0,
+	%\end{align}
+	The optimal tax scheme is progressive.
+\end{proof}
 
 \paragraph{Useful relations}
 \begin{align}
