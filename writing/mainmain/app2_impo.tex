@@ -56,15 +56,55 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 
 \subsection{Theory results \ref{sec:mod_an}}
 \subsubsection{The social cost of pollution}
-\textbf{Write up derivation}
 
+The social cost of pollution in my model is defined as the marginal price the representative household is willing to pay for a marginal reduction in dirty production. That is, the household maximises over dirty production for which a market exists.
+
+The household's problem is determined as
+\begin{align}
+\underset{C,H,F}{\max} U(C,H,F)-\mu \left(C+\tilde{p}_fF-Y(H)\right).
+\end{align}
+Where $\mu$ is the Lagrange multiplier. Taking the derivative with respect to dirty production  and with respect to consumption yields
+\begin{align}
+U_F=\mu \tilde{p}_f,\\
+U_C=\mu.
+\end{align}
+Substituting the Lagrange multiplier gives the negative of the equilibrium price the household is willing to pay for a reduction in dirty prodction: $\tilde{p}_f=\frac{U_F}{U_C}$. Since the environmental tax in the model is a percentage of revenues, the price producers pay per unit of dirty production is $\tau_f p_f$. Thus, the social cost of pollution to be deducted from to producers' revenues in percent is $\tau^{Pigou}=\frac{-U_F}{U_Cp_f}$.
 \subsubsection{With an environmental tax, the wage rate in the competitive equilibrium is below the marginal product of labor}
 
-\subsection{Derivation $\tau_f^*$ without lump-sum transfers}
+\subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}
+\begin{proof}\textit{Absent lump-sum transfers, hours are inefficiently high when the environmental tax implements efficient share of dirty production and the wage rate is decreasing in equilibrium hours worked.}
+	
+	This proof proceeds by contradiction. 
+	Assume by contradiction that $H^*\leq H_{FB}$. 
+	It has to hold that 
+	\begin{align}
+	-U_H^*\leq -U_{H,FB}.
+	\end{align} 
+	Substituting the households' optimal labor supply and the social planner's first order condition for hours, equation \ref{eq:fbh} yields
+	\begin{align}\label{eq:prH}
+	U_C^*w^* \leq U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}
+	\end{align}
+	
+	Rewriting equation \ref{eq:prH} above yields
+	\begin{align}
+	\frac{U_C^*}{U_{C,FB}}\leq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}}
+	\end{align}
+	where I replaced $w^*=\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}$.
+	
+	By assumption $s^*=s_{FB}$, $H^*\leq H_{FB}$, and the aggregate production function is increasing in its inputs. It follows that output is higher in the efficient allocation $Y_{FB}\geq Y^*$ and hence $C^*<C_{C,FB}$, since $Gov>0$ in the competitive equilibrium. By concavity of the utility function with respect to consumption (and the assumption of additive separability of hours and consumption in the utility function), we have that $\frac{U_C^*}{U_{C,FB}}>1$.
+	Under the assumption that the wage rate is decreasing or constant in equilibrium hours, it holds that the right-hand side is below or equal unity since $H^*\leq H_{FB}$ by assumption. Thus,
+	\begin{align}
+	\frac{U_C^*}{U_{C,FB}}>1\geq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}}. 
+	\end{align}
+	A contradiction to the assumption that $H^*\leq H_{FB}$. Hence, it has to hold that $H^*>H_{FB}$. 
+\end{proof}
+
+
+\subsection{Derivation $\tau_f^*$ without lump-sum transfers, propositions \ref{prop:2}}
 	
 Solving the Ramsey planner's first order condition with respect to $s$, yields
 
-\subsubsection{Derivation $\tau_l$}\label{app:subsub_nltaul}
+\subsubsection{Derivation $\tau_l$, proposition \ref{prop:2}}\label{app:subsub_nltaul}
 
 \begin{proof}\textit{Absent lump-sum transfers, the optimal income tax scheme is progressive}
 Following similar steps as in section \ref{subsec:Rams}, the optimal labor income tax progressivity parameter is given by
@@ -100,6 +140,7 @@ Note that, the right-hand side of the previous expression equals the partial der
 Since the presence of the environmental tax artificially increases labor in the green sector depressing the wage rate, the wage rate rises by a reduction of the green labor share. Thus, $\tau_\iota$ is positive. 
 \tr{I guess I can show this from the first order condition of the Ramsey planner}
 	\end{proof}
+
 \paragraph{Useful relations}
 \begin{align}
 \frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
