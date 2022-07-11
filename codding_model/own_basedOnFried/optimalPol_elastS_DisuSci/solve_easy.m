@@ -256,6 +256,8 @@ end
     taufcheck = Opt.scc+ Opt.tauf-(1-Opt.tauf)/Opt.w*dwds;
     tauff= 1-Opt.scc*Opt.w/dwds; 
     Uh = -chii*Opt.h^(sigmaa);
+    d2YdG2=-(1-eppsy)*Opt.Y/Opt.G^2+(1-eppsy)^2*Opt.Y/Opt.G^2;
+    taullcheckk= -Opt.h/Opt.w*Opt.Ag^2*d2YdG2;
     end
     
 %% save results

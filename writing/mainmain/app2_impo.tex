@@ -71,8 +71,25 @@ U_C=\mu.
 Substituting the Lagrange multiplier gives the negative of the equilibrium price the household is willing to pay for a reduction in dirty prodction: $\tilde{p}_f=\frac{U_F}{U_C}$. Since the environmental tax in the model is a percentage of revenues, the price producers pay per unit of dirty production is $\tau_f p_f$. Thus, the social cost of pollution to be deducted from to producers' revenues in percent is $\tau^{Pigou}=\frac{-U_F}{U_Cp_f}$.
 \subsubsection{With an environmental tax, the wage rate in the competitive equilibrium is below the marginal product of labor}
 
-\begin{lemma}{If $s^*=s_{FB}$ and $H^*=H_{FB}$, then $w<MPL_{FB}$}.
-\end{lemma}
+The aggregate marginal product of labor is defined as
+\begin{align}
+MPL&= \frp{Y}{H}.
+\end{align}
+This expression can be rewritten using relations of derivatives summarized below as follows.
+\begin{align}
+&= \frp{Y}{F}\frp{Y}{H}+\frp{Y}{G}\frp{G}{H}\\
+&= \frp{Y}{F}\frp{F}{L_f}s+\frp{Y}{G}\frp{G}{L_g}(1-s)\\
+&= \frp{Y}{G}\frp{G}{L_g}+ s\left(\frp{Y}{F}\frp{F}{L_f}-\frp{Y}{G}\frp{G}{L_g}\right).\label{eq:mpl_opt}
+\end{align}
+The term in brackets is positive under the optimal policy as can be seen from the first order condition with respect to $s$, equation \ref{eq:sbs}:
+\begin{align}
+\frp{Y}{F}\frp{F}{L_f}-\frp{Y}{G}\frp{G}{L_g}=\frac{1}{H}\left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=\frac{1}{H}\left(\frac{-U_F\frp{F}{s}}{U_C}\right)>0.
+\end{align}
+The inequality holds since the externality of polluting production is negative. %, above expression is positive.
+%Therefore, the marginal product of labor in the efficient allocation equals
+Now note that the first summand in equation \ref{eq:mpl_opt} is the competitive wage rate.  Hence $w<MPL$.
+
+The gap between the wage rate and the marginal product of labor equals the gap between the marginal products of labor across sectors times the relative size of the dirty sector. 
 
 
 \subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}
@@ -106,7 +123,7 @@ Substituting the Lagrange multiplier gives the negative of the equilibrium price
 
 \subsection{Derivation $\tau_f^*$ without lump-sum transfers, proposition \ref{prop:2} part 1}
 	
-Solving the Ramsey planner's first order condition with respect to $s$, yields
+Divide the Ramsey planner's first order condition with respect to $s$, equation \ref{eq:sbs}, by $U_C$ and $\frp{Y}{F}\frp{F}{s}$. Solving for $1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}$, which equals $\tau_f$, yields the desired result. 
 
 
 \subsubsection{Derivation $\tau_l$ proof proposition \ref{prop:2} part 2}\label{app:subsub_nltaul}
