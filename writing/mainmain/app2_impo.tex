@@ -219,7 +219,7 @@ Since the presence of the environmental tax artificially increases labor in the 
 \end{proof}
 
 \subsection{Proof proposition \ref{prop:3}}
-\begin{proof} \textit{The optimal income tax scheme is progressive if the optimal environmental tax is positive.}\\
+\begin{proof} \textit{The optimal income tax scheme is progressive}\\ % if the optimal environmental tax is positive.}\\
 	Under the new policy, the household's labor supply is determined by
 	\begin{align}
 	-U_H=\frac{U_C (1-\tau_{\iota})(wH+\tau_f p_fF)}{H}.
@@ -247,6 +247,26 @@ Since the presence of the environmental tax artificially increases labor in the 
 	%\end{align}
 	The optimal tax scheme is progressive.
 \end{proof}
+
+\begin{proof}\textit{The optimal allocation is efficient}
+	
+	The idea of this proof is to show that the efficient allocation is attainable for the Ramsey planner. Since the social planner could implement any competitive allocation (which necessarily satisfies the resource constraint) and has the same objective function, the efficient allocation maximizes the Ramsey problem. 
+	
+	To show that the efficient allocation is feasible, I assume that $s^*=s_{FB}$. Showing that $H^*=H_{FB}$ and $C^*=C-{FB}$ are a solution to the Ramsey problem, proves that the optimal policy implements the efficient allocation for two reasons. First, by the argument in the previous paragraph any competitive allocation is a potential candidate solution to the social planner's problem and the social planner has the same objective function. Second, due to strict concavity of the utility and strict monotonicity of the production function \textit{(so that more input means more output)}, the solution is also unique.
+	
+	When $H^*=H_{FB}$ then $C^*=C_{FB}$ since $s^*=s_{FB}$ by assumption. It now show that under this allocation optimal labor supply, indeed, is efficient, that is:
+	\begin{align}
+	U_C^*\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}} = U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}.
+	\end{align}
+	
+	From the assumed allocation it follows that $U_C^*=U_{C,FB}$ and $\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}=\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}$ and above condition is satisfied. 
+	
+	It remains to show that under the assumed allocation $s^*=s_{FB}$ holds true. Since $Gov=0$ the Ramsey planner's first order condition with respect to $s$ equals that of the social planner. Since production and marginal utilities in the optimal allocation equal their counterparts in the efficient allocation, it has to holds that $\tau_f^*$ implements $s^*=s_{FB}$.  
+	%Second, efficiency of labor supply, i.e., $H^*=H_{FB}$, as the only solution of the Ramsey planner's problem follows from demonstrating that both (i) $H^*>H_{FB}$ and (ii) $H^*<H_{FB}$ result in a contradiction under the assumption that $s^*=s_{FB}$.
+	
+	%Assume by contradiction that (i), $H^*>H_{FB}$. 
+\end{proof}
+
 
 \paragraph{Useful relations}
 \begin{align}
