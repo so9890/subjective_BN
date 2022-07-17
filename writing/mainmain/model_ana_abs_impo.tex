@@ -10,7 +10,7 @@
 %\end{enumerate}
 
 This section develops a general model which is at the core of the analytical and quantitative results. 
-The model presented in this section is designed as simple as possible to derive and provide intuition for the main theoretical results. In section \ref{sec:model}, the model is extended to the quantitative framework, notably by adding endogenous growth and skill heterogeneity. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of.
+The model presented in this section is designed as simple as possible to derive  the main theoretical results and to provide intuition. In section \ref{sec:model}, the model is extended to the quantitative framework, notably by adding endogenous growth and skill heterogeneity. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of.
 
 In the model, the household sector can be described by a representative household. The household faces a consumption and labor supply decision. The final consumption good is a composite of a dirty and a clean good. Labor is the only input to production. For simplicity, the clean sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly clean. The core model abstracts from endogenous growth; the model becomes dynamic an innovation decision is added in the quantitative model (section \ref{sec:model}).
 
@@ -40,9 +40,9 @@ Y=F_Y(F, G), \hspace{5mm} F=F_F(A_f, L_f),\hspace{5mm} G=F_G(A_g, L_g) \label{eq
 \end{align}
 
 \paragraph{Government}
-The government raises income taxes from households and levies ad-valorem sales taxes, $\tau_f$, on dirty producers' revenues $p_fF$, where $p_f$ denotes the price of the dirty good paid by final good producers. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule while environmental tax revenues are either lump-sum redistributed to households, $T_{ls}$, consumed by the government, $Gov$, or redistributed through the income tax scheme, $T_\iota$:
+The government raises income taxes from households and levies ad-valorem sales taxes, $\tau_f$, on dirty producers' revenues $p_FF$, where $p_F$ denotes the price of the dirty good paid by final good producers. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule while environmental tax revenues are either lump-sum redistributed to households, $T_{ls}$, consumed by the government, $Gov$, or redistributed through the income tax scheme, $T_\iota$:
 \begin{align}
-\tau_{f}p_fF=T_{ls}+T_\iota+Gov, \hspace{7mm}
+\tau_{f}p_FF=T_{ls}+T_\iota+Gov, \hspace{7mm}
 0={w h}-\lambda(w h)^{1-\tau_{\iota}}+T_\iota. \label{eq:gov_but}
 \end{align}
 %Environmental tax revenues are either transferred lump-sum, fully consumed by the government, or transferred through the income tax schedule.
@@ -61,9 +61,9 @@ In a competitive equilibrium, household behavior is described by the budget cons
 \end{align}
 Firms choose the quantity of input goods to maximize their profits taking prices as given. The following equations describe this behavior in equilibrium:
 \begin{align}
-p_g=\frac{\partial Y}{\partial G}, \hspace{5mm}
-p_f = \frac{\partial Y}{\partial F}, \hspace{5mm}
-w= p_f(1-\tau_f)\frac{\partial F}{\partial L_f}=p_g\frac{\partial G}{\partial L_g}\label{eq:profmax}
+p_G=\frac{\partial Y}{\partial G}, \hspace{5mm}
+p_F = \frac{\partial Y}{\partial F}, \hspace{5mm}
+w= p_F(1-\tau_f)\frac{\partial F}{\partial L_f}=p_G\frac{\partial G}{\partial L_g}\label{eq:profmax}
 \end{align}
 
 The competitive equilibrium is defined as a set of variables so that households and firms behave optimally; i.e. equations \ref{eq:hhbudget}, \ref{eq:hsup} and \ref{eq:profmax} hold. Production happens according to \ref{eq:prod}.  Equilibrium prices and the wage rate adjust to clear markets, equations \ref{eq:market_clear}. Finally, the government's budgets are satisfied \ref{eq:gov_but}. Policy variables $\tau_f$ and $\tau_\iota$ are taken as given. 
@@ -155,7 +155,7 @@ Rewriting equation \ref{eq:fbs} reveals that the Pigou principle is satisfied: %
 \end{align}
 Where the second equality follows from substituting intermediate firms' profit maximization conditions from equations \ref{eq:profmax}. 
 
-I show in appendix section \ref{app:incometax0} that setting the environmental tax to the social cost of dirty production, implies that the second first order condition of the Ramsey planner is satisfied without use of the income tax instrument. %at $\tau_\iota=0$ when all environmental tax revenues are redistributed lump-sum: $T_{ls}=\tau_{f}p_fF$ (and $Gov=0$ and $T_\iota=0$).
+I show in appendix section \ref{app:incometax0} that setting the environmental tax to the social cost of dirty production, implies that the second first order condition of the Ramsey planner is satisfied without use of the income tax instrument. %at $\tau_\iota=0$ when all environmental tax revenues are redistributed lump-sum: $T_{ls}=\tau_{f}p_FF$ (and $Gov=0$ and $T_\iota=0$).
 
 In this paragraph, I briefly discuss the mechanism of the dirt tax.
 As discussed previously, absent an externality of production it is efficient to balance marginal products of labor across sectors. However, when there is an externality, the social planner lowers the dirty share of labor which results in a higher marginal product of labor in the dirty sector. To sustain this gap between marginal products in the efficient allocation, the government has to introduce a dirt tax so that market forces do not direct labor towards the sector with the higher marginal product. In other words, the dirt tax is set so that wage rates equalize despite heterogeneous marginal products of labor. As a result of this intervention, the equilibrium wage rate is below the marginal product of labor in the dirty sector.\footnote{\ I formally discuss this statement in appendix section \ref{app:wageMPL}. The proof is insightful on the type of inefficiency resulting from environmental taxation. } These are efficiency costs associated with a use of the environmental tax. They are the source of the competition between environmental good provision and raising government funds or equity alluded to in the literature \citep{LansBovenberg1994EnvironmentalTaxation}.  
@@ -189,7 +189,7 @@ Proposition \ref{prop:1} rationalizes the use of distortionary income taxes when
 I will show in the next section that, indeed, the optimal environmental policy consists of both a progressive income tax scheme and an environmental tax when lump-sum transfers are not available. However, the efficient allocation is infeasible as private consumption is inefficiently low when environmental tax revenues are consumed by the government. Proposition \ref{prop:2} highlights these result.
 
 \begin{prop}\label{prop:2}\textbf{Optimal environmental policy without redistribution of environmental tax revenues}
-When environmental tax revenues are not redistributed but instead consumed by the government, i.e., $Gov=\tau_fp_fF$ and $T_{ls}=T_\iota=0$, then (i) the Pigou principle is violated, and (ii) a motive for labor taxation arises: The optimal income tax scheme is progressive. % if the aggregate production function features decreasing or constant returns to scale. 
+When environmental tax revenues are not redistributed but instead consumed by the government, i.e., $Gov=\tau_fp_FF$ and $T_{ls}=T_\iota=0$, then (i) the Pigou principle is violated, and (ii) a motive for labor taxation arises: The optimal income tax scheme is progressive. % if the aggregate production function features decreasing or constant returns to scale. 
 The efficient allocation is infeasible.  
 \end{prop}
 
@@ -247,30 +247,26 @@ Intuitively, the optimal labor income tax scheme is progressive to lower work ef
 
 \subsubsection{Optimal policy with combined environmental and fiscal policy}
 
-In this subsection, I propose a policy set-up which allows to establish the efficient allocation even absent lump-sum transfers. In this setting, the government redistributes environmental tax revenues through the income tax scheme.
-Under this policy, the government runs a combined budget of environmental and labor income tax revenues:  
+In this subsection, I propose a policy set-up which allows to establish the efficient allocation even absent lump-sum transfers. In this setting, the government redistributes environmental tax revenues through the income tax scheme:  
 \begin{align}
-Gov= wh-\lambda (wH)^{1-\tau_\iota}+\tau_f p_fF.
+Gov= wh-\lambda (wH)^{1-\tau_\iota}+\tau_f p_FF.
 \end{align}
-The budget is balanced and $Gov = 0$ which determines $\lambda=\frac{w_h + \tau_f p_f F}{(wh)^{1-\tau_{\iota}}}$. 
+The budget is balanced and $Gov = 0$ which determines $\lambda=\frac{w_h + \tau_f p_F F}{(wh)^{1-\tau_{\iota}}}$. 
 Under this policy, the Ramsey planner can replicate the efficient allocation. 
 The efficiency result is summarized in proposition \ref{prop:3}
 
 \begin{prop}\label{prop:3}
-	If lump-sum transfers are not available, the government can implement the efficient allocation by  transferring environmental tax revenues through the income tax scheme. The optimal tax scheme is progressive and the optimal environmental tax equals the social cost of pollution.
+	If lump-sum transfers are not available, the government can implement the efficient allocation by  transferring environmental tax revenues through the income tax scheme. The optimal tax scheme is progressive and the optimal environmental tax equals the social cost of pollution. Recomposing and reductive policies are complements in the optimal environmental policy.
 \end{prop}
 
 	That the optimal environmental tax satisfies the Pigou principle follows straight from the Ramsey planner's first order conditions. Since $Gov=0$ when environmental tax revenues are redistributed through the income tax scheme, the Ramsey planner's first order condition with respect to the dirty labor share ensures that the optimal environmental tax equals the social cost of pollution; compare equation \ref{eq:pigou}. 
 	
-	The proofs that the optimal income tax scheme is progressive and that the optimal allocation is efficient is sketched in appendix section \ref{app:derivations}.
-The optimal income tax is determined by
+	The proofs that the optimal income tax scheme is progressive and that the optimal allocation is efficient is sketched in appendix section \ref{app:derivations}. The proof also derives the optimal income tax as
 \begin{align}
-\tau_\iota=1-\frac{wH}{Y}
+\tau^*_\iota=1-\frac{wH}{Y}=\frac{\tau_f^*p_FF}{Y}.
 \end{align}
-In fact, the optimal level of income tax progressivity is positively related to the wage distortions introduced by the environmental tax. This is captured by the term $\frac{wH}{Y}$. 
-
-
-\tr{Add discussion of the level of the optimal income tax} 
+This simple relation reveals that the optimal income tax progressivity is positively related to environmental tax revenues.  The higher the optimal environmental tax, which equals the social cost of pollution in this setting, the higher the optimal income tax progressivity. Hence, when environmental tax revenues are on the upward sloping part of the Laffer curve, it holds that  the more the Ramsey planner recomposes production, the more intense the reduction policy has to be. Reductive and recomposing policies complement each other. 
+ 
 \begin{comment}
 \begin{prop}
 Effect of using progressive income scheme on inequality (maybe as opposed to lump-sum transfers)
@@ -280,11 +276,13 @@ content...
 \end{comment}
 
 \subsubsection{Discussion in relation to the literature}
-These findings relate to the idea of a double dividend of environmental taxation discussed and partly rejected in the seminal paper by \cite{LansBovenberg1994EnvironmentalTaxation}.
-\footnote{  Double dividend of environmental policies refers to the idea that the revenues of environmental taxation can serve to improve on other policy targets such as equity or lowering distortionary fiscal policies. \cite{LansBovenberg1994EnvironmentalTaxation} argue that there is no double dividend because environmental taxes exert efficiency costs which outweigh the gains from lower distortionary income taxes.} The authors argue that recycling environmental tax revenues to lower distortionary fiscal policies has an advantage above recycling environmental tax revenues as lump-sum transfer. The latter reduces labor supply even more thereby further reducing the tax base of income taxes.  This result is referred to as the \textit{weak double dividend} hypothesis. This paper demonstrates that there exists a lower bound up to where a reduction of labor reducing policies is beneficial.
+These findings relate to the literature on a double dividend of environmental taxation discussed and partly rejected in the seminal paper by \cite{LansBovenberg1994EnvironmentalTaxation}.\footnote{ \ The double dividend of environmental policies refers to the idea that the revenues of environmental taxation can serve to improve on other policy targets such as equity or lowering distortionary fiscal policies. \cite{LansBovenberg1994EnvironmentalTaxation} argue that there is no double dividend because environmental taxes exert efficiency costs which outweigh the gains from lower distortionary income taxes. } The authors, inter alia, argue that recycling environmental tax revenues to lower distortionary fiscal policies has an advantage above recycling environmental tax revenues as lump-sum transfer. The latter would reduce labor supply even more thereby further narrowing the tax base of income taxes.  This result is referred to as the \textit{weak double dividend} hypothesis. The present paper demonstrates that there exists a lower bound up to where a reduction of labor reducing policies is beneficial. 
 %Nevertheless, the \textit{weak double dividend} result states that the  use of environmental tax revenues to lower fiscal policies is advantageous about recycling revenues as lump-sum transfers, because lump-sum transfers would lower the tax base of the income tax even more.
 %To implement the efficient allocation, there is no choice of how to use environmental tax revenues and that they are to be perceived as a means to lower hours worked absent other motives for government intervention. To reconcile these two findings, think of the result presented herein as a lower bound on the optimality to diminish the reduction in hours worked through cutting distortionary taxes. 
 Some reduction in hours worked is efficient.  
+Although this trade-off between the environmental advantage of lower work effort versus a lower income tax base has implicitly been studied in the double-dividend literature, the efficiency of lump-sum transfers or progressive income taxes has gone unnoticed. 
 % Absent other motives of government intervention, such as an exogenous funding condition or inequality, lump-sum transfers should 
 
-\tr{Caution: in double dividend literature there is a second motive for government intervention... then there are gains, but only up to a certain point}
+%\tr{Caution: in double dividend literature there is a second motive for government intervention... then there are gains, but only up to a certain point}
+
+This section's findings also pose a warning to the literature discussing how to use environmental tax revenues such as \cite{Fried2018TheGenerations}. My results stress that there is no free choice in how to use environmental tax revenues but to redistribute if the government wants to implement the efficient allocation. 
