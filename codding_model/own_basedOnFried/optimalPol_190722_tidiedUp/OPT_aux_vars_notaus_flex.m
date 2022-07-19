@@ -22,14 +22,9 @@ read_in_params;
 %     h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T); 
 % end
 
-if indic.ineq==0
     C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
     Ch=C; Cl=C;
-else
-    Cl      = x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T);
-    Ch      = x((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T);
-    C=Ch;
-end
+
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
 
@@ -106,23 +101,11 @@ else
     A_lag=Ag_lag;
 end
 
-if indic.ineq==0
-    if indic.BN==0
+
         muu      = C.^(-thetaa); % same equation in case thetaa == 1
-    else
-        muu =-(C-B).^(zetaa-1);
-    end
+  
     muuh=muu; muul=muu;
-else
-    if indic.BN==0
-        muuh      = Ch.^(-thetaa); % same equation in case thetaa == 1
-        muul      = Cl.^(-thetaa); % same equation in case thetaa == 1
-    else
-        muul =-(Cl-Bl).^(zetaa-1);
-        muuh =-(Ch-Bh).^(zetaa-1);
-    end
-    muu=muuh; 
-end
+
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
@@ -160,11 +143,7 @@ else
 end
 % assuming interior solution households
 if indic.notaul==0
-    if indic.ineq==0
         taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-    else
-        taul   = (log(wh./wl)+log(muuh./muul)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul        
-    end
 else
     taul   = zeros(size(sn));
 end
@@ -191,28 +170,13 @@ A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 
 % utility
-if indic.ineq==0
-    if indic.BN==0
+
         if thetaa~=1
             Utilcon = (C.^(1-thetaa))./(1-thetaa);
         elseif thetaa==1
             Utilcon = log(C);
         end
-    else
-        Utilcon=-(C-B).^(zetaa)./(zetaa); 
-    end
-else
-    if indic.BN==0
-        if thetaa~=1
-            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
-        end
-    else
-        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
-    end
 
-end
 
  Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 

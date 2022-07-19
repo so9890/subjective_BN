@@ -3,18 +3,12 @@ function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 read_in_params;
 
 if indic.sep==1
-    %- new set of choice variables
-    if indic.ineq==0
+
         list.choice=list.sepchoice;
         symms.choice=symms.sepchoice;
         list.allvars=list.sepallvars;
         symms.allvars=symms.sepallvars;
-    else
-        list.choice=list.sepchoice_ineq;
-        symms.choice=symms.sepchoice_ineq;
-        list.allvars=list.sepallvars_ineq;
-        symms.allvars=symms.sepallvars_ineq;
-    end
+    
 end
 
 if indic.xgrowth==1
@@ -58,21 +52,9 @@ else
     Lg=y(list.allvars=='Lg', :)';
     
 end
-if indic.ineq==0
-    if indic.BN==0
+
         C=y(list.allvars=='C', :)';
-    else
-        C=log((B-varrs(list.allvars=='C', :))./(varrs(list.allvars=='C', :)))';
-    end
-else
-    if indic.BN==0
-        Ch=y(list.allvars=='Ch', :)';
-        Cl=y(list.allvars=='Cl', :)';
-    else
-        Ch=log((Bh-varrs(list.allvars=='Ch', :))./(varrs(list.allvars=='Ch', :)))';
-        Cl=log((Bl-varrs(list.allvars=='Cl', :))./(varrs(list.allvars=='Cl', :)))';
-    end
-end
+
     F=y(list.allvars=='F', :)';
     G=y(list.allvars=='G', :)';
 if indic.xgrowth==0
@@ -112,11 +94,7 @@ x0=x0(:);
 % test solution to 
 if indic.xgrowth==0
     if indic.sep==1
-        if indic.noneutral==0
-             f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
-        else
-            f=laissez_faireVECT_sep_non(x0, params, list, varrs, init201519, T, indic);
-        end
+        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
     else
         f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
     end

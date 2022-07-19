@@ -38,7 +38,8 @@ indic.sep =1; %==1 is the benchmark; when finalising should be dropped
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
-indic.notaul=0;
+indic.notaul=0; % ==1 no taul but env tax revenues redistributed via income tax scheme; ==2 gov consumes env. taxes
+indic.taus =0; %==0 then no subsedy on green 
 indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
 % but ensure no externality when target is used 
@@ -214,34 +215,24 @@ end
 
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
-indic.target=1;
-for BN=1
-     indic.BN=BN;
-     for inn =0:1
-         indic.ineq=inn;
-         for nnt=1
-             indic.notaul=nnt;
-             indic
-%      if isfile(sprintf('OPT_target_active_set_0505_spillover%d_taus%d_noskill%d_notaul%d.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul))
-%          indic.target=1;
-         %[symms, list, opt_all]= 
-         if indic.count_techgap==0
-             OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-         else
-             OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems);
-         end
-        end
-     %else 
-%         fprintf('OPT solution with target, noskill%d exists', indic.noskill);
-%      end
-%     if isfile(sprintf('OPT_notarget_active_set_1905_spillover%d_taus%d_noskill%d_notaul%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, params(list.params=='etaa')))
-%         indic.target=0;
-%         [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
-%     else 
-%        fprintf('OPT solution without target, noskill%d exists', indic.noskill);
-%     end
-        
-     end
+
+for tr =0:1
+    indic.target=tr;
+for xgr=1
+    indic.xgrowth=xgr;
+for ns =0:1
+    indic.noskill=ns;
+ for nnt=0
+     indic.notaul=nnt;
+     indic
+ if indic.count_techgap==0
+     OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+ else
+     OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems);
+ end
+ end
+end
+end
 end
 
 %%

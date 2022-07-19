@@ -18,15 +18,15 @@ end
 % hours scientists
 
 if indic.target == 0
-    x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-    x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+    x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+    x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+    x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
 
 else
     if etaa<1
-        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH*indic.minn./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
     else
          x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
          x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
@@ -35,22 +35,12 @@ else
 
 end
 %- kuhn tucker on scientists
-if indic.noneutral==1
-    x(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))=(y(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))).^2;    
-    x(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))=(y(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))).^2;
-end
+
 % F if bounded above
 if indic.target==1
     x((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)));
 end
-if indic.BN==1
-    if indic.ineq==0
-        x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)   = B./(1+exp(y((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T)));
-    else
-        x((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)   = Bh./(1+exp(y((find(list.opt=='Ch')-1)*T+1:find(list.opt=='Ch')*T)));
-        x((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)   = Bl./(1+exp(y((find(list.opt=='Cl')-1)*T+1:find(list.opt=='Cl')*T)));
-    end
-end
+
 
  if indic.noskill==0
             [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
@@ -59,20 +49,12 @@ end
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
             wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic);
  else
-     if indic.noneutral==0
             [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
             w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic);
-     else
-          [xf,xg,Ag, Af,...
-            Lg, Lf, Af_lag, Ag_lag,sff, sg,  ...
-            F, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-            pg, pf, pee,  ws, wsf, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S]= OPT_aux_vars_notaus_skillHom_nn(x, list, params, T, init201519, indic);
-            sn=zeros(size(sg));
-     end
+    
  end
 %% social welfare
 
@@ -82,28 +64,12 @@ end
  vec_discount= disc.^expp;
 
 %- vector of utilities
-if indic.ineq==0
-    if indic.BN==0
+
         if thetaa~=1
             Utilcon = (C.^(1-thetaa))./(1-thetaa);
         elseif thetaa==1
             Utilcon = log(C);
         end
-    else
-        Utilcon=-(C-B).^(zetaa)./(zetaa); 
-    end
-else
-    if indic.BN==0
-        if thetaa~=1
-            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
-        end
-    else
-        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
-    end
-
-end
 
 
 if indic.noskill==0
