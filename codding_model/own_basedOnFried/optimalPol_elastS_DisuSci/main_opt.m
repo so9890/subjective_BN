@@ -38,27 +38,27 @@ indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart:
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.taus =0; % ==1 if taus is present in ramsey problem
-indic.noskill = 1; % == 1 if no skill calibration of model
+indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0;
 indic.sep =1;% ==1 if uses models with separate markets for scientists
 indic.BN = 0; %==1 if uses  model with subjective basic needs
 indic.ineq = 0; %== 1 if uses model with inequality: 2 households and with different skills
 indic.BN_red=0; % ==1 if households reduce basic needs below what they consumed before
-indic.xgrowth=1;
+indic.xgrowth=0;
 if indic.xgrowth==1
     indic.sep=1;
 end
 indic.zero=0; % ==1 then zero growth rates with xgrowth
-indic.extern=1;
+indic.extern=0; % extern==0 when uses no externality in utility
 % but ensure no externality when target is used 
 if indic.target==1
     indinc.extern=0;
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.noneutral =1; % there is no neutral good. deltay=1;
+indic.noneutral =0; % there is no neutral good. deltay=1;
 indic.minn = 1+1e-10;
-indic.taxsch=1; %==0 then uses HSV tax schedule, otherwise linear tax with transfers
+indic.taxsch=0; %==0 then uses HSV tax schedule, ==1 linear tax with lump sum transfers; ==2 linear tax without lump-sum trans
 indic
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,8 +81,8 @@ if indic.spillovers==1
 end
 
 % set upper bound of scientists higher to have internal solution
- params(list.params=='chiis')=Sparams.chii;
- Sparams.chiis=Sparams.chii;
+%  params(list.params=='chiis')=Sparams.chii;
+%  Sparams.chiis=Sparams.chii;
 %% 
 %%%%% LIST for separate markets
     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');

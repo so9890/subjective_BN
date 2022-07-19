@@ -138,7 +138,7 @@ lambdaa=1;
 x0=eval(symms.calib);
 
 %- transform
-guess_trans=trans_guess(indexxcalib, x0, parsHelp, list.paramsdir);
+guess_trans=trans_guess(indexxcalib, x0, parsHelp, list.paramsdir, indic.minn);
 
 %test:
 f =calibLabour(guess_trans,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, parsHelp, list, polhelp);
