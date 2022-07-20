@@ -162,7 +162,7 @@ else
 end
 % government consumption
 if indic.notaul<2 || indic.notaul == 4 % (==4 :lump sum transfers)
-            GovCon =0; % no government consumption
+            GovCon = zeros(size(F)); % no government consumption
 else
             GovCon =tauf.*pf.*F;
 end

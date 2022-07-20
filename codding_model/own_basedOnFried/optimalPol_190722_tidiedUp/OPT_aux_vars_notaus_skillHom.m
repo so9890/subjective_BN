@@ -156,11 +156,11 @@ xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
 if indic.notaul <2 
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*pf.*F;
-        GovCon =0;
+        GovCon  = zeros(size(F));
 else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
         if indic.notaul==4 % lump sum trans
-            GovCon =0;
+            GovCon = zeros(size(F));
         else
             GovCon = tauf.*pf.*F;
         end

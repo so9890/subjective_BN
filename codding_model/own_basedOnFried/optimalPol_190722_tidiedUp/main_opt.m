@@ -92,6 +92,10 @@ end
     symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
     list.allvars_xgrowth=string(symms.allvars_xgrowth);
 
+    % to save additional government variables
+    syms GovCon Tls real;
+    symms.addgov = [GovCon Tls];
+    list.addgov = string(symms.addgov);
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 3: BAU Simulation        %%%
@@ -221,13 +225,13 @@ end
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 
-for tr =0:1
+for tr =1
     indic.target=tr;
-for xgr=1
+for xgr=0:1
     indic.xgrowth=xgr;
 for ns =0:1
     indic.noskill=ns;
- for nnt=4
+ for nnt=0:4
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0

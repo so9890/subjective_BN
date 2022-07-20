@@ -12,12 +12,7 @@ for k = keys(RES)
     varrs= RES(kk);
     
     %- read in variables
-    if indic.ineq==0
-        C=varrs(varlist=='C',:)';
-    else
-        Ch=varrs(varlist=='Ch',:)';
-        Cl=varrs(varlist=='Cl',:)';
-    end
+    C=varrs(varlist=='C',:)';
     hh = varrs(varlist=='hh',:)';
     hl = varrs(varlist=='hl',:)';
     sg = varrs(varlist=='sg',:)';
@@ -38,30 +33,14 @@ for k = keys(RES)
     Y = varrs(varlist=='Y',:)';
     
 % welfare measures
-if indic.ineq==0
-    if indic.BN==0
-        if thetaa~=1
-            Utilcon = (C.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = log(C);
-        end
-    else
-        Utilcon=-(C-B).^(zetaa)./(zetaa); 
-    end
-else
-    if indic.BN==0
-        if thetaa~=1
-            Utilcon = zh.*(Ch.^(1-thetaa))./(1-thetaa)+(1-zh).*(Cl.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = zh.*log(Ch)+(1-zh).*log(Cl);
-        end
-    else
-        Utilcon=zh.*(-(Ch-Bh).^(zetaa)./(zetaa))+(1-zh).*(-(Cl-Bl).^(zetaa)./(zetaa)); 
-    end
 
+if thetaa~=1
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+    Utilcon = log(C);
 end
 
- Utillab = -chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+Utillab = -chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
 if indic.sep==0
       Utilsci =- chiis*S.^(1+sigmaas)./(1+sigmaas);
@@ -80,11 +59,7 @@ GFF = G./F;
 EY= E./Y;
 LgLf = Lg./Lf;
 
-if indic.ineq==0
-    CY = C./Y;
-else
-    CY = (zh*Ch+(1-zh).*Cl)./Y;
-end
+CY = C./Y;
 hhhl = hh./hl;
 whwl = wh./wl;
 
