@@ -36,7 +36,6 @@ else
  Ln    = exp(x((find(list.test=='Ln')-1)*T+1:(find(list.test=='Ln'))*T));
 end
 
-
 C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
 
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));

@@ -2,7 +2,7 @@ function [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
+            w, SWF, S, GovCon]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
 
 read_in_params;
 
@@ -109,45 +109,69 @@ S    = sn+sg+sff;
 ws   = chiis*S.^sigmaas; 
 
 % assuming interior solution households:
-if indic.notaul==0
+if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4 
     if thetaa~=1
         taul0 = 0.2*ones(size(sn));
         lambdaa0=ones(size(sn));
-        ff=@(x)[w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;% balanced budget gov.
+        if indic.notaul==0
+            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;
+        else
+            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T); % env tax revenues are not redistributed via income tax scheme
+        end
+        ff=@(x)[exxpr ;% balanced budget gov.
                 chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
        optionsfs = optimoptions('fsolve', 'TolFun', 10e-12,'Display','none');% 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
         soll = fsolve(ff, [taul0; lambdaa0], optionsfs); 
         taul=soll(1:T);
         lambdaa=soll(T+1:T*2);
-    else
+    elseif thetaa ==1
+        
         taul    = 1-chii.*h.^(sigmaa+1);
-        lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);  
+        if indic.notaul ==0
+            lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);
+        else
+            lambdaa = (w.*h)./(w.*h).^(1-taul);
+        end
    end
     
 else
     taul=zeros(size(sn));
-    lambdaa=tauf.*pf.*F./(w.*h)+1;
+    if indic.notaul==1
+        lambdaa=tauf.*pf.*F./(w.*h)+1;
+    elseif indic.notaul == 2 % env tax revenues not redistributed via income tax scheme; 
+        lambdaa=1;
+    end
 end
 
 xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
 xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf.*Af;
 xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
-SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
+if indic.notaul <2 
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*pf.*F;
+        GovCon =0;
+else
+    
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
+        if indic.notaul==4 % lump sum trans
+            GovCon =0;
+        else
+            GovCon = tauf*pf*F;
+        end
+end
         
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
-% utility
 
-        if thetaa~=1
-            Utilcon = (C.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = log(C);
-        end
+% utility
+if thetaa~=1
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+    Utilcon = log(C);
+end
   
 
 Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);

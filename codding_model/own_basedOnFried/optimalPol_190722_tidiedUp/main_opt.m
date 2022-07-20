@@ -38,7 +38,12 @@ indic.sep =1; %==1 is the benchmark; when finalising should be dropped
 indic.target =0; % ==1 if uses emission target
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
-indic.notaul=0; % ==1 no taul but env tax revenues redistributed via income tax scheme; ==2 gov consumes env. taxes
+indic.notaul=0; % Indicator of policy
+                % ==0 benchmark redistribution via income tax scheme
+                % ==1 no taul but env tax revenues redistributed via income tax scheme; 
+                % ==2 gov consumes env. taxes; taul cannot be used (No Income Tax scheme)
+                % ==3 gov consumes env taxes; taul can be used 
+                % ==4 taul is an option and env tax revenues are redistributed lump sum
 indic.taus =0; %==0 then no subsedy on green 
 indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
@@ -218,11 +223,11 @@ indic.sep =1;
 
 for tr =0:1
     indic.target=tr;
-for xgr=1
+for xgr=0:1
     indic.xgrowth=xgr;
 for ns =0:1
     indic.noskill=ns;
- for nnt=0
+ for nnt=1
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0

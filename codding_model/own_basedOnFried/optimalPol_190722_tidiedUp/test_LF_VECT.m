@@ -3,22 +3,21 @@ function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 read_in_params;
 
 if indic.sep==1
-
-        list.choice=list.sepchoice;
-        symms.choice=symms.sepchoice;
-        list.allvars=list.sepallvars;
-        symms.allvars=symms.sepallvars;
-    
+    list.choice=list.sepchoice;
+    symms.choice=symms.sepchoice;
+    list.allvars=list.sepallvars;
+    symms.allvars=symms.sepallvars;
 end
 
 if indic.xgrowth==1
     list.choice=list.choice_xgrowth;
     symms.choice=symms.choice_xgrowth;
 end
-%helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
+
 varrs=helper.LF_SIM;
 y=log(varrs);
 z=sqrt(varrs);
+
 % create new list
 syms HL HH H w Lf Lg Ln real
 if indic.noskill==0
@@ -94,7 +93,8 @@ x0=x0(:);
 % test solution to 
 if indic.xgrowth==0
     if indic.sep==1
-        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
+       f= laissez_faireVECT_sep_NoRed(x0, params, list, varrs, init201519, T, indic);
+%        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
     else
         f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
     end

@@ -1,4 +1,7 @@
-function f=laissez_faireVECT_xgrowth(x, params, list, varrs, laggs,T, indic)
+function f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, laggs,T, indic)
+
+% Policy version with GOV=tauf pf F
+% can handle version with and without taul
 
 % called by script 'test_results.m'
 % takes optimal policy results as input
@@ -23,6 +26,7 @@ if indic.noskill==0
  hlf    = exp(x((find(list.test=='hlf')-1)*T+1:(find(list.test=='hlf'))*T));
  hlg    = exp(x((find(list.test=='hlg')-1)*T+1:(find(list.test=='hlg'))*T));
  gammall = x((find(list.test=='gammall')-1)*T+1:(find(list.test=='gammall'))*T).^2;
+
  wh     = exp(x((find(list.test=='wh')-1)*T+1:(find(list.test=='wh'))*T));
  wl     = exp(x((find(list.test=='wl')-1)*T+1:(find(list.test=='wl'))*T));
  hl     = upbarH./(1+exp(x((find(list.test=='HL')-1)*T+1:find(list.test=='HL')*T)));
@@ -35,21 +39,25 @@ else
  Ln    = exp(x((find(list.test=='Ln')-1)*T+1:(find(list.test=='Ln'))*T));
 end
 
- 
- C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
+
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
-%  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
-%  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
-%  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
-%  sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
-%  sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
-%  sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
-%  S     = (x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)).^2;
-%  gammas = x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T).^2;
+ Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
+ Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
+ An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
+ sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
+ sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
+ sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
+ gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
+ gammasg = x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T).^2;
+ gammasn = x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T).^2;
 
+ 
  gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
-%  ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
+ wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
+ wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
+ wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
  pg     = exp(x((find(list.test=='pg')-1)*T+1:(find(list.test=='pg'))*T));
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
@@ -58,24 +66,11 @@ end
 
 %% - read in auxiliary equations
 %- initial condition
+Af_lag=[laggs(list.init=='Af0'); Af(1:T-1)];
+An_lag=[laggs(list.init=='An0'); An(1:T-1)];
+Ag_lag=[laggs(list.init=='Ag0'); Ag(1:T-1)];
+A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
-Af_lag=laggs(list.init=='Af0');
-An_lag=laggs(list.init=='An0');
-Ag_lag=laggs(list.init=='Ag0');
-
-Af=zeros(size(pf));
-Ag=zeros(size(pf));
-An=zeros(size(pf));
-
-for i=1:T
-    An(i)=(1+vn)*An_lag;
-    Ag(i)=(1+vg)*Ag_lag;
-    Af(i)=(1+vf)*Af_lag;
-    %- update laggs
-    An_lag=An(i);
-    Af_lag=Af(i);
-    Ag_lag=Ag(i);
-end
 
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
@@ -92,17 +87,16 @@ if indic.noskill==0
         GovCon = tauf*pf*F;
     end
 else
- if indic.notaul<2
+    if indic.notaul<2
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;
     else
-        SGov     SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
-   = (w.*h-lambdaa.*(w.*h).^(1-taul));
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
         GovCon = tauf*pf*F;
- end
+    end
 end
-
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
+
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
         
             % subsidies and profits and wages scientists cancel
@@ -111,7 +105,7 @@ Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((ep
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+% wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 % 
 % xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
 % xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
@@ -122,21 +116,21 @@ q=0;
 
 %1- household optimality (muu auxiliary variable determined above)
 if indic.noskill==0
-    q=q+1;
-    f(q:T)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
-    %2
-    q=q+1;
-    f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
-    %3- budget
-    q=q+1;
-    f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
-else
-    q=q+1;
-    f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
-   %3- budget
-    q=q+1;
-    f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov-C; %=> determines C
 
+        q=q+1;
+        f(q:T)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
+        %2
+        q=q+1;
+        f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
+        %3- budget
+        q=q+1;
+        f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
+else
+        q=q+1;
+        f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
+       %3- budget
+        q=q+1;
+        f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov-C; %=> determines C
 end
 %4- output fossil
 q=q+1;
@@ -151,24 +145,24 @@ q=q+1;
 f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
-% q=q+1;
-% f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
-% %8
-% q=q+1;
-% f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
-% %9
-% q=q+1;
-% f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
-% 
-% %10- LOM technology
-% q=q+1;
-% f((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
-% %11
-% q=q+1;
-% f((q-1)*T+1:T*q) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
-% %12
-% q=q+1;
-% f((q-1)*T+1:T*q) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
+q=q+1;
+f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+%8
+q=q+1;
+f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+%9
+q=q+1;
+f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+
+%10- LOM technology
+q=q+1;
+f((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+%11
+q=q+1;
+f((q-1)*T+1:T*q) = Af-Af_lag.*(1+gammaa.*(sff./rhof).^etaa.*(A_lag./Af_lag).^phii);
+%12
+q=q+1;
+f((q-1)*T+1:T*q) = Ag-Ag_lag.*(1+gammaa.*(sg./rhog).^etaa.*(A_lag./Ag_lag).^phii);
  
 %13- optimality labour input producers
 if indic.noskill==0
@@ -185,10 +179,12 @@ if indic.noskill==0
     f((q-1)*T+1:T*q)=(1-thetag)*Lg.*wlg-wl.*hlg;
     %17- demand skill
     q=q+1;
-    f((q-1)*T+1:T*q) = wh - thetaf*Lf./hhf.*wlf; % from optimality labour input producers fossil, and demand labour fossil
+    f((q-1)*T+1:T*q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+            ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
     %18
     q=q+1;
-    f((q-1)*T+1:T*q) = wl-(1-thetaf)*Lf./hlf.*wlf;
+    f((q-1)*T+1:T*q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
+            ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
 else
     q=q+1; % labour demand fossil
     f((q-1)*T+1:T*q) =  w  - (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; % labour demand fossil
@@ -201,7 +197,6 @@ end
 %19- optimality energy producers
 q=q+1;
 f((q-1)*T+1:T*q) = pf.*F.^(1/eppse)- (G).^(1/eppse).*pg; 
-
 
 
 %- definitions prices
@@ -227,15 +222,22 @@ end
 %24
 % q=q+1;
 % f((q-1)*T+1:T*q) = S-(sn+sff+sg);
-% % scientists supply
-% q=q+1;
-% f((q-1)*T+1:T*q)= S-((ws-gammas)./chiis).^(1/sigmaa);
-% 
-% 
-% %13- Kuhn Tucker Labour supply
-% q=q+1;
-% f((q-1)*T+1:T*q)= gammas.*(S-upbarH);
-% 
+% scientists supply
+q=q+1;
+f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(wsf-gammasf); % scientist hours supply
+q=q+1;
+f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((wsg-gammasg));
+q=q+1;
+f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((wsn-gammasn));
+
+q=q+1;
+f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
+q=q+1;
+f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
+q=q+1;
+f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
+
+%13- Kuhn Tucker Labour supply
 if indic.noskill==0
     %25
     q=q+1;
@@ -247,6 +249,8 @@ else
     q=q+1;
     f((q-1)*T+1:T*q)= gammalh.*(h-upbarH);
 end
+
+% income schedule budget clearing
 q=q+1;
 f((q-1)*T+1:T*q)= SGov;
 

@@ -47,13 +47,13 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic);
+            wln, wlg, wlf, SWF, S, gammac, GovCon]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic);
  else
             [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic);
+            w, SWF, S, GovCon]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic);
     
  end
 %% social welfare
@@ -65,11 +65,11 @@ end
 
 %- vector of utilities
 
-        if thetaa~=1
-            Utilcon = (C.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = log(C);
-        end
+if thetaa~=1
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+    Utilcon = log(C);
+end
 
 
 if indic.noskill==0

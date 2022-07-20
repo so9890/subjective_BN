@@ -31,11 +31,6 @@ else
          x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
     end
 end
-%- kuhn tucker on scientists
-% if indic.noneutral==1
-%     x(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))=(y(T*(find(list.opt=='gammasf')-1)+1:T*(find(list.opt=='gammasf')))).^2;    
-%     x(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))=(y(T*(find(list.opt=='gammasg')-1)+1:T*(find(list.opt=='gammasg')))).^2;
-% end
 
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
@@ -46,21 +41,21 @@ end
 
 %- auxiliary variables
 
-    if indic.noskill==0
-            [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
-            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
-    else
-       
-            [xn,xf,xg,Ag, An, Af,...
-            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-            F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
-       
-    end
+if indic.noskill==0
+        [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+        Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+        F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
+        pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
+        wln, wlg, wlf, SWF, S, gammac, GovCon]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
+else
+
+        [xn,xf,xg,Ag, An, Af,...
+        Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+        F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
+        pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
+        w, SWF, S, GovCon]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
+
+end
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Inequality Constraints    %%%
  % only for direct periods
@@ -77,7 +72,7 @@ if indic.xgrowth==0
     else
         c(1:T)       = sg-upbarH;
         c(T+1:2*T)   = sff-upbarH;
-        c(2*T+1:3*T) =sn-upbarH;
+        c(2*T+1:3*T) = sn-upbarH;
 
     end
 end
@@ -112,7 +107,7 @@ end
          
          % hh budget different for with and without inequality version
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
-            if indic.notaul==1
+            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
@@ -124,10 +119,10 @@ end
          ceq(T*3+1:T*4) = thetag*Lg.*wlg-wh.*hhg; % optimality labour good producers green high
          ceq(T*4+1:T*5) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
          ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
-         ceq(T*6+1:T*7)= zh*hh-(hhf+hhg+hhn);
-         ceq(T*7+1:T*8)= (1-zh)*hl-(hlf+hlg + hln );
+         ceq(T*6+1:T*7) = zh*hh-(hhf+hhg+hhn);
+         ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
          ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov;
-           if indic.notaul==1
+           if indic.notaul==1 || indic.notaul == 2 % when no taul is available
                 ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
      end
@@ -148,7 +143,7 @@ end
                  ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-wsn;
                end
 
-            if indic.notaul==1
+            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
                 ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 
@@ -158,7 +153,7 @@ end
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
             ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov;
 
-            if indic.notaul==1
+            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
                 ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 

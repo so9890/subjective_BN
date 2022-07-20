@@ -2,28 +2,21 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic)
+            wln, wlg, wlf, SWF, S, gammac, GovCon]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic)
 
 read_in_params;
 
-% if indic.noskill==0
-    hhf    = x((find(list.opt=='hhf')-1)*T+1:find(list.opt=='hhf')*T);
-    hhg    = x((find(list.opt=='hhg')-1)*T+1:(find(list.opt=='hhg'))*T);
-    hlf    = x((find(list.opt=='hlf')-1)*T+1:find(list.opt=='hlf')*T);
-    hlg    = x((find(list.opt=='hlg')-1)*T+1:find(list.opt=='hlg')*T);
-    hhn    = x((find(list.opt=='hhn')-1)*T+1:find(list.opt=='hhn')*T);
-    hln    = x((find(list.opt=='hln')-1)*T+1:find(list.opt=='hln')*T);
-    hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
-    hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
-% else
-%     
-%     Lf    = x((find(list.opt=='Lf')-1)*T+1:find(list.opt=='Lf')*T);
-%     Lg     = x((find(list.opt=='Lg')-1)*T+1:find(list.opt=='Lg')*T);
-%     h     = x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T); 
-% end
+hhf    = x((find(list.opt=='hhf')-1)*T+1:find(list.opt=='hhf')*T);
+hhg    = x((find(list.opt=='hhg')-1)*T+1:(find(list.opt=='hhg'))*T);
+hlf    = x((find(list.opt=='hlf')-1)*T+1:find(list.opt=='hlf')*T);
+hlg    = x((find(list.opt=='hlg')-1)*T+1:find(list.opt=='hlg')*T);
+hhn    = x((find(list.opt=='hhn')-1)*T+1:find(list.opt=='hhn')*T);
+hln    = x((find(list.opt=='hln')-1)*T+1:find(list.opt=='hln')*T);
+hl     = x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T);
+hh     = x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T);  
 
-    C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
-    Ch=C; Cl=C;
+C      = x((find(list.opt=='C')-1)*T+1:find(list.opt=='C')*T);
+Ch=C; Cl=C;
 
 F      = x((find(list.opt=='F')-1)*T+1:find(list.opt=='F')*T);
 G      = x((find(list.opt=='G')-1)*T+1:find(list.opt=='G')*T);
@@ -41,12 +34,11 @@ end
 
 %% auxiliary variables
 
-% hhn     = zh*hh-(hhf+hhg);
-% hln     = (1-zh)*hl-(hlf+hlg); 
 hhhl    = hh./hl;
 Lg      = hhg.^thetag.*hlg.^(1-thetag);
 Ln      = hhn.^thetan.*hln.^(1-thetan);
 Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
+
 % loop over technology
 if indic.xgrowth==0
     Af=zeros(T,1);
@@ -102,9 +94,8 @@ else
 end
 
 
-        muu      = C.^(-thetaa); % same equation in case thetaa == 1
-  
-    muuh=muu; muul=muu;
+muu      = C.^(-thetaa); % same equation in case thetaa == 1
+muuh=muu; muul=muu;
 
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
@@ -118,7 +109,6 @@ N       = (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good produc
 Y       = (deltay^(1/eppsy)*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
 
 % wages and policy elements
-
 tauf    = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf*pf); % production fossil
 wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
         ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
@@ -142,14 +132,36 @@ else
     wsn=zeros(size(F));
 end
 % assuming interior solution households
-if indic.notaul==0
-        taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-else
+if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 
+    taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+elseif indic.notaul==1 || indic.notaul == 2
     taul   = zeros(size(sn));
 end
 % lambdaa so that gov budget is balanced
-lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
+if indic.notaul<2
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
+        
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+                +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+                +tauf.*pf.*F; % government income scheme budget
+
+else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans of env rev
+            lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl))./...
+            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
+        
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+                +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+            % government income scheme budget
+end
+
+% government consumption
+if indic.notaul<2 || indic.notaul == 4 % (==4 :lump sum transfers)
+            GovCon =0; % no government consumption
+else
+            GovCon =tauf*pf*F;
+end
+
         % subsidies, profits and wages scientists cancel
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
@@ -160,9 +172,6 @@ xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
 xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf.*Af;
 xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
-SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
         
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
