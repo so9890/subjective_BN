@@ -52,8 +52,7 @@ else
     
 end
 
-        C=y(list.allvars=='C', :)';
-
+    C=y(list.allvars=='C', :)';
     F=y(list.allvars=='F', :)';
     G=y(list.allvars=='G', :)';
 if indic.xgrowth==0
@@ -76,7 +75,6 @@ if indic.xgrowth==0
         gammasn=z(list.allvars=='gammasn', :)';
         gammasf=z(list.allvars=='gammasf', :)';    
     end
-
 end
 
 gammalh =z(list.allvars=='gammalh', :)';
@@ -104,7 +102,7 @@ end
 % to examine stuff
 
  if max(abs(f))>1e-8
-     fprintf('LF function does not solve at 1e-10')
+     error('LF function does not solve at 1e-10')
  else
      fprintf('Solution solves LF problem')
  end

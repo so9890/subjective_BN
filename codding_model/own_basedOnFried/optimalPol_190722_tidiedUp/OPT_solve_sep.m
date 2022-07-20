@@ -31,11 +31,9 @@ list.opt  = string(symms.opt);
 
 nn= length(list.opt); % number of variables
 %%
-if indic.sep==1
-    
+if indic.sep==1   
     list.allvars=list.sepallvars;
     symms.allvars=symms.sepallvars;
- 
 end
 
 %% Initial Guess %%% 
@@ -267,8 +265,8 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519);
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
-    constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic);
-    objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519);
+constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic);
+objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519);
 
 if indic.target==1
 
@@ -326,7 +324,7 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
+            wln, wlg, wlf, SWF, S, gammac, GovCon, Tls]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
     else
@@ -334,7 +332,7 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
+            w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
       
@@ -356,6 +354,7 @@ end
 % function throws error if solution is not a solution to LF
 helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
+Tls
 %%
 if indic.count_techgap==0
     if indic.target==1

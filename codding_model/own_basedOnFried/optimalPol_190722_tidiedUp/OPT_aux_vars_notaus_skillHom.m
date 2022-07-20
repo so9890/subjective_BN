@@ -2,7 +2,7 @@ function [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
+            w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
 
 read_in_params;
 
@@ -108,6 +108,12 @@ end
 S    = sn+sg+sff;
 ws   = chiis*S.^sigmaas; 
 
+if indic.notaul ==4
+    Tls =tauf.*pf.*F;
+else
+    Tls =zeros(size(F));
+end
+
 % assuming interior solution households:
 if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4 
     if thetaa~=1
@@ -127,7 +133,7 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         lambdaa=soll(T+1:T*2);
     elseif thetaa ==1
         
-        taul    = 1-chii.*h.^(sigmaa+1);
+        taul    = 1-chii.*h.^(sigmaa+1).*(1+Tls./(w.*h));
         if indic.notaul ==0
             lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);
         else
@@ -135,12 +141,12 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         end
    end
     
-else
+else % taul cannot be used
     taul=zeros(size(sn));
     if indic.notaul==1
         lambdaa=tauf.*pf.*F./(w.*h)+1;
     elseif indic.notaul == 2 % env tax revenues not redistributed via income tax scheme; 
-        lambdaa=1;
+        lambdaa=ones(size(C));
     end
 end
 
@@ -152,12 +158,11 @@ if indic.notaul <2
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*pf.*F;
         GovCon =0;
 else
-    
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
         if indic.notaul==4 % lump sum trans
             GovCon =0;
         else
-            GovCon = tauf*pf*F;
+            GovCon = tauf.*pf.*F;
         end
 end
         

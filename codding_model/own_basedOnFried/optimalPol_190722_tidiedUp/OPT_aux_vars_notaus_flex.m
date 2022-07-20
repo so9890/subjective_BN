@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac, GovCon]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic)
+            wln, wlg, wlf, SWF, S, gammac, GovCon, Tls]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic)
 
 read_in_params;
 
@@ -155,11 +155,16 @@ else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans 
             % government income scheme budget
 end
 
+if indic.notaul ==4
+    Tls =tauf.*pf.*F;
+else
+    Tls =zeros(size(F));
+end
 % government consumption
 if indic.notaul<2 || indic.notaul == 4 % (==4 :lump sum transfers)
             GovCon =0; % no government consumption
 else
-            GovCon =tauf*pf*F;
+            GovCon =tauf.*pf.*F;
 end
 
         % subsidies, profits and wages scientists cancel
@@ -180,14 +185,13 @@ gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 
 % utility
 
-        if thetaa~=1
-            Utilcon = (C.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = log(C);
-        end
+if thetaa~=1
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+    Utilcon = log(C);
+end
 
-
- Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
 if indic.sep==0
       Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);

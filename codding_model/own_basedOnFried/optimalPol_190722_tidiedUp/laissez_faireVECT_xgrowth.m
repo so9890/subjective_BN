@@ -89,17 +89,21 @@ if indic.noskill==0
     else
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        GovCon = tauf*pf*F;
+        GovCon = tauf.*pf.*F;
     end
 else
  if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
     else
-        SGov     SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
-   = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        GovCon = tauf*pf*F;
+        SGov   = (w.*h-lambdaa.*(w.*h).^(1-taul));
+        GovCon = tauf.*pf.*F;
  end
+end
+% lump sum transfers
+if indic.notaul ==4
+    Tls =tauf.*pf.*F;
+else
+    Tls =zeros(size(F));
 end
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
@@ -129,13 +133,13 @@ if indic.noskill==0
     f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
     %3- budget
     q=q+1;
-    f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
+    f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov+Tls-C; %=> determines C
 else
     q=q+1;
     f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
    %3- budget
     q=q+1;
-    f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov-C; %=> determines C
+    f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov+Tls-C; %=> determines C
 
 end
 %4- output fossil

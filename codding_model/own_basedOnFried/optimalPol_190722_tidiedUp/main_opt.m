@@ -223,11 +223,11 @@ indic.sep =1;
 
 for tr =0:1
     indic.target=tr;
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
 for ns =0:1
     indic.noskill=ns;
- for nnt=1
+ for nnt=4
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
