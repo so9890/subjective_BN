@@ -2,13 +2,108 @@
 
 In this section, I present and discuss the quantitative results.
 Subsection \ref{subsec:mr} depicts the optimal policy given the emission target. Subsection \ref{subsec:dis} discusses the results. In particular, I focus on analyzing the mechanisms and welfare benefits from integrating the income tax scheme into the environmental policy. 
+
 \subsection{Results}\label{subsec:mr}
-This section depicts results on the optimal policy followed by the implied allocation in the benchmark model where environmental tax revenues are redistributed via the income tax scheme. 
+%This section depicts results on the optimal policy followed by the implied allocation in the benchmark model where environmental tax revenues are redistributed via the income tax scheme. 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Policy }\label{fig:optPol}
+	\begin{minipage}[]{0.4\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.1\textwidth}
+		\
+	\end{minipage}
+	\begin{minipage}[]{0.4\textwidth}
+		\centering{\footnotesize{(b) Environmental tax, $\tau_{ft}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+\end{figure} 
+
+To meet the IPCCs suggested emission target, the optimal income tax is progressive for all periods between 2030 and 2080; see panel (a) in figure \ref{fig:optPol}. As the emission target is less strict, between 2030 to 2045, optimal income tax progressivity is around $\tau_{lt}=0.04$. As the emission target jumps to net-zero emissions in 2050, optimal tax progressivity accelerates to above 0.08 and gradually increases in the subsequent years to around 0.09. This is approximately half the size found for the US in \cite{Heathcote2017OptimalFramework}: $\tau_{l}=0.181$. 
+In the period without emission target from 2020 to 2030, the optimal income tax is slightly regressive.
+
+Consider panel (b). The optimal fossil tax displays a similar step pattern as the income tax progressivity. From 2020 to the beginning of 2030, it is negative. It jumps to around 70\% as the emission target is to reduce emissions by 50\% relative to 2019 emissions. As the emission target rises  to net-zero emissions in 2050, the optimal tax on fossil sales is close to 90\%. 
+
+Figure \ref{fig:optAll} depicts the optimal allocation while meeting emission targets. Limiting emissions in line with the Paris Agreement is concomitant with both a reduction and recomposition of consumption and production over time. 
+
+Panel (a) shows consumption which reduces significantly when new emission limits become active, in 2030 and in 2050, but starting from the new low levels continues to grow. labour effort of both skill types also reduces visibly as stricter emission targets are enforced; panel (b). In contrast to consumption, hours worked for both types of labour decrease over time. In comparison to hours supplied by low-skilled workers, high-skilled workers reduce hours more; compare panel (c) which shows the ratio of hours worked by high to low skill workers. 
+
+The rise in consumption after each reduction is driven by technological progress in all sectors; compare panel (d) which shows growth rates by sector and as aggregate in per cent. 
+The green sector sees a rise in technological progress, the dashed black line, while growth in the fossil and the non-energy sector is positive, yet diminishing over time. Overall, aggregate growth is positive but decreasing; compare the grey dashed graph. 
+Summing up the last two paragraphs, the emission target is best achieved with more leisure at higher technology levels in all sectors. 
+
+Nevertheless, there would be potential for more growth which is forfeited to meet emission targets. This becomes apparent when looking at the allocation of scientists in panel (e). Again, there is a recomposition towards the green sector: while research in the non-energy and the fossil sector decrease over time, green research effort rises. Yet, overall, the amount of scientists reduces; compare the grey graph which depicts the sum of researchers across sectors. 
+Finally, labour input goods are also redirected towards the green sector; see panel (f). 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Allocation }\label{fig:optAll}
+	
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Hours worked }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_labour_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) High-to-low-skill ratio hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hhhl_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\ (d) Technology growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Growth_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Scientists }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Science_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) labour input}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_labourInp_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+\end{figure} 
+
 
 
 \subsection{Discussion}\label{subsec:dis}
+The discussion of the optimal policy centers on the questions (i) what drives the optimal policy and (ii) how to assess the optimal allocation: what are the benefits of labor income taxes, finally, (iii) what effects do skill heterogeneity and endogeneous growth have on the optimal policy (effect on tauf, taul and on gap to efficient allocation)
 \begin{itemize}
+	\item social planner
 	\item benefits of an integrated environmental policy: comparison benchmark model to version where government consumes env tax revenues and no taul
 	\item with lump-sum transfers: is taul used for different purpose? without endogenous growth should be zero
+	\item no heterogeneous skills, no endogenous growth \ar how does the optimal policy differ?
 \end{itemize}
+
+\subsubsection{Social planner allocation}
+\ar level and recomposition adjustments in comparison to model without target
+\\ \ar only show comparison to benchmark allocation
+
+\subsubsection{Comparison integrated policy to no redistribution no income tax}
+\ar Benefits of integrated policy measured as deviation from social planner allocation
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to }\label{fig:optAll}
+\end{figure}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+
+\subsubsection{Comparison to model with lump-sum transfers}
+\ar advantage of lump-sum redistribution
 
