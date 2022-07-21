@@ -12,14 +12,7 @@ cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/
 %%%%%%%%%%%%%%%%
 %General Notes
 %Section 1: Select Fiscal Scenario
-%Section 2: Set Parameters
-%Section 3: Solve for Optimal Allocation
-%Section 4: Compute Implementing Tax Rates and Outcomes
-            %Generates main results for Tables 4, 5, 7, A5, A6
-%Section 5: Welfare Calculations
-%Section 6: Saved Results and Figures
-            %Generates paper figures from saved results
-            
+%....          
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 1: Select Scenario        %%%
@@ -160,24 +153,19 @@ pol=eval(symms.pol);
         save(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
 
- 
-%%  
+    if indic.xgrowth==1
+          %- version without growth
 
-if indic.xgrowth==1
-      %- version without growth
-      
-      indic.xgrowth=1;
-    [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-    % helper.LF_SIM=LF_SIM;
-    save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-end
+          indic.xgrowth=1;
+        [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+        % helper.LF_SIM=LF_SIM;
+        save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    end
 
 %- version LF with counterfac tec gap
-indic.xgrowth=0;
+indic.xgrowth=0; % does not exist with exogenous growth
 [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
 helper.LF_SIM=LF_SIM;
-%    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-%- initial gap 2015/19
 [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
 save(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
  end
@@ -265,7 +253,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.table=       0;
+plotts.table=       1;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
 plotts.countcomp=   0;
@@ -276,12 +264,13 @@ plotts.single=      0;
 plotts.singov=      0;
 plotts.notaul=      0; % this one needs to be switched on to get complete table
 plotts.bau=         0; % do plot bau comparison
-plotts.lf=          0; %comparison to laissez faire allocation 
+plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     1;
 plotts.compeff1=    0;
 plotts.compeff2=    0;
 
+%%
 for gg=0
     indic.xgrowth=gg;
 for ns=0

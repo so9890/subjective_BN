@@ -22,7 +22,7 @@ symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
-symms.plotsvarsPol =[taus tauf taul lambdaa  Tls GovCon];  
+symms.plotsvarsPol =[taus tauf taul lambdaa Tls GovCon];  
 symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci ];
 
 if indic.sep==0
@@ -116,50 +116,56 @@ RES_xgr = containers.Map({ 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},.
 
 [RES_xgr]=add_vars(RES_xgr, list, params, indic, varlist, symms);
 
-%- results with other policy specification
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-opt_not_notaus_notaul=helper.opt_all';
-helper=load(sprintf('OPT_target_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,  etaa));
-opt_t_notaus_notaul=helper.opt_all';
-RES_polcomp_full   = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
-RES_polcomp_notaul = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul});
-%- add additional variables
-RES_polcomp_full   =add_vars(RES_polcomp_full, list, params, indic, varlist, symms);
-RES_polcomp_notaul =add_vars(RES_polcomp_notaul, list, params, indic, varlist, symms);
+%%
+%- results with other policy specifications
+OTHERPOL={}; % cell of containers over which to loop
+RES_polcomp_notaul0 = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus, opt_not_notaus});
+RES_polcomp_notaul0 = add_vars(RES_polcomp_notaul0, list, params, indic, varlist, symms);
+
+
+for i=1:4 % loop over policy versions
+    helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i,indic.sep,indic.xgrowth, etaa));
+    opt_not_notaus_notaul=helper.opt_all';
+    helper=load(sprintf('OPT_target_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i, indic.sep, indic.xgrowth,  etaa));
+    opt_t_notaus_notaul=helper.opt_all';
+    
+    % add additional variables and save container to cell
+    OTHERPOL{i} = add_vars(containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul}), list, params, indic, varlist, symms);
+end
 
 %- results with externality
-helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
-sp_not=helper.sp_all';
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,  etaa));
-opt_not_wt=helper.opt_all';
-helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-opt_not_nt=helper.opt_all';
-
-RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
-RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
+% helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
+% sp_not=helper.sp_all';
+% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,  etaa));
+% opt_not_wt=helper.opt_all';
+% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
+% opt_not_nt=helper.opt_all';
+% 
+% RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
+% RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
 
 %-version for comparison with full model: robustness
+% 
+% RES_robext = containers.Map({ 'SP_T', 'OPT_T_NoTaus'},{sp_not, opt_not_wt}); % names to compare with baseline with target
+% RES_robext = add_vars(RES_robext, list, params, indic, varlist, symms);
 
-RES_robext = containers.Map({ 'SP_T', 'OPT_T_NoTaus'},{sp_not, opt_not_wt}); % names to compare with baseline with target
-RES_robext = add_vars(RES_robext, list, params, indic, varlist, symms);
 
-
-%- results with counterfactual policy
-if plotts.countcomp==1|| plotts.countcomp2==1|| plotts.countcomp3==1
-if indic.xgrowth==1
-    helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
-    count_taufopt=helper.LF_COUNT';
-    helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
-    count_taulopt=helper.LF_COUNT';
-else
-    helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
-    count_taufopt=helper.LF_COUNT';
-    helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,  params(list.params=='etaa')));
-    count_taulopt=helper.LF_COUNT';
-end
-RES_count = containers.Map({ 'taufOpt' , 'taulOpt'},{count_taufopt, count_taulopt});
-RES_count = add_vars(RES_count, list, params, indic, varlist, symms);
-end
+% %- results with counterfactual policy
+% if plotts.countcomp==1|| plotts.countcomp2==1|| plotts.countcomp3==1
+% if indic.xgrowth==1
+%     helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
+%     count_taufopt=helper.LF_COUNT';
+%     helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
+%     count_taulopt=helper.LF_COUNT';
+% else
+%     helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
+%     count_taufopt=helper.LF_COUNT';
+%     helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,  params(list.params=='etaa')));
+%     count_taulopt=helper.LF_COUNT';
+% end
+% RES_count = containers.Map({ 'taufOpt' , 'taulOpt'},{count_taufopt, count_taulopt});
+% RES_count = add_vars(RES_count, list, params, indic, varlist, symms);
+% end
 
 %% Tables
 if plotts.table==1
@@ -168,28 +174,31 @@ betaa=params(list.params=='betaa');
  expp=0:T-1;
  vec_discount= disc.^expp;
  %SWF_PV= zeros(length(keys(RES)),1);
- TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1));
+ TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
 %  TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
 %  TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
- TableSWF_PV.Properties.VariableNames={'Allocation','FullModel', 'NoTaul'};
+ TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum'};
 
 %- all results
 for i =keys(RES)
     ii=string(i);
     allvars= RES(ii);
     % SWF calculation 
-    TableSWF_PV.FullModel(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)';
+    TableSWF_PV.Integrated(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)';
 end
-%- without taul
-for i =keys(RES_polcomp_full)
-
+%- Other policies
+for i =keys(RES_polcomp_notaul0)
      ii=string(i);
-     allvarsnt=RES_polcomp_notaul(ii); 
-     TableSWF_PV.NoTaul(TableSWF_PV.Allocation==ii)=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
+     count=0; % to keep track of which container is used
+    for ccc=OTHERPOL
+        pp=ccc{1};
+        count=count+1;
+        allvarsnt=pp(ii);
+        TableSWF_PV{TableSWF_PV.Allocation==ii,count+2}=vec_discount*allvarsnt(find(varlist=='SWF'),:)';
+    end
 end
 
-TableSWF_PV.ContributionPERCtax=abs(TableSWF_PV.NoTaul-TableSWF_PV.FullModel)./abs(TableSWF_PV.FullModel)*100; 
-save(sprintf('Table_SWF_sep%d_noskill%d_etaa%.2f_BN%d_ineq%d_red%d_xgrowth%d_extern%d_zero%d_countec%d.mat', indic.sep, indic.noskill, etaa, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.extern, indic.zero, indic.count_techgap), 'TableSWF_PV');
+save(sprintf('Table_SWF_July22_sep%d_noskill%d_etaa%.2f_xgrowth%d_extern%d.mat', indic.sep, indic.noskill, etaa, indic.xgrowth, indic.extern), 'TableSWF_PV');
 end
 %% Plots
 %- axes
@@ -277,14 +286,14 @@ end
 if plotts.robust==1
     fprintf('plotting robustness graphs')
     for lgdind=0:1
-    for cc=1:2
-        if cc==0
+    for ccc=1:2
+        if ccc==0
             whh='extern';
             RES_rob=RES_robext;
-        elseif cc==1
+        elseif ccc==1
             whh='countec';
             RES_rob =RES_countec;
-        elseif cc==2
+        elseif ccc==2
             whh='xgrowth';
             RES_rob=RES_xgr;
         end
@@ -332,8 +341,8 @@ end
 %% counterfactual comparison to full optimal allocation
 if plotts.countcomp==1
     allvars=RES('OPT_T_NoTaus');
-    for cc=0:1
-        indic.tauf=cc;
+    for ccc=0:1
+        indic.tauf=ccc;
         if indic.tauf==1 % version with tauf optimal
             allvars_count=RES_count('taufOpt');
         else
@@ -385,8 +394,8 @@ end
 if plotts.countcomp2==1
     allvars=RES('OPT_T_NoTaus');
     allvarsLF=RES('LF');
-    for cc=0:1
-        indic.tauf=cc;
+    for ccc=0:1
+        indic.tauf=ccc;
         if indic.tauf==1 % version with tauf optimal
             allvars_count=RES_count('taufOpt');
         else
@@ -442,8 +451,8 @@ end
     %- with LF no optimal policy
 if plotts.countcomp3==1
     allvarsLF=RES('LF');
-    for cc=0:1
-        indic.tauf=cc;
+    for ccc=0:1
+        indic.tauf=ccc;
         if indic.tauf==1 % version with tauf optimal
             allvars_count=RES_count('taufOpt');
         else
