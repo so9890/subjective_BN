@@ -266,9 +266,10 @@ plotts.notaul=      0; % policy comparisons; this one needs to be switched on to
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     0;
-plotts.compeff1=    1;
+plotts.compeff=     1;
+plotts.compeff1=    0;
 plotts.compeff2=    0;
+plotts.compeff3=    0;
 
 %%
 for gg=0

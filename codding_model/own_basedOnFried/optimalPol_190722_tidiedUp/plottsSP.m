@@ -121,8 +121,12 @@ RES_xgr = containers.Map({ 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},.
 OTHERPOL={}; % cell of containers over which to loop
 % add other government variables here!
 RES_polcomp_notaul0 = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{[opt_t_notaus; opt_t_notaus_addgov], [opt_not_notaus; opt_not_notaus_addgov]});
-RES_polcomp_notaul0 = add_vars(RES_polcomp_notaul0, list, params, indic, varlist, symms);
-varlist_polcomp=[varlist,list.addgov];
+RES_polcomp_notaul0 = add_vars(RES_polcomp_notaul0, list, params, indic, list.sepallvars, symms);
+if indic.sep==1
+    varlist_polcomp=[list.sepallvars,list.addgov, string(symms.plotsvarsAdd)];
+else
+    varlist_polcomp=[list.allvars,list.addgov, string(symms.plotsvarsAdd)];
+end
 
 for i=1:4 % loop over policy versions
     helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i,indic.sep,indic.xgrowth, etaa));
@@ -131,7 +135,7 @@ for i=1:4 % loop over policy versions
     opt_t_notaus_notaul=[helper.opt_all';helper.addGov'];
         
     % add additional variables and save container to cell
-    OTHERPOL{i} = add_vars(containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul}), list, params, indic, varlist, symms);
+    OTHERPOL{i} = add_vars(containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul}), list, params, indic, list.sepallvars, symms);
 end
 
 %%
@@ -670,12 +674,11 @@ end
  %% comparison POLICY scenarios
 if plotts.notaul==1
     fprintf('plotting comparison across policies') 
-    count=0; % variable to keep track of policy version
-    for ccc=OTHERPOL
-        pp=ccc{1};
-        count=count+1;
+    for nt = 1:length(OTHERPOL)
+        pp = OTHERPOL{nt};
+        count = nt;
         
-    for i =keys(RES_polcomp_notaul0)
+    for i =keys(pp)
 
      ii=string(i);
      allvars= RES_polcomp_notaul0(ii);
@@ -710,9 +713,9 @@ if plotts.notaul==1
                 if count==1 % version with only no income tax, but integretaed transfers 
                     lgd=legend('benchmark policy', 'no income tax', 'Interpreter', 'latex');
                 elseif count == 2 %
-                     lgd=legend('benchmark policy', 'no redistribution, no income tax', 'Interpreter', 'latex');
+                     lgd=legend('benchmark policy', ['no redistribution,' newline 'no income tax'], 'Interpreter', 'latex');
                 elseif count == 3 %
-                     lgd=legend('benchmark policy', 'no redistribution, with income tax', 'Interpreter', 'latex');
+                     lgd=legend('benchmark policy', ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex');
                 elseif count == 4 %
                      lgd=legend('benchmark policy', 'lump-sum redistribution', 'Interpreter', 'latex');
                 end
@@ -888,9 +891,9 @@ if plotts.compeff==1
                    if nt ==1
                         lgd=legend('laissez-faire', 'efficient',  'no income tax', 'benchmark policy', 'Interpreter', 'latex');
                    elseif nt ==2
-                        lgd=legend('laissez-faire', 'efficient',  'no redistribution, no income tax', 'benchmark policy', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire', 'efficient',  ['no redistribution,' newline 'no income tax'], 'benchmark policy', 'Interpreter', 'latex');
                    elseif nt ==3
-                        lgd=legend('laissez-faire', 'efficient',  'no redistribution, with income tax', 'benchmark policy', 'Interpreter', 'latex'); 
+                        lgd=legend('laissez-faire', 'efficient',  ['no redistribution,' newline 'with income tax'], 'benchmark policy', 'Interpreter', 'latex'); 
                    elseif nt==4
                         lgd=legend('laissez-faire', 'efficient',  'lump-sum redistribution', 'benchmark policy', 'Interpreter', 'latex');
                    end
@@ -900,9 +903,9 @@ if plotts.compeff==1
                    if nt ==1
                         lgd=legend( 'efficient',  'no income tax', 'benchmark policy', 'Interpreter', 'latex');
                    elseif nt ==2
-                        lgd=legend( 'efficient',  'no redistribution, no income tax', 'benchmark policy', 'Interpreter', 'latex');
+                        lgd=legend( 'efficient',  ['no redistribution,' newline 'no income tax'], 'benchmark policy', 'Interpreter', 'latex');
                    elseif nt ==3
-                        lgd=legend( 'efficient',  'no redistribution, with income tax', 'benchmark policy', 'Interpreter', 'latex'); 
+                        lgd=legend( 'efficient',  ['no redistribution,' newline 'with income tax'], 'benchmark policy', 'Interpreter', 'latex'); 
                    elseif nt==4
                         lgd=legend( 'efficient',  'lump-sum redistribution', 'benchmark policy', 'Interpreter', 'latex');
                    end
@@ -973,27 +976,21 @@ if plotts.compeff1==1
       end
     end
 end
-%% comparison social planner and optimal policy (with and without labour tax)
+%% comparison social planner and optimal policy benchmark
 if plotts.compeff3==1
     %- only efficient and benchmark
     fprintf('plotting comparison efficient-optimal graphs')   
     for withlff=0
          lff=RES('LF');
     
-    if indic.zero==0
         eff= string({'SP_T', 'SP_NOT'});
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
-    else
-        eff= string({'SP_NOT'});
-         opt=string({'OPT_NOT_NoTaus'});
-    end
-    % for withtaul=0:1
+
     for i =[1,2]
 
         ie=eff(i);
         io=opt(i);
         allvars= RES(io);
-        allvarsnotaul =RES_polcomp_notaul(io);
         allvarseff=RES(ie); 
 
     for l =keys(lisst) % loop over variable groups
@@ -1004,10 +1001,10 @@ if plotts.compeff3==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
       if withlff==1
-            main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:));            
+            main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:));            
            set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {grrey; 'k'; orrange} )   
       else
-            main=plot(time,allvarseff(find(varlist==varr),:), time,allvarsnotaul(find(varlist==varr),:));            
+            main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:));            
            set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
       end
       xticks(txx)
@@ -1032,17 +1029,17 @@ if plotts.compeff3==1
             end
            if lgdind==1
                if withlff==1
-                    lgd=legend('laissez-faire', 'efficient', ' no income tax', 'Interpreter', 'latex');
+                    lgd=legend('laissez-faire', 'efficient', 'optimal policy', 'Interpreter', 'latex');
                else
-                   if varr =="tauf"
-                      lgd=legend( 'social cost of emissions', 'no income tax', 'Interpreter', 'latex');
-                   else
-                     lgd=legend( 'efficient', ' no income tax', 'Interpreter', 'latex');
-                   end
+%                    if varr =="tauf"
+%                       lgd=legend( 'social cost of emissions', 'no income tax', 'Interpreter', 'latex');
+%                    else
+                     lgd=legend( 'efficient', ' optimal policy', 'Interpreter', 'latex');
+%                    end
                end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_1705/%s_CompEff%s_noopt_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_zero%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.zero, indic.count_techgap, etaa, lgdind, withlff);
+        path=sprintf('figures/all_July22/%s_CompEff%s_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.count_techgap, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
