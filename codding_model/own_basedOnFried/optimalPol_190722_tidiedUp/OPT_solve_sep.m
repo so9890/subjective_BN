@@ -150,10 +150,8 @@ if indic.target==1
      x0(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F'))));
 end
 
-
 lb=[];
 ub=[];
-
 
 %%
 % Test Constraints and Objective Function %%%
@@ -265,7 +263,6 @@ addGov=eval(symms.addgov);
 % function throws error if solution is not a solution to LF
 helper.LF_SIM=opt_all';
 test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
-Tls
 
 %%
 if indic.count_techgap==0

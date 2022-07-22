@@ -17,13 +17,13 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
 %- additional vars
-syms AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 
 if indic.sep==0
@@ -128,7 +128,7 @@ else
     varlist_polcomp=[list.allvars, list.addgov, string(symms.plotsvarsAdd)];
 end
 
-for i=0:4 % loop over policy versions
+for i=0:5 % loop over policy versions
     if indic.sep==0
         error('have to change variable list in function add_vars below')
     end
@@ -188,10 +188,10 @@ betaa=params(list.params=='betaa');
  expp=0:T-1;
  vec_discount= disc.^expp;
  %SWF_PV= zeros(length(keys(RES)),1);
- TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
+ TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
 %  TableSWF_PV_ns=table(keys(RES_ns)',zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1),zeros(length(keys(RES_ns)),1));
 %  TableSWF_PV_ns.Properties.VariableNames={'Allocation','FullModel', 'NoSkillHet', 'NoTaul', 'NoTaulNoSkillHet'};
- TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum'};
+ TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum with taul', 'Scenario 5: Lump Sum no taul'};
 
 %- all results
 for i =keys(RES)
@@ -222,6 +222,27 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+%% plot analy taul
+if plotts.analyta==1
+gcf=figure('Visible','off');
+allvars=RES('OPT_T_NoTaus');
+main=plot(time,allvars(varlist=='analyTaul',:), time,allvars(varlist=='taul',:)  );   
+set(main,{'LineWidth'}, { 1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, { 'k'; orrange} )   
+
+xticks(txx)
+% ylim([-0.2, 3])
+xlim([time(1), time(end)])
+
+ax=gca;
+ax.FontSize=13;
+ytickformat('%.2f')
+xticklabels(Year10)
+lgd=legend('analytical taul', 'tau_{\iota}', 'Interpreter', 'latex');    
+set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+path=sprintf('figures/all_July22/analyT_xgrowth%d_noskill%d.png', indic.xgrowth, indic.noskill);
+exportgraphics(gcf,path,'Resolution', 400)
+close gcf
+end
 %% plot emission limit
 if plotts.limit==1
 gcf=figure(); %('Visible','off');
@@ -682,7 +703,7 @@ end
  %% comparison POLICY scenarios
 if plotts.notaul==1
     fprintf('plotting comparison across policies') 
-    for nt = 1:length(OTHERPOL)
+    for nt =  1:length(OTHERPOL)
         pp = OTHERPOL{nt};
         count = nt;
         
@@ -724,7 +745,9 @@ if plotts.notaul==1
                 elseif count == 3 %
                      lgd=legend('benchmark policy', ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex');
                 elseif count == 4 %
-                     lgd=legend('benchmark policy', 'lump-sum redistribution', 'Interpreter', 'latex');
+                     lgd=legend('benchmark policy', ['lump-sum redistribution' newline 'with income tax'], 'Interpreter', 'latex');
+                elseif count == 5 %
+                     lgd=legend('benchmark policy', ['lump-sum redistribution' newline 'no income tax'], 'Interpreter', 'latex');
                 end
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
@@ -848,7 +871,7 @@ if plotts.compeff==1
         eff= string({'SP_T', 'SP_NOT'});
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
     % for withtaul=0:1
-    for nt = 1:length(OTHERPOL) % loop over policy scenarios
+    for nt = 4% 1:length(OTHERPOL) % loop over policy scenarios
         RES_help=OTHERPOL{nt};
     for i =1:length(eff)
 
@@ -885,13 +908,13 @@ if plotts.compeff==1
                xlim([1, time(end)])
             end
 
-            if varr=="C"
-                ylim([0.56, 0.72]);
-            elseif varr=="hh"
-                ylim([0.46, 0.51]);
-            elseif varr=="hl"
-                ylim([0.31, 0.335]);                
-            end
+%             if varr=="C"
+%                 ylim([0.56, 0.72]);
+%             elseif varr=="hh"
+%                 ylim([0.46, 0.51]);
+%             elseif varr=="hl"
+%                 ylim([0.31, 0.335]);                
+%             end
            if lgdind==1
                if withlff==1
 
@@ -902,7 +925,9 @@ if plotts.compeff==1
                    elseif nt ==3
                         lgd=legend('laissez-faire', 'efficient', 'benchmark policy',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
                    elseif nt==4
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy',  'lump-sum redistribution', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy',  ['lump-sum redistribution' newline 'with income tax'], 'Interpreter', 'latex');
+                   elseif nt==5
+                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy',  ['lump-sum redistribution' newline 'no income tax'], 'Interpreter', 'latex');
                    end
                    
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
@@ -914,7 +939,9 @@ if plotts.compeff==1
                    elseif nt ==3
                         lgd=legend( 'efficient', 'benchmark policy',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
                    elseif nt==4
-                        lgd=legend( 'efficient', 'benchmark policy',  'lump-sum redistribution', 'Interpreter', 'latex');
+                        lgd=legend( 'efficient', 'benchmark policy',  ['lump-sum redistribution' newline 'with income tax'], 'Interpreter', 'latex');
+                   elseif nt==5
+                        lgd=legend( 'efficient', 'benchmark policy',  ['lump-sum redistribution' newline 'no income tax'], 'Interpreter', 'latex');                        
                    end
                    
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
@@ -931,23 +958,29 @@ if plotts.compeff==1
     end
 end
 
-%% comparison to separate regime and separate with income tax
+%% comparison alternative regimes with and without income tax
 if plotts.compeff_dd==1
     for withlff=0
     lff=RES('LF');
-    fprintf('plotting comparison efficient-separate-partly separate graphs')   
+    fprintf('plotting comparison efficient- other regimes with and without taul graphs')   
         eff= string({'SP_T', 'SP_NOT'});
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
     % for withtaul=0:1
-    for nt = 3 % 3 is version with gov consumes env revenues but income tax is available 
-        RES_dd=OTHERPOL{2}; % comparison is separate policy regime
+    for nt = [3,4] % 3 is version with gov consumes env revenues but income tax is available 
+        
+        % read in version to version without income tax
+        if nt==3
+            RES_dd=OTHERPOL{2}; % comparison is separate policy regime
+        elseif nt ==4
+            RES_dd=OTHERPOL{5}; % lump sum trans but no taul
+        end
         RES_help=OTHERPOL{nt};
     for i =1:length(eff)
 
         ie=eff(i);
         io=opt(i);
         allvars= RES_dd(io);
-        allvarsnotaul =RES_help(io);
+        allvarswithtaul =RES_help(io);
         allvarseff=RES(ie); 
 
     for l =[keys(lisst), string('addgov')]
@@ -964,20 +997,20 @@ if plotts.compeff_dd==1
             if ismember(varr, ["tauf", "taul", "GovCon", "Tls"])
                  
                if withlff==1
-                   main=plot(time, lff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+                   main=plot(time, lff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarswithtaul(find(varlist_polcomp==varr),:));            
                    set(main,{'LineWidth'}, {1; 1.2; 1},  {'LineStyle'},{'--'; '--'; ':'}, {'color'}, {grrey; orrange; 'b'} )   
                else
-                   main=plot( time,allvars(find(varlist_polcomp==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+                   main=plot( time,allvars(find(varlist_polcomp==varr),:), time,allvarswithtaul(find(varlist_polcomp==varr),:));            
                    set(main,{'LineWidth'}, { 1.2; 1},  {'LineStyle'},{ '--'; ':'}, {'color'}, { orrange; 'b'} )   
                end
 
            else
                 
                if withlff==1
-                   main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+                   main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarswithtaul(find(varlist_polcomp==varr),:));            
                    set(main,{'LineWidth'}, {1; 1.2; 1.2; 1},  {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {grrey; 'k'; orrange; 'b'} )   
                else
-                   main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+                   main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist_polcomp==varr),:), time,allvarswithtaul(find(varlist_polcomp==varr),:));            
                    set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
                end
             end
@@ -1002,25 +1035,38 @@ if plotts.compeff_dd==1
                 ylim([0.31, 0.335]);                
             end
            if lgdind==1
-            if ismember(varr, ["tauf","taul", "GovCon", "Tls"])
+            if ismember(varr, ["tauf","taul", "GovCon", "Tls"]) % then no efficient graph
             
                if withlff==1
-
-                  lgd=legend('laissez-faire', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                  if nt ==3
+                    lgd=legend('laissez-faire', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                  elseif nt ==4
+                     lgd=legend('laissez-faire', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
+                  end
                    
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
-                lgd=legend( 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                   if nt ==3
+                        lgd=legend( 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                   elseif nt ==4
+                        lgd=legend('no income tax',  'with income tax', 'Interpreter', 'latex'); 
+                  end
                  set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                end
-            else                
+            else    % with efficient graph            
                if withlff==1
-
-                  lgd=legend('laissez-faire', 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
-                   
+                   if nt==3
+                      lgd=legend('laissez-faire', 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                   elseif nt ==4
+                      lgd=legend('laissez-faire', 'efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
+                   end
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
-                lgd=legend( 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                  if nt ==3
+                        lgd=legend( 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                  elseif nt ==4
+                        lgd=legend('efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
+                  end
                  set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                end
             end

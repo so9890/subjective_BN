@@ -134,7 +134,7 @@ end
 % assuming interior solution households
 if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 
     taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-elseif indic.notaul==1 || indic.notaul == 2
+elseif indic.notaul==1 || indic.notaul == 2 || indic.notaul ==5 
     taul   = zeros(size(sn));
 end
 % lambdaa so that gov budget is balanced
@@ -155,13 +155,13 @@ else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans 
             % government income scheme budget
 end
 
-if indic.notaul ==4
+if indic.notaul >=4 % lump sum trans
     Tls =tauf.*pf.*F;
 else
     Tls =zeros(size(F));
 end
 % government consumption
-if indic.notaul<2 || indic.notaul == 4 % (==4 :lump sum transfers)
+if indic.notaul<2 || indic.notaul >= 4 % (>=4 :lump sum transfers with and without taul)
             GovCon = zeros(size(F)); % no government consumption
 else
             GovCon =tauf.*pf.*F;
@@ -199,11 +199,11 @@ if indic.sep==0
       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
 end
 
- SWF = Utilcon-Utillab-Utilsci;
+SWF = Utilcon-Utillab-Utilsci;
 
- contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
- contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
- contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
- 
- PVcontUtil = contUtil-contUtillab-contUtilsci;
+contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
+contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
+contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
+
+PVcontUtil = contUtil-contUtillab-contUtilsci;
 end

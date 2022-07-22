@@ -1,7 +1,8 @@
 \section{Quantitative results}\label{sec:res}
 
 In this section, I present and discuss the quantitative results.
-Subsection \ref{subsec:mr} depicts the optimal policy given the emission target. Subsection \ref{subsec:dis} discusses the results. In particular, I focus on analyzing the mechanisms and welfare benefits from integrating the income tax scheme into the environmental policy. 
+Subsection \ref{subsec:mr} depicts the optimal policy given the emission target. Subsection \ref{subsec:dis} discusses the results in comparison to the efficient allocation. I focus on analyzing the mechanisms and welfare benefits from integrating the income tax scheme into the environmental policy. I also discuss the costs of not using lump-sum transfers.
+
 
 \subsection{Results}\label{subsec:mr}
 %This section depicts results on the optimal policy followed by the implied allocation in the benchmark model where environmental tax revenues are redistributed via the income tax scheme. 
@@ -29,7 +30,7 @@ In the period without emission target from 2020 to 2030, the optimal income tax 
 
 Consider panel (b). The optimal fossil tax displays a similar step pattern as the income tax progressivity. From 2020 to the beginning of 2030, it is negative. It jumps to around 70\% as the emission target is to reduce emissions by 50\% relative to 2019 emissions. As the emission target rises  to net-zero emissions in 2050, the optimal tax on fossil sales is close to 90\%. 
 
-Figure \ref{fig:optAll} depicts the optimal allocation while meeting emission targets. Limiting emissions in line with the Paris Agreement is concomitant with both a reduction and recomposition of consumption and production over time. 
+Figure \ref{fig:optAll} depicts the optimal allocation under the constraint on emissions. Limiting emissions in line with the Paris Agreement is concomitant with both a reduction and recomposition of consumption and production over time. 
 
 Panel (a) shows consumption which reduces significantly when new emission limits become active, in 2030 and in 2050, but starting from the new low levels continues to grow. labour effort of both skill types also reduces visibly as stricter emission targets are enforced; panel (b). In contrast to consumption, hours worked for both types of labour decrease over time. In comparison to hours supplied by low-skilled workers, high-skilled workers reduce hours more; compare panel (c) which shows the ratio of hours worked by high to low skill workers. 
 
@@ -37,7 +38,7 @@ The rise in consumption after each reduction is driven by technological progress
 The green sector sees a rise in technological progress, the dashed black line, while growth in the fossil and the non-energy sector is positive, yet diminishing over time. Overall, aggregate growth is positive but decreasing; compare the grey dashed graph. 
 Summing up the last two paragraphs, the emission target is best achieved with more leisure at higher technology levels in all sectors. 
 
-Nevertheless, there would be potential for more growth which is forfeited to meet emission targets. This becomes apparent when looking at the allocation of scientists in panel (e). Again, there is a recomposition towards the green sector: while research in the non-energy and the fossil sector decrease over time, green research effort rises. Yet, overall, the amount of scientists reduces; compare the grey graph which depicts the sum of researchers across sectors. 
+A regards scientists, panel (e), there is a recomposition           towards the green sector: while research in the non-energy and the fossil sector decrease over time, green research effort rises. Yet, overall, the amount of scientists reduces; compare the grey graph which depicts the sum of researchers across sectors. 
 Finally, labour input goods are also redirected towards the green sector; see panel (f). 
 
 \begin{figure}[h!!]
@@ -268,17 +269,19 @@ This might be a motive to prefer labor income taxes as an instrument to reduce e
 
 \paragraph{Comparison to model with lump-sum transfers}
 
-When lump-sum transfers of environmental tax revenues are in the policy set, the Ramsey planner can implement an allocation closer to the efficient allocation but only minimally though. Figure \ref{fig:bench_lumpsum} contrasts the efficient allocation in black, the allocation under the benchmark policy, the blue-dotted graph, and the optimal allocation when lump-sum transfers are available in orange-dashed graph. 
+When lump-sum transfers of environmental tax revenues are in the policy set, the Ramsey planner can implement hours worked closer to the efficient allocation: figure \ref{fig:bench_lumpsum} contrasts the efficient allocation in black, the allocation under the benchmark policy, the blue-dotted graph, and the optimal allocation when lump-sum transfers are available in orange-dashed graph. 
 
 Figure \ref{fig:bench_lumpsum_pol} shows the optimal policy the planner chooses when lump-sum transfers are available. 
-Now, the optimal income tax scheme is regressive. Since lump-sum transfers ensure a reduction in labor supply the motive for progressive income taxes vanished. Instead, labor income taxes are used to 
-\tr{Compare to version with lump sum transfers but without income taxes \ar what are the gains from labor income tax regressivity?} 
+Now, the optimal income tax scheme is regressive. Since lump-sum transfers ensure a reduction in labor supply the motive for progressive income taxes vanished. Figure \ref{fig:bench_lumpsum_vglNotaul} contrasts the optimal allocations when lump-sum transfers are available with and without income taxes. Instead, labor income taxes are used to boost hours worked above what is chosen in the efficient allocation. Since high-skilled labor increases more when labor income taxes are regressive than low-skilled labor, the energy mix shifts slightly to a higher green-to-fossil ratio; compare panel (g) in figure \ref{fig:bench_lumpsum_vglNotaul}. Research inputs only minimally react to the shift in green-specific input supply: the amount of green scientists increases, the one of fossil scientists decreases; see panels (e) and (f). Overall growth seems to be unaffected by the level of the income tax as depicted by panel (d). 
 
+Again, the environmental tax seems unaffected by the presence of an income tax. It is only slightly higher in the version with income tax in the periods from 2030 to 2050. 
+
+Hence, labor income taxes in the policy regime with lump-sum transfers serve to increase consumption at the expense of less leisure and the need for a higher environmental tax.
 
 
 \begin{figure}[h!!]
 	\centering
-	\caption{Comparison integrates policy and lump-sum transferss}\label{fig:bench_lumpsum}
+	\caption{Comparison integrated regime and regime lump-sum transfers}\label{fig:bench_lumpsum}
 	
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(a) Consumption}}
@@ -333,6 +336,208 @@ Now, the optimal income tax scheme is regressive. Since lump-sum transfers ensur
 	\end{minipage}
 \end{figure}
 
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison lump-sum transfers with and without income tax}\label{fig:bench_lumpsum_vglNotaul}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Fossil scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/sff_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Green scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/sg_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Environmental tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure}
 
-\subsection{No heterogeneous skills, no endogenous growth}
-\ar Does integrated policy come close to efficient one or the one with lump-sum transfers (should be the case according to theory)
+\subsection{The role of skill heterogeneity and endogenous growth}
+\ar Does integrated policy come close to efficient one or the one with lump-sum transfers (should be the case according to theory where I have shown that the integrated policy replicates the efficient one without endogenous growth and skill heterogeneity)
+
+In this section, I briefly discuss the role of skill heterogeneity and of endogenous growth as drivers of the quantitative results.
+To do so, I simplify the model on the different dimensions: the next section discusses results without skill heterogeneity, the subsequent one results with exogenous growth. The last section verifies that the theoretic results hold true in the model with neither heterogeneous skills nor endogenous growth, i.e. a quantitative version of the model used to derive the theoretic results. 
+\subsubsection{No skill heterogeneity}
+With homogeneous skills, the optimal allocation with lump-sum transfers and the integrated policy is exactly the same as shown by figure \ref{fig:bench_lumpsum_noskill}. Due to endogenous growth, however, they do not attain the efficient allocation: growth is too low. 
+The environmental tax equals the wedge a social planner chooses for the marginal product of labor across sectors; compare panel (h).
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison integrated regime and lump-sum transfers homogeneous skills}\label{fig:bench_lumpsum_noskill}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(g) labor income tax progressivity}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(h) Environmental tax}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\end{figure}
+
+\subsubsection{Exogenous growth}
+Figure \ref{fig:bench_lumpsum_xgr} shows the optimal allocation without endogenous growth. When lump-sum transfers are available, the income tax scheme is not used and the Ramsey planner can implement the efficient allocation. Hence, the regressive income tax scheme in the regime with lump-sum transfers in the benchmark model is intended to boost growth and hence consumption. The income tax in this scenario seems less targeted to meet the emission target through the recomposing effect of income taxes on production via relative skill supply. If this was the case, it would be non-zero in the scenario with exogenous growth. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison integrated regime and lump-sum transfers exogenous growth}\label{fig:bench_lumpsum_xgr}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) labor income tax progressivity}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Environmental tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure}
+
+
+\subsubsection{Homogeneous skills and exogenous growth}
+Absent both endogenous growth and skill heterogeneity the Ramsey allocation mirrors the efficient allocation. 
+Endogenous growth makes environmental tax policy costly. When lump-sum transfers are available, there is no role for labor income taxes in the optimal policy. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison integrated regime and lump-sum transfers homogeneous skills and exogenous growth}\label{fig:bench_lumpsum_noskill_xgr}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) labor income tax progressivity}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Environmental tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure}

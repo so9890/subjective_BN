@@ -108,7 +108,7 @@ end
 S    = sn+sg+sff;
 ws   = chiis*S.^sigmaas; 
 
-if indic.notaul ==4
+if indic.notaul >=4
     Tls =tauf.*pf.*F;
 else
     Tls =zeros(size(F));
@@ -141,11 +141,11 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         end
    end
     
-else % taul cannot be used
+else % taul cannot be used (indic.notaul == 1, 2, 5)
     taul=zeros(size(sn));
-    if indic.notaul==1
+    if indic.notaul==1 
         lambdaa=tauf.*pf.*F./(w.*h)+1;
-    elseif indic.notaul == 2 % env tax revenues not redistributed via income tax scheme; 
+    elseif indic.notaul == 2 ||  indic.notaul == 5 % env tax revenues not redistributed via income tax scheme; 
         lambdaa=ones(size(C));
     end
 end
@@ -154,12 +154,12 @@ xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
 xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf.*Af;
 xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
-if indic.notaul <2 
+if indic.notaul <2  % 
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*pf.*F;
         GovCon  = zeros(size(F));
 else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        if indic.notaul==4 % lump sum trans
+        if indic.notaul>=4 % lump sum trans
             GovCon = zeros(size(F));
         else
             GovCon = tauf.*pf.*F;

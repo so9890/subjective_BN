@@ -37,6 +37,7 @@ indic.notaul=0; % Indicator of policy
                 % ==2 gov consumes env. taxes; taul cannot be used (No Income Tax scheme)
                 % ==3 gov consumes env taxes; taul can be used 
                 % ==4 taul is an option and env tax revenues are redistributed lump sum
+                % ==5 lump sum trans, no taul
 indic.taus =0; %==0 then no subsedy on green 
 indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
@@ -213,13 +214,13 @@ end
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 
-for tr =1
+for tr =0:1
     indic.target=tr;
 for xgr=0:1
     indic.xgrowth=xgr;
 for ns =0:1
     indic.noskill=ns;
- for nnt=0:4
+ for nnt=0:5
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -254,6 +255,7 @@ indic
 
 % choose sort of plots to be plotted
 plotts.table=       0;
+plotts.analyta =    1;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
 plotts.countcomp=   0;
@@ -267,15 +269,15 @@ plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0;
-plotts.compeff_dd=  1; % compare double dividend scenarios with and without income tax 
+plotts.compeff_dd=  0; % compare double dividend scenarios with and without income tax 
 plotts.compeff1=    0;
 plotts.compeff2=    0;
 plotts.compeff3=    0;
 
 %%
-for gg=0
+for gg=0:1
     indic.xgrowth=gg;
-for ns=0
+for ns=0:1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end

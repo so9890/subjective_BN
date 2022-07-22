@@ -31,7 +31,8 @@ for k = keys(RES)
     wl = varrs(varlist=='wl',:)';
     E = varrs(varlist=='E',:)';
     Y = varrs(varlist=='Y',:)';
-    
+    tauf = varrs(varlist=='tauf',:)';
+    pf = varrs(varlist=='pf',:)';
 % welfare measures
 
 if thetaa~=1
@@ -70,6 +71,8 @@ gAagg = [(A(2:end)-A(1:end-1))./A(1:end-1);0]*100;
 gAn = [(An(2:end)-An(1:end-1))./An(1:end-1); 0]*100;
 gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;
 
+% analytical measure of taul in integrated policy regime
+analyTaul = tauf.*pf.*F./Y;
 %- update variables and varlist to include additional variables
 jj= eval(symms.plotsvarsAdd); 
 

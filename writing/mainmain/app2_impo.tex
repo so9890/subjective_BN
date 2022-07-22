@@ -1,7 +1,9 @@
 \clearpage
 \appendix
+\begin{comment}
 \section{Model}\label{app:model}
 
+content...
 \subsection{Competitive equilibrium in simple model}
 
 \begin{align}
@@ -52,6 +54,9 @@ Nevertheless, the marginal product of labor in the fossil sector is higher. As a
 
 
 When the effect of a decreased wage  en gros reduces labor supply, it makes it more costly for the government to generate funds due to a smaller tax base for the income tax. This is the mechanism pointed to by the double dividend literature.
+
+
+\end{comment}
 \section{Derivations and proofs}\label{app:derivations}
 
 \subsection{Theory results \ref{sec:mod_an}}
@@ -310,7 +315,6 @@ Since the presence of the environmental tax artificially increases labor in the 
 %\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
 \frac{\partial F}{\partial s}=\frac{F}{s}
 \\
-\text{Translation derivates H and s and L}\\
 \frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
 \\
 \frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
@@ -320,6 +324,7 @@ Since the presence of the environmental tax artificially increases labor in the 
 \end{align}
 
 
+\begin{comment}
 \subsection{Numeric results in simple model}
 \begin{table}[h!!]
 	\caption{Linear tax scheme and lump-sum transfers}\label{tab:lin_lst}
@@ -532,7 +537,8 @@ Since $s^*=s_{FB}$ by assumption, substituting equilibrium expressions for $\tau
 	 Since $\frac{\varepsilon-s}{1-s}\in(0,1)$ when there is a negative externality from dirty production, the optimal tax scheme, which implements the efficient allocation, exists and is progressive. \textit{Note that 1 is an upper bound on the tax scheme progressivity parameter as otherwise the marginal returns to labor would be decreasing in hours worked. It is positive since $s<\varepsilon$.}
 \end{proof}
 
-
+	content...
+\end{comment}
 \section{Quantitative results}\label{app:quant_res}
 
 
@@ -572,6 +578,100 @@ Since $s^*=s_{FB}$ by assumption, substituting equilibrium expressions for $\tau
 \end{minipage}
 \end{figure}
 
+\subsection{Regime with lump-sum transfers and with exogenous growth}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison lump-sum transfers with and without policy}\label{fig:lumpsum_xgr_vglNotaul}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Environmental tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(g) Income tax progressivity}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\end{figure}
+
+\subsection{Regime with lump-sum transfers without skill heterogeneity}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison lump-sum transfers with and without policy}\label{fig:lumpsum_noskill_vglNotaul}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Fossil scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/sff_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Green scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/sg_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Environmental tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure}
 
 \hrule
 \begin{figure}[h!!]

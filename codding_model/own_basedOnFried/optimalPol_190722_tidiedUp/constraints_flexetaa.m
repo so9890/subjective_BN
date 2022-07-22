@@ -74,8 +74,8 @@ if indic.xgrowth==0
         c(T*2+1:T*3)    = S-upbarH;
     else
         c(T*2+1:T*3)   = sg-upbarH;
-        c(3*T+1:4*T) = sff-upbarH;
-        c(4*T+1:5*T) = sn-upbarH;
+        c(3*T+1:4*T)   = sff-upbarH;
+        c(4*T+1:5*T)   = sn-upbarH;
     end
 end
  
@@ -109,7 +109,7 @@ end
          
          % hh budget different for with and without inequality version
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
-            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
@@ -124,7 +124,7 @@ end
          ceq(T*6+1:T*7) = zh*hh-(hhf+hhg+hhn);
          ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
          ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
-           if indic.notaul==1 || indic.notaul == 2 % when no taul is available
+           if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
                 ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
      end
@@ -145,7 +145,7 @@ end
                  ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-wsn;
                end
 
-            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 
@@ -155,7 +155,7 @@ end
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
             ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov-Tls;
 
-            if indic.notaul==1 || indic.notaul == 2 % when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 

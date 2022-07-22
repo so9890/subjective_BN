@@ -89,18 +89,26 @@ if indic.noskill==0
     else
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        GovCon = tauf.*pf.*F;
+        if indic.notaul<4
+            GovCon = tauf.*pf.*F;
+        else
+            GovCon = zeros(size(F));
+        end
     end
 else
  if indic.notaul<2
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
     else
         SGov   = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        GovCon = tauf.*pf.*F;
+        if indic.notaul<4
+            GovCon = tauf.*pf.*F;
+        else
+            GovCon = zeros(size(F));
+        end
  end
 end
 % lump sum transfers
-if indic.notaul ==4
+if indic.notaul >=4
     Tls =tauf.*pf.*F;
 else
     Tls =zeros(size(F));
