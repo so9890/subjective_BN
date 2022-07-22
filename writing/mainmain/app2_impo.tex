@@ -387,8 +387,8 @@ Only when the Ramsey planner can implement the efficient level of work, the envi
 	%\item when there is no income tax, the optimal policy is to set the efficient dirty labour share (compare table \ref{tab:lin_nolst_notaul}). Labor supply is always too high but the optimal tax exceeds the social cost of carbon
 \end{itemize}
 
-
-\subsection{Derivation expression for $h^{FB}$}
+\subsection{Model with  functional forms}
+\subsubsection{Derivation expression for $h^{FB}$}
 Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
 \begin{align}
 h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f s^{FB}\left(h^{FB}\right)^\theta \right)^\frac{1}{\sigma+\theta}.\label{eq:heff_1}
@@ -532,8 +532,48 @@ Since $s^*=s_{FB}$ by assumption, substituting equilibrium expressions for $\tau
 	 Since $\frac{\varepsilon-s}{1-s}\in(0,1)$ when there is a negative externality from dirty production, the optimal tax scheme, which implements the efficient allocation, exists and is progressive. \textit{Note that 1 is an upper bound on the tax scheme progressivity parameter as otherwise the marginal returns to labor would be decreasing in hours worked. It is positive since $s<\varepsilon$.}
 \end{proof}
 
-\tr{Is the tax scheme really progressive? }
-\section{Results}
+
+\section{Quantitative results}
+
+
+\subsection{Efficient allocation with and without emission limit}\label{app:eff_notarg}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation absent emission target }\label{fig:eff_with_notarget}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) High skill hours worked}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(c) Low skill hours worked}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) Aggregate growth}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) Energy mix, $G/F$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(f) Utility}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+
+
+\hrule
 \begin{figure}[h!!]
 	\centering
 	\caption{Comparison to efficient allocation absent emission target }\label{fig:Compno_eff_BN0_notarget}

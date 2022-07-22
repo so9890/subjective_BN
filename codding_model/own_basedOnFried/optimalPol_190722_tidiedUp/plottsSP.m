@@ -823,7 +823,7 @@ if plotts.comptarg==1
               lgd=legend('wih emission target', 'no emission target', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_1705/%s_TargetComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, etaa, lgdind);
+        path=sprintf('figures/all_July22/%s_TargetComp%s_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
        close gcf
         end
