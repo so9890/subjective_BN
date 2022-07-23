@@ -282,6 +282,34 @@ for ns=0:1
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
 end
+
+%% tables
+% constructed in plotsSP file
+
+tt=load('Table_SWF_July22_sep1_noskill0_etaa0.79_xgrowth0_extern0.mat');
+addpath('tools')
+kk=keys(resultsTHETA);
+Table=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
+Table.Properties.VariableNames={'Thetaa','FB hours', 'FB SWF', 'FB s', 'FB MPL','FB Pigou', 'Only tauf=pigou hours' , 'Only tauf=pigou SWF' , 'Only tauf=pigou s' , 'Only tauf=pigou scc', 'Only tauf=pigou wage', ...
+                                       'Optimal hours', 'Optimal SWF','Optimal s', 'Optimal wage', 'Optimal taul', 'Optimal tauf', 'Optimal scc'};
+
+%- only hours, and policy
+TableH=table(keys(resultsTHETA)',zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1),zeros(length(keys(resultsTHETA)),1));
+TableH.Properties.VariableNames={'Thetaa','FB hours', 'FB Pigou', 'CE hours',  'CE scc',  ...
+                                       'Opt hours','Opt taul', 'Opt tauf', 'Opt scc'};
+
+for i=1:3
+    st=resultsTHETA(string(kk(i)));
+    Table(i,2:end)={st.Sp.h, st.Sp.SWF,st.Sp.s, st.Sp.w, st.Sp.pigou, st.LF.h, st.LF.SWF, st.LF.s, st.LF.scc, st.LF.w, ...
+                    st.Opt.h, st.Opt.SWF, st.Opt.s, st.Opt.w, Opt.taul, st.Opt.tauf, st.Opt.scc};
+    TableH(i,2:end)={st.Sp.h, st.Sp.pigou, st.LF.h, st.LF.scc, ...
+                    st.Opt.h, Opt.taul, st.Opt.tauf, st.Opt.scc};
+end
+
+table2latex(tt.TableSWF_PV)
+%% Analytical model files
+% solves analytical model and compares policy regimes
+solve_easy;
 %%
 for BN=1
     indic.BN=BN;
