@@ -636,12 +636,18 @@ end
 if plotts.singov==1
     fprintf('plotting single overlayed graphs')
     for lgdind=0:1
-    for i =keys(RES)
-        ii=string(i);
-
+        if plotts.regime_gov==0
+            nt=0
+            helpp= RES;
+        else
+            nt =3;
+            helpp =OTHERPOL{nt};
+        end
+    for i =keys(helpp)
         %- loop
         ii=string(i);
-        allvars= RES(ii);
+   
+        allvars =helpp(ii);
     %% 
     fprintf('plotting %s',ii );
     for l =keys(lissComp) % loop over variable groups
@@ -689,13 +695,13 @@ if plotts.singov==1
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
          end
         if indic.count_techgap==0
-            path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,indic.extern,  etaa, lgdind);
+            path=sprintf('figures/all_July22/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.extern,  etaa, lgdind);
         else
-            path=sprintf('figures/all_1705/SingleJointTOT_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_countec_extern%d_etaa%.2f_lgd%d.png',  ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth, indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_July22/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_countec_extern%d_etaa%.2f_lgd%d.png',  nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.extern, etaa, lgdind);
         end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
-        end
+    end
     end
     end
 end
@@ -861,6 +867,56 @@ if plotts.comptarg==1
     end
     end      
 end
+%% single alternative regimes with income tax
+if plotts.regimes==1
+    fprintf('plotting  other regimes with and without taul graphs')   
+        opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+    % for withtaul=0:1
+    for nt = [3,4] % 3 is version with gov consumes env revenues but income tax is available 
+        
+        % read in version to version without income tax
+        RES_help=OTHERPOL{nt};
+    for i =1:length(opt)
+        io=opt(i);
+        allvars =RES_help(io);
+
+    for l =[keys(lisst), string('addgov')]
+        ll=string(l);
+        if ll == string('addgov')
+            plotvars= list.addgov;
+        else
+            plotvars=lisst(ll);
+        end
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+                
+           main=plot(time,allvars(find(varlist_polcomp==varr),:));            
+           set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if startsWith(varr,"gA")
+               xlim([1, time(end-1)])
+            else
+               xlim([1, time(end)])
+            end
+
+        path=sprintf('figures/all_July22/%s_SingleAltPol%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f.png', varr, io, nt, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, etaa);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+
+
 %% comparison social planner and optimal policy (with and without labour tax)
 % graph incorporates with and without laissez faire allocation 
 % ensure to use different variable list for policy scenario alternations
@@ -871,7 +927,7 @@ if plotts.compeff==1
         eff= string({'SP_T', 'SP_NOT'});
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
     % for withtaul=0:1
-    for nt = 4% 1:length(OTHERPOL) % loop over policy scenarios
+    for nt =  1:length(OTHERPOL) % loop over policy scenarios
         RES_help=OTHERPOL{nt};
     for i =1:length(eff)
 
