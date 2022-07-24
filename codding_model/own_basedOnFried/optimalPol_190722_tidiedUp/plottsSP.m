@@ -637,11 +637,13 @@ if plotts.singov==1
     fprintf('plotting single overlayed graphs')
     for lgdind=0:1
         if plotts.regime_gov==0
-            nt=0
+            nt=0;
             helpp= RES;
+            varl=varlist;
         else
             nt =3;
             helpp =OTHERPOL{nt};
+            varl= varlist_polcomp;
         end
     for i =keys(helpp)
         %- loop
@@ -657,19 +659,19 @@ if plotts.singov==1
         gcf=figure('Visible','off');
 
         if length(plotvars)==2
-            main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
+            main=plot(time,allvars(find(varl==plotvars(1)),:), time,allvars(find(varl==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
             set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} ) 
     %    elseif ll=="LabourInp"
     %           main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),time,allvars(find(varlist==plotvars(3)),:), 'LineWidth', 1.1);    % plot vectors!        
     %           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
        elseif ll=="Growth"
-              main=plot(time(1:end-1),allvars(find(varlist==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varlist==plotvars(2)),1:end-1),...
-              time(1:end-1),allvars(find(varlist==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varlist==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
+              main=plot(time(1:end-1),allvars(find(varl==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varl==plotvars(2)),1:end-1),...
+              time(1:end-1),allvars(find(varl==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varl==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
               set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
 
         elseif ll=="Science"
-              main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),...
-                  time,allvars(find(varlist==plotvars(3)),:), time,allvars(find(varlist==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
+              main=plot(time,allvars(find(varl==plotvars(1)),:), time,allvars(find(varl==plotvars(2)),:),...
+                  time,allvars(find(varl==plotvars(3)),:), time,allvars(find(varl==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
                set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
         end
            xticks(txx)
@@ -716,7 +718,17 @@ if plotts.notaul==1
     for i =keys(pp)
 
      ii=string(i);
-     allvars= RES_polcomp_notaul0(ii);
+     
+     if plotts.regime_gov ==0
+         bb=0;
+        allvars= RES_polcomp_notaul0(ii);
+        varl=varlist; 
+     else
+         bb=3;
+         helpp=OTHERPOL{bb};
+         allvars= helpp(ii);
+         varl=varlist_polcomp;
+     end
      allvarsnt=pp(ii); 
      
     %% 
@@ -733,7 +745,7 @@ if plotts.notaul==1
            gcf=figure('Visible','off');
 
                varr=string(plotvars(v));
-               main=plot(time,allvars(find(varlist_polcomp==varr),:), time,allvarsnt(find(varlist_polcomp==varr),:), 'LineWidth', 1.1);
+               main=plot(time,allvars(find(varl==varr),:), time,allvarsnt(find(varlist_polcomp==varr),:), 'LineWidth', 1.1);
 
                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
                xticks(txx)
@@ -758,7 +770,7 @@ if plotts.notaul==1
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
     %         sgtitle('Social Planner Allocation')
-            path=sprintf('figures/all_July22/comp_notaul%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',count, ii, varr, indic.spillovers,indic.noskill, indic.sep, indic.xgrowth,  etaa, lgdind);
+            path=sprintf('figures/all_July22/comp_bb%d_notaul%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png', bb, count, ii, varr, indic.spillovers,indic.noskill, indic.sep, indic.xgrowth,  etaa, lgdind);
             exportgraphics(gcf,path,'Resolution', 400)
             % saveas(gcf,path)
             close gcf
@@ -933,7 +945,16 @@ if plotts.compeff==1
 
         ie=eff(i);
         io=opt(i);
-        allvars= RES(io);
+        if plotts.regime_gov ==0
+            bb=0;
+           allvars= RES(io);
+           varl=varlist;
+        else
+            bb =3;
+            helpp = OTHERPOL{bb};
+            allvars = helpp(io);
+            varl=varlist_polcomp;
+        end
         allvarsnotaul =RES_help(io);
         allvarseff=RES(ie); 
 
@@ -945,10 +966,10 @@ if plotts.compeff==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
            if withlff==1
-               main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+               main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varl==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
                set(main,{'LineWidth'}, {1; 1.2; 1.2; 1},  {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {grrey; 'k'; orrange; 'b'} )   
            else
-               main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
+               main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varl==varr),:), time,allvarsnotaul(find(varlist_polcomp==varr),:));            
                set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
            end
            xticks(txx)
@@ -1003,7 +1024,7 @@ if plotts.compeff==1
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                end
            end
-        path=sprintf('figures/all_July22/%s_CompEff%s_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d_lff%d.png', varr, io, nt, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, etaa, lgdind, withlff);
+        path=sprintf('figures/all_July22/%s_CompEff%s_bb%d_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d_lff%d.png', varr, io, bb, nt, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1205,7 +1226,17 @@ if plotts.compeff3==1
 
         ie=eff(i);
         io=opt(i);
-        allvars= RES(io);
+        
+        if plotts.regime_gov==0
+            nt=0;
+            allvars= RES(io);
+            varl=varlist;
+        else
+            nt=3;
+            helpp=OTHERPOL{nt};
+            allvars=helpp(io);
+            varl=varlist_polcomp;
+        end
         allvarseff=RES(ie); 
 
     for l =keys(lisst) % loop over variable groups
@@ -1216,10 +1247,10 @@ if plotts.compeff3==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
       if withlff==1
-            main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:));            
+            main=plot(time, lff(find(varlist==varr),:), time,allvarseff(find(varlist==varr),:), time,allvars(find(varl==varr),:));            
            set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {grrey; 'k'; orrange} )   
       else
-            main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varlist==varr),:));            
+            main=plot(time,allvarseff(find(varlist==varr),:), time,allvars(find(varl==varr),:));            
            set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
       end
       xticks(txx)
@@ -1235,9 +1266,7 @@ if plotts.compeff3==1
                xlim([1, time(end)])
             end
 
-            if varr=="C"
-                ylim([0.56, 0.72]);
-            elseif varr=="hh"
+            if varr=="hh"
                 ylim([0.46, 0.51]);
             elseif varr=="hl"
                 ylim([0.31, 0.335]);                
@@ -1254,7 +1283,7 @@ if plotts.compeff3==1
                end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_July22/%s_CompEff%s_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.count_techgap, etaa, lgdind, withlff);
+        path=sprintf('figures/all_July22/%s_CompEff%s_regime%d_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', varr, io, nt, indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.count_techgap, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end

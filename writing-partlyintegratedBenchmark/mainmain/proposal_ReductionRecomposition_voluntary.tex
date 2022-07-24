@@ -1,0 +1,622 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Environmental Awareness, Voluntary Reduction, and the Economy}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	First version: December 25, 2021\\
+	This version: \today }
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+	%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+
+
+%\section{Introduction 2.0}
+%What is the role of environmental concerns for economic decision making and the economy?
+%We document a role for environmental concerns in how households make economic decisions. 
+%More precisely, a rise in environmental concerns explains a decrease in consumption of durable goods and working hours. These findings have macroeconomic relevance. 
+%We first show a negative correlation in consumption and working hours and environmental concerns after controlling for other relevant demographic and economic factors. 
+%
+%We then show that environmental concerns are relevant for consumption and labour decision by use of a structural model. \textit{the first preference version would be matched to the data, without environmental concerns, the second one with a role for environmental concerns would equally be matched but the error is smaller? How to evaluate better fit? \cite{Bartling2015DoResponsibility} also talk about what preferences match the behaviour...}
+%
+%In the second part of the paper we qualitatively study the effects of such a voluntary reduction on the macroeconomy and policy implications that best accompany such a change. 
+
+	
+\section{Introduction}
+What is the role of environmental concerns for economic decision making and the economy? %(related to: are economic preferences changing over time?)
+This paper documents a rising share of individuals which voluntarily reduce their consumption and labour supply in a representative Dutch panel.\footnote{\ We consider households which find additional consumption of furniture or clothes unnecessary as indicating voluntary reduction. Such behaviour may suggest the existence of a satiation point for certain goods; compare panels (a) and (b) in figure \ref{fig:evolution_notNecessary}. Simultaneously, there is a positive trend (which started later though than the consumption trend) in the share of panelists which voluntarily works less hours than full time; compare pane (c) in figure \ref{fig:evolution_notNecessary}. These panelists choose to work less in order to increase leisure or to take it easier \textit{(check if this does not coincide with changing hours of partner! Could only look at those where partner did not change)}. Again, these households seem to be satisfied in terms of consumption goods. \tr{These are preliminary result... }} 
+This finding is consistent with invariant economic preferences and rising consumption levels: as consumption rises the marginal utility of consumption falls making additional consumption less valuable. 
+
+At the same time, however, environmental awareness has been changing, too. Over the last decade, prioritising environmental protection above economic growth has become the majority opinion in the Netherlands and other European countries (compare figure panel (a) in figure \ref{fig:WVS}). Furthermore, in a 2020 cross-sectional survey for the Netherlands, more than 50\% of participants express a willingness to change their own lifestyle and see the need to live simpler lives (compare figure \ref{fig:opinions}) for environmental reasons.
+
+\tr{(The following is what we want to do)}\\
+Reduced-form regressions indicate that environmental preferences are relevant in explaining the rise in households which voluntarily reduce their consumption after controlling for demographics and predetermined economic variables. 
+Estimating different utility specifications we provide evidence that observed behavioural changes are best explained by time-varying preferences. We reject the hypothesis that preferences are time-invariant. In our preferred utility specification, environmental concerns enter explicitly in form of a variable satiation point.\footnote{\ Modelling a satiation point is equivalent to introducing costs of consumption into the utility function. One narrative may be that households internalise negative effects with their consumption. } For those households which voluntarily reduce their consumption, the satiation point is lower on average and has decreased over time. 
+
+In the second part of the paper, we study the macro economic effects of a continued rise in the share of households which voluntary reduce consumption. \textit{(Alternatively: a continued drop in the satiation point... look at data to see what is more likely. or both...)} To do so, we build a general equilibrium model with heterogeneity in satiation points.\footnote{\ \textit{Have to think about whether the model is demand-side determined (econommic slack) ore supply-side determined (i.e., output is constrained by the availability of input goods and all output is consumed); could use data to inform this decision}} We differentiate households into satiated and non-satiated types.\footnote{\  \textit{(Relevant to differentiate between durable and non-durable consumption?)}}
+
+We design the model in a way that allows to derive closed-form solutions. We use this simple model to highlight counteracting mechanisms:  
+While being driven by environmental concerns, the general equilibrium effects of individual voluntary reduction on the environment are mixed.
+ As their satiation point decreases, these households demand less and provide less labour \tr{Hypothesis:} which again reduces the capacity of the economy to increase the share of cleaner production. %\textit{Have to think about mechanisms... Already done: There are counteracting indirect effects if (a) the satiation point for some households falls and (b) these households supply a different type of skill. }
+
+Finally, we study optimal policies to accompany an exogenous drop in satiation levels \textit{(to focus on the effects of voluntary reduction, it makes sense to consider it as an exogenous change. )}. \textit{(Have to think about: objective function, ...)}
+
+The calibration/estimation accounts for the distribution of skills and productivity in the data: skills do not differ across household types but productivity does. \textit{(I have had a quick look at how skill and environmental preferences correlate there was no obvious correlation...Have to do statistical test and should look at correlation with variables that indicate voluntary reduction.)} 
+
+
+
+
+%\paragraph{Document relation to environmental concerns} 
+%In a next step, we show that both the share of panelists which don't think it is necessary to buy new products and the share which voluntarily works part time is positively correlated with environmentally friendly attitudes (\textit{I am willing to change, moral duty, simpler lives should be lived}) and behaviour \textit{(buy second hand regularly, dont need to own things, no need for new products)}.
+
+\section{Roadmap: Preliminary}
+\textbf{Literature!}\\ 
+\textbf{Empirical: Reduced form and motivation}
+\begin{enumerate}
+\item look at hours worked over time; how do they behave on aggregate? How do they move for panelists which indicate a voluntary reduction at some point?
+\item consumption is relatively coarse, price versus quantity... not sure we would find something there
+\item use voting behaviour from liss value questionnaire to elicit importance of environment over time
+\item what are the dynamics? \ar logit/ probit with lagged variables of labour supply/ consumption indicators; for hours worked OLS
+\item {``Career shifters'': highly skilled voluntarily choose a simpler work; documentary: \url{https://www.arte.tv/de/videos/050584-000-A/wachstum-was-nun/} }\ar Visible in the data? (1) Are there households which are highly skilled but work in jobs which do not require this level of skills? (2) If so, why?
+\end{enumerate}
+\textbf{Structural estimation}
+\begin{enumerate}
+	\item estimate model with standard preferences: no satiation point, no role for environmental concerns (but interest rates, )
+	\item use different model  where environmental concerns shape economic behaviour
+	\item compare mean squared error to evaluate model performance (?); machine learning framework but with parametric model (use same training and validation data set but different models); look at \cite{Bartling2015DoResponsibility} who also discuss which preferences best represent the behaviour they observe in an experiment
+\end{enumerate}
+\textbf{Model}
+\begin{itemize}
+\item demand-determined models as in \cite{Michaillat2015AggregateUnemployment} or (more stylised, less quantitative:) \cite{Auerbach2021InequalityEconomy}
+\item  relate model to green production \ar use information on green skills from \cite{Consoli2016DoCapital} 
+\item focus on durables (?) (reference: \cite{McKay2021LumpyPolicy}); (\cite{Hou2020FeelingsIntentions} link psychology to early replacement of durables...)
+\item policy implications: logic of demand-boosting policies does not work when demand is no longer non-satiated; these households also reduce the capacity of the state to redistribute; their skills might be missing in a transition to sustainable production (however, no evidence of a correlation with skill type so far.); focus this analysis on the environment (maybe inequality), since \cite{Auerbach2021InequalityEconomy} already discuss policy effects $\underline{on\ output}$ in a demand-determined model
+\end{itemize}
+
+%\paragraph{How to continue: option b)}
+% Relation to happiness. Exploit timing in happiness and work: Is it that happier households reduce their work or do they become more happy once work is reduced? Or no difference at all? Look at households which transition. 
+% Have to get an idea of the literature: has it already been done? Psychology papers on character traits which are positively correlated with environmentally friendly behaviour and less materialistic values: \cite{Brown2005AreLifestyle,Heikkinen2015DegrowthConsumers}; Are there any policy recommendations which could be derived?
+%
+
+
+\section{Data sources}
+\begin{itemize}
+\item Liss Panel: 
+Questions on the environment:
+\url{https://www.dataarchive.lissdata.nl/study_units/view/1045}; Questions on moral consumer behaviour: 
+\url{https://www.dataarchive.lissdata.nl/study_units/view/420} \tr{Not used so far, more about animal well being};
+liss all waves on consumption and time use, on work, and on income
+
+\item World Value Survey: \url{https://www.worldvaluessurvey.org/WVSOnline.jsp}
+\end{itemize}
+
+
+\section{Motivation}
+\begin{enumerate}
+	\item rise in share which finds consumption of new furniture and clothes unnecessary (panels (a) and (b) in figure \ref{fig:evolution_notNecessary}), share of non-unemployed reporting leisure as reason for low hours (panel (c) same figure)\footnote{\ The following questions arise: 
+		(1) who are these people who think it is not necessary to buy more clothes or to replace worn furniture?
+		(2) What explains the rise in the share? \ar probit/ logit over time or pooled (pooled over time)
+		(3) Do working hours follow consumption choices? 
+		(4) What explains the negative trend in part time before 2015? 
+	}
+	\item rise in share reporting that  they prioritise environmental protection over economic growth in figure \ref{fig:WVS} (graphs also shows answer to same question for other developed economies). Especially in the Netherlands and Germany the majority opinion shifted to prioritising environmental protection in the last decade(s).
+	\item in 2020,  roughly 2000 panelists of the liss panel participated in an additional survey on economic behaviour and opinions. Figure \ref{fig:opinions} shows the cross-sectional distribution to three questions regarding environmental attitudes: The majority advocates environmentally friendly behaviour (normative) panels (b) and (d). Most importantly, more than 50\% of respondents indicate a willingness to change their own lifestyle for environmental reasons (panel(a))!
+	\item[\ar] Does the evidence under points 2 and 3 explain 1?
+\end{enumerate}
+
+%This subsection documents a rise in the share of panelists which report some voluntary reduction in consumption/ labour supply. Figure \ref{fig:evolution_notNecessary} shows the full panel.  
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Indicators of voluntary reduction over time}\label{fig:evolution_notNecessary}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Percentage which does not find it necessary to replace worn furniture}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_notnecessary_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Percentage which does not buy new clothes regularly because deemed unnecessary}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_notnecessary_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) Percentage working part time voluntarily\\ \ \\ }
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_actual.png}
+	\end{minipage}
+	%\begin{minipage}[h!!]{0.4\textwidth}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\centering\footnotesize{(d) Share would reduce work for voluntary reason}
+	%	\includegraphics[width=1\textwidth]{../codding_data/results/liss/total_share_voluntary_work_reduction_willing.png}
+	%\end{minipage}
+	\floatfoot{Notes: { The evolution of the share of panelists who think that it is not necessary to replace old furniture (panel (a), variable ci307) or to buy new clothes (panel (b), variable ci306) over time (Not yet matched with environmental dataset information). Panel size increases over waves: $\approx$700 to $\approx$1500. Panel (c) shows panelists which work part time (less than 36 hours) either because they \textit{want to take it easier} (minority) or because they want to have more leisure time. (variables cw399, cw400). (Where I dropped the year-specific part of variable names.) }}
+\end{figure}
+\begin{figure}[h!!]	
+	\centering
+	\caption{Opinions on environmental protection versus economic growth}\label{fig:WVS}
+	\begin{minipage}[h!!]{0.4\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Netherlands}
+		\includegraphics[width=1\textwidth]{../Data/data_Netherlands_priorities.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.4\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Germany}
+		\includegraphics[width=1\textwidth]{../Data/data_germany_priorities.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.4\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) US}
+		\includegraphics[width=1\textwidth]{../Data/data_US_priorities.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.4\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{ \ \\ (d) France}
+		\includegraphics[width=1\textwidth]{../Data/data_France_priorities.png}
+	\end{minipage}
+	\floatfoot{Evolution of answers to the following question: \textit{``Here are two statements people sometimes make when discussing the environment and
+			economic growth. Which of them comes closer to your own point of view? A. Protecting
+			the environment should be given priority, even if it causes slower economic growth and
+			some loss of jobs B. Economic growth and creating jobs should be the top priority, even
+			if the environment suffers to some extent"}. Data from the World Value Survey.}
+\end{figure}
+\begin{figure}[h!!]
+	\centering	
+	\caption{Environmental Attitudes in 2020}\label{fig:opinions}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) I am willing to change my lifestyle to help the environment}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a175title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) We all need to live simpler lives}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a181title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) It is a moral duty to care for nature and the environment}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a183title0.png}
+	\end{minipage}	
+	\floatfoot{Notes: Looks like a gap between opinions on normative duties and the willingness to act.
+	}
+\end{figure}
+
+\clearpage
+\newpage
+
+
+\section{Preliminary empirical results: Correlations}
+Subsection \ref{subsec:bt} discusses reported consumption and working behaviour over time sorted by environmental concerns. Subsection \ref{subsec:cs} looks  at (intended) environmental behaviour in the cross-section in 2020.
+\subsection{Behaviour over time and environmental attitudes}\label{subsec:bt}
+Figures \ref{fig:evolution_notNecessary_bygroup:furniture} to \ref{fig:evolution_wtr_willingtochange} show the evolution of the share of panelists which indicate some sort of voluntary reduction sorted by environmental attitudes (that is, figure \ref{fig:evolution_notNecessary} by environmental attitudes reported in 2020). 
+Environmental attitudes are clearly positively correlated with part-time work for the full time span (figure \ref{fig:evolution_wtr_willingtochange}).
+When it comes to consumption, the evidence is mixed (figures \ref{fig:evolution_notNecessary_bygroup:furniture} and \ref{fig:evolution_notNecessary_bygroup:clothes}). The evidence for whether environmental concerns drive \textbf{a rise} in the share which reports a voluntary reduction in hours or consumption is even less clear. \footnote{\ \textit{To do: (1) look at growth rates to visualise how the increase in shares relates to environmental attitudes.} \textit{(2) Regression: Do environmental attitudes explain $\underline{increase}$ in voluntary reduction when controlling for other correlated variables (on individual and aggregate level)? Why now? Why the rising trend?} }
+
+\paragraph{Work} Those who report more environmentally friendly behaviour/attitudes in 2020 also work less hours roughly in all years considered. 
+However, the rise in the share which works part time in recent years seems not to be driven by environmental concerns.
+For example, in panels (a), (b), (e), (f) of figure \ref{fig:evolution_wtr_willingtochange}, the rise is more pronounced by the group of less environmentally friendly panelists. In contrast, sorting by the answer to whether we should live simpler lives (panel (c)), the rise in recent years seems to be driven by those which affirm the question. \footnote{\textit{Why is that? Could also be due to some joint factor; rr having more time = change in values = simpler is ok (habits) \ar reverse causality.s}}
+
+\paragraph{Consumption}
+The increase in the share which finds new clothes unnecessary (figure \ref{fig:evolution_notNecessary_bygroup:clothes}) seems to be driven by panelists which buy second hand regularly, think that we have to live simpler lives, or do not prefer new products. Less clear findings for other environmental indicators and the necessity to replace furniture in figure \ref{fig:evolution_notNecessary_bygroup:furniture}. 
+
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Share of panelists which don't find it necessary to replace worn furniture }\label{fig:evolution_notNecessary_bygroup:furniture}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Willingness to change one's lifestyle}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a175_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) buys second hand regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a135_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) Prefers new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a148_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(d) prefers to own}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a144_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(e) We have to live simpler lives}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a181_ci307.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(f) Moral duty}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a183_ci307.png}
+	\end{minipage}
+	\floatfoot{Notes: Higher variance in the group which disagrees; could be due to smaller size. Clearer positive correlation between environmental (intended) behaviour (panels (b), (c), (d)) and thinking that replacement is unnecessary in levels (less clear for environmental attitudes (panels (a), (e), and (f))). The rise over time, however, suggests to be similar. }
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{{Share of panelists which don't find it necessary to buy new clothes }}\label{fig:evolution_notNecessary_bygroup:clothes}	
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Willingness to change one's lifestyle}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a175_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Buys second hand regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a135_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) Prefers new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a148_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(d) prefers to own}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a144_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(e) We have to live simpler lives}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a181_ci306.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(f) Moral duty}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_notnecessaryqk20a183_ci306.png}
+	\end{minipage}
+	\floatfoot{Notes: Grouping by second hand shoppers, the recent rise in the share seems to stem from households which also buy second hand regularly.  Potentially steeper increase in group of environmentally friendly in panels (b), (e), and (c). }
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Voluntary low hours }\label{fig:evolution_wtr_willingtochange}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a)Willing to change lifestyle for environmental reasons}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a175_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) Moral duty}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a183_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) Simpler lives}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a181_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(d) second hand regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a135_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(e) Want to own things}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a144_actual.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(f) Prefers new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/broad_groups_work_redcuctionqk20a148_actual.png}
+	\end{minipage}
+	%	\floatfoot{Notes:  }
+\end{figure}
+
+\clearpage
+\newpage
+
+\subsection{Cross-sectional (intended) behaviour and environmental attitudes}\label{subsec:cs}
+Figures \ref{fig:behaviour_opinion} to \ref{fig:behaviour_opinion:moral} show the distribution of whether a panelist acts or is willing to act environmentally friendly conditional on environmental attitudes (cross-section in 2020, variables not available over time). Indeed, expressing environmentally friendly attitudes is positively correlated with environmentally friendly behaviour, such as buying second hand and recycled products. Also, the desire to own things seems less pronounced.  
+Out of the three variables which are meant to capture a panelists concerns about the environment ((a) willing to change one's lifestyle for the environment (variables qk20a175) figure \ref{fig:behaviour_opinion}, (b) We all have to simpler lives to protect the environment (variables qk20a181), figure \ref{fig:behaviour_opinion:simpler}, (c) it is a moral duty to care for nature and the environment (variables qk20a183), figure \ref{fig:behaviour_opinion:moral})
+ the willingness to change one's lifestyle seems most related to actions. In general, opinions which concern society in general or normative judgments are less correlated with specific actions than statements that concern the panelist herself. 
+
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: Willing to change lifestyle}\label{fig:behaviour_opinion}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c)I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap175_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: Rows refer to the willingness to change one's lifestyle; columns represent the conditional distribution of the respective variable in the title (a) to (c) for a given category of the willingness to change.}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: We all have to live simpler lives}\label{fig:behaviour_opinion:simpler}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c)I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap181_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: { 
+			As in figure \ref{fig:behaviour_opinion}.}}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering	
+	\caption{Correlation Opinion and behaviour: It is a moral duty to care for nature and the environment}\label{fig:behaviour_opinion:moral}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) Buy second-hand products regularly}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_135labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_148labels0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) I am open to long-term leasing}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/conditional_heatmap183_141labels0.png}
+	\end{minipage}
+	\floatfoot{Notes: { 
+			As in figure \ref{fig:behaviour_opinion}.}}
+\end{figure}
+
+
+%\subsection{Does a reduction in consumption cause a reduction in working hours?}
+%Regression!; Is there information on hours worked?
+%Exploit time dimension \ar yesterday's consumption informative on today's hours worked?
+
+\newpage
+\appendix
+\section*{Appendix}
+
+\section{Additional graphs}
+\begin{figure}[h!!]
+	\centering	
+	\caption{Reported behaviour/ intentions}\label{fig:behaviour}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(a) I regularly buy second-hand products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a135title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(b) I prefer to own things}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a144title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(c) I would be open to long-term leasing of products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a141title0.png}
+	\end{minipage}	
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(d) I am open to buying products made from used parts or materials}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a147title0.png}
+	\end{minipage}
+	\begin{minipage}[h!!]{0.32\textwidth}  
+		%	\captionsetup{width=.45\linewidth}
+		\centering\footnotesize{(e) I prefer new products}
+		\includegraphics[width=1\textwidth]{../codding_data/results/liss/qk20a148title0.png}
+	\end{minipage}
+	%%	\floatfoot{Notes: \tiny{ 
+	%In appendix \ref{app:att}, more details on data manipulations are provided.
+	%	}}
+\end{figure}
+
+\begin{figure}[h!!]
+\centering	
+\caption{Joint distribution of opinion and behaviour: Willing to change lifestyle}\label{fig:behaviour_opinion_joint}	
+\begin{minipage}[h!!]{0.32\textwidth}  
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(a) Buy second-hand products regularly}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_135labels0.png}
+\end{minipage}
+\begin{minipage}[h!!]{0.32\textwidth}
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(b) I prefer new products}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_148labels0.png}
+\end{minipage}
+\begin{minipage}[h!!]{0.32\textwidth}  
+	%	\captionsetup{width=.45\linewidth}
+	\centering\footnotesize{(c)I am open to long-term leasing}
+	\includegraphics[width=1\textwidth]{../codding_data/results/liss/joint_heatmap175_141labels0.png}
+\end{minipage}
+\floatfoot{Notes: \tiny{ 
+		Rows refer to the willingness to change one's lifestyle for the environment; columns refer to the variable in the title of the panle (a) to (c). It seems like that being willing to change one's lifestyle and acting accordingly are the most frequent choices.	}}
+\end{figure}
+
+
+\begin{comment}
+\section{Is there a voluntary reduction in cosnumption/labour supply due to environmental concerns?}
+
+\paragraph{Approach 1}
+\begin{itemize}
+	\item outcome variables
+	\begin{itemize}
+		
+		\item changes in consumption (annual) over time \ar but very coarse... changes in expenditures could be driven by increase in quantity or change in composition of products bought! Not good!
+		\item time spent working (income divided by wage)/ also as direct variable
+		\item survey questions allow to differentiate quantity from quality 
+		\item in income dataset: \textit{ci21n382-ci21n354} \ar Do you buy new clothes/ furniture regularly \ar no bcs not necessary \ar some sort of voluntary reduction; time series dimension! \ar changes over time?
+		\item in working time dataset: variables
+		\begin{itemize}
+			\item cw21n526 - cw21n510 For what reaosns did you work parttime ($<$36 hours)
+			\begin{itemize}
+				\item \textbf{cw21n399}: I wanted to take it a bit easier
+				\item \textbf{cw21n400}: because I want to have more leisure time
+			\end{itemize}
+			\item cw21n145: How many hours would you like to work in total? \ar should be below or equal to actual hours when consider person as voluntary reductionist
+			\item cw21n291 - cw21n306: If you were to stop working before the old pension age, for what reason would that be?
+			\begin{itemize}
+				\item \textbf{cw21n292}: I believe I have worked long enough
+				\item \textbf{cw21n294}: I would like to do something different
+				\item \textbf{cw21n295}: I want to take it a bit easier
+			\end{itemize}
+			\item \textbf{cw21n001}: does have paid work
+		\end{itemize}
+		\item[\ar] combine affirmative answers to (cw21n399 + cw21n400) (\ar already reduced), (cw21n292+cw21n294+cw21n295) (\ar willing to reduce)
+		\item construct time series from income/working data set questions
+		\begin{itemize}
+			\item consumption data works well! 
+			\item working hours: \\ what is the control group: employed or unemployed\ar employed
+		\end{itemize}
+	\end{itemize}
+	\item Controls
+	\begin{itemize}
+		\item control for income changes \tr{these can be a choice, only account for exogenous changes in income! \ar could use narrative on reason for changes in income, job change... }, 
+		\item family changes
+		\item  politics, time FE
+	\end{itemize}	
+	
+	\item first regress consumption changes on controls \ar residuals: changes in consumption unexplained by controls
+	\item[\ar] plot residuals: if negative then there are reductions in consumption which are unexplained by controls
+	\item regress residuals on opinions interacted with taking action etc \ar Does this explain reduction?
+	\item[\ar] If so, then there are households which reduce their consumption due to environment (arguably controls sufficient to argue for causality)
+\end{itemize}
+
+Steps to be taken
+\begin{enumerate}
+	\item download and merge consumption data and income data\ar over waves and environment dataset
+	\item run 
+\end{enumerate}
+
+\paragraph{Approach 2}
+\begin{itemize}
+	\item policy effects
+	\item heterogeneous effects of policy \ar interaction with willingness to change
+\end{itemize}
+\textbf{The policy intervention as in \cite{Pullinger2014WorkingDesign}} \ar Pullinger argues that policies have not been taken up well. Furthermore, the introduction of some policies to facilitate reductions in working hours over the life cycle have been introduced in 2006. The panel starts in 2008. 
+
+
+\end{comment}
+´
+%-------------------------------------
+\clearpage
+\bibliography{../../bib_2_0}
+\addcontentsline{toc}{section}{References}
+\end{document}
