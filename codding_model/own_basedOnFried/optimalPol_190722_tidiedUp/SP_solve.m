@@ -55,7 +55,7 @@ if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
 
-    if ~isfile(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,0,0, 0, params(list.params=='etaa')))
+    if ~isfile(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, params(list.params=='etaa')))
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg
@@ -91,7 +91,7 @@ if indic.target==0
     
     else
        fprintf('using sp solution') 
-        helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,0,0, 0, params(list.params=='etaa')));
+        helper=load(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, params(list.params=='etaa')));
         sp_all=helper.sp_all;
             if indic.noskill==0
                 x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
@@ -133,7 +133,7 @@ elseif indic.target==1
     kappaa = [Ftarget(1),Ftarget(1),Ftarget]./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
     kappaa = kappaa*(1-1e-10);
     
-    if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,0,0,0,indic.xgrowth, params(list.params=='etaa')))
+    if ~isfile(sprintf('SP_target_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, params(list.params=='etaa')))
          fprintf('using LF solution as initial value')
         if indic.noskill==0
                        
@@ -162,7 +162,7 @@ elseif indic.target==1
         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
    else
         fprintf('using sp solution as initial value')
-        helper= load(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep,0, 0,0,indic.xgrowth, params(list.params=='etaa')));
+        helper= load(sprintf('SP_target_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, params(list.params=='etaa')));
 
         sp_all=helper.sp_all;
         if indic.noskill==0

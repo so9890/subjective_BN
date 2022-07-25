@@ -71,7 +71,7 @@ if indic.target==1
    end  
 elseif indic.target==0
        
-    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth, etaa));
+    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, 0, indic.xgrowth, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);

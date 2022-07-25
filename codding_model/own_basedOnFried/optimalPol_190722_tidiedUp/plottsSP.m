@@ -147,16 +147,17 @@ for i=0:5 % loop over policy versions
 end
 
 %%
-%- results with externality
-% helper=load(sprintf('SP_notarget_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
-% sp_not=helper.sp_all';
-% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,  etaa));
-% opt_not_wt=helper.opt_all';
-% helper=load(sprintf('OPT_notarget_active_set_1905_spillover%d_taus0_noskill%d_notaul1_sep%d_BN%d_ineq%d_red%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-% opt_not_nt=helper.opt_all';
-% 
-% RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
-% RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
+% - results with externality
+helper=load(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep,indic.xgrowth,  etaa));
+sp_not=helper.sp_all';
+helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.notaul, indic.sep,indic.xgrowth,  etaa));
+opt_not_wt=helper.opt_all';
+
+helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.xgrowth, etaa));
+opt_not_nt=helper.opt_all';
+
+RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
+RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
 
 %-version for comparison with full model: robustness
 % 

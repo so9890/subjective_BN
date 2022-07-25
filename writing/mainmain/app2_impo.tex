@@ -15,8 +15,8 @@ content...
 %\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\label{eq:ana_pr}\\
 \text{Demand clean good}\hspace{5mm}&p_g=(1-\varepsilon)\left(\frac{F}{G}\right)^\varepsilon\label{eq:ana_dem_clean}\\
 \text{Demand clean good}\hspace{5mm}&p_f=\varepsilon\left(\frac{F}{G}\right)^{\varepsilon-1}\label{eq:ana_dem_dirty}\\
-\text{Production F and G}\hspace{5mm}&F=A_fL_f\label{eq:ana_prod_F}\\\
-& G=A_gL_g\label{eq:ana_prod_G}\\
+\text{Production F and G}\hspace{5mm}&F=A_fL_F\label{eq:ana_prod_F}\\\
+& G=A_gL_G\label{eq:ana_prod_G}\\
 \text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
 & w=p_gA_g\\
 \text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
@@ -33,7 +33,7 @@ content...
 %\begin{align}
 %\frac{p_g}{p_f}=\frac{A_f}{Ag}\frac{s}{1-s}\frac{1-\varepsilon}{\varepsilon},
 %\end{align}
-%where I used that $s=\frac{L_f}{h}$ and the labor market clearing condition. Solving the price definition of the final goods price, equation \ref{eq:ana_pr} for $p_g$ as a function of $\frac{p_g}{p_f}$ and substituting the previous expression for the price ratio gives the price of the clean good in equilibrium as a function of labor shares:
+%where I used that $s=\frac{L_F}{h}$ and the labor market clearing condition. Solving the price definition of the final goods price, equation \ref{eq:ana_pr} for $p_g$ as a function of $\frac{p_g}{p_f}$ and substituting the previous expression for the price ratio gives the price of the clean good in equilibrium as a function of labor shares:
 %\begin{align}
 %p_g=(1-\varepsilon)\left(\frac{A_f}{A_g}\right)^\varepsilon\left(\frac{s}{1-s}\right)^{1-\varepsilon}.
 %\end{align}
@@ -83,12 +83,12 @@ MPL&= \frp{Y}{H}.
 This expression can be rewritten using relations of derivatives summarized below as follows.
 \begin{align}
 &= \frp{Y}{F}\frp{Y}{H}+\frp{Y}{G}\frp{G}{H}\\
-&= \frp{Y}{F}\frp{F}{L_f}s+\frp{Y}{G}\frp{G}{L_g}(1-s)\\
-&= \frp{Y}{G}\frp{G}{L_g}+ s\left(\frp{Y}{F}\frp{F}{L_f}-\frp{Y}{G}\frp{G}{L_g}\right).\label{eq:mpl_opt}
+&= \frp{Y}{F}\frp{F}{L_F}s+\frp{Y}{G}\frp{G}{L_G}(1-s)\\
+&= \frp{Y}{G}\frp{G}{L_G}+ s\left(\frp{Y}{F}\frp{F}{L_F}-\frp{Y}{G}\frp{G}{L_G}\right).\label{eq:mpl_opt}
 \end{align}
 The term in brackets is positive under the optimal policy as can be seen from the first order condition with respect to $s$, equation \ref{eq:sbs}:
 \begin{align}
-\frp{Y}{F}\frp{F}{L_f}-\frp{Y}{G}\frp{G}{L_g}=\frac{1}{H}\left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=\frac{1}{H}\left(\frac{-U_F\frp{F}{s}}{U_C}\right)>0.
+\frp{Y}{F}\frp{F}{L_F}-\frp{Y}{G}\frp{G}{L_G}=\frac{1}{H}\left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=\frac{1}{H}\left(\frac{-U_F\frp{F}{s}}{U_C}\right)>0.
 \end{align}
 The inequality holds since the externality of polluting production is negative. %, above expression is positive.
 %Therefore, the marginal product of labor in the efficient allocation equals
@@ -112,7 +112,7 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 
 
 
-\subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}
+\subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}\label{app:nolumpsum_hourshigh}
 \begin{proof}\textit{Absent lump-sum transfers, hours are inefficiently high when the environmental tax implements efficient share of dirty production and the wage rate is decreasing in equilibrium hours worked.}
 	
 	This proof proceeds by contradiction. 
@@ -123,19 +123,19 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 	\end{align} 
 	Substituting the households' optimal labor supply and the social planner's first order condition for hours, equation \ref{eq:fbh} yields
 	\begin{align}\label{eq:prH}
-	U_C^*w^* \leq U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}
+	U_C^*w^* \leq U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}
 	\end{align}
 	
 	Rewriting equation \ref{eq:prH} above yields
 	\begin{align}
-	\frac{U_C^*}{U_{C,FB}}\leq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}}
+	\frac{U_C^*}{U_{C,FB}}\leq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}}
 	\end{align}
-	where I replaced $w^*=\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}$.
+	where I replaced $w^*=\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}$.
 	
-	By assumption $s^*=s_{FB}$, $H^*\leq H_{FB}$, and the aggregate production function is increasing in its inputs. It follows that output is higher in the efficient allocation $Y_{FB}\geq Y^*$ and hence $C^*<C_{C,FB}$, since $Gov>0$ in the competitive equilibrium. By concavity of the utility function with respect to consumption (and the assumption of additive separability of hours and consumption in the utility function), we have that $\frac{U_C^*}{U_{C,FB}}>1$.
-	Under the assumption that the wage rate is decreasing or constant in equilibrium hours, it holds that the right-hand side is below or equal unity since $H^*\leq H_{FB}$ by assumption. Thus,
+	By assumption $s^*=s_{FB}$, $H^*\leq H_{FB}$, and the aggregate production function is increasing in its inputs. It follows that output is higher in the efficient allocation $Y_{FB}\geq Y^*$ and hence $C^*<C_{FB}$, since $Gov>0$ in the competitive equilibrium. By additive separability of the utility function and strict concavity with respect to consumption, we have that $\frac{U_C^*}{U_{C,FB}}>1$.
+	Under the assumption that the wage rate is decreasing or constant in equilibrium hours, it holds that the right-hand side is below or equal unity since $H^*\leq H_{FB}$. Thus,
 	\begin{align}
-	\frac{U_C^*}{U_{C,FB}}>1\geq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{g,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{g}}}. 
+	\frac{U_C^*}{U_{C,FB}}>1\geq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}}. 
 	\end{align}
 	A contradiction to the assumption that $H^*\leq H_{FB}$. Hence, it has to hold that $H^*>H_{FB}$. 
 \end{proof}
@@ -162,18 +162,18 @@ Following similar steps as in section \ref{subsec:Rams}, the optimal labor incom
 	\begin{align}
 	\tau_{\iota}=\frac{s}{w}\frp{w}{s}-\frac{H}{w}\frp{w}{H}.
 	\end{align}
-In a next step, I explicitly solve for $\frp{w}{s}$ and $\frp{w}{H}$, where I use that $w=\frp{Y}{G}\frp{G}{L_g}$ in equilibrium.
+In a next step, I explicitly solve for $\frp{w}{s}$ and $\frp{w}{H}$, where I use that $w=\frp{Y}{G}\frp{G}{L_G}$ in equilibrium.
 
 \begin{align}
-\frp{w}{H}=\left(\frp{G}{L_g}\right)^2\frac{\partial^2Y}{\partial G^2}(1-s)+\frp{Y}{G}\frac{\partial ^2G}{\partial L_g^2}(1-s)+\frp{G}{L_g}\frac{\partial^2 Y}{\partial G \partial F}s\\
+\frp{w}{H}=\left(\frp{G}{L_G}\right)^2\frac{\partial^2Y}{\partial G^2}(1-s)+\frp{Y}{G}\frac{\partial ^2G}{\partial L_G^2}(1-s)+\frp{G}{L_G}\frac{\partial^2 Y}{\partial G \partial F}s\\
 %%%%
-\frp{w}{s}= \left(\frp{G}{L_g}\right)^2\frac{\partial ^2Y}{\partial G^2}(-H)+\frp{G}{L_g}\frac{\partial ^2Y}{\partial G \partial F}H+\frp{Y}{G}\frac{\partial ^2 G}{\partial L_g^2}(-H)
+\frp{w}{s}= \left(\frp{G}{L_G}\right)^2\frac{\partial ^2Y}{\partial G^2}(-H)+\frp{G}{L_G}\frac{\partial ^2Y}{\partial G \partial F}H+\frp{Y}{G}\frac{\partial ^2 G}{\partial L_G^2}(-H)
 \end{align}
 substituting derivatives and canceling terms yields:
 \begin{align}
-\tau_\iota= -\frac{H}{w}\left(\left(\frp{G}{L_g}\right)^2\frac{\partial ^2Y}{\partial G^2}+\frp{Y}{G}\frac{\partial ^2G}{\partial L_g ^2}\right).
+\tau_\iota= -\frac{H}{w}\left(\left(\frp{G}{L_G}\right)^2\frac{\partial ^2Y}{\partial G^2}+\frp{Y}{G}\frac{\partial ^2G}{\partial L_G ^2}\right).
 \end{align}
-If returns to scale of clean and aggregate production are decreasing or constant and dcereasing for at least one, than $\tau_\iota >0$ and the optimal income tax rate is progressive. 
+If returns to scale of clean and aggregate production are decreasing or constant and decreasing for at least one, than $\tau_\iota >0$ and the optimal income tax rate is progressive. 
 
 Note that, the right-hand side of the previous expression equals the partial derivative of the wage rate with respect to the dirty labor share under the assumption that dirty production is fixed:
 \begin{align}
@@ -213,7 +213,7 @@ Since the presence of the environmental tax artificially increases labor in the 
 	Assume, 
 	The social planner's first order condition on labor supply can be written as
 	\begin{align}
-	-U_{H, FB}=U_{C, FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}
+	-U_{H, FB}=U_{C, FB}\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB}
 	\end{align}
 	and optimal labor supply is determined by
 	\begin{align}
@@ -221,7 +221,7 @@ Since the presence of the environmental tax artificially increases labor in the 
 	\end{align}
 	Equalizing yields
 	\begin{align}
-	U_C^*(1-\tau_\iota)w=U_{C,FB}\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB},
+	U_C^*(1-\tau_\iota)w=U_{C,FB}\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB},
 	\end{align}
 	a condition for optimal labor supply to be efficient. 
 	
@@ -230,15 +230,15 @@ Since the presence of the environmental tax artificially increases labor in the 
 	\textit{(i) Assume $C^*=C_{FB}$:}
 	then
 	\begin{align}
-	(1-\tau_\iota)w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+	(1-\tau_\iota)w=\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB}.
 	\end{align}
-	Assume by contradiction that $H^*=H_{FB}$, since $s^*=s_{FB}$ by assumption, it follows that $w=\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}$. 
+	Assume by contradiction that $H^*=H_{FB}$, since $s^*=s_{FB}$ by assumption, it follows that $w=\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB}$. 
 	Since $\tau_\iota\neq 0$ under constant or decreasing returns to scale, it holds that $H^*<H_{FB}$, a contradiction. 
 	
 	
 	%Hence,
 	%\begin{align}
-	%(1-\tau_\iota)w<\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}.
+	%(1-\tau_\iota)w<\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB}.
 	%\end{align}
 	%
 	%Labor supply in the competitive equilibrium is lower than in the efficient allocation when consumption is equal under the optimal policy. WHY?
@@ -247,7 +247,7 @@ Since the presence of the environmental tax artificially increases labor in the 
 	\textit{(ii) Assume $H^*=H_{FB}$:} 
 	It follows that 
 	\begin{align}
-	\frac{U_C^*}{U_{C,FB}}=\frac{\frp{Y}{G}_{FB}\frp{G}{L_g}_{FB}}{w}\frac{1}{1-\tau_\iota}=\frac{1}{1-\tau_\iota}>1.
+	\frac{U_C^*}{U_{C,FB}}=\frac{\frp{Y}{G}_{FB}\frp{G}{L_G}_{FB}}{w}\frac{1}{1-\tau_\iota}=\frac{1}{1-\tau_\iota}>1.
 	\end{align}
 	From concavity of the utility function it follows that $C^*<C_{FB}$. 
 	
@@ -263,11 +263,11 @@ Since the presence of the environmental tax artificially increases labor in the 
 	\end{align}
 	Expressing the derivatives in the Ramsey planner's first order condition with respect to hours as derivatives with respect to the dirty labor share, $s$, and substituting the first order condition with respect to $s$ yields:
 	\begin{align}
-	U_C \frp{Y}{G}\frp{G}{L_g}=-U_H.
+	U_C \frp{Y}{G}\frp{G}{L_G}=-U_H.
 	\end{align}
 	%This equation is equivalent to the social planner's first order condition on hours, equation \ref{eq:fbh}. The optimal policy is to choose
 	%\tr{Does this give a hint to why inefficiency without redistribution? The Ramsey planner's foc and household optimality always coincide. But, when Gov does not cancel the two do not coincide! ? the two do not coincide, Bcs consumption is too low so that $U_C$ too high which increases}
-	Noticing that $\frp{Y}{G}\frp{G}{L_g}=w$ and replacing household's labor supply condition gives
+	Noticing that $\frp{Y}{G}\frp{G}{L_G}=w$ and replacing household's labor supply condition gives
 	\begin{align}
 	& w=\frac{(1-\tau_\iota)Y}{H}\\
 	\Leftrightarrow\ & \tau_\iota=1-\frac{wH}{Y}. 
@@ -318,9 +318,9 @@ Since the presence of the environmental tax artificially increases labor in the 
 \frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
 \\
 \frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
-\\\frp{G}{s}=-H\frp{G}{L_g}\\
+\\\frp{G}{s}=-H\frp{G}{L_G}\\
 \frp{F}{H}=\frac{s}{H}\frp{F}{s}\\
-\frp{F}{s}=H\frp{F}{L_f}
+\frp{F}{s}=H\frp{F}{L_F}
 \end{align}
 
 
@@ -603,8 +603,21 @@ The highest level of social welfare is attained in the regime with lump-sum tran
 	\end{tabular}
 \end{table}
 
-\subsection{Results in simplified models: exogenous growth and/or skill homogeneity}
+\begin{comment}
+\subsection{Results with exogenous growth and/or skill homogeneity}
+In this section, I briefly discuss the role of skill heterogeneity and of endogenous growth as drivers of the quantitative results.
+To do so, I simplify the model on the different dimensions: skill heterogeneity,endogeneous growth, and both. %The last section verifies that the theoretic results hold true in the model with neither heterogeneous skills nor endogenous growth, i.e. a quantitative version of the model used to derive the theoretic results.\footnote{\ The models still differ by the assumption of a non-energy sector in the quantitative model. Nevertheless, the results hold true that the efficient allocation is attainable under both an integrated-policy regime and a regime with lump-sum transfers.} 
 
+%\paragraph{No skill heterogeneity}
+With homogeneous skills and endogenous growth, the optimal allocation with lump-sum transfers and the integrated policy  exactly the same as shown by figure \ref{fig:bench_lumpsum_noskill}. Due to endogenous growth, however, they do not attain the efficient allocation: growth is too low. 
+The environmental tax equals the wedge a social planner chooses for the marginal product of labor across sectors; compare panel (h). 
+
+%\paragraph{Exogenous growth}
+Figure \ref{fig:bench_lumpsum_xgr} shows the optimal allocation without endogenous growth. When lump-sum transfers are available, the Ramsey planner attains the efficient allocation. %In line with the literature, it is endogenous growth which makes environmental policy costly \citep{Fried2018ClimateAnalysis, Acemoglu2012TheChange}. 
+With lump-sum transfers, the income tax scheme is not used as discussed above. When lump-sum transfers are not available, the planner reverts to income taxes to lower hours worked; since growth is exogenous the level of consumption in the integrated-policy regime exceeds the efficient level.  
+
+%\paragraph{Homogeneous skills and exogenous growth}
+Absent both endogenous growth and skill heterogeneity the Ramsey allocation mirrors the efficient allocation.  The progressive income tax scheme does not face a trade-off between reducing high-skill supply too much and low-skill supply too little. The integrated-policy regime, therefore, is capable of implementing the efficient allocation. In contrast, lump-sum transfers also implement the efficient allocation with skill heterogeneity.  
 \begin{figure}[h!!]
 	\centering
 	\caption{Comparison integrated regime and lump-sum transfers homogeneous skills}\label{fig:bench_lumpsum_noskill}
@@ -612,44 +625,45 @@ The highest level of social welfare is attained in the regime with lump-sum tran
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(a) Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd1_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd1_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(b) High skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(c) Low skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(d) Aggregate growth}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(f) Utility}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(g) Labor income tax progressivity}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(h) Environmental tax}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 \end{figure}
+
 
 \begin{figure}[h!!]
 	\centering
@@ -658,32 +672,32 @@ The highest level of social welfare is attained in the regime with lump-sum tran
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(a) Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(b) High skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(c) Low skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(d) Energy mix, $\frac{G}{F}$}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}	
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(e) labor income tax progressivity}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(f) Environmental tax}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill0_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 \end{figure}
 
@@ -694,17 +708,17 @@ The highest level of social welfare is attained in the regime with lump-sum tran
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(a) Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd1_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(b) High skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(c) Low skill hours worked}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 %	\begin{minipage}[]{0.32\textwidth}
 %		\centering{\footnotesize{(d) Aggregate growth}}
@@ -714,26 +728,20 @@ The highest level of social welfare is attained in the regime with lump-sum tran
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(d) Energy mix, $\frac{G}{F}$}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(f) Utility}}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
-%	\end{minipage}
-%	
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(e) labor income tax progressivity}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(f) Environmental tax}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 \end{figure}
-
+\end{comment}
 
 \subsection{Regime with lump-sum transfers with and without income tax}\label{app:lumps}
 In this section, I present results on the policy regime where environmental tax revenues are redistributed lump-sum for the benchmark model, figure \ref{fig:bench_lumpsum_vglNotaul}, a model with exogenous growth, figure \ref{fig:lumpsum_xgr_vglNotaul}, and a model with homogeneous skills, figure \ref{fig:lumpsum_noskill_vglNotaul}. 
@@ -890,3 +898,5 @@ As argued in the main text, section \ref{par:comp_lumpsum}, income taxes are not
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 \end{minipage}
 \end{figure}
+
+%\subsection{Redistribution of environmental tax revenues through income tax scheme}
