@@ -884,7 +884,7 @@ if plotts.regimes==1
     fprintf('plotting  other regimes with and without taul graphs')   
         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
     % for withtaul=0:1
-    for nt = [3,4] % 3 is version with gov consumes env revenues but income tax is available 
+    for nt = [3] % 3 is version with gov consumes env revenues but income tax is available 
         
         % read in version to version without income tax
         RES_help=OTHERPOL{nt};
@@ -1104,9 +1104,7 @@ if plotts.compeff_dd==1
                xlim([1, time(end)])
             end
 
-            if varr=="C"
-                ylim([0.56, 0.72]);
-            elseif varr=="hh"
+            if varr=="hh"
                 ylim([0.46, 0.51]);
             elseif varr=="hl"
                 ylim([0.31, 0.335]);                
@@ -1116,7 +1114,7 @@ if plotts.compeff_dd==1
             
                if withlff==1
                   if nt ==3
-                    lgd=legend('laissez-faire', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                    lgd=legend('laissez-faire', 'no income tax', 'with income tax', 'Interpreter', 'latex'); 
                   elseif nt ==4
                      lgd=legend('laissez-faire', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                   end
@@ -1124,7 +1122,7 @@ if plotts.compeff_dd==1
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
                    if nt ==3
-                        lgd=legend( 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                        lgd=legend( 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                    elseif nt ==4
                         lgd=legend('no income tax',  'with income tax', 'Interpreter', 'latex'); 
                   end
@@ -1133,14 +1131,14 @@ if plotts.compeff_dd==1
             else    % with efficient graph            
                if withlff==1
                    if nt==3
-                      lgd=legend('laissez-faire', 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                      lgd=legend('laissez-faire', 'efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                    elseif nt ==4
                       lgd=legend('laissez-faire', 'efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                    end
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
                   if nt ==3
-                        lgd=legend( 'efficient', 'separate regime',  ['no redistribution,' newline 'with income tax'], 'Interpreter', 'latex'); 
+                        lgd=legend( 'efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                   elseif nt ==4
                         lgd=legend('efficient', 'no income tax',  'with income tax', 'Interpreter', 'latex'); 
                   end

@@ -254,7 +254,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  1; % =1 then treats gov =consumes revenues as benchmark
+plotts.regime_gov=  0; % =1 then treats gov =consumes revenues as benchmark
 
 plotts.table=       0;
 plotts.analyta =    0;
@@ -266,8 +266,8 @@ plotts.countcomp3=  0;
 plotts.extern=      0;
 plotts.single=      0;
 plotts.singov=      0;
-plotts.notaul=      1; % policy comparisons; this one needs to be switched on to get complete table
-plotts.regimes =    0; % ==1 plot results under other policies separately (indic.notaul)
+plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
+plotts.regimes =    1; % ==1 plot results under other policies separately (indic.notaul)
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
@@ -278,9 +278,9 @@ plotts.compeff2=    0;
 plotts.compeff3=    0;
 
 %%
-for gg=0:1
+for gg=0
     indic.xgrowth=gg;
-for ns=0:1
+for ns=1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
