@@ -33,7 +33,7 @@ characterized by (i) a scaling factor, $\lambda$, which determines the level of 
 \cite{Heathcote2017OptimalFramework} show that whenever $\tau_{\iota}>0$ the tax scheme is progressive since the marginal tax rate exceeds the average tax rate irrespective of  pre-tax labor income. Hence, average tax payments increase with labor income. An alternative intuition is that when $\tau_{\iota}>0$, the elasticity of post- to pre-tax labor income is smaller unity for all levels of pre-tax labor income.  %\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
 
 \paragraph{Production}
-All sectors of production are perfectly competitive. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
+All sectors of production are perfectly competitive and production functions are decreasing returns to scale\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
 Intermediate goods are produced from labor, $L_J$, and technology, $A_J$, where $J\in \{F,G\}$ indicates the fossil and the green sector: 
 \begin{align}
 Y=F_Y(F, G), \hspace{5mm} F=F_F(A_F, L_F),\hspace{5mm} G=F_G(A_G, L_G) \label{eq:prod}
@@ -88,7 +88,7 @@ Absent an externality, $U_F=0$, the efficient distribution of labor across secto
 When there is an externality, the social planner adjusts the allocation by two modulations: (i) a recomposing and (ii) a scaling one. 
 The recomposition is determined by equation \ref{eq:fbs}.
 The negative externality of fossil production makes it efficient to adjust the fossil labor share so that the marginal product of fossil labor share is positive; in other words, a marginal reallocation of labor to the fossil sector raises output.\footnote{\ Note that $U_F<0$ by assumption so that the right-hand side is positive and that $\frac{dG}{ds}<0$. }
-One can show that a reduction in the fossil labor share is efficient if and only if the aggregate production function features decreasing returns to scale in its labor inputs, $L_G$ and $L_F$. I will focus on the case of decreasing returns to scale.
+One can show that the social planner reduces the fossil labor share when the aggregate production function features decreasing returns to scale in its labor inputs, $L_G$ and $L_F$\footnote{\ This follows from assuming that either final good and/or intermediate good production functions are decreasing returns to scale.}.
 \begin{comment}
 The equation 
 \begin{align}
@@ -178,7 +178,7 @@ Another distortion of labor supply occurs when environmental tax revenues are no
 In light of the discussions on how best to recycle environmental tax revenues, this is an important result which I summarize in proposition \ref{prop:1}:
 
 \begin{prop}\label{prop:1}\textbf{Importance of lump-sum redistribution of environmental tax revenues}
-	Without lump-sum transfers of environmental tax revenues, hours worked are inefficiently high when $\tau_{f}$ implements the efficient fossil labor share and aggregate production features decreasing returns to scale.
+	Without lump-sum transfers of environmental tax revenues, hours worked are inefficiently high when $\tau_{f}$ implements the efficient fossil labor share.
 %Absent lump-sum transfers and when the  wage rate is non-increasing in equilibrium hours, 
 %implementing the efficient share of fossil labor, $s^*=s_{FB}$, via an environmental tax results in inefficiently high hours worked. Lump-sum transfers would serve as a means to lower hours worked via an income channel. %The efficient allocation is infeasible.=> this statement would need to look at the optimal policy, this here is not a statement on the optimal policy
 \end{prop}
@@ -247,6 +247,21 @@ Since the environmental tax serves to sustain a gap between marginal products of
 Intuitively, the optimal labor income tax scheme is progressive to lower work effort closer to the efficient level. As argued in proposition \ref{prop:1}, hours worked are inefficiently high absent lump-sum transfers, when aggregate production is characterized by increasing returns to scale. Under the same condition, therefore, the optimal income tax is progressive. 
 
 %Since the presence of the environmental tax artificially increases labor in the green sector depressing the wage rate (under the assumption of decreasing returns to scale), the wage rate rises by a reduction of the green labor share. 
+
+\paragraph{Complements}
+\tr{Maybe no need to discuss this formally}
+Income tax progressivity and the environmental tax
+are complements if 
+\begin{align}
+\frac{d \tau_{\iota}^*}{d \tau_{f}}>0.
+\end{align}
+Totally differentiating equation \ref{eq:nls_taulopt} yields
+\begin{align}
+\frac{d \tau_{\iota}^*}{d \tau_f}=-\frac{1}{w^2}\frp{w}{s}\frac{dw}{d \tau_f}+\frac{1}{w}\frac{\partial^2 w}{\partial s^2}\frac{ds}{d \tau_f}
+\end{align}
+The first summand is positive since the environmental tax reduces the wage rate and a rise in dirty labor share increases the wage rate. The second summand is positive if $\frac{\partial^2 w}{\partial s^2}<0$. 
+
+
 \textit{
 Equation \ref{eq:nls_taulopt} makes clear that environmental taxation and the labor income tax are complements under decreasing returns to scale. When the environmental tax rises, thereby increasing the share of labor allocated to the green sector, the marginal product of green labor decreases further. A marginal reduction in the green labor share would increase the wage rate more the higher the green labor share, hence, the optimal labor tax progressivity increases with the environmental tax. 
 Secondly, the wage rate decreases with $\tau_f$ which as well inflates the optimal labor tax progressivity.}
