@@ -4,28 +4,7 @@
 \section{Model}\label{app:model}
 
 content...
-\subsection{Competitive equilibrium in simple model}
 
-\begin{align}
-\text{Utility}\hspace{5mm}& \frac{C_t^{1-\theta}-1}{1-\theta}-\chi \frac{h_t^{1+\sigma}}{1+\sigma}-\varphi(\omega F)^\eta\\
-\text{Budget}\hspace{5mm}& C_t = \lambda_t(w_th_t)^{1-\tau_{\iota t}}\\
-\text{optimality HH}\hspace{5mm}& h^{\sigma+\tau_{\iota t}+\theta(1-\tau_{\iota t})}=\lambda_t^{1-\theta}(1-\tau_{\iota t})w_t^{(1-\tau_{\iota t})(1-\theta)}\\
-\text{Final Production}\hspace{5mm}&Y=F^{\varepsilon_y}G^{1-
-	\varepsilon_y}\\ %\left[F^\frac{\varepsilon_y-1}{\varepsilon_y}+G^\frac{\varepsilon_y-1}{\varepsilon_y}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}\\
-%\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\label{eq:ana_pr}\\
-\text{Demand clean good}\hspace{5mm}&p_g=(1-\varepsilon)\left(\frac{F}{G}\right)^\varepsilon\label{eq:ana_dem_clean}\\
-\text{Demand clean good}\hspace{5mm}&p_f=\varepsilon\left(\frac{F}{G}\right)^{\varepsilon-1}\label{eq:ana_dem_dirty}\\
-\text{Production F and G}\hspace{5mm}&F=A_fL_F\label{eq:ana_prod_F}\\\
-& G=A_gL_G\label{eq:ana_prod_G}\\
-\text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
-& w=p_gA_g\\
-\text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
-&A_{gt+1}=(1+\nu_g)A_{gt}\\
-\text{Government}\hspace{5mm}&T=\tau_{f}p_fF
-\\
-\text{Balanced income tax revenues}\hspace{5mm}&\lambda_t=\frac{w_t h_t}{(w_t h_t)^{1-\tau_{\iota t}}}\\
-&E_{net}=\omega F-\delta
-\end{align}
 
 \subsection{Solving the model}
 %Demand for intermediate goods determines the price ratio, $\frac{p_g}{p_f}$ in equilibrium, equation \ref{eq:ana_dem_fin}. 
@@ -60,6 +39,63 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 \section{Derivations and proofs}\label{app:derivations}
 
 \subsection{Theory results \ref{sec:mod_an}}
+\subsubsection{Useful relations in the simple model}\label{app:dervs_use}
+\begin{align}
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial H}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial H}\\
+\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial s}-\frac{\partial C}{\partial s}\\
+\frac{\partial Gov}{\partial s}=p_f F \frac{\partial \tau_f}{\partial s}+\tau_f F \frac{\partial p_f}{\partial s}+\tau_f p_f \frac{\partial F}{\partial s}\\
+%\frac{\partial \tau_f}{\partial s}= -\frac{1-\varepsilon}{\varepsilon}\frac{1}{(1-s)^2}, \\
+%\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
+\frac{\partial F}{\partial s}=\frac{F}{s}
+\\
+\frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
+\\
+\frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
+\\\frp{G}{s}=-H\frp{G}{L_G}\\
+\frp{F}{H}=\frac{s}{H}\frp{F}{s}\\
+\frp{F}{s}=H\frp{F}{L_F}
+\end{align}
+
+\subsubsection{Relation of recomposition and production function}
+\paragraph{If the aggregate production function features  decreasing returns to scale in labor, the efficient adjustment of the dirty labor share is a reduction}
+\begin{proof}
+	With a negative externality of dirty production it has to hold that 
+	\begin{align}
+	\frp{Y}{F}\frp{F}{s}>-\frp{Y}{G}\frp{G}{s},
+	\end{align}
+	which can be rewritten to 
+	\begin{align}\label{eq:mpl_eff}
+	\frp{Y}{L_F}>\frp{Y}{L_G}. 
+	\end{align}
+	In the efficient allocation absent externality, marginal products of dirty and green labor are equalized. 
+	Under decreasing returns to scale it holds that the left-hand side is decreasing in $L_F$ and the right-hand side is decreasing in $L_G$. Hence, the adjustment to satisfy equation \ref{eq:mpl_eff} when an externality is present implies a decrease in $L_F$ and/or a rise in $L_G$.
+	This reallocation is achieved by reducing $s$, since $L_F=sH$ and $L_G=(1-s)H$.	
+\end{proof}
+
+\paragraph{If a reduction in dirty labor share is efficient, then the aggregate production function features decreasing returns to scale in labor}
+\begin{proof}
+	\textit{The proof rest on the assumption that returns to scale are symmetric across dirty and clean production; either both decreasing or both are non-decreasing.}
+It holds by assumption that $s_{FB,E>0}<s_{FB,E=0}$, where $E>0$ indicates that the externality is active. 
+Assume by contradiction that the aggregate production function features non-decreasing returns to scale. This implies that:
+\begin{align}
+\left. \frp{Y}{L_F} \right|_{s_{FB,E>0}}\leq \left. \frp{Y}{L_F} \right|_{s_{FB,E=0}},\\
+\left. \frp{Y}{L_G} \right|_{s_{FB,E>0}}\geq \left. \frp{Y}{L_G} \right|_{s_{FB,E=0}}.
+\end{align}
+When there is no externality, the efficient allocation is characterized by
+\begin{align}
+\left. \frp{Y}{L_F} \right|_{s_{FB,E=0}}= \left. \frp{Y}{L_G} \right|_{s_{FB,E=0}}.
+\end{align}
+Using the inequalities above yields
+\begin{align}
+\left. \frp{Y}{L_F} \right|_{s_{FB,E>0}}\leq \left. \frp{Y}{L_G} \right|_{s_{FB,E>0}}.
+\end{align}
+This contradicts the optimality condition which requires 
+\begin{align}
+\left. \frp{Y}{L_F} \right|_{s_{FB,E>0}}> \left. \frp{Y}{L_G} \right|_{s_{FB,E>0}}.
+\end{align}
+Hence, when a reduction in the dirty labor share is efficient, then the aggregate production function features decreasing returns to scale in both labor input goods. 
+\end{proof}
 \subsubsection{The social cost of pollution}
 
 The social cost of pollution in my model is defined as the marginal price the representative household is willing to pay for a marginal reduction in dirty production. That is, the household maximises over dirty production for which a market exists.
@@ -74,7 +110,9 @@ U_F=\mu \tilde{p}_f,\\
 U_C=\mu.
 \end{align}
 Substituting the Lagrange multiplier gives the negative of the equilibrium price the household is willing to pay for a reduction in dirty prodction: $\tilde{p}_f=\frac{U_F}{U_C}$. Since the environmental tax in the model is a percentage of revenues, the price producers pay per unit of dirty production is $\tau_f p_f$. Thus, the social cost of pollution to be deducted from to producers' revenues in percent is $\tau^{Pigou}=\frac{-U_F}{U_Cp_f}$.
-\subsubsection{With an environmental tax, the wage rate in the competitive equilibrium is below the marginal product of labor}\label{app:wageMPL}
+
+
+\subsubsection{With a positive environmental tax, the wage rate in the competitive equilibrium is below the marginal product of labor}\label{app:wageMPL}
 
 The aggregate marginal product of labor is defined as
 \begin{align}
@@ -96,13 +134,16 @@ Now note that the first summand in equation \ref{eq:mpl_opt} is the competitive 
 
 The gap between the wage rate and the marginal product of labor equals the gap between the marginal products of labor across sectors times the relative size of the dirty sector. 
 
-\subsection{Sufficiency of the environmental tax when environmental tax revenues are redistributed lump sum}\label{app:incometax0}
+\subsubsection{Sufficiency of the environmental tax when environmental tax revenues are redistributed lump sum}\label{app:incometax0}
 
 Noticing that $\frac{\partial Y}{\partial H}= \frac{\partial Y}{\partial s}\frac{s}{H}-\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}$ and that $\frac{\partial F}{\partial H}=\frac{\partial F}{\partial s}\frac{s}{H}$, and substituting equation \ref{eq:sbs} in equation \ref{eq:sbh} yields
 \begin{align}\label{eq:pigou}
--U_C \frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}=-U_H.
+-U_C \frac{\partial Y}{\partial G}\frp{G}{L_G}=-U_H.
 \end{align}
-Hence, if the environmental tax is set to guarantee that condition \ref{eq:sbh} holds, then optimal hours worked only trade-off the disutility from labor and the utility from more consumption. 
+Hence, if the environmental tax is set to guarantee that condition \ref{eq:sbh} holds, then optimal hours worked only trade-off the disutility from labor and the utility from more consumption when environmental tax revenues are redistributed lump-sum.
+
+Equation \ref{eq:pigou} also holds for the social planner allocation simplifying the second first order condition, equation \ref{eq:fbh}.
+
 
 Substituting $U_H$ from household optimality, equation \ref{eq:hsup}, and the clean sectors' profit maximizing condition from equations \ref{eq:profmax} yields
 \begin{align}
@@ -110,10 +151,14 @@ Substituting $U_H$ from household optimality, equation \ref{eq:hsup}, and the cl
 \end{align}
 Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income tax scheme is a flat tax rate equal to zero; the labor income tax is not used in optimum.
 
-
-
-\subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high}\label{app:nolumpsum_hourshigh}
-\begin{proof}\textit{Absent lump-sum transfers, hours are inefficiently high when the environmental tax implements efficient share of dirty production and the wage rate is decreasing in equilibrium hours worked.}
+%\subsubsection{Simplifying social planner's first order conditions}
+%
+%The social planner's first order condition on labor can be rewritten as in the previous section to
+%\begin{align}
+%-U_H=U_C\frac{\partial Y}{\partial G}\frp{G}{L_G}
+%\end{align}
+\subsubsection{Proof proposition \ref{prop:1}: Absent lump-sum transfers, hours are inefficiently high under decreasing returns to scale}\label{app:nolumpsum_hourshigh}
+\begin{proof}\textit{Absent lump-sum transfers, hours are inefficiently high when the environmental tax implements efficient share of dirty production and the aggregate production function features decreasing returns to scale in labor inputs.}
 	
 	This proof proceeds by contradiction. 
 	Assume by contradiction that $H^*\leq H_{FB}$. 
@@ -121,19 +166,21 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 	\begin{align}
 	-U_H^*\leq -U_{H,FB}.
 	\end{align} 
-	Substituting the households' optimal labor supply and the social planner's first order condition for hours, equation \ref{eq:fbh} yields
+	
+	Substituting the households' optimal labor supply and the social planner's first order condition for hours, equation \ref{eq:fbh_simp} yields
 	\begin{align}\label{eq:prH}
-	U_C^*w^* \leq U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}
+	U_C^*w^* \leq U_{C,FB}\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}.
 	\end{align}
 	
 	Rewriting equation \ref{eq:prH} above yields
 	\begin{align}
-	\frac{U_C^*}{U_{C,FB}}\leq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}}
+	\frac{U_C^*}{U_{C,FB}}\leq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}},
 	\end{align}
 	where I replaced $w^*=\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}$.
 	
 	By assumption $s^*=s_{FB}$, $H^*\leq H_{FB}$, and the aggregate production function is increasing in its inputs. It follows that output is higher in the efficient allocation $Y_{FB}\geq Y^*$ and hence $C^*<C_{FB}$, since $Gov>0$ in the competitive equilibrium. By additive separability of the utility function and strict concavity with respect to consumption, we have that $\frac{U_C^*}{U_{C,FB}}>1$.
-	Under the assumption that the wage rate is decreasing or constant in equilibrium hours, it holds that the right-hand side is below or equal unity since $H^*\leq H_{FB}$. Thus,
+	
+	Now note that $H^*\leq H_{FB}$ implies  $L_G^*\leq L_{G,FB}$, since the dirty labor share is equal. Under decreasing returns to scale of aggregate production to clean labor, it holds that the right-hand side is below or equal unity.Thus,
 	\begin{align}
 	\frac{U_C^*}{U_{C,FB}}>1\geq \frac{\frp{Y_{FB}}{G_{FB}}\frp{G_{FB}}{L_{G,FB}}}{\frp{Y^*}{G^*}\frp{G^*}{L^*_{G}}}. 
 	\end{align}
@@ -141,24 +188,32 @@ Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income
 \end{proof}
 
 
-\subsection{Derivation $\tau_f^*$ without lump-sum transfers, proposition \ref{prop:2} part 1}
+\subsubsection{Derivation $\tau_f^*$ without lump-sum transfers}
 	
-Divide the Ramsey planner's first order condition with respect to $s$, equation \ref{eq:sbs}, by $U_C$ and $\frp{Y}{F}\frp{F}{s}$. Solving for $1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}$, which equals $\tau_f$, yields the desired result. 
+Divide the Ramsey planner's first order condition with respect to $s$, equation \ref{eq:sbs}, by $U_C$ and $\frp{Y}{F}\frp{F}{s}$. Solving for $1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}$, which equals $\tau_f$, yields the desired result:
 
+\begin{align}
+\tau_{f}=SCC + \frp{Gov}{s}.
+\end{align}
 
-\subsubsection{Derivation $\tau_l$ proof proposition \ref{prop:2} part 2}\label{app:subsub_nltaul}
+The latter summand can be rewritten to 
+\begin{align}
+\frp{Gov}{s}= \frp{Y}{s}+H^2 \frp{\left(\frp{Y}{L_G}\right)}{L_G}.
+\end{align}
+Where under decreasing returns to scale the second summand is negative and the first is positive. \tr{To be continued.} 
+\subsubsection{Derivation $\tau_l$ without lump-sum transfers }\label{app:subsub_nltaul}
 
 \begin{proof}\textit{Absent lump-sum transfers, the optimal income tax scheme is progressive}
-Following similar steps as in section \ref{subsec:Rams}, the optimal labor income tax progressivity parameter is given by
+Following similar steps as in section \ref{app:incometax0}, the optimal labor income tax progressivity parameter is given by
 \begin{align}
-\frac{\frac{s}{H}\frac{\partial Gov}{\partial s}- \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}}.
+\tau_{\iota}^*=\frac{\frac{s}{H}\frac{\partial Gov}{\partial s}- \frac{\partial Gov}{\partial H}}{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}\frac{1}{H}}.
 \end{align}
 
 	Using the market clearing condition for final output to replace government spending and noticing the relations of derivatives with respect to aggregate labor supply and the dirty labor share, one can write above expression as
 	\begin{align}
 	\tau_{\iota}=1-\frac{H\frp{C}{H}-s\frp{C}{s}}{wH}.
 	\end{align}
-	Substituting $\frp{C}{H}=H\frp{w}{H}+w$ and $\frp{C}{s}=\frp{w}{s}$ from the household's budget constraint gives
+	Substituting $\frp{C}{H}=H\frp{w}{H}+w$ and $\frp{C}{s}=H\frp{w}{s}$ from the household's budget constraint gives
 	\begin{align}
 	\tau_{\iota}=\frac{s}{w}\frp{w}{s}-\frac{H}{w}\frp{w}{H}.
 	\end{align}
@@ -171,16 +226,18 @@ In a next step, I explicitly solve for $\frp{w}{s}$ and $\frp{w}{H}$, where I us
 \end{align}
 substituting derivatives and canceling terms yields:
 \begin{align}
-\tau_\iota= -\frac{H}{w}\left(\left(\frp{G}{L_G}\right)^2\frac{\partial ^2Y}{\partial G^2}+\frp{Y}{G}\frac{\partial ^2G}{\partial L_G ^2}\right).
+\tau_\iota= -\frac{H}{w}\frp{\left(\frp{Y}{L_G}\right)}{L_G}.=\left(\left(\frp{G}{L_G}\right)^2\frac{\partial ^2Y}{\partial G^2}+\frp{Y}{G}\frac{\partial ^2G}{\partial L_G ^2}\right).
 \end{align}
-If returns to scale of clean and aggregate production are decreasing or constant and decreasing for at least one, than $\tau_\iota >0$ and the optimal income tax rate is progressive. 
+Under the assumption of decreasing returns to scale of aggregate production with respect to green labor the term in brackets is negative, and it holds that $\tau_\iota >0$ and the optimal income tax rate is progressive. 
 
-Note that, the right-hand side of the previous expression equals the partial derivative of the wage rate with respect to the dirty labor share under the assumption that dirty production is fixed:
+For intuition, note that the right-hand side of the previous expression equals the partial derivative of the wage rate with respect to the dirty labor share under the assumption that dirty production is fixed divided by the wage rate:
 \begin{align}
-\tau_\iota =\frac{1}{w}\frp{w}{s}_{F=\bar{F}}.
+\tau^*_\iota =\left. \frac{1}{w}\frp{w}{s} \right|_{F=\bar{F}}.
 \end{align}
-Since the presence of the environmental tax artificially increases labor in the green sector depressing the wage rate, the wage rate rises by a reduction of the green labor share. Thus, $\tau_\iota$ is positive. 
-\tr{I guess I can show this from the first order condition of the Ramsey planner}
+%Since the presence of the environmental tax artificially increases labor in the green sector depressing the wage rate (under the assumption of decreasing returns to scale), the wage rate rises by a reduction of the green labor share. 
+
+The equation makes clear that environmental taxation and the labor income tax are complements. When the environmental tax rises, thereby increasing the share of labor allocated to the green sector, the marginal product of green labor decreases further. A marginal reduction in the green labor share would increase the wage rate more the higher the green labor share, hence, the optimal labor tax progressivity increases with the environmental tax. 
+Secondly, the wage rate decreases with $\tau_f$ which as well inflates the optimal labor tax progressivity. 
 	\end{proof}
 
 \subsubsection{Proof proposition \ref{prop:2} part 3: Infeasibility of efficient allocation}
@@ -305,24 +362,173 @@ Since the presence of the environmental tax artificially increases labor in the 
 \end{proof}
 
 
-\paragraph{Useful relations}
+
+\section{analytic Model with  functional forms}
+\subsection{Competitive equilibrium in simple model}
+
 \begin{align}
-\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial s}\\
-\frac{\partial Gov}{\partial H}=\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}+\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}-\frac{\partial C}{\partial H}\\
-\frac{\partial Gov}{\partial s}=\frac{\partial Y}{\partial s}-\frac{\partial C}{\partial s}\\
-\frac{\partial Gov}{\partial s}=p_f F \frac{\partial \tau_f}{\partial s}+\tau_f F \frac{\partial p_f}{\partial s}+\tau_f p_f \frac{\partial F}{\partial s}\\
-%\frac{\partial \tau_f}{\partial s}= -\frac{1-\varepsilon}{\varepsilon}\frac{1}{(1-s)^2}, \\
-%\frac{\partial \tau_f}{\partial s}=p_f\frac{1-\varepsilon}{1-\tau_f}\frac{\partial \tau_f}{\partial s}\\
-\frac{\partial F}{\partial s}=\frac{F}{s}
+\text{Utility}\hspace{5mm}& \frac{C_t^{1-\theta}-1}{1-\theta}-\chi \frac{h_t^{1+\sigma}}{1+\sigma}-\varphi(\omega F)^\eta\\
+\text{Budget}\hspace{5mm}& C_t = \lambda_t(w_th_t)^{1-\tau_{\iota t}}\\
+\text{optimality HH}\hspace{5mm}& h^{\sigma+\tau_{\iota t}+\theta(1-\tau_{\iota t})}=\lambda_t^{1-\theta}(1-\tau_{\iota t})w_t^{(1-\tau_{\iota t})(1-\theta)}\\
+\text{Final Production}\hspace{5mm}&Y=F^{\varepsilon_y}G^{1-
+	\varepsilon_y}\\ %\left[F^\frac{\varepsilon_y-1}{\varepsilon_y}+G^\frac{\varepsilon_y-1}{\varepsilon_y}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+%\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\label{eq:ana_pr}\\
+\text{Demand clean good}\hspace{5mm}&p_g=(1-\varepsilon)\left(\frac{F}{G}\right)^\varepsilon\label{eq:ana_dem_clean}\\
+\text{Demand clean good}\hspace{5mm}&p_f=\varepsilon\left(\frac{F}{G}\right)^{\varepsilon-1}\label{eq:ana_dem_dirty}\\
+\text{Production F and G}\hspace{5mm}&F=A_fL_F\label{eq:ana_prod_F}\\\
+& G=A_gL_G\label{eq:ana_prod_G}\\
+\text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
+& w=p_gA_g\\
+\text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
+&A_{gt+1}=(1+\nu_g)A_{gt}\\
+\text{Government}\hspace{5mm}&T=\tau_{f}p_fF
 \\
-\frp{Y}{H}= \frp{Y}{s}\frac{s}{H}+\frp{Y}{G}\frp{G}{Lg}
-\\
-\frp{G}{H}=-\frac{(1-s)}{H}\frp{G}{s}
-\\\frp{G}{s}=-H\frp{G}{L_G}\\
-\frp{F}{H}=\frac{s}{H}\frp{F}{s}\\
-\frp{F}{s}=H\frp{F}{L_F}
+\text{Balanced income tax revenues}\hspace{5mm}&\lambda_t=\frac{w_t h_t}{(w_t h_t)^{1-\tau_{\iota t}}}\\
+&E_{net}=\omega F-\delta
+\end{align}
+\subsubsection{Derivation expression for $h^{FB}$}
+Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
+\begin{align}
+h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f s^{FB}\left(h^{FB}\right)^\theta \right)^\frac{1}{\sigma+\theta}.\label{eq:heff_1}
 \end{align}
 
+Note that an explicit expression for $h^{FB}$ follows from equation \ref{eq:fbs} when there is an externality and $\frac{dE}{dF}\neq 0$. Then 
+
+\begin{align}
+h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)^\frac{1}{\theta}
+\end{align}
+and the result follows from substituting the last expression in expression  \ref{eq:heff_1}.
+
+\subsection{Proof: Hours worked with only the efficient share of dirty labor are inefficiently high}
+
+\begin{proof}
+	The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
+	In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, hours worked, denoted by $h_{CE, s^{eff}}$, exceed their efficient level, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available. 
+	
+	First note that the share of dirty labor is fully determined by the environmental tax. The environmental tax is set to implement a gap between the marginal product of labor between the clean and the dirty sector. The relation follows from labor market clearing and intermediate goods market clearing 
+	\begin{align}
+	\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}\label{eq:tauf}
+	\end{align}
+	
+	\textbf{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
+	Rewriting equation \ref{eq:fbs} yields
+	\begin{align}
+	\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
+	\end{align}
+	When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
+	Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
+	\begin{align}
+	\varepsilon(1-s)-s(1-\varepsilon)>0,
+	\end{align}
+	which holds true if and only if $\varepsilon>s$.
+	
+	\textbf{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
+	I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
+	
+	\begin{align}
+	&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+	\\
+	\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+	\end{align}
+	
+	Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
+	\begin{align}
+	\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
+	\end{align}
+	which holds true whenever
+	\begin{align}
+	\varepsilon<s.
+	\end{align}
+	This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
+\end{proof}
+
+\textit{Intuition:} the fact that the wage rate in the competitive equilibrium understates the marginal product of labor  depresses labor supply due to a substituion effect. When the income effect is more pronounced, that is, $\theta>1$, the low wage rate increases labor supply above the efficient level. When the substitution effect is stronger when $\theta<1$, then the distortion in the wage rate decreases labor supply. 
+The neglected contribution to the externality by households in the competitive equilibrium makes hours inefficiently high irrespective of parameter values. 
+Hence, with $\theta<1$ the overall distortion in hours worked is mitigated has households the stronger substitution effect offsets part of the inefficient high labor supply due to the neglect of the externality. ¸
+
+In the model, it does so by exactly the same amount as hours contribute to the externality. 
+than compensated for by the neglect of the negative effect of hours on the externality due to the concave curvature of the utility function, $\theta>0$. If $\theta=0$, then the two effects would exactly offset. 
+
+
+
+\subsection{Proof: lump-sum transfers restore the efficient allocation}
+\begin{proof}\label{pr:lst_eff}
+	To establish that lump-sum transfers of environmental tax revenues restore the efficient allocation, I first derive the size of lump-sum transfers which implement the efficient level of hours worked given that the efficient dirty labor share is established by choice of the environmental tax. In a second step, I show that this level of transfers coincides with the revenues from the environmental tax when this is set to implement the efficient dirty labor share. 
+	These two steps prove that the efficient amount of hours results from lump-sum transferring environmental tax revenues. Finally, I show that the resulting level of consumption is efficient. This completes the proof.
+	
+	
+	
+	\textbf{Step 1:} Solve for transfers which implement efficient level of hours\\
+	I equalize equation \ref{eq:heff} and \ref{eq:hopt} setting the income tax progressivity, $\tau_{\iota}$, to zero.
+	\begin{align}
+	\left(\frac{w^{1-\theta}\left(1+\frac{T^*}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
+	\end{align}
+	Using the relation of $w_{FB}$ and $w$ established in the previous proof, I can rewrite the right-hand side
+	\begin{align}
+	&\left(\frac{w^{1-\theta}\left(1+\frac{T^*}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w^{1-\theta}}{\chi}\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
+	\end{align}
+	This step is instructive in showing that transfers will correct for the two inefficiencies in the competitive economy: (i) the too low wage rate captured by the term $\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}$, and (ii) the neglect of the effect of hours worked on the externality, captures by $\frac{1-\varepsilon}{1-s}<1$. 
+	
+	Solving for transfers yields
+	\begin{align}
+	T^* = \left(\frac{\varepsilon-s}{1-\varepsilon}\right)wh_{FB},
+	\end{align}
+	
+	\textbf{Step 2:} $T^*=\tau_f^*p_fF$\\
+	The environmental tax in equilibrium is determined by equation \ref{eq:tauf}: $\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}$. Free labor movement enforcing a unique wage rate implies that $p_f=p_g\frac{A_g}{(1-\tau_f)A_f}$. The price for the clean good, $p_g$, in equilibrium, balances clean demand and wages paid: $p_g=\varepsilon^\varepsilon(1-\varepsilon)^{1-\varepsilon}\left(\frac{(1-\tau_f)A_f}{A_g}\right)^\varepsilon$. Dirty output, $F$, is given by $F=A_fsh$. 
+	Substituting these expressions in the expression for $T^*$ above and observing that $w=(1-\varepsilon)\left(\frac{A_f}{A_g}\frac{s}{1-s}\right)^\varepsilon A_g$ yields the result.
+	
+	\textbf{Step 3: } Consumption under $T^*$ is efficient\\
+	Trivially, as market clearing has to hold in the competitive equilibrium, it follows that 
+	\begin{align}
+	C^*=\left(A_f s^*\right)^\varepsilon\left(A_g(1-s^*)\right)^{1-\varepsilon}h^*
+	\end{align} 
+	Since $T^*$ and $\tau_f^*$ have been set to establish the efficient dirty labor share, $s^*=s_{FB}$ and the efficient level of hours worked, $h^*=h_{FB}$, it follows that $C^*=C_{FB}$. This completes the proof.
+\end{proof}
+
+\subsection{Infeasibility of efficient allocation if environmental tax revenues are consumed by the government}
+
+\begin{proof}
+	The proof proceeds by construction. First, I assume that the efficient dirty labor share has been implemented and that consumption equals the efficient level. Solving for the competitive level of hours shows that they exceed the efficient level of hours.  Hence, the efficient allocation is not feasible when the government consumes environmental tax revenues since work effort has to be inefficiently high to sustain the first-best level of consumption. 
+	
+	Working hours to support the efficient level of consumption are given by the market clearing condition  (which holds true with and without income tax scheme)
+	\begin{align}
+	C_{FB} = \left(A_f s_{FB}\right)^\varepsilon\left(A_g(1-s_{FB})\right)^{1-\varepsilon}h-\tau_f^*p_f^*A_fs_{FB}h
+	\end{align}
+	Since $s^*=s_{FB}$ by assumption, substituting equilibrium expressions for $\tau_f^*$ and $p_f^*$ used in proof \ref{pr:lst_eff} and solving for $h$ yields
+	\begin{align}
+	h=\frac{C_{FB}}{w}.
+	\end{align}
+	Substitution of consumption from the first best allocation, $C_{FB}=\left(A_f s_{FB}\right)^\varepsilon\left(A_g(1-s_{FB})\right)^{1-\varepsilon}h_{FB}$, gives
+	\begin{align}
+	\frac{h}{h_{FB}}=\frac{w_{FB}}{w}.
+	\end{align}
+	Since $\varepsilon>s$ the right-hand side, $\frac{w_{FB}}{w}=\frac{1-s}{1-\varepsilon}$, is above unity. Hence, $h>h_{FB}$. 
+\end{proof}
+
+\subsection{Proof: redistributing environmental tax revenues through the non-linear income tax scheme restores the efficient allocation. The income tax scheme to support the efficient allocation is progressive.}
+
+\begin{proof}
+	Hours under the non-linear tax-scheme policy become
+	\begin{align}
+	h=\left(\frac{(1-\tau_{\iota})w^{1-\theta}(1+\tau_f p_f\frac{F}{hw})^{1-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}.
+	\end{align}
+	
+	I assume that the dirty labor share is set to the efficient level, $s=s_{FB}$. This determines $\tau^*_f$ and $p^*_f$.
+	It has to be shown that
+	\begin{align}
+	\left(\frac{(1-\tau_{\iota})w^{1-\theta}\left(1+\tau^*_f p^*_f\frac{F_{FB}}{h_{FB}w}\right)^{1-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w^{1-\theta}}{\chi}\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+	\end{align}
+	From proof \ref{pr:lst_eff} step 2 we know that $\frac{\tau_f^*p_fF}{(wh_{FB})}=\left(\frac{\varepsilon-s}{1-\varepsilon}\right)$ and hence $\left(1+\frac{\tau_f^*p_fF}{wh_{FB}}\right)^{-\theta}=\left(\frac{1-s}{1-\varepsilon}\right)^{-\theta}$ and above condition simplifies to
+	\begin{align}
+	(1-\tau_{\iota})\frac{\varepsilon-s}{1-\varepsilon}=1.
+	\end{align}
+	Rearranging terms yields
+	\begin{align}
+	\tau_{\iota}= \frac{\varepsilon-s}{1-s}.
+	\end{align}
+	Since $\frac{\varepsilon-s}{1-s}\in(0,1)$ when there is a negative externality from dirty production, the optimal tax scheme, which implements the efficient allocation, exists and is progressive. \textit{Note that 1 is an upper bound on the tax scheme progressivity parameter as otherwise the marginal returns to labor would be decreasing in hours worked. It is positive since $s<\varepsilon$.}
+\end{proof}
 
 \begin{comment}
 \subsection{Numeric results in simple model}
@@ -392,153 +598,12 @@ Only when the Ramsey planner can implement the efficient level of work, the envi
 	%\item when there is no income tax, the optimal policy is to set the efficient dirty labour share (compare table \ref{tab:lin_nolst_notaul}). Labor supply is always too high but the optimal tax exceeds the social cost of carbon
 \end{itemize}
 
-\subsection{Model with  functional forms}
-\subsubsection{Derivation expression for $h^{FB}$}
-Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
-\begin{align}
-h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f s^{FB}\left(h^{FB}\right)^\theta \right)^\frac{1}{\sigma+\theta}.\label{eq:heff_1}
-\end{align}
-
-Note that an explicit expression for $h^{FB}$ follows from equation \ref{eq:fbs} when there is an externality and $\frac{dE}{dF}\neq 0$. Then 
-
-\begin{align}
-h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)^\frac{1}{\theta}
-\end{align}
-and the result follows from substituting the last expression in expression  \ref{eq:heff_1}.
-
-\subsection{Proof: Hours worked with only the efficient share of dirty labor are inefficiently high}
-
-\begin{proof}
-The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
-In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, hours worked, denoted by $h_{CE, s^{eff}}$, exceed their efficient level, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available. 
-
-First note that the share of dirty labor is fully determined by the environmental tax. The environmental tax is set to implement a gap between the marginal product of labor between the clean and the dirty sector. The relation follows from labor market clearing and intermediate goods market clearing 
-\begin{align}
-\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}\label{eq:tauf}
-\end{align}
-
-\textbf{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
-Rewriting equation \ref{eq:fbs} yields
-\begin{align}
-\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
-\end{align}
-When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
-Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
-\begin{align}
-\varepsilon(1-s)-s(1-\varepsilon)>0,
-\end{align}
-which holds true if and only if $\varepsilon>s$.
-
-\textbf{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
-I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
-
-\begin{align}
-&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
-\\
-\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
-\end{align}
-
-Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
-\begin{align}
-\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
-\end{align}
-which holds true whenever
-\begin{align}
-\varepsilon<s.
-\end{align}
-This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
-\end{proof}
-
-\textit{Intuition:} the fact that the wage rate in the competitive equilibrium understates the marginal product of labor  depresses labor supply due to a substituion effect. When the income effect is more pronounced, that is, $\theta>1$, the low wage rate increases labor supply above the efficient level. When the substitution effect is stronger when $\theta<1$, then the distortion in the wage rate decreases labor supply. 
-The neglected contribution to the externality by households in the competitive equilibrium makes hours inefficiently high irrespective of parameter values. 
-Hence, with $\theta<1$ the overall distortion in hours worked is mitigated has households the stronger substitution effect offsets part of the inefficient high labor supply due to the neglect of the externality. ¸
-
-In the model, it does so by exactly the same amount as hours contribute to the externality. 
-than compensated for by the neglect of the negative effect of hours on the externality due to the concave curvature of the utility function, $\theta>0$. If $\theta=0$, then the two effects would exactly offset. 
-
-
-
-\subsection{Proof: lump-sum transfers restore the efficient allocation}
-\begin{proof}\label{pr:lst_eff}
-To establish that lump-sum transfers of environmental tax revenues restore the efficient allocation, I first derive the size of lump-sum transfers which implement the efficient level of hours worked given that the efficient dirty labor share is established by choice of the environmental tax. In a second step, I show that this level of transfers coincides with the revenues from the environmental tax when this is set to implement the efficient dirty labor share. 
-These two steps prove that the efficient amount of hours results from lump-sum transferring environmental tax revenues. Finally, I show that the resulting level of consumption is efficient. This completes the proof.
-
-
-
-\textbf{Step 1:} Solve for transfers which implement efficient level of hours\\
-I equalize equation \ref{eq:heff} and \ref{eq:hopt} setting the income tax progressivity, $\tau_{\iota}$, to zero.
-\begin{align}
-\left(\frac{w^{1-\theta}\left(1+\frac{T^*}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
-\end{align}
-Using the relation of $w_{FB}$ and $w$ established in the previous proof, I can rewrite the right-hand side
-\begin{align}
-&\left(\frac{w^{1-\theta}\left(1+\frac{T^*}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w^{1-\theta}}{\chi}\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
-\end{align}
-This step is instructive in showing that transfers will correct for the two inefficiencies in the competitive economy: (i) the too low wage rate captured by the term $\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}$, and (ii) the neglect of the effect of hours worked on the externality, captures by $\frac{1-\varepsilon}{1-s}<1$. 
-
-Solving for transfers yields
-\begin{align}
-T^* = \left(\frac{\varepsilon-s}{1-\varepsilon}\right)wh_{FB},
-\end{align}
-
-\textbf{Step 2:} $T^*=\tau_f^*p_fF$\\
-The environmental tax in equilibrium is determined by equation \ref{eq:tauf}: $\tau_f = \frac{\varepsilon-s}{(1-s)\varepsilon}$. Free labor movement enforcing a unique wage rate implies that $p_f=p_g\frac{A_g}{(1-\tau_f)A_f}$. The price for the clean good, $p_g$, in equilibrium, balances clean demand and wages paid: $p_g=\varepsilon^\varepsilon(1-\varepsilon)^{1-\varepsilon}\left(\frac{(1-\tau_f)A_f}{A_g}\right)^\varepsilon$. Dirty output, $F$, is given by $F=A_fsh$. 
-Substituting these expressions in the expression for $T^*$ above and observing that $w=(1-\varepsilon)\left(\frac{A_f}{A_g}\frac{s}{1-s}\right)^\varepsilon A_g$ yields the result.
-
-\textbf{Step 3: } Consumption under $T^*$ is efficient\\
-Trivially, as market clearing has to hold in the competitive equilibrium, it follows that 
-\begin{align}
-C^*=\left(A_f s^*\right)^\varepsilon\left(A_g(1-s^*)\right)^{1-\varepsilon}h^*
-\end{align} 
-Since $T^*$ and $\tau_f^*$ have been set to establish the efficient dirty labor share, $s^*=s_{FB}$ and the efficient level of hours worked, $h^*=h_{FB}$, it follows that $C^*=C_{FB}$. This completes the proof.
-\end{proof}
-
-\subsection{Infeasibility of efficient allocation if environmental tax revenues are consumed by the government}
-
-\begin{proof}
-	The proof proceeds by construction. First, I assume that the efficient dirty labor share has been implemented and that consumption equals the efficient level. Solving for the competitive level of hours shows that they exceed the efficient level of hours.  Hence, the efficient allocation is not feasible when the government consumes environmental tax revenues since work effort has to be inefficiently high to sustain the first-best level of consumption. 
-	
-	Working hours to support the efficient level of consumption are given by the market clearing condition  (which holds true with and without income tax scheme)
-	\begin{align}
-		C_{FB} = \left(A_f s_{FB}\right)^\varepsilon\left(A_g(1-s_{FB})\right)^{1-\varepsilon}h-\tau_f^*p_f^*A_fs_{FB}h
-	\end{align}
-Since $s^*=s_{FB}$ by assumption, substituting equilibrium expressions for $\tau_f^*$ and $p_f^*$ used in proof \ref{pr:lst_eff} and solving for $h$ yields
-	\begin{align}
-	h=\frac{C_{FB}}{w}.
-	\end{align}
-	Substitution of consumption from the first best allocation, $C_{FB}=\left(A_f s_{FB}\right)^\varepsilon\left(A_g(1-s_{FB})\right)^{1-\varepsilon}h_{FB}$, gives
-	\begin{align}
-\frac{h}{h_{FB}}=\frac{w_{FB}}{w}.
-	\end{align}
-	Since $\varepsilon>s$ the right-hand side, $\frac{w_{FB}}{w}=\frac{1-s}{1-\varepsilon}$, is above unity. Hence, $h>h_{FB}$. 
-\end{proof}
-
-\subsection{Proof: redistributing environmental tax revenues through the non-linear income tax scheme restores the efficient allocation. The income tax scheme to support the efficient allocation is progressive.}
-
-\begin{proof}
-	Hours under the non-linear tax-scheme policy become
-	\begin{align}
-	h=\left(\frac{(1-\tau_{\iota})w^{1-\theta}(1+\tau_f p_f\frac{F}{hw})^{1-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}.
-	\end{align}
-
-	I assume that the dirty labor share is set to the efficient level, $s=s_{FB}$. This determines $\tau^*_f$ and $p^*_f$.
-	It has to be shown that
-	\begin{align}
-	\left(\frac{(1-\tau_{\iota})w^{1-\theta}\left(1+\tau^*_f p^*_f\frac{F_{FB}}{h_{FB}w}\right)^{1-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w^{1-\theta}}{\chi}\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
-	\end{align}
-	 From proof \ref{pr:lst_eff} step 2 we know that $\frac{\tau_f^*p_fF}{(wh_{FB})}=\left(\frac{\varepsilon-s}{1-\varepsilon}\right)$ and hence $\left(1+\frac{\tau_f^*p_fF}{wh_{FB}}\right)^{-\theta}=\left(\frac{1-s}{1-\varepsilon}\right)^{-\theta}$ and above condition simplifies to
-	 \begin{align}
-	(1-\tau_{\iota})\frac{\varepsilon-s}{1-\varepsilon}=1.
-	 \end{align}
-	 Rearranging terms yields
-	 \begin{align}
-	\tau_{\iota}= \frac{\varepsilon-s}{1-s}.
-	 \end{align}
-	 Since $\frac{\varepsilon-s}{1-s}\in(0,1)$ when there is a negative externality from dirty production, the optimal tax scheme, which implements the efficient allocation, exists and is progressive. \textit{Note that 1 is an upper bound on the tax scheme progressivity parameter as otherwise the marginal returns to labor would be decreasing in hours worked. It is positive since $s<\varepsilon$.}
-\end{proof}
-
-	content...
 \end{comment}
+%\begin{comment}
+
+
+%	content...
+%\end{comment}
 \section{Quantitative results}\label{app:quant_res}
 
 
