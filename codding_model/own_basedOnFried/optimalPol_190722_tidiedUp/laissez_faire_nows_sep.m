@@ -71,15 +71,39 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
-    Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
-
-    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-                +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
-                +tauf.*pf.*F; % with scientists belonging to household sector, scientists sallary dont cancel from profits
-                % subsidies and profits and wages scientists cancel
+    Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
+    
+    if indic.notaul<2 % tauf redistributed via income tax
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+            +tauf.*pf.*F;
+    else
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+        if indic.notaul <4
+            GovCon = tauf.*pf.*F;
+        else
+            GovCon =zeros(size(F));
+        end
+    end
 else
-    SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;  
+    if indic.notaul<2
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
+            +tauf.*pf.*F;
+    else
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
+        if indic.notaul <4
+            GovCon = tauf.*pf.*F;
+        else
+            GovCon =zeros(size(F));
+        end
+    end
+end
+% lump sum transfers
+if indic.notaul >=4
+    Tls =tauf.*pf.*F;
+else
+    Tls =zeros(size(F));
 end
 
 muu   = C.^(-thetaa); % same equation in case thetaa == 1
@@ -111,9 +135,10 @@ if indic.noskill==0
         f(q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
         %3- budget
         q=q+1;
-        f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov-C; %=> determines C
+        f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov+Tls-C; %=> determines C
 
-    else   
+    else  
+        error('version with inequality not yet updated')
         q=q+1;
         f(q)= chii*hh.^(sigmaa+taul)- ((muuh.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh.*hh.^taul); %=> determines hh
         %2

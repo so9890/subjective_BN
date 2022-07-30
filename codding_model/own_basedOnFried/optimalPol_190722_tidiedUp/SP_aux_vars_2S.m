@@ -104,6 +104,8 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 %- continuation value: assuming after period T constant growth rate
 %  note that A and Af refer to the last direct period T so do not use lags
 %  here!, Assumption that research input sff is constant after period T
+%= gammac is the next period growth rate after the last optimization period
+% other assumptions: xf/Lf constant, Lf constant
 gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
 % utility

@@ -51,7 +51,10 @@ end
         
 
 %%% Step 2: Compute Continuation Values of Allocations : AS FUNCTION OF LAST DIRECT PERIOD ALLOCATIONS%%%
+% taxes not fixed,
 % => SHE ASSUMES CONSTANT SHARES OF LABOUR AND CAPITAL ALLOCATED TO FINAL GOOD PRODUCTION
+% these are the periods which are simulated, so there can be non-balanced
+% movements, but based on assumptions of some constant ratios
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Note: Computation assumes T is sufficiently large that clean energy will be cost-competitive by then (year 2255 in DICE -> T=25 ~ 2265 ok)        
 

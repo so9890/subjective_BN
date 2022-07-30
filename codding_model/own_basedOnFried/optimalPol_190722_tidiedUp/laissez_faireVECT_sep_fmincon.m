@@ -1,7 +1,7 @@
 function [c,ceq]=laissez_faireVECT_sep_fmincon(x, params, list, varrs, laggs,T, indic)
 c=[];
 
-ceq=laissez_faireVECT_sep(x, params, list, varrs, laggs,T, indic);
+ceq=laissez_faireVECT_sep_NoRed(x, params, list, varrs, laggs,T, indic);
  
 % % called by script 'test_results.m'
 % % takes optimal policy results as input

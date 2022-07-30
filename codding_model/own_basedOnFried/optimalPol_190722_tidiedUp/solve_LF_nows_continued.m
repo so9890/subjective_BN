@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_continued(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
 % simulate economy under laissez faire
 indic.xgrowth=0;
 indic.ineq=0;
@@ -100,7 +100,7 @@ if indic.noskill==1
 end
 
 
-while t<=T+1 % because first iteration is base year
+while t<=T
     fprintf('entering simulation of period %d', t);
     %% - transforming variables to unbounded variables
     %-- index for transformation 
@@ -163,14 +163,12 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
     % this part also checks correctness of results!
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
-    if t>1
         if indic.sep==0
-            LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+            LF_SIM(:,t)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
         else
-            LF_SIM(:,t-1)=aux_solutionLF_sep(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+            LF_SIM(:,t)=aux_solutionLF_sep(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
         end
-        FVAL(t-1)=max(abs(fval));
-    end
+        FVAL(t)=max(abs(fval));
     %% - update for next round
     x0 = LF; % initial guess
         Af0= SLF.Af; % today's technology becomes tomorrow's lagged technology

@@ -125,7 +125,7 @@ if indic.xgrowth==0
     if indic.sep==0
         f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
     else
-        f=laissez_faireVECT_sep(x, params, list, varrs, init201519,T, indic);
+        f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic);
     end
 else
     f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
