@@ -100,13 +100,21 @@ Emnet     = omegaa*F-deltaa; % net emissions
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
 
-
+% continuation value al a Dasgupta
+% p 332: "Each generation should bequeath to its succesor at least as large 
+% a productive base as it had inherited from its predecessor"
+% => this is about economic productivities! 
+% but in my model, any tiniest amount of growth implies a bigger ability to
+% grow; not a 
 %- continuation value: assuming after period T constant growth rate
 %  note that A and Af refer to the last direct period T so do not use lags
 %  here!, Assumption that research input sff is constant after period T
 %= gammac is the next period growth rate after the last optimization period
-% other assumptions: xf/Lf constant, Lf constant
-gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
+% other assumptions: xf/Lf constant, Lf constantm n/e constant 
+% F has to be constant! for consumption to grow this has to come from green
+% or non-energy production 
+gammag = gammaa.*(sg(T)./rhog).^etaa.*(A(T)./Ag(T)).^phii; 
+gamman = gammaa.*(sn(T)./rhon).^etaa.*(A(T)./An(T)).^phii; 
 
 % utility
 

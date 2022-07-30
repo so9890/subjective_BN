@@ -51,6 +51,7 @@ else
 end
 % inequality constraints
 c=[];
+c(1:T) = Af(T)./Af_lag(T)-1-gammac; % tomorrows growth rate should be as high as last period growth
 if indic.xgrowth==0
     if indic.sep==0
         c(1:T)    = S-upbarH;
