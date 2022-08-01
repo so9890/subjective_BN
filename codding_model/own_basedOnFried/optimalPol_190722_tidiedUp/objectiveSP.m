@@ -75,15 +75,17 @@ else
       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
 end
 
-
-%Infinite horizon PDV of utility after (T+periods) on balanced growth path (with no population growth)
-% UtilTC_cont = (betaa^(T+periods-1))*N(T+periods)*(1/(1-betaa))*(((1+alpha0*(TC(T+periods)^alpha1))^((-1)*(1-sigma)))/(1-sigma));
-% Util1_cont = (betaa^(T+periods-1))*N(T+periods)*(((Composite(T+periods)^(1-sigma))/(1-sigma))*(1/(1-betaa*(1+gXt(T))^(1-sigma)))); 
+% continuation value
+%- last period growth rate as proxy for future growth rates
+gammay = Y(T)/Y(T-1)-1;
+PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
+PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T));
+PV= betaa^T*(PVconsump-PVwork);
 
 %Objective function value:
 %!! Dot product!!! so no dot.*
 % f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);
-f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci-indic.extern*weightext*(omegaa.*F).^extexpp));
+f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
 
 
 end

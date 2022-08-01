@@ -115,7 +115,7 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 % or non-energy production 
 % gammag = gammaa.*(sg(T)./rhog).^etaa.*(A(T)./Ag(T)).^phii; 
 % gamman = gammaa.*(sn(T)./rhon).^etaa.*(A(T)./An(T)).^phii; 
-
+gammac =0;
 % utility
 
 if thetaa~=1
@@ -133,9 +133,6 @@ if indic.sep==0
  end
  SWF = Utilcon-Utillab-Utilsci;
  
- contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
- contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
- contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
- 
- PVcontUtil = contUtil-contUtillab-contUtilsci;
+
+ PVcontUtil = 0;
 end
