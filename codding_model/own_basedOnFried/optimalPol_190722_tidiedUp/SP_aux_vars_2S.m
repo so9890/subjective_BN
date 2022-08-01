@@ -113,8 +113,8 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 % other assumptions: xf/Lf constant, Lf constantm n/e constant 
 % F has to be constant! for consumption to grow this has to come from green
 % or non-energy production 
-gammag = gammaa.*(sg(T)./rhog).^etaa.*(A(T)./Ag(T)).^phii; 
-gamman = gammaa.*(sn(T)./rhon).^etaa.*(A(T)./An(T)).^phii; 
+% gammag = gammaa.*(sg(T)./rhog).^etaa.*(A(T)./Ag(T)).^phii; 
+% gamman = gammaa.*(sn(T)./rhon).^etaa.*(A(T)./An(T)).^phii; 
 
 % utility
 

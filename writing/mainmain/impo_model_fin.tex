@@ -123,10 +123,13 @@ C_t&=Y_t-\int_{0}^{1}x_{fit}+x_{git}+x_{nit}di-Gov_t.
 The government does not redistribute environmental tax revenues and instead consumes the final output good. 
 \paragraph{Government}
 
-The government maximises social welfare defined as the sum of utilities in the economy, but it is constrained by meeting emission targets in line with the Paris Agreement. The government can use income taxes and corrective taxes levied on fossil sales to maximise social welfare. The planner solves:
+The government maximizes social welfare defined as the sum of utilities in the economy over a finite period of length $T$, but it is constrained by meeting emission targets in line with the Paris Agreement. 
+The planner cares about what the economy bequeaths to its successors in terms of technology measured in utility.\footnote{\ The technology level passed to future generations on the one hand promises a certain consumption level but also constitutes an option to grow and build on inherited technology.} This assumption captures concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \textit{World Commission on Environment and Development (1987)}. Yet, this framework does not require to assume a balanced growth path which is complicated by the absolute limit on emissions. \footnote{\  For example, defining the balanced growth path as in \cite{Fried2018ClimateAnalysis} requires constant ratios. This assumption would force the economy not to grow any further once fossil output has reached its limit. } \footnote{\ As the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium as we observe it today, the emission limit might soon be violated once policy is assumed to be fixed. Under dynamic policies, however, assuming the existence of a balanced growth path is venturous. \textit{\tr{Better: show it does not exist. }} }
+The government can use income taxes and corrective taxes levied on fossil sales to maximize its objective function. 
+The planner solves:
 
 \begin{align*}
-\underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{max}&\sum_{t=0}^{T}\beta^t\left( u(C_{t}, h_{ht}, h_{lt})-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}\right) \tr{+Continuation}\\
+\underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{max}&\sum_{t=0}^{T}\beta^t\left( u(C_{t}, h_{ht}, h_{lt})-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}\right)+ PV\\
 s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
 & (1)\ \omega F_{t} -\delta \leq \Omega_t \ \hspace{3mm} \forall t \in\{0,T\}, \\ %\hspace{3mm} \text{(emission target)}\\
 & (2)\ z_h\left(w_{ht}h_{ht}-\lambda_t \left(w_{ht}h_{ht}\right)^{1-\tau_{\iota t}}\right)+(1-z_h)\left(w_{lt}h_{lt}-\lambda_t\left(w_{lt}h_{lt}\right)^{1-\tau_{\iota t}}\right) \\
@@ -143,3 +146,24 @@ I require the government budget, constraint (2), to balance and set government t
 The government generates revenues from taxing labor income and from confiscating profits from machine producers and wages of scientists. It has to finance the subsidy on machine production. In equilibrium, profits from machine producers, scientists' incomes and the subsidy cancel. 
 Revenues from the environmental tax are not redistributed but consumed by the government in the baseline policy regime, constraint (3).
 
+\paragraph{Setup of problem: focus on current population; continuation value}
+Given the absolute emission target, policy intervention cannot be assumed to be static. Market forces direct production towards the fossil sector. This complicates the theoretic derivation of a balanced growth path.  On the other hand, truncating the optimization problem deflates the value of the final technology level which households can profit from in the future. As a result, I need to add a continuation value of terminal technology levels. These could be translated into utility levels under simplifying and potentially wrong assumptions one could derive a hypothetical value of the final level of technology. 
+
+I define the continuation value as the potential utility over the infinite horizon starting from the last explicit maximization period when labor and research inputs are the same as in the last period. 
+\begin{align}
+PV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s,h_{hT}, h_{lT}, s_{gT}, s_{nT}, s_{fT}).
+\end{align}
+
+I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, I assume that under all future governments, government consumption is zero, which implies that $C_s=(1-s_s)Y_s$, where $s_s$ is the savings rate in period s, that is, the share of output which is spent on machines. Second, I assume that the savings rate is the same as in the last optimization period, $T$. Then, consumption grows at the same rate as output. 
+Third, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
+Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_T$.
+
+For the rest of the analysis, I use the following functional forms
+\begin{align}
+u(C_t,h_{ht}, h_{lt}, s_{gt}, s_{nt}, s_{ft})= \frac{C_t^{1-\theta}}{1-\theta}-\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kt}^{1+\sigma}}{1+\sigma}\right)-\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)
+\end{align}
+
+Substituting the functional forms, the present value of the infinite sum reduces to
+\begin{align}
+PV= \beta^T\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_T^{1-\theta}}{1-\theta}-\frac{1}{1-\beta}\left[\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kT}^{1+\sigma}}{1+\sigma}\right)+\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jT}^{1+\sigma_s}}{1+\sigma_s}\right)\right]\right).
+\end{align}
