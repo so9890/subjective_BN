@@ -2,8 +2,9 @@
 %%%%%COMET Model M-File%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%Author: Lint Barrage, Brown University
-%%Version: August 2018
+%%Author: Sonja Dobkowitz
+% building on Lint Barrage's code ReStud2019
+%%Version: August 2022
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
 cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/optimalPol_190722_tidiedUp'
@@ -217,13 +218,13 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 
-for tr =0:1
+for tr =0
     indic.target=tr;
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
-for ns =0:1
+for ns =0
     indic.noskill=ns;
- for nnt=0
+ for nnt=3
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -257,7 +258,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  0; % =1 then treats gov =consumes revenues as benchmark
+plotts.regime_gov=  1; % =1 then treats gov =consumes revenues as benchmark
 
 plotts.table=       0;
 plotts.analyta =    0;
@@ -270,11 +271,11 @@ plotts.extern=      0;
 plotts.single=      0;
 plotts.singov=      0;
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
-plotts.regimes =    1; % ==1 plot results under other policies separately (indic.notaul)
+plotts.regimes =    0; % ==1 plot results under other policies separately (indic.notaul)
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     0;
+plotts.compeff=     1;
 plotts.compeff_dd=  0; % compare double dividend scenarios with and without income tax 
 plotts.compeff1=    0;
 plotts.compeff2=    0;
@@ -283,7 +284,7 @@ plotts.compeff3=    0;
 %%
 for gg=0
     indic.xgrowth=gg;
-for ns=1
+for ns=0
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end

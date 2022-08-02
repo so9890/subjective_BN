@@ -2,7 +2,7 @@ function [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
 
 read_in_params;
 
@@ -169,7 +169,7 @@ end
 Emnet     = omegaa*F-deltaa; % net emissions
 A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
+% gammac =(1+gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii)-1;
 
 % utility
 if thetaa~=1
@@ -189,5 +189,22 @@ end
 
 
  SWF = Utilcon-Utillab-Utilsci;
+ %- create discount vector
+     disc=repmat(betaa, 1,T);
+     expp=0:T-1;
+     vec_discount= disc.^expp;
+     PVSWF = vec_discount*SWF;
+    
+    % continuation value
+    %- last period growth rate as proxy for future growth rates
+    gammay = Y(T)/Y(T-1)-1;
+    PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
+    PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    PV= betaa^T*(PVconsump-PVwork);
+
+    %Objective function value:
+    %!! Dot product!!! so no dot.*
+    % f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);+
+    objF=(vec_discount*(SWF-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
 
 end

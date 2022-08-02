@@ -48,6 +48,14 @@ if indic.sep==0
  else
       Utilsci = -(chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas));
 end
+ 
+% continuation value
+% T= length(Y);
+gammay = Y(end)/Y(end-1)-1;
+PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(end);
+PVwork = 1/(1-betaa)*(Utillab(end)+Utilsci(end));
+PV= ones(size(Y)).*betaa^length(Y)*(PVconsump-PVwork); % continuation value in period 0
+
 
 % ratios
 AgAf=Ag./Af;

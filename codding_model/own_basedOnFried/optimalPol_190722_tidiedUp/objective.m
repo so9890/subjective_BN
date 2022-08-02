@@ -47,51 +47,52 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac, GovCon, Tls]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic);
+            wln, wlg, wlf, SWF, S,GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic);
  else
             [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic);
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic);
     
  end
-%% social welfare
-
-%- create discount vector
- disc=repmat(betaa, 1,T);
- expp=0:T-1;
- vec_discount= disc.^expp;
-
-%- vector of utilities
-
-if thetaa~=1
-    Utilcon = (C.^(1-thetaa))./(1-thetaa);
-elseif thetaa==1
-    Utilcon = log(C);
-end
-
-
-if indic.noskill==0
-    Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
-else
-    Utillab = chii.*h.^(1+sigmaa)./(1+sigmaa);
-end
-if indic.sep==0
-      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
- else
-      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
-end
-% continuation value
-%- last period growth rate as proxy for future growth rates
-gammay = Y(T)/Y(T-1)-1;
-PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
-PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T));
-PV= betaa^T*(PVconsump-PVwork);
-
-%Objective function value:
-%!! Dot product!!! so no dot.*
-f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
+% %% social welfare
+% 
+% %- create discount vector
+%  disc=repmat(betaa, 1,T);
+%  expp=0:T-1;
+%  vec_discount= disc.^expp;
+% 
+% %- vector of utilities
+% 
+% if thetaa~=1
+%     Utilcon = (C.^(1-thetaa))./(1-thetaa);
+% elseif thetaa==1
+%     Utilcon = log(C);
+% end
+% 
+% 
+% if indic.noskill==0
+%     Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+% else
+%     Utillab = chii.*h.^(1+sigmaa)./(1+sigmaa);
+% end
+% if indic.sep==0
+%       Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+%  else
+%       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+% end
+% % % continuation value
+% % %- last period growth rate as proxy for future growth rates
+% gammay = Y(T)/Y(T-1)-1;
+% PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
+% PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T));
+% PV= betaa^T*(PVconsump-PVwork);
+% % 
+% %Objective function value:
+% %!! Dot product!!! so no dot.*
+%  f(1) = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
+f=-1*objF;
 end
 
 

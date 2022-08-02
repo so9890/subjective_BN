@@ -2,7 +2,7 @@ function [ xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, S, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, w, wsn, wsf, wsg, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_noskill(x, list, params, T, init, indic)
+            wln, wlg, wlf, SWF, PV,PVSWF, objF]= SP_aux_vars_2S_noskill(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -145,11 +145,23 @@ Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
       Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
  end
  SWF = Utilcon-Utillab-Utilsci;
+ %- create discount vector
+     disc=repmat(betaa, 1,T);
+     expp=0:T-1;
+     vec_discount= disc.^expp;
+     PVSWF = vec_discount*SWF;
+    
+    % continuation value
+    %- last period growth rate as proxy for future growth rates
+    gammay = Y(T)/Y(T-1)-1;
+    PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
+    PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    PV= betaa^T*(PVconsump-PVwork);
 
- 
-contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
-contUtillab =1/(1-betaa)*(chii*h(T).^(1+sigmaa)./(1+sigmaa));
-contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
-PVcontUtil = contUtil-contUtillab-contUtilsci;
+    %Objective function value:
+    %!! Dot product!!! so no dot.*
+    % f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);+
+    objF=(vec_discount*(SWF-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
+
 
 end

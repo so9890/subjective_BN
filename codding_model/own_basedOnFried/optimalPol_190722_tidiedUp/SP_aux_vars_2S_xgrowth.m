@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, sff, sg, sn, ...
             F, N, G, E, Y, C, Ch, Cl, hl, hh, S, SGov, Emnet, A, muu, muuh, muul,...
             pn, pg, pf, pee, wh, wl, wsn, wsf, wsg, tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, PVcontUtil]= SP_aux_vars_2S_xgrowth(x, list, params, T, init, indic)
+            wln, wlg, wlf, SWF, PV, PVSWF, objF]= SP_aux_vars_2S_xgrowth(x, list, params, T, init, indic)
 
 read_in_params;
 
@@ -113,6 +113,7 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).
 %- continuation value: assuming after period T constant growth rate
 %  note that A and Af refer to the last direct period T so do not use lags
 %  here!, Assumption that research input sff is constant after period T
+% gives additional value to last period research 
 gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
 % utility
@@ -122,17 +123,27 @@ gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
         elseif thetaa==1
             Utilcon = log(C);
         end
-    
-
-
 Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 Utilsci = zeros(size(xf));
 
- SWF = Utilcon-Utillab-Utilsci;
- 
- contUtil= Utilcon(T)/(1-betaa* (1+gammac)^(1-thetaa));
- contUtillab =1/(1-betaa)*(chii.*(zh.*hh(T).^(1+sigmaa)+(1-zh).*hl(T).^(1+sigmaa))./(1+sigmaa));
- contUtilsci = 1/(1-betaa)*(chiis*S(T).^(1+sigmaas)./(1+sigmaas));
- 
- PVcontUtil = contUtil-contUtillab-contUtilsci;
+SWF = Utilcon-Utillab-Utilsci;
+% objective function measures
+ %- create discount vector
+     disc=repmat(betaa, 1,T);
+     expp=0:T-1;
+     vec_discount= disc.^expp;
+     PVSWF = vec_discount*SWF;
+    
+    % continuation value
+    %- last period growth rate as proxy for future growth rates
+    gammay = Y(T)/Y(T-1)-1;
+    PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
+    PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    PV= betaa^T*(PVconsump-PVwork);
+
+    %Objective function value:
+    %!! Dot product!!! so no dot.*
+    % f = (-1)*(vec_discount*(Utilcon-Utillab- Utilsci)+PVcontUtil);+
+    objF=(vec_discount*(SWF-indic.extern*weightext*(omegaa.*F).^extexpp)+indic.PV*PV);
+
 end

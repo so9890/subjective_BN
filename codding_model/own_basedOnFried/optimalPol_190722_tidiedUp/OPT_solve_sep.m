@@ -40,7 +40,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
      
-        helper=load(sprintf('OPT_target_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_etaa%.2f.mat',indic.noskill, indic.notaul, indic.sep, indic.xgrowth,etaa));
+        helper=load(sprintf('OPT_target_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, etaa));
         opt_all=helper.opt_all;
 
         x0 = zeros(nn*T,1);
@@ -71,7 +71,7 @@ if indic.target==1
    end  
 elseif indic.target==0
        
-    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, 0, indic.xgrowth, etaa));
+    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);
@@ -229,7 +229,7 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, gammac, GovCon, Tls]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
+            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(out_trans, list, params, T, init201519, indic);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
     else
@@ -237,7 +237,7 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(out_trans, list, params, T, init201519, indic);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
       
@@ -249,6 +249,7 @@ taus = zeros(size(pn));
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
 gammasn = zeros(size(pn));
+obs =[PV, PVSWF, objF]; % save measures of objective function 
 %% save stuff
 if indic.sep==1
    opt_all=eval(symms.sepallvars);
@@ -267,22 +268,22 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.count_techgap==0
     if indic.target==1
-        save(sprintf('OPT_target_spillover%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+        save(sprintf('OPT_target_spillover%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
     else
         if indic.extern==1
-            save(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+            save(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
         else
-           save(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+           save(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
         end
     end
 else
     if indic.target==1
-    save(sprintf('OPT_target_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+    save(sprintf('OPT_target_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
     else
     if indic.extern==1
-        save(sprintf('OPT_notarget_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,  params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+        save(sprintf('OPT_notarget_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,  params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
     else
-       save(sprintf('OPT_notarget_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth, indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov')
+       save(sprintf('OPT_notarget_countec_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth, indic.PV, params(list.params=='etaa')), 'opt_all', 'Sparams', 'addGov', 'obs')
     end
     end
 end

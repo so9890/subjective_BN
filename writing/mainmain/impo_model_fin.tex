@@ -147,14 +147,16 @@ The government generates revenues from taxing labor income and from confiscating
 Revenues from the environmental tax are not redistributed but consumed by the government in the baseline policy regime, constraint (3).
 
 \paragraph{Setup of problem: focus on current population; continuation value}
-Given the absolute emission target, policy intervention cannot be assumed to be static. Market forces direct production towards the fossil sector. This complicates the theoretic derivation of a balanced growth path.  On the other hand, truncating the optimization problem deflates the value of the final technology level which households can profit from in the future. As a result, I need to add a continuation value of terminal technology levels. These could be translated into utility levels under simplifying and potentially wrong assumptions one could derive a hypothetical value of the final level of technology. 
+Given the absolute emission target, policy intervention cannot be assumed to be static. Market forces direct production towards the fossil sector. This complicates the theoretic derivation of a balanced growth path.  On the other hand, truncating the optimization problem deflates the value of the final technology level which households can profit from in the future. Therefore, I add an approximate continuation value to capture the value of technology growth for future households. Furthermore, the planner treats the first period after his regency as an explicit optimization period. Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  \tr{ Regency: T=11=55 years, and explicit optimization over T+1 periods. 55 is a suggests to be a sensible number for the explicit optimization interval. \cite{Kotlikoff2021MakingWin} use the same number to calibrate the working life of a household. }
 
-I define the continuation value as the potential utility over the infinite horizon starting from the last explicit maximization period when labor and research inputs are the same as in the last period. 
+
+I define the continuation value as the potential utility over the infinite horizon starting from the last explicit maximization period: 
 \begin{align}
-PV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s,h_{hT}, h_{lT}, s_{gT}, s_{nT}, s_{fT}).
+PV=\sum_{s=T+2}^{\infty} \beta^{s}u(C_s,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
 \end{align}
 
-I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, I assume that under all future governments, government consumption is zero, which implies that $C_s=(1-s_s)Y_s$, where $s_s$ is the savings rate in period s, that is, the share of output which is spent on machines. Second, I assume that the savings rate is the same as in the last optimization period, $T$. Then, consumption grows at the same rate as output. 
+I make four simplifying assumptions to substitute the infinite sum in the optimization problem. First, I assume that labor and research inputs are the same as in the last direct optimization period, $T+1$.
+ I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant.  Second, I assume that the savings rate is the same as in the last optimization period, $T$. Then, consumption grows at the same rate as output. 
 Third, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
 Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_T$.
 
