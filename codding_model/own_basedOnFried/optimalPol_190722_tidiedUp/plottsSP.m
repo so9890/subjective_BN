@@ -17,14 +17,15 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
 %- additional vars
-syms analyTaul PV AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul PV CEV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul PV CEV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
+symms.comp=[ CEV CEVDy]; % for comparison of policy interventions, 
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
@@ -39,6 +40,7 @@ listt.plotsvarsRes=string(symms.plotsvarsRes);
 listt.plotsvarsPol=string(symms.plotsvarsPol);
 listt.plotsvarsPri=string(symms.plotsvarsPri);
 listt.plotsvarsAdd=string(symms.plotsvarsAdd);
+list.comp=string(symms.comp);
 
 lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {listt.plotsvarsProd, listt.plotsvarsProdIn, ...
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
@@ -228,6 +230,12 @@ end
 %%
 save(sprintf('Table_SWF_July22_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat', indic.sep, indic.noskill, etaa, indic.xgrowth, indic.PV, indic.extern), 'TableSWF_PV');
 end
+
+%% table CEV
+%- calculate CEV for a pair of policy regimes each
+h1= OTHERPOL{3}; % taul can be used
+h2= OTHERPOL{2}; % taul cannot be used
+COMP = comp_CEV(RES('OPT_T_NoTaus'),h1('OPT_T_NoTaus') , varlist, varlist_polcomp, symms, list, params, T, indic);
 %% Plots
 %- axes
 time = 1:T;

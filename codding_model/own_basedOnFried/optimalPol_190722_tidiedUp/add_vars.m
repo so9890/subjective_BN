@@ -33,6 +33,7 @@ for k = keys(RES)
     Y = varrs(varlist=='Y',:)';
     tauf = varrs(varlist=='tauf',:)';
     pf = varrs(varlist=='pf',:)';
+    
 % welfare measures
 
 if thetaa~=1
@@ -41,14 +42,14 @@ elseif thetaa==1
     Utilcon = log(C);
 end
 
-Utillab = -chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
 if indic.sep==0
-      Utilsci =- chiis*S.^(1+sigmaas)./(1+sigmaas);
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
  else
-      Utilsci = -(chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas));
-end
- 
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+ end
+%  SWFtt = Utilcon-Utillab-Utilsci;
 % continuation value
 % T= length(Y);
 gammay = Y(end)/Y(end-1)-1;
@@ -81,6 +82,7 @@ gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;
 
 % analytical measure of taul in integrated policy regime
 analyTaul = tauf.*pf.*F./Y;
+
 %- update variables and varlist to include additional variables
 jj= eval(symms.plotsvarsAdd); 
 
