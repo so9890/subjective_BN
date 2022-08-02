@@ -17,15 +17,15 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
 %- additional vars
-syms analyTaul PV CEV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul PV CEV CEVPV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV CEV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul PV AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
-symms.comp=[ CEV CEVDy]; % for comparison of policy interventions, 
+symms.comp=[ CEV CEVDy CEVPV ]; % for comparison of policy interventions, 
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
@@ -235,7 +235,7 @@ end
 %- calculate CEV for a pair of policy regimes each
 h1= OTHERPOL{3}; % taul can be used
 h2= OTHERPOL{2}; % taul cannot be used
-COMP = comp_CEV(RES('OPT_T_NoTaus'),h1('OPT_T_NoTaus') , varlist, varlist_polcomp, symms, list, params, T, indic);
+COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist_polcomp, varlist_polcomp, symms, list, params, T, indic);
 %% Plots
 %- axes
 time = 1:T;

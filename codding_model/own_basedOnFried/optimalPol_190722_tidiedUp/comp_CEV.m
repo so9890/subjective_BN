@@ -7,7 +7,6 @@ function COMP = comp_CEV(sol1, sol2, varlist1, varlist2, symms, list, params, T,
 %       i.e. the resulting CEV says: percentage change in consumption to go
 %       from sol2 to sol1
 
-
 read_in_params;
 
 % consumption equivalence
@@ -45,24 +44,42 @@ read_in_params;
 % end
 
 %- create discount vector
+%a) for version with PV: have to include last optimization period
 disc=repmat(betaa, 1,T);
 expp=0:T-1;
-vec_discount= disc.^expp;
+vec_discountPV= disc.^expp;
+
+%b) for version without PV (exclude last period)
+disc=repmat(betaa, 1,T-1);
+expp=0:T-2;
+vec_discountnoPV= disc.^expp;
 
 %- CEVs over 55 years
-Wasterisk =  vec_discount*sol1(varlist1=='SWF',:)'; %benchmark swf
+Wasterisk_noPV =  vec_discountnoPV*sol1(varlist1=='SWF',1:end-1)'; %benchmark swf
+Wasterisk_withPV =  vec_discountPV*sol1(varlist1=='SWF',:)'; %benchmark swf
+gammay = sol2(varlist2=='Y',end)/sol2(varlist2=='Y',end-1)-1; % approximate growth rate
 
 %- CEV over 55 periods 
 if thetaa~=1
-    U2_noCon  = vec_discount*(sol2(varlist2=='Utillab',:)'+sol2(varlist2=='Utilsci',:)');
-    CEV   = transpose(ones(size(sol1(varlist1=='SWF',:))).*((Wasterisk + U2_noCon)/...
-        (vec_discount*transpose(sol2(varlist2=='C',:)).^(1-thetaa))*(1-thetaa))^(1/(1-thetaa))-1);
+    U2_noConnoPV  = vec_discountnoPV*(sol2(varlist2=='Utillab',1:end-1)'+sol2(varlist2=='Utilsci',1:end-1)');
+    U2_noConwithPV  = vec_discountPV*(sol2(varlist2=='Utillab',:)'+sol2(varlist2=='Utilsci',:)');
+    PV2_noCon = betaa^T/(1-betaa).*(sol2(varlist2=='Utillab',end)'+sol2(varlist2=='Utilsci',end)'); 
+    PV2_Con = betaa^T/(1-betaa*(1+gammay)^(1-thetaa))*sol2(varlist2=='C',end)^(1-thetaa)/(1-thetaa); 
+    
+    CEV   = transpose(ones(size(sol1(varlist1=='SWF',:)))).*(((Wasterisk_noPV + U2_noConnoPV)/...
+        (vec_discountnoPV*transpose(sol2(varlist2=='C',1:end-1)).^(1-thetaa))*(1-thetaa))^(1/(1-thetaa))-1);
+    
+    CEVPV =  transpose(ones(size(sol1(varlist1=='SWF',:)))).*(((Wasterisk_withPV + sol1(varlist1=='PV',1)+ U2_noConwithPV+PV2_noCon)/...
+        (vec_discountPV*transpose(sol2(varlist2=='C',:)).^(1-thetaa)/(1-thetaa)+PV2_Con))^(1/(1-thetaa))-1);
     %- dynamic CEV
     CEVDy =transpose((sol1(varlist1=='SWF',:)+sol2(varlist2=='Utillab',:)+sol2(varlist2=='Utilsci',:)...
         ./(sol2(varlist2=='C',:).^(1-thetaa)).*(1-thetaa)).^(1/(1-thetaa))-1);
 else
-    SWF2  = vec_discount*sol2(varlist2=='SWF',:)';
-    CEV   = transpose(ones(size(sol1(varlist1=='SWF',:))).*exp((Wasterisk-SWF2)/sum(vec_discount))-1);
+    SWF2_noPV  = vec_discountnoPV*sol2(varlist2=='SWF',1:end-1)';
+    SWF2_withPV  = vec_discountPV*sol2(varlist2=='SWF',:)';
+    CEV   = transpose(ones(size(sol1(varlist1=='SWF',:)))).*(exp((Wasterisk_noPV-SWF2_noPV)/sum(vec_discountnoPV))-1);
+    CEVPV   = transpose(ones(size(sol1(varlist1=='SWF',:)))).*(exp((Wasterisk_withPV+ sol1(varlist1=='PV',1)-SWF2_withPV- sol2(varlist2=='PV',1))...
+        /(sum(vec_discountPV)+betaa^T./(1-betaa.*(1+gammay)^(1-thetaa))))-1);
     CEVDy = transpose(exp(sol1(varlist1=='SWF',:)-sol2(varlist2=='SWF',:))-1);
 end
 
