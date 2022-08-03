@@ -13,7 +13,7 @@ end
 
 pn=trProd(list.prod=='pn');
 pg=trProd(list.prod=='pg');
-omegaa = trProd(list.prod=='omegaa');
+% omegaa = trProd(list.prod=='omegaa');
 deltay = trProd(list.prod=='deltay');
 
 Y = MOM.Y;
@@ -36,4 +36,7 @@ AnLn    = N/(alphan*pn)^(alphan/(1-alphan)); % production
 Lnwln   = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*AnLn; % price labour input neutral sector
 Lgwlg   = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*AgLg;
 Lfwlf   = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*AfLf; 
+
+% omega
+omegaa = MOM.grosemissionsUS2019/F;
 end

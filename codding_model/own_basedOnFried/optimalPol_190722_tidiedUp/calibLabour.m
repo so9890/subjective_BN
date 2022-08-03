@@ -67,7 +67,8 @@ f(q) = hh*zh+hl*(1-zh)-MOM.targethour;
 q=q+1;
 f(q) = MOM.whwl-wh/wl; 
 
-%2) Government := > lambdaa
+%2) Government := > lambdaa $ NOTE: since tauf ==0 this is fine! otherwise
+%need to be specific on policy regime! 
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
              +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...

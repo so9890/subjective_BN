@@ -2,13 +2,13 @@ function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
-if indic.sep==1
-    %- new set of choice variables
-        list.choice=list.sepchoice;
-        symms.choice=symms.sepchoice;
-        list.allvars=list.sepallvars;
-        symms.allvars=symms.sepallvars;
-end
+% if indic.sep==1
+%     %- new set of choice variables
+%         list.choice=list.sepchoice;
+%         symms.choice=symms.sepchoice;
+%         list.allvars=list.sepallvars;
+%         symms.allvars=symms.sepallvars;
+% end
 
 if indic.xgrowth==1
     list.choice=list.choice_xgrowth;

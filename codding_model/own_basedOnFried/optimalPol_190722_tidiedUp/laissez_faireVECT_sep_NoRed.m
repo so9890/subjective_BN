@@ -84,11 +84,7 @@ if indic.noskill==0
     else
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
+
     end
 else
     if indic.notaul<2
@@ -96,13 +92,14 @@ else
             +tauf.*pf.*F;
     else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
     end
 end
+% gov consumption
+    if 2<= indic.notaul && indic.notaul <4
+        GovCon = tauf.*pf.*F;
+    else
+        GovCon =zeros(size(F));
+    end
 % lump sum transfers
 if indic.notaul >=4
     Tls =tauf.*pf.*F;
@@ -239,11 +236,11 @@ end
 % f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
 q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(wsf-gammasf); % scientist hours supply
+f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(muu.*wsf-gammasf); % scientist hours supply
 q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((wsg-gammasg));
+f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((muu.*wsg-gammasg));
 q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((wsn-gammasn));
+f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
 
 q=q+1;
 f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);

@@ -19,16 +19,23 @@ Modeling the economy as a representative family allows to abstract from inequali
 \begin{align}
 %U=
 \underset{\{C_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}}{max}&
-\sum_{t=0}^{\infty}\beta^t u(C_{t}, h_{lt}, h_{ht})\\
+\sum_{t=0}^{\infty}\beta^t u(C_{t}, h_{lt}, h_{ht}, s_{ft}, s_{nt}, s_{gt})\\
 %U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
 s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{\iota t})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
 z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{\iota t}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{\iota t}}\\ %+T_t\\
-\ & h_{ht}\leq \bar{H}_t\\
-\ & h_{lt}\leq \bar{H}_t.
+\ & h_{ht}\leq \bar{H}_t,\ \hspace{2mm} h_{lt}\leq \bar{H}_t,\ \hspace{2mm}  s_{jt}\leq \bar{H}_t \ for\ j\in\{f,n,g\}.
 \end{align}
 The government levies a tax on skill-level income. 
 %The tax schedule is characterised by  a scaling factor, $\lambda$, and a parameter determining the progressivity of the tax schedule, $\tau_{\iota t}$, \citep[compare, e.g.,][]{Heathcote2017OptimalFramework}. The household receives lump-sum transfers from the government, $T_t$.  As $\tau_{\iota t}$ increases, the elasticity of disposable income with respect to hours worked decreases. 
 The effect of a change in tax progressivity through lower income is similar across skill types; however, the substitution effect is higher for high-skilled workers. As this type works more hours prior to a tax change, additional leisure is more valuable to them. Therefore, as the tax schedule becomes more progressive, high-skilled workers decrease their time spent working relatively more.
+
+
+Scientists form part of the household. The representative household supplies sector-scientists in order to maximize utility at the beginning of each period. However, scientists income gets confiscated by the government at the end of the period. This modeling choice facilitates notation. 
+%\begin{align}
+%\underset{s_{jt}}{\max}\ \ & w_{jst}s_{jt}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}
+%\end{align}
+
+%I assume that all income from science is confiscated by the government to again facilitate notation. The assumption that scientists are risk neutral, introduces an additional externality as scientists do not internalise the social value of their research on society which is shaped by the shadow value of income. The advantage of this specification is that it prevents income tax parameters to affect the supply of scientists allowing to focus on the supply of hours by workers and consumption as the channels through which income taxes affect emissions. \tr{But it would be efficient. } 
 
 %The choice to focus on a representative family enables to abstract from inequality as a motive for government intervention. 
 \paragraph{Production}
@@ -64,7 +71,7 @@ This additional intermediate sector allows to capture differences in skills by s
 Machine producers are imperfect monopolists and produce sector specific machines. Machine producers maximise their profits by choosing the price at which to sell their machines to intermediate good producers. They also decide on the amount of scientists to employ. As the productivity of machine $ij$ increases, demand for this machine increases too; this provides the incentive for machine producers to invest in research. Irrespective of the sector, the costs of producing one machine is set to one unit of the final output good \citep[similar to][]{Fried2018ClimateAnalysis, Acemoglu2012TheChange}.
 Each period, machine producers solve
 \begin{align}
-\underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1-\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit},
+\underset{p_{xjit}, s_{jit}}{\max}p_{xjit}(1+\zeta_{jt})x_{jit}-x_{jit}-w_{sjt}s_{jit},
 \end{align}
 internalising demand for machines as a function of technology and the price of machines. 
 The government subsidises machine production by $\zeta_{jt}$ which is chosen to correct for the monopolistic structure of machine markets. Profits are confiscated by the government to simplify notation.
@@ -94,13 +101,6 @@ When returns to science are decreasing, $\eta<1$, then there will always be rese
 \tr{What is the effect on prices?}
 Then input shares across sectors are not constant. 
 
-Scientists are risk  neutral and behave according to 
-\begin{align}
-\underset{s_{jt}}{\max}\ \ & w_{jst}s_{jt}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\\
-s.t. \ \ & s_{jt}\leq \bar{H}.
-\end{align}
-
-I assume that all income from science is confiscated by the government to again facilitate notation. The assumption that scientists are risk neutral, introduces an additional externality as scientists do not internalise the social value of their research on society which is shaped by the shadow value of income. The advantage of this specification is that it prevents income tax parameters to affect the supply of scientists allowing to focus on the supply of hours by workers and consumption as the channels through which income taxes affect emissions. 
 \begin{comment}
 \paragraph{Impossibility of reaching target in laissez-faire with exogenous growth}
 \tr{Note that this is wrong! There is an option for the gov to affect inflation which then redirects demand.}
@@ -129,7 +129,8 @@ The government can use income taxes and corrective taxes levied on fossil sales 
 The planner solves:
 
 \begin{align*}
-\underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{max}&\sum_{t=0}^{T}\beta^t\left( u(C_{t}, h_{ht}, h_{lt})-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}\right)+ PV\\
+\underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{max}&\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, s_{ft}, s_{nt}, s_{gt})%-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}
++ PV\\
 s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
 & (1)\ \omega F_{t} -\delta \leq \Omega_t \ \hspace{3mm} \forall t \in\{0,T\}, \\ %\hspace{3mm} \text{(emission target)}\\
 & (2)\ z_h\left(w_{ht}h_{ht}-\lambda_t \left(w_{ht}h_{ht}\right)^{1-\tau_{\iota t}}\right)+(1-z_h)\left(w_{lt}h_{lt}-\lambda_t\left(w_{lt}h_{lt}\right)^{1-\tau_{\iota t}}\right) \\
@@ -140,7 +141,7 @@ s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0
 & (5)\ \text{feasibility}
 \end{align*}
 
-The first constraint is the emission target. I denote flow emissions in period $t$ by $\Omega_t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO_2$ through sinks, such as forests and moors.  I assume that the sink capacity is constant.  This is a simplifying assumption. What is crucial qualitatively is the assumption that sinks are finite. Indeed, natural sinks and carbon capture and storage (CCS) technologies rely on the use of land \citep{VanVuuren2018AlternativeTechnologies} which is in limited supply. In addition, the need of land for food production makes land even scarcer especially in light of a growing population. The parameter $\omega$ determines greenhouse-gas emission in $CO_2$ equivalents caused by the fossil sector which is assumed to be the sole source of emissions in the model. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
+The first constraint is the emission target. I denote the limit on net flow emissions in period $t$ by $\Omega_t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted CO2 through sinks, such as forests and moors.  I assume that the sink capacity is constant.  This is a simplifying assumption. What is crucial qualitatively is the assumption that sinks are finite. Indeed, natural sinks and carbon capture and storage (CCS) technologies rely on the use of land \citep{VanVuuren2018AlternativeTechnologies} which is in limited supply. In addition, the need of land for food production makes land even scarcer especially in light of a growing population. The parameter $\omega$ determines greenhouse-gas emission in CO2 equivalents caused by the fossil sector which is assumed to be the sole source of emissions in the model. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
 %Hence, under the emission target it has to hold that $Y_{nt}=\frac{\delta+E_t}{\kappa}$ assuming that the analysis starts in 2020.
 I require the government budget, constraint (2), to balance and set government transfers to zero, $T_t=0\ \forall t\in\{0,T\}$. The scale parameter on income taxes, $\lambda_t$, adjusts to balance the budget.
 The government generates revenues from taxing labor income and from confiscating profits from machine producers and wages of scientists. It has to finance the subsidy on machine production. In equilibrium, profits from machine producers, scientists' incomes and the subsidy cancel. 

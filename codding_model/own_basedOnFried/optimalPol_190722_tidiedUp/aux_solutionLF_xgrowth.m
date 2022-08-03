@@ -123,12 +123,13 @@ else
             +tauf.*pf.*F;
     else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
     end
+end
+% gov con
+if 2<=indic.notaul && indic.notaul <4
+    GovCon = tauf.*pf.*F;
+else
+    GovCon =zeros(size(F));
 end
 % lump sum transfers
 if indic.notaul >=4

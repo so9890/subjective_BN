@@ -9,7 +9,7 @@ eppsy=paramss(list.paramsdir=='eppsy');
 % vars
 pn = exp(x(list.prod=='pn'));
 pg = exp(x(list.prod=='pg'));
-omegaa = exp(x(list.prod=='omegaa'));
+% omegaa = exp(x(list.prod=='omegaa'));
 deltay = 1/(1+exp(x(list.prod=='deltay')));
 
 %1) perceived as if Af, Ag, An in 2015-2019 are parameters but from here back
@@ -28,8 +28,8 @@ Yout = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/e
 
 
 % omissions
-f(1) = omegaa - MOM.emissionsUS2019/F;
-f(2) = Yout-Y; 
-f(3) = pf*F+pn*N+pg*G-Y; %market clearing demand
-f(4)=  1-(deltay*pe^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(1-eppsy));
+% f(1) = omegaa - MOM.grosemissionsUS2019/F;
+f(1) = Yout-Y; 
+f(2) = pf*F+pn*N+pg*G-Y; %market clearing demand
+f(3)=  1-(deltay*pe^(1-eppsy)+(1-deltay)*pn^(1-eppsy))^(1/(1-eppsy));
 end

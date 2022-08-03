@@ -13,9 +13,8 @@ sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
 wsg      = exp(x(list.calib3=='wsg'));
 wsf      = exp(x(list.calib3=='wsf'));
-
 wsn      = exp(x(list.calib3=='wsn'));
- etaa    = (exp(x(list.calib3=='etaa'))+LB_etaa);
+etaa    = (exp(x(list.calib3=='etaa'))+LB_etaa);
 chiis   = exp(x(list.calib3=='chiis'));
 gammaa  = exp(x(list.calib3=='gammaa'));
  phii    = 1/(1+exp(x(list.calib3=='phii')));

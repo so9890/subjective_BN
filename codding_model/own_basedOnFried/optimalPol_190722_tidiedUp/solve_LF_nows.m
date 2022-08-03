@@ -11,43 +11,43 @@ indic.ineq=0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % prepare lists if using separate markets for scientists
-if indic.sep==1
-    %- new initial point
-    x0=[x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'), ...
-        x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), 0,0,0];
-    %- new set of choice variables
-    list.choice=list.sepchoice;
-    symms.choice=symms.sepchoice;
-    list.allvars=list.sepallvars;
-    symms.allvars=symms.sepallvars;
-    
-    %- new index for tranformation
-        
-    indexxLF.lab = boolean(zeros(size(list.choice)));
-    indexxLF.exp = boolean(zeros(size(list.choice)));
-    indexxLF.sqr = boolean(zeros(size(list.choice)));
-    indexxLF.oneab = boolean(zeros(size(list.choice)));
-
-    indexxLF.lab( list.choice=='hh'|list.choice=='hl' | list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
-    indexxLF.exp(list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
-        &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
-    indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
-    
-    indexx('LF_sep')=indexxLF;
-    
-    %-version with BN
-   indexxLF.BN = boolean(zeros(size(list.choice)));
-   indexxLF.exp = boolean(zeros(size(list.choice)));
-
-    indexxLF.exp(list.choice~='C' & list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
-        &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
-
-    indexxLF.BN(list.choice=='C')=1;
-    indexx('LF_sep_BN')=indexxLF;
-
-else
+% if indic.sep==1
+%     %- new initial point
+%     x0=[x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'), ...
+%         x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), x0LF(list.choice=='ws'), 0,0,0];
+%     %- new set of choice variables
+%     list.choice=list.sepchoice;
+%     symms.choice=symms.sepchoice;
+%     list.allvars=list.sepallvars;
+%     symms.allvars=symms.sepallvars;
+%     
+%     %- new index for tranformation
+%         
+%     indexxLF.lab = boolean(zeros(size(list.choice)));
+%     indexxLF.exp = boolean(zeros(size(list.choice)));
+%     indexxLF.sqr = boolean(zeros(size(list.choice)));
+%     indexxLF.oneab = boolean(zeros(size(list.choice)));
+% 
+%     indexxLF.lab( list.choice=='hh'|list.choice=='hl' | list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
+%     indexxLF.exp(list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+%         &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
+%     indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
+%     
+%     indexx('LF_sep')=indexxLF;
+%     
+%     %-version with BN
+%    indexxLF.BN = boolean(zeros(size(list.choice)));
+%    indexxLF.exp = boolean(zeros(size(list.choice)));
+% 
+%     indexxLF.exp(list.choice~='C' & list.choice~='hl'&list.choice~='hh'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+%         &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
+% 
+%     indexxLF.BN(list.choice=='C')=1;
+%     indexx('LF_sep_BN')=indexxLF;
+% 
+% else
     x0      = x0LF;
-end
+% end
 
 % initialise stuff
 %-- to save results
@@ -71,18 +71,18 @@ if indic.noskill==1
     list.choice=string(symms.choice);
     x0=[x0,Sall.hh, Sall.wh, Sall.Lf,Sall.Lg,Sall.Ln]; % order has to match how variables are added to symms.choice!
 
-    if indic.sep==0
-        indexxLFsep.lab = boolean(zeros(size(list.choice)));
-        indexxLFsep.exp = boolean(zeros(size(list.choice)));
-        indexxLFsep.sqr = boolean(zeros(size(list.choice)));
-        indexxLFsep.oneab = boolean(zeros(size(list.choice)));
-
-        indexxLFsep.lab( list.choice=='h' | list.choice=='S')=1;
-        indexxLFsep.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
-        indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
-        indexx('LF_noskill_sep0')=indexxLFsep;
-        
-    elseif indic.sep==1
+%     if indic.sep==0
+%         indexxLFsep.lab = boolean(zeros(size(list.choice)));
+%         indexxLFsep.exp = boolean(zeros(size(list.choice)));
+%         indexxLFsep.sqr = boolean(zeros(size(list.choice)));
+%         indexxLFsep.oneab = boolean(zeros(size(list.choice)));
+% 
+%         indexxLFsep.lab( list.choice=='h' | list.choice=='S')=1;
+%         indexxLFsep.exp(list.choice~='h'&list.choice~='S'& list.choice~='gammalh'& list.choice~='gammas' )=1;
+%         indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
+%         indexx('LF_noskill_sep0')=indexxLFsep;
+%         
+%     elseif indic.sep==1
         
         indexxLFsep.lab = boolean(zeros(size(list.choice)));
         indexxLFsep.exp = boolean(zeros(size(list.choice)));
@@ -96,7 +96,7 @@ if indic.noskill==1
 
         indexx('LF_noskill_sep1')=indexxLFsep;
 
-    end
+%     end
 end
 
 
@@ -105,11 +105,11 @@ while t<=T+1 % because first iteration is base year
     %% - transforming variables to unbounded variables
     %-- index for transformation 
     if indic.noskill==0
-        if indic.sep==0
+%         if indic.sep==0
             guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
-        else
-            guess_trans=trans_guess(indexx('LF_sep'), x0, params, list.params);
-        end
+%         else
+%             guess_trans=trans_guess(indexx('LF_sep'), x0, params, list.params);
+%         end
     else
         guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), x0, params, list.params);
     end
@@ -151,11 +151,11 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 
     %- transform results to bounded variables
     if indic.noskill==0
-        if indic.sep==0
+%         if indic.sep==0
             LF=trans_allo_out(indexx('LF'), sol3, params, list.params, indic);
-        else
-                LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params, indic);
-        end
+%         else
+%                 LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params, indic);
+%         end
      else
         LF=trans_allo_out(indexx(sprintf('LF_noskill_sep%d', indic.sep)), sol3, params, list.params, indic);
     end

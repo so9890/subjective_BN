@@ -87,7 +87,7 @@ end
  if indic.noskill==0
      if indic.xgrowth==0
 
-         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muuh.*lambdaa.*(1-taul).*(wh).^(1-taul)); % labor supply
+         ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul)); % labor supply
          ceq(T*1+1:T*2) = N-(An.*Ln).*(pn.*alphan).^(alphan./(1-alphan)); % from production function neutral good
          % optimality skills (for fossil used to determine wage rates)
          ceq(T*2+1:T*3) = thetan*Ln.*wln-wh.*hhn; % optimality labour good producers neutral high skills
@@ -99,9 +99,9 @@ end
             ceq(T*7+1:T*8) = ws-wsg;
             ceq(T*8+1:T*9) = ws-wsn;
            else
-             ceq(T*6+1:T*7) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
-             ceq(T*7+1:T*8) = (chiis)*sg.^sigmaas-wsg;
-             ceq(T*8+1:T*9) = (chiis)*sn.^sigmaas-wsn;
+             ceq(T*6+1:T*7) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
+             ceq(T*7+1:T*8) = (chiis)*sg.^sigmaas-muu.*wsg;
+             ceq(T*8+1:T*9) = (chiis)*sn.^sigmaas-muu.*wsn;
            end
            
          ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
@@ -110,7 +110,7 @@ end
          % hh budget different for with and without inequality version
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
-                ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
+                ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
      elseif indic.xgrowth==1
@@ -125,7 +125,7 @@ end
          ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
          ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
-                ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muul.*lambdaa.*(1-taul).*(wl).^(1-taul));
+                ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
      end
        
@@ -140,9 +140,9 @@ end
                 ceq(T*5+1:T*6) = ws-wsg;
                 ceq(T*6+1:T*7) = ws-wsn;
                else
-                 ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-wsf; % scientist hours supply
-                 ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-wsg;
-                 ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-wsn;
+                 ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
+                 ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-muu.*wsg;
+                 ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-muu.*wsn;
                end
 
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available

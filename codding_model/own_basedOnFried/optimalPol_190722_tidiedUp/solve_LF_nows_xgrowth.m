@@ -10,8 +10,8 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, param
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %- new initial point: drop science and technology as choices
-    x0=x0LF(list.choice~='ws' & list.choice~='S' & list.choice~='gammas'&list.choice~='sff' &...
-            list.choice~='sg' & list.choice~='sn'&list.choice~='Af' & list.choice~='Ag' & list.choice~='An');
+    x0=x0LF(list.choice~='wsf' & list.choice~='wsn'& list.choice~='wsg' & list.choice~='gammasn'& list.choice~='gammasf'& list.choice~='gammasg'...
+        &list.choice~='sff' & list.choice~='sg' & list.choice~='sn'&list.choice~='Af' & list.choice~='Ag' & list.choice~='An');
     %- new set of choice variables
     list.choice=list.choice_xgrowth;
     symms.choice=symms.choice_xgrowth;
@@ -30,23 +30,12 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, param
     indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall')=1;
     
     indexx('LF_xgrowth')=indexxLF;
-    
-    %-version with BN
-   indexxLF.BN = boolean(zeros(size(list.choice)));
-   indexxLF.exp = boolean(zeros(size(list.choice)));
-
-    indexxLF.exp(list.choice~='C' & list.choice~='hl'&list.choice~='hh'&list.choice~='gammalh'&list.choice~='gammall')=1;
-    indexxLF.BN(list.choice=='C')=1;
-    indexx('LF_xgrowth_BN')=indexxLF;
 
 %% initialise stuff
 %-- to save results
 % symms.allvars=[symms.allvars, gammasn, gammasg, gammasf];
 % list.allvars=string(symms.allvars);
-if indic.sep==1
-    list.allvars=list.sepallvars;
-    symms.allvars=symms.sepallvars;
-end
+
 LF_SIM=zeros(length(list.allvars),T); 
 FVAL  = zeros(T,1);
 
@@ -82,8 +71,7 @@ while t<=T+1 % because first iteration is base year
     %% - transforming variables to unbounded variables
     %-- index for transformation 
     if indic.noskill==0
-               guess_trans=trans_guess(indexx('LF_xgrowth'), x0, params, list.params);
-            
+        guess_trans=trans_guess(indexx('LF_xgrowth'), x0, params, list.params);
     else
         guess_trans=trans_guess(indexx(sprintf('LF_noskill_xgrowth')), x0, params, list.params);
     end

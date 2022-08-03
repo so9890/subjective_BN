@@ -74,9 +74,13 @@ sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
 S = sff+sg+sn; % determined by chii in science problem
-
+gammasg =0;
+gammasn=0;
+gammasf=0;
 % wse = SR.wse;
-ws = SR.ws;
+wsg = SR.wsg;
+wsn = SR.wsn;
+wsf = SR.wsf;
 % chiisT=ws/(C^thetaa*S^sigmaas);
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
@@ -126,9 +130,12 @@ Sinit201519=cell2struct(num2cell(init201519), cell_par, 2);
 
 
 %- save for laissez faire
-gammas =0;
+gammasn =0;
+gammasg =0;
+gammasf =0;
 x0LF= eval(symms.choice);
-% test
+
+% tests
 zh=paramss(list.paramsdir=='zh');
 tauf = poll(list.poldir=='tauf');
 Cincome= zh*hh*wh+(1-zh)*wl*hl+tauf*pf*F;

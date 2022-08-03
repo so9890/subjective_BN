@@ -110,24 +110,22 @@ if indic.noskill==0
     else
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
+
     end
+           
 else
     if indic.notaul<2
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;
     else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
     end
+end
+% gov consumption 
+if 2<= indic.notaul &&  indic.notaul <4
+    GovCon = tauf.*pf.*F;
+else
+    GovCon =zeros(size(F));
 end
 % lump sum transfers
 if indic.notaul >=4
@@ -174,18 +172,18 @@ xx=eval(symms.choice);
 if indic.noskill==0
 if indic.ineq==0
 
-    if indic.sep==1
-           guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
-    else
+%     if indic.sep==1
+%            guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
+%     else
        guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-    end
+%     end
 else
 
-    if indic.sep==1
-          guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
-    else
+%     if indic.sep==1
+%           guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
+%     else
        guess_trans=trans_guess(indexx('LF_ineq'), xx, params, list.params);
-    end
+%     end
 end
 else
     guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);

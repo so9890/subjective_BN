@@ -131,7 +131,7 @@ parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
 %%
 [x0LF, ~, ~, ~, Sall, ~,  init201014 , ~, init201519, Sparams, ~, params, pol, symms, MOM,indexx, list]...
-    = calibration_matching_GOOD(MOM, symms, list, parsHelp, polhelp, indic);
+    = calibration_matching_GOOD_sep(MOM, symms, list, parsHelp, polhelp, indic);
 
 
 % %% - parameters for no-skill version

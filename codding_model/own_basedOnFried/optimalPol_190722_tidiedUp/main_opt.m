@@ -57,14 +57,14 @@ indic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-if isfile(sprintf('params.mat'))
+if isfile(sprintf('params_0308.mat'))
     fprintf('loading parameter values')
-    load(sprintf('params.mat'),...
+    load(sprintf('params_0308.mat'),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
-    save(sprintf('params'))
+    save(sprintf('params_0308'))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -73,20 +73,20 @@ end
 
 %% 
 %%%%% LIST for separate markets
-    symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
-    syms wsg wsn wsf gammasg gammasf gammasn real
-    symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
+%     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
+%     syms wsg wsn wsf gammasg gammasf gammasn real
+    symms.sepchoice=symms.choice; %[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice=string(symms.sepchoice);
     
     %- allvars 
-    symms.sepallvars=symms.allvars(list.allvars~='ws');
-    symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
+%     symms.sepallvars=symms.allvars(list.allvars~='ws');
+    symms.sepallvars=symms.allvars; %[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars=string(symms.sepallvars);
     
     %- without growth
-    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag'&list.choice~='ws'&list.choice~='gammas'&list.choice~='S');
+    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag'&list.choice~='wsg'&list.choice~='wsn'&list.choice~='wsf'&list.choice~='gammasf'&list.choice~='gammasn'&list.choice~='gammasg');
     list.choice_xgrowth=string(symms.choice_xgrowth);
-    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='ws'&list.allvars~='gammas'&list.allvars~='S');
+    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='wsf'&list.allvars~='wsn'&list.allvars~='wsg'&list.allvars~='gammasf'&list.allvars~='gammasn'&list.allvars~='gammasg');
     list.allvars_xgrowth=string(symms.allvars_xgrowth);
 
     % to save additional government variables
@@ -101,23 +101,25 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
+for nnt=1:5
+    indic.notaul=nnt;
 for i=0:1
     indic.noskill=i;
-    if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')))
+%     if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')))
         [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
        
-        save(sprintf('BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+        save(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
-    end
+%     end
      fprintf('LF_BAU no skill %d exists', indic.noskill);
 
 
 %- version without growth
 [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
 % helper.LF_SIM=LF_SIM;
-save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
 %- version with counterfactual technology gap
 
@@ -135,7 +137,8 @@ iin=load('init_techgap.mat');
 % Af0=LF_SIM(list.sepallvars=='Af', 1);
 % init1519count=eval(symms.init);
 [LF_BAU]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-save(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+save(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+end
 end
 %% Laissez faire
 taus=0;
@@ -146,6 +149,8 @@ pol=eval(symms.pol);
 
 %%
   %  if indic.noskill==0
+for nnt=0:5
+      indic.notaul=nnt;
   for i=0:1
       indic.noskill=i;
 
@@ -154,33 +159,30 @@ pol=eval(symms.pol);
         helper.LF_SIM=LF_SIM;
         indic.xgrowth=0;
         [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
-        save(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+        save(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.notaul, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
 
-    if indic.xgrowth==1
-          %- version without growth
-
-        indic.xgrowth=1;
+        %- exogenous growth
         [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         % helper.LF_SIM=LF_SIM;
-        save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-    end
+        save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
-%- version LF with counterfac tec gap
-indic.xgrowth=0; % does not exist with exogenous growth
-[LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
-helper.LF_SIM=LF_SIM;
-[LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-save(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
- end
+    %- version LF with counterfac tec gap
+    indic.xgrowth=0; % does not exist with exogenous growth
+    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
+    helper.LF_SIM=LF_SIM;
+    [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
+    save(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+  end
+end
 %% end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);
  expp=0:T-1;
  vec_discount= disc.^expp;
-hhel= load(sprintf('BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, params(list.params=='etaa')));
+hhel= load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')));
 sswfbau=vec_discount*hhel.LF_BAU( :, list.sepallvars=='SWF');
-hhblf = load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  params(list.params=='etaa')));
+hhblf = load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul,  params(list.params=='etaa')));
 sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -188,9 +190,9 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for xgr=1
+for xgr=0
     indic.xgrowth=xgr;
-    for ns=0
+    for ns=1
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
