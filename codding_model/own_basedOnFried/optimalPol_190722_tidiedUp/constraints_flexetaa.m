@@ -1,8 +1,9 @@
-function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic)
+function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic, MOM, percon)
 % function to read in constraints on government problem
 
 % pars
 read_in_params;
+Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
 
 % transform x: all are exponentially transformed
  x=exp(y);
@@ -34,7 +35,7 @@ end
 
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
-    x((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)));
+    x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
 end
 
 
@@ -42,18 +43,18 @@ end
 %- auxiliary variables
 
 if indic.noskill==0
-        [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
-        Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-        F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
-        pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-        wln, wlg, wlf, SWF, S, gammac, GovCon, Tls]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
+      [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
+            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
 else
 
-        [xn,xf,xg,Ag, An, Af,...
-        Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
-        F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
-        pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-        w, SWF, S, GovCon, Tls]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
+     [xn,xf,xg,Ag, An, Af,...
+            Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
+            F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
+            pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
 
 end
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,20 +63,17 @@ end
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
 c = []; %  periods and 2 additional ones: 
-
-% gammac is the bgp growth rate should be at least as high as average
-% growth in direct periods
-%c(1:T) = Af(T)./Af_lag(T)-1-gammac; % the growth rate in T+1 should at least be as big as from T-1 to T
-c(1:T) = -GovCon; % government budget cannot be negative
-c(T+1:T*2) = -Tls; % lump-sum transfers cannot be negative
+c(1)= sum(F(1:percon))-Ftarg_20s; 
+c(2:T+1) = -GovCon; % government budget cannot be negative
+c(T+1+1:T*2+1) = -Tls; % lump-sum transfers cannot be negative
 
 if indic.xgrowth==0
     if indic.sep==0
-        c(T*2+1:T*3)    = S-upbarH;
+        c(T*2+1+1:T*3+1)    = S-upbarH;
     else
-        c(T*2+1:T*3)   = sg-upbarH;
-        c(3*T+1:4*T)   = sff-upbarH;
-        c(4*T+1:5*T)   = sn-upbarH;
+        c(T*2+1+1:T*3+1)   = sg-upbarH;
+        c(3*T+1+1:4*T+1)   = sff-upbarH;
+        c(4*T+1+1:5*T+1)   = sn-upbarH;
     end
 end
  

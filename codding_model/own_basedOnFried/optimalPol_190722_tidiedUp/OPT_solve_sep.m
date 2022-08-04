@@ -1,9 +1,9 @@
-function [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems)
+function [symms, list, opt_all]= OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems, MOM, percon)
 
 % pars
 read_in_params;
 Ftarget =  (Ems'+deltaa)/omegaa;
- 
+
 % symbilic variables and lists
 syms hhf hhg hlf hlg hhn hln C Ch Cl F G Af Ag An hl hh S sff sn sg Lf Lg h gammasg gammasf real
 
@@ -42,7 +42,7 @@ if indic.target==1
      
         helper=load(sprintf('OPT_target_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, etaa));
         opt_all=helper.opt_all;
-    kappaa = [Ftarget(1),Ftarget(1),Ftarget']./opt_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
+    kappaa = [repmat(Ftarget(1), 1,percon) ,Ftarget']./opt_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
     kappaa = kappaa*(1-1e-10);
     
         x0 = zeros(nn*T,1);
@@ -73,7 +73,7 @@ if indic.target==1
    end  
 elseif indic.target==0
        
-    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, 0,indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
+    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);
@@ -148,8 +148,8 @@ else
 end
 
 if indic.target==1
-    guess_trans(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F'))))./...
-     x0(T*(find(list.opt=='F')-1)+1+2:T*(find(list.opt=='F'))));
+    guess_trans(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))))./...
+     x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))));
 end
 
 lb=[];
@@ -157,8 +157,8 @@ ub=[];
 
 %%
 % Test Constraints and Objective Function %%%
-f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519);
-[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic);
+f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon);
+[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon);
 
 % to examine stuff
 % ind=1:length(ceq);
@@ -172,14 +172,14 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519);
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
-constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic);
-objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519);
+constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM, percon);
+objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon);
 
 if indic.target==1
 
         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 
 elseif indic.target==0
@@ -191,9 +191,9 @@ elseif indic.target==0
             error('active set did not solve sufficiently well')
         end
 end
-%  save('0308_results_opt_main_notaul0_target_as', 'x')
-gg=  load('0308_results_opt_main_notaul0_target_as', 'x');
-x=gg.x;
+%   save('0308_results_opt_noskill_notaul1_notarget', 'x')
+% gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
+% x=gg.x;
 %% transform
 % helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
 % x=xsqp;

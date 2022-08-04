@@ -51,6 +51,9 @@ indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.PV = 1; % ==1 if continuation value is added to planners problem
 
 indic
+
+percon = 3;  % periods nonconstrained before 50\% constrained
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 2: Parameters        %%%
@@ -200,14 +203,14 @@ for xgr=0
        for tar=1
             indic.target=tar;
             indic               
-            SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems);
+            SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
        end            
     end
 end
 
 %%
 if indic.count_techgap==1
-    SP_solve(list, symms, params, Sparams, x0LF, initcount, init1519count, indexx, indic, T, Ems);
+    SP_solve(list, symms, params, Sparams, x0LF, initcount, init1519count, indexx, indic, T, Ems, MOM, percon);
 end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -226,13 +229,13 @@ for xgr=0
     indic.xgrowth=xgr;
 for ns =0
     indic.noskill=ns;
- for nnt=3
+ for nnt=4
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
-     OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems);
+     OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
  else
-     OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems);
+     OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems, MOM, percon);
  end
  end
 end

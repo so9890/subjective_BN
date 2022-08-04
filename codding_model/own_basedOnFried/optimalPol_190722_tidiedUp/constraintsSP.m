@@ -1,8 +1,9 @@
-function [c, ceq] = constraintsSP(y, T, params, init, list, Ems, indic)
+function [c, ceq] = constraintsSP(y, T, params, init, list, Ems, indic, percon, MOM)
 
 % pars
 read_in_params;
 Ftarget=(Ems+deltaa)./omegaa; 
+Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
 % transform x: all are exponentially transformed
  x=exp(y);
 % except for hours
@@ -21,7 +22,7 @@ if indic.xgrowth==0
 end
 
 if indic.target==1
- x((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)));
+ x((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)   = Ftarget'./(1+exp(y((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)));
 end
 
 % variables
@@ -51,14 +52,15 @@ else
 end
 % inequality constraints
 c=[];
+c(1)= sum(F(1:percon))-Ftarg_20s; 
 if indic.xgrowth==0
     if indic.sep==0
-        c(1:T)    = S-upbarH;
+        c(2:T+1)    = S-upbarH;
     else
         
-        c(1:T)=sg-upbarH;
-        c(T+1:2*T)=sff-upbarH;
-        c(2*T+1:3*T)=sn-upbarH;
+        c(2:T+1)=sg-upbarH;
+        c(T+1+1:2*T+1)=sff-upbarH;
+        c(2*T+1+1:3*T+1)=sn-upbarH;
 
     end
 end

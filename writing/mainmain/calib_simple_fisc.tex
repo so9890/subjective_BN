@@ -91,15 +91,40 @@ In the second step, I calibrate the weight on energy in final good production by
  \clearpage
  
  %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO2 equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
- The most recent IPCC report \citep{IPCC2022} formulates a reduction of emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO2 in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO2 emissions in the 2050s [...] (\textnormal{medium confidence}).}"}
-  as essential to meeting 1.5°C climate targets.  In 2019, US greenhouse-gas emissions amounted to 6,558 million metric tons (6.558Gt) of carbon dioxide equivalents and to net-emissions of 5.7691Gt. Information on emissions comes from the United States Environmental Protection Agency (EPA).\footnote{\ Retrieved on February 2, 2022 from  \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}. }
+ 
+ % procedure
+ The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO2 emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO2 in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO2 emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting 1.5°C climate targets.  Furthermore, the report foresees a global net-CO2 budget from 2020 to the net-zero phase  of 510 GtCO2. 
+ 
+To deduce emission limits for the US, further assumptions on the distribution of mitigation burdens have to be made. I follow \cite{RobiouDuPont2017EquitableGoals} who consider 5 distinct principles of distributive burden sharing. For the main calibration, I use an \textit{equal-per-capita} approach according to which emissions per capita shall be equalized across countries. 
+ 
+ % data
+ In 2019, US greenhouse-gas emissions amounted to 6,558 million metric tons (6.558Gt) of carbon dioxide equivalents and to net-emissions of 5.7691Gt. Information on emissions comes from the United States Environmental Protection Agency (EPA).\footnote{\ Retrieved on February 2, 2022 from  \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}. }
    Expressed in model periods, which correspond to five years, the net emission limit in the 2030s amounts to: 14.4228Gt.  % This decline in emissions amounts to a gros emission target for the US of  $3.2792$Gt.
  I assume here that each country contributes to the global reduction by the same percentage of 50\% of its own emissions.\footnote{\ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This would result in an even stricter target for the US which contributed almost 20\% to global greenhouse-gas emissions in 2019 (based on own calculations where total emissions come from the EIA global greenhouse-gas information, to be found here \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions}).}
  Starting from 2050, the net-emission target is zero. 
  
+% sinks
  I calibrate the sink capacity to match the average difference between gross and net emissions over the baseline period from 2015 to 2019. The resulting sink capacity per model period is  $\delta=3.9633$Gt, which I assume to be constant, as discussed above. 
  In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as
  $\Omega_{2030-2050}$= 2.4899Gt and $\Omega_{2050-2080}$= 0Gt. The parameter relating emissions and the use of fossil energy in the base period equals $\omega=126.0602$.\footnote{\ Note that I perceive fossil energy as the source of all greenhouse-gas emissions.}  
+ 
+ Data on population comes from \url{https://data.oecd.org/pop/population.htm}. 
+ 
+ \textit{Convergence towards equal annual emissions per person} as a fair allocation of reductions. Then US emissions per capita should equal world emissions per capita. 
+ I use the UN projected population measure to proxy for future population size.\footnote{\ Retrieved on 4 August, 2022 from \url{https://population.un.org/dataportal/data/indicators/49/locations/900,840/start/2010/end/2100/table/pivotbylocation}.} 
+ I abstract from other greenhouse gases as the main driver of climate warming \textit{WG3 IPCC report p.37 \textbf{\textit{The trajectory of future CO2 emissions plays a critical role in mitigation, given CO2 long-term impact
+			32 and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO2
+		54 greenhouse gas emissions less than CO2 due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}. The calibration is done with respect to CO2 emissions. 
+
+
+Using the population share of the US to determine the emission limit results in a remaining net CO2 budget for the period 2020-2035 below the period of 2035-2050. This conflicts with the downward sloping time path of emissions foreseen by the IPCC (p.3-28).\footnote{\ The reason is that global net-CO2 emissions are so high, that a 50\% reduction starting from 2035 results in more than half the emissions of the remaining carbon budget. }
+To generate a downward sloping pattern, I require the remaining budget per annum for the 2020-2035 period to exceed the budget used for the later period. 
+Hence, the smallest adjustment follows from equal budgets per period. 
+I reduce each limit in the 2035-2050 period so that in sum total emissions equal 510*population share US/2.
+
+This result leads to the following emission limits
+From 2020 to 2035 there is a total budget of net-CO2 emissions of 10.627Gt for the US. From 2035 to 2050 model-period emissions may amount to [2.900, 2.854, 2.809].\footnote{\ I use here that in earlier test runs the emission limits have been fully exploited. }
+These results come close to but exceed an emission limit if the requirement was to lower US emissions by 50\%, which would result to 2.309.\footnote{\ This number follows from a \textit{constant emission ratio} approach.} The \textit{equal per capita} approach is favorable to population high countries as the US. Therefore, in the sensitivity analysis, I rerun the model where US emission limits follow from an \textit{Equal cumulative per capita} approach, where countries with historically  high emissions per capita mitigate more.
  \clearpage
 
  \begin{table}[hh!!!!!]

@@ -1,4 +1,4 @@
-function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems)
+function [symms, list, sp_all]=SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon)
 
 % pars
 read_in_params;
@@ -130,45 +130,12 @@ elseif indic.target==1
     
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
-    kappaa = [Ftarget(1),Ftarget(1),Ftarget]./LF_SIM(list.allvars=='F',1:T); % ratio of targeted F to non-emission
-    kappaa = kappaa*(1-1e-10);
-    
-%     if ~isfile(sprintf('SP_target_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, params(list.params=='etaa')))
-%          fprintf('using LF solution as initial value')
-%         if indic.noskill==0
-%                        
-%         x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =kappaa.*LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
-%         x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =kappaa.*LF_SIM(list.allvars=='hhg',1:T); % hhg
-%         x0(T*(find(list.sp=='hhn')-1)+1:T*(find(list.sp=='hhn'))) =kappaa.*LF_SIM(list.allvars=='hhn',1:T); % hhg
-%         x0(T*(find(list.sp=='hlf')-1)+1:T*(find(list.sp=='hlf'))) =kappaa.*LF_SIM(list.allvars=='hlf',1:T); % hlf
-%         x0(T*(find(list.sp=='hlg')-1)+1:T*(find(list.sp=='hlg'))) =kappaa.*LF_SIM(list.allvars=='hlg',1:T); % hlg 
-%         x0(T*(find(list.sp=='hln')-1)+1:T*(find(list.sp=='hln'))) =kappaa.*LF_SIM(list.allvars=='hln',1:T); % hlg
-%         
-%         x0(T*(find(list.sp=='hl')-1)+1:T*(find(list.sp=='hl')))   =kappaa.*LF_SIM(list.allvars=='hl',1:T);  % hl
-%         x0(T*(find(list.sp=='hh')-1)+1:T*(find(list.sp=='hh')))   =kappaa.*LF_SIM(list.allvars=='hh',1:T);  % hh
-%         else
-%             x0(T*(find(list.sp=='Lg')-1)+1:T*(find(list.sp=='Lg'))) =kappaa.*LF_SIM(list.allvars=='Lg',1:T); % hlg 
-%             x0(T*(find(list.sp=='Ln')-1)+1:T*(find(list.sp=='Ln'))) =kappaa.*LF_SIM(list.allvars=='Ln',1:T); % hlg
-%             x0(T*(find(list.sp=='h')-1)+1:T*(find(list.sp=='h')))   =kappaa.*LF_SIM(list.allvars=='hh',1:T);  % hl
-%         end
-%         
-%         x0(T*(find(list.sp=='xf')-1)+1:T*(find(list.sp=='xf')))   =kappaa.*LF_SIM(list.allvars=='xf',1:T); % hlf
-%         x0(T*(find(list.sp=='xg')-1)+1:T*(find(list.sp=='xg')))   =kappaa.*LF_SIM(list.allvars=='xg',1:T); % hlg 
-%         x0(T*(find(list.sp=='xn')-1)+1:T*(find(list.sp=='xn')))   =kappaa.*LF_SIM(list.allvars=='xn',1:T); % hlg 
-%        if indic.xgrowth==0
-%             x0(T*(find(list.sp=='Af')-1)+1:T*(find(list.sp=='Af')))   =LF_SIM(list.allvars=='Af',1:T);  % Af
-%             x0(T*(find(list.sp=='Ag')-1)+1:T*(find(list.sp=='Ag')))   =LF_SIM(list.allvars=='Ag',1:T);  % Ag
-%             x0(T*(find(list.sp=='An')-1)+1:T*(find(list.sp=='An')))   =LF_SIM(list.allvars=='An',1:T);  % An
-%        end
-%         x0(T*(find(list.sp=='C')-1)+1:T*(find(list.sp=='C')))     =kappaa.*LF_SIM(list.allvars=='C',1:T);  % C
-%         x0(T*(find(list.sp=='F')-1)+1:T*(find(list.sp=='F')))     =kappaa.*LF_SIM(list.allvars=='F',1:T);  % C
-%    else
         fprintf('using sp solution as initial value')
-        helper= load(sprintf('SP_target_spillover%d_noskill0_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,  indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')));
+        helper= load(sprintf('SP_target_0308_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')));
 
         sp_all=helper.sp_all;
         % with new emission target
-        kappaa = [Ftarget(1),Ftarget(1),Ftarget]./sp_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
+        kappaa = [repmat(Ftarget(1),1, percon),Ftarget]./sp_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
         kappaa = kappaa*(1-1e-10);
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
@@ -230,8 +197,9 @@ initOPT= init201519; % as calibrated under BAU policy
  end
 if indic.target==1
     % only from the third period onwards F is contrained
-    guess_trans(T*(find(list.sp=='F')-1)+1+2:T*(find(list.sp=='F')))=log((Ftarget'-x0(T*(find(list.sp=='F')-1)+1+2:T*(find(list.sp=='F'))))./...
-     x0(T*(find(list.sp=='F')-1)+1+2:T*(find(list.sp=='F'))));
+    
+    guess_trans(T*(find(list.sp=='F')-1)+1+percon:T*(find(list.sp=='F')))=log((Ftarget'-x0(T*(find(list.sp=='F')-1)+1+percon:T*(find(list.sp=='F'))))./...
+     x0(T*(find(list.sp=='F')-1)+1+percon:T*(find(list.sp=='F'))));
 end
 lb=[];
 ub=[];
@@ -244,15 +212,16 @@ ub=[];
 %- reload parameters! to be correct!
 % [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params( T, indic, lengthh);
 
-f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic, initOPT);
-[c, ceq] = constraintsSP(guess_trans, T, params, initOPT, list, Ems, indic);
+f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic, initOPT, percon);
+[c, ceq] = constraintsSP(guess_trans, T, params, initOPT, list, Ems, indic, percon, MOM);
 
 % ind=1:length(ceq);
 % ss=ind(abs(ceq)>1e-9);
 % whe=floor(ss/T);
 
-objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic, initOPT);
-constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic);
+objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic, initOPT, percon);
+constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic, percon, MOM);
+
 if indic.target==1 && indic.noskill==0 && indic.xgrowth==0
     fprintf('skipping sqp')
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -265,7 +234,13 @@ else
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 
 end
-save('0308_SP_main_withtarget_as')
+% if indic.noskill==0
+%  save('0308_SP_main_withtarget_newEms_as_xgr')
+% else
+%      save('0308_SP_main_withtarget_newEms_as_xgr_nosk')
+% end
+%  gg=load('0308_SP_main_withtarget_newEms_as_xgr_nosk')
+%  x=gg.x;
 %%
 out_trans=exp(x);
 if indic.noskill==0
@@ -281,7 +256,7 @@ if indic.xgrowth==0
 end
 
 if indic.target==1
-    out_trans((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)=Ftarget'./(1+exp(x((find(list.sp=='F')-1)*T+1+2:find(list.sp=='F')*T)));
+    out_trans((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)=Ftarget'./(1+exp(x((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)));
 end
 
 %%
@@ -325,7 +300,8 @@ end
 %%
 if indic.count_techgap==0
 if indic.target==1
-    save(sprintf('SP_target_0308_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
+    save(sprintf('SP_target_03082_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
+fprintf('saved')
 else
     if indic.extern==1       
         save(sprintf('SP_notarget_0308_spillover%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV, params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
@@ -335,7 +311,7 @@ else
 end
 elseif indic.count_techgap==1
     if indic.target==1
-        save(sprintf('SP_target_0308_countec_spillover%d_noskill%d_sep%d_xgrowth%d_zero%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV,  params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
+        save(sprintf('SP_target_03082_countec_spillover%d_noskill%d_sep%d_xgrowth%d_zero%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV,  params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
     else
     if indic.extern==1       
         save(sprintf('SP_notarget_0308_countec_spillover%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV, params(list.params=='etaa')), 'sp_all', 'Sparams', 'obs')
