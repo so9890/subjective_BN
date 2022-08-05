@@ -45,13 +45,13 @@ read_in_params;
 
 %- create discount vector
 %a) for version with PV: have to include last optimization period
-disc=repmat(betaa, 1,T);
-expp=0:T-1;
+disc=repmat(betaa, 1,T+1);
+expp=0:T;
 vec_discountPV= disc.^expp;
 
 %b) for version without PV (exclude last period)
-disc=repmat(betaa, 1,T-1);
-expp=0:T-2;
+disc=repmat(betaa, 1,T);
+expp=0:T-1;
 vec_discountnoPV= disc.^expp;
 
 %- CEVvs over 55 years

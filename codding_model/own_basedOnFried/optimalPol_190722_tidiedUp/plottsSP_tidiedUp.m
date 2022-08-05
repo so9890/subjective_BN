@@ -1,4 +1,6 @@
-function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts)
+function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts, percon)
+
+% this script plots results
 
 date="Aout22";
 if ~isfile(sprintf('figures/all_%s', date ))
@@ -9,13 +11,8 @@ end
 orrange= [0.8500 0.3250 0.0980];
 grrey = [0.6 0.6 0.6];
 
-
-varlist=[list.allvars];
-
-% this script plots results
-
+%- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-%- additional vars
 syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
@@ -49,205 +46,111 @@ lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string(
 legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"], ["fossil", "green", "non-energy", "aggregate"], ["fossil", "green"]});
 
 %- new list 
-varlist_polcomp=[list.allvars, list.addgov, string(symms.plotsvarsAdd)];
+% varlist_polcomp=[list.allvars, list.addgov, string(symms.plotsvarsAdd)];
 
+varlist=[list.allvars, string(symms.plotsvarsAdd)];
 %% read in results
-%- baseline results without reduction
 
+%-initialise cells to store matrices: one for each combination of xgr and nsk
 OTHERPOL={}; % cell to save containers of different policy versions
+OTHERPOL_xgr={}; 
+OTHERPOL_nsk={};
+OTHERPOL_xgr_nsk={}; 
 
-%- sp solution independent of policy
-helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
-sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
-sp_not=helper.sp_all';
+% baseline results 
+for xgr=0:1
+for nsk =0:1
+    indic.xgrowth=xgr;
+    indic.noskill=nsk;
+    %- sp solution independent of policy
+    helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
+    sp_t=helper.sp_all';
+    helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
+    sp_not=helper.sp_all';
 
-for i=0:5 % loop over policy versions
-    if indic.xgrowth==0
-        helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
-        bau=helper.LF_BAU';
-        helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill,indic.sep, i, etaa));
-        LF=helper.LF_SIM';
-    else
-        helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, i,etaa));
-        bau=helper.LF_SIM;
-        helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
-        LF=helper.LF_SIM;
-    end
-
-helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
-opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
-opt_t_notaus=helper.opt_all';
-
-RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                        {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-%- add additional variables
-[RES]=add_vars(RES, list, params, indic, varlist, symms);
-varlist=[varlist, string(symms.plotsvarsAdd)];
-
-%-results with counterfactual productivity gap
-if indic.noskill==0
-    if indic.xgrowth==0 
-        helper=load(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,etaa));
-        bau=helper.LF_SIM;
-        helper=load(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
-        LF=helper.LF_SIM;
-    end
-
-%     helper=load(sprintf('SP_target_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_EMnew.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,  indic.xgrowth, etaa));
-%     sp_t=helper.sp_all';
-%     helper=load(sprintf('SP_notarget_active_set_1705_countec_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq,  indic.BN_red, indic.xgrowth,  etaa));
-%     sp_not=helper.sp_all';
-%     helper=load(sprintf('OPT_notarget_active_set_1905_countec_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_extern0_xgrowth%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-%     opt_not_notaus=helper.opt_all';
-%     helper=load(sprintf('OPT_target_active_set_1905_countec_spillover%d_taus0_noskill%d_notaul0_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_NEWems.mat',indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa));
-%     opt_t_notaus=helper.opt_all';
-% 
-%     RES_countec = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-%                             {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-% 
-%     [RES_countec]=add_vars(RES_countec, list, params, indic, varlist, symms);
-end
-
-%- version without endogenous growth
-%- for comparison 
-helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth1_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
-sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
-sp_not=helper.sp_all';
-helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
-opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
-opt_t_notaus=helper.opt_all';
-
-RES_xgr = containers.Map({ 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                        { sp_t, sp_not, opt_t_notaus, opt_not_notaus});
-
-[RES_xgr]=add_vars(RES_xgr, list, params, indic, varlist, symms);
-
-%%
-%- results with other policy specifications
-OTHERPOL={}; % cell of containers over which to loop
-% add other government variables here!
-% read in again because variables have changed!
-
-% varlist: first separate  variables, then additional gov variables, then
-% new variables from function 
-if indic.sep==1
-    varlist_polcomp=[list.sepallvars, list.addgov, string(symms.plotsvarsAdd)];
-else
-    varlist_polcomp=[list.allvars, list.addgov, string(symms.plotsvarsAdd)];
-end
-
-for i=0:5 % loop over policy versions
-    if indic.sep==0
-        error('have to change variable list in function add_vars below')
-    end
-    helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i,indic.sep,indic.xgrowth,indic.PV, etaa));
-    opt_not_notaus_notaul=[helper.opt_all';helper.addGov'];
-    helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i, indic.sep, indic.xgrowth, indic.PV, etaa));
-    opt_t_notaus_notaul=[helper.opt_all';helper.addGov'];
-        
-    if i==0
-        RES_polcomp_notaul0 = containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{opt_t_notaus_notaul, opt_not_notaus_notaul});
-        if indic.sep==1
-            RES_polcomp_notaul0 = add_vars(RES_polcomp_notaul0, list, params, indic, list.sepallvars, symms);
+%- other results
+    for i=0:5 % loop over policy versions
+        if indic.xgrowth==0
+            helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
+            bau=helper.LF_BAU';
+            helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill,indic.sep, i, etaa));
+            LF=helper.LF_SIM';
         else
-           RES_polcomp_notaul0 = add_vars(RES_polcomp_notaul0, list, params, indic, list.allvars, symms);
+            helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, i,etaa));
+            bau=helper.LF_SIM;
+            helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
+            LF=helper.LF_SIM;
         end
-    else
-        % add additional variables and save container to cell
-       if indic.sep==1
-            OTHERPOL{i} = add_vars(containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul}), list, params, indic, list.sepallvars, symms);
-       else
-            OTHERPOL{i} = add_vars(containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},{ opt_t_notaus_notaul, opt_not_notaus_notaul}), list, params, indic, list.allvars, symms);
 
-       end
-       end
+        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV, etaa));
+        opt_not_notaus=helper.opt_all';
+        helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, etaa));
+        opt_t_notaus=helper.opt_all';
+
+        RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+                                {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+        %- add additional variables
+        if xgr==0 && nsk==0
+            OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+        elseif xgr==0 && nsk==1
+            OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+        elseif xgr==1 && nsk==0
+            OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+        elseif xgr==1 && nsk==1
+            OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+        end
+    end
 end
-
-%%
-% - results with externality
-% helper=load(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',  indic.spillovers, 0, indic.sep,indic.xgrowth,  etaa));
-% sp_not=helper.sp_all';
-% helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.notaul, indic.sep,indic.xgrowth,  etaa));
-% opt_not_wt=helper.opt_all';
-% 
-% helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul_sep%d_extern1_weightext0.01_xgrowth%d_etaa%.2f.mat',indic.spillovers, 0, indic.sep, indic.xgrowth, etaa));
-% opt_not_nt=helper.opt_all';
-% 
-% RES_ext = containers.Map({ 'SP' , 'OPT', 'OPT_notaul'},{sp_not, opt_not_wt, opt_not_nt});
-% RES_ext = add_vars(RES_ext, list, params, indic, varlist, symms);
-
-%-version for comparison with full model: robustness
-% 
-% RES_robext = containers.Map({ 'SP_T', 'OPT_T_NoTaus'},{sp_not, opt_not_wt}); % names to compare with baseline with target
-% RES_robext = add_vars(RES_robext, list, params, indic, varlist, symms);
-
-
-% %- results with counterfactual policy
-% if plotts.countcomp==1|| plotts.countcomp2==1|| plotts.countcomp3==1
-% if indic.xgrowth==1
-%     helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
-%     count_taufopt=helper.LF_COUNT';
-%     helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')));
-%     count_taulopt=helper.LF_COUNT';
-% else
-%     helper=load(sprintf('COMPEqu_SIM_taufopt1_taulopt0_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, params(list.params=='etaa')));
-%     count_taufopt=helper.LF_COUNT';
-%     helper=load(sprintf('COMPEqu_SIM_taufopt0_taulopt1_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red,  params(list.params=='etaa')));
-%     count_taulopt=helper.LF_COUNT';
-% end
-% RES_count = containers.Map({ 'taufOpt' , 'taulOpt'},{count_taufopt, count_taulopt});
-% RES_count = add_vars(RES_count, list, params, indic, varlist, symms);
-% end
+end
 
 %% Tables
 if plotts.table==1
- %- discount vector
- betaa=params(list.params=='betaa');
-
-% version with T=12
-  disc=repmat(betaa, 1,T);
-  expp=0:T-1;
- vec_discount= disc.^expp;
-
- %- Table
- TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
- TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum with taul', 'Scenario 5: Lump Sum no taul'};
-
-%- all results
-for i =keys(RES)
-    ii=string(i);
-    allvars= RES(ii);
-%     fprintf('%s', ii)
-    % SWF calculation 
-    TableSWF_PV.Integrated(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)'+indic.PV*allvars(find(varlist=='PV'),1);
-end
-%- Other policies
-for i =keys(RES_polcomp_notaul0)
-     ii=string(i);
-     count=0; % to keep track of which container is used
-    for ccc=OTHERPOL
-        pp=ccc{1};
-        count=count+1;
-        allvarsnt=pp(ii);
-%         hh=vec_discount*allvarsnt(find(varlist_polcomp=='SWF'),:)'+indic.PV*allvarsnt(find(varlist_polcomp=='PV'),1);
-%         fprintf('with round %d the value is %.6f', count, hh);
-        TableSWF_PV{TableSWF_PV.Allocation==ii,count+2}=vec_discount*allvarsnt(find(varlist_polcomp=='SWF'),:)'+indic.PV*allvarsnt(find(varlist_polcomp=='PV'),1);
+for xgr=0:1
+for nsk= 0:1
+    %- choose respective containers cell
+    if xgr ==0 && nsk==0
+    OTHERPOLL= OTHERPOL;
+    elseif xgr ==1 && nsk==0
+        OTHERPOLL= OTHERPOL_xgr;
+    elseif xgr ==0 && nsk==1
+        OTHERPOLL= OTHERPOL_nsk;
+    elseif xgr ==1 && nsk==1
+        OTHERPOLL= OTHERPOL_xgr_nsk;
     end
-end
-%%
-save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, indic.sep, indic.noskill, etaa, indic.xgrowth, indic.PV, indic.extern), 'TableSWF_PV');
-end
+  %- discount vector
+      betaa=params(list.params=='betaa');
 
+      % version with T=11
+      disc=repmat(betaa, 1,T+1);
+      expp=0:T;
+      vec_discount= disc.^expp;
+
+     %- Table
+     TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
+     TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum with taul', 'Scenario 5: Lump Sum no taul'};
+
+    %- all results
+    for i =keys(RES)
+         ii=string(i);
+         count=0; % to keep track of which container is used
+        for ccc=OTHERPOLL
+            pp=ccc{1}; % to get from cell to its content
+            count=count+1;
+            allvars=pp(ii);
+            TableSWF_PV{TableSWF_PV.Allocation==ii,count+1}=vec_discount*allvars(find(varlist=='SWF'),:)'+indic.PV*allvars(find(varlist=='PV'),1);
+        end
+    end
+    %%
+    save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, indic.sep, nsk, etaa, xgr, indic.PV, indic.extern), 'TableSWF_PV');
+end
+end
+end
 %% table CEV
 if plotts.cev==1
     %- calculate CEV for a pair of policy regimes each
-    h1= OTHERPOL{3}; % taul can be used
-    h2= OTHERPOL{2}; % taul cannot be used
-    COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist_polcomp, varlist_polcomp, symms, list, params, T, indic);
+    h1= OTHERPOL{3+1}; % taul can be used
+    h2= OTHERPOL{2+1}; % taul cannot be used
+    COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);
 end
 
 %% Plots
@@ -258,393 +161,47 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
-%% plot analy taul
-if plotts.analyta==1
-gcf=figure('Visible','off');
-allvars=RES('OPT_T_NoTaus');
-main=plot(time,allvars(varlist=='analyTaul',:), time,allvars(varlist=='taul',:)  );   
-set(main,{'LineWidth'}, { 1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, { 'k'; orrange} )   
-
-xticks(txx)
-% ylim([-0.2, 3])
-xlim([time(1), time(end)])
-
-ax=gca;
-ax.FontSize=13;
-ytickformat('%.2f')
-xticklabels(Year10)
-lgd=legend('analytical taul', 'tau_{\iota}', 'Interpreter', 'latex');    
-set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-path=sprintf('figures/all_July22/analyT_xgrowth%d_noskill%d.png', indic.xgrowth, indic.noskill);
-exportgraphics(gcf,path,'Resolution', 400)
-close gcf
+%- Pick main policy version for plots
+if plotts.xgr ==0 && plotts.nsk==0
+    OTHERPOLL= OTHERPOL;
+elseif plotts.xgr ==1 && plotts.nsk==0
+    OTHERPOLL= OTHERPOL_xgr;
+elseif plotts.xgr ==0 && plotts.nsk==1
+    OTHERPOLL= OTHERPOL_nsk;
+elseif plotts.xgr ==1 && plotts.nsk==1
+    OTHERPOLL= OTHERPOL_xgr_nsk;
 end
-%% plot emission limit
-if plotts.limit==1
-gcf=figure(); %('Visible','off');
-
-main=plot(time(3:end), Ems, time(1:end), zeros(size(time)));   
-set(main,{'LineWidth'}, { 1.3; 1}, {'LineStyle'},{'-'; '--'}, {'color'}, { orrange; grrey} )   
-hold on 
-plot(time(1:3), [Ems(1), Ems(1), Ems(1)], 'LineWidth', 0.8, 'LineStyle', '--', 'color', orrange);
-hold off
-
-xticks(txx)
-ylim([-0.2, 3])
-xlim([time(1), time(end)])
-
-ax=gca;
-ax.FontSize=13;
-ytickformat('%.2f')
-xticklabels(Year10)
-%             title(sprintf('%s', varr), 'Interpreter', 'latex')
-ylabel('GtCO2-eq') 
-path=sprintf('figures/all_%s/emission_lim.png', date);
-exportgraphics(gcf,path,'Resolution', 400)
-close gcf
-end
-%% comparison laissez-faire
-if plotts.lf==1
-    fprintf('plotting LF comp graphs')    
-    lff=RES('LF');
-
-    for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
-        ii=string(i);
-        allvars= RES(ii);
-
-    %% 
-    fprintf('plotting %s',ii );
-    for l = keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-        for lgdind=0:1
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            %subplot(floor(length(plotvars)/nn)+1,nn,v)
-            main=plot(time,allvars(find(varlist==varr),:), time,lff(find(varlist==varr),:), 'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-           xticks(txx)
-           xlim([1, time(end)])
-
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-%             title(sprintf('%s', varr), 'Interpreter', 'latex')
-           if lgdind==1
-               if contains(ii, 'SP')
-                  lgd=legend('social planner', 'laissez-faire', 'Interpreter', 'latex');
-               else
-                  lgd=legend('ramsey planner', 'laissez-faire', 'Interpreter', 'latex');
-               end
-            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-           end
-
-        path=sprintf('figures/all_1705/%s_LFComp%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', varr, ii, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,indic.xgrowth,  etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-        end
-        
-    end
-    end      
-end
-
-%% robustness comparison to full model
-if plotts.robust==1
-    fprintf('plotting robustness graphs')
-    for lgdind=0:1
-    for ccc=1:2
-        if ccc==0
-            whh='extern';
-            RES_rob=RES_robext;
-        elseif ccc==1
-            whh='countec';
-            RES_rob =RES_countec;
-        elseif ccc==2
-            whh='xgrowth';
-            RES_rob=RES_xgr;
-        end
     
-    for i =keys(RES_rob)
+%% All figures single
+if plotts.single_pol==1
+    
+    fprintf('plotting single graphs')
+
+    %- read in variable container of chosen regime
+    RES=OTHERPOLL{plotts.regime_gov+1};
+%     RES=ccc;
+  
+
+    %- loop over economy versions
+    for i = ["OPT_T_NoTaus" "OPT_NOT_NoTaus"]% only plotting polcies separately
         ii=string(i);
         allvars= RES(ii);
-        allvars_rob=RES_rob(ii);
-    %% 
     fprintf('plotting %s',ii );
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
         for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
+            gcf=figure('Visible','off');
             varr=string(plotvars(v));
-            main=plot(time,allvars_rob(find(varlist==varr),:),time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
-
-           xticks(txx)
-           xlim([1, time(end)])
-
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            if lgdind==1
-
-                lgd=legend('counterfactual', 'baseline', 'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            path=sprintf('figures/all_1705/SingleROB_%s_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_etaa%.2f_lgd%d.png', whh, ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
-            
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end 
-    end
-    end
-end
-%% counterfactual comparison to full optimal allocation
-if plotts.countcomp==1
-    allvars=RES('OPT_T_NoTaus');
-    for ccc=0:1
-        indic.tauf=ccc;
-        if indic.tauf==1 % version with tauf optimal
-            allvars_count=RES_count('taufOpt');
-        else
-            allvars_count=RES_count('taulOpt');
-        end
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            
-                main=plot(time,allvars(find(varlist==varr),:),time,allvars_count(find(varlist==varr),:), 'LineWidth', 1.1);   
-                set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k';  orrange} )   
-
-           xticks(txx)
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            if startsWith(varr,"gA")
-               xlim([1, time(end-1)])
-            else
-               xlim([1, time(end)])
-           end
-            if lgdind==1
-                if indic.tauf==1
-                    lgd=legend('full model', '$\tau_{f}$ optimal, $\tau_l=0$', 'Interpreter', 'latex');
-                else
-                    lgd=legend('full model', '$\tau_{l}$ optimal, $\tau_f=0$', 'Interpreter', 'latex');
-                end
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-        path=sprintf('figures/all_1705/CompCounterFac_taufopt%d_taulopt%d_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth0_etaa%.2f_lgd%d.png', indic.tauf, (1-indic.tauf), varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-    %% counterfactual comparison to full optimal allocation
-    %- with LF
-if plotts.countcomp2==1
-    allvars=RES('OPT_T_NoTaus');
-    allvarsLF=RES('LF');
-    for ccc=0:1
-        indic.tauf=ccc;
-        if indic.tauf==1 % version with tauf optimal
-            allvars_count=RES_count('taufOpt');
-        else
-            allvars_count=RES_count('taulOpt');
-        end
-    for lgdind=0:1
-    for l ="HH"%keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            main=plot(time,allvarsLF(find(varlist==varr),:), time,allvars_count(find(varlist==varr),:),time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k';  orrange; 'b'} )   
-
-           xticks(txx)
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            if startsWith(varr,"gA")
-               xlim([1, time(end-1)])
-            else
-               xlim([1, time(end)])
-            end
-            if varr=="C"
-                ylim([0.56, 0.72]);
-            elseif varr=="hh"
-                ylim([0.46, 0.51]);
-            elseif varr=="hl"
-                ylim([0.31, 0.335]);                
-            end
-            if lgdind==1
-                if indic.tauf==1
-                    lgd=legend( 'laissez-faire', '$\tau_{f}$ optimal, $\tau_l=0$', 'optimal policy','Interpreter', 'latex');
-                else
-                    lgd=legend('laissez-faire',  '$\tau_{l}$ optimal, $\tau_f=0$', 'optimal policy','Interpreter', 'latex');
-                end
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-        path=sprintf('figures/all_1705/CompCounterFac_withLF_taufopt%d_taulopt%d_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', indic.tauf, (1-indic.tauf), varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-   %% counterfactual comparison to full optimal allocation
-    %- with LF no optimal policy
-if plotts.countcomp3==1
-    allvarsLF=RES('LF');
-    for ccc=0:1
-        indic.tauf=ccc;
-        if indic.tauf==1 % version with tauf optimal
-            allvars_count=RES_count('taufOpt');
-        else
-            allvars_count=RES_count('taulOpt');
-        end
-    for lgdind=0:1
-    for l = "HH"%keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            main=plot(time,allvarsLF(find(varlist==varr),:), time,allvars_count(find(varlist==varr),:), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k';  orrange} )   
-
-           xticks(txx)
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            if startsWith(varr,"gA")
-               xlim([1, time(end-1)])
-            else
-               xlim([1, time(end)])
-            end
-            if varr=="C"
-                ylim([0.56, 0.72]);
-            elseif varr=="hh"
-                ylim([0.46, 0.51]);
-            elseif varr=="hl"
-                ylim([0.31, 0.335]);                
-            end
-            if lgdind==1
-                if indic.tauf==1
-                    lgd=legend( 'laissez-faire', '$\tau_{f}$ optimal, $\tau_l=0$', 'Interpreter', 'latex');
-                else
-                    lgd=legend('laissez-faire',  '$\tau_{l}$ optimal, $\tau_f=0$', 'Interpreter', 'latex');
-                end
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-        path=sprintf('figures/all_1705/CompCounterFac_withLF_noopt_taufopt%d_taulopt%d_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_etaa%.2f_lgd%d.png', indic.tauf, (1-indic.tauf), varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-%% No exogenous target but externality
-%- comparison across efficient with taul no taul
-if plotts.extern==1
-   fprintf('plotting externality graphs')
-    allvarseff= RES_ext('SP');
-    allvarsopt= RES_ext('OPT');
-    allvarsopt_nt= RES_ext('OPT_notaul');
-
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            main=plot(time,allvarseff(find(varlist==varr),:),time,allvarsopt(find(varlist==varr),:), time,allvarsopt_nt(find(varlist==varr),:), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
-
-           xticks(txx)
-           xlim([1, time(end)])
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            if lgdind==1
-
-            lgd=legend('efficient', 'with income tax', 'no income tax', 'Interpreter', 'latex');
-            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-        path=sprintf('figures/all_1705/Extern_CompEff_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_weightext%.2f_xgrowth%d_etaa%.2f_lgd%d.png',  varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red,weightext, indic.xgrowth, etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-end
-%% All figures single
-if plotts.single==1
-    fprintf('plotting single graphs')
-    if indic.extern==1
-        RESS=RES_ext;
-    else
-        RESS=RES;
-    end
-    for i ="LF"%keys(RESS)
-        ii=string(i);
-        allvars= RESS(ii);
-    %% 
-    fprintf('plotting %s',ii );
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-        gcf=figure('Visible','off');
-
-
-            varr=string(plotvars(v));
-            %subplot(floor(length(plotvars)/nn)+1,nn,v)
             if ll=="HH" && varr=="Emnet"
-                main=plot(time,allvars(find(varlist==varr),:),time(3:end),Ems, 'LineWidth', 1.1);  
+                main=plot(time,allvars(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
                 set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
                 lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
 
             else
-                main=plot(time,allvars(find(varlist==varr),:), 'LineWidth', 1.1);   
+                main=plot(time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
                 set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
 
             end
@@ -656,37 +213,25 @@ if plotts.single==1
             ytickformat('%.2f')
             xticklabels(Year10)
             if indic.count_techgap==0
-                path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_extern%d_etaa%.2f.png',  ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth,indic.extern,  etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa);
             else
-                path=sprintf('figures/all_1705/Single_%s_%s_spillover%d_noskill%d_sep%d_BN%d_ineq%d_red%d_xgrowth%d_extern%d_countec_etaa%.2f.png',  ii,varr, indic.spillovers, indic.noskill, indic.sep, indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, indic.extern, etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, etaa);
             end
         exportgraphics(gcf,path,'Resolution', 400)
-        % saveas(gcf,path)
         close gcf
-    %    pause
         end
     end
     end
 end
-    %% figures single overlayed
+%% figures single overlayed
 if plotts.singov==1
     fprintf('plotting single overlayed graphs')
+    RES=OTHERPOLL{plotts.regime_gov+1};
+    varl=varlist;
     for lgdind=0:1
-        if plotts.regime_gov==0
-            nt=0;
-            helpp= RES;
-            varl=varlist;
-        else
-            nt =3;
-            helpp =OTHERPOL{nt};
-            varl= varlist_polcomp;
-        end
-    for i =keys(helpp)
-        %- loop
+    for i =["OPT_T_NoTaus" "OPT_NOT_NoTaus"]
         ii=string(i);
-   
-        allvars =helpp(ii);
-    %% 
+        allvars =RES(ii);
     fprintf('plotting %s',ii );
     for l =keys(lissComp) % loop over variable groups
         ll=string(l);
@@ -695,27 +240,23 @@ if plotts.singov==1
         gcf=figure('Visible','off');
 
         if length(plotvars)==2
-            main=plot(time,allvars(find(varl==plotvars(1)),:), time,allvars(find(varl==plotvars(2)),:), 'LineWidth', 1.1);    % plot vectors!        
+            main=plot(time,allvars(find(varl==plotvars(1)),1:T), time,allvars(find(varl==plotvars(2)),1:T), 'LineWidth', 1.1);    % plot vectors!        
             set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} ) 
     %    elseif ll=="LabourInp"
     %           main=plot(time,allvars(find(varlist==plotvars(1)),:), time,allvars(find(varlist==plotvars(2)),:),time,allvars(find(varlist==plotvars(3)),:), 'LineWidth', 1.1);    % plot vectors!        
     %           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; 'k'} )   
        elseif ll=="Growth"
-              main=plot(time(1:end-1),allvars(find(varl==plotvars(1)),1:end-1), time(1:end-1),allvars(find(varl==plotvars(2)),1:end-1),...
-              time(1:end-1),allvars(find(varl==plotvars(3)),1:end-1),time(1:end-1),allvars(find(varl==plotvars(4)),1:end-1),'LineWidth', 1.1);    % plot vectors!        
+              main=plot(time(1:T),allvars(find(varl==plotvars(1)),1:T), time(1:T),allvars(find(varl==plotvars(2)),1:T),...
+              time(1:T),allvars(find(varl==plotvars(3)),1:T),time(1:T),allvars(find(varl==plotvars(4)),1:T),'LineWidth', 1.1);    % plot vectors!        
               set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
 
         elseif ll=="Science"
-              main=plot(time,allvars(find(varl==plotvars(1)),:), time,allvars(find(varl==plotvars(2)),:),...
-                  time,allvars(find(varl==plotvars(3)),:), time,allvars(find(varl==plotvars(4)),:),'LineWidth', 1.1);    % plot vectors!        
+              main=plot(time,allvars(find(varl==plotvars(1)),1:T), time,allvars(find(varl==plotvars(2)),1:T),...
+                  time,allvars(find(varl==plotvars(3)),1:T), time,allvars(find(varl==plotvars(4)),1:T),'LineWidth', 1.1);    % plot vectors!        
                set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
         end
            xticks(txx)
-           if ll=="Growth"
-              xlim([1, time(end-1)])
-           else
-              xlim([1, time(end)])
-           end
+           xlim([1, time(end)])
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -733,9 +274,9 @@ if plotts.singov==1
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
          end
         if indic.count_techgap==0
-            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.extern, indic.PV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, plotts.regime_gov, ii,ll, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,indic.extern, indic.PV,  etaa, lgdind);
         else
-            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_countec_extern%d_PV%d_etaa%.2f_lgd%d.png',date,  nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_countec_extern%d_PV%d_etaa%.2f_lgd%d.png',date,  plotts.regime_gov, ii,ll, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV, etaa, lgdind);
         end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

@@ -264,10 +264,10 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  1; % =1 then treats gov =consumes revenues as benchmark
+plotts.regime_gov=  3; % = equals policy version to be plotted
 
-plotts.table=       1;
-plotts.cev  =       0; 
+plotts.table=       0;
+plotts.cev  =       1; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
@@ -275,7 +275,7 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-plotts.single=      0;
+plotts.single_pol=  0;
 plotts.singov=      0;
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.regimes =    0; % ==1 plot results under other policies separately (indic.notaul)
@@ -288,12 +288,19 @@ plotts.compeff1=    0;
 plotts.compeff2=    0;
 plotts.compeff3=    0;
 
+plotts.xgr = 0; % main version to be used for plots
+plotts.nsk = 0;
+
+%%
+plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
+
 %%
 for gg=0:1
     indic.xgrowth=gg;
 for ns=0:1
     indic.noskill=ns;
-    plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
+    plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts, percon); 
+    % T-1 as time period as last period is dropped from regency 
 end
 end
 
