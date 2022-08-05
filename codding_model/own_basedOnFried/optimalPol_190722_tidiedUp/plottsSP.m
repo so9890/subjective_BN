@@ -1,7 +1,8 @@
 function []=plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts)
 
-if ~isfile('figures/all_July22')
-    mkdir(sprintf('figures/all_July22'));
+date="Aout22";
+if ~isfile(sprintf('figures/all_%s', date ))
+    mkdir(sprintf('figures/all_%s', date));
 end
 
 %- color for graphs
@@ -17,7 +18,7 @@ end
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
 %- additional vars
-syms analyTaul PV CEV CEVPV CEVDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
@@ -25,7 +26,7 @@ symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
 symms.plotsvarsAdd = [analyTaul PV AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
-symms.comp=[ CEV CEVDy CEVPV ]; % for comparison of policy interventions, 
+symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
@@ -52,23 +53,23 @@ legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skil
 %% read in results
 %- baseline results without reduction
 if indic.xgrowth==0
-    helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+    helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
     bau=helper.LF_BAU';
-    helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+    helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill,indic.sep, etaa));
     LF=helper.LF_SIM';
 else
-    helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+    helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
     bau=helper.LF_SIM;
-    helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+    helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
     LF=helper.LF_SIM;
 end
-helper=load(sprintf('SP_target_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
+helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
 sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
+helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
 sp_not=helper.sp_all';
-helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
+helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
+helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
 opt_t_notaus=helper.opt_all';
 
 RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -80,9 +81,9 @@ varlist=[varlist, string(symms.plotsvarsAdd)];
 %-results with counterfactual productivity gap
 if indic.noskill==0
     if indic.xgrowth==0 
-        helper=load(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+        helper=load(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,etaa));
         bau=helper.LF_SIM;
-        helper=load(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
+        helper=load(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
         LF=helper.LF_SIM;
     end
 
@@ -102,13 +103,13 @@ if indic.noskill==0
 end
 
 %- version without endogenous growth
-helper=load(sprintf('SP_target_spillover%d_noskill%d_sep%d_xgrowth1_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
+helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth1_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
 sp_t=helper.sp_all';
-helper=load(sprintf('SP_notarget_spillover%d_noskill%d_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
+helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
 sp_not=helper.sp_all';
-helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
+helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
+helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep,indic.PV, etaa));
 opt_t_notaus=helper.opt_all';
 
 RES_xgr = containers.Map({ 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -134,9 +135,9 @@ for i=0:5 % loop over policy versions
     if indic.sep==0
         error('have to change variable list in function add_vars below')
     end
-    helper=load(sprintf('OPT_notarget_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i,indic.sep,indic.xgrowth,indic.PV, etaa));
+    helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i,indic.sep,indic.xgrowth,indic.PV, etaa));
     opt_not_notaus_notaul=[helper.opt_all';helper.addGov'];
-    helper=load(sprintf('OPT_target_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i, indic.sep, indic.xgrowth, indic.PV, etaa));
+    helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i, indic.sep, indic.xgrowth, indic.PV, etaa));
     opt_t_notaus_notaul=[helper.opt_all';helper.addGov'];
         
     if i==0
@@ -211,6 +212,7 @@ if plotts.table==1
 for i =keys(RES)
     ii=string(i);
     allvars= RES(ii);
+%     fprintf('%s', ii)
     % SWF calculation 
     TableSWF_PV.Integrated(TableSWF_PV.Allocation==ii)=vec_discount*allvars(find(varlist=='SWF'),:)'+indic.PV*allvars(find(varlist=='PV'),1);
 end
@@ -228,14 +230,17 @@ for i =keys(RES_polcomp_notaul0)
     end
 end
 %%
-save(sprintf('Table_SWF_July22_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat', indic.sep, indic.noskill, etaa, indic.xgrowth, indic.PV, indic.extern), 'TableSWF_PV');
+save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, indic.sep, indic.noskill, etaa, indic.xgrowth, indic.PV, indic.extern), 'TableSWF_PV');
 end
 
 %% table CEV
-%- calculate CEV for a pair of policy regimes each
-h1= OTHERPOL{3}; % taul can be used
-h2= OTHERPOL{2}; % taul cannot be used
-COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist_polcomp, varlist_polcomp, symms, list, params, T, indic);
+if plotts.cev==1
+    %- calculate CEV for a pair of policy regimes each
+    h1= OTHERPOL{3}; % taul can be used
+    h2= OTHERPOL{2}; % taul cannot be used
+    COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist_polcomp, varlist_polcomp, symms, list, params, T, indic);
+end
+
 %% Plots
 %- axes
 time = 1:T;
@@ -285,7 +290,7 @@ ytickformat('%.2f')
 xticklabels(Year10)
 %             title(sprintf('%s', varr), 'Interpreter', 'latex')
 ylabel('GtCO2-eq') 
-path=sprintf('figures/all_1705/emission_lim.png');
+path=sprintf('figures/all_%s/emission_lim.png', date);
 exportgraphics(gcf,path,'Resolution', 400)
 close gcf
 end
@@ -719,9 +724,9 @@ if plotts.singov==1
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
          end
         if indic.count_techgap==0
-            path=sprintf('figures/all_July22/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.extern, indic.PV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.extern, indic.PV,  etaa, lgdind);
         else
-            path=sprintf('figures/all_July22/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_countec_extern%d_PV%d_etaa%.2f_lgd%d.png',  nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/SingleJointTOT_regime%d_%s_%s_spillover%d_noskill%d_sep%d_xgrowth%d_countec_extern%d_PV%d_etaa%.2f_lgd%d.png',date,  nt, ii,ll, indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.extern, indic.PV, etaa, lgdind);
         end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

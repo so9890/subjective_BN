@@ -166,7 +166,7 @@ for nnt=0:5
         clearvars LF_SIM helper
 
         %- exogenous growth
-        indic.xgrowth=1
+        indic.xgrowth=1;
         [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         % helper.LF_SIM=LF_SIM;
         save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
@@ -224,13 +224,13 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 
-for tr =0
+for tr =1
     indic.target=tr;
-for xgr=0
+for xgr=0:1
     indic.xgrowth=xgr;
-for ns =1
+for ns =0:1
     indic.noskill=ns;
- for nnt=2
+ for nnt=3
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -266,7 +266,8 @@ indic
 % choose sort of plots to be plotted
 plotts.regime_gov=  1; % =1 then treats gov =consumes revenues as benchmark
 
-plotts.table=       0;
+plotts.table=       1;
+plotts.cev  =       0; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
@@ -281,16 +282,16 @@ plotts.regimes =    0; % ==1 plot results under other policies separately (indic
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     1;
+plotts.compeff=     0;
 plotts.compeff_dd=  0; % compare double dividend scenarios with and without income tax 
 plotts.compeff1=    0;
 plotts.compeff2=    0;
 plotts.compeff3=    0;
 
 %%
-for gg=0
+for gg=0:1
     indic.xgrowth=gg;
-for ns=0
+for ns=0:1
     indic.noskill=ns;
     plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts);
 end
