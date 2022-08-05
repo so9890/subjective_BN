@@ -224,13 +224,13 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 
-for tr =1
+for tr =0
     indic.target=tr;
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
-for ns =0:1
+for ns =1
     indic.noskill=ns;
- for nnt=3
+ for nnt=4
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -264,10 +264,10 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  3; % = equals policy version to be plotted
+plotts.regime_gov=  0; % = equals policy version to be plotted
 
 plotts.table=       0;
-plotts.cev  =       1; 
+plotts.cev  =       0; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
@@ -275,18 +275,20 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-plotts.single_pol=  0;
+plotts.single_pol=  1;
 plotts.singov=      0;
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
-plotts.regimes =    0; % ==1 plot results under other policies separately (indic.notaul)
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0;
-plotts.compeff_dd=  0; % compare double dividend scenarios with and without income tax 
-plotts.compeff1=    0;
-plotts.compeff2=    0;
+plotts.compeff1=    0; %1;
+plotts.compeff2=    0; %1;
 plotts.compeff3=    0;
+plotts.per_BAUt0 =  0;
+plotts.per_effopt0= 0;
+plotts.per_effoptd= 0;
+
 
 plotts.xgr = 0; % main version to be used for plots
 plotts.nsk = 0;

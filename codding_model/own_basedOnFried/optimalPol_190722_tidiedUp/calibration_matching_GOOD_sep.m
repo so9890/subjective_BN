@@ -24,7 +24,7 @@ function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201
 syms Af_lag Ag_lag An_lag ...
      sff sg sn  wsf wsg wsn ws gammaa chiis real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sff sg sn wsf wsg wsn gammaa chiis];
+     sff sg sn wsf wsg wsn chiis];
  
 list.calib3 =string(symms.calib3);
 
@@ -195,14 +195,29 @@ end
 Af = AfLf/Lf;
 An = AnLn/Ln;
 Ag = AgLg/Lg;
+
+
+%-- find upper bound on growth rate
+xup=[log(Af), log(Ag), log(An), log(0.1)];
+
+[ceq]= calibRem_upbar_gammaa(xup, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+modg=@(x)calibRem_upbar_gammaa(x, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+[x, fval, exitf] = fsolve(modg, xup, options);
+gammaa=exp(x(4));
+
+%%
+%- transform gamma to have an upper bound
+% hhel=exp(rr.x(list.calib3=='gammaa'));
+ rr.x=rr.x(list.calib3~='gammaa'); %=log((gammaup-gammaup*0.6)/gammaup*0.6);
 %-- solving model
-% f=calibRem_nows_fsolve_GOOD_sep_grA(rr.x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag); 
-modF3 = @(x)calibRem_nows_fsolve_GOOD_sep_grA(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag); 
+ f=calibRem_nows_fsolve_GOOD_sep_nogam(rr.x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
+modF3 = @(x)calibRem_nows_fsolve_GOOD_sep_nogam(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
 [x, fval, exitf] = fsolve(modF3, rr.x, options);
 
-save(sprintf('calib_308_rem_Agr_mu'), 'x');
+save(sprintf('calib_308_rem_nogam'), 'x');
 
 %- read in results for final validation 
 Af_lag  = exp(x(list.calib3=='Af_lag'));
@@ -211,14 +226,18 @@ An_lag  = exp(x(list.calib3=='An_lag'));
 wsg       = exp(x(list.calib3=='wsg'));
 wsf       = exp(x(list.calib3=='wsf'));
 wsn       = exp(x(list.calib3=='wsn'));
-gammaa   = exp(x(list.calib3=='gammaa'));
+% gammaa   = exp(x(list.calib3=='gammaa'));
+% gammaa = gammaup/(1+exp(x(list.calib3=='gammaa')));
+
 chiis   = exp(x(list.calib3=='chiis'));
 sff     = exp(x(list.calib3=='sff'));
 sg      = exp(x(list.calib3=='sg'));
 sn      = exp(x(list.calib3=='sn'));
 
-resSci=eval(symms.calib3); 
 
+resSci=[eval(symms.calib3 ), gammaa]; 
+syms gammaa real 
+symms.calib3=[symms.calib3, gammaa];
 % get calibrated parameters and policy
 [Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp);
 

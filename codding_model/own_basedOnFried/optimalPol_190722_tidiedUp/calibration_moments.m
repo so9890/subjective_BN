@@ -12,6 +12,8 @@ dataout =readtable('data/energy_consumption/combined.xlsx');
 dataskill =readtable('data/skill/employment_sharesConsoli.xlsx');
 datahours =readtable('data/hoursworked/ANHRS_03022021112723019.csv', 'ReadVariableNames', true);
 
+%- upper bound on growth
+MOM.grup=(1.04)^5-1;
 %- average hours 2015-2019
 MOM.targethour=1/5*(datahours.asShareOfTotalHours(datahours.TIME==2019)+datahours.asShareOfTotalHours(datahours.TIME==2018)+datahours.asShareOfTotalHours(datahours.TIME==2017)+datahours.asShareOfTotalHours(datahours.TIME==2016)+datahours.asShareOfTotalHours(datahours.TIME==2015));
 %- extract data and variables names

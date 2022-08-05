@@ -121,7 +121,7 @@ tauf    = 0;
 %-- get moments
 MOM = calibration_moments();
 % MOM.S = 0.01; % from fried: Supply scientists in base year
-MOM.growth = (1.02)^5 -1; %5 year grwoth rate
+MOM.growth = (1.017795)^5 -1; %5 year grwoth rate from OECD over initial period
 
 %% - emissions
 [deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 

@@ -1,4 +1,4 @@
-function  [ceq]= calibRem_nows_fsolve_GOOD_sep_grA(x, MOM, list, trProd, paramss, poll, Af, An, Ag)
+function  [ceq]= calibRem_nows_fsolve_GOOD_sep_grA(x, MOM, list, trProd, paramss, poll, Af, An, Ag, gammaup)
 % this function backs out missing functions:
 % 
 
@@ -16,7 +16,9 @@ wsf      = exp(x(list.calib3=='wsf'));
 wsg      = exp(x(list.calib3=='wsg'));
 % sigmaas = exp(x(list.calib3=='sigmaas'));
 chiis   = exp(x(list.calib3=='chiis'));
-gammaa  = exp(x(list.calib3=='gammaa'));
+% gammaa  = exp(x(list.calib3=='gammaa'));
+gammaa = gammaup/(1+exp(x(list.calib3=='gammaa')));
+
 % rhon  = exp(x(list.calib3=='rhon'));
 % rhog  = exp(x(list.calib3=='rhog'));
 % rhof  = exp(x(list.calib3=='rhof'));
@@ -48,7 +50,6 @@ q=0;
 %  ceq(q)= gammaa - MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii);
 
 % chis
-
 q=q+1;
 ceq(q)= (sff+sg+sn)/3-MOM.targethour;
 
