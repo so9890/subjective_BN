@@ -93,9 +93,13 @@ else
     f=laissez_faireVECT_xgrowth(x0, params, list, varrs, init201519,T, indic);
 end
 % to examine stuff
-
- if max(abs(f))>1e-8
-     error('LF function does not solve at 1e-10')
+if indic.notaul==0 && indic.noskill==1 && indic.xgrowth==0
+    comp=1e-7;
+else
+    comp=1e-8;
+end
+ if max(abs(f))>comp
+     error('LF function does not solve at 1e-8')
  else
      fprintf('Solution solves LF problem')
  end

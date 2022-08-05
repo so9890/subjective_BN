@@ -16,7 +16,6 @@ else
             symms.opt = [Lf Lg C F G h sn sff sg];
 
     end
-
 end
 
 if indic.xgrowth==1
@@ -40,10 +39,11 @@ nn= length(list.opt); % number of variables
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
      
-        helper=load(sprintf('OPT_target_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, etaa));
+        helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', 0,indic.notaul , indic.sep, 0, indic.PV, etaa));
         opt_all=helper.opt_all;
-    kappaa = [repmat(Ftarget(1), 1,percon) ,Ftarget']./opt_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
-    kappaa = kappaa*(1-1e-10);
+%     kappaa = [repmat(Ftarget(1), 1,percon) ,Ftarget']./opt_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
+kappaa= Ftarget'./opt_all(1:T,list.allvars=='F')';    
+kappaa = kappaa*(1-1e-10);
     
         x0 = zeros(nn*T,1);
     if indic.noskill==0
@@ -72,8 +72,7 @@ if indic.target==1
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
    end  
 elseif indic.target==0
-       
-    helper=load(sprintf('OPT_notarget_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
+        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, 1, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);
@@ -148,8 +147,10 @@ else
 end
 
 if indic.target==1
-    guess_trans(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))))./...
-     x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))));
+     guess_trans(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))))./...
+     x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))));
+%     guess_trans(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))))./...
+%      x0(T*(find(list.opt=='F')-1)+1+percon:T*(find(list.opt=='F'))));
 end
 
 lb=[];
@@ -157,6 +158,7 @@ ub=[];
 
 %%
 % Test Constraints and Objective Function %%%
+% percon=0;
 f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon);
 [c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon);
 
@@ -183,15 +185,21 @@ if indic.target==1
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
 
 elseif indic.target==0
+    if indic.notaul==0 || (indic.noskill==1 && indic.xgrowth==0)
+       options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    else
        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    end
        [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-        options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+       if ~(indic.noskill==1 && indic.xgrowth==0)
+       options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
         if ~ismember(exitflag, [1,4,5])
             error('active set did not solve sufficiently well')
         end
+        end
 end
-%   save('0308_results_opt_noskill_notaul1_notarget', 'x')
+%   save('0508_results_opt_main_notaul1_notarget_newems', 'x')
 % gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
 % x=gg.x;
 %% transform
@@ -223,7 +231,7 @@ else
 end
 
 if indic.target==1
-    out_trans((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+2:find(list.opt=='F')*T)));
+    out_trans((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
 end
 
 %% generate auxiliary variables

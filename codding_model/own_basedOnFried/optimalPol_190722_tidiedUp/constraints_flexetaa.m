@@ -3,7 +3,7 @@ function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic, M
 
 % pars
 read_in_params;
-Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
+% Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
 
 % transform x: all are exponentially transformed
  x=exp(y);
@@ -63,17 +63,17 @@ end
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % time period specific constraints! 
 c = []; %  periods and 2 additional ones: 
-c(1)= sum(F(1:percon))-Ftarg_20s; 
-c(2:T+1) = -GovCon; % government budget cannot be negative
-c(T+1+1:T*2+1) = -Tls; % lump-sum transfers cannot be negative
+% c(1)= sum(F(1:percon))-Ftarg_20s; % when percon=0 then this constraint is not active
+c(1:T) = -GovCon; % government budget cannot be negative
+c(T+1:T*2) = -Tls; % lump-sum transfers cannot be negative
 
 if indic.xgrowth==0
     if indic.sep==0
-        c(T*2+1+1:T*3+1)    = S-upbarH;
+        c(T*2+1:T*3)    = S-upbarH;
     else
-        c(T*2+1+1:T*3+1)   = sg-upbarH;
-        c(3*T+1+1:4*T+1)   = sff-upbarH;
-        c(4*T+1+1:5*T+1)   = sn-upbarH;
+        c(T*2+1:T*3)   = sg-upbarH;
+        c(3*T+1:4*T)   = sff-upbarH;
+        c(4*T+1:5*T)   = sn-upbarH;
     end
 end
  

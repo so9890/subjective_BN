@@ -25,7 +25,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
 lengthh = 5; % number of zears per period         
 indic.util =0; % ==0 log utility, otherwise as in Boppart
 
-indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
+indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
 indic.sep =1; %==1 is the benchmark; when finalising should be dropped
@@ -52,7 +52,7 @@ indic.PV = 1; % ==1 if continuation value is added to planners problem
 
 indic
 
-percon = 3;  % periods nonconstrained before 50\% constrained
+percon = 0;  % periods nonconstrained before 50\% constrained
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,7 +104,7 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
-for nnt=1:5
+for nnt=0:5
     indic.notaul=nnt;
 for i=0:1
     indic.noskill=i;
@@ -166,6 +166,7 @@ for nnt=0:5
         clearvars LF_SIM helper
 
         %- exogenous growth
+        indic.xgrowth=1
         [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         % helper.LF_SIM=LF_SIM;
         save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
@@ -193,14 +194,14 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for xgr=0
+for xgr=0:1
     indic.xgrowth=xgr;
-    for ns=1
+    for ns=0:1
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=1
+       for tar=0
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
@@ -227,9 +228,9 @@ for tr =0
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
-for ns =0
+for ns =1
     indic.noskill=ns;
- for nnt=4
+ for nnt=2
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0

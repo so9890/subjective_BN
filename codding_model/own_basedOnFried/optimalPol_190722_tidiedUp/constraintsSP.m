@@ -52,15 +52,15 @@ else
 end
 % inequality constraints
 c=[];
-c(1)= sum(F(1:percon))-Ftarg_20s; 
+% c(1)= sum(F(1:percon))-Ftarg_20s; 
 if indic.xgrowth==0
     if indic.sep==0
-        c(2:T+1)    = S-upbarH;
+        c(1:T)    = S-upbarH;
     else
         
-        c(2:T+1)=sg-upbarH;
-        c(T+1+1:2*T+1)=sff-upbarH;
-        c(2*T+1+1:3*T+1)=sn-upbarH;
+        c(1:T)=sg-upbarH;
+        c(T+1:2*T)=sff-upbarH;
+        c(2*T+1:3*T)=sn-upbarH;
 
     end
 end

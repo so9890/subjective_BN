@@ -58,10 +58,11 @@ MOM.US_Budget20_30           = globalcarbonBudget20_30*popshare20_30; % see whet
                         % necessary reduction
 % emission target us as a vector      
 % starting from 2030s (3rd period in model)
-E_vec          = [USnetlimit_modelperiods, zeros(1,(T*lengthh-(50-20))/lengthh)]; 
+length_firstBu = (T-(length(USnetlimit_modelperiods)+(T*lengthh-(50-20))/lengthh));
+E_vec          = [repmat(MOM.US_Budget20_30/length_firstBu, 1, length_firstBu ), USnetlimit_modelperiods, zeros(1,(T*lengthh-(50-20))/lengthh)]; 
                 % from t=1 to t=29 E=30; from t=30 (2050) to t=T E=0
 %- check if emission budget is satisfied
-(sum(E_vec(1:3)./popshare_30to50.popshare)+MOM.US_Budget20_30/mean(datasmall.popshare(datasmall.timeLabel>=2020 & datasmall.timeLabel<2035)))
+% (sum(E_vec(1:3)./popshare_30to50.popshare)+MOM.US_Budget20_30/mean(datasmall.popshare(datasmall.timeLabel>=2020 & datasmall.timeLabel<2035)))
 
 %- save gros emissions as average of baseline period expressed in model periods to
 %   calibrate omega
