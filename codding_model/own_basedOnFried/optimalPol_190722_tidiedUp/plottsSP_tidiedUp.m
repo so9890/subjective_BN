@@ -1,4 +1,4 @@
-function []=plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts)
+function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts)
 
 date="Aout22";
 if ~isfile(sprintf('figures/all_%s', date ))
@@ -9,11 +9,9 @@ end
 orrange= [0.8500 0.3250 0.0980];
 grrey = [0.6 0.6 0.6];
 
-if indic.sep==1
-    varlist=[list.sepallvars];
-else
-    varlist=[list.allvars];
-end
+
+varlist=[list.allvars];
+
 % this script plots results
 
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
@@ -50,23 +48,33 @@ lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {lis
 lissComp = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {string([hh hl]), string([sff sg sn S]), string([gAf gAg  gAn gAagg]), string([Lf Lg])});
 legg = containers.Map({'Labour', 'Science', 'Growth', 'LabourInp'}, {["high skill", "low skill"], ["fossil", "green", "non-energy", "total"], ["fossil", "green", "non-energy", "aggregate"], ["fossil", "green"]});
 
+%- new list 
+varlist_polcomp=[list.allvars, list.addgov, string(symms.plotsvarsAdd)];
+
 %% read in results
 %- baseline results without reduction
-if indic.xgrowth==0
-    helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
-    bau=helper.LF_BAU';
-    helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill,indic.sep, etaa));
-    LF=helper.LF_SIM';
-else
-    helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
-    bau=helper.LF_SIM;
-    helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, etaa));
-    LF=helper.LF_SIM;
-end
+
+OTHERPOL={}; % cell to save containers of different policy versions
+
+%- sp solution independent of policy
 helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
 sp_t=helper.sp_all';
 helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
 sp_not=helper.sp_all';
+
+for i=0:5 % loop over policy versions
+    if indic.xgrowth==0
+        helper=load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
+        bau=helper.LF_BAU';
+        helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill,indic.sep, i, etaa));
+        LF=helper.LF_SIM';
+    else
+        helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, i,etaa));
+        bau=helper.LF_SIM;
+        helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
+        LF=helper.LF_SIM;
+    end
+
 helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
 opt_not_notaus=helper.opt_all';
 helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul0_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,indic.PV, etaa));
