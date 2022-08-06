@@ -72,7 +72,7 @@ kappaa = kappaa*(1-1e-10);
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
    end  
 elseif indic.target==0
-        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, 5, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
+        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);

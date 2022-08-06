@@ -1,12 +1,13 @@
 \subsection{Calibration}\label{subsec:calib}
-I calibrate the model to the US in the baseline period from 2015 to 2019 procreeding in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions hold. Third, I choose parameters relating production, emissions and the emission limit. Tables \ref{tab:calib} and \ref{tab:calib2} summarise the calibrated parameter values.
+I calibrate the model to the US in the baseline period from 2015 to 2019 proceeding in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions hold. Third, I choose parameters relating production, emissions, and the emission limit. Tables \ref{tab:calib} and \ref{tab:calib2} summarize the calibrated parameter values.
 
-In the first step, I mainly rely on \cite{Fried2018ClimateAnalysis} to calibrate the parameters governing research processes, $\eta, \rho_f,\rho_n, \rho_g, \phi $, and production, $\varepsilon_e, \varepsilon_y, \alpha_f, \alpha_g, \alpha_n$.  Important for the present project: the labour share in the green sector is remarkably low with $\alpha_g=0.91$. This diminishes the significance of skill supply for green innovation and production. Furthermore, fossil and green energy are no close substitutes with $\varepsilon_e=1.5$ so that the cap on fossil energy cannot be fully substituted for by green energy. The utility parameters, $\beta, \sigma$ are set to $0.984^5$ and $0.75$ following \cite{Barrage2019OptimalPolicy} and \cite{Chetty2011AreMargins}, respectively. The business as usual (BAU) policy is set to $\tau_l=0.181, \tau_f=0$, where I borrow the tax progressivity parameter from \cite{Heathcote2017OptimalFramework}. 
+In the first step, I mainly rely on \cite{Fried2018ClimateAnalysis} to calibrate the parameters governing research processes, $\eta, \rho_f,\rho_n, \rho_g, \phi $, and production, $\varepsilon_e, \varepsilon_y, \alpha_f, \alpha_g, \alpha_n$.  Important for the present project: the labor share in the green sector is remarkably low with $\alpha_g=0.91$. This diminishes the significance of skill supply for green innovation and production. Furthermore, fossil and green energy are no close substitutes with $\varepsilon_e=1.5$ so that the cap on fossil energy cannot be fully substituted for by green energy. The utility parameters, $\beta, \sigma$ are set to $0.984^5$ and $0.75$ following \cite{Barrage2019OptimalPolicy} and \cite{Chetty2011AreMargins}, respectively. The business as usual (BAU) policy is set to $\tau_l=0.181, \tau_f=0$, where I borrow the tax progressivity parameter from \cite{Heathcote2017OptimalFramework}. 
 
 In the second step, I calibrate the weight on energy in final good production by matching the average expenditure share on energy relative to GDP over the period from 2015 to 2019 taken from the U.S. Energy Information Administration (EIA). The expenditure share equals 6\%.\footnote{\ The data on energy was retrieved from \url{https://www.eia.gov/totalenergy/data/monthly/}
- on April 06, 2022.} The resulting weight on energy is $\delta_y=0.45$\footnote{\ Note that in difference to \cite{Fried2018ClimateAnalysis} I raise the weight on intermediate inputs in final production to the power $\frac{1}{\varepsilon_y}$, so that in the limit the function approaches the Leontief specification as $\varepsilon_y\rightarrow 0$ \citep{Herrendorf2014GrowthTransformation}.}. The data to match the high-skill share in labour production are taken from table 3 in \cite{Consoli2016DoCapital}. In particular, I derive the share of high-skill labour in the green sector and for the non-green sector. I also assume that within the non-green sector, i.e. sectors N and F in the model, high-skilled labour shares are the same, $\theta_f=\theta_n$.  These three conditions determine $\theta_g=0.57$ and $\theta_f=\theta_n=0.42$. The share of high-skilled workers, $z_h$, is chosen to match a skill premium for the period 2005-2016 of $\frac{w_h}{w_l}=1.9$ following \cite{Slavik2020WagePremium}. The disutility of labour $\chi$ is set to match equilibrium average hours worked to average hours over the period from 2015-2019, 0.34, drawing from OECD data on annual average hours per worker worked. I normalise total economic time endowment per day, which I set to 14.5 as found in \cite{Jones1993OptimalGrowth}, to 1. The resulting disutility of labour in the model equals $\chi=10.02$. 
+ on April 06, 2022.} The resulting weight on energy is $\delta_y=0.38$\footnote{\ Note that in difference to \cite{Fried2018ClimateAnalysis} I raise the weight on intermediate inputs in final production to the power $\frac{1}{\varepsilon_y}$, so that in the limit the function approaches the Leontief specification as $\varepsilon_y\rightarrow 0$ \citep{Herrendorf2014GrowthTransformation}.}. The data to match the high-skill share in labor production are taken from table 3 in \cite{Consoli2016DoCapital}. In particular, I derive the share of high-skilled labor in the green sector and for the non-green sector. I assume that within the non-green sector, i.e. sectors N and F in the model, high-skilled labor shares are the same, $\theta_f=\theta_n$.  These three conditions determine $\theta_g=0.57$ and $\theta_f=\theta_n=0.42$. The share of high-skilled workers, $z_h$, is chosen to match a skill premium for the period 2005-2016 of $\frac{w_h}{w_l}=1.9$ following \cite{Slavik2020WagePremium}. The disutility of labor $\chi$ is set to match equilibrium average hours worked to average hours over the period from 2015-2019, $\chi=0.34$, drawing from OECD data on annual average hours per worker worked \textit{REFERENCE}. I normalize total economic time endowment per day, which I set to 14.5 as found in \cite{Jones1993OptimalGrowth}, to 1. 
 
- To find the remaining variables which determine research, these are  research productivity, $\gamma$, and the disutility from research, $\chi_s$, I match an annual growth rate in the non-energy sector of 2\% following \cite{Fried2018ClimateAnalysis} and set total hours supplied by scientists to 0.34 similar to workers. As a result,  $\chi_s=0.032$ and $\gamma=0.042$. Initial productivity levels follow from normalising output in the base period to $Y=1$ and matching the ratio of fossil to green energy utilisation over the years 2014-2019 which equals 7.33 according to the EIA. I find that $A_{n0}=4.3$, $A_{f0}=3350$, and $A_{g0}=95.4$ which refer to the period 2010-2014. The enormous difference in energy productivity levels follows from the low labour share in the green sector, $\alpha_g=0.09$ compared to $\alpha_f= 0.28$. 
+ Two more variables determining research remain to be calibrated: research productivity, $\gamma$, and the disutility from research, $\chi_s$.
+ To find $\gamma$, I force the maximum aggregate growth rate, defined as the growth rate which would obtain, if researchers worked all available hours, i.e., $s_n=s_f=s_g=1$, to match an annual growth rate of $4\%$. This value roughly reflects an upper bound for annual growth rates in the US from 2010 to 2019 \textit{OECD ref}. The resulting research productivity is $\gamma = 0.06$.  Finally, I set average hours supplied by scientists to 0.34 similar to workers while equilibrium equations have to hold. As a result,  $\chi_s=0.12$. Initial productivity levels follow from normalizing output in the base period to $Y=1$ and matching the ratio of fossil to green energy utilisation over the years 2014-2019 which equals 7.33 according to the EIA. I find that $A_{n0}=5.24$, $A_{f0}=1850.60$, and $A_{g0}=14.79$ which refer to the 2010-2014 period. The enormous difference in energy productivity levels follows from the low labor share in the green sector, $\alpha_g=0.09$ compared to $\alpha_f= 0.28$. 
  \thispagestyle{empty}
  \begin{table}[h!]
  	\begin{center}
@@ -24,13 +25,13 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline 
  			
  			\hline
- 			$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity  \\
+ 			$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity labor  \\
  			\hline
  			$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}&0.2121&\makecell[l]{share of\\ high-skilled workers} \\	
  			\hline			
- 			$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.021 & inverse Frisch elasticity  \\
+ 			$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.02 & disutility labor \\
  			\hline
- 			$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.9272 & 5 year discount factor  \\
+ 			$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.93 & 5 year discount factor  \\
  			\hline
  			$\bar{H}$& \makecell[l]{14.5 hours per day\\ \cite{Jones1993OptimalGrowth}}&5&\makecell[l]{economic time endowment \\per 5 years, normalised} \\
  			\hline
@@ -39,9 +40,9 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline
  			
  			\hline
- 			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity  \\
+ 			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $4/3$ & inverse Frisch elasticity research \\
  			\hline
- 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}} & 0.032 & disutility from science\\
+ 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}} & 0.12 & disutility research\\
  			\hline
  			$\eta$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.79 & spillover research\\
  			\hline			
@@ -49,11 +50,11 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline			
  			$\rho_g$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 &\makecell[l]{research tasks in\\ green sector}\\
  			\hline			
- 			$\rho_n$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 1 &\makecell[l]{research tasks in \\non-energy sector}\\
+ 			$\rho_n$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 1.00 &\makecell[l]{research tasks in \\non-energy sector}\\
  			\hline			
- 			$\phi$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.5 &across-sector research spillovers\\
+ 			$\phi$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.50 &across-sector research spillovers\\
  			\hline
- 			$\gamma$ &\makecell[l]{growth in non-energy sector:\\2\% per annum \cite{Fried2018ClimateAnalysis}} & 0.0042 & productivity of research\\
+ 			$\gamma$ &\makecell[l]{maximum aggregate growth:\\4\% per annum, 0.2167 per period} & 0.06 & productivity of research\\
  			\hline
  			\hline
  			Production&\multicolumn{3}{c}{}\\
@@ -62,9 +63,9 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline
  			$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05& \makecell[l]{substitutability \\ energy and non-energy}\\			
  			\hline
- 			$\delta_y$&\makecell[l]{expenditure share \\ on energy IEA}&0.4496& \makecell[l]{weight on energy in\\ final good production}\\	
+ 			$\delta_y$&\makecell[l]{expenditure share \\ on energy IEA}&0.38& \makecell[l]{weight on energy in\\ final good production}\\	
  			\hline
- 			$\varepsilon_e$&\cite{Fried2018ClimateAnalysis}&1.5& \makecell[l]{substitutability \\ green and fossil energy}\\	
+ 			$\varepsilon_e$&\cite{Fried2018ClimateAnalysis}&1.50& \makecell[l]{substitutability \\ green and fossil energy}\\	
  			\hline
  			$\alpha_f$&\cite{Fried2018ClimateAnalysis} &0.72& capital share fossil  \\
  			\hline
@@ -79,11 +80,11 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline
  			
  			\hline
- 			$A_{f0}$&- &3350.5& \makecell[l]{initial productivity \\ fossil sector, 2014-2019}  \\
+ 			$A_{f0}$&- &1840.60& \makecell[l]{initial productivity \\ fossil sector, 2015-2019}  \\
  			\hline
- 			$A_{g0}$&- &95.4& \makecell[l]{initial productivity \\ green sector, 2014-2019}  \\
+ 			$A_{g0}$&- &14.79& \makecell[l]{initial productivity \\ green sector, 2015-2019}  \\
  			\hline
- 			$A_{n0}$&- &4.3& \makecell[l]{initial productivity \\ non-energy sector, 2014-2019}  \\
+ 			$A_{n0}$&- &5.24& \makecell[l]{initial productivity \\ non-energy sector, 2015-2019}  \\
  			\hline \hline
  		\end{tabular}
  	\end{center}
@@ -93,44 +94,54 @@ In the second step, I calibrate the weight on energy in final good production by
  %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO2 equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
  
  % procedure
- The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO2 emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO2 in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO2 emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting 1.5°C climate targets.  Furthermore, the report foresees a global net-CO2 budget from 2020 to the net-zero phase  of 510 GtCO2. 
+ Finally, I calibrate emissions and the emission limit.  I focus the model on CO2 emissions only abstracting from other greenhouse gasses. This keeps the model simple while, according to \cite{IPCC2022} carbon dioxide is the most relevant for mitigation policies.\footnote{\ CO2 dominates total greenhouse gas forcing \citep[p.29]{IPCC2022}, and other greenhouse gasses hold a smaller mitigation potential (p.26).}
+ %	 WG3 IPCC report (p.37) \textbf{\textit{The trajectory of future CO2 emissions plays a critical role in mitigation, given CO2 long-term impact and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO2 greenhouse gas emissions less than CO2 due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}.  
+ 
+ The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO2 emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO2 in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO2 emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting the 1.5°C climate target.  Furthermore, the report stipulates a remaining global net-CO2 budget of 510 GtCO2 ($\approx$ 510,000 million metric tons) from 2020 to the net-zero phase starting from 2050 \textit{(p.5 Chapter 3)}. 
  
 To deduce emission limits for the US, further assumptions on the distribution of mitigation burdens have to be made. I follow \cite{RobiouDuPont2017EquitableGoals} who consider 5 distinct principles of distributive burden sharing. For the main calibration, I use an \textit{equal-per-capita} approach according to which emissions per capita shall be equalized across countries. 
  
  % data
- In 2019, US greenhouse-gas emissions amounted to 6,558 million metric tons (6.558Gt) of carbon dioxide equivalents and to net-emissions of 5.7691Gt. Information on emissions comes from the United States Environmental Protection Agency (EPA).\footnote{\ Retrieved on February 2, 2022 from  \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}. }
-   Expressed in model periods, which correspond to five years, the net emission limit in the 2030s amounts to: 14.4228Gt.  % This decline in emissions amounts to a gros emission target for the US of  $3.2792$Gt.
- I assume here that each country contributes to the global reduction by the same percentage of 50\% of its own emissions.\footnote{\ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This would result in an even stricter target for the US which contributed almost 20\% to global greenhouse-gas emissions in 2019 (based on own calculations where total emissions come from the EIA global greenhouse-gas information, to be found here \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions}).}
- Starting from 2050, the net-emission target is zero. 
+ 2019 global net CO2 emissions amounted to 44.25Gt \citep[compare figure SPM1.a in SPM, p.6][]{IPCC2022} yielding a net emission limit in the 2030s of 22.125Gt per annum. The IPCC report is vague on the exact year when the 50\% reduction has to be reached; therefore, I assume that the emission limit becomes binding in 2035 and is active until the limit reduces to zero in 2050. 
+ To back out the share of the emission limit assigned to the US following the \textit{equal-per-capita} principle, I use population projections from the UN.
+ \footnote{\ Retrieved on 4 August, 2022 from \url{https://population.un.org/dataportal/data/indicators/49/locations/900,840/start/2010/end/2100/table/pivotbylocation}.} 
+ I calculate annual limits and sum up those years which form a period in the model.  Since, the US population share is projected to decline over the period from 2035 to 2050, the emission limit declines over the period from 2035 to 2050. 
  
-% sinks
- I calibrate the sink capacity to match the average difference between gross and net emissions over the baseline period from 2015 to 2019. The resulting sink capacity per model period is  $\delta=3.9633$Gt, which I assume to be constant, as discussed above. 
- In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as
- $\Omega_{2030-2050}$= 2.4899Gt and $\Omega_{2050-2080}$= 0Gt. The parameter relating emissions and the use of fossil energy in the base period equals $\omega=126.0602$.\footnote{\ Note that I perceive fossil energy as the source of all greenhouse-gas emissions.}  
+ The remaining net CO2 budget for the period 2020-2035 happens to be smaller than total CO2 emissions equal to the limit between 2035-2050. This conflicts with the downward sloping time path of emissions foreseen by the IPCC (p.3-28).\footnote{\ The reason is that global net-CO2 emissions are so high, that a 50\% reduction starting from 2035 results in more than half the emissions of the remaining carbon budget. }
+ To generate a non-increasing pattern of the emission limit, I set the global emission limit for the period from 2035 to 2050 to half of the CO2 budget. This leaves an equal budget share for the initial 15 years. I assume that in the period from 2020 to 2035 the budget is equally distributed across years to simplify the calculation of the optimal policy. As for the period from 2035 to 2050 I apply the year-specific population share and sum over those years which form a model period.\footnote{\ In sum, this approach amounts to distributing the remaining budget of 510Gt equally over the 30 years until the net-zero limit.} 
  
- Data on population comes from \url{https://data.oecd.org/pop/population.htm}. 
+  In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as
+ $\Omega_{2030-2050}$= 2.4899Gt and $\Omega_{2050-2080}$= 0Gt. 
+ These results come close to but exceed an emission limit if the requirement was to lower US emissions by 50\%, which would result to 2.309.\footnote{\ This number follows from a \textit{constant emission ratio} approach.} The \textit{equal per capita} approach is favorable to population high countries as the US. Therefore, in the sensitivity analysis, I rerun the model where US emission limits follow from an \textit{Equal cumulative per capita} approach, where countries with historically  high emissions per capita mitigate more.
  
- \textit{Convergence towards equal annual emissions per person} as a fair allocation of reductions. Then US emissions per capita should equal world emissions per capita. 
- I use the UN projected population measure to proxy for future population size.\footnote{\ Retrieved on 4 August, 2022 from \url{https://population.un.org/dataportal/data/indicators/49/locations/900,840/start/2010/end/2100/table/pivotbylocation}.} 
- I abstract from other greenhouse gases as the main driver of climate warming \textit{WG3 IPCC report p.37 \textbf{\textit{The trajectory of future CO2 emissions plays a critical role in mitigation, given CO2 long-term impact
-			32 and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO2
-		54 greenhouse gas emissions less than CO2 due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}. The calibration is done with respect to CO2 emissions. 
+% I assume here that each country contributes to the global reduction by the same percentage of 50\% of its own emissions.\footnote{\ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This would result in an even stricter target for the US which contributed almost 20\% to global greenhouse-gas emissions in 2019 (based on own calculations where total emissions come from the EIA global greenhouse-gas information, to be found here \url{https://www.iea.org/reports/global-energy-review-2021/co2-emissions}).}
+% Starting from 2050, the net-emission target is zero. 
+ 
+% sinks and emission from fossil sector
+ I calibrate the sink capacity to match the average difference between gross and net CO2 emissions over the baseline period from 2015 to 2019.  Information on emissions comes from the United States Environmental Protection Agency (EPA).\footnote{\ Retrieved on February 2, 2022 from  \url{https://www.epa.gov/newsreleases/latest-inventory-us-greenhouse-gas-emissions-and-sinks-shows-long-term-reductions-0}. } Since sinks are calculated as the difference between gros and net emissions of all greenhouse-gasses. I assume that the sink capacity with respect to carbon dioxide is the same share as the contribution of this gas to gros greenhouse-gas emissions. The resulting sink capacity of CO2 per model period is $\delta=3.19$GtCO2.  I assume this capacity to be constant, as discussed above. 
+ The parameter relating CO2 emissions and the use of fossil energy in the base period equals $\omega=217.39$.\footnote{\ I perceive the fossil sector in the model as the source of all CO2 emissions including, for instance, non-energy use of fuels and incineration of waste.}  
+ 
+ 
+
+ 
+% \textit{Convergence towards equal annual emissions per person} as a fair allocation of reductions. Then US emissions per capita should equal world emissions per capita. 
+% I use the UN projected population measure to proxy for future population size.
+%  The calibration is done with respect to CO2 emissions. 
 
 
-Using the population share of the US to determine the emission limit results in a remaining net CO2 budget for the period 2020-2035 below the period of 2035-2050. This conflicts with the downward sloping time path of emissions foreseen by the IPCC (p.3-28).\footnote{\ The reason is that global net-CO2 emissions are so high, that a 50\% reduction starting from 2035 results in more than half the emissions of the remaining carbon budget. }
-To generate a downward sloping pattern, I require the remaining budget per annum for the 2020-2035 period to exceed the budget used for the later period. 
-Hence, the smallest adjustment follows from equal budgets per period. 
-I reduce each limit in the 2035-2050 period so that in sum total emissions equal 510*population share US/2.
 
-This result leads to the following emission limits
-From 2020 to 2035 there is a total budget of net-CO2 emissions of 10.627Gt for the US. From 2035 to 2050 model-period emissions may amount to [2.900, 2.854, 2.809].\footnote{\ I use here that in earlier test runs the emission limits have been fully exploited. }
-These results come close to but exceed an emission limit if the requirement was to lower US emissions by 50\%, which would result to 2.309.\footnote{\ This number follows from a \textit{constant emission ratio} approach.} The \textit{equal per capita} approach is favorable to population high countries as the US. Therefore, in the sensitivity analysis, I rerun the model where US emission limits follow from an \textit{Equal cumulative per capita} approach, where countries with historically  high emissions per capita mitigate more.
+%Hence, the smallest adjustment follows from equal budgets per period. 
+%I reduce each limit in the same proportion in the 2035-2050 period so that the remaining budget for the US for the period 2020 to 2035 
+
+%This result leads to the following emission limits
+%From 2020 to 2035 there is a total budget of net-CO2 emissions of 10.627Gt for the US. From 2035 to 2050 model-period emissions may amount to [2.900, 2.854, 2.809].\footnote{\ I use here that in earlier test runs the emission limits have been fully exploited. }
+
  \clearpage
 
  \begin{table}[hh!!!!!]
  	\begin{center}
  		\captionsetup{width=0.9\textwidth}
- 		\caption{ Calibration baseline model: labour, Government, and Emissions}
+ 		\caption{ Calibration baseline model: labor, Government, and Emissions}
  		\label{tab:calib2}
  		\begin{tabular}{c|lll}
  			%			\hline \hline
@@ -139,15 +150,15 @@ These results come close to but exceed an emission limit if the requirement was 
  			Parameter& Target/Source& \makecell[l]{Calibration}& \makecell[l]{Meaning}\\ 
  			\hline
  			\hline
- 			labour Production&\multicolumn{3}{c}{}\\
+ 			Labor production&\multicolumn{3}{c}{}\\
  			\hline 
  			
  			\hline
- 			$\theta_f$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.4194&\makecell[l]{income share high \\ skill fossil sector}\\
+ 			$\theta_f$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.42&\makecell[l]{income share high \\ skill fossil sector}\\
  			\hline
- 			$\theta_g$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% }&0.5661&\makecell[l]{indome share high \\skill green sector}\\
+ 			$\theta_g$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% }&0.57&\makecell[l]{indome share high \\skill green sector}\\
  			\hline
- 			$\theta_n$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.4194&\makecell[l]{income share high \\ skillnon-energy sector}\\
+ 			$\theta_n$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.42&\makecell[l]{income share high \\ skillnon-energy sector}\\
  			\hline
  			\hline
  			Government&\multicolumn{3}{c}{}\\
@@ -156,18 +167,18 @@ These results come close to but exceed an emission limit if the requirement was 
  			\hline
  			$\tau_f$&- &0& sales tax on fossil energy\\
  			\hline
- 			$\tau_l$&\cite{Heathcote2017OptimalFramework} &0.181& income tax progressivity\\
+ 			$\tau_l$&\cite{Heathcote2017OptimalFramework} &0.18& income tax progressivity\\
  			\hline	
  			\hline
  			Emissions&\multicolumn{3}{c}{}\\
  			\hline
  			
  			\hline
- 			$\delta$& \makecell[l]{EPA}&0.7893&carbon sinks \\
+ 			$\delta$& \makecell[l]{EPA}&3.19&carbon sinks \\
  			\hline
- 			$\omega$& EPA&45.5634& \makecell[l]{ gross emissions as a\\ fraction of fossil output}\\
+ 			$\omega$& EPA&217.39& \makecell[l]{ gross emissions as a\\ fraction of fossil output}\\
  			\hline
- 			$\Omega$& \cite{IPCC2022}&\makecell[l]{from 2030-2050: 2.4899Gt\\2050-2080: 0Gt}& \makecell[l]{vector of \\ net emission limits}\\
+ 			$\Omega$& \cite{IPCC2022}&\makecell[l]{2020 to 2035: 3.5424Gt;\\ 2035: 2.9002Gt; 2040: 2.8538Gt; \\2045: 2.8087Gt; from 2050: 0Gt}& \makecell[l]{vector of \\ net emission limits}\\
  			\hline \hline
  		\end{tabular}
  	\end{center}

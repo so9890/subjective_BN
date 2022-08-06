@@ -201,7 +201,7 @@ for xgr=0:1
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=0
+       for tar=1
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
@@ -224,13 +224,13 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 
-for tr =0
+for tr =1
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
-for ns =1
+for ns =0
     indic.noskill=ns;
- for nnt=4
+ for nnt=0
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -281,17 +281,22 @@ plotts.notaul=      0; % policy comparisons; this one needs to be switched on to
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff1=    0; %1; only social planner
-plotts.compeff2=    1; %1; efficient and non benchmark
-plotts.compeff3=    1; % sp versus optimal benchmark
-plotts.per_BAUt0 =  1;
-plotts.per_effopt0= 1;
-plotts.per_effoptd= 1;
+plotts.compeff2=    0; %1; efficient and non benchmark
+plotts.compeff3=    0; % sp versus optimal benchmark
+plotts.per_BAUt0 =  0;
+plotts.per_effopt0= 0;
+plotts.per_effoptd= 0;
+plotts.per_baud =   0;
+plotts.per_LFd  =   0; % dynamic lf as benchmark
+plotts.per_LFt0  =  0; % 2020  lf as benchmark
+plotts.per_optd =   1;
+
 
 
 for xgr =0
-    for nsk=1
+    for nsk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts

@@ -92,10 +92,10 @@ if indic.target==0
     
     else
        fprintf('using sp solution') 
-%         helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.PV, params(list.params=='etaa')));
-        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,4, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
+         helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.PV, params(list.params=='etaa')));
+%        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,4, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
-        sp_all=helper.opt_all;
+        sp_all=helper.sp_all;
             if indic.noskill==0
                 x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
                 x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -134,10 +134,10 @@ elseif indic.target==1
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
         fprintf('using sp solution as initial value')
-        %helper= load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')));
-       helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.noskill, 4 , indic.sep, indic.xgrowth, indic.PV, etaa));
+       helper= load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')));
+       %helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.noskill, 4 , indic.sep, indic.xgrowth, indic.PV, etaa));
 
-        sp_all=helper.opt_all;
+        sp_all=helper.sp_all;
         % with new emission target
         kappaa = [repmat(Ftarget(1),1, percon),Ftarget]./sp_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
         kappaa = kappaa*(1-1e-10);

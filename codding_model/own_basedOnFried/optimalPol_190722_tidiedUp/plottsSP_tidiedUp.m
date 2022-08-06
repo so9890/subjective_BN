@@ -628,7 +628,7 @@ if plotts.compeff2==1
                end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_noopt_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, etaa, lgdind, withlff);
+        path=sprintf('figures/all_%s/%s_CompEff%s_noopt_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, count, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -800,6 +800,52 @@ if plotts.per_BAUt0==1
       end
     
 end
+
+%%
+if plotts.per_LFt0==1
+    % plot graphs in percent relative to LF, efficient/optimal world
+    % without tagret dynamic and with t, percentage change over time relative to BAU scenario
+    % in t=0;
+     fprintf('plotting percentage relative to bau eff vs opt') 
+
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        bau=RES('BAU');
+               
+        allvars= RES('OPT_T_NoTaus');
+        allvarseff= RES('SP_T');
+
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            rev = bau(find(varlist==varr), 1);
+            
+            main=plot(time,(allvarseff(find(varlist==varr),1:T)-rev)./rev,time,(allvars(find(varlist==varr),1:T)-rev)./rev, 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('efficient', 'optimal policy', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_PercentageLFComp_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    
+end
 %%
  if plotts.per_effopt0==1
     % plot graphs in percent relative to LF, efficient/optimal world
@@ -849,17 +895,60 @@ end
  end   
 
 %%
- if plotts.per_effoptd==1
+ if plotts.per_optd==1
     % plot graphs in percent relative toefficient/optimal world
     % without tagret dynamic 
-     fprintf('plotting percentage relative to eff vs opt dynamic') 
+     fprintf('plotting percentage relative to opt dynamic') 
+
+        RES=OTHERPOLL{plotts.regime_gov+1};
+               
+        allvars= RES('OPT_T_NoTaus');
+        revall =RES('OPT_NOT_NoTaus');
+        
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot(time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend( 'optimal policy', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_PercentageOptDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    
+ end   
+
+ %%
+ % expressed in reduction relative to bau per period/ dynamic
+if plotts.per_baud==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage relative to bau dynamic') 
 
         RES=OTHERPOLL{plotts.regime_gov+1};
                
         allvars= RES('OPT_T_NoTaus');
         allvarseff= RES('SP_T');
-        revall =RES('OPT_NOT_NoTaus');
-        revalleff =RES('SP_NOT');
+        revall =RES('BAU');
 
     %% 
     for l = keys(lisst) % loop over variable groups
@@ -870,7 +959,7 @@ end
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
             
-            main=plot(time,(allvarseff(find(varlist==varr),1:T)-revalleff(find(varlist==varr), 1:T))./revalleff(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
+            main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
            xlim([1, time(end)])
@@ -884,7 +973,52 @@ end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageEffOptDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageBAUDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    
+end   
+ 
+ %%
+ % expressed in reduction relative to bau per period/ dynamic
+if plotts.per_LFd==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage relative to bau dynamic') 
+
+        RES=OTHERPOLL{plotts.regime_gov+1};
+               
+        allvars= RES('OPT_T_NoTaus');
+        allvarseff= RES('SP_T');
+        revall =RES('LF');
+
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           xlim([1, time(end)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('efficient', 'optimal policy', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -892,6 +1026,5 @@ end
       end
     
  end   
-
 
 end     

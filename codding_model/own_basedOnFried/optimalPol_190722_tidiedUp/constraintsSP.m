@@ -3,7 +3,7 @@ function [c, ceq] = constraintsSP(y, T, params, init, list, Ems, indic, percon, 
 % pars
 read_in_params;
 Ftarget=(Ems+deltaa)./omegaa; 
-Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
+% Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
 % transform x: all are exponentially transformed
  x=exp(y);
 % except for hours
