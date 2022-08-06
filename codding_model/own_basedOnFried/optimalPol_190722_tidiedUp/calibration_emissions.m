@@ -28,6 +28,7 @@ deltaa         = mean(grosemissions1519_equi-netemissions1519_equi)*averagecontr
 %--- emissions and target emissions
 % emissionsUS2019     = grosemissions1519(end); 
 netemissionsUS2019  = grosemissions1519_co2(end)-deltaa/5; % annual 
+% netemlimit35_equalratio = netemissionsUS2019*0.5*5
 netemissionsGlobal2019 = 0.75*59; % from IPCC report table a page 6 SPM
 
 
