@@ -23,7 +23,7 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
 lengthh = 5; % number of zears per period         
-indic.util =0; % ==0 log utility, otherwise as in Boppart
+indic.util =0; % ==0 log utility, otherwise as  in Boppart
 
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
@@ -264,7 +264,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  0; % = equals policy version to be plotted
+plotts.regime_gov=  3; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -275,27 +275,30 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-plotts.single_pol=  1;
+plotts.single_pol=  0;
 plotts.singov=      0;
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     0;
-plotts.compeff1=    0; %1;
-plotts.compeff2=    0; %1;
-plotts.compeff3=    0;
-plotts.per_BAUt0 =  0;
-plotts.per_effopt0= 0;
-plotts.per_effoptd= 0;
+plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff1=    0; %1; only social planner
+plotts.compeff2=    1; %1; efficient and non benchmark
+plotts.compeff3=    1; % sp versus optimal benchmark
+plotts.per_BAUt0 =  1;
+plotts.per_effopt0= 1;
+plotts.per_effoptd= 1;
 
 
-plotts.xgr = 0; % main version to be used for plots
-plotts.nsk = 0;
-
+for xgr =0
+    for nsk=1
+plotts.xgr = xgr; % main version to be used for plots
+plotts.nsk = nsk;
+plotts
 %%
 plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
-
+    end
+end
 %%
 for gg=0:1
     indic.xgrowth=gg;

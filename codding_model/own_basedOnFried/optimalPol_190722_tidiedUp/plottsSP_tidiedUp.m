@@ -409,7 +409,7 @@ end
 %% comparison social planner and optimal policy benchmark and comparison policy
 % graph incorporates with and without laissez faire allocation 
 if plotts.compeff==1
-    fprintf('plotting comparison efficient-optimal graphs')   
+    fprintf('plotting comparison efficient-optimal and non benchmark graphs')   
 
     %- read in container of results
     RES=OTHERPOLL{plotts.regime_gov+1};
@@ -510,7 +510,7 @@ end
 
 %% only social planner
 if plotts.compeff1==1
-    fprintf('plotting comparison efficient')   
+    fprintf('plotting efficient')   
 
     %- read in container of results: any fine for social planner
     RES=OTHERPOLL{1};
@@ -769,7 +769,6 @@ if plotts.per_BAUt0==1
         allvarseff= RES('SP_T');
 
     %% 
-    fprintf('plotting %s',ii );
     for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
@@ -816,7 +815,6 @@ end
         revalleff =RES('SP_NOT');
 
     %% 
-    fprintf('plotting %s',ii );
     for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
@@ -864,7 +862,6 @@ end
         revalleff =RES('SP_NOT');
 
     %% 
-    fprintf('plotting %s',ii );
     for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
