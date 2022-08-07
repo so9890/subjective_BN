@@ -296,8 +296,8 @@ plotts.per_optd =   0;
 
 
 
-for xgr =0
-    for nsk=0
+for xgr =1
+    for nsk=0:1
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts
