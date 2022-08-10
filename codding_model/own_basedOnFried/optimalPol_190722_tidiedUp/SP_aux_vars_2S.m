@@ -130,7 +130,12 @@ if indic.sep==0
     %- last period growth rate as proxy for future growth rates
     gammay = Y(T)/Y(T-1)-1;
     PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
-    PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    UtillabMean = chii.*(zh.*mean(hh).^(1+sigmaa)+(1-zh).*mean(hl).^(1+sigmaa))./(1+sigmaa);
+
+   UtilsciMean = chiis*mean(sff).^(1+sigmaas)./(1+sigmaas)+chiis*mean(sg).^(1+sigmaas)./(1+sigmaas)+chiis*mean(sn).^(1+sigmaas)./(1+sigmaas);
+
+ 
+    PVwork = indic.PVwork *1/(1-betaa)*(UtillabMean+UtilsciMean); % this decreases last period work and science 
     PV= betaa^T*(PVconsump-PVwork);
 
     %Objective function value:

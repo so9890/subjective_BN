@@ -49,7 +49,7 @@ end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.PV = 1; % ==1 if continuation value is added to planners problem
-
+indic.PVwork =0; %==0 then disutility of work is not in 
 indic
 
 percon = 0;  % periods nonconstrained before 50\% constrained
@@ -194,14 +194,14 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
-    for ns=0:1
+    for ns=1
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=1
+       for tar=0
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
@@ -226,11 +226,11 @@ indic.extern=0;
 
 for tr =1
     indic.target=tr;
-for xgr=0
+for xgr=1
     indic.xgrowth=xgr;
-for ns =0
-    indic.noskill=ns;
- for nnt=0
+for nsk=1
+    indic.noskill=nsk;
+ for nnt=3
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -277,10 +277,11 @@ plotts.countcomp3=  0;
 plotts.extern=      0;
 plotts.single_pol=  0;
 plotts.singov=      0;
+
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau=         0; % do plot bau comparison
-plotts.lf=          1; % comparison to laissez faire allocation 
-plotts.comptarg=    1; % comparison with and without target
+plotts.lf=          0; % comparison to laissez faire allocation 
+plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -295,9 +296,8 @@ plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
 
-
-for xgr =1
-    for nsk=0:1
+for xgr =0
+    for nsk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts

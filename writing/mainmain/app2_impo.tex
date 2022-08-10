@@ -38,8 +38,8 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 \input{app_analy}
 %\input{app_analy_functional}
 
-\section{Quantitative model equations}\label{app:quant_mod}
-\subsection{Model}
+\section{Quantitative model}\label{app:quant_mod}
+\subsection{Model equations}
 Assuming interior solutions for labor and research supply.
 \begin{align}
 \text{\textbf{Household}}&\\ \text{period utility}\vspace{4mm}&  \frac{C_t^{1-\theta}}{1-\theta}-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_f^{1+\sigma}+s_g^{1+\sigma}+s_n^{1+\sigma}}{{1+\sigma}} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
@@ -146,6 +146,30 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 &h_{lft}+h_{lnt}+h_{lgt}=z_{l} h_{lt}\\
 &C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i=Y_t
 \end{align}
+
+\subsection{Continuation value of planner's objective function}\label{app:PV}
+I define the continuation value as the potential utility over the infinite horizon starting from the last explicit maximization period assuming that all utility gains of today's technology are measured through consumption.
+\begin{align}
+PV=\sum_{s=T+2}^{\infty} \beta^{s}u(C_s,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
+\end{align}
+
+I make four simplifying assumptions to substitute the infinite sum in the optimization problem. First, I assume that labor and research inputs are the same as in the last direct optimization period, $T+1$.
+I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant.  Second, I assume that the savings rate is the same as in the last optimization period, $T$. Then, consumption grows at the same rate as output. 
+Third, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
+Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_T$.
+
+For the rest of the analysis, I use the following functional forms
+\begin{align}
+u(C_t,h_{ht}, h_{lt}, s_{gt}, s_{nt}, s_{ft})= \frac{C_t^{1-\theta}}{1-\theta}-\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kt}^{1+\sigma}}{1+\sigma}\right)-\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)
+\end{align}
+
+Substituting the functional forms, the present value of the infinite sum reduces to
+\begin{align}
+PV= \beta^T\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_T^{1-\theta}}{1-\theta}-\frac{1}{1-\beta}\left[\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kT}^{1+\sigma}}{1+\sigma}\right)+\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jT}^{1+\sigma_s}}{1+\sigma_s}\right)\right]\right).
+\end{align}
+\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
+
+
 \section{Quantitative results}\label{app:quant_res}
 
 

@@ -155,7 +155,7 @@ Utillab = chii*(h.^(1+sigmaa))./(1+sigmaa);
     %- last period growth rate as proxy for future growth rates
     gammay = Y(T)/Y(T-1)-1;
     PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
-    PVwork = 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    PVwork = indic.PVwork*1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
     PV= betaa^T*(PVconsump-PVwork);
 
     %Objective function value:

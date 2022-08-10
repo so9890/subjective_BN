@@ -2,7 +2,7 @@ function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plott
 
 % this script plots results
 
-date="Aout22";
+date="10Aout22";
 if ~isfile(sprintf('figures/all_%s', date ))
     mkdir(sprintf('figures/all_%s', date));
 end
@@ -63,9 +63,9 @@ for nsk =0:1
     indic.xgrowth=xgr;
     indic.noskill=nsk;
     %- sp solution independent of policy
-    helper=load(sprintf('SP_target_0508_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
+    helper=load(sprintf('SP_target_1008_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
     sp_t=helper.sp_all';
-    helper=load(sprintf('SP_notarget_0508_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
+    helper=load(sprintf('SP_notarget_1008_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
     sp_not=helper.sp_all';
 
 %- other results
@@ -82,9 +82,9 @@ for nsk =0:1
             LF=helper.LF_SIM;
         end
 
-        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV, etaa));
+        helper=load(sprintf('OPT_notarget_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV, etaa));
         opt_not_notaus=helper.opt_all';
-        helper=load(sprintf('OPT_target_0308_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, etaa));
+        helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, etaa));
         opt_t_notaus=helper.opt_all';
 
         RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
