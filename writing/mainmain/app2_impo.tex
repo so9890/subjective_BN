@@ -148,79 +148,192 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 \end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
-I define the continuation value as the potential utility over the infinite horizon starting from the last explicit maximization period assuming that all utility gains of today's technology are measured through consumption.
+I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency:
 \begin{align}
-PV=\sum_{s=T+2}^{\infty} \beta^{s}u(C_s,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
+CV=\beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{g{T+1}}, s_{n{T+1}}, s_{f{T+1}})+\sum_{s=T+2}^{\infty} \beta^{s}u(C_s). %,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
 \end{align}
+Solving explicitly for period $T+1$ to derive the starting value of consumption which is handed over to the next generation is important to reflect a value of research under the last period under the regency of the planner that is equivalent than in the prior periods.
+After the last explicit period, $T+1$, the infinite sum over consumption utilities approximates the value of dynamic technology spillovers. 
+I do not approximate a value of labor and research by current values as this would imply that work efforts today would be felt forever. In tendency making reductions in hours worked even more beneficial. On the other hand, however, the approach leads to an inflation of the value of bequeathed technology. 
 
-I make four simplifying assumptions to substitute the infinite sum in the optimization problem. First, I assume that labor and research inputs are the same as in the last direct optimization period, $T+1$.
-I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant.  Second, I assume that the savings rate is the same as in the last optimization period, $T$. Then, consumption grows at the same rate as output. 
-Third, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
-Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_T$.
-
-For the rest of the analysis, I use the following functional forms
-\begin{align}
-u(C_t,h_{ht}, h_{lt}, s_{gt}, s_{nt}, s_{ft})= \frac{C_t^{1-\theta}}{1-\theta}-\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kt}^{1+\sigma}}{1+\sigma}\right)-\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}\right)
-\end{align}
-
-Substituting the functional forms, the present value of the infinite sum reduces to
-\begin{align}
-PV= \beta^T\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_T^{1-\theta}}{1-\theta}-\frac{1}{1-\beta}\left[\chi\sum_{k\in\{h,l\}}\left( z_k \frac{h_{kT}^{1+\sigma}}{1+\sigma}\right)+\chi_s\sum_{j\in\{f,g,n\}} \left(\frac{s_{jT}^{1+\sigma_s}}{1+\sigma_s}\right)\right]\right).
-\end{align}
-\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
-
+I make two simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
+I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
+Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
+Let $\gamma_{yT+1}=\frac{Y_{T+1}}{Y_{T}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT+1})^{s-(T+1)}C_{T+1}$.
+Given the functional forms
+\begin{align*}
+u(C_s)= \frac{C_s^{1-\theta}}{1-\theta},
+\end{align*}
+the continuation value reduces to
+\begin{align*}
+CV= \beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{g{T+1}}, s_{n{T+1}}, s_{f{T+1}})+\beta^{T+1}\frac{1}{1-\beta (1+\gamma_{yT+1})^{1-\theta}}\frac{C_{T+1}^{1-\theta}}{1-\theta}.
+\end{align*}
+%\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
+%
 
 \section{Quantitative results}\label{app:quant_res}
+
+\subsubsection{Social planner allocation}\label{subsec:sp_q}
+As a benchmark to the Ramsey planner allocation, I present the social planner's allocation. The efficient allocation can be perceived as the allocation the Ramsey planner seeks to implement. However, it may not be able to achieve the efficient allocation due to the reliance on tax instruments. Figure \ref{fig:fb_opt} depicts the efficient and the optimal allocation by the black-solid and the orange-dashed graphs, respectively. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation }\label{fig:fb_opt}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hh_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hl_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAagg_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/GFF_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Utility}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/SWF_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{(f) Utility Scientists}}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utilsci_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	%\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{(f) Utility labour}}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utillab_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	%\end{minipage}
+	%\begin{minipage}[]{0.32\textwidth}
+	%	\centering{\footnotesize{(f) Utility con}}
+	%	%	\captionsetup{width=.45\linewidth}
+	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utilcon_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+	%\end{minipage}
+\end{figure}
+
+The social planner allocation, too, is a combination of recomposing and reductive measures. 
+The social planner reduces consumption less than in the Ramsey planner allocation in order to reach emission limits; compare panel (a). There is a reduction in hours worked for high- and low-skilled labor over time as emission limits become stricter. Relative to a scenario without emission limit the efficient level of hours also reduces; see panels (b) and (c) in figure \ref{fig:eff_with_notarget} in appendix section \ref{app:eff_notarg} which compares the efficient allocation absent emission limit to the one with emission limit.\footnote{\ For the given calibration, the planner reduces hours worked once there is an emission limit. Since with log-utility the income and substitution effect cancel, the social planner does not increase hours worked to compensate for lower output. Compare the discussion of the efficient allocation in section \ref{sec:theory}.} 
+The optimal allocation mimics the reduction in hours worked; yet, for the high-skilled the reduction is too strong starting from 2030. The gap between the efficient and the optimal level of high-skilled hours reduces as tax progressivity declines in 2050. Optimal labor supply of the low skilled is inefficiently high for all periods considered.
+
+Higher growth rates contribute to more consumption in the efficient allocation; see panel (d) showing aggregate growth. While the Ramsey planner can boost growth through the labor income tax only, the social planner can directly allocate scientists. The ratio of green to fossil energy, depicted in panel (e), moves similarly in the efficient and the optimal allocation. This illustrates the recomposing quality of the efficient allocation to cope with stricter emission limits. However, the Ramsey planner chooses a lower green-to-fossil energy mix starting from 2050. 
+
+Utility of the representative household in the efficient and the optimal allocation is decreasing overall, panel (f). The reduction happens in steps when a tighter emission limit becomes active. Utility is rising when the emission limit is stable but more so under the social planner. Recall that utility is net of environmental concerns solely determined by consumption and leisure in the present framework. In the periods absent emission limit, from 2020 to 2030, utility under the optimal policy exceeds utility in the efficient allocation. This counterintuitive behaviour highlights the dynamic structure of the model: the social planner forgoes this higher utility level to profit from a higher technology level in future periods.
 
 
 \subsection{Efficient allocation with and without emission limit}\label{app:eff_notarg}
 \begin{figure}[h!!]
 	\centering
-	\caption{Comparison to efficient allocation absent emission target }\label{fig:eff_with_notarget}
+	\caption{Efficient allocation with and without emission limit }\label{fig:eff_with_notarget}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$}}
+		\centering{\footnotesize{(a) Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/C_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 	\centering{\footnotesize{(b) High skill hours worked}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hh_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hh_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 	\centering{\footnotesize{(c) Low skill hours worked}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/hl_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hl_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 	\centering{\footnotesize{(d) Aggregate growth}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/gAagg_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAagg_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 	\centering{\footnotesize{(e) Energy mix, $G/F$}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/GFF_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/GFF_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(f) Utility}}
+	\centering{\footnotesize{(f) Green-to-fossil research}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/SWF_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sgsff_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
-
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(f) Labor fossil}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Lf_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
-\end{minipage}
-
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Fossil technology}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Af_TargetCompSP_T_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
-\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{(f) Labor fossil}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{Fossil technology}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+%\end{minipage}
 \end{figure}
 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Laissez-faire and optimal allocation }\label{fig:LF}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_LFCompOPT_T_NoTaus_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1.png}
+	\end{minipage}
+\end{figure}
+\begin{comment}
+\subsection{Allocation with and without income tax in levels}
+INTERESTING BUT NEED TO CHANGE LEGEND AND COLOURING
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison optimal allocation with and without income tax}\label{fig:comp_nored}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hh_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hl_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Skill ratio}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hhhl_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Aggregate growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAagg_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/GFF_CompEffOPT_T_NoTaus_benchregime3_pol2_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure}
+
+
+content...
+\end{comment}
 \subsection{Welfare comparison of policy regimes}
 
 To wrap-up the comparison between policy regimes, table \ref{tab:swf} contrasts social welfare levels across policy regimes with and without income tax.

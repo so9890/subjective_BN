@@ -37,6 +37,7 @@ listt.plotsvarsPol=string(symms.plotsvarsPol);
 listt.plotsvarsPri=string(symms.plotsvarsPri);
 listt.plotsvarsAdd=string(symms.plotsvarsAdd);
 list.comp=string(symms.comp);
+list.growthrates =string([gAg gAf gAn gAagg]);
 
 lisst = containers.Map({'Prod', 'ProdIn','Res', 'HH', 'Pol', 'Pri', 'Add'}, {listt.plotsvarsProd, listt.plotsvarsProdIn, ...
     listt.plotsvarsRes,listt.plotsvarsHH,listt.plotsvarsPol, listt.plotsvarsPri, listt.plotsvarsAdd});
@@ -154,10 +155,14 @@ if plotts.cev==1
     elseif plotts.regime_gov==3
         h1= OTHERPOL{4}; % taul can be used
         h2= OTHERPOL{3}; % taul cannot be used
+    elseif plotts.regime_gov==4
+        h1= OTHERPOL{5}; % taul can be used
+        h2= OTHERPOL{6}; % taul cannot be used
     end
         
-    COMP = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);
-    COMP
+    [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);
+    COMPTable
+    
 end
 
 
@@ -179,7 +184,208 @@ elseif plotts.xgr ==0 && plotts.nsk==1
 elseif plotts.xgr ==1 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_xgr_nsk;
 end
+%% Comparison model versions in one graph
+% in levels
+if plotts.compnsk_xgr1==1
     
+    fprintf('plotting comp nsk xgr')
+
+    %- read in variable container of chosen regime
+    RES=OTHERPOL{plotts.regime_gov+1};
+
+            RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+
+            RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};
+   
+  
+    %- loop over economy versions
+    for i = ["OPT_T_NoTaus" "OPT_NOT_NoTaus"]% only plotting polcies separately
+        ii=string(i);
+        allvars= RES(ii);
+        allvarsnsk=RESnsk(ii);
+        allvarsxgr=RESxgr(ii);
+        
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarsxgr(find(varlist==varr),1:T) ,time,allvarsnsk(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CompMod1_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+    
+%% Comparison model versions
+% in levels
+if plotts.compnsk_xgr==1
+    
+    fprintf('plotting comp nsk xgr')
+
+    %- read in variable container of chosen regime
+    RES=OTHERPOL{plotts.regime_gov+1};
+    for kk="xgr_nsk" %["nsk" "xgr" ]
+        if kk =="nsk" % no skill
+            RESalt=OTHERPOL_nsk{plotts.regime_gov+1};
+        elseif kk =="xgr"
+            RESalt=OTHERPOL_xgr{plotts.regime_gov+1};
+        elseif kk=="xgr_nsk"
+            RESalt=OTHERPOL_xgr_nsk{plotts.regime_gov+1};
+        end
+  
+    %- loop over economy versions
+    for i = ["OPT_T_NoTaus" "OPT_NOT_NoTaus"]% only plotting polcies separately
+        ii=string(i);
+        allvars= RES(ii);
+        allvarsalt=RESalt(ii);
+        
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarsalt(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
+            if lgdind==1
+                if kk == "nsk"
+                    lgd=legend('benchmark' , 'homogeneous skills',  'Interpreter', 'latex');
+                elseif kk=="xgr"
+                    lgd=legend('benchmark' , 'exogenous growth',  'Interpreter', 'latex');
+                elseif kk=="xgr_nsk"
+                    lgd=legend('benchmark' , ['exogenous growth,' newline  'homogeneous skills'],  'Interpreter', 'latex');
+                end
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+    end % loop over model versions
+end
+
+%% Comparison model versions: in deviation from efficient
+% in levels
+if plotts.compnsk_xgr_dev==1
+    
+    fprintf('plotting comp nsk xgr percent from efficient')
+
+    %- read in variable container of chosen regime
+    RES=OTHERPOL{plotts.regime_gov+1};
+    for kk= "xgr_nsk" %["nsk" "xgr"]
+        if kk =="nsk" % no skill
+            RESalt=OTHERPOL_nsk{plotts.regime_gov+1};
+        elseif kk =="xgr"
+            RESalt=OTHERPOL_xgr{plotts.regime_gov+1};
+        elseif kk=="xgr_nsk"
+            RESalt=OTHERPOL_xgr_nsk{plotts.regime_gov+1};
+        end
+  
+    %- loop over economy versions
+    for ind = 1:2
+        opt=["OPT_T_NoTaus" "OPT_NOT_NoTaus"];% only plotting polcies separately
+        eff=["SP_T" "SP_NOT"];% only plotting polcies separately
+
+        ii=string(opt(ind));
+        ef=string(eff(ind));
+        
+        allvars= RES(ii);
+        allvarseff=RES(ef);
+        allvarsalt=RESalt(ii);
+        allvarsalteff=RESalt(ef);
+        
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(allvars(find(varlist==varr),1:T)-allvarseff(find(varlist==varr),1:T))./allvarseff(find(varlist==varr),1:T),time,(allvarsalt(find(varlist==varr),1:T)-allvarsalteff(find(varlist==varr),1:T))./allvarsalteff(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
+            if lgdind==1
+                if kk == "nsk"
+                    lgd=legend('benchmark' , 'homogeneous skills',  'Interpreter', 'latex');
+                elseif kk=="xgr"
+                    lgd=legend('benchmark' , 'exogenous growth',  'Interpreter', 'latex');
+                elseif kk=="xgr_nsk"
+                    lgd=legend('benchmark' , ['exogenous growth,' newline  'homogeneous skills'],  'Interpreter', 'latex');
+                end
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/Per_CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+    end % loop over model versions
+end
+
 %% All figures single
 if plotts.single_pol==1
     
@@ -214,8 +420,12 @@ if plotts.single_pol==1
 
             end
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -264,7 +474,11 @@ if plotts.singov==1
                set(main, {'LineStyle'},{'-'; '--'; ':'; '--'}, {'color'}, {'k'; 'k'; 'k'; grrey} )   
         end
            xticks(txx)
-           xlim([1, time(end)])
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -326,9 +540,13 @@ if plotts.notaul==1
                varr=string(plotvars(v));
                main=plot(time,allvars(find(varl==varr),1:T), time,allvarsnt(find(varlist==varr),1:T), 'LineWidth', 1.1);
 
-               set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+               set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'b'} )   
                xticks(txx)
-               xlim([1, time(end)])
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
                ax=gca;
                ax.FontSize=13;
                ytickformat('%.2f')
@@ -340,7 +558,7 @@ if plotts.notaul==1
                 elseif count == 1 % integrated without income tax
                      lgd=legend('benchmark', 'integrated policy, no income tax', 'Interpreter', 'latex');
                 elseif count == 2 % notaul =2 gov=tauf*F*pf, without income tax
-                     lgd=legend('benchmark', 'no redistribution, no income tax', 'Interpreter', 'latex');
+                     lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
                 elseif count == 3 % notaul=3
                      lgd=legend('benchmark', 'no redistribution, with income tax', 'Interpreter', 'latex');
                 elseif count == 4 % Tls and taul
@@ -387,8 +605,11 @@ if plotts.comptarg==1
             main=plot(time,allvars(find(varlist==varr),1:T), time,allvarsnot(find(varlist==varr),1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -452,8 +673,11 @@ if plotts.compeff==1
                set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
            end
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -532,8 +756,11 @@ if plotts.compeff1==1
            main=plot( time,allvarseff(find(varlist==varr),1:T));            
            set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'-'}, {'color'}, {'k'} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -589,8 +816,11 @@ if plotts.compeff2==1
            set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
       end
       xticks(txx)
-      xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -674,8 +904,11 @@ if plotts.compeff3==1
            set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
       end
       xticks(txx)
-      xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -730,8 +963,11 @@ for nt =  1:length(OTHERPOLL) % loop over policy regimes
             main=plot(time,allvars(find(varlist==varr),1:T), time,bau(find(varlist==varr),1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -755,6 +991,60 @@ for nt =  1:length(OTHERPOLL) % loop over policy regimes
 end
 end
 
+%% comparison to LF
+if plotts.lf==1
+    fprintf('plotting LF graphs') 
+for nt =  1:length(OTHERPOLL) % loop over policy regimes
+        count=nt-1;
+        RES=OTHERPOLL{nt};
+        bau=RES('LF');
+
+    for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
+        ii=string(i);
+        allvars= RES(ii);
+
+    %% 
+    fprintf('plotting %s',ii );
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+
+
+            varr=string(plotvars(v));
+            %subplot(floor(length(plotvars)/nn)+1,nn,v)
+            main=plot(time,allvars(find(varlist==varr),1:T), time,bau(find(varlist==varr),1:T), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+               if contains(ii, 'SP')
+                  lgd=legend('Social planner', 'laissez-faire', 'Interpreter', 'latex');
+               else
+                  lgd=legend('Ramsey planner', 'laissez-faire', 'Interpreter', 'latex');
+               end
+            set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_LFComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    end      
+end
+end
 %%
 if plotts.per_BAUt0==1
     % plot graphs in percent relative to LF, efficient/optimal world
@@ -781,8 +1071,11 @@ if plotts.per_BAUt0==1
             main=plot(time,(allvarseff(find(varlist==varr),1:T)-rev)./rev,time,(allvars(find(varlist==varr),1:T)-rev)./rev, 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -827,8 +1120,11 @@ if plotts.per_LFt0==1
             main=plot(time,(allvarseff(find(varlist==varr),1:T)-rev)./rev,time,(allvars(find(varlist==varr),1:T)-rev)./rev, 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -874,8 +1170,11 @@ end
             main=plot(time,(allvarseff(find(varlist==varr),1:T)-reveff)./reveff,time,(allvars(find(varlist==varr),1:T)-revopt)./revopt, 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -917,8 +1216,11 @@ end
             main=plot(time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -962,8 +1264,11 @@ if plotts.per_baud==1
             main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1007,8 +1312,11 @@ if plotts.per_LFd==1
             main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
            xticks(txx)
-           xlim([1, time(end)])
-
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1025,6 +1333,103 @@ if plotts.per_LFd==1
         end
       end
     
- end   
+end   
+ 
+%%
+ % expressed in reduction relative to bau per period/ dynamic
+if plotts.per_LFd_nt==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage relative to LF dynamic plus no taul') 
 
+     if plotts.regime_gov==3
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        RESnt =OTHERPOLL{3}; 
+     end
+        allvars= RES('OPT_T_NoTaus');
+        allvarseff= RES('SP_T');
+        revall =RES('LF');
+        allvarsnt =RESnt('OPT_T_NoTaus');
+        
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot(time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T)*100,time,(allvarsnt(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T)*100, time,100*(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('with income tax', 'without income tax', 'efficient', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+end
+%% relative change lF dynamic no efficient
+if plotts.per_LFd_ne_nt==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage relative to LF dynamic plus no taul no eff') 
+
+     if plotts.regime_gov==3
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        RESnt =OTHERPOLL{3}; 
+     end
+        allvars= RES('OPT_T_NoTaus');
+        allvarseff= RES('SP_T');
+        revall =RES('LF');
+        allvarsnt =RESnt('OPT_T_NoTaus');
+        
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot(time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T)*100,time,(allvarsnt(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T)*100,'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'b'} )   
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_noeff_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+end
 end     

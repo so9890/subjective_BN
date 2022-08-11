@@ -14,7 +14,7 @@ datahours =readtable('data/hoursworked/ANHRS_03022021112723019.csv', 'ReadVariab
 
 %- upper bound on growth
 MOM.grup=(1.04)^5-1;
-%- average hours 2015-2019
+%- average hours 2015-2019 (buT THIS IS A SHARE OF TOTAL HOURS! SO LENGTH OF PERIOD IS IRRELEVANT)
 MOM.targethour=1/5*(datahours.asShareOfTotalHours(datahours.TIME==2019)+datahours.asShareOfTotalHours(datahours.TIME==2018)+datahours.asShareOfTotalHours(datahours.TIME==2017)+datahours.asShareOfTotalHours(datahours.TIME==2016)+datahours.asShareOfTotalHours(datahours.TIME==2015));
 %- extract data and variables names
     momsraw=dataout{:,end};

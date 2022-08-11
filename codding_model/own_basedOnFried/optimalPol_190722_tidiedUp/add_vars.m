@@ -54,7 +54,7 @@ if indic.sep==0
 % T= length(Y);
 gammay = Y(end)/Y(end-1)-1;
 PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(end);
-PVwork = 1/(1-betaa)*(Utillab(end)+Utilsci(end));
+PVwork =indic.PVwork* 1/(1-betaa)*(Utillab(end)+Utilsci(end));
 PV= ones(size(Y)).*betaa^length(Y)*(PVconsump-PVwork); % continuation value in period 0
 
 

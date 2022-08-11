@@ -59,7 +59,7 @@ f(q) = (hhn+hhf)/(hhn+hln+hhf+hlf)-MOM.sharehighnongreen;%=> thetan, thetaf
 q=q+1;
 f(q) =  thetaf-thetan;%=> thetan, thetaf
 
-% chii: average hours worked
+% chii: average hours worked PER FIVE YEARS
 q=q+1;
 f(q) = hh*zh+hl*(1-zh)-MOM.targethour;  
 

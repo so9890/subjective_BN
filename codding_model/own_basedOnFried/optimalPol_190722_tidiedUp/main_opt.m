@@ -275,23 +275,34 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
+
+plotts.compnsk_xgr = 0;
+plotts.compnsk_xgr1= 1;
+
+plotts.compnsk_xgr_dev= 0;
+
 plotts.single_pol=  0;
 plotts.singov=      0;
 
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
+
 plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff3=    0; % sp versus optimal benchmark
+
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.compeff3=    0; % sp versus optimal benchmark
 
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
 plotts.per_effoptd= 0;
 plotts.per_baud =   0;
 plotts.per_LFd  =   0; % dynamic lf as benchmark
+plotts.per_LFd_nt=  0; % dynamic lf as benchmark plus no income tax
+plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
+
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 

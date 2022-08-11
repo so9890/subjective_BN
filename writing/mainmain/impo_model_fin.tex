@@ -125,20 +125,19 @@ The government does not redistribute environmental tax revenues and instead cons
 \paragraph{Government}
 
 The government maximizes social welfare defined as the sum of utilities in the economy over a finite period of length $T$ plus a continuation value, $PV$, which I will elaborate on below. The government is constrained by an emission limit in line with the Paris Agreement.  
-It is characterized as a Ramsey planner taking the behavior of firms and households as given and discounting utility by the household's time discount rate.
-The planner chooses a time path for environmental taxes and the tax progressivity parameter on the income tax scheme to solve:
-
+It is characterized as a Ramsey planner taking the behavior of firms and households as given and discounting utility by the household's time discount rate, $\beta$.
+The planner chooses time paths for environmental taxes and the tax progressivity parameter on the income tax scheme to solve:\footnote{\ I code the planner's problem using a primal approach going back to \cite{Lucas1983OptimalCapital} where prices and tax instruments are replaced by equilibrium equations describing the competitive equilibrium. }
 \begin{align*}
 \underset{\{\tau_{ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{\max}&\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, s_{ft}, s_{nt}, s_{gt})%-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}
-+ PV\\
++ CV\\
 s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
 & (1)\ \omega F_{t} -\delta \leq \Omega_t % \ \hspace{3mm} \forall t \in\{0,T\}, 
 \\ %\hspace{3mm} \text{(emission target)}\\
 & (2)\ z_h\left(w_{ht}h_{ht}-\lambda_t \left(w_{ht}h_{ht}\right)^{1-\tau_{\iota t}}\right)+(1-z_h)\left(w_{lt}h_{lt}-\lambda_t\left(w_{lt}h_{lt}\right)^{1-\tau_{\iota t}}\right) \\
-& \hspace{5mm} +\sum_{j\in\{f,g,n\}}\left(\int_{0}^{I}\pi_{jit}di-\zeta_{jt}\int_{0}^{I}p_{jixt}x_{jit}di+w_{sjt}s_{jt}\right)= T_t \\ %\ \hspace{3mm} \forall \ t\in\{0,T\}, \\
+& \hspace{5mm} +\sum_{j\in\{f,g,n\}}\left(\int_{0}^{I}\pi_{jit}di-\zeta_{jt}\int_{0}^{I}p_{jixt}x_{jit}di+w_{sjt}s_{jt}\right)= 0\\ %\ \hspace{3mm} \forall \ t\in\{0,T\}, \\
 & (3)\ \tau_{ft}p_{ft}F_{t} = Gov_t\\
 %& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
-& (4)\ \text{behaviour of firms and households},\\
+& (4)\ \text{behavior of firms and households}\\
 & (5)\ \text{feasibility}
 \end{align*}
 
@@ -146,22 +145,23 @@ s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0
 Constraint (1) is the emission limit. I denote the limit on net flow emissions in period $t$ by $\Omega_t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted CO$_2$ through sinks, such as forests and moors.  The parameter $\omega$ determines greenhouse-gas emission in CO$_2$ equivalents caused by the fossil sector which is assumed to be the sole source of emissions in the model. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
 %Hence, under the emission target it has to hold that $Y_{nt}=\frac{\delta+E_t}{\kappa}$ assuming that the analysis starts in 2020.
 
-%- gov budget
-The government budget, constraint (2), is balanced at zero transfers $T_t=0\ \forall t\in\{0,T\}$. The scale parameter on income taxes, $\lambda_t$, adjusts to balance the budget.
-The government generates revenues from taxing labor income and from confiscating profits from machine producers and wages of scientists. It has to finance the subsidy on machine production. In equilibrium, profits from machine producers, scientists' incomes and the subsidy cancel. 
-Revenues from the environmental tax are not redistributed but consumed by the government in the baseline policy regime, constraint (3).
+%- gov budgets
+The scale parameter on income taxes, $\lambda_t$, adjusts to balance the budget, constraint (2).
+The government generates revenues from taxing labor income and from confiscating profits from machine producers and wages of scientists. It has to finance the subsidy on machine production. In equilibrium, profits from machine producers, scientists' incomes and the subsidy cancel. Consequently, $\lambda_t$ is solely determined by labor income and the progressivity parameter, $\tau_{\iota t}$.
+Under the baseline policy regime, revenues from the environmental tax are not redistributed but consumed by the government  constraint (3). This regime mirrors the debate on the usage of environmental tax revenues and the policy set-up in the double-dividend literature. 
 
 %\paragraph{Setup of problem: focus on current population; continuation value}
 The continuation value, $PV$, in the objective function captures that the planner cares about what the economy bequeaths to its successors, that is, after period T. 
-This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS}.\footnote{\ \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
+This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS}.\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
+	}" (p.24). This is a vague definition.  \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
 	"\textit{[...] each generation should bequeath to its successor at least as large a productive base as it had inherited from its predecessor. }". 
 	However, this cannot be used to derive a sensible condition on the optimization in the present setting, since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
-	successors will always have at least as much productive resources as predecessors left.} It attaches some value to the final technology level. Truncating the model at T would otherwise devalue technology and research: its future value through dynamic spillovers would be neglected.
+	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } It attaches some value to the final technology level. Truncating the model at T would otherwise devalue technology and research: its future value through dynamic spillovers would be neglected.
  Yet, this framework does not rely on the existence of a balanced growth path which is doubtful due to the absolute limit on emissions.\footnote{\  For example, defining the balanced growth path as in \cite{Fried2018ClimateAnalysis} requires constant ratios. This assumption would force the economy not to grow any further once fossil output has reached its limit. Furthermore, as the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium as we observe today, the emission limit might soon be violated once policy is assumed to be fixed. Under dynamic policies, however, the existence of a balanced growth path is questionable.}
 
 
 %Given the absolute emission target, policy intervention cannot be assumed to be static. Market forces direct production towards the fossil sector. This complicates the theoretic derivation of a balanced growth path.  On the other hand, truncating the optimization problem 
 
 In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
-Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate.  The value of technology is approximated by the utility derived from future consumption levels. Appendix section \ref{app:PV} expounds  the continuation value.
+Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate.  Appendix section \ref{app:PV} expounds  the continuation value.
 
