@@ -104,6 +104,20 @@ for nsk =0:1
 end
 end
 
+% counetrfactual model
+    helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+    nsk_all=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+    xgr_all=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+    xgr_nsk_all=helper.LF_COUNT';
+            helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+    test_all=helper.LF_COUNT';
+    
+    RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+                                {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+    RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
+
 %% Tables
 if plotts.table==1
 for xgr=0:1
@@ -146,23 +160,35 @@ for nsk= 0:1
 end
 end
 end
+
+%% Pick main policy version for plots
+if plotts.xgr ==0 && plotts.nsk==0
+    OTHERPOLL= OTHERPOL;
+elseif plotts.xgr ==1 && plotts.nsk==0
+    OTHERPOLL= OTHERPOL_xgr;
+elseif plotts.xgr ==0 && plotts.nsk==1
+    OTHERPOLL= OTHERPOL_nsk;
+elseif plotts.xgr ==1 && plotts.nsk==1
+    OTHERPOLL= OTHERPOL_xgr_nsk;
+end
+
 %% table CEV
 if plotts.cev==1
     %- calculate CEV for a pair of policy regimes each
     if plotts.regime_gov==0
-        h1= OTHERPOL{1}; % taul can be used
-        h2= OTHERPOL{2}; % taul cannot be used
+        h1= OTHERPOLL{1}; % taul can be used
+        h2= OTHERPOLL{2}; % taul cannot be used
     elseif plotts.regime_gov==3
-        h1= OTHERPOL{4}; % taul can be used
-        h2= OTHERPOL{3}; % taul cannot be used
+        h1= OTHERPOLL{4}; % taul can be used
+        h2= OTHERPOLL{3}; % taul cannot be used
     elseif plotts.regime_gov==4
-        h1= OTHERPOL{5}; % taul can be used
-        h2= OTHERPOL{6}; % taul cannot be used
+        h1= OTHERPOLL{5}; % taul can be used
+        h2= OTHERPOLL{6}; % taul cannot be used
     end
         
-    [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);
-    COMPTable
-    
+    [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);   
+    save(sprintf('Table_CEV_%s_regime%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
+
 end
 
 
@@ -174,18 +200,113 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
-%- Pick main policy version for plots
-if plotts.xgr ==0 && plotts.nsk==0
-    OTHERPOLL= OTHERPOL;
-elseif plotts.xgr ==1 && plotts.nsk==0
-    OTHERPOLL= OTHERPOL_xgr;
-elseif plotts.xgr ==0 && plotts.nsk==1
-    OTHERPOLL= OTHERPOL_nsk;
-elseif plotts.xgr ==1 && plotts.nsk==1
-    OTHERPOLL= OTHERPOL_xgr_nsk;
+%% Comparison model versions in one graph
+% in levels
+if plotts.count_modlev==1
+    
+    fprintf('plott counterfactual model level')
+
+    %- read in variable container of chosen regime
+    RES=OTHERPOL{plotts.regime_gov+1};
+%     RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+%     RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};  
+    %- loop over economy versions
+        allvars= RES("OPT_T_NoTaus");
+        allvarsnsk=RES_count("nsk");
+        allvarsxgr=RES_count("xgr");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarsxgr(find(varlist==varr),1:T) ,time,allvarsnsk(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountMod1_target_%s_regime%d_spillover%d_sep%d_extern%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
 end
 
+%% Comparison model versions: in deviation from efficient 1 graph
+% in levels
+if plotts.count_modlev_eff
     
+    fprintf('plotting comp nsk xgr percent from efficient 1 counterfact')
+
+    %- read in variable container of chosen regime
+        RES=OTHERPOL{plotts.regime_gov+1};
+        RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};
+        
+        allvars= RES("OPT_T_NoTaus");
+        allvarseff=RES("SP_T");
+        allvarsnsk=RES_count("nsk");
+        allvarsnskeff=RESnsk("SP_T");
+        allvarsxgr=RES_count("xgr"); % counterfactual
+        allvarsxgreff=RESxgr("SP_T");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,100*(allvars(find(varlist==varr),1:T)-allvarseff(find(varlist==varr),1:T))./allvarseff(find(varlist==varr),1:T),time,100*(allvarsxgr(find(varlist==varr),1:T)-allvarsxgreff(find(varlist==varr),1:T))./allvarsxgreff(find(varlist==varr),1:T),...
+                        time,(allvarsnsk(find(varlist==varr),1:T)-allvarsnskeff(find(varlist==varr),1:T))./allvarsnskeff(find(varlist==varr),1:T)*100, 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            if lgdind==1
+                lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+                
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/Per1_CountMod_%s_regime%d_spillover%d_sep%d_extern%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
 %% Comparison model versions in one graph
 % in levels
 if plotts.compnsk_xgr1==1
@@ -194,12 +315,8 @@ if plotts.compnsk_xgr1==1
 
     %- read in variable container of chosen regime
     RES=OTHERPOL{plotts.regime_gov+1};
-
-            RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
-
-            RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};
-   
-  
+    RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+    RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};  
     %- loop over economy versions
     for i = ["OPT_T_NoTaus" "OPT_NOT_NoTaus"]% only plotting polcies separately
         ii=string(i);

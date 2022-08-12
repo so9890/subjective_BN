@@ -40,8 +40,9 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 
 \section{Quantitative model}\label{app:quant_mod}
 \subsection{Model equations}
+\tr{To be updated}
 Assuming interior solutions for labor and research supply.
-\begin{align}
+\begin{align*}
 \text{\textbf{Household}}&\\ \text{period utility}\vspace{4mm}&  \frac{C_t^{1-\theta}}{1-\theta}-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_f^{1+\sigma}+s_g^{1+\sigma}+s_n^{1+\sigma}}{{1+\sigma}} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
 \text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}+T_{lst}\\
@@ -79,7 +80,7 @@ Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\fra
 %\end{align}
 %
 %\begin{align}
-\text{Labour demand}\label{eq:lab_demand}\\
+\text{Labour demand}%\label{eq:lab_demand}\\
 & w_{lft}=(p_{Ft}(1-\tau_{ft}))^\frac{1}{1-\alpha_f}(1-\alpha_f)(\alpha_f)^\frac{\alpha_f}{1-\alpha_f}A_{ft}\\
 & w_{lnt}=p_{Nt}^\frac{1}{1-\alpha_n}(1-\alpha_n)(\alpha_n)^\frac{\alpha_n}{1-\alpha_n}A_{nt}\\
 & w_{lgt}=p_{Gt}^\frac{1}{1-\alpha_g}(1-\alpha_g)(\alpha_g)^\frac{\alpha_g}{1-\alpha_g}A_{gt}
@@ -96,10 +97,10 @@ Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\fra
 & L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
 & L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}\\
 \ \\
-\text{Optimality}\ \vspace{4mm}& h_{hft}= \theta_{f}L_{ft}\frac{w_{lft}}{w_{ht}}\label{eq:opt_lab_pro}\\
+\text{Optimality}\ \vspace{4mm}& h_{hft}= \theta_{f}L_{ft}\frac{w_{lft}}{w_{ht}}\\ %\label{eq:opt_lab_pro}\\
 & h_{hnt}= \theta_{n}L_{nt}\frac{w_{lnt}}{w_{ht}}\\
 & h_{hgt}= \theta_{g}L_{gt}\frac{w_{lgt}}{w_{ht}}\\
-& h_{lft}= (1-\theta_{f})L_{ft}\frac{w_{lft}}{w_{lt}}\label{eq:opt_lab_pro_low}\\
+& h_{lft}= (1-\theta_{f})L_{ft}\frac{w_{lft}}{w_{lt}}\\%\label{eq:opt_lab_pro_low}\\
 & h_{lnt}= (1-\theta_{n}) L_{nt}\frac{w_{lnt}}{w_{lt}}\\
 & h_{lgt}= (1-\theta_{g}) L_{gt}\frac{w_{lgt}}{w_{lt}}\\
 %\end{align}
@@ -144,8 +145,8 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 & S_{ft}+ S_{nt}+ S_{gt}=S_t\\
 &h_{hft}+h_{hnt}+h_{hgt}=z_{h} h_{ht}\\
 &h_{lft}+h_{lnt}+h_{lgt}=z_{l} h_{lt}\\
-&C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i=Y_t
-\end{align}
+&C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i+Gov_t=Y_t
+\end{align*}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
 I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency:
@@ -173,7 +174,7 @@ CV= \beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{g{T+1}}, s_{n{T+1}}, s_{f{T
 
 \section{Quantitative results}\label{app:quant_res}
 
-\subsubsection{Social planner allocation}\label{subsec:sp_q}
+\subsection{Social planner allocation}\label{subsec:sp_q}
 As a benchmark to the Ramsey planner allocation, I present the social planner's allocation. The efficient allocation can be perceived as the allocation the Ramsey planner seeks to implement. However, it may not be able to achieve the efficient allocation due to the reliance on tax instruments. Figure \ref{fig:fb_opt} depicts the efficient and the optimal allocation by the black-solid and the orange-dashed graphs, respectively. 
 \begin{figure}[h!!]
 	\centering
@@ -236,7 +237,6 @@ Higher growth rates contribute to more consumption in the efficient allocation; 
 Utility of the representative household in the efficient and the optimal allocation is decreasing overall, panel (f). The reduction happens in steps when a tighter emission limit becomes active. Utility is rising when the emission limit is stable but more so under the social planner. Recall that utility is net of environmental concerns solely determined by consumption and leisure in the present framework. In the periods absent emission limit, from 2020 to 2030, utility under the optimal policy exceeds utility in the efficient allocation. This counterintuitive behaviour highlights the dynamic structure of the model: the social planner forgoes this higher utility level to profit from a higher technology level in future periods.
 
 
-\subsection{Efficient allocation with and without emission limit}\label{app:eff_notarg}
 \begin{figure}[h!!]
 	\centering
 	\caption{Efficient allocation with and without emission limit }\label{fig:eff_with_notarget}
@@ -270,19 +270,9 @@ Utility of the representative household in the efficient and the optimal allocat
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sgsff_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
-%\begin{minipage}[]{0.32\textwidth}
-%	\centering{\footnotesize{(f) Labor fossil}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
-%\end{minipage}
-%\begin{minipage}[]{0.32\textwidth}
-%	\centering{\footnotesize{Fossil technology}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_TargetCompSP_T_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
-%\end{minipage}
 \end{figure}
 
-
+\subsection{Other results}
 \begin{figure}[h!!]
 	\centering
 	\caption{Laissez-faire and optimal allocation }\label{fig:LF}
@@ -292,6 +282,85 @@ Utility of the representative household in the efficient and the optimal allocat
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_LFCompOPT_T_NoTaus_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd1.png}
 	\end{minipage}
 \end{figure}
+
+\subsection{Model variations}
+\begin{figure}[h!!]
+	\centering
+	\caption{Counterfactual allocation by model additional variables }\label{fig:count_mod_allo_app}
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) Green labor\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_Lg_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+\end{minipage}	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Green research\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_sg_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil research\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_sff_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green technology\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_Ag_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Fossil technology\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_Af_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Green-to-fossil technology ratio \\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/CountMod1_target_AgAf_regime3_spillover0_sep1_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Deviation from efficient allocation by model }\label{fig:comp_mod_allo_dev}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_C_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_hh_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_hl_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Green-to-fossil energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_GFF_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Skill ratio }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_hhhl_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Wage ratio }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_whwl_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	\end{minipage}
+	% 	\begin{minipage}[]{0.32\textwidth}
+	% 		\centering{\footnotesize{(c) Growth}}
+	% 		%	\captionsetup{width=.45\linewidth}
+	% 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/Per1_CompMod_OPT_T_NoTaus_gAagg_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_etaa0.79_lgd0.png}
+	% 	\end{minipage}
+\end{figure}
+
 \begin{comment}
 \subsection{Allocation with and without income tax in levels}
 INTERESTING BUT NEED TO CHANGE LEGEND AND COLOURING
@@ -336,30 +405,6 @@ content...
 \end{comment}
 
 
-\subsection{Welfare comparison of policy regimes}
-
-To wrap-up the comparison between policy regimes, table \ref{tab:swf} contrasts social welfare levels across policy regimes with and without income tax.
-
-When the government wants to redistribute environmental tax revenues but it is lump-sum transfers which  are not feasible, an integrated fiscal-environmental policy regime may increase social welfare by 7.45\%. The optimal income tax scheme is progressive in line with the analytic results of section \ref{sec:theory}. 
-
-
-The highest level of social welfare is attained in the regime with lump-sum transfers of environmental tax revenues and with income tax. When no lump-sum redistribution of environmental tax revenues is feasible, an integrated policy regime, that is, environmental tax revenues are redistributed via the income tax scheme, is preferable: social welfare increases by almost 7.45\%.  The social welfare level attained under the integrated policy comes close to the regime with lump-sum transfers. 
-\begin{table}\caption{Social welfare across policy regimes}\label{tab:swf}
-	\begin{tabular}{l|ll}
-		Policy Regime & With income tax & No income tax\\ 
-		\hline 
-		Separate & -7.7334 & -7.7486 \\
-		Integrated&-7.1575 & -7.1656\\
-		Lump-sum transfers & -7.1559 & -7.1561\\
-		%	BAU & -6.6269 & 0 & 0 & 0 & 0 & 0 \\ 
-		%	LF & -6.5382 & 0 & 0 & 0 & 0 & 0 \\ 
-		%OPT NOT & -6.5378 & -6.5381 & -6.5382 & -6.5378 & -6.5378 & -6.5382 \\ 
-		%	&  & & \\ 
-		%SP NOT & -6.3283 & 0 & 0 & 0 & 0 & 0 \\ 
-		%	SP T & -6.9511 & 0 & 0 & 0 & 0 & 0 \\ 
-		\hline 
-	\end{tabular}
-\end{table}
 
 \begin{comment}
 \subsection{Results with exogenous growth and/or skill homogeneity}
@@ -499,7 +544,6 @@ Absent both endogenous growth and skill heterogeneity the Ramsey allocation mirr
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/tauf_CompEffOPT_T_NoTaus_bb3_pol4_spillover0_noskill1_sep1_xgrowth1_etaa0.79_lgd0_lff0.png}
 	\end{minipage}
 \end{figure}
-\end{comment}
 
 \subsection{Regime with lump-sum transfers with and without income tax}\label{app:lumps}
 In this section, I present results on the policy regime where environmental tax revenues are redistributed lump-sum for the benchmark model, figure \ref{fig:bench_lumpsum_vglNotaul}, a model with exogenous growth, figure \ref{fig:lumpsum_xgr_vglNotaul}, and a model with homogeneous skills, figure \ref{fig:lumpsum_noskill_vglNotaul}. 
@@ -656,5 +700,6 @@ As argued in the main text, section \ref{par:comp_lumpsum}, income taxes are not
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/taul_DDCompEffOPT_T_NoTaus_pol4_spillover0_noskill1_sep1_xgrowth0_etaa0.79_lgd0_lff0.png}
 \end{minipage}
 \end{figure}
+\end{comment}
 
 %\subsection{Redistribution of environmental tax revenues through income tax scheme}

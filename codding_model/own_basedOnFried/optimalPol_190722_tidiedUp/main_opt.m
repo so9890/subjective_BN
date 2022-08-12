@@ -48,7 +48,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.PV = 1; % ==1 if continuation value is added to planners problem
+indic.PV = 0; % ==1 if continuation value is added to planners problem
 indic.PVwork =0; %==0 then disutility of work is not in 
 indic
 
@@ -196,12 +196,12 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 
 for xgr=0
     indic.xgrowth=xgr;
-    for ns=1
+    for ns=0
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=0
+       for tar=0:1
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
@@ -224,13 +224,13 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 
-for tr =1
+for tr =0:1
     indic.target=tr;
-for xgr=1
+for xgr=0:1
     indic.xgrowth=xgr;
-for nsk=1
+for nsk=0:1
     indic.noskill=nsk;
- for nnt=3
+ for nnt=[0,1,2,4,5]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -282,7 +282,7 @@ indic
 plotts.regime_gov=  3; % = equals policy version to be plotted
 
 plotts.table=       0;
-plotts.cev  =       0; 
+plotts.cev  =       1; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
@@ -296,6 +296,9 @@ plotts.compnsk_xgr1= 0;
 
 plotts.compnsk_xgr_dev= 0;
 plotts.compnsk_xgr_dev1 =0;
+plotts.count_modlev= 0;
+
+plotts.count_modlev_eff= 0;
 plotts.single_pol=  0;
 plotts.singov=      0;
 
@@ -304,7 +307,7 @@ plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
 plotts.compeff1=    0; %1; only social planner
@@ -321,9 +324,8 @@ plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
-
-for xgr =0
-    for nsk=1
+for xgr =0:1
+    for nsk=0:1
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts

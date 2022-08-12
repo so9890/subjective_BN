@@ -52,10 +52,15 @@ if indic.xgrowth==0
     Af=y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
     An =y(list.allvars=='An', :)';
-    sff =z(list.allvars=='sff', :)';
-    sg =z(list.allvars=='sg', :)';
-    sn =z(list.allvars=='sn', :)';
-    
+      if indic.xgrowth==0 && indic.noskill==1
+        sff =log((params(list.params=='upbarH')-varrs(list.allvars=='sff', :))./(varrs(list.allvars=='sff', :)))';
+        sg =log((params(list.params=='upbarH')-varrs(list.allvars=='sg', :))./(varrs(list.allvars=='sg', :)))';
+        sn =log((params(list.params=='upbarH')-varrs(list.allvars=='sn', :))./(varrs(list.allvars=='sn', :)))';
+    else
+        sff =z(list.allvars=='sff', :)';
+        sg =z(list.allvars=='sg', :)';
+        sn =z(list.allvars=='sn', :)';
+    end
     if indic.sep==0
         ws=z(list.allvars=='ws', :)';
         S =z(list.allvars=='S', :)';
