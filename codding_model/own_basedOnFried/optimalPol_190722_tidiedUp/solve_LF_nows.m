@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
+function [LF_SIM, poll, FVAL, indexx] = solve_LF_nows(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
 % simulate economy under laissez faire
 indic.xgrowth=0;
 indic.ineq=0;
@@ -8,6 +8,8 @@ indic.ineq=0;
 % output
 % LF_SIM: matrix of simulated results in LF, rows= time period, column =
 % variables as ordered in list.allvars
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % prepare lists if using separate markets for scientists
@@ -98,10 +100,18 @@ if indic.noskill==1
 
 %     end
 end
-
+% check size of policy matrix
+    [row]=size(poll);
 
 while t<=T+1 % because first iteration is base year
     fprintf('entering simulation of period %d', t);
+    % read in policy
+
+    if row(1)>1
+        pol=poll(t,:);
+    else
+        pol=poll;
+    end
     %% - transforming variables to unbounded variables
     %-- index for transformation 
     if indic.noskill==0

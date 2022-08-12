@@ -88,22 +88,45 @@ Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/
 xn=pn.*alphan.*N;
 xg=pg.*alphag.*G;
 xf=pf.*(1-tauf).*alphaf.*F;
-Cincome=Y-xn-xf-xg;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
-    Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
-
-    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+    Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
+    
+    if indic.notaul<2 % tauf redistributed via income tax
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
+    else
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+
+    end
 else
-    SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
+    if indic.notaul<2
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
             +tauf.*pf.*F;
+    else
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
+
+    end
 end
+% gov con
+        if 2<=indic.notaul && indic.notaul <4
+            GovCon = tauf.*pf.*F;
+        else
+            GovCon =zeros(size(F));
+        end
+% lump sum transfers
+if indic.notaul >=4
+    Tls =tauf.*pf.*F;
+else
+    Tls =zeros(size(F));
+end
+
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
@@ -127,7 +150,8 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-if max(abs(C-Cincome))>1e-10
+Cincome=Y-xn-xf-xg-GovCon;
+if max(abs(C-Cincome))>1e-8
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')

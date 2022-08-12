@@ -14,8 +14,7 @@ if indic.xgrowth==1
     list.choice=list.choice_xgrowth;
     symms.choice=symms.choice_xgrowth;
 end
-%helper=load(sprintf('FB_LF_SIM_NOTARGET_spillover%d.mat', indic.spillovers));
-varrs=helper.LF_SIM;
+varrs=helper.LF_SIM; % used to get policy
 y=log(varrs);
 z=sqrt(varrs);
 
@@ -63,9 +62,15 @@ G=y(list.allvars=='G', :)';
 if indic.xgrowth==0
     Af=y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
-    sff =z(list.allvars=='sff', :)';
-    sg =z(list.allvars=='sg', :)';
-    sn =z(list.allvars=='sn', :)';
+    if indic.xgrowth==0 && indic.noskill==1
+        sff =log((params(list.params=='upbarH')-varrs(list.allvars=='sff', :))./(varrs(list.allvars=='sff', :)))';
+        sg =log((params(list.params=='upbarH')-varrs(list.allvars=='sg', :))./(varrs(list.allvars=='sg', :)))';
+        sn =log((params(list.params=='upbarH')-varrs(list.allvars=='sn', :))./(varrs(list.allvars=='sn', :)))';
+    else
+        sff =z(list.allvars=='sff', :)';
+        sg =z(list.allvars=='sg', :)';
+        sn =z(list.allvars=='sn', :)';
+    end
     An =y(list.allvars=='An', :)';
 
     if indic.sep==0
@@ -117,9 +122,18 @@ objf=@(x)objectiveCALIBSCI(x);
         constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic);
     end
 
-options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    if indic.xgrowth==0 && indic.noskill==1
+        options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    else
+        options = optimset('algorithm','active-set','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    end
 [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constLF,options);
 
+% count=0;
+% while exitflag==-2 && count<4
+%     count=count+1
+%     [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constLF,options);
+% end
 % test solution to 
 if indic.xgrowth==0
     if indic.sep==0

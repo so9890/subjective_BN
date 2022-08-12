@@ -82,31 +82,30 @@ if indic.noskill==0
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
     
-    if indic.notaul<2
+    if indic.notaul<2 % tauf redistributed via income tax
         SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*pf.*F;
     else
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        if indic.notaul<4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon = zeros(size(F));
-        end
+
     end
 else
- if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*pf.*F;
+    if indic.notaul<2
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
+            +tauf.*pf.*F;
     else
-        SGov   = (w.*h-lambdaa.*(w.*h).^(1-taul));
-        if indic.notaul<4
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
+
+    end
+end
+% gov con
+        if 2<=indic.notaul && indic.notaul <4
             GovCon = tauf.*pf.*F;
         else
-            GovCon = zeros(size(F));
+            GovCon =zeros(size(F));
         end
- end
-end
 % lump sum transfers
 if indic.notaul >=4
     Tls =tauf.*pf.*F;

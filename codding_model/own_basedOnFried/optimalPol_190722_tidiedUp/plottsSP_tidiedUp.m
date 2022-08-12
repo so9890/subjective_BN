@@ -184,6 +184,8 @@ elseif plotts.xgr ==0 && plotts.nsk==1
 elseif plotts.xgr ==1 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_xgr_nsk;
 end
+
+    
 %% Comparison model versions in one graph
 % in levels
 if plotts.compnsk_xgr1==1
@@ -351,7 +353,7 @@ if plotts.compnsk_xgr_dev==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,(allvars(find(varlist==varr),1:T)-allvarseff(find(varlist==varr),1:T))./allvarseff(find(varlist==varr),1:T),time,(allvarsalt(find(varlist==varr),1:T)-allvarsalteff(find(varlist==varr),1:T))./allvarsalteff(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            main=plot(time,100*(allvars(find(varlist==varr),1:T)-allvarseff(find(varlist==varr),1:T))./allvarseff(find(varlist==varr),1:T),time,100*(allvarsalt(find(varlist==varr),1:T)-allvarsalteff(find(varlist==varr),1:T))./allvarsalteff(find(varlist==varr),1:T), 'LineWidth', 1.1);   
             set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
             if lgdind==1
                 if kk == "nsk"
@@ -384,6 +386,72 @@ if plotts.compnsk_xgr_dev==1
     end
     end
     end % loop over model versions
+end
+%% Comparison model versions: in deviation from efficient 1 graph
+% in levels
+if plotts.compnsk_xgr_dev1==1
+    
+    fprintf('plotting comp nsk xgr percent from efficient 1')
+
+    %- read in variable container of chosen regime
+        RES=OTHERPOL{plotts.regime_gov+1};
+        RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};
+
+  
+    %- loop over economy versions
+    for ind = 1:2
+        opt=["OPT_T_NoTaus" "OPT_NOT_NoTaus"];% only plotting polcies separately
+        eff=["SP_T" "SP_NOT"];% only plotting polcies separately
+
+        ii=string(opt(ind));
+        ef=string(eff(ind));
+        
+        allvars= RES(ii);
+        allvarseff=RES(ef);
+        allvarsnsk=RESnsk(ii);
+        allvarsnskeff=RESnsk(ef);
+        allvarsxgr=RESxgr(ii);
+        allvarsxgreff=RESxgr(ef);
+        
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,100*(allvars(find(varlist==varr),1:T)-allvarseff(find(varlist==varr),1:T))./allvarseff(find(varlist==varr),1:T),time,100*(allvarsxgr(find(varlist==varr),1:T)-allvarsxgreff(find(varlist==varr),1:T))./allvarsxgreff(find(varlist==varr),1:T),...
+                        time,(allvarsnsk(find(varlist==varr),1:T)-allvarsnskeff(find(varlist==varr),1:T))./allvarsnskeff(find(varlist==varr),1:T)*100, 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            if lgdind==1
+                lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+                
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/Per1_CompMod_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
 end
 
 %% All figures single
@@ -653,7 +721,7 @@ if plotts.compeff==1
          allvarseff=RES(ie); 
 
      %- comparison         
-     for nt =  bb % loop over policy scenarios but benchmark
+     for nt = 3% bb % loop over policy scenarios but benchmark
         RES_help=OTHERPOLL{nt};
         count=nt-1;
         allvarsnotaul =RES_help(io);
@@ -666,11 +734,11 @@ if plotts.compeff==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
            if withlff==1
-               main=plot(time, lff(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T));            
+               main=plot(time, lff(find(varl==varr),1:T),  time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
                set(main,{'LineWidth'}, {1; 1.2; 1.2; 1},  {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {grrey; 'k'; orrange; 'b'} )   
            else
-               main=plot(time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T));            
-               set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
+               main=plot( time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
+               set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
            end
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -687,33 +755,33 @@ if plotts.compeff==1
                if withlff==1
 
                    if count ==0
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy',  'integrated policy, with income tax', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire',  'benchmark policy',  'integrated policy, with income tax', 'efficient','Interpreter', 'latex');
                    elseif count ==1
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy', 'integrated policy, no income tax',  'Interpreter', 'latex');
+                        lgd=legend('laissez-faire','benchmark policy', 'integrated policy, no income tax',   'efficient', 'Interpreter', 'latex');
                    elseif count ==2
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy', 'no redistribution, no income tax', 'Interpreter', 'latex'); 
+                        lgd=legend('laissez-faire', 'with income tax', 'without income tax', 'efficient',  'Interpreter', 'latex'); 
                    elseif count==3
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy', 'no redistribution, with income tax', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire', 'benchmark policy', 'no redistribution, with income tax', 'efficient',  'Interpreter', 'latex');
                    elseif count==4
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy', 'lump-sum transfers, with income tax', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire', 'benchmark policy', 'lump-sum transfers, with income tax', 'efficient',  'Interpreter', 'latex');
                    elseif count==5
-                        lgd=legend('laissez-faire', 'efficient', 'benchmark policy', 'lump-sum transfers, no income tax', 'Interpreter', 'latex');                        
+                        lgd=legend('laissez-faire',  'benchmark policy', 'lump-sum transfers, no income tax', 'efficient',  'Interpreter', 'latex');                        
                    end
                    
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
                    if count ==0
-                        lgd=legend( 'efficient', 'benchmark policy', 'integrated policy, with income tax', 'Interpreter', 'latex');
+                        lgd=legend(  'benchmark policy', 'integrated policy, with income tax',  'efficient', 'Interpreter', 'latex');
                    elseif count ==1
-                        lgd=legend( 'efficient', 'benchmark policy', 'integrated policy, no income tax',  'Interpreter', 'latex');
+                        lgd=legend( 'benchmark policy', 'integrated policy, no income tax', 'efficient',   'Interpreter', 'latex');
                    elseif count ==2
-                        lgd=legend( 'efficient', 'benchmark policy', 'no redistribution, no income tax', 'Interpreter', 'latex'); 
+                        lgd=legend(  'with income tax', 'without income tax',  'efficient', 'Interpreter', 'latex'); 
                    elseif count==3
-                        lgd=legend( 'efficient', 'benchmark policy', 'no redistribution, with income tax', 'Interpreter', 'latex');
+                        lgd=legend(  'benchmark policy', 'no redistribution, with income tax', 'efficient',  'Interpreter', 'latex');
                    elseif count==4
-                        lgd=legend( 'efficient', 'benchmark policy', 'lump-sum transfers, with income tax', 'Interpreter', 'latex');
+                        lgd=legend( 'benchmark policy', 'lump-sum transfers, with income tax',  'efficient', 'Interpreter', 'latex');
                    elseif count==5
-                        lgd=legend( 'efficient', 'benchmark policy', 'lump-sum transfers, no income tax', 'Interpreter', 'latex');                        
+                        lgd=legend( 'benchmark policy', 'lump-sum transfers, no income tax', 'efficient',  'Interpreter', 'latex');                        
                    end
                    
                    

@@ -4,7 +4,7 @@
 
 %%Author: Sonja Dobkowitz
 % building on Lint Barrage's code ReStud2019
-%%Version: August 2022
+% Version: August 2022
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
 cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/optimalPol_190722_tidiedUp'
@@ -248,12 +248,27 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=0:1
+for tf=2 %==2 then uses policy as in helper.opt_all
 indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
-helper=load(sprintf('OPT_target_active_set_1905_spillover0_taus0_noskill%d_notaul0_sep1_BN0_ineq0_red0_xgrowth%d_etaa0.79_NEWems.mat', indic.noskill, indic.xgrowth));
+indic.notaul=3;
+T=12;
+% load benchmark policy
+helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.sep, indic.PV, Sparams.etaa));
 
-[LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
-save(sprintf('COMPEqu_SIM_taufopt%d_taulopt%d_spillover%d_noskill%d_sep%d_bn%d_ineq%d_red%d_xgrowth%d_etaa%.2f.mat', indic.tauf, (1-indic.tauf), indic.spillovers, indic.noskill, indic.sep,indic.BN, indic.ineq, indic.BN_red, indic.xgrowth, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+for xgr=0:1
+    indic.xgrowth=xgr;
+    for nsk=0:1
+        indic.noskill=nsk;
+%         if indic.xgrowth==0 && indic.noskill==1
+%             LF_SIM=helper.opt_all;
+%             [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')], params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+%             helper.LF_SIM=LF_SIM;
+%         end
+        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
+        % helper.opt_all: as initial values and to deduce policy 
+        save(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_etaa%.2f.mat', indic.tauf,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+    end
+end
 end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -277,10 +292,10 @@ plotts.countcomp3=  0;
 plotts.extern=      0;
 
 plotts.compnsk_xgr = 0;
-plotts.compnsk_xgr1= 1;
+plotts.compnsk_xgr1= 0;
 
 plotts.compnsk_xgr_dev= 0;
-
+plotts.compnsk_xgr_dev1 =0;
 plotts.single_pol=  0;
 plotts.singov=      0;
 
@@ -289,7 +304,7 @@ plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
 plotts.compeff1=    0; %1; only social planner
@@ -308,7 +323,7 @@ plotts.per_optd =   0;
 
 
 for xgr =0
-    for nsk=0
+    for nsk=1
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts
