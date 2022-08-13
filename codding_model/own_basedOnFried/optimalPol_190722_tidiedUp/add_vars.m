@@ -62,8 +62,10 @@ PV= ones(size(Y)).*betaa^length(Y)*(PVconsump-PVwork); % continuation value in p
 AgAf=Ag./Af;
 if indic.xgrowth==0
     sgsff= sg./sff;
+    snS= sn./S;
 else
     sgsff=zeros(size(AgAf));
+    snS=zeros(size(AgAf));    
 end
 GFF = G./F;
 EY= E./Y;

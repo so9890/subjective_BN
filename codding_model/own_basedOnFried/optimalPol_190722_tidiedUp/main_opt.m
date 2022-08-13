@@ -279,7 +279,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  3; % = equals policy version to be plotted
+plotts.regime_gov=  0; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -291,23 +291,23 @@ plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
 
-plotts.compnsk_xgr = 1;
-plotts.compnsk_xgr1= 1;
+plotts.compnsk_xgr = 0;
+plotts.compnsk_xgr1= 0;
 
-plotts.compnsk_xgr_dev= 1;
-plotts.compnsk_xgr_dev1 =1;
-plotts.count_modlev= 1;
+plotts.compnsk_xgr_dev= 0;
+plotts.compnsk_xgr_dev1 =0;
+plotts.count_modlev= 0;
 
-plotts.count_modlev_eff= 1;
-plotts.single_pol=  0;
+plotts.count_modlev_eff= 0;
+plotts.single_pol=  1;
 plotts.singov=      0;
 
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 
-plotts.comptarg=    1; % comparison with and without target
-plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
+plotts.comptarg=    0; % comparison with and without target
+plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
 plotts.compeff1=    0; %1; only social planner

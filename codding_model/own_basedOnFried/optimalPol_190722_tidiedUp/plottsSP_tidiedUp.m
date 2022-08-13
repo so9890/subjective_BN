@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff snS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV AgAf sgsff GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul PV AgAf sgsff snS  GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -105,6 +105,7 @@ end
 end
 
 % counetrfactual model
+if plotts.regime_gov==3
     helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
     nsk_all=helper.LF_COUNT';
         helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
@@ -117,7 +118,7 @@ end
     RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
                                 {nsk_all,  xgr_all, xgr_nsk_all, test_all});
     RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
-
+end
 %% Tables
 if plotts.table==1
 for xgr=0:1
