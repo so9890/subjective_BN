@@ -194,14 +194,14 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for xgr=0
+for xgr=1
     indic.xgrowth=xgr;
-    for ns=0
+    for ns=0:1
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=0:1
+       for tar=1
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
