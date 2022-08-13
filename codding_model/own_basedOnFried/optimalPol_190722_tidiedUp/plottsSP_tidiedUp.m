@@ -242,7 +242,7 @@ if plotts.count_modlev==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountMod1_target_%s_regime%d_spillover%d_sep%d_extern%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/CountMod1_target_%s_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -298,7 +298,7 @@ if plotts.count_modlev_eff
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/Per1_CountMod_%s_regime%d_spillover%d_sep%d_extern%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/Per1_CountMod_%s_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -352,7 +352,7 @@ if plotts.compnsk_xgr1==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompMod1_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/CompMod1_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -419,7 +419,7 @@ if plotts.compnsk_xgr==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -494,7 +494,7 @@ if plotts.compnsk_xgr_dev==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/Per_CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/Per_CompMod_%s_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -561,7 +561,7 @@ if plotts.compnsk_xgr_dev1==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/Per1_CompMod_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa, lgdind);
+            path=sprintf('figures/all_%s/Per1_CompMod_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -616,9 +616,9 @@ if plotts.single_pol==1
             ytickformat('%.2f')
             xticklabels(Year10)
             if indic.count_techgap==0
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa);
             else
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_PV%d_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV, etaa);
             end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -803,7 +803,7 @@ if plotts.comptarg==1
               lgd=legend('wih emission limit', 'no emission limit', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_TargetComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png', date, varr, ii, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_TargetComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ii, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
        close gcf
         end
@@ -955,7 +955,7 @@ if plotts.compeff1==1
               lgd=legend('efficient', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_onlyeff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d.png', date, varr, ie, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_CompEff%s_onlyeff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ie, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1043,7 +1043,7 @@ if plotts.compeff2==1
                end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_noopt_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, count, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, etaa, lgdind, withlff);
+        path=sprintf('figures/all_%s/%s_CompEff%s_noopt_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, count, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1111,7 +1111,7 @@ if plotts.compeff3==1
                end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, etaa, lgdind, withlff);
+        path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1166,7 +1166,7 @@ for nt =  1:length(OTHERPOLL) % loop over policy regimes
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_BAUComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_BAUComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1221,7 +1221,7 @@ for nt =  1:length(OTHERPOLL) % loop over policy regimes
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_LFComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_LFComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1270,7 +1270,7 @@ if plotts.per_BAUt0==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageBAUComp_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageBAUComp_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1319,7 +1319,7 @@ if plotts.per_LFt0==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageLFComp_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageLFComp_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1369,7 +1369,7 @@ end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageEffOptFirstPeriod_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageEffOptFirstPeriod_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1415,7 +1415,7 @@ end
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageOptDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageOptDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1463,7 +1463,7 @@ if plotts.per_baud==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageBAUDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageBAUDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1511,7 +1511,7 @@ if plotts.per_LFd==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1562,7 +1562,7 @@ if plotts.per_LFd_nt==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1610,7 +1610,7 @@ if plotts.per_LFd_ne_nt==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_noeff_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageLFDynNT_noeff_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end

@@ -282,7 +282,7 @@ indic
 plotts.regime_gov=  3; % = equals policy version to be plotted
 
 plotts.table=       0;
-plotts.cev  =       1; 
+plotts.cev  =       0; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
@@ -291,14 +291,14 @@ plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
 
-plotts.compnsk_xgr = 0;
-plotts.compnsk_xgr1= 0;
+plotts.compnsk_xgr = 1;
+plotts.compnsk_xgr1= 1;
 
-plotts.compnsk_xgr_dev= 0;
-plotts.compnsk_xgr_dev1 =0;
-plotts.count_modlev= 0;
+plotts.compnsk_xgr_dev= 1;
+plotts.compnsk_xgr_dev1 =1;
+plotts.count_modlev= 1;
 
-plotts.count_modlev_eff= 0;
+plotts.count_modlev_eff= 1;
 plotts.single_pol=  0;
 plotts.singov=      0;
 
@@ -306,7 +306,7 @@ plotts.notaul=      0; % policy comparisons; this one needs to be switched on to
 plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 
-plotts.comptarg=    0; % comparison with and without target
+plotts.comptarg=    1; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
@@ -324,8 +324,8 @@ plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
-for xgr =0:1
-    for nsk=0:1
+for xgr =0
+    for nsk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts
