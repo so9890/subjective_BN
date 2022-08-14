@@ -108,7 +108,11 @@ while t<=T+1 % because first iteration is base year
     % read in policy
 
     if row(1)>1
-        pol=poll(t,:);
+        if t<=T
+            pol=poll(t,:);
+        else
+            pol=poll(t-1,:);
+        end
     else
         pol=poll;
     end
@@ -156,8 +160,10 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 %      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,);%, );%, );%, 'Display', 'Iter', );
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
+if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
+end
 
     %- transform results to bounded variables
     if indic.noskill==0

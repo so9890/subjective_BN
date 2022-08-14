@@ -161,7 +161,7 @@ Cincome=Y-xn-xf-xg-GovCon;
 
 diff=C-Cincome;
 
-if max(abs(diff))>1e-10
+if max(abs(diff))>1e-8
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')

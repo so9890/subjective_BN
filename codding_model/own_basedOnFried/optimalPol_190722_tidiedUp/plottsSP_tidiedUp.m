@@ -104,21 +104,34 @@ for nsk =0:1
 end
 end
 
-% counetrfactual model
+%% counetrfactual model
 if plotts.regime_gov==3
-    helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+    for to=[0,1,2] % loop over counterfactual versions
+    helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
     nsk_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
     xgr_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep,indic.PV,  etaa));
     xgr_nsk_all=helper.LF_COUNT';
-            helper=load(sprintf('COMPEquN_SIM_taufopt2_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_etaa%.2f.mat', indic.spillovers, plotts.regime_gov, indic.sep,  etaa));
+        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
     test_all=helper.LF_COUNT';
     
-    RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-    RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
+    if to==2
+        RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+        RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
+    elseif to==1 % only tauf
+        RES_count_onlytauf=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+        RES_count_onlytauf=add_vars(RES_count_onlytauf, list, params, indic, list.allvars, symms);
+    elseif to==0 % only taul
+        RES_count_onlytaul=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+        RES_count_onlytaul=add_vars(RES_count_onlytaul, list, params, indic, list.allvars, symms);
+    end               
+    end
 end
+
 %% Tables
 if plotts.table==1
 for xgr=0:1
@@ -200,6 +213,127 @@ txx=1:2:T; % reducing indices
 %- using start year of beginning period 
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
+
+%% effect tauf relative to laissez faire
+% in levels
+if plotts.count_tauflev==1
+    
+    fprintf('plott only tauf model level')
+
+
+    %- loop over economy versions
+    for k=keys(RES_count_onlytauf)
+        kk=string(k);
+            %- read in variable container of chosen regime
+            if kk=="test"
+                RES=OTHERPOL{plotts.regime_gov+1}; 
+            elseif kk=="nsk"
+                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
+            elseif kk=="xgr"
+                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
+            elseif kk=="xgr_nsk"
+                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
+            end
+        allvars= RES("LF");
+        allvarst=RES_count_onlytauf(kk);
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
+            if lgdind==1
+               lgd=legend('laissez-faire' , 'only environmental tax',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTauf_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+
+%% effect tauf relative to laissez faire
+% in levels
+if plotts.count_taullev==1
+    
+    fprintf('plott only taul model level')
+%- loop over economy versions
+    for k=keys(RES_count_onlytaul)
+      kk=string(k);
+            %- read in variable container of chosen regime
+            if kk=="test"
+                RES=OTHERPOL{plotts.regime_gov+1}; 
+            elseif kk=="nsk"
+                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
+            elseif kk=="xgr"
+                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
+            elseif kk=="xgr_nsk"
+                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
+            end
+        allvars= RES("LF");
+        allvarst=RES_count_onlytaul(kk);
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+   kk=string(k);
+     
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
+            if lgdind==1
+               lgd=legend('laissez-faire' , 'only income tax',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTaul_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+
+
 
 %% Comparison model versions in one graph
 % in levels

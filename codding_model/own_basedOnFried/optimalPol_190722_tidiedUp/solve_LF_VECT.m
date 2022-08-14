@@ -129,10 +129,10 @@ objf=@(x)objectiveCALIBSCI(x);
     end
 [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constLF,options);
 
-% count=0;
-% while exitflag==-2 && count<4
-%     count=count+1
-%     [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constLF,options);
+%  count=0;
+%  while exitflag==-2 && count<4
+%      count=count+1
+[x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constLF,options);
 % end
 % test solution to 
 if indic.xgrowth==0

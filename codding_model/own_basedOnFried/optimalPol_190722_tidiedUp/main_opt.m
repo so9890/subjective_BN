@@ -48,7 +48,7 @@ if indic.target==1
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
-indic.PV = 0; % ==1 if continuation value is added to planners problem
+indic.PV = 1; % ==1 if continuation value is added to planners problem
 indic.PVwork =0; %==0 then disutility of work is not in 
 indic
 
@@ -248,25 +248,59 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=2 %==2 then uses policy as in helper.opt_all
+for tf=0 %==2 then uses policy as in helper.opt_all
 indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
 indic.notaul=3;
-T=12;
-% load benchmark policy
-helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.sep, indic.PV, Sparams.etaa));
+indic.PV=1;
 
 for xgr=0:1
     indic.xgrowth=xgr;
-    for nsk=0:1
+    for nsk=0
         indic.noskill=nsk;
-%         if indic.xgrowth==0 && indic.noskill==1
-%             LF_SIM=helper.opt_all;
-%             [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')], params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-%             helper.LF_SIM=LF_SIM;
-%         end
-        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.opt_all,indic);
+% load benchmark policy
+if tf==2 % read in benchmark model wrt skill xgr
+    helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+elseif tf~=2 % load in same model wsrt skill xgr
+     helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
+end
+         if  indic.noskill==1&& indic.xgrowth==0  % get better starting values!
+             if indic.tauf==1
+                 T=11;
+             end
+             LF_SIM=helper.opt_all;       
+                for ll=list.choice
+                    x0LF(list.choice==ll)=LF_SIM(1, list.allvars==ll);
+                end
+                 if indic.tauf==2
+                     poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
+                 elseif indic.tauf==0
+                     poll= [zeros(size(LF_SIM(:,list.sepallvars=='taul'))), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
+                 elseif indic.tauf==1
+                     poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),zeros(size(LF_SIM(:,list.sepallvars=='tauf'))), LF_SIM(:,list.sepallvars=='lambdaa')];
+                 end
+             if indic.xgrowth==0
+                    
+                 [LF_SIM, pol, FVAL] = solve_LF_nows(T, list,poll, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+             else
+                 [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+             end
+             helper.LF_SIM=LF_SIM'; % but not correct policy!
+
+             if indic.tauf==1
+                helper.LF_SIM=[helper.LF_SIM;helper.LF_SIM(end,:)];
+             end
+                 
+             for pp=list.pol(list.pol~='lambdaa')
+                 helper.LF_SIM(:, list.allvars==pp)= helper.opt_all(:, list.allvars==pp);
+             end
+         else
+           helper.LF_SIM=helper.opt_all;
+
+         end
+         T=12; 
+        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic);
         % helper.opt_all: as initial values and to deduce policy 
-        save(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_etaa%.2f.mat', indic.tauf,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+        save(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
     end
 end
 end
@@ -279,7 +313,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  0; % = equals policy version to be plotted
+plotts.regime_gov=  3; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -291,15 +325,18 @@ plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
 
+plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
+plotts.count_taullev =1; % counterfactual with only taul in laissez faire
+
 plotts.compnsk_xgr = 0;
 plotts.compnsk_xgr1= 0;
 
 plotts.compnsk_xgr_dev= 0;
 plotts.compnsk_xgr_dev1 =0;
-plotts.count_modlev= 0;
+plotts.count_modlev= 0; 
 
 plotts.count_modlev_eff= 0;
-plotts.single_pol=  1;
+plotts.single_pol=  0;
 plotts.singov=      0;
 
 plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
@@ -307,7 +344,7 @@ plotts.bau=         0; % do plot bau comparison
 plotts.lf=          0; % comparison to laissez faire allocation 
 
 plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     1; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
 plotts.compeff1=    0; %1; only social planner
