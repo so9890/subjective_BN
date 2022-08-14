@@ -60,7 +60,7 @@ PV= ones(size(Y)).*betaa^length(Y)*(PVconsump-PVwork); % continuation value in p
 
 % ratios
 AgAf=Ag./Af;
-if indic.xgrowth==0
+if max(sff~=zeros(size(sff)))
     sgsff= sg./sff;
     snS= sn./S;
 else

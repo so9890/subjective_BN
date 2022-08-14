@@ -106,7 +106,7 @@ end
 
 %% counetrfactual model
 if plotts.regime_gov==3
-    for to=[0,1,2] % loop over counterfactual versions
+    for to=[0,2] % loop over counterfactual versions
     helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
     nsk_all=helper.LF_COUNT';
         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
@@ -294,7 +294,7 @@ if plotts.count_taullev==1
             end
         allvars= RES("LF");
         allvarst=RES_count_onlytaul(kk);
-        
+
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
@@ -303,7 +303,6 @@ if plotts.count_taullev==1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-   kk=string(k);
      
             main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
             set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
