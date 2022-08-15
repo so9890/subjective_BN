@@ -326,7 +326,7 @@ plotts.countcomp3=  0;
 plotts.extern=      0;
 
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
-plotts.count_taullev =1; % counterfactual with only taul in laissez faire
+plotts.count_taullev =0; % counterfactual with only taul in laissez faire
 
 plotts.compnsk_xgr = 0;
 plotts.compnsk_xgr1= 0;
@@ -347,8 +347,8 @@ plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
-plotts.compeff1=    0; %1; only social planner
-plotts.compeff2=    0; %1; efficient and non benchmark
+plotts.compeff1=    1; %1; only social planner
+plotts.compeff2=    1; %1; efficient and non benchmark
 
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -361,7 +361,7 @@ plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
-for xgr =0
+for xgr =1
     for nsk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
