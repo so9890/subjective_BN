@@ -21,6 +21,9 @@ function LF_COUNT=compequ(T, list, params, init201519,   symms, LF_SIM, indic)
         LF_SIM(:,list.sepallvars=='taus')=zeros(size(LF_SIM(:,list.sepallvars=='taus')));    
     % for indic.tauf==2 there is no adjustment! 
     % useful when using optimal policy in model with xgr or nsk
+    elseif indic.tauf==3 % uses benchmark model policy but sets tauf to zero
+        LF_SIM(:,list.sepallvars=='tauf')=zeros(size(LF_SIM(:,list.sepallvars=='tauf')));
+        LF_SIM(:,list.sepallvars=='taus')=zeros(size(LF_SIM(:,list.sepallvars=='taus')));    
     end
 
 helper.LF_SIM=LF_SIM';

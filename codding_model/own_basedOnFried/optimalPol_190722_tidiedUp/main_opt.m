@@ -248,17 +248,17 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=0 %==2 then uses policy as in helper.opt_all
+for tf=3 %==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
 indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
 indic.notaul=3;
 indic.PV=1;
 
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
     for nsk=0
         indic.noskill=nsk;
 % load benchmark policy
-if tf==2 % read in benchmark model wrt skill xgr
+if tf>=2 % read in benchmark model wrt skill xgr
     helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.notaul, indic.sep, indic.PV, Sparams.etaa));
 elseif tf~=2 % load in same model wsrt skill xgr
      helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
@@ -324,7 +324,9 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-
+plotts.compEff_mod_dev1=1;
+plotts.count_taul_xgr_LF =0;
+plotts.count_taul_xgr_lev =0;
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
 plotts.count_taullev =0; % counterfactual with only taul in laissez faire
 
@@ -347,8 +349,8 @@ plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
 
-plotts.compeff1=    1; %1; only social planner
-plotts.compeff2=    1; %1; efficient and non benchmark
+plotts.compeff1=    0; %1; only social planner
+plotts.compeff2=    0; %1; efficient and non benchmark
 
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -361,7 +363,7 @@ plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
-for xgr =1
+for xgr =0
     for nsk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

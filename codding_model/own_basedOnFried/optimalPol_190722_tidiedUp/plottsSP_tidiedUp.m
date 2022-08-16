@@ -132,6 +132,15 @@ if plotts.regime_gov==3
     end
 end
 
+% counetrfactual with tauf =0 and other model: What is the effect of labor
+% income tax with endogenous growth
+helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+xgr_all=helper.LF_COUNT';
+helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+test_all=helper.LF_COUNT';
+RES_count_xgr_onlytaul=containers.Map({'xgr', 'test'},...
+                            {xgr_all,  test_all});
+RES_count_xgr_onlytaul=add_vars(RES_count_xgr_onlytaul, list, params, indic, list.allvars, symms);
 %% Tables
 if plotts.table==1
 for xgr=0:1
@@ -213,6 +222,102 @@ txx=1:2:T; % reducing indices
 %- using start year of beginning period 
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
+
+%% effect of taul in model without xgr and with xgr
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.count_taul_xgr_LF==1
+    
+    fprintf('plott only taul xgr model devLF')
+
+
+        RES=OTHERPOL{plotts.regime_gov+1}; 
+        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1}; 
+
+        allvarslf= RES("LF");
+        allvarstlf= RESxgr("LF");
+        allvars= RES_count_xgr_onlytaul("test");
+        allvarst=RES_count_xgr_onlytaul('xgr');
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarslf(find(varlist==varr),1:T),...
+                time,allvarst(find(varlist==varr),1:T), time, allvarstlf(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';':'; '--'; '--'}, {'color'}, {'k'; grrey; 'b';grrey} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'benchmark, LF', 'exogenous growth', 'exogenous growth, LF',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountXgrTaulLF_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+%% effect of taul in model without xgr and with xgr
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.count_taul_xgr_lev==1
+    
+    fprintf('plott only taul xgr model level')
+
+        allvars= RES_count_xgr_onlytaul("test");
+        allvarst=RES_count_xgr_onlytaul('xgr');
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'exogenous growth',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountXgrTaul_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
 
 %% effect tauf relative to laissez faire
 % in levels
@@ -441,6 +546,7 @@ if plotts.count_modlev_eff
     end
 end
 
+
 %% Comparison model versions in one graph
 % in levels
 if plotts.compnsk_xgr1==1
@@ -562,6 +668,69 @@ if plotts.compnsk_xgr==1
     end
     end
     end % loop over model versions
+end
+%% Comparison model versions: in deviation from efficient 1 graph
+% in levels
+if plotts.compEff_mod_dev1==1
+    
+    fprintf('plotting comp models efficient 1')
+
+    %- read in variable container of chosen regime
+        RES=OTHERPOL{plotts.regime_gov+1};
+        RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
+        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};
+
+  
+    %- loop over economy versions
+    for ind = 1:2
+        opt=["OPT_T_NoTaus" "OPT_NOT_NoTaus"];% only plotting polcies separately
+        eff=["SP_T" "SP_NOT"];% only plotting polcies separately
+
+        ii=string(opt(ind));
+        ef=string(eff(ind));
+        
+        allvarseff=RES(ef);
+        allvarsnskeff=RESnsk(ef);
+        allvarsxgreff=RESxgr(ef);
+        
+    fprintf('plotting %s',ii );
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvarseff(find(varlist==varr),1:T),time,allvarsxgreff(find(varlist==varr),1:T),...
+                        time,allvarsnskeff(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            if lgdind==1
+                lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+                
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/EFF_CompMod_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
 end
 
 %% Comparison model versions: in deviation from efficient
