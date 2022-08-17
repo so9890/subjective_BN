@@ -252,19 +252,20 @@ for tf=3 %==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0
 indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
 indic.notaul=3;
 indic.PV=1;
+T=12;
 
-for xgr=0
+for xgr=0:1
     indic.xgrowth=xgr;
     for nsk=0
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
     helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.notaul, indic.sep, indic.PV, Sparams.etaa));
-elseif tf~=2 % load in same model wsrt skill xgr
+elseif tf<2 % load in same model wsrt skill xgr
      helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
 end
-         if  indic.noskill==1&& indic.xgrowth==0  % get better starting values!
-             if indic.tauf==1
+         if  indic.noskill==1 % get better starting values!
+             if indic.tauf<2
                  T=11;
              end
              LF_SIM=helper.opt_all;       
@@ -274,9 +275,10 @@ end
                  if indic.tauf==2
                      poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
                  elseif indic.tauf==0
-                     poll= [zeros(size(LF_SIM(:,list.sepallvars=='taul'))), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
-                 elseif indic.tauf==1
                      poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),zeros(size(LF_SIM(:,list.sepallvars=='tauf'))), LF_SIM(:,list.sepallvars=='lambdaa')];
+                 elseif indic.tauf==1
+                     poll= [zeros(size(LF_SIM(:,list.sepallvars=='taul'))), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
+                     
                  end
              if indic.xgrowth==0
                     
@@ -286,7 +288,7 @@ end
              end
              helper.LF_SIM=LF_SIM'; % but not correct policy!
 
-             if indic.tauf==1
+             if indic.tauf<2
                 helper.LF_SIM=[helper.LF_SIM;helper.LF_SIM(end,:)];
              end
                  
@@ -324,11 +326,11 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-plotts.compEff_mod_dev1=1;
-plotts.count_taul_xgr_LF =0;
-plotts.count_taul_xgr_lev =0;
+plotts.compEff_mod_dev1=0;
+plotts.count_taul_xgr_LF =1;
+plotts.count_taul_xgr_lev =1;
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
-plotts.count_taullev =0; % counterfactual with only taul in laissez faire
+plotts.count_taullev =1; % counterfactual with only taul in laissez faire
 
 plotts.compnsk_xgr = 0;
 plotts.compnsk_xgr1= 0;

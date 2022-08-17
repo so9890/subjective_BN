@@ -12,7 +12,7 @@ orrange= [0.8500 0.3250 0.0980];
 grrey = [0.6 0.6 0.6];
 
 %- variables
-syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
+syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
 syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff snS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
@@ -26,7 +26,7 @@ symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions,
 if indic.sep==0
     symms.plotsvarsPri =[pg pf pee pn wh wl ws];  
 else
-    symms.plotsvarsPri =[pg pf pee pn wh wl wsg wsn wsf];  
+    symms.plotsvarsPri =[pg pf pee pn wh wl wlf wlg wln wsg wsn wsf];  
 end
 
 listt.plotsvarsProd=string(symms.plotsvarsProd);

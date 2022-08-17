@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
 % simulate economy under laissez faire
 
 % input: 
@@ -65,9 +65,22 @@ if indic.noskill==1
         indexx('LF_noskill_xgrowth')=indexxLFsep;
 end
 
+% check size of policy matrix
+    [row]=size(poll);
 %%
 while t<=T+1 % because first iteration is base year
     fprintf('entering simulation of period %d', t);
+    
+    % read in policy 
+    if row(1)>1
+        if t<=T
+            pol=poll(t,:);
+        else
+            pol=poll(t-1,:);
+        end
+    else
+        pol=poll;
+    end
     %% - transforming variables to unbounded variables
     %-- index for transformation 
     if indic.noskill==0
