@@ -138,9 +138,13 @@ helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_x
 xgr_all=helper.LF_COUNT';
 helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
 test_all=helper.LF_COUNT';
-RES_count_xgr_onlytaul=containers.Map({'xgr', 'test'},...
-                            {xgr_all,  test_all});
-RES_count_xgr_onlytaul=add_vars(RES_count_xgr_onlytaul, list, params, indic, list.allvars, symms);
+helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+xgr_nsk_all=helper.LF_COUNT';
+helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+nsk_all=helper.LF_COUNT';
+RES_count_SAMETAUL_onlytaul=containers.Map({'xgr','nsk', 'xgr_nsk', 'test'},...
+                            {xgr_all, nsk_all, xgr_nsk_all, test_all});
+RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
 %% Tables
 if plotts.table==1
 for xgr=0:1
@@ -211,10 +215,7 @@ if plotts.cev==1
         
     [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);   
     save(sprintf('Table_CEV_%s_regime%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
-
 end
-
-
 %% Plots
 %- axes
 time = 1:T;
@@ -225,18 +226,17 @@ Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
 %% effect of taul in model without xgr and with xgr
 % compare effect of only taul in benchmark and in exogenous growth model
-if plotts.count_taul_xgr_LF==1
+if plotts.count_taul_nsk_LF==1
     
-    fprintf('plott only taul xgr model devLF')
-
+    fprintf('plott only taul nsk model devLF')
 
         RES=OTHERPOL{plotts.regime_gov+1}; 
-        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1}; 
+        RESnsk=OTHERPOL_nsk{plotts.regime_gov+1}; 
 
         allvarslf= RES("LF");
-        allvarstlf= RESxgr("LF");
-        allvars= RES_count_xgr_onlytaul("test");
-        allvarst=RES_count_xgr_onlytaul('xgr');
+        allvarstlf= RESnsk("LF");
+        allvars= RES_count_SAMETAUL_onlytaul("test");
+        allvarst=RES_count_SAMETAUL_onlytaul('nsk');
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -249,7 +249,58 @@ if plotts.count_taul_xgr_LF==1
 
             main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarslf(find(varlist==varr),1:T),...
                 time,allvarst(find(varlist==varr),1:T), time, allvarstlf(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';':'; '--'; '--'}, {'color'}, {'k'; grrey; 'b';grrey} )   
+            set(main, {'LineStyle'},{'-';':'; '--'; ':'}, {'color'}, {'k'; orrange; 'b';grrey} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'benchmark, LF', 'homogeneous skill', 'homogeneous skill, LF',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountNskTaulLF_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
+%% effect of taul in model without xgr and with xgr
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.count_taul_xgr_LF==1
+    
+    fprintf('plott only taul xgr model devLF')
+
+        RES=OTHERPOL{plotts.regime_gov+1}; 
+        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1}; 
+
+        allvarslf= RES("LF");
+        allvarstlf= RESxgr("LF");
+        allvars= RES_count_SAMETAUL_onlytaul("test");
+        allvarst=RES_count_SAMETAUL_onlytaul('xgr');
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarslf(find(varlist==varr),1:T),...
+                time,allvarst(find(varlist==varr),1:T), time, allvarstlf(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';':'; '--'; '--'}, {'color'}, {'k';orrange; 'b';grrey} )   
             if lgdind==1
                lgd=legend('benchmark' , 'benchmark, LF', 'exogenous growth', 'exogenous growth, LF',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
@@ -280,8 +331,8 @@ if plotts.count_taul_xgr_lev==1
     
     fprintf('plott only taul xgr model level')
 
-        allvars= RES_count_xgr_onlytaul("test");
-        allvarst=RES_count_xgr_onlytaul('xgr');
+        allvars= RES_count_SAMETAUL_onlytaul("test");
+        allvarst=RES_count_SAMETAUL_onlytaul('xgr');
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -324,7 +375,6 @@ end
 if plotts.count_tauflev==1
     
     fprintf('plott only tauf model level')
-
 
     %- loop over economy versions
     for k=keys(RES_count_onlytauf)

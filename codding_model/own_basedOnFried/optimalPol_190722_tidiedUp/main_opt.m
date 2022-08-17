@@ -254,9 +254,9 @@ indic.notaul=3;
 indic.PV=1;
 T=12;
 
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
-    for nsk=0
+    for nsk=1
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
@@ -272,7 +272,7 @@ end
                 for ll=list.choice
                     x0LF(list.choice==ll)=LF_SIM(1, list.allvars==ll);
                 end
-                 if indic.tauf==2
+                 if indic.tauf>=2
                      poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
                  elseif indic.tauf==0
                      poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),zeros(size(LF_SIM(:,list.sepallvars=='tauf'))), LF_SIM(:,list.sepallvars=='lambdaa')];
@@ -327,10 +327,11 @@ plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
 plotts.compEff_mod_dev1=0;
-plotts.count_taul_xgr_LF =1;
-plotts.count_taul_xgr_lev =1;
+ plotts.count_taul_nsk_LF=1;
+plotts.count_taul_xgr_LF =0;
+plotts.count_taul_xgr_lev =0;
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
-plotts.count_taullev =1; % counterfactual with only taul in laissez faire
+plotts.count_taullev =0; % counterfactual with only taul in laissez faire
 
 plotts.compnsk_xgr = 0;
 plotts.compnsk_xgr1= 0;
