@@ -74,9 +74,10 @@ To allow the planner to reduce growth, I endogenize the supply of scientists con
 The model features three sectors producing intermediate goods:  a non-energy, a fossil energy, and a green energy good. The latter two are used to produce an energy good which again is combined with the non-energy good to produce the final consumption good.
 Within each intermediate sector of production, imperfectly monopolistic machine producers demand research to increase productivity of their machines and augment profits. 
 
-The evolution of research features a \textit{building-on-the-shoulders-of-giants} mechanism: last periods technology level positively affects today's level. This introduces dynamics and an inefficiency into the model, because machine producers do not internalize future profits in today's investment decision. 
-Knowledge spillovers across sectors are another source of inefficiency in the model.
-The returns to research increase with the size of the sector: a market size effect. Therefore, a higher labor supply may incentivize R\&D investment. In addition, a good's relative price raises sector-specific returns to research: a price effect \citep{Acemoglu2002DirectedChange}. 
+The evolution of research features a \textit{building-on-the-shoulders-of-giants} mechanism: last periods technology level positively affects today's level. This introduces dynamics and an inefficiency into the model because machine producers do not internalize future profits in today's investment decision. 
+Knowledge spillovers across sectors are another source of inefficiency. The income tax scheme affects the level and the direction of research by impacting the returns to research.
+As demonstrated by \cite{Acemoglu2002DirectedChange},
+the returns to research are again affected by two effects. First, they increase with the size of the sector: a market size effect. Therefore, a higher labor supply may incentivize R\&D investment. In addition, a good's relative price raises sector-specific returns to research: a price effect. 
 
 
 % This price effect becomes relevant when zooming in on the recomposing effect of labor income taxation, which I will consider next.
@@ -84,7 +85,7 @@ The returns to research increase with the size of the sector: a market size effe
 
 In the model, high-skill labor is scarce which explains a skill premium in equilibrium. Consequently, these workers supply more hours and are more responsive to the substitution effect when income tax progressivity makes leisure cheaper.
 The green sector of production requires a higher share of high-skill labor. This skill-bias combined with the more responsive high-skill supply to income taxation introduces a recomposing effect of labor income taxes: a \textit{skill-recomposition} channel.
-Progressive income taxes lower emissions by enhancing supply of the green sector-specific input good.  Then, the economy transitions to a higher dirty production share. 
+%Progressive income taxes lower emissions by enhancing supply of the green sector-specific input good.  Then, the economy transitions to a higher dirty production share. 
 
 Due to the higher labor share in fossil relative to green energy production \citep{Fried2018ClimateAnalysis}, a countering recomposing mechanism emerges: a \textit{labor-share} channel. As labor supply declines, production of the less labor intense good becomes cheaper and the energy mix greener. Similarly, the non-energy good is more labor intense than the energy good resulting in a higher energy share in final production. 
 
@@ -101,9 +102,11 @@ As regards final good production, energy and non-energy goods are complements so
 
 
 %\paragraph{How the externality is modeled}
-In the quantitative model, the government cares about the externality due to an exogenous constraint on emissions. This approach, known as a cost-effectiveness approach, has the advantage of reducing modeling and parametric uncertainty. The uncertainty surrounds (1) the relation of greenhouse gas emissions and climate warming and (2) the impact of the change in climate on well-being and production. I  use estimated emission limits stemming from meta studies of complex integrated assessment models provided by the \cite{IPCC2022}. Since these limits are designed to meet climate targets, they are highly politically relevant.  
+In the quantitative model, I focus on the policy regime where environmental tax revenues are consumed by the government.
+Current debates on how to optimally use environmental tax revenues in politics \citep{Baker2017TheDividends} and academia \citep[e.g.][]{Fried2018TheGenerations, Carattini2018} motivate to focus on this policy regime. 
+ The government cares about the externality due to an exogenous constraint on emissions. This approach, known as a cost-effectiveness approach, has the advantage of reducing modeling and parametric uncertainty. The uncertainty surrounds (1) the relation of greenhouse gas emissions and climate warming and (2) the impact of the change in climate on well-being and production. I  use estimated emission limits stemming from meta studies of complex integrated assessment models provided by the \cite{IPCC2022}. Since these limits are designed to meet climate targets, they are highly politically relevant.  
 % think about the relation of an absolute emission target and not reducing hours
-Given these absolute emission limits, allowing for endogenous growth is important to take seriously the possibility of green growth to keep consumption high while meeting emission targets. % Endogenous growth introduces dynamics into the model since today's level of technology positively depends on yesterday's technology: a \textit{standing on the shoulder of giants} mechanism.  
+Given these absolute emission limits, allowing for endogenous growth is important to take seriously the possibility of green growth to reduce the costs of environmental policies. % Endogenous growth introduces dynamics into the model since today's level of technology positively depends on yesterday's technology: a \textit{standing on the shoulder of giants} mechanism.  
 
 
 %The model differentiates between high- and low-skill labor to account for a skill bias found for the green sector \citep{Consoli2016DoCapital}. This asymmetry of sectors renders regressive taxes a tool to lower relative production costs in the green sector: high-skill workers reduce their labor supply more in response to a more progressive tax as leisure is more valuable to them. This recomposing mechanism counteracts intentions to lower emissions. %, a regressive tax functions as a green subsidy. % In fact, there is an externality arising from high-skill labor supply as it shapes the share of fossil to green energy production. 
@@ -112,20 +115,20 @@ Given these absolute emission limits, allowing for endogenous growth is importan
 %First, a lower labor supply reduces the profitability of research in general. By reducing hours worked the planner sacrifices technological progress. Secondly, the recomposing effect is aggravated as research is directed towards the sector with the increased labor share, i.e. the fossil sector.
 
 %\paragraph{Calibration}
-The model is calibrated to the US in the baseline period from 2015 to 2019. To do so, I proceed in two steps. First, I set certain parameters to values found in the literature. Most importantly, I use reasonable values of production and innovation processes found in \cite{Fried2018ClimateAnalysis}. % who conducts a rigorous calibration exercise. 
-With these parameter values at hand, I match the share of high skill in the green and non-green sectors building on \cite{Consoli2016DoCapital}. The emission target is set to the values suggested in the Sixth Assessment Report of the \cite{IPCC2022} on mitigation pathways: a 50\% reduction by 2030 relative to 2019 levels and  net-zero emissions from 2050 onward; the remaining carbon budget, as well, is taken into account.
+The model is calibrated to the US in the baseline period from 2015 to 2019. I proceed in two steps. First, I set certain parameters to values found in the literature. Most importantly, I use reasonable values of production and innovation processes found in \cite{Fried2018ClimateAnalysis}. % who conducts a rigorous calibration exercise. 
+With these parameter values at hand, I match the share of high skill in the green and non-green sectors building on \cite{Consoli2016DoCapital}. The emission target is set to the values suggested in the Sixth Assessment Report of the \cite{IPCC2022} on mitigation pathways: a 50\% reduction during the 2030s relative to 2019 levels and  net-zero emissions from 2050 onward; the remaining carbon budget pins down a limit on emissions in the 2020s.
 
 %\paragraph{Quantitative exercise}
 I perform the following quantitative exercises. 
- The planner sets the environmental tax and the progressivity parameter of the non-linear income tax scheme to maximize welfare while satisfying the emission limit. Environmental tax revenues are consumed by the government. %As discussed in the analytical section, under this policy regime the efficient allocation is not feasible, but, it is  more policy relevant. 
+ The planner sets the environmental tax and the progressivity parameter of the non-linear income tax scheme to maximize welfare while satisfying the emission limit. %Environmental tax revenues are consumed by the government. %As discussed in the analytical section, under this policy regime the efficient allocation is not feasible, but, it is  more policy relevant. 
 %I am taking a political economy perspective on the maximization problem
 I solve the Ramsey model explicitly for 55 years starting from 2020. The presented analysis does not seek to solve an infinite-horizon problem. The focus on utility of households living during the transition period is legitimate given their importance for political feasibility.
 %\citep[compare][]{Fried2018TheGenerations}.
-However, absent a value assigned to periods beyond 2075, the optimal allocation features decreasing innovation inputs as future gains from innovation today are not policy relevant.
+However, absent a value assigned to periods beyond 2075, the optimal allocation features decreasing innovation inputs as future gains from innovation are not policy relevant.
 Yet, there exist political tendencies to take into account future populations:  the \cite{UNSUS} formulated a sustainable development criterion stressing care for future generations regarding environmental and economic needs. 
 Therefore, I derive a continuation value to approximate the value of innovation for the future.\footnote{\ This approach enables me to mitigate end-point problems in a dynamic setting, while, at the same time, I do not have to assume the existence of a balanced growth path. 
  In other studies investigating dynamic policies \citep{Jones1993OptimalGrowth, Barrage2019OptimalPolicy}, %\cite{Jones1993OptimalGrowth} assume (p.487) \textit{ In all these exercises, we assume that both solutions to the planner's problems exist (in particular, the feasible set of policy plans is non- empty) and that the time paths of these solutions converge to steady- state growth paths}.}
-a continuation value is added to the periods which typically relies on balanced growth assumptions with constant ratios and constant policies; such assumptions seem unjustified  in the present economy.
+a continuation value is added to the planner's problem which typically relies on balanced growth assumptions with constant ratios and policies; such assumptions seem unjustified  in the present economy.
 Under the premise that taxes remain fixed, market forces most likely violate the emission limit given the structure of the model. }
 %\textit{ also look at \cite{Conesa2009TaxingAll} who make some argument about bgp preferences: to allow for a broader set of parameters, they abstract from growth}
 %Furthermore, as the emission limit is absolute, an ever increasing technology level (which is the case under decreasing returns to research), the use of fossil labor and machines has to decline towards zero.
@@ -149,10 +152,11 @@ The quantitative findings affirm optimality of progressive income taxes.
 Labor income taxes mainly serve as complements to fossil taxes to lower inefficiently high labor supply as studied in the analytical section.
 Over time, progressivity shrinks: because the tighter emission limit makes consumption more valuable, the planner chooses an increasing path for hours worked. The reduction in overall production through progressive income taxes, in turn, allows to meet emission limits at lower corrective tax rates. 
 
-There is some evidence for the use of labor income taxes as substitute for environmental taxes. Meeting emission limits by bluntly reducing overall production through labor income taxes allows to profit from knowledge spillovers. 
+There is some evidence for the use of labor income taxes as substitutes for environmental taxes. Meeting emission limits by bluntly reducing overall production through labor income taxes allows to profit from knowledge spillovers. 
 Yet, exploitation of this mechanism is limited in size and scope: once the net-zero emission limit binds there is no evidence for the use of progressive income taxes to replace corrective taxes. %Overall, the results suggest a rather clear cut between responsibilities of policy instruments, since the environmental tax remains largely unchanged irrespective of whether an income tax is used. 
 
-Endogenous growth mitigates the recomposing effects of a progressive income tax. The labor-share channel vanishes from the model once growth is endogenous, and price adjustments almost fully absorb the skill-recomposition channel. Yet, the market-size effect dominates directing research towards the fossil sector in response to a relatively higher supply of low-skill labor.
+The recomposing effect of the progressive income tax favors more fossil production in equilibrium. 
+ The labor-share channel vanishes from the model once growth is endogenous so that the skill-recomposition channel prevails. A market-size effect directs research towards the fossil sector in response to a relatively higher supply of low-skill labor. Yet,  the response in the direction of innovation is small as price adjustments almost fully absorb the recomposition in skills. A finding due to the endogenous supply of researchers.
 
 % emerging from endogenous growth.Since the fossil sector is the most technologically advanced, it boosts growth in the other sectors through knowledge spillovers. This renders fossil taxes especially costly. Lowering production levels through the income tax, instead, allows to profit from knowledge spillovers. In this channel, environmental and income taxes are substitutes. 
  %The environmental tax targets the externality, whereas the income tax handles the inefficiency arising from environmental tax revenues. 
@@ -171,12 +175,12 @@ Endogenous growth mitigates the recomposing effects of a progressive income tax.
 
 
 % importance of endogenous growth
-To shed light on the role of endogenous growth and skill heterogeneity on the optimal policy, I rerun the analysis in modified models simplifying separately on either dimension. 
+To shed light on the role of endogenous growth and skill heterogeneity on the optimal policy, I run the analysis in modified models simplifying separately on either dimension. 
 Both endogenous growth and skill heterogeneity make income tax progressivity more costly: abstracting from either ingredient leads to a higher optimal tax progressivity. 
-Endogenous growth accounts for the relatively quick decrease in labor tax progressivity. 
-The reason is that the advantageous labor-share channel is more pronounced so that a progressive tax implies a higher green-energy. The corrective tax is higher in the exogenous growth model since there is no market-driven amplification of environmental policies \citep[a finding highlighted in ][]{Fried2018ClimateAnalysis}. 
+%Endogenous growth accounts for the relatively quick decrease in labor tax progressivity. 
+When growth is exogenous, the advantageous labor-share channel is more pronounced so that a progressive tax implies a higher green-energy share. The corrective tax is higher in the exogenous growth model since there is no market-driven amplification of environmental policies \citep[a finding stressed in ][]{Fried2018ClimateAnalysis}. 
 
-When there is only one type of skill, the optimal policy achieves a labor supply close to the efficient one. Intuitively, the planner faces no trade-off between too low a reduction in low-skill labor and too-high a reduction in high-skill hours.
+When there is only one type of skill, the optimal policy achieves a labor supply close to the efficient one by use of a more progressive income tax. Intuitively, the planner faces no trade-off between too low a reduction in low-skill and too-high a reduction in high-skill hours.
 The environmental tax required to meet emission limits in the model with homogeneous skill is higher. A level effect on fossil production  explains this effect: compared to the heterogeneous skill model, fossil-specific labor is in higher supply. This highlights the priority of corrective taxes to reduce emissions. 
 
 %The reason is that more research effort loses in value as consumption increases. As dynamic spill overs of the research process advance, an additional unit of research effort is not compensated by enough from more consumption. \textit{\tr{This might be due to the missing continuation value! }}
@@ -201,4 +205,4 @@ The environmental tax required to meet emission limits in the model with homogen
 \input{litt2_impo}
 
 \paragraph{Outline}
-The remainder of the paper is structured as follows. The next section \ref{sec:mod_an} presents the core model which is used to derive the analytical results in section \ref{sec:theory}. In section \ref{sec:model}, I extend the model to a quantitative framework and calibrate it. I present and dicuss the quantitative results in section \ref{sec:res}. Section \ref{sec:con} concludes.
+The remainder of the paper is structured as follows. The next section \ref{sec:mod_an} presents the core model which is used to derive the analytical results in section \ref{sec:theory}. In section \ref{sec:model}, I extend the model to a quantitative framework and calibrate it. I present and discuss the quantitative results in section \ref{sec:res}. Section \ref{sec:con} concludes.

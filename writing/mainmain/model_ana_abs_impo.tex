@@ -10,30 +10,30 @@
 %\end{enumerate}
 
 This section develops a general model which is at the core of the analytical and quantitative results. 
-The model presented in this section is designed as simple as possible to derive  the main theoretical results and to provide intuition. In section \ref{sec:model}, the model is extended to the quantitative framework, notably by adding endogenous growth and skill heterogeneity. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of.
+The model presented in this section is designed as simple as possible to derive the theoretical results. In section \ref{sec:model}, the model is extended to the quantitative framework notably by adding endogenous growth and skill heterogeneity. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of.
 
-In the model, the household sector can be described by a representative household. The household faces a consumption and labor supply decision. The final consumption good is a composite of a fossil and a green good. Labor is the only input to production. For simplicity, the green sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly green. The core model abstracts from endogenous growth; it becomes dynamic as an innovation decision is added in the quantitative model.
+In the model, the household sector can be described by a representative household. The household faces a consumption and labor supply decision. The final consumption good is a composite of a fossil and a green good. Labor is the only input to production. For simplicity, the green sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly green. The core model abstracts from endogenous growth and is, therefore, static. 
 
 \paragraph{Representative household}
-The representative household maximizes its life-time utility. Throughout the paper, household's decisions are static corresponding to maximizing the period utility
+Throughout the paper, household's decisions are static. Each period, the household maximizes its period utility
 \begin{align}
-U(C,H; F)
+U(C,H; F).
 \end{align} 
 
-The household derives utility from consumption, $C$, but experiences disutility from hours spent working, $H$. An externality from fossil (or fossil) production, $F$, decreases household utility and is taken as given by the household.
-I assume additive separability of consumption, hours, and the externality. I further assume that utility of consumption is increasing and strictly concave. As regards hours and the externality, utilty is decreasing and strictly convex.
+The household derives utility from consumption, $C$, but experiences disutility from hours spent working, $H$. An externality from fossil production, $F$, decreases household utility and is taken as given by the household.
+I assume additive separability of consumption, hours, and the externality. I further assume that utility of consumption is increasing and strictly concave. As regards hours and the externality, utility is decreasing and strictly convex.
 Utility maximization is subject to a period budget constraint
 \begin{align}
 	 C= \lambda(wH)^{1-\tau_{\iota}}+T_{ls}. \label{eq:hhbudget}
 \end{align}
 
-The varibale $w$ indicates the wage rate, and $T_{ls}$ denotes lump-sum transfers from the government.
+The variable $w$ indicates the wage rate, and $T_{ls}$ denotes lump-sum transfers from the government.
 The planner levies income taxes on labor income using a non-linear tax scheme common in the public finance literature \citep{Heathcote2017OptimalFramework, Benabou2002TaxEfficiency}. The tax scheme is
 characterized by (i) a scaling factor, $\lambda$, which determines the level of average tax revenues in the economy and (ii) a measure of the tax progressivity denoted by $\tau_{\iota}$. 
 \cite{Heathcote2017OptimalFramework} show that whenever $\tau_{\iota}>0$ the tax scheme is progressive since the marginal tax rate exceeds the average tax rate irrespective of  pre-tax labor income. Hence, average tax payments increase with labor income. An alternative intuition is that when $\tau_{\iota}>0$, the elasticity of post- to pre-tax labor income is smaller unity for all levels of pre-tax labor income.  %\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
 
 \paragraph{Production}
-All sectors of production are perfectly competitive and production functions are decreasing returns to scale\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
+All sectors of production are perfectly competitive and production functions are decreasing returns to scale. %\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
 Intermediate goods are produced from labor, $L_J$, and technology, $A_J$, where $J\in \{F,G\}$ indicates the fossil and the green sector: 
 \begin{align}
 Y=F_Y(F, G), \hspace{5mm} F=F_F(A_F, L_F),\hspace{5mm} G=F_G(A_G, L_G) \label{eq:prod}
@@ -63,13 +63,13 @@ Firms choose the quantity of input goods to maximize their profits taking prices
 \begin{align}
 p_G=\frac{\partial Y}{\partial G}, \hspace{5mm}
 p_F = \frac{\partial Y}{\partial F}, \hspace{5mm}
-w= p_F(1-\tau_f)\frac{\partial F}{\partial L_F}=p_G\frac{\partial G}{\partial L_G}\label{eq:profmax}
+w= p_F(1-\tau_f)\frac{\partial F}{\partial L_F}=p_G\frac{\partial G}{\partial L_G}.\label{eq:profmax}
 \end{align}
 
 The competitive equilibrium is defined as a set of variables so that households and firms behave optimally; i.e. equations \ref{eq:hhbudget}, \ref{eq:hsup} and \ref{eq:profmax} hold. Production happens according to \ref{eq:prod}.  Equilibrium prices and the wage rate adjust to clear markets, equations \ref{eq:market_clear}. Finally, the government's budgets are satisfied \ref{eq:gov_but}. Policy variables $\tau_f$ and $\tau_\iota$ are taken as given. 
 
 \section{Theoretic results}\label{sec:theory}
-This section derives and discusses the main theoretical results. Subsection \ref{subsec:sp} defines the efficient allocation. It constitutes a benchmark for the optimal allocation, a discussion of which follows in subsection \ref{subsec:decen_ec}. 
+This section derives and discusses the main theoretical results. Section \ref{subsec:sp} defines the efficient allocation. It constitutes a benchmark for the optimal allocation which is discussed in section \ref{subsec:decen_ec}. 
 \subsection{Social planner}\label{subsec:sp}
 Let the share of fossil to total labor be denoted by $s=L_F/H$. The social planner's problem reads
 \begin{align}
@@ -315,6 +315,7 @@ Effect of using progressive income scheme on inequality (maybe as opposed to lum
 content...
 \end{comment}
 
+\begin{comment}
 \subsubsection{Discussion in relation to the literature}
 These findings relate to the literature on a double dividend of environmental taxation discussed and partly rejected in the seminal paper by \cite{LansBovenberg1994EnvironmentalTaxation}.\footnote{ \ The double dividend of environmental policies refers to the idea that the revenues of environmental taxation can serve to improve on other policy targets such as equity or lowering distortionary fiscal policies. \cite{LansBovenberg1994EnvironmentalTaxation} argue that there is no double dividend because environmental taxes exert efficiency costs which outweigh the gains from lower distortionary income taxes. } The authors, inter alia, argue that recycling environmental tax revenues to lower distortionary fiscal policies has an advantage above recycling environmental tax revenues as lump-sum transfer. The latter would reduce labor supply even more thereby further narrowing the tax base of income taxes.  This result is referred to as the \textit{weak double dividend} hypothesis. The present paper demonstrates that there exists a lower bound up to where a reduction of labor reducing policies is beneficial. To illustrate this point, assume environmental tax revenues are sufficient to cover the government's exogenous revenue constraint. When no lump-sum transfers are available - a necessary assumption to motivate the use of distortionary fiscal policy measures - then, setting distortionary income taxes to zero is not optimal according to this paper's findings. The reason is that some reduction in hours worked is in fact efficient.\footnote{\ This argument refers to proposition \ref{prop:2}, i.e., to a setting where no lump-sum transfers are available. Even without an exogenous funding constraint, labor income taxes are used.}  % labor supply would be inefficiently high. 
 %Nevertheless, the \textit{weak double dividend} result states that the  use of environmental tax revenues to lower fiscal policies is advantageous about recycling revenues as lump-sum transfers, because lump-sum transfers would lower the tax base of the income tax even more.
@@ -326,3 +327,6 @@ These findings relate to the literature on a double dividend of environmental ta
 %\tr{Caution: in double dividend literature there is a second motive for government intervention... then there are gains, but only up to a certain point}
 
 The finding that redistribution is essential to implement the efficient allocation poses a warning to the literature discussing how to use environmental tax revenues such as \cite{Fried2018TheGenerations}. My results stress that there is no free choice in how to use environmental tax revenues but to redistribute if the government wants to implement the efficient allocation. 
+
+content...
+\end{comment}
