@@ -11,7 +11,7 @@ content...
 %\begin{align}
 %\frac{p_g}{p_f}=\frac{A_f}{Ag}\frac{s}{1-s}\frac{1-\varepsilon}{\varepsilon},
 %\end{align}
-%where I used that $s=\frac{L_f}{h}$ and the labor market clearing condition. Solving the price definition of the final goods price, equation \ref{eq:ana_pr} for $p_g$ as a function of $\frac{p_g}{p_f}$ and substituting the previous expression for the price ratio gives the price of the clean good in equilibrium as a function of labor shares:
+%where I used that $s=\frac{L_F}{h}$ and the labor market clearing condition. Solving the price definition of the final goods price, equation \ref{eq:ana_pr} for $p_g$ as a function of $\frac{p_g}{p_f}$ and substituting the previous expression for the price ratio gives the price of the clean good in equilibrium as a function of labor shares:
 %\begin{align}
 %p_g=(1-\varepsilon)\left(\frac{A_f}{A_g}\right)^\varepsilon\left(\frac{s}{1-s}\right)^{1-\varepsilon}.
 %\end{align}
@@ -40,95 +40,95 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 
 \section{Quantitative model}\label{app:quant_mod}
 \subsection{Model equations}
-\tr{To be updated}
-Assuming interior solutions for labor and research supply.
-\begin{align*}
-\text{\textbf{Household}}&\\ \text{period utility}\vspace{4mm}&  \frac{C_t^{1-\theta}}{1-\theta}-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_f^{1+\sigma}+s_g^{1+\sigma}+s_n^{1+\sigma}}{{1+\sigma}} %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+
+%Assume interior solutions for labor and research supply.
+\begin{align}
+\text{\textbf{Household}}&\nonumber\\ \text{period utility}\vspace{4mm}&  \log(C_t)-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_F^{1+\sigma}+s_G^{1+\sigma}+s_N^{1+\sigma}}{{1+\sigma}} \nonumber %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
-\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}+T_{lst}\\
+\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}\nonumber\\ %+T_{lst}\\
 \text{Optimality}\ \vspace{4mm}
-& C_t^{-\theta}= \mu_tp_{yt}\\
-& \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{ht}^{1-\tau_{\iota t}}h_{ht}^{-\tau_{\iota t}}-\gamma_{ht}/z_h\\
-& \chi h_{lt}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{lt}^{1-\tau_{\iota t}}h_{lt}^{-\tau_{\iota t}}-\gamma_{lt}/(1-z_h)\\
+& C_t^{-1}= \mu_tp_{t}\nonumber\\
+& \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{ht}^{1-\tau_{\iota t}}h_{ht}^{-\tau_{\iota t}}-\gamma_{ht}/z_h\nonumber\\
+& \chi h_{lt}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{lt}^{1-\tau_{\iota t}}h_{lt}^{-\tau_{\iota t}}-\gamma_{lt}/(1-z_h)\nonumber\\
 %&( h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{st}^{1-\tau_{\iota t}}h_{st}^{-\tau_{\iota t}}\\
-\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{\iota t}}{{\sigma+\tau_{\iota t}}}}\ \text{(Interior solution)}
-\\
-& \chi_s S^\sigma =\mu w_s-\gamma_{st}\ \text{(scientist income confiscated by gov.)}\\
-\text{\textbf{Final good and Energy producers}}&\\
+%\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{\iota t}}{{\sigma+\tau_{\iota t}}}}\ \text{(Interior solution)}\\
+& \chi_s s_{Jt}^{\sigma_s} =\mu_t w_{sJt}-\gamma_{sJt},\ for  J\in\{F,G,N\} \nonumber\\ %\text{(scientist income confiscated by gov.)}\\
+\text{\textbf{Final good and Energy producers}}&\nonumber\\
 \text{Optimality}\ \vspace{4mm}&
-\frac{E_t}{N_t}=\frac{\delta_y}{(1-\delta_y)}\left(\frac{p_{Nt}}{p_{Et}}\right)^{\varepsilon_y} p_{yt}\delta_yY_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_e}}=p_{Et}\\
-& p_{yt}(1-\delta_y)Y_t^\frac{1}{\varepsilon_y}N_t^{-\frac{1}{\varepsilon_e}}=p_{Nt}\\
+%\frac{E_t}{N_t}=\frac{\delta_y}{(1-\delta_y)}\left(\frac{p_{Nt}}{p_{Et}}\right)^{\varepsilon_y}\\
+ p_{t}\delta_y^\frac{1}{\varepsilon_y}Y_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_y}}=p_{Et}\nonumber\\
+& p_{t}(1-\delta_y)^\frac{1}{\varepsilon_y}Y_t^\frac{1}{\varepsilon_y}N_t^{-\frac{1}{\varepsilon_y}}=p_{Nt}\nonumber\\
 &
-p_{Et}E_t^\frac{1}{\varepsilon_e}{F}_t^{-\frac{1}{\varepsilon_e}}=p_{{F}t}\\
-& p_{Et}E_t^\frac{1}{\varepsilon_e}G_t^{-\frac{1}{\varepsilon_e}}=p_{Gt}\\
-%& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}\deltA_fF_t^{-\frac{1}{\varepsilon_f}}=p_{Ft}+\tau_{f}\\
+p_{Et}E_t^\frac{1}{\varepsilon_e}{F}_t^{-\frac{1}{\varepsilon_e}}=p_{{F}t}\nonumber\\
+& p_{Et}E_t^\frac{1}{\varepsilon_e}G_t^{-\frac{1}{\varepsilon_e}}=p_{Gt}\nonumber\\
+%& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}\deltA_fF_t^{-\frac{1}{\varepsilon_f}}=p_{Ft}+\tau_{F}\\
 %& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}(1-\deltA_f)O_t^{-\frac{1}{\varepsilon_f}}=p_{Ot}+\tau_{o}
 %\\
 \text{Definitions prices}\ \vspace{4mm}&
-p_{yt}= \left[\delta_y^{\varepsilon_y}p_{Et}^{1-\varepsilon_y}+(1-\delta_y)^{\varepsilon_y}p_{Nt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_y}\\
-& p_{Et}= \left[p_{{F}t}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\\
-%& p_{\tilde{F}t}= \left[\deltA_f^{\varepsilon_f}(p_{Ft}+\tau_{f})^{1-\varepsilon_f}+(1-\deltA_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}
+p_{t}= \left[\delta_yp_{Et}^{1-\varepsilon_y}+(1-\delta_y)p_{Nt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_y}\nonumber\\
+& p_{Et}= \left[p_{{F}t}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\nonumber\\
+%& p_{\tilde{F}t}= \left[\deltA_f^{\varepsilon_f}(p_{Ft}+\tau_{F})^{1-\varepsilon_f}+(1-\deltA_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}
 %\\
 \text{Production}\ \vspace{4mm}& 
-Y_t=\left(\delta_yE_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\\
-&E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}\\
+Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon_y}+(1-\delta_y)^\frac{1}{\varepsilon_y}N_t^\frac{\varepsilon_y-1}{\varepsilon_y}\right)^\frac{\varepsilon_y}{\varepsilon_y-1}\label{mod:y}\\
+&E_t=\left({F}_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right)^\frac{\varepsilon_e}{\varepsilon_e-1}\label{mod:E}\\
 %&\tilde{F}_t=\left(\deltA_fF_t^\frac{\varepsilon_f-1}{\varepsilon_f}+(1-\deltA_f)O_t^\frac{\varepsilon_f-1}{\varepsilon_f}\right)^\frac{\varepsilon_f}{\varepsilon_f-1}\\
-\text{\textbf{Intermediate good producers}}&\\
-\text{Production}\ \vspace{4mm}& F_t= (\alpha_f(p_{Ft}(1-\tau_{ft})))^\frac{ \alpha_f}{1-\alpha_f}A_{ft}L_{ft}\\
-&N_t= (\alpha_np_{Nt})^\frac{ \alpha_n}{1-\alpha_n}A_{nt}L_{nt}\\
-&G_t= (\alpha_gp_{Gt})^\frac{ \alpha_g}{1-\alpha_g}A_{gt}L_{gt}\\
-%\end{align}
-%
-%\begin{align}
+\text{\textbf{Intermediate good producers}}&\nonumber\\
+\text{Production}\ \vspace{4mm}& F_t= x_{Ft}^{\alpha_F}\left(A_{Ft}L_{Ft}\right)^{1-\alpha_F}% (\alpha_F(p_{Ft}(1-\tau_{Ft})))^\frac{ \alpha_F}{1-\alpha_F}A_{Ft}L_{Ft}
+\label{mod:F}\\
+&N_t= x_{Nt}^{\alpha_N}\left(A_{Nt}L_{Nt}\right)^{1-\alpha_N}%(\alpha_Np_{Nt})^\frac{ \alpha_N}{1-\alpha_N}A_{Nt}L_{Nt}
+\label{mod:N}\\
+&G_t=  x_{Gt}^{\alpha_G}\left(A_{Gt}L_{Gt}\right)^{1-\alpha_G} %(\alpha_Gp_{Gt})^\frac{ \alpha_G}{1-\alpha_G}A_{Gt}L_{Gt}
+\label{mod:G}\\
 \text{Labour demand}%\label{eq:lab_demand}\\
-& w_{lft}=(p_{Ft}(1-\tau_{ft}))^\frac{1}{1-\alpha_f}(1-\alpha_f)(\alpha_f)^\frac{\alpha_f}{1-\alpha_f}A_{ft}\\
-& w_{lnt}=p_{Nt}^\frac{1}{1-\alpha_n}(1-\alpha_n)(\alpha_n)^\frac{\alpha_n}{1-\alpha_n}A_{nt}\\
-& w_{lgt}=p_{Gt}^\frac{1}{1-\alpha_g}(1-\alpha_g)(\alpha_g)^\frac{\alpha_g}{1-\alpha_g}A_{gt}
+& w_{lFt}=(p_{Ft}(1-\tau_{Ft}))^\frac{1}{1-\alpha_F}(1-\alpha_F)(\alpha_F)^\frac{\alpha_F}{1-\alpha_F}A_{Ft}\nonumber\\
+& w_{lNt}=p_{Nt}^\frac{1}{1-\alpha_N}(1-\alpha_N)(\alpha_N)^\frac{\alpha_N}{1-\alpha_N}A_{Nt}\nonumber\\
+& w_{lGt}=p_{Gt}^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
 \\
-\text{Machine demand}&
+\text{Machine demand}&\nonumber
 \\
-&x_{fit}= \left(\alpha_f p_{Ft}(1-\tau_{ft})\right)^\frac{1}{1-\alpha_f}L_{ft}A_{fit}\\
-&x_{nit}= \left(\alpha_n p_{Nt}\right)^\frac{1}{1-\alpha_n}L_{nt}A_{nit}\\
-&x_{git}= \left(\alpha_g p_{Gt}\right)^\frac{1}{1-\alpha_g}L_{gt}A_{git}
+&x_{Fit}= \left(\alpha_F p_{Ft}(1-\tau_{Ft})\right)^\frac{1}{1-\alpha_F}L_{Ft}A_{Fit}\nonumber\\
+&x_{Nit}= \left(\alpha_N p_{Nt}\right)^\frac{1}{1-\alpha_N}L_{Nt}A_{Nit}\nonumber\\
+&x_{Git}= \left(\alpha_G p_{Gt}\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
 \\
-\text{\textbf{Labour producers}}&
+\text{\textbf{Labour producers}}&\nonumber
 \\
-\text{Production}\ \vspace{4mm}& L_{ft}=h_{hft}^{\theta_{f}}h_{lft}^{1-\theta_{f}}\\
-& L_{nt}=h_{hnt}^{\theta_{n}}h_{lnt}^{1-\theta_{n}}\\
-& L_{gt}=h_{hgt}^{\theta_{g}}h_{lgt}^{1-\theta_{g}}\\
+\text{Production}\ \vspace{4mm}& L_{Ft}=h_{hFt}^{\theta_{F}}h_{lFt}^{1-\theta_{F}}\label{mod:LF}\\
+& L_{Nt}=h_{hNt}^{\theta_{N}}h_{lNt}^{1-\theta_{N}}\label{mod:LN}\\
+& L_{Gt}=h_{hGt}^{\theta_{g}}h_{lGt}^{1-\theta_{G}}\label{mod:LG}\\
 \ \\
-\text{Optimality}\ \vspace{4mm}& h_{hft}= \theta_{f}L_{ft}\frac{w_{lft}}{w_{ht}}\\ %\label{eq:opt_lab_pro}\\
-& h_{hnt}= \theta_{n}L_{nt}\frac{w_{lnt}}{w_{ht}}\\
-& h_{hgt}= \theta_{g}L_{gt}\frac{w_{lgt}}{w_{ht}}\\
-& h_{lft}= (1-\theta_{f})L_{ft}\frac{w_{lft}}{w_{lt}}\\%\label{eq:opt_lab_pro_low}\\
-& h_{lnt}= (1-\theta_{n}) L_{nt}\frac{w_{lnt}}{w_{lt}}\\
-& h_{lgt}= (1-\theta_{g}) L_{gt}\frac{w_{lgt}}{w_{lt}}\\
+\text{Optimality}\ \vspace{4mm}& h_{hFt}= \theta_{F}L_{Ft}\frac{w_{lFt}}{w_{ht}}\nonumber\\ %\label{eq:opt_lab_pro}\\
+& h_{hNt}= \theta_{N}L_{Nt}\frac{w_{lNt}}{w_{ht}}\nonumber\\
+& h_{hGt}= \theta_{G}L_{Gt}\frac{w_{lGt}}{w_{ht}}\nonumber\\
+& h_{lFt}= (1-\theta_{F})L_{Ft}\frac{w_{lFt}}{w_{lt}}\nonumber\\%\label{eq:opt_lab_pro_low}\\
+& h_{lNt}= (1-\theta_{N}) L_{Nt}\frac{w_{lNt}}{w_{lt}}\nonumber\\
+& h_{lGt}= (1-\theta_{G}) L_{Gt}\frac{w_{lGt}}{w_{lt}}\nonumber\\
 %\end{align}
 %
 %\begin{align}
-\text{\textbf{Machine producers}}\\
-\text{Price setting}\ \vspace{4mm}&p_{fit}^x=\frac{1}{\alpha_f(1+\zeta_f)}\\
-&p_{nit}^x=\frac{1}{\alpha_n(1+\zeta_n)}\\
-&p_{git}^x=\frac{1}{\alpha_g(1+\zeta_g)}
-\\ 
+\text{\textbf{Machine producers}}\nonumber\\
+\text{Price setting}\ \vspace{4mm}&p_{xFit}=\frac{1}{\alpha_F(1+\zeta_F)}\nonumber\\
+&p_{xNit}=\frac{1}{\alpha_N(1+\zeta_N)}\nonumber\\
+&p_{xGit}=\frac{1}{\alpha_G(1+\zeta_G)}
+\nonumber\\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sft}=\frac{\eta \gamma A_{ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}(1-\tau_{ft})F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\\
+w_{sFt}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho_F}\right)^{\eta}p_{Ft}(1-\tau_{Ft})F_t}{\frac{1}{1-\alpha_F}s_{Ft}A_{Ft}}\nonumber\\
 &
-w_{snt}=\frac{\eta \gamma  A_{nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+w_{sNt}=\frac{\eta \gamma  A_{Nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{Nt}}{\rho_N}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}s_{Nt}A_{Nt}}\nonumber\\
 &
-w_{sgt}=\frac{\eta \gamma  A_{gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+w_{sGt}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
 \text{Innovation}\ \vspace{4mm}&
-A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\left(\frac{A_{t-1}}{A_{ft-1}}\right)^{\phi}\right) \\
+A_{Fit}=A_{Ft-1}\left(1+\gamma\left(\frac{s_{Fit}}{\rho_F}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Ft-1}}\right)^{\phi}\right)\nonumber \\
 &
-A_{nit}=A_{nt-1}\left(1+\gamma\left(\frac{S_{nit}}{\rho_n}\right)^{\eta}\left(\frac{A_{t-1}}{A_{nt-1}}\right)^{\phi}\right) \\
+A_{Nit}=A_{Nt-1}\left(1+\gamma\left(\frac{s_{Nit}}{\rho_N}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Nt-1}}\right)^{\phi}\right)\nonumber \\
 &
-A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\frac{A_{t-1}}{A_{gt-1}}\right)^{\phi}\right) \\
+A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Gt-1}}\right)^{\phi}\right)\nonumber \\
 %\text{Demand Scientists}\ \vspace{4mm}&
-%w_{sft}=\frac{\eta \gamma \alpha_f A_{ft-1}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_f}S_{ft}A_{ft}}\label{eq:demand_sc}\\
+%w_{sft}=\frac{\eta \gamma \alpha_F A_{ft-1}\left(\frac{S_{ft}}{\rho_f}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_F}S_{ft}A_{ft}}\label{eq:demand_sc}\\
 %&
-%w_{snt}=\frac{\eta \gamma \alpha_n A_{nt-1}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_n}S_{nt}A_{nt}}\\
+%w_{snt}=\frac{\eta \gamma \alpha_N A_{nt-1}\left(\frac{S_{nt}}{\rho_n}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}S_{nt}A_{nt}}\\
 %&
-%w_{sgt}=\frac{\eta \gamma \alpha_g A_{gt-1}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_g}S_{gt}A_{gt}}\\
+%w_{sgt}=\frac{\eta \gamma \alpha_G A_{gt-1}\left(\frac{S_{gt}}{\rho_g}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}S_{gt}A_{gt}}\\
 %\text{Innovation}\ \vspace{4mm}&
 %A_{fit}=A_{ft-1}\left(1+\gamma\left(\frac{S_{fit}}{\rho_f}\right)^{\eta}\right) \\
 %&
@@ -137,21 +137,22 @@ A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\left(\f
 %A_{git}=A_{gt-1}\left(1+\gamma\left(\frac{S_{git}}{\rho_g}\right)^{\eta}\right) \\
 %&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
-\text{\textbf{Government}}&\\
-&T_t=\int_{0}^{1}\pi_{fit}+\pi_{git}+\pi_{nit}di+z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\\&+z_l(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+w_{st}s_{ft}+w_{st}s_{gt}+w_{st}s_{nt}\\ &+\tau_{ct}p_{ft}(\omega_fF_t)-w_{sgt}\tau_{st}s_{gt} \\ &+\int_{0}^{1} p_{fit}\zeta_{ft}x_{fit}+p_{git}\zeta_{gt}x_{git}+ p_{hit}\zeta_{ht}x_{hit}di\\
-\text{with}\ \vspace{4mm}&\zeta_{jt}=\frac{1-\alpha_j}{\alpha_j} \\
-\text{simplified}\ \vspace{4mm} & T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\\&+z_l(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+\tau_{ct}p_{ft}(\omega_fF_t) \\
+\text{\textbf{Government}}&\nonumber\\
+&0=\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+w_{sFt}s_{Ft}+w_{sGt}s_{Gt}+w_{sNt}s_{Nt}\nonumber\\ &+\int_{0}^{1} p_{Fit}\zeta_{Ft}x_{Fit}+p_{Git}\zeta_{Gt}x_{Git}+ p_{Nit}\zeta_{Nt}x_{Nit}di\nonumber\\
+\text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for J\in\{F,G,N\}\nonumber \\
+\text{simplified}\ \vspace{4mm} & 0= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})
+\nonumber\\\
+&Gov_t=\tau_{Ft}p_{Ft}(\omega F_t)\nonumber \\
 \text{\textbf{Markets}}&\\
-& S_{ft}+ S_{nt}+ S_{gt}=S_t\\
-&h_{hft}+h_{hnt}+h_{hgt}=z_{h} h_{ht}\\
-&h_{lft}+h_{lnt}+h_{lgt}=z_{l} h_{lt}\\
-&C_{t}+\int_{0}^{1} x_{fit}+x_{nit}+x_{git}d_i+Gov_t=Y_t
-\end{align*}
+&h_{hFt}+h_{hNt}+h_{hGt}=z_{h} h_{ht}\nonumber\\
+&h_{lFt}+h_{lNt}+h_{lGt}=(1-z_h) h_{lt}\nonumber\\
+&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i+Gov_t=Y_t\nonumber
+\end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
-I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency:
+I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency, that is, period $T+1$:
 \begin{align}
-CV=\beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{g{T+1}}, s_{n{T+1}}, s_{f{T+1}})+\sum_{s=T+2}^{\infty} \beta^{s}u(C_s). %,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
+CV=\beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{G{T+1}}, s_{N{T+1}}, s_{F{T+1}})+\sum_{s=T+2}^{\infty} \beta^{s}u(C_s). %,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
 \end{align}
 Solving explicitly for period $T+1$ to derive the starting value of consumption which is handed over to the next generation is important to reflect a value of research under the last period under the regency of the planner that is equivalent than in the prior periods.
 After the last explicit period, $T+1$, the infinite sum over consumption utilities approximates the value of dynamic technology spillovers. 
@@ -167,11 +168,24 @@ u(C_s)= \frac{C_s^{1-\theta}}{1-\theta},
 \end{align*}
 the continuation value reduces to
 \begin{align*}
-CV= \beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{g{T+1}}, s_{n{T+1}}, s_{f{T+1}})+\beta^{T+1}\frac{1}{1-\beta (1+\gamma_{yT+1})^{1-\theta}}\frac{C_{T+1}^{1-\theta}}{1-\theta}.
+CV= \beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{G{T+1}}, s_{N{T+1}}, s_{F{T+1}})+\beta^{T+1}\frac{1}{1-\beta (1+\gamma_{yT+1})^{1-\theta}}\frac{C_{T+1}^{1-\theta}}{1-\theta}.
+\end{align*}
+When $\theta\lim 1$, the utility, the second summand becomes
+\begin{align*}\beta^{T+1}\frac{1}{1-\beta}\log(C_{T+1}).
 \end{align*}
 %\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
 %
 
+\subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes the social welfare function 
+\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, s_{Ft}, s_{Nt}, s_{Gt})+ CV\\
+s.t.\ &  \omega F_{t} -\delta \leq \Omega_t\\
+&C_t+x_{Ft}+x_{Gt}+x_{Nt}=Y_t\\
+&\text{LOM technology}\\
+&z_h h_{ht}=h_{hFt}+h_{hGt}+h_{hNt},\\
+&(1-z_h) h_{lt}=h_{lFt}+h_{lGt}+h_{lNt},\\
+&\text{time endowment scientists and workers}\\
+\end{align*}
+Production of $Y_t$ is defined by the equations describing production in the model: equations \ref{mod:y} to \ref{mod:G}, and \ref{mod:LF} to \ref{mod:LG}. It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 %\subsection{Social planner problem}
 %The social planner chooses 
 \section{Quantitative results}\label{app:quant_res}
