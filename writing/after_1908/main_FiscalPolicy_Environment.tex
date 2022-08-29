@@ -36,6 +36,7 @@
 %\cfoot{\thepage}
 %\pagestyle{plain} % comment this one to have header
 %\end{comment}
+\allowdisplaybreaks
 \usepackage{comment}
  \usepackage{siunitx}
   \usepackage{textcomp}
@@ -79,7 +80,8 @@
 %\usepackage{biblatex}
 %\addbibresource{bib_mt.bib}
 \usepackage{ulem}
-\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\title{Fiscal Policy, Inequality, and the Environment}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
 \date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
 \vspace{1mm}
 %Preliminary and incomplete\\
@@ -114,17 +116,38 @@ This version: \today }
 \begin{document}
 %	\includepdf[pages=-]{../titlepage.pdf}
 	\maketitle
-	
+	\begin{abstract}
+		\begin{singlespacing}
+			\textbf{Abstract \ }
+			Natural scientists have identified the reduction of demand %for energy and land %thus, a change in lifestyle 
+			as an important contributor to meeting global climate targets. However, a general equilibrium analysis of reduction policies is missing.
+		%	I study the general equilibrium effects of reduction policies: such as income taxes, a restriction of hours worked, or consumption taxes. 
+		A higher labour income tax progressivity can achieve such a reduction as it lowers labour supply. 
+		Then again, tax progressivity alters the relative skill supply. As the green sector is relatively more skill-biased, the economy recomposes production towards the dirty sector. What is the optimal policy when the government has to meet an exogenous emission and demand target?
+		%This additional benefit of income taxes changes the  equity-efficiency trade-off which classically determines optimal fiscal policies. 
+		To answer the question, I build a model of directed technical change and skill heterogeneity.
+		
+		
+%In a set up with representative agent, the necessity to meet emission targets makes the optimal income tax highly progressive. The more goods are substitutes the higher the optimal tax progressivity. When goods are complements, the more slowly growing clean sector dampens production in the dirty sector making a lower progressivity sufficient. 
+	%		\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
+			
+		\end{singlespacing}
+		
+		\end{abstract}
+%\tableofcontents
 
-\input{../mainmain/intro_fisc}
-%\input{intro_simple_fisc}
-%\input{simplemodel_fisc}
+%\input{intro_fisc}
+\input{intro_simple_fisc}
+\input{input_lit}
+\input{simplemodel_fisc}
 %\input{theory_simple_fisc}
-%\input{calib_simple_fisc}
-\input{../mainmain/model_fisc}
-\input{../mainmain/quant_res_fisc}
-
-\input{../mainmain/appendix_fisc}
+\input{theory_DTC}
+\input{calib_simple_fisc}
+%\input{model_fisc}
+\input{quant_res_fisc}
+\input{conclusion_simple_fisc}
+\input{appendix_fisc}
+\input{solving_model_BGP}
 %-------------------------------------
 \clearpage
 \bibliography{../../../bib_2_0}

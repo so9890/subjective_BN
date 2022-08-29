@@ -50,9 +50,6 @@
 \newcommand{\sn}[1]{\textcolor{sonja}{#1}}
 %%% TIKZS
 \usepackage{tikz}
-\usetikzlibrary{mindmap,trees}
-\usetikzlibrary{backgrounds}
-\tikzstyle{every edge}=  [fill=orange]  
 \usetikzlibrary{tikzmark}
 \usetikzlibrary{decorations.markings}
 \usepackage{tikz-cd}
@@ -79,11 +76,11 @@
 %\usepackage{biblatex}
 %\addbibresource{bib_mt.bib}
 \usepackage{ulem}
-\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\title{Reducing Consumption Levels}
 \date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
 \vspace{1mm}
 %Preliminary and incomplete\\
-First version: January 9, 2022\\
+First version: November 27, 2021\\
 This version: \today }
 \usepackage{graphicx,caption}
 \usepackage{hyperref}
@@ -98,11 +95,6 @@ This version: \today }
 \usepackage{multirow}
 \usepackage{bigdelim}
 
-%propositions etc
-\newtheorem{prop}{Proposition}
-\newtheorem{corollary}{Corollary}[prop]
-\newtheorem{lemma}[prop]{Lemma}
-
 \renewenvironment{abstract}
 {\small
 	\list{}{
@@ -115,18 +107,35 @@ This version: \today }
 %	\includepdf[pages=-]{../titlepage.pdf}
 	\maketitle
 	
+\section{Motivation}
+Movements such as the Voluntary Simplicity Movement promotes a lifestyle of less consumption motivated by the need to reduce affluent consumption in developed countries to respect planetary boundaries.
+HOW BIG, HOW IMPORTANT
+VISIBLE IN eg DEMAND FOR DURABLES?
+WHO ARE THESE PEOPLE? In terms of income and skills?
 
-\input{../mainmain/intro_fisc}
-%\input{intro_simple_fisc}
-%\input{simplemodel_fisc}
-%\input{theory_simple_fisc}
-%\input{calib_simple_fisc}
-\input{../mainmain/model_fisc}
-\input{../mainmain/quant_res_fisc}
+Such an intrinsic and voluntary reduction in consumption does not square with the monotonically increasing utility functions prominent in macroeconomic research. 
+These models would predict that a negative shock to demand is, in the long-run, fully absorbed by a drop in prices and demand resurges to meet supply\footnote{\ Given an inelastic supply of labour. Under the assumption of elastic labour supply, labour supply reduces as demand becomes less important to the consumer.  }. 
+It rather seems like, that there are costs associated with too high consumption levels. 
+In light of voluntary simplicity the costs may be driven by environmental externalities or an moral obligation towards less developed countries. 
 
-\input{../mainmain/appendix_fisc}
-%-------------------------------------
-\clearpage
-\bibliography{../../../bib_2_0}
-\addcontentsline{toc}{section}{References}
+Macroeconomic research mainly focuses on supply-determined models to study environmental policies. This paper, in contrast, aims to lay special emphasis on the effects of demand.  \textit{It seems to suffice to allow for a labour supply choice on the household level. }
+
+TO DO: look at negative demand shock in a standard model without satiation point when labour supply is elastic. What characterises the new steady state relative to the previous one?
+
+What are the effects of a drop in demand by households on inequality and the externality? What is the optimal policy to accompany such a drop?
+
+\section{Data}
+\begin{itemize}
+\item look at replacement rates of durables, consumption of emission-high goods (flights, meat)
+\item identify shift to more leisure or voluntary reduction in labour; survey on why a reduction in working time has been done
+\item data from simplicity movement\ar how big? who? (income, skills)
+
+\section{Model}
+\begin{itemize}
+\item reduction in  good specific habits! 
+\item costs of consumption could follow from environmental concerns which are positively associated with consumption \ar then there exists a satiation point
+\end{itemize}
+\end{itemize}
+
+	
 \end{document}

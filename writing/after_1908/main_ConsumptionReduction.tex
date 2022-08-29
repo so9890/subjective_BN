@@ -50,9 +50,6 @@
 \newcommand{\sn}[1]{\textcolor{sonja}{#1}}
 %%% TIKZS
 \usepackage{tikz}
-\usetikzlibrary{mindmap,trees}
-\usetikzlibrary{backgrounds}
-\tikzstyle{every edge}=  [fill=orange]  
 \usetikzlibrary{tikzmark}
 \usetikzlibrary{decorations.markings}
 \usepackage{tikz-cd}
@@ -79,11 +76,11 @@
 %\usepackage{biblatex}
 %\addbibresource{bib_mt.bib}
 \usepackage{ulem}
-\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\title{Reducing Economic Output}
 \date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
 \vspace{1mm}
 %Preliminary and incomplete\\
-First version: January 9, 2022\\
+First version: November 4, 2021\\
 This version: \today }
 \usepackage{graphicx,caption}
 \usepackage{hyperref}
@@ -98,11 +95,6 @@ This version: \today }
 \usepackage{multirow}
 \usepackage{bigdelim}
 
-%propositions etc
-\newtheorem{prop}{Proposition}
-\newtheorem{corollary}{Corollary}[prop]
-\newtheorem{lemma}[prop]{Lemma}
-
 \renewenvironment{abstract}
 {\small
 	\list{}{
@@ -116,17 +108,55 @@ This version: \today }
 	\maketitle
 	
 
-\input{../mainmain/intro_fisc}
-%\input{intro_simple_fisc}
-%\input{simplemodel_fisc}
-%\input{theory_simple_fisc}
-%\input{calib_simple_fisc}
-\input{../mainmain/model_fisc}
-\input{../mainmain/quant_res_fisc}
 
-\input{../mainmain/appendix_fisc}
-%-------------------------------------
+\begin{abstract}
+\begin{singlespacing}
+\textbf{Abstract \ }
+
+%\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
+
+\end{singlespacing}
+
+\end{abstract}
+
+%	\dosecttoc
+
+
+%	\tableofcontents
+
+\begin{comment}
+1) Intro (max 4 pages)/ Pavel 6 Pages for JobMarket paper
+
+Intro paragraphs a la pavel: 
+a) motivation
+b) this paper/results
+c) data/ model (elevated circles)
+d) quantitative exercise
+e) mechanisms and findings intertwined 
+f) literature
+
+2) Model (all parts); explain penalty term
+
+3) Calibration (baseline model)
+
+4) Results:
+
+4.1) Show results
+
+4.2) role of social responsibility
+
+4.3) role of inequality.=> what is to be expected for the optimal policy if inequality rises further? or if there was no inequality
+
+5) Conclusion
+\end{comment}
+\tableofcontents
+\input{input_intro}
+\input{input_lit}
+\input{input_data}
+\input{input_model}
+\input{timeline}
+
 \clearpage
 \bibliography{../../../bib_2_0}
 \addcontentsline{toc}{section}{References}
-\end{document}
+\end{document} 
