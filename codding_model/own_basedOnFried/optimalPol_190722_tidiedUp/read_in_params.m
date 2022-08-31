@@ -38,7 +38,11 @@ gammaa = params(list.params=='gammaa');
 etaa = params(list.params=='etaa');
 rhof = params(list.params=='rhof');
 rhog = params(list.params=='rhog');
-rhon = params(list.params=='rhon');
+% if indic.sameSize ==0
+    rhon = params(list.params=='rhon');
+% else
+%     rhon=0.5;
+% end
 if indic.noknow_spill==1
     phii=0;
 else

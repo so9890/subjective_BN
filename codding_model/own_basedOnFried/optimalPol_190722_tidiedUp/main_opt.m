@@ -30,7 +30,9 @@ indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart:
                  % thetaa > 1
 indic.sep =1; %==1 is the benchmark; when finalising should be dropped
 indic.target =0; % ==1 if uses emission target
-indic.noknow_spill =1; % ==0 then there are knowledge spillovers (benchmark model)
+indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
+indic.sameSize =1; % ==0 then non-energy sector bigger (benchmark model)
+
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0; % Indicator of policy
@@ -114,7 +116,7 @@ for i=0:1
         helper.LF_SIM=LF_SIM;
         [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
        
-        save(sprintf('BAU_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+        save(sprintf('BAU_spillovers%d_knspil%d_size_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
 %     end
      fprintf('LF_BAU no skill %d exists', indic.noskill);
@@ -249,15 +251,16 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+for tf=4 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
 indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0; ==0 uses version with tauf optimal but taul =0
-indic.notaul=3;
+indic.notaul=0;
 indic.PV=1;
+indic.noknow_spill=0; % counterfactuals so far only without knowledge spillovers
 T=12;
 
-for xgr=0
+for xgr=1
     indic.xgrowth=xgr;
-    for nsk=1
+    for nsk=0:1
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
@@ -337,7 +340,8 @@ plotts.count_taul_xgr_LF =0;
 plotts.count_taul_xgr_lev =0;
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
 plotts.count_taullev =0; % counterfactual with only taul in laissez faire
-
+plotts.count_tauflev_Ben =0; % laissez faire, only optimal tauf and benchmark policy
+plotts.count_tauflev_Ben_noLF=1;
 plotts.compnsk_xgr = 0;
 plotts.compnsk_xgr1= 0;
 
@@ -361,7 +365,7 @@ plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
-plotts.comp_Bench_CountNK =1; % policy from model without knowledge spillovers in benchmark model
+plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
 plotts.per_effoptd= 0;

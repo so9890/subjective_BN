@@ -106,7 +106,7 @@ end
 
 %% counetrfactual model
 if plotts.regime_gov==3
-    for to=[0,2] % loop over counterfactual versions
+    for to=[0,1, 2] % loop over counterfactual versions
     helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
     nsk_all=helper.LF_COUNT';
         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
@@ -407,7 +407,7 @@ if plotts.count_tauflev==1
                 RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
             end
         allvars= RES("LF");
-        allvarst=RES_count_onlytauf(kk);
+        allvarst= RES_count_onlytauf(kk);
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -445,7 +445,123 @@ if plotts.count_tauflev==1
     end
     end
 end
+%% effect tauf relative to laissez faire
+% in levels
+if plotts.count_tauflev_Ben==1
+    
+    fprintf('plott only tauf model level and benchmark pol')
 
+    %- loop over economy versions
+    for k=keys(RES_count_onlytauf)
+        kk=string(k);
+            %- read in variable container of chosen regime
+            if kk=="test"
+                RES=OTHERPOL{plotts.regime_gov+1}; 
+            elseif kk=="nsk"
+                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
+            elseif kk=="xgr"
+                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
+            elseif kk=="xgr_nsk"
+                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
+            end
+        allvarsLF= RES("LF");
+        allvars=RES("OPT_T_NoTaus");
+        allvarst= RES_count_onlytauf(kk);
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvarsLF(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T),time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-.';'--'; '-'}, {'color'}, {grrey; 'b'; 'k'} )   
+            if lgdind==1
+               lgd=legend('laissez-faire' , 'only environmental tax', 'both taxes optimal', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTauf_Ben_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+%% effect tauf relative to laissez faire
+% in levels
+if plotts.count_tauflev_Ben_noLF==1
+    
+    fprintf('plott only tauf model level and benchmark pol no lf')
+
+    %- loop over economy versions
+    for k=keys(RES_count_onlytauf)
+        kk=string(k);
+            %- read in variable container of chosen regime
+            if kk=="test"
+                RES=OTHERPOL{plotts.regime_gov+1}; 
+            elseif kk=="nsk"
+                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
+            elseif kk=="xgr"
+                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
+            elseif kk=="xgr_nsk"
+                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
+            end
+        allvars=RES("OPT_T_NoTaus");
+        allvarst= RES_count_onlytauf(kk);
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,allvarst(find(varlist==varr),1:T),time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--'; '-'}, {'color'}, {'b'; 'k'} )   
+            if lgdind==1
+               lgd=legend( 'only environmental tax', 'both taxes optimal', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTauf_Ben_noLF_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
 %% effect tauf relative to laissez faire
 % in levels
 if plotts.count_taullev==1
