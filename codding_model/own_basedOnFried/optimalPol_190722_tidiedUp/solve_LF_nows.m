@@ -143,7 +143,7 @@ while t<=T+1 % because first iteration is base year
      else
          constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic);
      end
-options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
 %[c,fval]=constrf(sol3);
 % 
@@ -160,10 +160,10 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
 %      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,);%, );%, );%, 'Display', 'Iter', );
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
-if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
+% if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
-end
+% end
 
     %- transform results to bounded variables
     if indic.noskill==0

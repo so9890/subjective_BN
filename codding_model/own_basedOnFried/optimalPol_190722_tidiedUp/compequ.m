@@ -23,7 +23,9 @@ function LF_COUNT=compequ(T, list, params, init201519,   symms, LF_SIM, indic)
     % useful when using optimal policy in model with xgr or nsk
     elseif indic.tauf==3 % uses benchmark model policy but sets tauf to zero
         LF_SIM(:,list.sepallvars=='tauf')=zeros(size(LF_SIM(:,list.sepallvars=='tauf')));
-        LF_SIM(:,list.sepallvars=='taus')=zeros(size(LF_SIM(:,list.sepallvars=='taus')));    
+        LF_SIM(:,list.sepallvars=='taus')=zeros(size(LF_SIM(:,list.sepallvars=='taus'))); 
+    elseif indic.tauf==4 % uses benchmark model policy but sets tauf to zero and runs model with no know spils
+        indic.noknow_spill=0; % effect of opt pol in model without kn spil in full model
     end
 
 helper.LF_SIM=LF_SIM';

@@ -57,42 +57,19 @@ pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
 pf=SLF.pf;
-%- params
-sigmaa = Sparams.sigmaa;
-chii = Sparams.chii;
-sigmaas = Sparams.sigmaas;
-chiis = Sparams.chiis;
-
-eppse = Sparams.eppse;
-eppsy = Sparams.eppsy;
-deltay= Sparams.deltay;
-thetaa = Sparams.thetaa;
-thetan = Sparams.thetan;
-thetag = Sparams.thetag;
-thetaf = Sparams.thetaf;
-rhof   = Sparams.rhof;
-rhon   = Sparams.rhon;
-rhog   = Sparams.rhog;
-zh     = Sparams.zh; 
-% lambdaa = pol(list.pol=='lambdaa');
 lambdaa=SLF.lambdaa;
-tauf = pol(list.pol=='tauf');
-taul = pol(list.pol=='taul');
-taus = pol(list.pol=='taus');
-alphag=Sparams.alphag;
-alphaf=Sparams.alphaf;
-alphan=Sparams.alphan;
-deltaa =Sparams.deltaa;
-omegaa =Sparams.omegaa;
 
+%- params
+read_in_params;
+read_in_pol;
 % auxiliary variables 
 
 E  = (SLF.F^((eppse-1)/eppse)+SLF.G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
 N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good producers 
 Y = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
-xn=SLF.pn*Sparams.alphan*N;
-xg=SLF.pg*Sparams.alphag*SLF.G;
-xf=SLF.pf*(1-pol(list.pol=='tauf'))*Sparams.alphaf*SLF.F;
+xn=SLF.pn*alphan*N;
+xg=SLF.pg*alphag*SLF.G;
+xf=SLF.pf*(1-pol(list.pol=='tauf'))*alphaf*SLF.F;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 

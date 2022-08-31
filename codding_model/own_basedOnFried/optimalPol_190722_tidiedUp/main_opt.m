@@ -30,6 +30,7 @@ indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart:
                  % thetaa > 1
 indic.sep =1; %==1 is the benchmark; when finalising should be dropped
 indic.target =0; % ==1 if uses emission target
+indic.noknow_spill =1; % ==0 then there are knowledge spillovers (benchmark model)
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0; % Indicator of policy
@@ -104,7 +105,7 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
-for nnt=0:5
+for nnt=[0,1,4,5]
     indic.notaul=nnt;
 for i=0:1
     indic.noskill=i;
@@ -113,15 +114,15 @@ for i=0:1
         helper.LF_SIM=LF_SIM;
         [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
        
-        save(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+        save(sprintf('BAU_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
 %     end
      fprintf('LF_BAU no skill %d exists', indic.noskill);
 
 
+%%
 %- version without growth
 [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-% helper.LF_SIM=LF_SIM;
 save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
 %- version with counterfactual technology gap
@@ -140,7 +141,7 @@ iin=load('init_techgap.mat');
 % Af0=LF_SIM(list.sepallvars=='Af', 1);
 % init1519count=eval(symms.init);
 [LF_BAU]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-save(sprintf('BAU_countec_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+save(sprintf('BAU_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 end
 end
 %% Laissez faire
@@ -152,7 +153,7 @@ pol=eval(symms.pol);
 
 %%
   %  if indic.noskill==0
-for nnt=0:5
+for nnt=[0,1,4,5]
       indic.notaul=nnt;
   for i=0:1
       indic.noskill=i;
@@ -162,21 +163,21 @@ for nnt=0:5
         helper.LF_SIM=LF_SIM;
         indic.xgrowth=0;
         [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
-        save(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.notaul, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+        save(sprintf('LF_SIM_NOTARGET_spillover%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep,indic.notaul, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
 
         %- exogenous growth
-        indic.xgrowth=1;
-        [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-        % helper.LF_SIM=LF_SIM;
-        save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+%          indic.xgrowth=1;
+%          [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+%          % helper.LF_SIM=LF_SIM;
+%          save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
     %- version LF with counterfac tec gap
     indic.xgrowth=0; % does not exist with exogenous growth
     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
     helper.LF_SIM=LF_SIM;
     [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-    save(sprintf('LF_countec_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    save(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
   end
 end
 %% end
@@ -194,7 +195,7 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for xgr=1
+for xgr=0
     indic.xgrowth=xgr;
     for ns=0:1
         indic.noskill=ns;
@@ -226,17 +227,17 @@ indic.extern=0;
 
 for tr =0:1
     indic.target=tr;
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=[0,1,2,4,5]
+ for nnt=[3]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
-     OPT_solve_sep(list, symms, params, Sparams, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
  else
-     OPT_solve_sep(list, symms, params, Sparams, x0LF, init1519count, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, init1519count, indexx, indic, T, Ems, MOM, percon);
  end
  end
 end
@@ -248,23 +249,27 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=3 %==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
-indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0
+for tf=1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0; ==0 uses version with tauf optimal but taul =0
 indic.notaul=3;
 indic.PV=1;
 T=12;
 
-for xgr=1
+for xgr=0
     indic.xgrowth=xgr;
     for nsk=1
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
-    helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers,indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+    if tf~=4
+        helper=load(sprintf('OPT_target_1008_spillover%d_knspil%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers, indic.noknow_spill, indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+    elseif tf==4
+        helper=load(sprintf('OPT_target_1008_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers, indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+    end
 elseif tf<2 % load in same model wsrt skill xgr
-     helper=load(sprintf('OPT_target_1008_spillover%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
+     helper=load(sprintf('OPT_target_1008_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
 end
-         if  indic.noskill==1 % get better starting values!
+         if  indic.tauf==1 || indic.noskill==1 % get better starting values!
              if indic.tauf<2
                  T=11;
              end
@@ -327,7 +332,7 @@ plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
 plotts.compEff_mod_dev1=0;
- plotts.count_taul_nsk_LF=1;
+ plotts.count_taul_nsk_LF=0;
 plotts.count_taul_xgr_LF =0;
 plotts.count_taul_xgr_lev =0;
 plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
@@ -351,10 +356,12 @@ plotts.lf=          0; % comparison to laissez faire allocation
 plotts.comptarg=    0; % comparison with and without target
 plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3=    0; % sp versus optimal benchmark
-
+plotts.comp_LFOPT=  0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-
+plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
+plotts.comp_Bench_CountNK =1; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
 plotts.per_effoptd= 0;

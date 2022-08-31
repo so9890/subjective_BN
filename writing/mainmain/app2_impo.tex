@@ -80,13 +80,12 @@ Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon
 \label{mod:N}\\
 &G_t=  x_{Gt}^{\alpha_G}\left(A_{Gt}L_{Gt}\right)^{1-\alpha_G} %(\alpha_Gp_{Gt})^\frac{ \alpha_G}{1-\alpha_G}A_{Gt}L_{Gt}
 \label{mod:G}\\
-\text{Labour demand}%\label{eq:lab_demand}\\
+\text{Labour demand}\ \vspace{4mm}%\label{eq:lab_demand}\\
 & w_{lFt}=(p_{Ft}(1-\tau_{Ft}))^\frac{1}{1-\alpha_F}(1-\alpha_F)(\alpha_F)^\frac{\alpha_F}{1-\alpha_F}A_{Ft}\nonumber\\
 & w_{lNt}=p_{Nt}^\frac{1}{1-\alpha_N}(1-\alpha_N)(\alpha_N)^\frac{\alpha_N}{1-\alpha_N}A_{Nt}\nonumber\\
 & w_{lGt}=p_{Gt}^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
 \\
-\text{Machine demand}&\nonumber
-\\
+\text{Machine demand}\ \vspace{4mm}
 &x_{Fit}= \left(\alpha_F p_{Ft}(1-\tau_{Ft})\right)^\frac{1}{1-\alpha_F}L_{Ft}A_{Fit}\nonumber\\
 &x_{Nit}= \left(\alpha_N p_{Nt}\right)^\frac{1}{1-\alpha_N}L_{Nt}A_{Nit}\nonumber\\
 &x_{Git}= \left(\alpha_G p_{Gt}\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
@@ -980,6 +979,77 @@ Green-to-fossil research is generally high in the model with one skill type.
 %		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/EFF_CompMod_OPT_T_NoTaus_GFF_regime3_spillover0_noskill0_sep1_xgrowth0_extern0_PV1_etaa0.79_lgd0.png}
 %	\end{minipage}
 %\end{figure}
+
+\subsection{Optimal policy in model without knowledge spillovers}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison optimal allocation and laissez-faire without knowledge spillovers }\label{fig:noKNSPIL}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$ \\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/taul_KN_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Environmental tax, $\tau_{Ft}$\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/tauf_KN_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) Fossil research\\ \ }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sff_KN_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Green research\\ \ }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sg_KN_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Non-energy research\\ \ }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sn_KN_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Counterfactual policy from model without knowledge spillovers in benchmark model }\label{fig:noKNSPIL_count}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$ \\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/taul_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Environmental tax, $\tau_{Ft}$ \\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/tauf_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(c) Consumption\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) Aggregate growth \\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAagg_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) Non-energy share scientists \\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/snS_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(f) Green-to-fossil scientists\\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/sgsff_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(g) Aggregate scientists \\ \ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/S_KNCOUNT_FullMod_regime3_spillover0_noskill0_sep1_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\end{figure}
 
 \subsection{Benchmark optimal policy in model variations}\label{app:count}
 Figure  \ref{fig:count_mod_allo} plots the allocation in the model variations resulting under the optimal policy chosen in the benchmark model. 

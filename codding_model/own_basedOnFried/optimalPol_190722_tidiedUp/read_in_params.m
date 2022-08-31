@@ -39,7 +39,11 @@ etaa = params(list.params=='etaa');
 rhof = params(list.params=='rhof');
 rhog = params(list.params=='rhog');
 rhon = params(list.params=='rhon');
-phii = params(list.params=='phii');
+if indic.noknow_spill==1
+    phii=0;
+else
+    phii = params(list.params=='phii');
+end
 
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy
 deltaa = params(list.params=='deltaa'); % natural sink
