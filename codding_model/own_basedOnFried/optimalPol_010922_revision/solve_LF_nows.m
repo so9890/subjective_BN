@@ -93,7 +93,8 @@ if indic.noskill==1
 
         indexxLFsep.lab( list.choice=='h'| list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
         indexxLFsep.exp(list.choice~='h'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
-            &list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn')=1;
+            &list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn' ...
+            & list.choice~='lambdaa')=1;
         indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
 
         indexx('LF_noskill_sep1')=indexxLFsep;

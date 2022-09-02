@@ -63,9 +63,9 @@ end
  pee    = exp(x(list.choice=='pee'));
  pf     = exp(x(list.choice=='pf'));
  if indic.notaul ==6
-     taul = x(list.choice=='taul');
+     taul = x(list.choice=='lambdaa');
  else
-     lambdaa  = exp(x(list.choice=='lambdaa')); % in calibration chosen to match GovRev
+     lambdaa  = (x(list.choice=='lambdaa')); % in calibration chosen to match GovRev
  end
  
 %% - read in auxiliary equations
@@ -190,7 +190,7 @@ f(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf)
 
 %8
 q=q+1;
-f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus)*Ag);
+f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
 
 %9
 q=q+1;

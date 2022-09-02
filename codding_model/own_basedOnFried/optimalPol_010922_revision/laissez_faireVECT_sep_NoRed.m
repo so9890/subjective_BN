@@ -14,7 +14,6 @@ read_in_params;
 
 tauf=varrs(list.allvars=='tauf', :)';
 taus=varrs(list.allvars=='taus', :)';
-taul=varrs(list.allvars=='taul', :)';
 
 % choice variables
 %- transform variables directly instead of in code
@@ -69,9 +68,12 @@ else
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
  pf     = exp(x((find(list.test=='pf')-1)*T+1:(find(list.test=='pf'))*T));
 if indic.notaul ~=6
-    lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
+    lambdaa= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
+    taul=varrs(list.allvars=='taul', :)';
  else
     taul= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));     
+    lambdaa=varrs(list.allvars=='lambdaa', :)';
+
  end
 %% - read in auxiliary equations
 %- initial condition

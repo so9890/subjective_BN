@@ -58,7 +58,8 @@ indexxLF.sqr = boolean(zeros(size(list.choice)));
 indexxLF.oneab = boolean(zeros(size(list.choice)));
 
 indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='sff'| list.choice=='sg'| list.choice=='sn')=1;
-indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn'&list.choice~='gammall'& list.choice~='gammalh'& list.choice~='sff'& list.choice~='sn'& list.choice~='sg' )=1;
+indexxLF.exp(list.choice~='hl'& list.choice~='hh' & list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn'&...
+    list.choice~='gammall'& list.choice~='gammalh'& list.choice~='sff'& list.choice~='sn'& list.choice~='sg' & list.choice~='lambdaa')=1;
 indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasf'| list.choice=='gammasn' )=1;
 
 %- variables for version with inequality

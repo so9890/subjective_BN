@@ -92,7 +92,7 @@ pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
 if indic.notaul~=6
-    lambdaa=y(list.allvars=='lambdaa', :)';
+    lambdaa=varrs(list.allvars=='lambdaa', :)';
 else
     lambdaa=varrs(list.allvars=='lambdaa', :)';     % lambdaa is in fact taul
 end

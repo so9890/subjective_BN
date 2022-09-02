@@ -110,7 +110,7 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
-for nnt=7%[0,1,2,3,4,5]
+for nnt=7%0:7%[0,1,2,3,4,5]
     indic.notaul=nnt;
 for i=0
     indic.noskill=i;
