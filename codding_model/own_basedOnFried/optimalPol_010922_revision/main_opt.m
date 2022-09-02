@@ -1,5 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%COMET Model M-File%%%%%
+%%%%% The role of fiscal %%%
+%%%%% policies in the env %%
+%%%%% policy %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%Author: Sonja Dobkowitz
@@ -41,6 +43,8 @@ indic.notaul=0; % Indicator of policy
                 % ==3 gov consumes env taxes; taul can be used 
                 % ==4 taul is an option and env tax revenues are redistributed lump sum
                 % ==5 lump sum trans, no taul
+                % ==6 consolidated budget and taul adjusts (lambdaa fixed)
+                % ==7 earmarking
 indic.taus =0; %==0 then no subsedy on green 
 indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
@@ -62,14 +66,14 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-if isfile(sprintf('params_0308.mat'))
+if isfile(sprintf('params_0209.mat'))
     fprintf('loading parameter values')
-    load(sprintf('params_0308.mat'),...
+    load(sprintf('params_0209.mat'),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
-    save(sprintf('params_0308'))
+    save(sprintf('params_0209'))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -106,21 +110,19 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
-for nnt=[0,1,4,5]
+for nnt=7%[0,1,2,3,4,5]
     indic.notaul=nnt;
-for i=0:1
+for i=0
     indic.noskill=i;
-%     if ~isfile(sprintf('LF_BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')))
         [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
         helper.LF_SIM=LF_SIM;
         [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
        
-        save(sprintf('BAU_spillovers%d_knspil%d_size_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
+       % save(sprintf('BAU_spillovers%d_knspil%d_size_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
-%     end
-     fprintf('LF_BAU no skill %d exists', indic.noskill);
 
-
+end
+end
 %%
 %- version without growth
 [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);

@@ -50,7 +50,7 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      Af0 ...        % initial technology level fossil
      Ag0 ...        % initial technology level green
      An0 ...        % initial technology level neutral
-     GovRev ...     % government spending as percentage of GDP
+     GovRev ...     % government revenues
      real 
  
 syms taul ...       % income tax progressivity
@@ -60,8 +60,8 @@ syms taul ...       % income tax progressivity
      real
  
 symms.params = [sigmaa,sigmaas, chiis, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
-                thetaf, thetan, thetag, eppsy, eppse, deltay, upbS, ...
-                gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa, GovRev];   
+                thetaf, thetan, thetag, eppsy, eppse, deltay, upbS, GovRev, ...
+                gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa];   
 list.params  = string(symms.params);
 
 symms.init   = [Af0, An0, Ag0];
@@ -72,8 +72,8 @@ list.pol      = string(symms.pol);
 
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
-                eppsy, eppse, sigmaas, upbS, ...
-                etaa, phii,  rhof, rhon, rhog, deltaa, GovRev];   
+                eppsy, eppse, sigmaas, upbS, GovRev, ...
+                etaa, phii,  rhof, rhon, rhog, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
 symms.poldir     = [taul, taus, tauf];
@@ -117,13 +117,14 @@ upbS     = 0.01;
 taul    = 0.181;
 taus    = 0; 
 tauf    = 0; 
-GovRev  = 0.327937187350175; % as percentage of GDP, average from 2014-2019; from OECD data
+GovRev    = 0.327937187350175; % as percentage of GDP, average from 2014-2019; from OECD data
 
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
 % MOM.S = 0.01; % from fried: Supply scientists in base year
 MOM.growth = (1.017795)^5 -1; %5 year grwoth rate from OECD over initial period
+MOM.Debt=GovRev; 
 %% - emissions
 [deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 
 % -omegaa follows in main calibration

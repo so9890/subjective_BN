@@ -45,7 +45,7 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 \begin{align}
 \text{\textbf{Household}}&\nonumber\\ \text{period utility}\vspace{4mm}&  \log(C_t)-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_F^{1+\sigma}+s_G^{1+\sigma}+s_N^{1+\sigma}}{{1+\sigma}} \nonumber %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
-\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}\nonumber\\ %+T_{lst}\\
+\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+z_l \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}+T_{ls, t}\nonumber\\ %+T_{lst}\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-1}= \mu_tp_{t}\nonumber\\
 & \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{ht}^{1-\tau_{\iota t}}h_{ht}^{-\tau_{\iota t}}-\gamma_{ht}/z_h\nonumber\\
@@ -53,21 +53,21 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 %&( h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{st}^{1-\tau_{\iota t}}h_{st}^{-\tau_{\iota t}}\\
 %\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{\iota t}}{{\sigma+\tau_{\iota t}}}}\ \text{(Interior solution)}\\
 & \chi_s s_{Jt}^{\sigma_s} =\mu_t w_{sJt}-\gamma_{sJt},\ for  J\in\{F,G,N\} \nonumber\\ %\text{(scientist income confiscated by gov.)}\\
-& \text{where $\gamma_{ht}, \gamma_{lt}$, and $\gamma_{sJt}$ are Lagrange multipliers on the inequality constraints} \\ & \text{with respect to time endowment.}
+& \text{where $\gamma_{ht}, \gamma_{lt}$, and $\gamma_{sJt}$ are Lagrange multipliers on the inequality constraints}\nonumber \\ & \text{with respect to time endowment.}\\
 \text{\textbf{Final good and Energy producers}}&\nonumber\\
 \text{Optimality}\ \vspace{4mm}&
 %\frac{E_t}{N_t}=\frac{\delta_y}{(1-\delta_y)}\left(\frac{p_{Nt}}{p_{Et}}\right)^{\varepsilon_y}\\
  p_{t}\delta_y^\frac{1}{\varepsilon_y}Y_t^\frac{1}{\varepsilon_y}E_t^{-\frac{1}{\varepsilon_y}}=p_{Et}\nonumber\\
 & p_{t}(1-\delta_y)^\frac{1}{\varepsilon_y}Y_t^\frac{1}{\varepsilon_y}N_t^{-\frac{1}{\varepsilon_y}}=p_{Nt}\nonumber\\
 &
-p_{Et}E_t^\frac{1}{\varepsilon_e}{F}_t^{-\frac{1}{\varepsilon_e}}=p_{{F}t}\nonumber\\
+p_{Et}E_t^\frac{1}{\varepsilon_e}{F}_t^{-\frac{1}{\varepsilon_e}}=p_{{F}t}+\tau_{Ft}\nonumber\\
 & p_{Et}E_t^\frac{1}{\varepsilon_e}G_t^{-\frac{1}{\varepsilon_e}}=p_{Gt}\nonumber\\
 %& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}\deltA_fF_t^{-\frac{1}{\varepsilon_f}}=p_{Ft}+\tau_{F}\\
 %& p_{\tilde{F}t}\tilde{F}_t^\frac{1}{\varepsilon_f}(1-\deltA_f)O_t^{-\frac{1}{\varepsilon_f}}=p_{Ot}+\tau_{o}
 %\\
 \text{Definitions prices}\ \vspace{4mm}&
 p_{t}= \left[\delta_yp_{Et}^{1-\varepsilon_y}+(1-\delta_y)p_{Nt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_y}\nonumber\\
-& p_{Et}= \left[p_{{F}t}^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\nonumber\\
+& p_{Et}= \left[(p_{{F}t}+\tau_{Ft})^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_y}\right]^\frac{1}{1-\varepsilon_e}\nonumber\\
 %& p_{\tilde{F}t}= \left[\deltA_f^{\varepsilon_f}(p_{Ft}+\tau_{F})^{1-\varepsilon_f}+(1-\deltA_f)^{\varepsilon_f}(p_{nt}+\tau_{o})^{1-\varepsilon_f}\right]^\frac{1}{1-\varepsilon_f}
 %\\
 \text{Production}\ \vspace{4mm}& 
@@ -82,14 +82,14 @@ Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon
 &G_t=  x_{Gt}^{\alpha_G}\left(A_{Gt}L_{Gt}\right)^{1-\alpha_G} %(\alpha_Gp_{Gt})^\frac{ \alpha_G}{1-\alpha_G}A_{Gt}L_{Gt}
 \label{mod:G}\\
 \text{Labour demand}\ \vspace{4mm}%\label{eq:lab_demand}\\
-& w_{lFt}=(p_{Ft}(1-\tau_{Ft}))^\frac{1}{1-\alpha_F}(1-\alpha_F)(\alpha_F)^\frac{\alpha_F}{1-\alpha_F}A_{Ft}\nonumber\\
+& w_{lFt}=(p_{Ft})^\frac{1}{1-\alpha_F}(1-\alpha_F)(\alpha_F)^\frac{\alpha_F}{1-\alpha_F}A_{Ft}\nonumber\\
 & w_{lNt}=p_{Nt}^\frac{1}{1-\alpha_N}(1-\alpha_N)(\alpha_N)^\frac{\alpha_N}{1-\alpha_N}A_{Nt}\nonumber\\
-& w_{lGt}=p_{Gt}^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
+& w_{lGt}=(p_{Gt}(1+\tau_{Gt}))^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
 \\
 \text{Machine demand}\ \vspace{4mm}
-&x_{Fit}= \left(\alpha_F p_{Ft}(1-\tau_{Ft})\right)^\frac{1}{1-\alpha_F}L_{Ft}A_{Fit}\nonumber\\
+&x_{Fit}= \left(\alpha_F p_{Ft}\right)^\frac{1}{1-\alpha_F}L_{Ft}A_{Fit}\nonumber\\
 &x_{Nit}= \left(\alpha_N p_{Nt}\right)^\frac{1}{1-\alpha_N}L_{Nt}A_{Nit}\nonumber\\
-&x_{Git}= \left(\alpha_G p_{Gt}\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
+&x_{Git}= \left(\alpha_G p_{Gt}(1+\tau_{Gt})\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
 \\
 \text{\textbf{Labour producers}}&\nonumber
 \\
@@ -112,11 +112,11 @@ Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon
 &p_{xGit}=\frac{1}{\alpha_G(1+\zeta_G)}
 \nonumber\\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sFt}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho_F}\right)^{\eta}p_{Ft}(1-\tau_{Ft})F_t}{\frac{1}{1-\alpha_F}s_{Ft}A_{Ft}}\nonumber\\
+w_{sFt}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho_F}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_F}s_{Ft}A_{Ft}}\nonumber\\
 &
 w_{sNt}=\frac{\eta \gamma  A_{Nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{Nt}}{\rho_N}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}s_{Nt}A_{Nt}}\nonumber\\
 &
-w_{sGt}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
+w_{sGt}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}(1+\tau_{Gt})G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
 \text{Innovation}\ \vspace{4mm}&
 A_{Fit}=A_{Ft-1}\left(1+\gamma\left(\frac{s_{Fit}}{\rho_F}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Ft-1}}\right)^{\phi}\right)\nonumber \\
 &
@@ -138,15 +138,15 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 %&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\nonumber\\
-&0=\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+w_{sFt}s_{Ft}+w_{sGt}s_{Gt}+w_{sNt}s_{Nt}\nonumber\\ &+\int_{0}^{1} p_{Fit}\zeta_{Ft}x_{Fit}+p_{Git}\zeta_{Gt}x_{Git}+ p_{Nit}\zeta_{Nt}x_{Nit}di\nonumber\\
+&Gov_{\iota t}=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+T_{\iota t}\nonumber\\&+\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+ w_{sFt}s_{Ft}+w_{sGt}s_{Gt}+w_{sNt}s_{Nt}\nonumber\\ &-\int_{0}^{1} p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}di\nonumber\\
 \text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for J\in\{F,G,N\}\nonumber \\
-\text{simplified}\ \vspace{4mm} & 0= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})
+\text{simplified}\ \vspace{4mm} & Gov_{\iota t}= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})
 \nonumber\\\
-&Gov_t=\tau_{Ft}p_{Ft}(\omega F_t)\nonumber \\
-\text{\textbf{Markets}}&\\
+&Gov_{Ft}=\tau_{Ft}F_t\hspace{2mm} or\hspace{2mm} \tau_{Gt}p_{Gt}G_t=\tau_{Ft}F_t \hspace{2mm} or \hspace{2mm} T_{ls, t}=\tau_{Ft}F_t\hspace{2mm} or \hspace{2mm} T_{\iota t}=\tau_{Ft}F_t\nonumber \\
+\text{\textbf{Markets}}&\nonumber\\
 &h_{hFt}+h_{hNt}+h_{hGt}=z_{h} h_{ht}\nonumber\\
 &h_{lFt}+h_{lNt}+h_{lGt}=(1-z_h) h_{lt}\nonumber\\
-&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i+Gov_t=Y_t\nonumber
+&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i++Gov_{\iota t}+Gov_{Ft}=Y_t\nonumber
 \end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
@@ -368,6 +368,11 @@ Panels (d) and (f) show that despite the continuation value, there are end-point
 \centering{\footnotesize{(e) Aggregate scientists}}
 %	\captionsetup{width=.45\linewidth}
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/S_LFCompOPT_T_NoTaus_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(f) Growth non-energy}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAn_LFCompOPT_T_NoTaus_regime3_spillover0_noskill0_sep1_xgrowth0_etaa0.79_lgd0.png}
 \end{minipage}
 
 \end{figure}

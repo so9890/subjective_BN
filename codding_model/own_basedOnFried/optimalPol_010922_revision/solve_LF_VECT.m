@@ -91,8 +91,11 @@ pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
-lambdaa=y(list.allvars=='lambdaa', :)';
-
+if indic.notaul~=6
+    lambdaa=y(list.allvars=='lambdaa', :)';
+else
+    lambdaa=varrs(list.allvars=='lambdaa', :)';     % lambdaa is in fact taul
+end
 
 x0=eval(symms.test);
 x0=x0(:);

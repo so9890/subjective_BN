@@ -63,60 +63,62 @@ else
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
  pf     = exp(x((find(list.test=='pf')-1)*T+1:(find(list.test=='pf'))*T));
- lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
-
+ if indic.notaul ~=6
+    lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
+ else
+    taul= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));     
+ end
 % auxiliary variables 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
   
-E  = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1)); 
-N  =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
-Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1));
-xn=pn.*alphan.*N;
-xg=pg.*alphag.*G;
-xf=pf.*(1-tauf).*alphaf.*F;
-
-A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-S=sff+sg+sn;
-
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
-    
-    if indic.notaul<2 % tauf redistributed via income tax
-        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-
-    end
 else
-    if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-
-    end
-end
-% gov con
-        if 2<=indic.notaul && indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
-% lump sum transfers
-if indic.notaul >=4
-    Tls =tauf.*pf.*F;
-else
-    Tls =zeros(size(F));
+    hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
 end
 
+if indic.notaul<2 || ...
+   indic.notaul == 6 % tauf redistributed via income tax
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +tauf.*F;
+    Tls =zeros(size(F));    
+    GovCon =zeros(size(F));
+
+elseif indic.notaul == 2 ||...
+        indic.notaul==3 %2,3,4,5,7
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon = tauf.*F; % GovCon = env tax consumed by government
+    Tls =zeros(size(F));    
+elseif indic.notaul == 4 || indic.notaul ==5
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls  = tauf.*F;
+elseif indic.notaul == 7 % earmarking
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls =zeros(size(F));    
+    taus = tauf.*F./(pg.*G); % subsidy on green sector
+end
+
+
+E  = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1)); 
+N  =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
+Y = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1));
+xn=pn.*alphan.*N;
+xg=pg.*(1+taus).*alphag.*G;
+xf=pf.*alphaf.*F;
+
+A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+S=sff+sg+sn;
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 
 Emnet     = omegaa.*F-deltaa; % net emissions
 
@@ -137,7 +139,7 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-Cincome=Y-xn-xf-xg-GovCon;
+Cincome=Y-xn-xf-xg-GovCon-SGov;
 
 diff=C-Cincome;
 

@@ -18,6 +18,11 @@ function [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201
 % output
 % indexx: map of indices indicating variable transformation for code.
 %         contains laissez-faire index and calibration index. 
+
+% 
+if polhelp(list.poldir=='tauf')~=0 || polhelp(list.poldir=='taus')~=0 
+error('tauf not 0 or taus not =0; have to change calibration and pay attention how env revs are recycled!')
+end
 %% initaliase stuff needed for diverse solution 
 
 %- calibration research side
@@ -105,8 +110,8 @@ deltay =  log((1-0.4)/0.4);
 x0=eval(symms.prod(symms.prod~='omegaa'));
 
 %- solve
-f = calibProd(x0, MOM, list, parsHelp);
-prodf = @(x)calibProd(x,  MOM, list, parsHelp);
+f = calibProd(x0, MOM, list, parsHelp, polhelp);
+prodf = @(x)calibProd(x,  MOM, list, parsHelp, polhelp);
 options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5, 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [solProd, fval] = fsolve(prodf, x0, options);
 trProd=exp(solProd);
@@ -141,7 +146,6 @@ chii =10;
 lambdaa=1;
 
 x0=eval(symms.calib);
-
 %- transform
 guess_trans=trans_guess(indexxcalib, x0, parsHelp, list.paramsdir);
 

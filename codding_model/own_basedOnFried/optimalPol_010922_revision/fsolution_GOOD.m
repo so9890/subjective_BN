@@ -100,7 +100,8 @@ Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii);
  
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*F;
+GovRev  = MOM.Debt;
 Emnet     = omegaa*F-deltaa; % net emissions
 
 
@@ -138,7 +139,7 @@ x0LF= eval(symms.choice);
 % tests
 zh=paramss(list.paramsdir=='zh');
 tauf = poll(list.poldir=='tauf');
-Cincome= zh*hh*wh+(1-zh)*wl*hl+tauf*pf*F;
+Cincome= zh*hh*wh+(1-zh)*wl*hl+tauf*F-SGov;
 
 if abs(Cincome-C)>1e-10
     error('goods market does not clear!')

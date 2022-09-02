@@ -127,6 +127,7 @@ while t<=T+1 % because first iteration is base year
     else
         guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), x0, params, list.params);
     end
+    
     % test
     if indic.sep==0
         error('without separate markets not yet updated')

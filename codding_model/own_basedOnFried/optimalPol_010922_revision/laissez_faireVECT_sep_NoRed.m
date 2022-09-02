@@ -68,8 +68,11 @@ else
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
  pf     = exp(x((find(list.test=='pf')-1)*T+1:(find(list.test=='pf'))*T));
- lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
-
+if indic.notaul ~=6
+    lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
+ else
+    taul= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));     
+ end
 %% - read in auxiliary equations
 %- initial condition
 Af_lag=[laggs(list.init=='Af0'); Af(1:T-1)];
@@ -77,53 +80,50 @@ An_lag=[laggs(list.init=='An0'); An(1:T-1)];
 Ag_lag=[laggs(list.init=='Ag0'); Ag(1:T-1)];
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
-
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
-    
-    if indic.notaul<2 % tauf redistributed via income tax
-        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+else
+    hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
+end
 
-    end
-else
-    if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-    end
+if indic.notaul<2 || ...
+   indic.notaul == 6 % tauf redistributed via income tax
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +tauf.*F;
+    Tls =zeros(size(F));    
+    GovCon =zeros(size(F));
+
+elseif indic.notaul == 2 ||...
+        indic.notaul==3 %2,3,4,5,7
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon = tauf.*F; % GovCon = env tax consumed by government
+    Tls =zeros(size(F));    
+elseif indic.notaul == 4 || indic.notaul ==5
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls  = tauf.*F;
+elseif indic.notaul == 7 % earmarking
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls =zeros(size(F));    
+    taus = tauf.*F./(pg.*G); % subsidy on green sector
 end
-% gov consumption
-    if 2<= indic.notaul && indic.notaul <4
-        GovCon = tauf.*pf.*F;
-    else
-        GovCon =zeros(size(F));
-    end
-% lump sum transfers
-if indic.notaul >=4
-    Tls =tauf.*pf.*F;
-else
-    Tls =zeros(size(F));
-end
+
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
-
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
-        
-            % subsidies and profits and wages scientists cancel
 N       =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good producers 
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-% wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+% wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 % 
 % xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
 % xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf*Af;
@@ -142,17 +142,17 @@ if indic.noskill==0
         f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
         %3- budget
         q=q+1;
-        f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov+Tls-C; %=> determines C
+        f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C; %=> determines C
 else
         q=q+1;
         f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
        %3- budget
         q=q+1;
-        f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov+Tls-C; %=> determines C
+        f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
 end
 %4- output fossil
 q=q+1;
-f((q-1)*T+1:T*q) = ((1-tauf).*alphaf.*pf).^(alphaf./(1-alphaf)).*Af.*Lf -F; 
+f((q-1)*T+1:T*q) = (alphaf.*pf).^(alphaf./(1-alphaf)).*Af.*Lf -F; 
 
 %5- output neutral
 q=q+1;
@@ -160,14 +160,14 @@ f((q-1)*T+1:T*q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan));
 
 %6- output green
 q=q+1;
-f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
+f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 q=q+1;
-f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*(1-tauf).*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 %8
 q=q+1;
-f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
 %9
 q=q+1;
 f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
@@ -198,29 +198,29 @@ if indic.noskill==0
     %17- demand skill
     q=q+1;
     f((q-1)*T+1:T*q) = wh - thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-            ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+            (pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
     %18
     q=q+1;
     f((q-1)*T+1:T*q) = wl-(1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf)*alphaf^(alphaf/(1-alphaf)).*...
-            ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+            (pf).^(1/(1-alphaf)).*Af;
 else
     q=q+1; % labour demand fossil
-    f((q-1)*T+1:T*q) =  w  - (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; % labour demand fossil
+    f((q-1)*T+1:T*q) =  w  - (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; % labour demand fossil
     q=q+1;
     f((q-1)*T+1:T*q) = Ln -pn.*(1-alphan).*N./w; % labour demand neutral 
     q=q+1;
-    f((q-1)*T+1:T*q) = Lg - pg.*(1-alphag).*G./w;
+    f((q-1)*T+1:T*q) = Lg - pg.*(1+taus).*(1-alphag).*G./w;
 end
 % prices and wages
 %19- optimality energy producers
 q=q+1;
-f((q-1)*T+1:T*q) = pf.*F.^(1/eppse)- (G).^(1/eppse).*pg; 
+f((q-1)*T+1:T*q) = (pf+tauf).*F.^(1/eppse)- (G).^(1/eppse).*pg; 
 
 
 %- definitions prices
 %20
 q=q+1;
-f((q-1)*T+1:T*q) = pee - (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
+f((q-1)*T+1:T*q) = pee - ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); %definition
 %21
 q=q+1;
 f((q-1)*T+1:T*q) =  1-(deltay.*pee.^(1-eppsy)+(1-deltay).*pn.^(1-eppsy)).^(1/(1-eppsy));
@@ -270,7 +270,7 @@ end
 
 % income schedule budget clearing
 q=q+1;
-f((q-1)*T+1:T*q)= SGov;
+f((q-1)*T+1:T*q)= SGov-GovRev; % match gov revenues from calibration 
 
 %fprintf('number equations: %d; number variables %d', q, length(list.test));
 end

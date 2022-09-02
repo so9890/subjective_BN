@@ -72,7 +72,7 @@ f(q) = MOM.whwl-wh/wl;
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
              +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-             +tauf.*pf.*F;
+             +tauf.*F;
          
 %budget => C
 % hhn hhf hhg follow from optimality labour producers as fcn of wlh wlg wlf
