@@ -14,7 +14,7 @@ home =0;
 if home ==1
     bpath = '/Users/steph/Dropbox/Research/Price_shocks/Matlab_files';
 else
-    bpath = '/home/sonja/Documents/projects/Overconsumption/codding_model/Fried2018/AEJMacro-2015-0289.R2_additional_materials';
+    bpath = '/home/sonja/Documents/projects/subjective_BN/codding_model/Fried2018/AEJMacro-2015-0289.R2_additional_materials';
 end
 
 cd(bpath)
@@ -212,6 +212,7 @@ tauStarVec = 1.045328173*tauVec;
 
 tauStarData = tauStarVec./pfStar(1,1)*10.1554 *106.5850/100; %2013 dollars per MBTU
 %mean(racOilImportsReal from 2001-2010 is 10.1554)
+% 65.945 is the sum! from 2015 to 2019
 % 106.5850/100 is the GDP delfator in 2013/ gdp deflator in 2009
 tax = tauStarData/0.07454; %2013 dollars per ton CO2 
 taxI = tax(1); taxNI = tax(2);

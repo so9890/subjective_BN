@@ -24,7 +24,7 @@ MOM.targethour=1/5*(datahours.asShareOfTotalHours(datahours.TIME==2019)+datahour
   
 % moments for technology
 MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP')/100;
-MOM.Y    = 1; % normalised
+MOM.Y    = 1; % normalised; sum 5 Year GDP 2015-2019
 MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./moms(vars=='Total Renewable Energy Consumption');
 MOM.GE   = moms(vars=='Total Renewable Energy Consumption')/moms(vars=='Total Primary Energy Consumption');
 
@@ -35,8 +35,6 @@ MOM.whwl = 1.9; %
 %MOM.hhnhln = zh./zl; % assume share of high skill in neutral sector matches skill distribtuion
 %MOM.diff   = 1.3; % factor on skill share in green sector
 
-% Gov Budget
-MOM.Debt  = 0; % assume balanced budget in baseyear
 
 %% skill distribution
 dist_total=dataskill{1:22,6};

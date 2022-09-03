@@ -69,6 +69,7 @@ if indic.notaul ~=6
 else
     taul=SLF.lambdaa;
 end
+
 % auxiliary variables 
 
 

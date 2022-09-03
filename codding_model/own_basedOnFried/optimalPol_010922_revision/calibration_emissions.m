@@ -23,7 +23,7 @@ datasmall.popshare=datasmall.x840./datasmall.x900;
 
 %- calibrate sink capacity in US as average over initial period expressed
 %  in model periods, i.e. times 5
-deltaa         = mean(grosemissions1519_equi-netemissions1519_equi)*averagecontrib_co2*5;  % sinks in the model given in Gt here from equivalents
+deltaa         = sum(grosemissions1519_equi-netemissions1519_equi)*averagecontrib_co2;  % sinks in the model given in Gt here from equivalents
 
 %--- emissions and target emissions
 % emissionsUS2019     = grosemissions1519(end); 

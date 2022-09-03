@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall, MOM, Ems)
 % simulate economy under laissez faire
 
 % input: 
@@ -26,7 +26,7 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, para
     indexxLF.oneab = boolean(zeros(size(list.choice)));
 
     indexxLF.lab( list.choice=='hh'|list.choice=='hl')=1;
-    indexxLF.exp(list.choice~='hl'&list.choice~='hh'&list.choice~='gammalh'&list.choice~='gammall')=1;
+    indexxLF.exp(list.choice~='lambdaa'&list.choice~='hl'&list.choice~='hh'&list.choice~='gammalh'&list.choice~='gammall')=1;
     indexxLF.sqr(list.choice=='gammalh'|list.choice=='gammall')=1;
     
     indexx('LF_xgrowth')=indexxLF;
@@ -60,17 +60,49 @@ if indic.noskill==1
         indexxLFsep.oneab = boolean(zeros(size(list.choice)));
 
         indexxLFsep.lab( list.choice=='h' )=1;
-        indexxLFsep.exp(list.choice~='h'&list.choice~='gammalh' )=1;
+        indexxLFsep.exp(list.choice~='h'&list.choice~='gammalh'& list.choice~='lambdaa' )=1;
         indexxLFsep.sqr(list.choice=='gammalh')=1;
         indexx('LF_noskill_xgrowth')=indexxLFsep;
 end
 
 % check size of policy matrix
     [row]=size(poll);
+%-- meeting emission limit 
+% => extend lists etc. as tauf is choice variable
+if indic.limit_LF==1
+    
+    syms tauf real
+    symms.choice = [symms.choice, 'tauf'];
+    
+    list.choice = string(symms.choice);
+    x0=[x0, 2];
+
+    if indic.noskill==0
+        hhelper=indexx('LF_xgrowth');
+    else
+        hhelper=indexx('LF_noskill_xgrowth');
+    end
+    hhelper.lab = [hhelper.lab, boolean(zeros(1,1))];
+    hhelper.exp = [hhelper.exp, boolean(zeros(1,1))];
+    hhelper.sqr = [hhelper.sqr, boolean(zeros(1,1))];
+    hhelper.oneab = [hhelper.oneab, boolean(zeros(1,1))];
+    if indic.noskill==0
+        indexx('LF_xgrowh')=hhelper;
+    else
+        indexx('LF_noskill_xgrowth')=hhelper;
+    end
+end
+
 %%
 while t<=T+1 % because first iteration is base year
     fprintf('entering simulation of period %d', t);
-    
+    %--- emission limit per period only relevant for t>=2; for t=1 set
+    % tauf=0
+    if t==1 % baseline period: no emission limit, take same as in second period
+        Emlim=0;
+    else % 
+        Emlim = Ems (t-1);
+    end
     % read in policy 
     if row(1)>1
         if t<=T
@@ -89,20 +121,20 @@ while t<=T+1 % because first iteration is base year
         guess_trans=trans_guess(indexx(sprintf('LF_noskill_xgrowth')), x0, params, list.params);
     end
     % test
-    f=laissez_faire_xgrowth(guess_trans, params, list, pol, laggs, indic);
+    f=laissez_faire_xgrowth(guess_trans, params, list, pol, laggs, indic, MOM,t, Emlim);
     
     %% - solving model
  lb=[];
  ub=[];
  objf=@(x)objectiveCALIBSCI(x);
- constrf = @(x)laissez_faire_xgrowth_fmincon(x, params, list, pol, laggs, indic);
+ constrf = @(x)laissez_faire_xgrowth_fmincon(x, params, list, pol, laggs, indic, MOM,t, Emlim);
 
 options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
 %[c,fval]=constrf(sol3);
 % 
 %- other solvers
-    modFF = @(x)laissez_faire_xgrowth(x, params, list, pol, laggs, indic);
+    modFF = @(x)laissez_faire_xgrowth(x, params, list, pol, laggs, indic, MOM,t, Emlim);
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
@@ -125,16 +157,15 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        LF_SIM(:,t-1)=aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+        [LF_SIM(:,t-1), An0, Ag0,Af0] =aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
         FVAL(t-1)=max(abs(fval));
+    else
+        [~, An0, Ag0,Af0] =aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
     end
     %% - update for next round
     x0 = LF; % initial guess
-        read_in_params;
-        An0=(1+vn)*laggs(list.init=='An0');
-        Ag0=(1+vg)*laggs(list.init=='Ag0');
-        Af0=(1+vf)*laggs(list.init=='Af0');
     laggs=eval(symms.init);
     t=t+1;
 end
+LF_SIM=LF_SIM';
 end

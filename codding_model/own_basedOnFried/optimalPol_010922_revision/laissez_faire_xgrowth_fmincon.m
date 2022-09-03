@@ -1,7 +1,7 @@
-function [c, ceq]=laissez_faire_xgrowth_fmincon(x, params, list, pol, laggs, indic)
+function [c, ceq]=laissez_faire_xgrowth_fmincon(x, params, list, pol, laggs, indic, MOM,t, Emlim)
 
 c=[];
 
-    ceq=laissez_faire_xgrowth(x, params, list, pol, laggs, indic);
+    ceq=laissez_faire_xgrowth(x, params, list, pol, laggs, indic, MOM,t, Emlim);
 
 end

@@ -56,8 +56,8 @@ G=y(list.allvars=='G', :)';
 
 %- research sector if endogenous growth
 if indic.xgrowth==0
-    Af=y(list.allvars=='Af', :)';
-    Ag =y(list.allvars=='Ag', :)';
+    Af = y(list.allvars=='Af', :)';
+    Ag = y(list.allvars=='Ag', :)';
     if indic.xgrowth==0 && indic.noskill==1
         sff =log((params(list.params=='upbarH')-varrs(list.allvars=='sff', :))./(varrs(list.allvars=='sff', :)))';
         sg =log((params(list.params=='upbarH')-varrs(list.allvars=='sg', :))./(varrs(list.allvars=='sg', :)))';

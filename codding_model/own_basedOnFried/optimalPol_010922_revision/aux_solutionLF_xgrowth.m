@@ -1,11 +1,11 @@
-function LF_t=aux_solutionLF_xgrowth(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic)
+function [LF_t, An, Ag,Af]=aux_solutionLF_xgrowth(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim)
 
 % output
 % LF_t: column vector of simulated variables in period t
 
 % read in variables
 read_in_params;
-
+read_in_pol;
 % read in vars
 gammalh=SLF.gammalh;
 gammas=zeros(size(gammalh));
@@ -35,20 +35,30 @@ end
 F=SLF.F;
 G=SLF.G;
 C=SLF.C;
+if indic.notaul ~=6
+    lambdaa=SLF.lambdaa;
+else
+    taul=SLF.lambdaa;
+end
 
+if indic.limit_LF==1
+    tauf=SLF.tauf;
+end
+%
 %- initial condition
 Af_lag=laggs(list.init=='Af0');
 An_lag=laggs(list.init=='An0');
 Ag_lag=laggs(list.init=='Ag0');
+A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
-An=(1+vn)*An_lag;
-Ag=(1+vg)*Ag_lag;
-Af=(1+vf)*Af_lag;
+% An=(1+vn)*An_lag;
+% Ag=(1+vg)*Ag_lag;
+% Af=(1+vf)*Af_lag;
+sn=MOM.targethour;
+sff=MOM.targethour;
+sg=MOM.targethour;
 
-sff=zeros(size(gammalh));
-sg=zeros(size(gammalh));
-sn=zeros(size(gammalh));
-S=zeros(size(gammalh));
+S=sn+sg+sff; %zeros(size(gammalh));
 ws=zeros(size(gammalh));
 wsg=ws;
 wsn=ws;
@@ -76,10 +86,6 @@ rhof   = Sparams.rhof;
 rhon   = Sparams.rhon;
 rhog   = Sparams.rhog;
 zh     = Sparams.zh; 
-lambdaa=SLF.lambdaa;
-tauf = pol(list.pol=='tauf');
-taul = pol(list.pol=='taul');
-taus = pol(list.pol=='taus');
 alphag=Sparams.alphag;
 alphaf=Sparams.alphaf;
 alphan=Sparams.alphan;
@@ -87,60 +93,61 @@ deltaa =Sparams.deltaa;
 omegaa =Sparams.omegaa;
 
 % auxiliary variables 
+An=An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+Af=Af_lag.*(1+gammaa.*(sff./rhof).^etaa*(A_lag./Af_lag).^phii);
+Ag=Ag_lag.*(1+gammaa.*(sg./rhog).^etaa*(A_lag./Ag_lag).^phii);
 
-muu = C^(-thetaa);
-E  = (SLF.F^((eppse-1)/eppse)+SLF.G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
-N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good producers 
-Y = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
-xn=SLF.pn*Sparams.alphan*N;
-xg=SLF.pg*Sparams.alphag*SLF.G;
-xf=SLF.pf*(1-pol(list.pol=='tauf'))*Sparams.alphaf*SLF.F;
-
-A   = zeros(size(gammalh));
-
-muu     = C.^(-thetaa);
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
-    
-    if indic.notaul<2 % tauf redistributed via income tax
-        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-        if indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
-    end
 else
-    if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-    end
-end
-% gov con
-if 2<=indic.notaul && indic.notaul <4
-    GovCon = tauf.*pf.*F;
-else
-    GovCon =zeros(size(F));
-end
-% lump sum transfers
-if indic.notaul >=4
-    Tls =tauf.*pf.*F;
-else
-    Tls =zeros(size(F));
+    hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
 end
 
+if indic.notaul<2 || ...
+   indic.notaul == 6 % tauf redistributed via income tax
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +tauf.*F;
+    Tls =zeros(size(F));    
+    GovCon =zeros(size(F));
+    
+elseif indic.notaul == 2 ||...
+        indic.notaul==3 %2,3,4,5,7
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon = tauf.*F; % GovCon = env tax consumed by government
+    Tls =zeros(size(F)); 
+    
+elseif indic.notaul == 4 || indic.notaul ==5
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls  = tauf.*F;
+    
+elseif indic.notaul == 7 % earmarking
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls =zeros(size(F));    
+    taus = tauf.*F./(pg.*G); % subsidy on green sector
+end
+
+E  = (SLF.F^((eppse-1)/eppse)+SLF.G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
+N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good producers 
+Y  = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
+xn = SLF.pn*alphan*N;
+xg = SLF.pg*(1+taus)*alphag*SLF.G;
+xf = SLF.pf*alphaf*SLF.F;
+
+A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
+
+muu      = C.^(-thetaa); % same equation in case thetaa == 1
+
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 
 Emnet     = omegaa*F-deltaa; % net emissions
 
@@ -160,7 +167,7 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-Cincome=Y-xn-xf-xg-GovCon;
+Cincome=Y-xn-xf-xg-GovCon- GovRev;
 
 if abs(C-Cincome)>1e-10
     error('market clearing does not hold')
@@ -177,7 +184,7 @@ if indic.noskill==0
 else
     guess_trans=trans_guess(indexx('LF_noskill_xgrowth'), xx, params, list.params);
 end
-    f=laissez_faire_xgrowth(guess_trans, params, list, pol, laggs, indic);
+    f=laissez_faire_xgrowth(guess_trans, params, list, pol, laggs, indic, MOM,t,Emlim);
 
 if (max(abs(f)))>1e-8
     fprintf('f only solved at less than 1e-8')

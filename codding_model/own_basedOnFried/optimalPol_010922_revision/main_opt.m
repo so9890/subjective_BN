@@ -59,6 +59,7 @@ indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.PV = 1; % ==1 if continuation value is added to planners problem
 indic.PVwork =0; %==0 then disutility of work is not in 
+indic.emsbase=1; % ==0 then uses emission limits as calculated
 indic
 
 percon = 0;  % periods nonconstrained before 50\% constrained
@@ -112,25 +113,47 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
- 
+indic.limit_LF=1;
+for ee=0:1
+    indic.emsbase=ee;
+    if indic.emsbase==1
+        Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
+    else
+        Ems_alt=Ems;
+    end
 % full model
-for nnt=0:7%[0,1,2,3,4,5]
-    indic.notaul=nnt;
-for i=0
-    indic.noskill=i;
-        [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
-        helper.LF_SIM=LF_SIM;
-        [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems);
-       
-       % save(sprintf('BAU_spillovers%d_knspil%d_size_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
-        clearvars LF_SIM pol FVAL
-end
-end
-%%
-%- version without growth
-[LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-save(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+for nsk=0:1
+    indic.noskill=nsk;
+    for xgr=0:1
+        indic.xgrowth=xgr;
+        % to save tauf
+        TAUF=zeros(T,7); % 7= number of scenarios
 
+    for nnt=0:7
+        indic.notaul=nnt;
+
+        if xgr==0
+            [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems_alt);
+            helper.LF_SIM=LF_SIM;
+            [COMP]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems_alt);
+        else      
+            [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+        end
+        % umrechnung tauf in per ton of carbon in 2014-19 us dollars
+        tauf=COMP(:,list.allvars=='tauf');
+        tauf_CO2=tauf/Sparams.omegaa;
+        tauf_perton2019 = tauf_CO2*MOM.GDP1519MILLION*1e6./(1.0e9); % denominator to go from gigaton to ton
+        TAUF(:,nnt+1)=tauf_perton2019;
+        save(sprintf('COMP_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        clearvars COMP pol FVAL
+    end
+    save(sprintf('TAUF_limit%d_EmsBase%d_xgr%d_nsk%d', indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill), 'TAUF')
+
+end
+end
+end
+
+%% to be continued updating
 %- version with counterfactual technology gap
 
 % An0=init201014(list.init=='An0');
@@ -148,8 +171,7 @@ iin=load('init_techgap.mat');
 % init1519count=eval(symms.init);
 [LF_BAU]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
 save(sprintf('BAU_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-end
-end
+
 %% Laissez faire
 taus=0;
 tauf=0;

@@ -58,18 +58,18 @@ if indic.limit_LF==1
     x0=[x0, 2];
 
     if indic.noskill==0
-        hh=indexx('LF');
+        hhelper=indexx('LF');
     else
-        hh=indexx('LF_noskill_sep1');
+        hhelper=indexx('LF_noskill_sep1');
     end
-    hh.lab = [hh.lab, boolean(zeros(1,1))];
-    hh.exp = [hh.exp, boolean(zeros(1,1))];
-    hh.sqr = [hh.sqr, boolean(zeros(1,1))];
-    hh.oneab = [hh.oneab, boolean(zeros(1,1))];
+    hhelper.lab = [hhelper.lab, boolean(zeros(1,1))];
+    hhelper.exp = [hhelper.exp, boolean(zeros(1,1))];
+    hhelper.sqr = [hhelper.sqr, boolean(zeros(1,1))];
+    hhelper.oneab = [hhelper.oneab, boolean(zeros(1,1))];
     if indic.noskill==0
-        indexx('LF')=hh;
+        indexx('LF')=hhelper;
     else
-        indexx('LF_noskill_sep1')=hh;
+        indexx('LF_noskill_sep1')=hhelper;
     end
 end
 %%
