@@ -1,14 +1,7 @@
-function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic)
+function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic, Ems)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
-% if indic.sep==1
-%     %- new set of choice variables
-%         list.choice=list.sepchoice;
-%         symms.choice=symms.sepchoice;
-%         list.allvars=list.sepallvars;
-%         symms.allvars=symms.sepallvars;
-% end
 
 if indic.xgrowth==1
     list.choice=list.choice_xgrowth;
@@ -19,7 +12,7 @@ y=log(varrs);
 z=sqrt(varrs);
 
 % create new list
-syms HL HH H w Lf Lg Ln real
+syms HL HH H w Lf Lg Ln tauf real
 if indic.noskill==0
     symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH];
 else
@@ -29,6 +22,9 @@ else
                 &list.choice~='wl'&list.choice~='gammall'), H, w, Lf, Lg, Ln];
 end
 
+if indic.limit_LF==1
+    symms.test=[symms.test, tauf];
+end
 list.test=string(symms.test);
 
 % read in results from social planner
@@ -91,10 +87,15 @@ pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
+
 if indic.notaul~=6
     lambdaa=varrs(list.allvars=='lambdaa', :)';
 else
     lambdaa=varrs(list.allvars=='lambdaa', :)';     % lambdaa is in fact taul
+end
+
+if indic.limit_LF==1
+    tauf=varrs(list.allvars=='tauf',:)';
 end
 
 x0=eval(symms.test);
@@ -117,7 +118,7 @@ ub=[];
 objf=@(x)objectiveCALIBSCI(x);
     if indic.xgrowth==0
         if indic.sep==1
-            constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic);
+            constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic, Ems);
         else
             constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
         end
@@ -142,7 +143,7 @@ if indic.xgrowth==0
     if indic.sep==0
         f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
     else
-        f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic);
+        f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic, Ems);
     end
 else
     f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);

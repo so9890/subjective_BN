@@ -125,6 +125,8 @@ MOM = calibration_moments();
 % MOM.S = 0.01; % from fried: Supply scientists in base year
 MOM.growth = (1.017795)^5 -1; %5 year grwoth rate from OECD over initial period
 MOM.Debt=GovRev; 
+MOM.GDP1419MILLION=344555796.174;
+
 %% - emissions
 [deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 
 % -omegaa follows in main calibration

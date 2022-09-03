@@ -1,7 +1,11 @@
-function LF_t=aux_solutionLF_sep(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic)
+function LF_t=aux_solutionLF_sep(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic, Emlim, t)
 
 % output
 % LF_t: column vector of simulated variables in period t
+
+%- params
+read_in_params;
+read_in_pol;
 
 % read in vars
 gammalh=SLF.gammalh;
@@ -41,6 +45,9 @@ else
     Ch=SLF.Ch;
 C=Ch;
 end
+if indic.limit_LF==1
+    tauf=SLF.tauf;
+end
 Af=SLF.Af;
 Ag=SLF.Ag;
 An=SLF.An;
@@ -62,9 +69,6 @@ if indic.notaul ~=6
 else
     taul=SLF.lambdaa;
 end
-%- params
-read_in_params;
-read_in_pol;
 % auxiliary variables 
 
 
@@ -107,10 +111,10 @@ end
 
 E  = (SLF.F^((eppse-1)/eppse)+SLF.G^((eppse-1)/eppse))^(eppse/(eppse-1)); 
 N  =  (1-deltay)/deltay.*(SLF.pee./SLF.pn)^(eppsy).*E; % demand N final good producers 
-Y = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
-xn=SLF.pn*alphan*N;
-xg=SLF.pg*(1+taus)*alphag*SLF.G;
-xf=SLF.pf*alphaf*SLF.F;
+Y  = (deltay^(1/eppsy)*E^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N^((eppsy-1)/eppsy))^(eppsy/(eppsy-1));
+xn = SLF.pn*alphan*N;
+xg = SLF.pg*(1+taus)*alphag*SLF.G;
+xf = SLF.pf*alphaf*SLF.F;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
@@ -143,7 +147,7 @@ Cincome=Y-xn-xf-xg-GovCon- GovRev;
 
 diff=C-Cincome;
 
-if max(abs(diff))>1e-8
+if max(abs(diff))>1e-7
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')
@@ -170,10 +174,10 @@ end
 else
     guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);
 end
-f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic);
+f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic, Emlim, t);
 
-if (max(abs(f)))>1e-10
-    fprintf('f only solved at less than 1e-10')
+if (max(abs(f)))>1e-9
+    fprintf('f only solved at less than 1e-9, max abs f = %f',max(abs(f)) )
 else
     fprintf('saved variables are correct!')
 end

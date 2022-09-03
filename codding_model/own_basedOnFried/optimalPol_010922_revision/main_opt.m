@@ -45,6 +45,9 @@ indic.notaul=0; % Indicator of policy
                 % ==5 lump sum trans, no taul
                 % ==6 consolidated budget and taul adjusts (lambdaa fixed)
                 % ==7 earmarking
+indic.limit_LF =1; % ==1 then tauf is determined by meeting limit in each period
+                   %  set by a planner who knows how economy works but each
+                   %  period; not dynamic! (in optimal policy taking dynamics into account)
 indic.taus =0; %==0 then no subsedy on green 
 indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
@@ -72,6 +75,7 @@ if isfile(sprintf('params_0209.mat'))
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
+    indic.notaul=0; indic.limit_LF=0;
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
     save(sprintf('params_0209'))
 end
@@ -110,17 +114,16 @@ end
 % order of variables in LF_SIM as in list.allvars
  
 % full model
-for nnt=7%0:7%[0,1,2,3,4,5]
+for nnt=0:7%[0,1,2,3,4,5]
     indic.notaul=nnt;
 for i=0
     indic.noskill=i;
-        [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+        [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
         helper.LF_SIM=LF_SIM;
-        [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic);
+        [LF_BAU]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems);
        
        % save(sprintf('BAU_spillovers%d_knspil%d_size_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_BAU', 'Sparams')
         clearvars LF_SIM pol FVAL
-
 end
 end
 %%

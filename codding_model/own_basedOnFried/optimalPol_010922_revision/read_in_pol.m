@@ -6,4 +6,6 @@ else
 end
 
 taus    = pol(:,list.pol=='taus');
-tauf    = pol(:,list.pol=='tauf');
+if indic.limit_LF==0 % otherwise, tauf is choice variable
+    tauf    = pol(:,list.pol=='tauf');
+end

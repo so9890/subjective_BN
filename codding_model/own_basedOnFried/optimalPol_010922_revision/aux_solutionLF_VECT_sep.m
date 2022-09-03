@@ -2,10 +2,14 @@ function LF_SIM=aux_solutionLF_VECT_sep(x, list, symms,varrs, params, T , indic)
 
 read_in_params;
 
-tauf=varrs(list.allvars=='tauf', :)';
+if indic.limit_LF==0
+    tauf=varrs(list.allvars=='tauf', :)'; 
+else
+    tauf=(x((find(list.test=='tauf')-1)*T+1:(find(list.test=='tauf'))*T));
+end
 taus=varrs(list.allvars=='taus', :)';
 
- gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
+gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
 
 if indic.noskill==0
  hhf    = exp(x((find(list.test=='hhf')-1)*T+1:(find(list.test=='hhf'))*T));
@@ -146,7 +150,7 @@ Cincome=Y-xn-xf-xg-GovCon-SGov;
 
 diff=C-Cincome;
 
-if max(abs(diff))>1e-8
+if max(abs(diff))>1e-7
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')

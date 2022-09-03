@@ -1,4 +1,4 @@
-function f=laissez_faire_nows_sep(x, params, list, pol, laggs, indic)
+function f=laissez_faire_nows_sep(x, params, list, pol, laggs, indic, Emlim,t)
 % Model
 % equilibrium for one period!
 % takes policy as given
@@ -37,37 +37,40 @@ else
     Lf     = exp(x(list.choice=='Lf'));
 end
 
-
- C      = exp(x(list.choice=='C'));
- F      = exp(x(list.choice=='F'));
- G      = exp(x(list.choice=='G'));
- Af     = exp(x(list.choice=='Af'));
- Ag     = exp(x(list.choice=='Ag'));
- An     = exp(x(list.choice=='An'));
- sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
- sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
- sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
+C      = exp(x(list.choice=='C'));
+F      = exp(x(list.choice=='F'));
+G      = exp(x(list.choice=='G'));
+Af     = exp(x(list.choice=='Af'));
+Ag     = exp(x(list.choice=='Ag'));
+An     = exp(x(list.choice=='An'));
+sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
+sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
+sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
 
 %  S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
- wsf     = exp(x(list.choice=='wsf'));
- wsn     = exp(x(list.choice=='wsn'));
- wsg     = exp(x(list.choice=='wsg'));
+wsf     = exp(x(list.choice=='wsf'));
+wsn     = exp(x(list.choice=='wsn'));
+wsg     = exp(x(list.choice=='wsg'));
 
- gammalh = x(list.choice=='gammalh')^2;
- gammasg = x(list.choice=='gammasg')^2;
- gammasn = x(list.choice=='gammasn')^2;
- gammasf = x(list.choice=='gammasf')^2;
+gammalh = x(list.choice=='gammalh')^2;
+gammasg = x(list.choice=='gammasg')^2;
+gammasn = x(list.choice=='gammasn')^2;
+gammasf = x(list.choice=='gammasf')^2;
 
- pg     = exp(x(list.choice=='pg'));
- pn     = exp(x(list.choice=='pn'));
- pee    = exp(x(list.choice=='pee'));
- pf     = exp(x(list.choice=='pf'));
- if indic.notaul ==6
-     taul = x(list.choice=='lambdaa');
- else
-     lambdaa  = (x(list.choice=='lambdaa')); % in calibration chosen to match GovRev
- end
- 
+pg     = exp(x(list.choice=='pg'));
+pn     = exp(x(list.choice=='pn'));
+pee    = exp(x(list.choice=='pee'));
+pf     = exp(x(list.choice=='pf'));
+if indic.notaul ==6
+ taul = x(list.choice=='lambdaa');
+else
+ lambdaa  = (x(list.choice=='lambdaa')); % in calibration chosen to match GovRev
+end
+
+if indic.limit_LF==1
+ tauf=x(list.choice=='tauf');
+end
+
 %% - read in auxiliary equations
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 
@@ -294,5 +297,15 @@ f(q)= gammasn.*(sn-upbarH);
 % balanced budget government
 q=q+1;
 f(q)= SGov-GovRev;
+
+%- if emission limit determines tauf
+if indic.limit_LF==1
+q=q+1;
+if t==1 % base year period, tauf =0
+    f(q)= tauf ;
+else
+    f(q)=omegaa*F-deltaa-Emlim;
+end
+end
 %fprintf('number equations: %d; number variables %d', q, length(list.choice));
 end

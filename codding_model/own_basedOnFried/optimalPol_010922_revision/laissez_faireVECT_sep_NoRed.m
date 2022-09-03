@@ -1,4 +1,4 @@
-function f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, laggs,T, indic)
+function f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, laggs,T, indic, Ems)
 
 % Policy version with GOV=tauf pf F
 % can handle version with and without taul
@@ -12,7 +12,11 @@ function f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, laggs,T, indic)
 %- read in policy and parameters
 read_in_params;
 
-tauf=varrs(list.allvars=='tauf', :)';
+if indic.limit_LF==0
+    tauf=varrs(list.allvars=='tauf', :)'; 
+else
+    tauf=(x((find(list.test=='tauf')-1)*T+1:(find(list.test=='tauf'))*T));
+end
 taus=varrs(list.allvars=='taus', :)';
 
 % choice variables
@@ -73,8 +77,7 @@ if indic.notaul ~=6
  else
     taul= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));     
     lambdaa=varrs(list.allvars=='lambdaa', :)';
-
- end
+end
 %% - read in auxiliary equations
 %- initial condition
 Af_lag=[laggs(list.init=='Af0'); Af(1:T-1)];
@@ -273,6 +276,13 @@ end
 % income schedule budget clearing
 q=q+1;
 f((q-1)*T+1:T*q)= SGov-GovRev; % match gov revenues from calibration 
+
+% emisson limit 
+if indic.limit_LF==1
+q=q+1;
+f((q-1)*T+1:T*q)=omegaa*F-deltaa-Ems';
+
+end
 
 %fprintf('number equations: %d; number variables %d', q, length(list.test));
 end
