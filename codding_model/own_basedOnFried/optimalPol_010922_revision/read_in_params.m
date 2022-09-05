@@ -1,4 +1,8 @@
-GovRev=params(list.params=='GovRev');
+if indic.GOV==1
+    GovRev=params(list.params=='GovRev');
+else
+    GovRev=0;
+end
 if indic.util==0
     thetaa = params(list.params=='thetaa');
 else
@@ -58,6 +62,6 @@ extexpp=1.02;
 weightext=0.01; % high weight: 
 
 % growth rates in case of exogenous growth
-vn=0.1;
-vg=0.1;
-vf=0.1;
+vn=0;
+vg=0;
+vf=0;

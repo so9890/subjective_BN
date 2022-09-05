@@ -54,7 +54,7 @@ end
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
  pf     = exp(x((find(list.test=='pf')-1)*T+1:(find(list.test=='pf'))*T));
- lambdaa= exp(x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
+ lambdaa= (x((find(list.test=='lambdaa')-1)*T+1:(find(list.test=='lambdaa'))*T));
 
 %% - read in auxiliary equations
 %- initial condition

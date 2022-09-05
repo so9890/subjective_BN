@@ -168,15 +168,16 @@ q=q+1;
 f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
-q=q+1;
-f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
-%8
-q=q+1;
-f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
-%9
-q=q+1;
-f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
-
+if indic.xgrowth==0
+    q=q+1;
+    f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+    %8
+    q=q+1;
+    f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+    %9
+    q=q+1;
+    f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+end
 %10- LOM technology
 q=q+1;
 f((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
@@ -246,19 +247,21 @@ end
 % q=q+1;
 % f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
-q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(muu.*wsf-gammasf); % scientist hours supply
-q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((muu.*wsg-gammasg));
-q=q+1;
-f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
+if indic.xgrowth==0
+    q=q+1;
+    f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(muu.*wsf-gammasf); % scientist hours supply
+    q=q+1;
+    f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((muu.*wsg-gammasg));
+    q=q+1;
+    f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
 
-q=q+1;
-f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
-q=q+1;
-f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
-q=q+1;
-f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
+    q=q+1;
+    f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
+    q=q+1;
+    f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
+    q=q+1;
+    f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
+end
 
 %13- Kuhn Tucker Labour supply
 if indic.noskill==0

@@ -47,14 +47,14 @@ if indic.noskill==0
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init, indic);
+            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM);
 else
 
      [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic);
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init, indic, MOM);
 
 end
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,7 +106,7 @@ end
          ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
          
          % hh budget different for with and without inequality version
-            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
@@ -121,7 +121,7 @@ end
          ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
          ceq(T*6+1:T*7) = zh*hh-(hhf+hhg+hhn);
          ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
-         ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-SGov-Tls;
+         ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
                 ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
@@ -132,7 +132,7 @@ end
             ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
             ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
-            ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov-Tls;
+            ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
               if indic.sep==0
                 ceq(T*4+1:T*5) = ws-wsf; % wage clearing
                 ceq(T*5+1:T*6) = ws-wsg;
@@ -151,7 +151,7 @@ end
             ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
             ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
-            ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-SGov-Tls;
+            ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
 
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));

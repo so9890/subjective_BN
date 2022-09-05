@@ -2,10 +2,10 @@ function [f]=test_LF_VECT(T, list,  params,symms, init201519, helper, indic)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
-if indic.xgrowth==1
-    list.choice=list.choice_xgrowth;
-    symms.choice=symms.choice_xgrowth;
-end
+% if indic.xgrowth==1
+%     list.choice=list.choice_xgrowth;
+%     symms.choice=symms.choice_xgrowth;
+% end
 
 varrs=helper.LF_SIM;
 y=log(varrs);
@@ -48,7 +48,7 @@ end
     C=y(list.allvars=='C', :)';
     F=y(list.allvars=='F', :)';
     G=y(list.allvars=='G', :)';
-if indic.xgrowth==0
+% if indic.xgrowth==0
     Af=y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
     An =y(list.allvars=='An', :)';
@@ -73,30 +73,30 @@ if indic.xgrowth==0
         gammasn=z(list.allvars=='gammasn', :)';
         gammasf=z(list.allvars=='gammasf', :)';    
     end
-end
+%end
 
 gammalh =z(list.allvars=='gammalh', :)';
 pg=y(list.allvars=='pg', :)';
 pn=y(list.allvars=='pn', :)';
 pee=y(list.allvars=='pee', :)';
 pf=y(list.allvars=='pf', :)';
-lambdaa=y(list.allvars=='lambdaa', :)';
+lambdaa=varrs(list.allvars=='lambdaa', :)';
 
 
 x0=eval(symms.test);
 x0=x0(:);
 
 % test solution to 
-if indic.xgrowth==0
+% if indic.xgrowth==0
     if indic.sep==1
        f= laissez_faireVECT_sep_NoRed(x0, params, list, varrs, init201519, T, indic);
 %        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
     else
         f=laissez_faireVECT(x0, params, list, varrs, init201519,T, indic);
     end
-else
-    f=laissez_faireVECT_xgrowth(x0, params, list, varrs, init201519,T, indic);
-end
+% else
+%     f=laissez_faireVECT_xgrowth(x0, params, list, varrs, init201519,T, indic);
+% end
 % to examine stuff
 if indic.notaul==0 && indic.noskill==1 && indic.xgrowth==0
     comp=1e-7;

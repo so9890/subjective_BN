@@ -2,7 +2,7 @@ function [xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, h, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee,  ws, wsf, wsn, wsg,  tauf, taul, lambdaa,...
-            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic)
+            w, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_skillHom(x, list, params, T, init201519, indic, MOM)
 
 read_in_params;
 
@@ -17,10 +17,15 @@ if indic.xgrowth==0
     sn      = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
     sg      = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sff      = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+else
+    sff=MOM.targethour* ones(size(F));
+    sn=MOM.targethour* ones(size(F));
+    sg=MOM.targethour* ones(size(F));
+ 
 end
 %% auxiliary variables
 % loop over technology
-if indic.xgrowth==0
+if indic.zero==0
     Af=zeros(T,1);
     Af_lag=[init201519(list.init=='Af0'); Af(1:T)]; % drop last value later
     Ag=zeros(T,1);
@@ -67,10 +72,7 @@ else
         Af_lag=Af(i);
         Ag_lag=Ag(i);
     end
-    S       = zeros(size(F));
-    sff     = zeros(size(F));
-    sg      = zeros(size(F));
-    sn      = zeros(size(F));
+    S=sn+sff+sg;
     A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
 
 end
@@ -78,9 +80,10 @@ end
 muu = C.^(-thetaa); % same equation in case thetaa == 1
 % prices
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
-pf      = (G./F).^(1/eppse).*pg; % optimality energy producers
-pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+pf      = (F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf); % production fossil
 
+tauf      = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
+pee     = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 pn      = ((1-deltay.*pee.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
 % output
@@ -91,25 +94,24 @@ Y       = (deltay^(1/eppsy)*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy
 Ln      = N./(An.*(pn.*alphan).^(alphan./(1-alphan))); % production neutral
 
 % wages and policy elements
-tauf    = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf*pf); % production fossil
-w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; % labour demand fossil
+w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; % labour demand fossil
     
 %- wages scientists  
-if indic.xgrowth==0
-    wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
+% if indic.xgrowth==0
+    wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
     wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
     wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
-else
-    wsf=zeros(size(sff));
-    wsg=zeros(size(sff));
-    wsn=zeros(size(sff));
-end
+% else
+%     wsf=zeros(size(sff));
+%     wsg=zeros(size(sff));
+%     wsn=zeros(size(sff));
+% end
 %- relevant for code without separate markets
 S    = sn+sg+sff;
 ws   = chiis*S.^sigmaas; 
 
 if indic.notaul >=4
-    Tls =tauf.*pf.*F;
+    Tls =tauf.*F;
 else
     Tls =zeros(size(F));
 end
@@ -120,9 +122,9 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         taul0 = 0.2*ones(size(sn));
         lambdaa0=ones(size(sn));
         if indic.notaul==0
-            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*pf.*F;
+            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)+tauf.*F-GovRev;
         else
-            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T); % env tax revenues are not redistributed via income tax scheme
+            exxpr = w.*h-(w.*h).^(1-x(1:T)).*x(T+1:2*T)-GovRev; % env tax revenues are not redistributed via income tax scheme
         end
         ff=@(x)[exxpr ;% balanced budget gov.
                 chii*h.^(sigmaa+x(1:T))-(muu.*x(T+1:2*T).*(1-x(1:T)).*(w).^(1-x(1:T)))];
@@ -135,34 +137,34 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         
         taul    = 1-chii.*h.^(sigmaa+1).*(1+Tls./(w.*h));
         if indic.notaul ==0
-            lambdaa = (w.*h+tauf.*pf.*F)./(w.*h).^(1-taul);
+            lambdaa = (w.*h+tauf.*F-GovRev)./(w.*h).^(1-taul);
         else
-            lambdaa = (w.*h)./(w.*h).^(1-taul);
+            lambdaa = (w.*h-GovRev)./(w.*h).^(1-taul);
         end
    end
     
 else % taul cannot be used (indic.notaul == 1, 2, 5)
     taul=zeros(size(sn));
     if indic.notaul==1 
-        lambdaa=tauf.*pf.*F./(w.*h)+1;
+        lambdaa=(tauf.*F-GovRev)./(w.*h)+1;
     elseif indic.notaul == 2 ||  indic.notaul == 5 % env tax revenues not redistributed via income tax scheme; 
-        lambdaa=ones(size(C));
+        lambdaa=(-GovRev)./(w.*h)+1;
     end
 end
 
 xn      = (alphan*pn).^(1/(1-alphan)).*Ln.*An;
-xf      = (alphaf*pf.*(1-tauf)).^(1/(1-alphaf)).*Lf.*Af;
+xf      = (alphaf*pf).^(1/(1-alphaf)).*Lf.*Af;
 xg      = (alphag*pg).^(1/(1-alphag)).*Lg.*Ag;
 
 if indic.notaul <2  % 
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*pf.*F;
+        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul)) +tauf.*F;
         GovCon  = zeros(size(F));
 else
         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
         if indic.notaul>=4 % lump sum trans
             GovCon = zeros(size(F));
         else
-            GovCon = tauf.*pf.*F;
+            GovCon = tauf.*F;
         end
 end
         

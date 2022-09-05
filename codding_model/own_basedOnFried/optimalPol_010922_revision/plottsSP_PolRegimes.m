@@ -1,4 +1,4 @@
-function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts, percon)
+function []=plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon)
 
 % this script plots results
 
@@ -57,7 +57,10 @@ OTHERPOL={}; % cell to save containers of different policy versions
 OTHERPOL_xgr={}; 
 OTHERPOL_nsk={};
 OTHERPOL_xgr_nsk={}; 
-
+TAUFS={};
+TAUFS_xgr={};
+TAUFS_nsk={};
+TAUFS_xgr_nsk={};
 % baseline results 
 for xgr=0:1
 for nsk =0:1
@@ -66,136 +69,44 @@ for nsk =0:1
    
 %- other results
     for i=0:7 % loop over policy versions
-        helper=load(sprintf('COMP_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt0_countec%d_etaa%.2f',...
-                indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, i, indic.limit_LF, indic.count_techgap, etaa));
-            
+        helper=load(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap,  etaa));
+        all=helper.COMP';
+        helper=load(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d', indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap), 'TAUF');
+        tauff=helper.TAUF; % tauff is independent of notaul!
 
-        RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                                {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+        RES = containers.Map({'all'},{all});
         %- add additional variables
         if xgr==0 && nsk==0
             OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS=tauff;
         elseif xgr==0 && nsk==1
             OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_nsk=tauff;
         elseif xgr==1 && nsk==0
             OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_xgr=tauff;
         elseif xgr==1 && nsk==1
             OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_xgr_nsk=tauff;
         end
     end
-end
-end
-
-%% counetrfactual model
-if plotts.regime_gov==3
-    for to=[0,1, 2] % loop over counterfactual versions
-    helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-    nsk_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-    xgr_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep,indic.PV,  etaa));
-    xgr_nsk_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-    test_all=helper.LF_COUNT';
-    
-    if to==2
-        RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
-    elseif to==1 % only tauf
-        RES_count_onlytauf=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count_onlytauf=add_vars(RES_count_onlytauf, list, params, indic, list.allvars, symms);
-    elseif to==0 % only taul
-        RES_count_onlytaul=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count_onlytaul=add_vars(RES_count_onlytaul, list, params, indic, list.allvars, symms);
-    end               
-    end
-end
-
-% counetrfactual with tauf =0 and other model: What is the effect of labor
-% income tax with endogenous growth
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-xgr_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-test_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-xgr_nsk_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-nsk_all=helper.LF_COUNT';
-RES_count_SAMETAUL_onlytaul=containers.Map({'xgr','nsk', 'xgr_nsk', 'test'},...
-                            {xgr_all, nsk_all, xgr_nsk_all, test_all});
-RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
-
-% no knowledge spillovers 
-helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, etaa));
-opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_1008_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, etaa));
-opt_t_notaus=helper.opt_all';
-RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                            {opt_t_notaus, opt_not_notaus});
-RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms);
-    
-% counetrfactual with optimal policy from no spill over plugged in benchmark model
-
-helper=load(sprintf('COMPEquN_SIM_taufopt4_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-test_all=helper.LF_COUNT';
-RES_count_NKinBen=containers.Map({'all'},{test_all});
-RES_count_NKinBen=add_vars(RES_count_NKinBen, list, params, indic, list.allvars, symms);
-
-%% Tables
-if plotts.table==1
-for xgr=0:1
-for nsk= 0:1
-    %- choose respective containers cell
-    if xgr ==0 && nsk==0
-    OTHERPOLL= OTHERPOL;
-    elseif xgr ==1 && nsk==0
-        OTHERPOLL= OTHERPOL_xgr;
-    elseif xgr ==0 && nsk==1
-        OTHERPOLL= OTHERPOL_nsk;
-    elseif xgr ==1 && nsk==1
-        OTHERPOLL= OTHERPOL_xgr_nsk;
-    end
-  %- discount vector
-      betaa=params(list.params=='betaa');
-
-      % version with T=11
-      disc=repmat(betaa, 1,T+1);
-      expp=0:T;
-      vec_discount= disc.^expp;
-
-     %- Table
-     TableSWF_PV=table(keys(RES)',zeros(length(keys(RES)),1), zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1),zeros(length(keys(RES)),1));
-     TableSWF_PV.Properties.VariableNames={'Allocation','Integrated', 'Scenario 1: as 0 but no taul', 'Scenario 2: Gov consu no taul', 'Scenario 3: Gov consu with taul', 'Scenario 4: Lump Sum with taul', 'Scenario 5: Lump Sum no taul'};
-
-    %- all results
-    for i =keys(RES)
-         ii=string(i);
-         count=0; % to keep track of which container is used
-        for ccc=OTHERPOLL
-            pp=ccc{1}; % to get from cell to its content
-            count=count+1;
-            allvars=pp(ii);
-            TableSWF_PV{TableSWF_PV.Allocation==ii,count+1}=vec_discount*allvars(find(varlist=='SWF'),:)'+indic.PV*allvars(find(varlist=='PV'),1);
-        end
-    end
-    %%
-    save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, indic.sep, nsk, etaa, xgr, indic.PV, indic.extern), 'TableSWF_PV');
-end
 end
 end
 
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0
     OTHERPOLL= OTHERPOL;
+    TAUFF =TAUFS;
 elseif plotts.xgr ==1 && plotts.nsk==0
     OTHERPOLL= OTHERPOL_xgr;
+    TAUFF =TAUFS_xgr;
 elseif plotts.xgr ==0 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_nsk;
+    TAUFF =TAUFS_nsk;
 elseif plotts.xgr ==1 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_xgr_nsk;
+    TAUFF =TAUFS_xgr_nsk;
 end
 
 %% table CEV
@@ -225,68 +136,46 @@ Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
 %% effect of taul in model without xgr and with xgr
 % compare effect of only taul in benchmark and in exogenous growth model
-if plotts.count_taul_nsk_LF==1
+if plotts.tauf_comp==1
     
-    fprintf('plott only taul nsk model devLF')
-
-        RES=OTHERPOL{plotts.regime_gov+1}; 
-        RESnsk=OTHERPOL_nsk{plotts.regime_gov+1}; 
-
-        allvarslf= RES("LF");
-        allvarstlf= RESnsk("LF");
-        allvars= RES_count_SAMETAUL_onlytaul("test");
-        allvarst=RES_count_SAMETAUL_onlytaul('nsk');
+    fprintf('plott tauf needed for emission limit')
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
             gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-
-            main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarslf(find(varlist==varr),1:T),...
-                time,allvarst(find(varlist==varr),1:T), time, allvarstlf(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';':'; '--'; ':'}, {'color'}, {'k'; orrange; 'b';grrey} )   
+            main=plot(time,TAUFF(1:T, 4+1), time,TAUFF(1:T, 0+1), time,TAUFF(1:T, 7+1), time,TAUFF(1:T, 2+1),  'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
             if lgdind==1
-               lgd=legend('benchmark' , 'benchmark, LF', 'homogeneous skill', 'homogeneous skill, LF',  'Interpreter', 'latex');
+               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
+           xlim([1, time(end)])
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountNskTaulLF_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/TAUFCO2_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_etaa%.2f_lgd%d.png',date, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
-        end
-    end
     end
 end
 
 %% effect of taul in model without xgr and with xgr
 % compare effect of only taul in benchmark and in exogenous growth model
-if plotts.count_taul_xgr_LF==1
+if plotts.compREd==1
     
-    fprintf('plott only taul xgr model devLF')
+    fprintf('plott comp policy regimes')
 
-        RES=OTHERPOL{plotts.regime_gov+1}; 
-        RESxgr=OTHERPOL_xgr{plotts.regime_gov+1}; 
-
-        allvarslf= RES("LF");
-        allvarstlf= RESxgr("LF");
-        allvars= RES_count_SAMETAUL_onlytaul("test");
-        allvarst=RES_count_SAMETAUL_onlytaul('xgr');
+        allvarsLS=OTHERPOLL{4+1};
+        allvarsLS=allvarsLS('all');
+        allvarsCons=OTHERPOLL{0+1};
+        allvarsCons=allvarsCons('all');
+        allvarsGS=OTHERPOLL{7+1};
+        allvarsGS=allvarsGS('all');
+        allvarsNR=OTHERPOLL{2+1};
+        allvarsNR=allvarsNR('all');
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -297,11 +186,11 @@ if plotts.count_taul_xgr_LF==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarslf(find(varlist==varr),1:T),...
-                time,allvarst(find(varlist==varr),1:T), time, allvarstlf(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';':'; '--'; '--'}, {'color'}, {'k';orrange; 'b';grrey} )   
+            main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
+                time,allvarsGS(find(varlist==varr),1:T), time, allvarsNR(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
             if lgdind==1
-               lgd=legend('benchmark' , 'benchmark, LF', 'exogenous growth', 'exogenous growth, LF',  'Interpreter', 'latex');
+               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
@@ -316,7 +205,7 @@ if plotts.count_taul_xgr_LF==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountXgrTaulLF_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/CompRed_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -324,285 +213,6 @@ if plotts.count_taul_xgr_LF==1
     end
     end
 end
-%% effect of taul in model without xgr and with xgr
-% compare effect of only taul in benchmark and in exogenous growth model
-if plotts.count_taul_xgr_lev==1
-    
-    fprintf('plott only taul xgr model level')
-
-        allvars= RES_count_SAMETAUL_onlytaul("test");
-        allvarst=RES_count_SAMETAUL_onlytaul('xgr');
-        
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-            gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-
-            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
-            if lgdind==1
-               lgd=legend('benchmark' , 'exogenous growth',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountXgrTaul_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
-    
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-end
-
-%% effect tauf relative to laissez faire
-% in levels
-if plotts.count_tauflev==1
-    
-    fprintf('plott only tauf model level')
-
-    %- loop over economy versions
-    for k=keys(RES_count_onlytauf)
-        kk=string(k);
-            %- read in variable container of chosen regime
-            if kk=="test"
-                RES=OTHERPOL{plotts.regime_gov+1}; 
-            elseif kk=="nsk"
-                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
-            elseif kk=="xgr"
-                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
-            elseif kk=="xgr_nsk"
-                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
-            end
-        allvars= RES("LF");
-        allvarst= RES_count_onlytauf(kk);
-        
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-            gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-
-            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
-            if lgdind==1
-               lgd=legend('laissez-faire' , 'only environmental tax',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountTauf_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
-    
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-%% effect tauf relative to laissez faire
-% in levels
-if plotts.count_tauflev_Ben==1
-    
-    fprintf('plott only tauf model level and benchmark pol')
-
-    %- loop over economy versions
-    for k=keys(RES_count_onlytauf)
-        kk=string(k);
-            %- read in variable container of chosen regime
-            if kk=="test"
-                RES=OTHERPOL{plotts.regime_gov+1}; 
-            elseif kk=="nsk"
-                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
-            elseif kk=="xgr"
-                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
-            elseif kk=="xgr_nsk"
-                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
-            end
-        allvarsLF= RES("LF");
-        allvars=RES("OPT_T_NoTaus");
-        allvarst= RES_count_onlytauf(kk);
-        
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-            gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-
-            main=plot(time,allvarsLF(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T),time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-.';'--'; '-'}, {'color'}, {grrey; 'b'; 'k'} )   
-            if lgdind==1
-               lgd=legend('laissez-faire' , 'only environmental tax', 'both taxes optimal', 'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountTauf_Ben_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
-    
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-%% effect tauf relative to laissez faire
-% in levels
-if plotts.count_tauflev_Ben_noLF==1
-    
-    fprintf('plott only tauf model level and benchmark pol no lf')
-
-    %- loop over economy versions
-    for k=keys(RES_count_onlytauf)
-        kk=string(k);
-            %- read in variable container of chosen regime
-            if kk=="test"
-                RES=OTHERPOL{plotts.regime_gov+1}; 
-            elseif kk=="nsk"
-                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
-            elseif kk=="xgr"
-                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
-            elseif kk=="xgr_nsk"
-                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
-            end
-        allvars=RES("OPT_T_NoTaus");
-        allvarst= RES_count_onlytauf(kk);
-        
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-            gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-
-            main=plot(time,allvarst(find(varlist==varr),1:T),time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'--'; '-'}, {'color'}, {'b'; 'k'} )   
-            if lgdind==1
-               lgd=legend( 'only environmental tax', 'both taxes optimal', 'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountTauf_Ben_noLF_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
-    
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-%% effect tauf relative to laissez faire
-% in levels
-if plotts.count_taullev==1
-    
-    fprintf('plott only taul model level')
-%- loop over economy versions
-    for k=keys(RES_count_onlytaul)
-      kk=string(k);
-            %- read in variable container of chosen regime
-            if kk=="test"
-                RES=OTHERPOL{plotts.regime_gov+1}; 
-            elseif kk=="nsk"
-                RES=OTHERPOL_nsk{plotts.regime_gov+1}; 
-            elseif kk=="xgr"
-                RES=OTHERPOL_xgr{plotts.regime_gov+1}; 
-            elseif kk=="xgr_nsk"
-                RES=OTHERPOL_xgr_nsk{plotts.regime_gov+1}; 
-            end
-        allvars= RES("LF");
-        allvarst=RES_count_onlytaul(kk);
-
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
-        ll=string(l);
-        plotvars=lisst(ll);
-
-        for v=1:length(plotvars)
-            gcf=figure('Visible','off');
-            varr=string(plotvars(v));
-     
-            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarst(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'b'} )   
-            if lgdind==1
-               lgd=legend('laissez-faire' , 'only income tax',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
-            
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
-            ax=gca;
-            ax.FontSize=13;
-            ytickformat('%.2f')
-            xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountTaul_mod%s_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
-    
-        exportgraphics(gcf,path,'Resolution', 400)
-        close gcf
-        end
-    end
-    end
-    end
-end
-
-
 
 %% Comparison model versions in one graph
 % in levels
