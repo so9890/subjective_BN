@@ -125,7 +125,8 @@ MOM = calibration_moments();
 % MOM.S = 0.01; % from fried: Supply scientists in base year
 MOM.growth = (1.017795)^5 -1; %5 year grwoth rate from OECD over initial period
 MOM.Debt=GovRev;  % as share of GDP
-MOM.GDP1519MILLION=102140824.682949; %98280493; %sum GDP over 2015-2019 expressedn in 2019 preisen
+MOM.GDP1519MILLION=101950887.298532; %sum GDP over 2015-2019 expressedn in 2019 preisen
+%102140824.682949; %98280493; 
 
 
 %% - emissions

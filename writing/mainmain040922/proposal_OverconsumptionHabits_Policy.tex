@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Habits, Inequality, and the environment}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+\vspace{1mm}
+%Preliminary and incomplete\\
+First version: November 27, 2021\\
+This version: \today }
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+	
+\section{Motivation}
+\tr{Have to include assumption on sustainable technology which might be bound in terms of resource consumption. Could be an extension. }
+Some have argued for an overconsumption in developed economies. XXX and YYY for example define overconsumption in models with habits where the decentralised economy features higher consumption levels relative to the social planner allocation. The overconsumption may arise from households not anticipating that today's consumption creates some sort of addiction thereby raising the need to consume tomorrow. Others have argued for social preferences, such as status considerations, to drive too high consumption levels.  
+
+In addition to the negative externality of today's consumption on the future self, there is a negative externality on the environment once nature's services to humanity and planetary boundaries are taken into account. 
+
+Despite the importance of habits and social preferences for the use of resources, optimal environmental policies have been studied under the assumption of standard utility functions. However, interesting interactions emerge once habitual preferences are taken into account. 
+For instance, as a policy reduces today's consumption, tomorrow's habits are also reduced, leading to a quicker reduction over time? Less need for very high policy rates? 
+(\ar motivation to analyse policies in a model with habits/social preferences)
+
+The government faces a trade-off between the environment and economic output (growth) and inequality. The main focus of this paper is on a government which cares about reelection. It therefore takes opinions in the society into account. I inform the government policy by data from the World Value Survey on the question \textit{"What shall be given priority? Economic growth and job creaction or the environment?"}. 
+
+\subsection{How to set up government}
+\paragraph{Government acts according to social opinion}
+\textbf{Assuming a government acts according to this shift in opinions, what are the effects on inequality and the environmental externality?}
+In the quantitative exercise I change the objective function of the government. Government actions are thus not optimal. COULD ALSO LOOK AT OPINIONS ON WORKING TIME REDUCTION! TO INFORM POLICIES
+\textit{Could endogenise preferences}
+
+\paragraph{Government bound by complying with 1.5 degree goal}
+As a constraint to the government objective function there is the requirement to comply with the Paris agreement. The government searches to achieve this goal in a socially acceptable way. The government chooses between a tax policy which discriminates between sustainable and unsustainable goods, and a labour income tax with the goal to reduce working time and output in general.\footnote{\ Depending on who consumes what working time reduction might be optimal from inequality perspective. And in the light of habits?}
+
+\paragraph{Disaster Risk, Irreversibility of environmental problem}
+This might imply a stronger focus on environmental policies, and a higher urgency to implement these. Isn't that already included in AA? I think what I should focus on is (1) waste, and (2) a parameter specification so that the sustainable technology does not grow quick enough to keep consumption at so high levels as they are today.
+
+\section{Model}
+\begin{itemize}
+\item why is consumption as high as it is today?
+\item estimate preferences from consumption time series, panels to match rising working hours and consumption as a result of technological progress (could also be the other way around)
+\item 
+\end{itemize}
+\end{document}

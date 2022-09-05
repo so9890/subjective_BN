@@ -114,17 +114,33 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.limit_LF=1;
-for ee=0:1
+indic.count_techgap=1;
+POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
+
+for cc=1
+    indic.count_techgap=cc;
+for ff=1
+    indic.limit_LF=ff;
+% choose environmental tax fixed
+if indic.limit_LF==0
+    scc=185; % rff estimate per ton of carbon
+    scc_giga22=185*1e9; % price per ton in 2022 prices=> get in units of GDP in 2019 prices
+    scc_giga19= scc_giga22/1.12; %12% inflation from 2019 to 2022
+    tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 
+    POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of CO2 emissions in model
+end
+
+for ee=0
     indic.emsbase=ee;
     if indic.emsbase==1
-        Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
+        Ems_alt=x0LF(list.choice=='F')*0.9*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
     else
         Ems_alt=Ems;
     end
 % full model
-for nsk=0:1
+for nsk=0
     indic.noskill=nsk;
-    for xgr=0:1
+    for xgr=0
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -133,26 +149,39 @@ for nsk=0:1
         indic.notaul=nnt;
 
         if xgr==0
-            [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems_alt);
-            helper.LF_SIM=LF_SIM;
-            [COMP]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems_alt);
-        else      
-            [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, polCALIB, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+            if indic.count_techgap==0
+                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems_alt);
+                helper.LF_SIM=LF_SIM;
+                [COMP]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems_alt);
+            else
+                iin=load('init_techgap.mat');
+                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall, Ems_alt);
+                 helper.LF_SIM=LF_SIM;
+                [COMP]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic, Ems_alt);
+            end
+        else   
+            if indic.count_techgap==0
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+            else
+                iin=load('init_techgap.mat');
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF,iin.initcount, indexx, indic, Sall, MOM, Ems);
+            end
         end
         % umrechnung tauf in per ton of carbon in 2014-19 us dollars
         tauf=COMP(:,list.allvars=='tauf');
         tauf_CO2=tauf/Sparams.omegaa;
-        tauf_perton2019 = tauf_CO2*MOM.GDP1519MILLION*1e6./(1.0e9); % denominator to go from gigaton to ton
-        TAUF(:,nnt+1)=tauf_perton2019;
-        save(sprintf('COMP_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton
+        TAUF(:,nnt+1)=tauf_perton2019*1.12; % to have it in 2022 prices
+        save(sprintf('COMP_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
         clearvars COMP pol FVAL
     end
-    save(sprintf('TAUF_limit%d_EmsBase%d_xgr%d_nsk%d', indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill), 'TAUF')
+    save(sprintf('TAUF_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d', indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap), 'TAUF')
 
 end
 end
 end
-
+end
+end
 %% to be continued updating
 %- version with counterfactual technology gap
 

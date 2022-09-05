@@ -1,0 +1,560 @@
+\clearpage
+\appendix
+\section{Model}\label{app:model}
+\subsection{Competitive equilibrium in simple model}
+
+\begin{align}
+\text{Utility}\hspace{5mm}& \frac{C_t^{1-\theta}-1}{1-\theta}-\chi \frac{h_t^{1+\sigma}}{1+\sigma}-\varphi(\omega F)^\eta\\
+\text{Budget}\hspace{5mm}& C_t = \lambda_t(w_th_t)^{1-\tau_{\iota t}}\\
+\text{optimality HH}\hspace{5mm}& h^{\sigma+\tau_{\iota t}+\theta(1-\tau_{\iota t})}=\lambda_t^{1-\theta}(1-\tau_{\iota t})w_t^{(1-\tau_{\iota t})(1-\theta)}\\
+\text{Final Production}\hspace{5mm}&Y=F^{\varepsilon_y}G^{1-
+	\varepsilon_y}\\ %\left[F^\frac{\varepsilon_y-1}{\varepsilon_y}+G^\frac{\varepsilon_y-1}{\varepsilon_y}\right]^\frac{\varepsilon_y}{\varepsilon_y-1}\\
+\text{price}\hspace{5mm}&1=p_y= \left(\frac{p_f}{\varepsilon_y}\right)^{\varepsilon_y}\left(\frac{p_g}{1-\varepsilon_y}\right)^{1-\varepsilon_y}\\
+\text{Demand final prod}\hspace{5mm}&\frac{F}{G}=\left(\frac{\varepsilon_y}{1-\varepsilon_y}\right)\left(\frac{p_g}{p_f}\right)\\
+\text{Production F and G}\hspace{5mm}&F=A_fL_f\\\
+& G=A_gL_g\\
+\text{labour demand}\hspace{5mm}& w=p_f(1-\tau_{ft})A_f\\
+& w=p_gA_g\\
+\text{technology}\hspace{5mm}&A_{ft+1}=(1+\nu_f)A_{ft}\\
+&A_{gt+1}=(1+\nu_g)A_{gt}\\
+\text{Government}\hspace{5mm}&T=\tau_{f}p_fF
+\\
+\text{Balanced income tax revenues}\hspace{5mm}&\lambda_t=\frac{w_t h_t}{(w_t h_t)^{1-\tau_{\iota t}}}\\
+&E_{net}=\omega F-\delta
+\end{align}
+
+\section{Derivations and proofs}\label{app:derivations}
+\subsection{Derivation expression for $h^{FB}$}
+Rewriting equation \ref{eq:fbh}, the efficient amount of hours worked can be indirectly expressed as:
+\begin{align}
+h^{FB}=\frac{1}{\chi^\frac{1}{\sigma}}\left(w_{eff}^{1-\theta}-\frac{dE}{dF}A_f s^{FB}\left(h^{FB}\right)^\theta \right)^\frac{1}{\sigma+\theta}.\label{eq:heff_1}
+\end{align}
+
+Note that an explicit expression for $h^{FB}$ follows from equation \ref{eq:fbs} when there is an externality and $\frac{dE}{dF}\neq 0$. Then 
+
+\begin{align}
+h^{FB}= \left(\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}\frac{w_{eff}^{1-\theta}}{\frac{dE}{dF}A_f }\right)
+\end{align}
+and the result follows from substituting the last expression in expression  \ref{eq:heff_1}.
+
+\subsection{Proof: Hours worked with only the efficient share of dirty labor are inefficiently high}
+
+\begin{proof}
+The proof proceeds in two steps. First, I show that the share of labor allocated to the dirty sector is smaller than its efficient level absent externality which is $s=\varepsilon$.
+In the second step, I show that even if the environmental tax is set to the tax which replicates the efficient share of dirty labor, denoted by $h_{CE, s^{eff}}$\footnote{\ In the competitive equilibrium, the share of dirty labor is solely determined by the environmental tax. The relation follows from labor market clearing and intermediate goods market clearing: $\tau_f=1-\frac{1-\varepsilon}{\varepsilon}\frac{s}{1-s}$.}, exceeds the efficient level of hours worked, $h_{FB}$, when neither lump-sum transfers no labour income taxes are available.
+
+\textbf{Step 1:} $\frac{dE}{dF}>0$ \ar $\varepsilon>s$\\
+Rewriting equation \ref{eq:fbs} yields
+\begin{align}
+\frac{\varepsilon(1-s)-s(1-\varepsilon)}{s(1-s)}=\frac{dE}{dF}A_fh^\theta w_{FB}^{1-\theta}.
+\end{align}
+When the externality is negative, i.e., $\frac{dE}{dF}>0$, then the right-hand side is positive.
+Since $s\in(0,1)$ - due to both intermediate goods being necessary to produce the final good and zero consumption is not a solution - the left-hand side is positive when
+\begin{align}
+\varepsilon(1-s)-s(1-\varepsilon)>0,
+\end{align}
+which holds true if and only if $\varepsilon>s$.
+
+\textbf{Step 2:} $\varepsilon>s$ \ar $h_{CE, s^{eff}}>h_{FB}$\\
+I prove the claim by evoking a contradiction to the assumption that $h_{CE, s^{eff}}\leq h_{FB}$. Using equation \ref{eq:hopt} and \ref{eq:heff} the expression becomes
+
+\begin{align}
+&\left(\frac{w^{1-\theta}}{\chi}\right)^{\frac{1}{\sigma+\theta}}\leq \left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\\
+\Leftrightarrow&\left(\frac{w}{w_{FB}}\right)^{\frac{1-\theta}{\sigma+\theta}}\leq \left(\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}
+\end{align}
+
+Note that the ratio of the wage in the competitive economy to the marginal product of labor is $\frac{w}{w_{FB}}=\frac{1-\varepsilon}{1-s}$, which follows from equation \ref{eq:compw} and the definition of $w_{FB}$ under the assumption that the dirty labor share is set to the first best equivalent. Substituting this in the previous equation and rearranging terms yields
+\begin{align}
+\left(\frac{1}{1-\varepsilon}\right)^\frac{\theta}{\sigma+\theta}\leq \left(\frac{1}{1-s}\right)^\frac{\theta}{\sigma+\theta}
+\end{align}
+which holds true whenever
+\begin{align}
+\varepsilon<s.
+\end{align}
+This contradicts $s<\varepsilon$ which has been shown to hold in presence of a negative externality in the dirty sector in step 1. 
+\end{proof}
+
+\subsection{Proof: lump-sum transfers restore the efficient allocation}
+\begin{proof}
+To establish that lump-sum transfers of environmental tax revenues restore the efficient allocation, I first derive the size of lump-sum transfers which implement the efficient level of hours worked given that the efficient dirty labor share is established by choice of the environmental tax. In a second step, I show that this level of transfers coincides with the revenues from the environmental tax when this is set to implement the efficient dirty labor share. 
+These two steps prove that the efficient amount of hours results from lump-sum transferring environmental tax revenues. Finally, I show that the resulting level of consumption is efficient. This completes the proof.
+\textbf{Step 1:}
+I equalize equation \ref{eq:heff} and \ref{eq:hopt} setting the income tax progressivity, $\tau_{\iota}$, to zero.
+\begin{align}
+\left(\frac{w^{1-\theta}\left(1+\frac{T}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w_{FB}^{1-\theta}}{\chi}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
+\end{align}
+Using the relation of $w_{FB}$ and $w$ established in the previous proof, I can rewrite the right-hand side
+\begin{align}
+&\left(\frac{w^{1-\theta}\left(1+\frac{T}{wh}\right)^{-\theta}}{\chi}\right)^\frac{1}{\sigma+\theta}=\left(\frac{w_{}^{1-\theta}}{\chi}\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}\frac{1-\varepsilon}{1-s}\right)^\frac{1}{\sigma+\theta}.
+\Leftrightarrow\ & 
+\end{align}
+This step is instructive in showing that transfers will correct for the two inefficiencies in the competitive economy: (i) the too low wage rate captured by the term $\left(\frac{1-s}{1-\varepsilon}\right)^{1-\theta}$, and (ii) the neglect of the effect of hours worked on the externality, captures by $\frac{1-\varepsilon}{1-s}<1$. 
+\end{proof}
+
+\section{Results}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation absent emission target }\label{fig:Compno_eff_BN0_notarget}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$; No skill}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Corrective tax, $\tau_{ft}$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) High skill labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Low skill labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{(f) Technology green}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{(g)  Technology fossil}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{(h) Technology neutral}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/An_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+%	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sg_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(j) Scientists fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(k) Scientists neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sn_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(i) Technology green}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(j) Technology fossil}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(k) Technology neutral}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/An_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(l) labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lg_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(m) labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lf_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(l) labour neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ln_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Final output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Y_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Energy output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/E_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Neutral output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/N_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation absent emission target without skill }\label{fig:Compno_eff_BN0_notarget_noskill}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$; No skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Corrective tax, $\tau_{ft}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) High skill labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Low skill labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sg_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(j) Scientists fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(k) Scientists neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sn_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Technology green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(j) Technology fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(k) Technology neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/An_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(l) labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lg_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(m) labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lf_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(l) labour neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ln_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Final output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Y_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Energy output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/E_CompEffOPT_NOT_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(i) Neutral output}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/N_CompEffOPT_NOT_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+
+%---- no skill heterogeneity with target
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation without skill heterogeneity }\label{fig:Compno_eff_noskill}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Income tax progressivity}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/taul_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Fossil tax}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) fossil price}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/pf_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Utility labour}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utillab_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Utility Consumption}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Utilcon_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Utility scientists}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/UtilSci_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) green price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/pg_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) fossil labour}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lf_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) green labour}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lg_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) wage rate}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/wh_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e)  Technology fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Technology green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(g) Technology neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/An_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(h) Green scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sg_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(i) Fossil scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	%	\begin{minipage}[]{0.32\textwidth}
+	%		\centering{\footnotesize{\ \\(h) Scientists fossil}}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	%	\end{minipage}
+	%	\begin{minipage}[]{0.32\textwidth}
+	%		\centering{\footnotesize{\ \\(i) Scientists neutral}}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sn_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	%	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(j) labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lg_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(k) labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lf_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(l) labour neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ln_CompEffOPT_T_NoTaus_spillover0_noskill1_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation without target but externality }\label{fig:Compno_eff_extern}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Income tax progressivity}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_taul_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Fossil tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_tauf_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_pf_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Utility labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Utillab_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Utility Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_UtilCon_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation without target but externality }\label{fig:Compno_eff_extern22}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Utility scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_UtilSci_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_pg_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) fossil labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Lf_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) green labour}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Lg_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{\ \\(l) labour neutral}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Ln_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) wage rate high skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_wh_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) wage rate low skill}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_wl_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) Hours high skill}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_hh_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Hours low skill}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_hl_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_C_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation without target but externality 2}\label{fig:Compno_eff_extern2}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(e)  Technology fossil}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Af_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(f) Technology green}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Ag_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(g) Technology neutral}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_An_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(h) Green scientists}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_sg_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(i) Fossil scientists}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_sff_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation without target but externality 2}\label{fig:Compno_eff_Growth}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e)  Technology fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Af_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Technology green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_Ag_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(g) Technology neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_An_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(h) Green scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_sg_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(i) Fossil scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Extern_CompEff_sff_spillover0_noskill0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	
+\end{figure}

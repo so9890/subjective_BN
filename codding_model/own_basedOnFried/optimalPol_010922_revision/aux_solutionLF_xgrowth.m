@@ -169,7 +169,7 @@ end
 % test market clearing
 Cincome=Y-xn-xf-xg-GovCon- GovRev;
 
-if abs(C-Cincome)>1e-10
+if abs(C-Cincome)>1e-8
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')

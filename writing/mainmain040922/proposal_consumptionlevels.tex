@@ -1,0 +1,146 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+\bibliographystyle{apa}
+%\usepackage{natbib}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings} % kopfzeile/ fußzeile
+\clearpairofpagestyles
+\ohead{ Sonja Dobkowitz}
+\ihead{ The Reduction of Consumption Levels}
+\cfoot{\thepage}
+%\pagestyle{plain}
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Proposal \\ The Reduction of Consumption Levels\\ \vspace{5mm} \small{First version: April 2021\\ This version: \today}}
+\date{}
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usetikzlibrary{shapes.geometric}
+\begin{document}
+	\maketitle
+%	\tableofcontents
+
+\paragraph{Climate change and the reduction of consumption}
+Climate change is one of, if not the central problem threatening humanity today. 
+What is needed is a reduction in resource usage. Two competing and potentially complementing views about how to achieve such a reduction exist. 
+Proponents of a \textit{recomposition} perspective argue that a shift towards green production is the way to go. 
+The recomposition approach has been dominant in (macro)economics research. However, there is uncertainty about whether this approach alone is sufficient to fight climate change.
+OTHERS argue  that a \textit{reduction} in consumption levels is inevitable \citep[compare][]{Gough2015ClimateNeeds}. 
+There is evidence that a full transition to green production is not possible given today's high levels of consumption. 
+For example, the less extensive use of land in organic agriculture does not allow to meet today's consumption levels with organic produce alone (ADD REFERENCES). 
+To fill the gap in macroeconomic research,  this project assumes that a recomposition of consumption is not enough and focuses on a reduction in consumption as a measure to fight climate change. Yet, interactions with the recomposition of consumption shall be taken into account.\footnote{It seems necessary to study both pillars of climate measures jointly. Abstracting from recomposition would overestimate the required reduction in demand and the resulting reduction in employment.}
+% For the sake of this study it is assumed that a recomposition of consumption alone is not sufficient to fight climate change. 
+
+
+\paragraph{Subjective Basic Needs}
+ More precisely, the central object of this study are subjective basic needs\footnote{\ NEED TO THINK MORE ABOUT WHETHER TO TALK ABOUT CONSUMPTION LEVELS OR SUBJECTIVE BASIC NEEDS}. The term refers to what an individual subjectively believes she needs as a minimum consumption level. This measure comprises objective basic needs which a human being needs to live a humane live. 
+ For example, objective basic needs are such that physical needs are satisfied, that shelter is secured, and that societal participate is secured. 
+Subjective basic needs in today's consumption societies most likely reach beyond that level. They are formed and shaped by the individual's susceptibility to advertisement, to common consumption levels observed in society, and habits, to name a few. (PROVIDE REFERENCES)
+
+\paragraph{Consequences of subjective basic needs for reduction and recomposition}
+The most direct impact of subjective basic needs on resource usage follows from high aggregate consumption levels keeping resource usage high. Less obviously, a high level of subjective basic needs can impede individuals to switch to green consumption and hence a recomposition towards green production. The mechanism is the following. Studies have provided evidence for the presence of individual social responsibility, i.e. the willingness to pay a price premium to avoid negative externalities, as a determinant of demand \citep[compare][]{Bartling2015DoResponsibility}. Yet, the willingness to pay for green goods most likely is negatively related to subjective basic needs: when income is not high enough to allow for green goods to cover subjective basic needs, the individual might prefer to keep consumption of non-green alternatives high to satisfy what is subjectively perceived a need. 
+
+\paragraph{This project}
+The idea of this project is to investigate a behavioural change in preferences towards lower subjective basic needs. 
+It should be highlighted that the reduction in demand which I suggest to study is not responsive to price changes\footnote{\ Or better not as responsive such that the initial steady state is restored.}. That is, general equilibrium effects which in a model with non-satiated preferences would result in a rebound of demand to the old steady state are not present in the model I want to study. Instead, the level of production is determined by demand and household preferences.
+I plan to approach the topic in three steps which do not necessarily depend on one another although presented in a chronological order below.
+
+First, I am planning to conduct a survey or potentially an experimental study on subjective basic needs and consumption levels. What are the determinants of subjective basic needs? How willing are consumers to lower consumption? What are potential measures to lower consumption? 
+This part of the project can also be extended to elicit information on how participants would judge policy measures which target a reduction in demand but at the expense of employment. 
+
+Second, I want to build a macro model dedicated to analysing equilibrium effects of a demand-driven reduction in output. 
+The reduction in demand is caused by an exogenous shift in preferences that also prevents a resurgence of demand as prices fall. For example, households might be motivated to deliberately lower their consumption motivated by the severity of climate change. 
+In the light of the threat through climate change and the uncertainty whether a recomposition of consumption is enough, it is time to learn about the macro economic consequences of such a drop in demand and to think about optimal policies to accompany it.
+A quantitative model seems appropriate since, for instance, a reduction of demand might also allow a recomposition towards the presumably less productive sustainable sector such that the total effect on labour is not as clear-cut. 
+
+While the second study takes the reduction in demand as an exogenous shock, the third part focuses on political economy trade-offs.
+Therefore, the reduction in demand is modeled explicitly as a policy decision building on the behavioural microeconomic investigation outlined above. This setup allows to study a political economy trade-off: on the one hand, governments can choose to lower resource usage through demand to provide the environmental public good. On the other hand, this might result in higher unemployment rates which are traditionally perceived a measure of success for policy makers. Hence, even if a reduction of subjective basic needs is optimal from a Ramsey planner's point of view there is good reason to question the political attractiveness of such policies.
+
+
+\section{Biases and examples of policies targeted at behavioural biases}
+\begin{itemize}
+	\item inattention
+	\begin{itemize}
+\item traditional tool: subsidy \ar changes cost-benefit analysis of individual; behavioural tools allow individuals to close intention-behaviour gap
+\item reminding of vaccination  more frequently/ more saliently
+\item commit to plan
+\item increase availability, visibility
+	\end{itemize}
+\item subjective basic needs as nonstandard preferences: the individual perceives needs as higher as they are implying overconsumption? 
+\item or individuals want not to consume unsustainable stuff but they do bcs of advertisement, habits, subjective needs 
+\item eg want to reduce home energy consumption but do not achieve this due to temptations, inattention, present bias, highly complex tasks (lack of info?)
+\begin{itemize}
+\item change default option =(outcomes that manifests if agents do nothing); with possibility to opt out; In practice big effects even if opting out available at low costs; 
+\item idea sonja: providing care sharing directly paid by taxes no way to opt out
+\item Sunstein 2013 green energy usage; consumers have to opt out from getting energy from green source 
+\item  Question Madrian: \textit{What is the optimal default?} Default not always optimal! eg when preferences are very heterogeneous...
+\item active choice
+\item simplification 
+\item feedback (real-time energy usage...)\ar idea: information on resource usage per month!; to reward relinquishment...
+\item \ar changing the choice architecture
+\item \textbf{commitment devices!! }\ar succumb temptations that generate short-run benefits that are outweight by longer-term costs
+\item encourage people to make a plan for implementation 
+\item reminders
+\item last two: cures to limited attention
+\end{itemize}
+\end{itemize}
+\clearpage
+\bibliography{../../bib_2_0}
+\end{document} 

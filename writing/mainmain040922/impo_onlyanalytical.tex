@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{On the Role of Fiscal Policies in the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+	%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+	\begin{abstract}
+		\begin{singlespacing}
+			\textbf{Abstract \ }
+			Some scholars call for reductive policies to handle tightening environmental limits. I show that, indeed, when labor supply is elastic, 
+			the optimal policy consists of both a recomposing and a reductive element: an environmental tax does not suffice to implement the efficient allocation. Lump-sum transfers complement environmental taxes by reducing labor supply through an income effect.
+			When environmental tax revenues are not redistributed lump sum, the planner uses progressive income taxes to decrease work effort.
+			Therefore, the optimal environmental policy - as a byproduct - increases equity either through lump-sum transfers or progressive income taxation.
+			I quantify the optimal income tax in an endogenous growth model with skill heterogeneity. The optimal income tax is progressive even though this reduces growth and increases the share of fossil to green energy usage due to a skill bias in the green sector.
+			%	The model suggests that the use of income taxes when environmental tax revenues are not redistributed raises social welfare by 0.1\% over the 60 years from 2020 to 2080.
+			%The model suggests that integration of environmental and fiscal policy when no lump-sum transfers are available raises social welfare by 0.1\% over the 60 years from 2020 to 2080.
+			%			To reach climate targets, the International Panel on Climate Change has identified net-zero emissions by 2050 an essential element. I show that progressive income taxes are optimally used in concert with corrective taxes to satisfy an absolute emission limit.
+			%			On the one hand, progressive income taxation reduces labour efforts as leisure becomes relatively cheaper. The overall reduction in production lowers emissions. On the other hand, a progressive income tax (i) reduces general research efforts through a market size effect  and (ii) recomposes the structure of the economy away from green energy through a skill-supply channel. Both effects call for a more regressive tax to foster a green transition. For a reasonable calibration, I find that the reduction effect dominates and the optimal income tax schedule is progressive. The welfare advantage of income tax progressivity arises from a reduction of inefficiently high hours worked. 
+			%The model suggests that including progressive income taxes as a tool to lower emissions accounts for a rise in social welfare by 0.1\% over the 60 years from 2020 to 2080.  % as relative supply of the through a skill-supply channel. As richer, high-skilled workers reduce their labour supply more in response to a more progressive tax, low-skill labour becomes more abundant. 
+			
+			%			Natural scientists have identified the reduction of demand %for energy and land %thus, a change in lifestyle 
+			%			as an important contributor to meeting global climate targets. However, a general equilibrium analysis of reduction policies is missing.
+			%		%	I study the general equilibrium effects of reduction policies: such as income taxes, a restriction of hours worked, or consumption taxes. 
+			%		A higher labour income tax progressivity can achieve such a reduction as it lowers labour supply. 
+			%		Then again, tax progressivity alters the relative skill supply. As the green sector is relatively more skill-biased, the economy recomposes production towards the dirty sector. What is the optimal policy when the government has to meet an exogenous emission and demand target?
+			%This additional benefit of income taxes changes the  equity-efficiency trade-off which classically determines optimal fiscal policies. 
+			%To answer the question, I build a model of directed technical change and skill heterogeneity.
+			
+			
+			%In a set up with representative agent, the necessity to meet emission targets makes the optimal income tax highly progressive. The more goods are substitutes the higher the optimal tax progressivity. When goods are complements, the more slowly growing clean sector dampens production in the dirty sector making a lower progressivity sufficient. 
+		%	\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
+			
+		\end{singlespacing}
+		
+	\end{abstract}
+	%\tableofcontents
+	%\input{intro_impo}
+	%\input{intro_impo_2}
+	\section{Introduction}
+	\input{intro_motiv}
+	\paragraph{Outline} Section \ref{sec:mod_an} presents the model. I derive and discuss the results in section \ref{sec:theory}. Section \ref{sec:con} concludes.
+	\input{model_ana_abs_impo}
+%	\input{impo_model_fin}
+%	\input{calib_simple_fisc}
+%	\input{quant_res_impo_2}
+	\input{conclusion_simple_fisc}
+	\input{app_analy}
+	%-------------------------------------
+	\clearpage
+	\bibliography{../../../bib_2_0}
+	\addcontentsline{toc}{section}{References}
+\end{document}
