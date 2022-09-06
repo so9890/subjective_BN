@@ -117,12 +117,15 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 
-indic.GOV=1;
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
+for tata=0:1
+    indic.taul0=tata; %==1 then sets taul =0
+for GG=0:1
+    indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0
+for ff=0:1
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -133,7 +136,7 @@ if indic.limit_LF==0
     POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of CO2 emissions in model
 end
 
-for ee=1
+for ee=0:1
     indic.emsbase=ee;
     if indic.emsbase==1
         Ems_alt=x0LF(list.choice=='F')*0.9*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
@@ -148,7 +151,7 @@ for nsk=0:1
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[0,1,2,3,4,5,6,7]
+    for nnt=[0,1,2,3,4,5,7]
         indic.notaul=nnt;
 
         if xgr==0
@@ -175,16 +178,52 @@ for nsk=0:1
         tauf_CO2=tauf/Sparams.omegaa;
         tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton
         TAUF(:,nnt+1)=tauf_perton2019*1.12; % to have it in 2022 prices
-        save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
         clearvars COMP pol FVAL
     end
-    save(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d',indic.taul0, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap), 'TAUF')
+    save(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
 
 end
 end
 end
 end
 end
+end
+end
+
+
+%% plotts policy regimes comparison
+etaa=params(list.params=='etaa');
+weightext=0.01;
+indic.GOV=0;
+indic
+
+% choose sort of plots to be plotted
+plotts.tauf_comp       = 1;
+plotts.tauf_compTaul   = 1;
+plotts.compRed         = 1;
+plotts.compTaul_Red    = 1;
+plotts.compRed_TaulPer = 1;
+
+for ee=0
+    indic.emsbase=ee;
+        
+for ll=1
+    indic.limit_LF=ll;
+       
+    for xgr =0:1
+        for nsk=0:1
+    plotts.xgr = xgr; % main version to be used for plots
+    plotts.nsk = nsk;
+    plotts
+    %%
+    plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
+    %plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
+        end
+    end
+end
+end
+
 %% to be continued updating
 %- version with counterfactual technology gap
 
@@ -452,8 +491,8 @@ for ll=0:1
     plotts.nsk = nsk;
     plotts
     %%
-    plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
-    %plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
+%     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
+    plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
         end
     end
         end

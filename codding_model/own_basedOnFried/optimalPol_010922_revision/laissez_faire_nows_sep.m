@@ -64,7 +64,7 @@ pf     = exp(x(list.choice=='pf'));
 if indic.notaul ==6
  taul = x(list.choice=='lambdaa');
 else
- lambdaa  = (x(list.choice=='lambdaa')); % in calibration chosen to match GovRev
+ lambdaa  = (x(list.choice=='lambdaa')); % endogenous: chosen to match GovRev
 end
 
 if indic.limit_LF==1

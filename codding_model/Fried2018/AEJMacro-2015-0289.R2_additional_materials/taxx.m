@@ -211,6 +211,8 @@ tauStarVec = 1.045328173*tauVec;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 tauStarData = tauStarVec./pfStar(1,1)*10.1554 *106.5850/100; %2013 dollars per MBTU
+tauStarData = tauStarVec./pfStar(1,1)*65.945 *106.5850/100; %2013 dollars per MBTU
+
 %mean(racOilImportsReal from 2001-2010 is 10.1554)
 % 65.945 is the sum! from 2015 to 2019
 % 106.5850/100 is the GDP delfator in 2013/ gdp deflator in 2009
