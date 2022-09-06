@@ -2,8 +2,77 @@
 This section depicts the environmental tax which is required to meet the emission limits and the evolution of key variables under distinct policy regimes. The income tax scheme is kept fixed at its calibrated levels: $\tau_{\iota t}=0.181$, $\lambda=0.43$.
 I consider the following regimes: first, environmental tax revenues are redistributed lump sum to households. Second, the government runs a consolidated budget and environmental tax revenues are redistributed via the income tax scheme; that is, $\lambda$ adjusts. Third, environmental tax revenues are recycled as subsidies to the green sector. Fourth, the government consumes environmental tax revenues. 
 
+\textbf{Aussagen, die ich treffen will}
+\begin{itemize}
+	\item \textbf{No taul}:  Without lump-sum redistribution labor supply is too high, and higher environmental tax is necessary.  comparison of labor supply by scenario (lump-sum scenario as benchmark bcs shown before that in this case reductive effect of tauf not needed)
+	\item \textbf{With taul (availability of taul)}
+	\begin{enumerate}
+	\item should profit from spillover effects as compared to no taul
+ 	\item 
+	also with lump-sum redistribution, should see effect of spillover effects when going from without taul to with taul	
+	\end{enumerate}
+	\item effect of tauf on energy share, effect on growth due to spillover effects
+\end{itemize}
+\subsubsection{Allocation without taul across policy regimes}
 
-\paragraph{Effect of Taul on necessary environmental tax}
+Panel (a) in figure \ref{fig:CompRegimes} shows the necessary carbon tax per ton of CO$_2$ for different policy regimes. The carbon tax required to meet emission limits is highest in when the government consumes environmental tax revenues. When revenues are redistributed lump-sum, the necessary carbon tax reduces. As argued in the analytical section, a higher environmental tax is required, when lump-sum transfers do not reduce economic activity. 
+
+To understand the differences in carbon taxes under the different policy regimes, I feed in a carbon tax equal to the social cost of carbon found by the rff equal to 185\$. When environmental tax revenues are redistributed as subsidies to the green sector, the blue, dashed graph. Then the same fossil tax implies a higher green-to-fossil energy share than in all other policy regimes. The subsidy to green energy ameliorates the rise in the price of energy. As a result, the 
+
+
+\begin{figure}[h!!]time,allvarsGS(find(varlist==varr),1:T),
+	\centering
+	\caption{Effect of policy regimes}\label{fig:CompRegimes}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Required carbon tax to meet emission limit $\tau_f$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/TAUFCO2_TaulCalib_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev1_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) Hours worked high skill}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_hh_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev1_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) Hours worked low skill }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_hl_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev1_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Energy share GDP }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_EY_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev1_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Aggregate technology }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_A_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev1_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(f) Green to fossil energy}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_GFF_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(g) Energy price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_pee_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(g) Non-energy price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_pn_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(h) Non-energy scientist share}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/CompRed_TaulCalib_snS_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+
+
+\subsubsection{Effect of Taul on necessary environmental tax}
 
 
 \begin{figure}[h!!]
@@ -15,6 +84,11 @@ I consider the following regimes: first, environmental tax revenues are redistri
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/TAUFCO2_PerDifTAUL_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev1_etaa0.79_lgd1.png}
 	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Percentage change in necessary $\tau_f$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_5Sept22/TAUFCO2_PerDifTAUL_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev1_etaa0.79_lgd1.png}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!!]

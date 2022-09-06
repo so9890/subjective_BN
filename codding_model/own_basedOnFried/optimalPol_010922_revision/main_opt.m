@@ -195,24 +195,25 @@ end
 %% plotts policy regimes comparison
 etaa=params(list.params=='etaa');
 weightext=0.01;
-indic.GOV=0;
+indic.GOV=1;
 indic
 
 % choose sort of plots to be plotted
-plotts.tauf_comp       = 1;
-plotts.tauf_compTaul   = 1;
-plotts.compRed         = 1;
-plotts.compTaul_Red    = 1;
-plotts.compRed_TaulPer = 1;
+plotts.tauf_comp       = 0;
+plotts.tauf_compTaul   = 0;
+plotts.compRed         = 0;
+plotts.compRed_noGS    = 1;
+plotts.compTaul_Red    = 0;
+plotts.compRed_TaulPer = 0;
 
 for ee=0
     indic.emsbase=ee;
         
-for ll=1
+for ll=0
     indic.limit_LF=ll;
        
-    for xgr =0:1
-        for nsk=0:1
+    for xgr =0
+        for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     plotts
