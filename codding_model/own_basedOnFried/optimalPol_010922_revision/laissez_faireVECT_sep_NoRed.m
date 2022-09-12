@@ -108,8 +108,12 @@ elseif indic.notaul == 2 ||...
     GovCon = tauf.*F; % GovCon = env tax consumed by government
     Tls =zeros(size(F));    
 elseif indic.notaul == 4 || indic.notaul ==5
-    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+    if indic.noskill==0
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    else
+        SGov = w.*h-lambdaa.*(w.*h).^(1-taul);
+    end
     GovCon =zeros(size(F));
     Tls  = tauf.*F;
 elseif indic.notaul == 7 % earmarking

@@ -135,7 +135,7 @@ if indic.notaul==0 || indic.notaul == 3 || indic.notaul == 4
         lambdaa=soll(T+1:T*2);
     elseif thetaa ==1
         
-        taul    = 1-chii.*h.^(sigmaa+1).*(1+Tls./(w.*h));
+        taul    = 1-chii.*h.^(sigmaa+1).*(1+Tls./(w.*h-GovRev));
         if indic.notaul ==0
             lambdaa = (w.*h+tauf.*F-GovRev)./(w.*h).^(1-taul);
         else

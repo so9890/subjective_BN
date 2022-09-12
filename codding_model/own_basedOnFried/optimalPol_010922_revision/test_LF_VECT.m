@@ -42,14 +42,12 @@ else
     Lf=y(list.allvars=='Lf', :)';
     Ln=y(list.allvars=='Ln', :)';
     Lg=y(list.allvars=='Lg', :)';
-    
 end
-
     C=y(list.allvars=='C', :)';
     F=y(list.allvars=='F', :)';
     G=y(list.allvars=='G', :)';
 % if indic.xgrowth==0
-    Af=y(list.allvars=='Af', :)';
+    Af =y(list.allvars=='Af', :)';
     Ag =y(list.allvars=='Ag', :)';
     An =y(list.allvars=='An', :)';
       if indic.xgrowth==0 && indic.noskill==1

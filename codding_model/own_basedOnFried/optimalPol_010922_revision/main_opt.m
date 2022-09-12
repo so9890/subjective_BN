@@ -340,7 +340,7 @@ indic.sep =1;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=1; 
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
 
 for tr =0:1
@@ -349,7 +349,7 @@ for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=[4]
+ for nnt=[2]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
