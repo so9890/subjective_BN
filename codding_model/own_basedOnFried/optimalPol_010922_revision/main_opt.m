@@ -349,7 +349,7 @@ for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=[2]
+ for nnt=[0]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
