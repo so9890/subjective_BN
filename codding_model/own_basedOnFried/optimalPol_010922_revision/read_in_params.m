@@ -41,13 +41,15 @@ eppse = params(list.params=='eppse');
 deltay = params(list.params=='deltay');
 gammaa = params(list.params=='gammaa');
 etaa = params(list.params=='etaa');
-rhof = params(list.params=='rhof');
-rhog = params(list.params=='rhog');
-%if indic.sameSize ==0
-    rhon = params(list.params=='rhon');
-% else
-%      rhon=0.5;
-% end
+rhon = params(list.params=='rhon');
+
+if indic.sizeequ ==0
+    rhof = params(list.params=='rhof');
+    rhog = params(list.params=='rhog');
+else
+    rhog=rhon;
+    rhof=rhon;
+end
 if indic.noknow_spill==1
     phii=0;
 else

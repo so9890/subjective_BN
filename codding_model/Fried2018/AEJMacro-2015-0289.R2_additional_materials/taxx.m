@@ -204,19 +204,18 @@ tauI = tauI;
 tauNI = tauNI; 
 
 tauVec = [tauI, tauNI];
-tauStarVec = 1.045328173*tauVec; 
+tauStarVec = 1.045328173*tauVec;  % numerical value is difference in carbon content in oil and fossil
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Convert tax to (2013) dollars per ton CO2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 tauStarData = tauStarVec./pfStar(1,1)*10.1554 *106.5850/100; %2013 dollars per MBTU
-tauStarData = tauStarVec./pfStar(1,1)*65.945 *106.5850/100; %2013 dollars per MBTU
 
-%mean(racOilImportsReal from 2001-2010 is 10.1554)
-% 65.945 is the sum! from 2015 to 2019
+%mean(racOilImportsReal from 2001-2010 is 10.1554) => this is a price! 
+% 65.945 is the sum! from 2015 to 20197#kKr
 % 106.5850/100 is the GDP delfator in 2013/ gdp deflator in 2009
-tax = tauStarData/0.07454; %2013 dollars per ton CO2 
+tax = tauStarData/0.07454; %2013 dollars per ton CO2 / 0.07454 converts ton in MBTU
 taxI = tax(1); taxNI = tax(2);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

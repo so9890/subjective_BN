@@ -33,7 +33,7 @@ indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart:
 indic.sep =1; %==1 is the benchmark; when finalising should be dropped
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
-
+indic.sizeequ=1; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0; % Indicator of policy
@@ -130,23 +130,25 @@ for ff=0:1
 % choose environmental tax fixed
 if indic.limit_LF==0
     scc=185; % rff estimate per ton of carbon
-    scc_giga22=185*1e9; % price per ton in 2022 prices=> get in units of GDP in 2019 prices
-    scc_giga19= scc_giga22/1.12; %12% inflation from 2019 to 2022
-    tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 
-    POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of CO2 emissions in model
+    scc_giga22=185*1e9; % 185*1e9: price per gigaton in 2022 prices
+    %=> in 2019 prices
+    scc_giga19= scc_giga22/1.12; % 12% inflation from 2019 to 2022
+    % => get in units of GDP over 2015-2019 horizon
+    tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 => price as percent of gdp
+    POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of fossil in model
 end
 
-for ee=0:1
+for ee=0
     indic.emsbase=ee;
     if indic.emsbase==1
-        Ems_alt=x0LF(list.choice=='F')*0.9*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
+        Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
     else
         Ems_alt=Ems;
     end
 % full model
 for nsk=0:1
     indic.noskill=nsk;
-    for xgr=0:1
+    for xgr=1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -167,17 +169,18 @@ for nsk=0:1
             end
         else   
             if indic.count_techgap==0
-               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems_alt);
             else
                 iin=load('init_techgap.mat');
-               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF,iin.initcount, indexx, indic, Sall, MOM, Ems);
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF,iin.initcount, indexx, indic, Sall, MOM, Ems_alt);
             end
         end
         % umrechnung tauf in per ton of carbon in 2014-19 us dollars
         tauf=COMP(:,list.allvars=='tauf');
-        tauf_CO2=tauf/Sparams.omegaa;
-        tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton
+        tauf_CO2=tauf./Sparams.omegaa;
+        tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton in 2019 prices
         TAUF(:,nnt+1)=tauf_perton2019*1.12; % to have it in 2022 prices
+        
         save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
         clearvars COMP pol FVAL
     end
@@ -252,35 +255,45 @@ lambdaa=1; % placeholder, determined in comp eqbm
 pol=eval(symms.pol);
 
 %%
-  %  if indic.noskill==0
-  indic.limit_LF=0; 
-for nnt=[0,1,4,5]
+%  if indic.noskill==0
+% note: taul0 indicator irrelevant if taul in pol vector =0
+indic.limit_LF=0; 
+indic.noknow_spill=1;
+indic.sizeequ=1;
+
+for gg=0:1
+    indic.GOV=gg;
+for nnt=[0,1,2,3,4,5,7]
       indic.notaul=nnt;
   for i=0:1
       indic.noskill=i;
+      for xgr=0:1
+          indic.xgrowth=xgr;
 
-        [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
+          if indic.xgrowth==0
+            [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
 
-        helper.LF_SIM=LF_SIM;
-        indic.xgrowth=0;
-        [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic);
-        save(sprintf('LF_SIM_NOTARGET_spillover%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep,indic.notaul, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+            helper.LF_SIM=LF_SIM;
+            indic.xgrowth=0;
+            [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic,Ems);
+          else
+            LF_SIM = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+          end
+        save(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,indic.notaul, indic.GOV, indic.sizeequ, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
-
-        %- exogenous growth
-%          indic.xgrowth=1;
-%          [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
-%          % helper.LF_SIM=LF_SIM;
-%          save(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-
-    %- version LF with counterfac tec gap
-    indic.xgrowth=0; % does not exist with exogenous growth
-    [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
-    helper.LF_SIM=LF_SIM;
-    [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-    save(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-  end
+      
+     end
+ end
 end
+end
+%- version LF with counterfac tec gap
+     
+%     indic.xgrowth=0; % does not exist with exogenous growth
+%     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
+%     helper.LF_SIM=LF_SIM;
+%     [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic, Ems_alt);
+%     save(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, indic.GOV, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
+    
 %% end
 %%% Check swf value in LF
 disc=repmat(Sparams.betaa, 1,T);
@@ -326,6 +339,9 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
+indic.sizeequ=1; 
+indic.noknow_spill=1;
+indic.limit_LF=0; % no need to test this
 
 for tr =0:1
     indic.target=tr;
@@ -333,7 +349,7 @@ for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=4
+ for nnt=[4]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0

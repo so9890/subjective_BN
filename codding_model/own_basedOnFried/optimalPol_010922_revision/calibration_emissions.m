@@ -7,7 +7,7 @@ addpath('data')
 
 %-- read in data
 % % data: us_ghg_inventory PDF
-grosemissions1519_equi= [6.6711, 6.5203, 6.4833, 6.6714, 6.5583]; % gros emissions by year in Gt
+grosemissions1519_equi= [6.6711, 6.5203, 6.4833, 6.6714, 6.5583]; % gros emissions by year in giga tons (in report given in  million metric tons, therefore divided by 1,000)
 grosemissions1519_co2 = [5.3718, 5.2480, 5.2078, 5.3755, 5.2558];
 averagecontrib_co2 = mean(grosemissions1519_co2./grosemissions1519_equi); % to calculate sink capacity (equalt share as contributed to gros emissions is used from total sinks)
 netemissions1519_equi = [5.9073, 5.6775, 5.7172, 5.8700, 5.7691];
