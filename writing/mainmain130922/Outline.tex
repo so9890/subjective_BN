@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Outline Job Market Paper}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{\vspace{-10mm} Sonja Dobkowitz %\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+%\vspace{1mm}
+%Preliminary and incomplete\\
+%First version: January 9, 2022\\
+%This version:
+\\ \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+	\maketitle
+	\section{Motivation and Research Question}
+		Some scholars argue for limiting consumption to handle tightening environmental constraints \citep{Schor2005SustainableReductionb, VanVuuren2018AlternativeTechnologies}. Labor income taxes could work as such a reductive policy measure by lowering labor supply.
+		But the focus in the economics literature rests on environmental taxes. 
+\ar Is there a role for labor income taxes in the environmental policy?
+
+\section{Outline Paper}
+	\begin{enumerate}
+\item In the first part of the paper, I show analytically that if environmental tax revenues are not redistributed lump sum, labor supply is inefficiently high. Taxing labor helps reduce too high economic activity. 
+
+\item[\ar] Hence, the way environmental tax revenues are recycled affects economic activity. This might become especially important when an absolute emission limit has to be met. To meet climate targets agreed upon in the Paris Agreement, countries have to satisfy emission limits as stressed by the Assessment Reports of the Intergovernmental Panel on Climate Change (IPCC). Then, a higher level of economic activity calls for higher environmental taxes. 
+
+\item In the second part of the paper, therefore, I quantitatively
+investigate four policy relevant scenarios for the recycling of environmental tax revenues.  I focus the assessment on their effect on economic activity and emissions. 
+To this end, I build a quantitative model of directed technological change. A serious quantification of policy effects on emissions needs to take the response of innovation into account. For example, directed technical change intensifies the effect of a carbon tax \cite{Fried2018ClimateAnalysis}. On the other hand, it may also counteract lower emissions as energy becomes more expensive directing innovation to the polluting energy sector. (\textit{Comment: highlighting this channel is one of my contributions; from here a motive to substitute environmental taxes by income taxes emerges. This will become visible in the optimal policy part of the paper. I explain the mechanism below \ref{sec:mec}}).  
+
+I consider the following revenue-neutral policy scenarios
+\begin{enumerate}
+	\item \textbf{Redistribution of environmental tax revenues via lump-sum transfers}. This policy has been proposed by the Climate  Leadership  Council  \cite{Baker2017TheDividends} in the US. %From an economic perspective and from what we have learned from the analytical part, this section should highlight
+	\item \textbf{Redistribution via the income tax scheme}. As opposed to lump-sum transfers, this policy could be politically more feasible. 
+	\item \textbf{Lowering preexisting tax distortions}. This scenario has been discussed by the weak double-dividend literature. Under the objective to generate government funds, this literature has shown that using environmental tax revenues to lower distortionary taxes has an advantage above recycling via lump-sum transfers. The latter intensifies distortions in the labor market making it more difficult to generate funds. Yet, when focusing on emissions, this policy increases emissions through higher economic activity.	 
+	\item \textbf{Recycling environmental tax revenues as green subsidies}.
+	On the one hand, this policy might spur the level of economic activity. On the other hand, it intensifies the compositional effect towards green energy.
+\end{enumerate}
+
+As a value for the environmental tax, I use the social cost of carbon estimates found %here \url{https://www.gao.gov/products/gao-20-254} or
+ here \url{https://www.rff.org/events/rff-live/an-updated-scc/}. 
+
+The labor income tax is passive in this part of the paper. I use the value of the tax progressivity parameter found for the US by \cite{Heathcote2017OptimalFramework}. The scaling parameter, $\lambda$, is chosen to match observed government revenues. 
+
+%To see the effect of the labor income tax progressivity parameter, I rerun the analysis with a counterfactual 
+\item The previous part is not informative on how the different policy regimes compare if instruments are chosen optimally. Furthermore,  emission limits might be violated. In the final part of the paper, therefore, I study how to optimally meet emission limits in line with the Paris Agreement. The government is now free to choose the progressivity of the income tax and the environmental tax. I compare  optimal policies and allocations across the distinct policy regimes studied in the second part. 
+
+I abstract from an exogenous government funding constraint to focus on emission limits as only motive for labor taxation. 
+%  taking endogenous growth into account, labor income taxation may reduce overall research efforts as less labor stands ready to work with technology.On the other hand, labor income taxes could have an advantage above environmental taxes due to endogenous growth. The reason is as follows.
+\appendix
+\section*{Addendum}
+\subsubsection*{Environmental tax directs research to polluting energy sector}\label{sec:mec}
+An environmental tax levied on fossil production raises the price of energy. Energy and non-energy goods enter as complements into the production of the final good \citep{Hassler2016EnvironmentalMacroeconomics, Fried2018ClimateAnalysis}. We know from the literature on directed technical change that a price effect  directs research to the more expensive sector when goods are complements \citep{Acemoglu2002DirectedChange, Hemous2021DirectedEconomics}. Hence, in response to an environmental tax we expect a rise in innovation in the polluting energy sector, and a reduction of research efforts in the non-energy sector.
+This channel, first, counters the intention to lower fossil consumption. Second, the reduction in non-energy research is especially costly due to knowledge spillovers. Prior research has found that the non-energy sector has the most research processes \citep{Fried2018ClimateAnalysis}. Therefore, knowledge in this area has a stronger effect on innovation in the other sectors.  
+
+In contrast, using a labor income tax to reduce economic activity and emissions avoids this reduction in growth. In addition, an income tax directs research towards the non-energy sector. The reason is that energy production has a lower labor share than non-energy production \citep{Fried2018ClimateAnalysis}. A reduction in labor supply through a higher tax on labor income raises production costs in the non-energy sector more. The price of non-energy goods rises relative to energy goods. The price effect directs research towards non-energy goods boosting technology growth overall. 
+\end{enumerate}
+%\begin{comment}
+%\item[\ar] 
+% To investigate these channels, I add endogenous growth and a non-energy sector to the analytical model. 
+%\item To get an intuition for the mechanisms in the model, I study the effect of a constant environmental tax and labor income tax progressivity parameter under different policy regimes. 
+%
+%I evaluate the effect of the tax system looking at emissions, hours, and the size and direction of growth. 
+%
+%\item In reality, governments have given consent to meet climate targets laid out in the Paris Agreement. The IPCC has formulated absolute emission limits to satisfy the Paris Agreement. I ask how environmental and labor income taxes are optimally chosen to meet emission limits. 
+%
+%Biden climate action: 
+%\url{https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/}. 
+%
+%
+%content...
+%\end{comment}
+\clearpage
+\bibliography{../../../bib_2_0}
+\addcontentsline{toc}{section}{References}
+	\end{document}

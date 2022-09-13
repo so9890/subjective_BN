@@ -27,18 +27,8 @@ nn= length(list.sp);
 %%%%%%%%%%%%%%%%%%%%%
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
-if etaa ~=1 
-    helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, params(list.params=='etaa')));
+    helper=load(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul0_GOV0_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.sizeequ, params(list.params=='etaa')));
     LF_SIM=helper.LF_SIM';
-else
-    helper= load(sprintf('BAU_spillovers%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, params(list.params=='etaa')));
-    LF_SIM=helper.LF_BAU';
-end
-
-if indic.xgrowth==1
-    helper=load(sprintf('LF_xgrowth_spillovers%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, params(list.params=='etaa')));
-    LF_SIM=helper.LF_SIM;
-end
 
 if indic.count_techgap==1
     helper=load(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, params(list.params=='etaa')));
@@ -222,7 +212,7 @@ f =  objectiveSP(guess_trans,T,params, list, Ftarget, indic, initOPT, percon);
 objfSP=@(x)objectiveSP(x,T,params, list, Ftarget, indic, initOPT, percon);
 constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic, percon, MOM);
 
-if indic.target==1 && indic.noskill==0 && indic.xgrowth==0
+if indic.target==1 && indic.noskill==0 && indic.xgrowth==0 && indic.sizeequ~=1
     fprintf('skipping sqp')
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
@@ -232,7 +222,6 @@ else
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,guess_trans,[],[],[],[],lb,ub,constfSP,options);
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
-
 end
 % if indic.noskill==0
 %  save('1008_SP_target_noskill')
@@ -300,23 +289,23 @@ end
 %%
 if indic.count_techgap==0
 if indic.target==1
-    save(sprintf('SP_target_1008_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')), 'sp_all', 'obs')
+    save(sprintf('SP_target_1008_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
 fprintf('saved')
 else
     if indic.extern==1       
-        save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV, params(list.params=='etaa')), 'sp_all', 'obs')
+        save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
     else        
-        save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,  params(list.params=='etaa')), 'sp_all', 'obs')
+        save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')), 'sp_all', 'obs')
     end
 end
 elseif indic.count_techgap==1
     if indic.target==1
-        save(sprintf('SP_target_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_zero%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,  params(list.params=='etaa')), 'sp_all', 'obs')
+        save(sprintf('SP_target_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_zero%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
     else
     if indic.extern==1       
-        save(sprintf('SP_notarget_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV, params(list.params=='etaa')), 'sp_all',  'obs')
+        save(sprintf('SP_notarget_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV, indic.sizeequ,params(list.params=='etaa')), 'sp_all',  'obs')
     else        
-        save(sprintf('SP_notarget_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,  params(list.params=='etaa')), 'sp_all', 'obs')
+        save(sprintf('SP_notarget_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
     end
     end
 end

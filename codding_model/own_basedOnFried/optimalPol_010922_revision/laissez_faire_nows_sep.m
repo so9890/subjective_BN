@@ -91,7 +91,7 @@ if indic.notaul<2 || ...
     GovCon =zeros(size(F));
 
 elseif indic.notaul == 2 ||...
-        indic.notaul==3 %2,3,4,5,7
+        indic.notaul==3 
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
     GovCon = tauf.*F; % GovCon = env tax consumed by government
@@ -285,11 +285,11 @@ q=q+1;
 f(q)= (chiis)*sn^sigmaas-((muu*wsn-gammasn));
 % Kuhn tucker scientists
 q=q+1;
-f(q)= gammasf.*(sff-upbarH);
+f(q)= gammasf.*(upbarH-sff);
 q=q+1;
-f(q)= gammasg.*(sg-upbarH);
+f(q)= gammasg.*(upbarH-sg);
 q=q+1;
-f(q)= gammasn.*(sn-upbarH);
+f(q)= gammasn.*(upbarH-sn);
 %market for scientists
 % q=q+1;
 % f(q)= sff+sg+sn-S; % determines wage in neutral sector

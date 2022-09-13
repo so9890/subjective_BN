@@ -1,0 +1,150 @@
+\section{Model}
+\begin{itemize}
+	\item do a broad model set up and simplify to do analytics, eg a binary distribution of learning ability
+\end{itemize}
+\tr{Preliminary}
+In this section, I spell out the tractable model. Skills are exogenous so that there is only an intensive margin, hours worked, which determines skill supply in equilibrium. In an extension, I introduce  skills as an endogenous variable the distribution of which is driven by learning ability as in \cite{Heathcote2017OptimalFramework}. \tr{I think I will change this set up to have both an intensive margin and an extensive margin through skill investment; the latter is the only margin in \cite{Heathcote2017OptimalFramework}. }
+
+\subsection{Households}
+There is a unit mass of households in the economy which \textit{exogenously} differ in skills, indicated by s, and effective labour productivity, $e_{s}$. There is neither a life-cycle structure in the model nor idiosyncratic risk.
+
+Each household chooses a sequence of labour supply and consumption to maximise its lifetime utility. 
+\begin{align}
+U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st})\\
+%U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
+s.t.& \ \ c_{st}p_{t}=\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}
+\end{align}
+%$S_t$ indicates the state of the environment and is taken as given by the household.
+A household's income is subject to a nonlinear tax schedule, $T(y_{st})=y_{st}-\lambda y_{st}^{1-\tau}$, similar to \cite{Heathcote2017OptimalFramework}. Pre-tax income is determined by hours worked, effective labour productivity, and the skill-specific wage rate $w_{st}$. Disposable income is given by $\tilde{y}_{st}=\lambda \left(h_{st}e_{s}w_{st}\right)^{1-\tau}$.
+Departure from log-utility introduces an intensive margin in the labour supply decision which instantaneously reacts to changes in taxation. 
+
+\textit{Note: effective labour productivity can be used to match average income by type and supply, otherwise supply would determine income, too. A skill premium in HSV arises by assuming disutility from skill accumulation and an exponentially distributed learning ability; the higher this ability the lower the disutility from skill investment (compare p. 1705); with endogenous growth income then interacts with availability of machines. }
+
+\subsection{Production}
+The production side of the tractable model follows \cite{Acemoglu2012TheChange}. 
+\paragraph{Composite consumption good}
+The consumption good is a composite of the final output of a dirty and a cleaner sector. The final good producing sector is perfectly competitive:
+$Y_t=\left(Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right)^\frac{\varepsilon}{\varepsilon-1}$. 
+I take the composite good as the numeraire: $\left[p_{dt}^{1-\varepsilon}+p_{ct}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}=1$.
+\paragraph{Final good sectors}
+There are two sectors a cleaner, $c$, and a dirty sector, $d$,  indexed by $j\in\{c,d\}$. In both a unit mass of competitive firms $i$ produces an individual consumption good. All firms use machines, $x_{jit}$, an intermediate labour good, $L_{jt}$, and an exhaustible resource, $R_{jt}$, as input. 
+\begin{align*}
+&Y_{dt}=R_{dt}^{\alpha_2} L_{dt}^{1-\alpha}\int_{0}^{1}A_{dit}^{1-\alpha}x_{dit}^{\alpha} di,\ \hspace{2mm} Y_{ct}=\pmb{R_{ct}^{\alpha_3}} L_{ct}^{1-\alpha}\int_{0}^{1}A_{cit}^{1-\alpha}x_{cit}^{\alpha} di.
+\end{align*}
+
+\paragraph{Labour input good}
+\tr{Under construction: might make sense to look at two households in the analytical part; more complicated when skill is endogenous}
+For simplicity, I assume there exist two skill types high and low: $s \in {h,l}$. % in the exogenous skill setting. 
+A fraction $\zeta$ of the population is of type $s=h$; the remainder provides low-skilled labour. 
+The labour input good used by final good producers is sector specific. The competitive labour input good producing firm in sector $j$ combines high and low-skilled labour according to:
+\begin{align}
+L_{jt}=l_{jht}^{\theta_j}l_{jlt}^{1-\theta_j},
+\end{align}
+where $\theta_c>\theta_d$, that is, the labour input good of the clean sector has a higher share of high-skilled labour.
+
+\paragraph{Machine producing firms}
+A monopolistically competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms.
+%\begin{align*}
+%\underset{p_{ijt}}{max}\  p_{ijt}x_{ijt}(p_{ijt})-\psi x_{ijt}(p_{ijt}) \overset{!}{=}0.
+%\end{align*}
+ \paragraph{Research}
+ Scientists perform research and decide on the sector where to conduct their research, $\{c,d\}$. 
+ Researchers maximise their expected profits by allocating their research either to the cleaner or dirty sector. The amount of scientists is fixed and exogenously given (for tractability, assumption also made in \cite{Acemoglu2002DirectedChange}.)
+ 
+ \textbf{The innovation decision}
+ \begin{enumerate}
+ 	\item scientists compare expected profits to decide in which sector to innovate
+ 	\item they are successful with probability $\eta_j$ (sector dependent)
+ 	\item if successful: scientists receive a \textbf{one-period patent} and become the entrepreneur of the respective machine she has been randomly assigned to; the machines are more productive than in the previous period: $A_{ijt}=(1+\xi)A_{ijt-1}$
+ 	\item if not successful: no revenue as scientist is no entrepreneur; the machine will produce with last period's  technology: $A_{ijt}=A_{ijt-1}$
+ 	\item profits of the scientist are thus 0 if unsuccessful and $\pi_{ijt}$ otherwise; the expectation is about (1) the firm to which the scientist is allocated with equal probability, $f(i)=\frac{1}{|I|}=1$, and (2) the probability of success. By the law of iterated expectations we have
+ 	\begin{align*}
+ 	E_{i,\text{success}}[\pi^s_{ijt}| \Omega_t]=& \int_{0}^{1}E_\text{success}[\pi^s_{ijt}|i, \Omega_t]f(i)di,\\ \text{where}&\\
+ 	E_\text{success}[\pi_{ijt}|i, \Omega_t]=& \eta_j\  \pi_{ijt}+(1-\eta_j)\ 0=\eta_j (1-\alpha)\alpha p_{jt}^\frac{1}{1-\alpha}L_{jt}(1+\xi)A_{ijt},\\
+ 	\text{and hence}&\\
+ 	E_{i,\text{success}}[\pi^s_{ijt}| \Omega_t]=&\eta_j (1-\alpha)\alpha p_{jt}^\frac{1}{1-\alpha}L_{jt}(1+\xi)A_{jt}=: \Pi_{jt}.
+ 	\end{align*}
+ 	where $\Omega_t$ is the information set available at time t before innovation success has materialised, that is, equilibrium aspects also not known. $\pi^s_{ijt}$ is the profit of the scientist in period t. 
+ 	
+ \end{enumerate}
+ (Note: Monopolistic competition happens \textbf{across} sectors since it is the price elasticity of substitution between sectors that matters for the demand monopolistic producers face.
+ The decision by scientists where to invent also depends on this elasticity, and potentially on the satiation level. 
+ )
+ 
+\paragraph{Market clearance}
+Markets for skills and the composite consumption good clear each period:
+\begin{align}
+l_{dht}+l_{cht}=\zeta e_h h_{ht},\\
+l_{dlt}+l_{clt}=(1-\zeta) e_l h_{lt},\\
+Y_t=\zeta c_{ht}+(1-\zeta)c_{lt}.
+\end{align}
+
+\subsection{Environment}
+In this section I model how sectors and emission targets relate.
+There are Co2 and non-CO2 emissions which are relevant for climate warming. 
+CO2 sinks are relevant for the mode, too. 
+
+
+\begin{comment}
+The environment in the literature
+
+In \cite{Acemoglu2012TheChange}
+
+\begin{itemize}
+	\item quality of nature, $S_t$, and irreversibility
+	\begin{align*}
+	S_{t}= -\xi Y_{nt}\pmb{{-\kappa \xi Y_{st}}}+(1+\delta)S_{t-1} & \hspace{3mm} \text{if}\  S_{t}\in[0,\bar{S}]\\
+	S_{t+s}=0 \ \forall s>0& \hspace{3mm}  \text{if} \ S_{t}<0
+	\end{align*}
+	\item environmental disaster: $S_t<0$
+	\begin{align*}
+	\underset{S\rightarrow0}{lim} u(C,h;S)=-\infty; 
+	\hspace{5mm} 
+	\underset{S\rightarrow0}{lim}\frac{\partial u(C,h;S)}{\partial S}=\infty
+	\end{align*}
+	\item stock of natural resources
+	\begin{align*}
+	Q_{t+1}=Q_t-R_{nt}\pmb{{-R_{st}}}
+	\end{align*}
+\end{itemize}
+
+content...
+\end{comment}
+
+\subsection{Government}
+The government is modelled as a Ramsey planner who maximises a Utilitarian social welfare function subject to a time path of emission targets.
+
+\noindent
+The exogenous emission targets from IPCC report \citep{Rogelj2018MitigationDevelopment.} are:
+\begin{itemize}
+\item reduction of emissions in 2030 to 25-30GtCO2 per year 
+\item net-zero emissions by 2050 (model economy has to be climate-neutral from 2050 onwards)
+
+\end{itemize}
+\section{Closed-form solutions}
+{Goals:
+\begin{enumerate}
+\item show how labour supply depends on productivity and wage (which again is determined by skill scarcity and machine supply) \checkmark
+\item how do prices depend on tax progressivity (with and without endogenous innovation)
+\item How does the social welfare function depend on taxes?
+\item Later: how does the direction of innovation depend on tax progressivity?
+%\item[\ar] all these points do not depend on the relation of production and environment (if nature does not affect productivity)
+\end{enumerate}}
+
+\subsection{Labour supply}
+To derive a closed-form solution, I assume the following functional form\footnote{\ The utility function is not balanced-growth path consistent. In the quantitative analysis, I will adjust the functional form.}
+\begin{align}
+u_s(c_{st},h_{st})=
+\frac{c_{st}^{1-\gamma}}{1-\gamma}-
+\frac{h_{st}^{1+\sigma}}{1+\sigma}.%-(\bar{S}-S_t).
+\end{align}
+The household's optimality conditions imply the following policy functions for consumption and hours worked:
+\begin{align}
+\log(h_{st})= \frac{1}{\sigma+\gamma+\tau(1-\gamma)}\left[\log(1-\tau)+(1-\gamma)\log\left(\frac{\lambda}{p_{t}}\right)+(1-\gamma)(1-\tau)\log(e_sw_{st})\right],\label{eq:labour_sup}\\
+\log(c_{st})= \frac{1}{\sigma +\gamma +\tau(1-\gamma)}\left[(1-\tau)\log(1-\tau)+(1+\sigma)\log\left(\frac{\lambda}{p_{t}}\right)+(1+\sigma)(1-\tau)\log(e_sw_{st})\right].
+\end{align}
+
+Focus on the last summand in equation \ref{eq:labour_sup}.
+By allowing for a coefficient of relative risk aversion, $\gamma$, different from 1, the hourly wage rate, $e_sw_{st}$, shapes the impact of the tax progressivity $\tau$ on labour supply and consumption. The income and the substitution effect do not cancel as in the log-utility version studied in \cite{Heathcote2017OptimalFramework}.\footnote{\ \tr{Preliminary} Whenever the coefficient of relative risk aversion is smaller than one, $\gamma<1$, under the assumption of a concave utility in consumption and a progressive tax system, i.e. $\tau>0$ and \tr{And $\tau<1$.},  the substitution effect dominates and the household 
+	increases labour supply as its hourly wage rate rises. Proof: The tax adjusted uncompensated wage elasticity reads: $\frac{d log(h)}{d log(ew)}= \frac{(1-\gamma)(1-\tau)}{\sigma+\tau(1-\gamma)+\gamma}$. \tr{And $\tau<1$.} Assuming a progressive tax system, the denominator is positive whenever utility is concave in consumption, i.e., $\gamma>0$. Hence, in sum, $\gamma\in\left(0,1\right)$ implies an increase in labour supply as the hourly wage rate rises under a progressive labour income tax. } 
+Households which receive a higher income per hour worked are more responsive to an increase in tax progressivity. As a consequence, a change in tax progressivity alters supply of distinct skills heterogeneously on impact. 

@@ -1,0 +1,135 @@
+
+\section{Tractable model}
+I present a simple model to provide intuition how income tax progressivity affects emissions. In this simplified version of the model, there is only one skill and the neutral sector is passive, so that $L_g+L_f=h$. 
+
+Labour demand by the green and fossil sector read
+\begin{align*}
+w=(p_f(1-\tau_f))^{\frac{1}{1-\alpha_f}}(1-\alpha_f)\alpha_f^{\frac{\alpha_f}{1-\alpha_f}}A_f
+\end{align*}
+
+
+\section{Model}
+This section presents a simple representative household model. The representative household provides two skills: high and low. 
+The model builds on \cite{Acemoglu2012TheChange} and \cite{Heathcote2017OptimalFramework} and adds a sector specific labour input good. I abstract from directed technical change in this version of the model.
+
+\paragraph{Households}
+% the rep agent
+The economy behaves as if there was a representative household. The household chooses between high and low-skilled labour.  In equilibrium, the high-skilled labour receives a higher wage rate so that the household is indifferent between which skill type to provide.
+
+\begin{align}
+U=\underset{\{\{c_{t}\}_{t=0}^{\infty}, \{h_{lt}\}_{t=0}^{\infty}, \{h_{ht}\}_{t=0}^{\infty}\}}{max}&
+\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{lt}, h_{ht})\\
+%U_{s}=\underset{\{c_{st}\}_{t=0}^{\infty}, \{h_{st}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u_s(c_{st}, h_{st}; S_t)\\
+s.t.& \ \ c_{t}p_{t}=% (1-\tau_{lt})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
+\lambda \left(h_{ht}w_{ht}+h_{lt}w_{lt}\right)^{1-\tau}\\
+\ & h_{ht}+h_{lt}\leq \bar{H}_t\\
+\ & h_{st}\geq 0 \ \forall s\in \{l,h\}
+\end{align}
+The household experiences utility costs from  providing the high skill.
+\begin{align}
+	u(c_{t}, h_{lt}, h_{ht})&= %\frac{c_t^{1-\gamma}}{1-\gamma}
+	\log(c_t)-\frac{(h_{lt}+\zeta h_{ht})^{1+\sigma}}{1+\sigma}%-v(h_{ht+1})%,\\
+	%\text{where}\  & v(h_{ht+1})=\left\{\begin{array}{lll}\zeta& \hspace{2mm} \text{if} \hspace*{2mm}  h_{ht+1}> 0, &\\
+%0  &\hspace{2mm}\text{if}\hspace{2mm}  h_{ht+1}= 0.
+%	\end{array}
+%	\right. 		
+\end{align}
+The positive parameter $\zeta>1$ implies a higher marginal disutility for high-skilled than low-skilled labour. As a result, in equilibirum,  
+high-skilled labour earns a premium to compensate the representative household for the higher disutility. %When labour income gets taxed, the returns to learning reduce and skilled labour becomes scarcer on impact. 
+%The log-utility from consumption ensures balanced-growth-path compatibility of hours worked. However, this makes the reduction in hours supplied independent of the wage rate. Still, the extensive margin through learning should remain.\footnote{\ \textcolor{sonja}{With log-utility the income and substitution effects of the wage rate on hour supply cancel. With GHH preferences, in contrast, the wealth effect cancels.} }
+I define the variable $H_t:=\zeta h_{ht}+h_{lt}$ which facilitates the derivation of results. 
+
+\paragraph{Production}
+There are two production sectors: a clean and a dirty one, indexed by $c$ and $d$. Sector-specific goods are imperfect substitutes in the production of the final consumption good.\footnote{\ As a result, production is never perfectly clean.}  
+The final good producing sector is perfectly competitive:
+$Y_t=\left(Y_{ct}^{\frac{\varepsilon-1}{\varepsilon}}+Y_{dt}^{\frac{\varepsilon-1}{\varepsilon}}\right)^\frac{\varepsilon}{\varepsilon-1}$. 
+I take the composite good as the numeraire so that $\left[p_{dt}^{1-\varepsilon}+p_{ct}^{1-\varepsilon}\right]^{\frac{1}{1-\varepsilon}}=1$.
+
+In both sectors, a unit mass of competitive firms, indexed by $i$, produces a sector-specific intermediate good. All firms use machines, $x_{jit}$ and a labour input good, $L_{jt}$ to produce according to: %\footnote{\ For now I abstract from a natural resource.} 
+\begin{align*}
+&Y_{dt}= L_{dt}^{1-\alpha}\int_{0}^{1}A_{dit}^{1-\alpha}x_{dit}^{\alpha} di,\ \hspace{2mm} Y_{ct}= L_{ct}^{1-\alpha}\int_{0}^{1}A_{cit}^{1-\alpha}x_{cit}^{\alpha} di.
+\end{align*}
+
+The labour input good is produced by a perfectly competitive and sector-specific labour industry according to: 
+\begin{align}
+L_{jt}=l_{jht}^{\theta_j}l_{jlt}^{1-\theta_j}, \ for \ j \in\{c,d\},
+\end{align}
+where $\theta_c>\theta_d$ so that the clean sector's labour input has a higher share of high-skilled labour. 
+
+A perfectly competitive sector produces machines, $x_{ijt}$, and sells them to final good firms in the respective sector at price $p_{ijt}$. I assume that the costs to produce one machine, $\psi$, are homogeneous across firms. % It follows that $p_{ijt}=\psi$.
+
+
+\paragraph{Technological progress}
+Technological progress is exogenous:
+\begin{align}
+A_{ijt+1}=(1+\upsilon_{jt}) A_{ijt}\ for \ j \in\{c,d\}. 
+\end{align}
+
+\begin{comment}
+\paragraph{Impossibility of reaching target in laissez-faire with exogenous growth}
+\tr{Note that this is wrong! There is an option for the gov to affect inflation which then redirects demand.}
+Note that with exogenous growth in each sector there is no possibility for the government to stop emissions from growing, since production of the dirty good is essential for the consumption good (no perfect substitution: $\varepsilon<\infty$). To meet the emission target, the government either needs to affect the growth rate in the economy; i.e., $\upsilon_j$ is a choice variable, or work and consumption need to be set to zero; or the emission target has to be defined in relative terms. The latter possibility contradicts the Paris Agreement which is concerned with absolute emissions.  
+I therefore assume, that the government can change the growth rate.
+
+The government chooses the growth rate in each sector, taking into account that research is constrained by an exogenous  amount of scientists
+\begin{align}
+\upsilon_{ct}+\upsilon_{dt}\leq\Upsilon
+\end{align}
+\end{comment} 
+  
+\paragraph{Government}
+
+The government maximises social welfare but is constrained by meeting emission targets in line with the Paris Agreement. Furthermore, the government does not have corrective taxes at its disposal. Instead, only already established distortionary labour taxes are available. The planner solves:
+
+\begin{align*}
+\underset{\{\tau_{t}\}_{t=0}^{\infty}}{max}&\sum_{t=0}^{\infty}\beta^t u(c_{t}, h_{ht}, h_{lt})\\
+s.t.\ %& (1)\  \tau_{lt}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
+& (1)\ \kappa Y_{nt} -\delta \leq E_t \  \forall \ t\geq 0\hspace{3mm} \text{(emission target)}\\
+& (2)\ (w_{ht}h_{ht}+w_{lt}h_{lt})-\lambda_t (w_{ht}h_{ht}+w_{lt}h_{lt})^{1-\tau_{t}} = G_t\hspace{3mm} \text{(gov. budget)}\\
+%& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
+& (2)\ \text{behaviour of firms and households}\\
+& (3)\ \text{feasibility}
+\end{align*}
+
+$E_t$ are flow emissions per year.  The parameter $\delta$ captures the capacity of the environment to reduce emitted $CO2$ through sinks, such as forests and moors.  For simplicity, I assume that the regeneration rate is constant. $\kappa$ determines greenhouse-gas emission in CO2 equivalents caused by production. % \tr{Read up in \cite{Hassler2016EnvironmentalMacroeconomics} what possibilities there are in the literature}
+%Hence, under the emission target it has to hold that $Y_{nt}=\frac{\delta+E_t}{\kappa}$ assuming that the analysis starts in 2020.
+The government generates revenues from taxing labour income and redistributes to run a balanced budget. 
+
+
+\paragraph{Markets}
+Three markets are modelled explicitly: a market for final goods, and one for each type of skill.
+\begin{align*}
+\text{final good}\hspace{4mm}& Y_{t}=c_t+\psi\left(\int_{0}^1x_{idt}di+\int_{0}^1x_{ict}di\right)+ G_t\\
+%\end{align*}
+% %I study two cases one with full disposal, i.e., $\iota=0$, and one without $\iota=1$. In the first scenario, the price of the final good is determined by the market clearing condition as Walras' law does not hold. 
+%\begin{align*}
+\text{high skill:}\hspace{4mm}& l_{hct}+l_{hdt}=h_{ht}\\
+\text{low skill:}\hspace{4mm}&l_{lct}+l_{ldt}=h_{lt}.
+\end{align*}
+
+
+
+%\section{Results}
+%\subsection{Balanced Growth path}
+
+
+%It follows that the labour input good does not grow, since hours worked are constant and transitional dynamics are ruled out by definition.\footnote{\ In a subsection below, I prove this claim.}
+
+%I write the evolution of the model as a function of growth rates and initial conditions $A_{c0}, A_{d0}$. I also impose that policy variables, $\upsilon_{c}, \upsilon_{d}, \tau_l, \lambda$, are constant on the balanced growth path. 
+%\begin{align}\label{eq:price_ratio_labourinput}
+%	\frac{p_c}{p_d}= \left(\frac{A_d}{A_c}\frac{z_d}{z_c}\zeta^{\theta_c-\theta_d}\right)^{1-\alpha}& \text{(optimality labour input production)}
+%\end{align}
+
+%\begin{prop}[Skill scarcity and prices, assuming $\theta_c>\theta_d$] 
+%	
+%	The effect of skill scarcity on relative prices depends on the substitutability of goods. When goods are complements, $\varepsilon<1$, the price of the more skill-intense clean good rises with the disutility of high-skill labour, while the price of the dirty good falls.
+%	Production of the clean good becomes more expensive. 
+%	
+%	When goods are substitutes, $\varepsilon>1$, then the clean good becomes cheaper the scarcer high skills and the price of the dirty good rises. Still, production of the clean good becomes more expensive, but it can be substituted by the dirty good. As the clean good becomes more expensive, demand shifts from the clean to the dirty good and market clearing implies a drop in the clean goods price. In total the general equilibrium effect outweighs the rise in production costs. 
+%\end{prop}
+
+%\paragraph{Intution}
+%Consider equation
+%The ratio of low labour in the dirty versus the clean sector negatively depends on the distutility of high-skill labour, when goods are substitutes.
+%\tr{Continue later}
+

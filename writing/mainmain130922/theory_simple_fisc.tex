@@ -1,0 +1,62 @@
+\section{Theoretical Results}\label{sec:theory}
+
+In this section, I show, first, the mechanisms which drive changes in emissions, and, second, that under the assumption of a representative agent, labour taxes can only affect emissions through the level of production; the output ratio is independent of fiscal policies. 
+%In what follows, I present two  I am less interested in the long-run growth aspects of the economy, but rather on the transitional mechanisms across sectors. 
+
+
+\subsection{Emission growth}
+Emissions are a constant fraction of dirty output; they, thus, grow at the same rate.
+Dirty output growth is given by
+\begin{align*}
+	\frac{Y_d'}{Y_d}=\left(\frac{p_d'}{p_d}\right)^{\frac{\alpha+(1-\alpha)(1-\varepsilon)}{1-\alpha}}\frac{A_d'}{A_d}\frac{H'}{H}.
+\end{align*}
+For a derivation and a full solution to the model see appendix section \ref{app:solu}. The dash indicates next period variables.
+The effect of sector-specific inflation on output captures, on the one hand, the positive effect of a higher demand for machines when the price for the respective good grows. This raises the marginal product of labour so that the dirty sector demands more labour; reflected by the term $\frac{\alpha}{1-\alpha}$ in the exponent. In addition,  a rise in the dirty good's price increases the marginal profit the dirty sector generates from increasing labour input one-for-one, this is captured by the exponent of 1. On the other hand,  the rise in the dirty good's price lowers demand for dirty output by final goods producers, even more so the more goods are substitutes, captured by the exponent $\varepsilon$. The elasticity of dirty output with respect to dirty sector inflation is positive, when the reduction in demand by final good producers, $\varepsilon$,  is smaller than the rise in the marginal profit of labour, $\frac{1}{1-\alpha}$. 
+All else equal, a rise in dirty productivity, $A_d$, increases dirty output, as does a rise in aggregate (disutility-weighted) labour supply, $H$.
+
+Since prices in this simple model are a function of total factor productivity only, the government can only affect dirty output growth through total labour supply by households. As the ratio of dirty to clean goods demanded by final good producers only depends on prices, the output ratio is irresponsive to the progressivity of the tax schedule.%The percentage change in labour input goods by sectors are equivalent. This together with prices being independent of skill supply implies that the output ratio of sectors is unaffected by tax progressivity.
+%\footnote{\ This is directly obvious from the ratio demand by final good producers, which is only a function of the price ratio. IN OTHER MODELS PRICES MAY DEPEND ON LABOUR SUPPLY1}
+
+
+	\begin{comment}
+	To see this write:
+\begin{align}
+	\frac{d\left(\frac{Y_d}{Y_c}\right)}{d \tau_l}=\frac{Y_d}{Y_c}\left(\frac{\frac{dY_d}{Y_d}}{d \tau_l}-\frac{\frac{dY_c}{Y_c}}{d \tau_l}\right)=0
+\end{align}
+and observe that the percentage change in sector output is homogeneous. 
+\begin{align}
+	\frac{1}{Y_d}\frac{dY_d}{d \tau_l}= \frac{1}{L_d}\frac{d L_d}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}\ \text{and} \ \frac{1}{Y_c}\frac{dY_c}{d \tau_l}= \frac{1}{L_c}\frac{d L_c}{d \tau_l}=\frac{1}{H}\frac{d H}{d \tau_l}.
+\end{align}
+\textbf{}
+content...
+\end{comment}
+
+\begin{prop}[Effect of $\tau_l$ on dirty output]
+	In the representative agent model with log utility, tax progressivity does not affect the equilibrium ratio of sector production. Fiscal policy can only lower dirty output by reducing aggregate labour supply.
+\end{prop}
+
+\subsection{Excursus: Model with Inequality and MaCurdy preferences}
+Following \cite{Boppart2019LaborPerspectiveb}, I look at a MaCurdy preference specification which allows for a slightly higher income than substitution effect in response to a change in productivity. In this section, I focus on a heterogeneous agent version of the model. Households differ in the exogenous level of skill they can provide.\footnote{\ \tr{In the representative agent model, the household is indifferent what kind of skill to supply, the optimal ratio of labour supply is independent of fiscal policy. Also when considering a representative family, equalising consumption across family members'  makes the income effect marginally homogeneous.} } As a result, the response of hours worked to a change in tax progressivity is income dependent. 
+The utility of a household with skill level $s$ reads
+\begin{align}
+	u_s(c_{st},h_{st})=
+	\frac{c_{st}^{1-\gamma}}{1-\gamma}-
+	\frac{h_{st}^{1+\sigma}}{1+\sigma}.%-(\bar{S}-S_t).
+\end{align}
+The household's optimality conditions imply the following policy functions for consumption and hours worked:
+\begin{align}
+	\log(c_{st})=& \frac{1}{\sigma +\gamma +\tau(1-\gamma)}\left[(1-\tau)\log(1-\tau)+(1+\sigma)\log\left(\frac{\lambda}{p_{t}}\right)+(1+\sigma)(1-\tau)\log(w_{st})\right]\\
+		\log(h_{st})=& \frac{1}{\sigma+\gamma+\tau(1-\gamma)}\left[\log(1-\tau)+(1-\gamma)\log\left(\frac{\lambda}{p_{t}}\right)+(1-\gamma)(1-\tau)\log(w_{st})\right]\label{eq:labour_supp}.
+\end{align}
+Note that the multiplier is positive for plausible parameters values.\footnote{\ HSV 2014 estimate $\gamma= 1.7$ and $\sigma=2$.} %Hence, a rise in the elasticity of post- to pre-tax income (equivalent to a smaller $\tau$) raises hours worked irrespective of income (the first summand in brackets). There is a second term including 
+Focus on the last summand in equation \ref{eq:labour_supp}.
+By allowing for a coefficient of relative risk aversion, $\gamma$, different from 1, the hourly wage rate, $w_{st}$, shapes the impact of the tax progressivity $\tau$ on labour supply and consumption. The income and the substitution effect do not cancel as in the log-utility version studied in \cite{Heathcote2017OptimalFramework}. 
+ At the parameter values found in the literature, e.g. $\gamma= 1.7$ and $\sigma=2$, the uncompensated wage elasticity is negative since the income effect dominates under a progressive tax system.  To see this note that  $\frac{d log(h)}{d log(w)}= \frac{(1-\gamma)(1-\tau)}{\sigma+\tau(1-\gamma)+\gamma}<0$ for all levels of admissible tax progressivity $\tau<1$.  
+%Whenever the coefficient of relative risk aversion is smaller than one, $\gamma<1$, under the assumption of a concave utility in consumption, $\gamma>0$, and a progressive tax system, i.e. $\tau>0$ ( and note that $\tau<1$, since otherwise the post tax income depends negatively on pre-tax income )  the substitution effect dominates and the household 
+%	increases labour supply as its hourly wage rate rises. Proof: The tax adjusted uncompensated wage elasticity reads:. Assuming a progressive tax system, the denominator is positive whenever utility is concave in consumption, i.e., $\gamma>0$. Hence, in sum, $\gamma\in\left(0,1\right)$ implies an increase in labour supply as the hourly wage rate rises under a progressive labour income tax. 	
+%	In contrast,
+
+The marginal impact of a change in tax progressivity on hours worked depends on the wage rate. 	
+Intuitively, $1-\tau$ is the elasticity of post to pre-tax income. As this elasticity increases, that is, a decline in $\tau$ and the system becomes less progressive, households with a higher wage rate reduce their labour supply more. A marginal increase in progressivity raises labour supply by richer households more.  
+
+Households which receive a higher income per hour worked, $w_s$, are more responsive to an increase in tax progressivity. As a consequence, a change in tax progressivity alters supply of distinct skills heterogeneously on impact. 

@@ -2,7 +2,7 @@ function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plott
 
 % this script plots results
 
-date="10Aout22";
+date="13Sept22";
 if ~isfile(sprintf('figures/all_%s', date ))
     mkdir(sprintf('figures/all_%s', date));
 end
@@ -70,26 +70,18 @@ for nsk =0:1
     sp_not=helper.sp_all';
 
 %- other results
-    for i=0:5 % loop over policy versions
-        if indic.xgrowth==0
-            helper=load(sprintf('BAU_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep,i, etaa));
-            bau=helper.LF_BAU';
-            helper=load(sprintf('LF_SIM_NOTARGET_spillover%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill,indic.sep, i, etaa));
-            LF=helper.LF_SIM';
-        else
-            helper=load(sprintf('BAU_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, i,etaa));
-            bau=helper.LF_SIM;
-            helper=load(sprintf('LF_xgrowth_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,i, etaa));
-            LF=helper.LF_SIM;
-        end
+    for i=[0,1,4,5] % loop over policy versions
+      
+        helper=load(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill,indic.xgrowth, indic.sep, i,plotts.GOV, plotts.sizeequ,  etaa));
+        LF=helper.LF_SIM';
 
-        helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV, etaa));
+        helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV,  plotts.sizeequ, plotts.GOV, etaa));
         opt_not_notaus=helper.opt_all';
-        helper=load(sprintf('OPT_target_1008_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, etaa));
+        helper=load(sprintf('OPT_target_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
         opt_t_notaus=helper.opt_all';
 
-        RES = containers.Map({'BAU','LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                                {bau,  LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
+        RES = containers.Map({'LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+                                { LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
         %- add additional variables
         if xgr==0 && nsk==0
             OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
@@ -105,62 +97,62 @@ end
 end
 
 %% counetrfactual model
-if plotts.regime_gov==3
-    for to=[0,1, 2] % loop over counterfactual versions
-    helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-    nsk_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-    xgr_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep,indic.PV,  etaa));
-    xgr_nsk_all=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-    test_all=helper.LF_COUNT';
-    
-    if to==2
-        RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
-    elseif to==1 % only tauf
-        RES_count_onlytauf=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count_onlytauf=add_vars(RES_count_onlytauf, list, params, indic, list.allvars, symms);
-    elseif to==0 % only taul
-        RES_count_onlytaul=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-                                    {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-        RES_count_onlytaul=add_vars(RES_count_onlytaul, list, params, indic, list.allvars, symms);
-    end               
-    end
-end
-
-% counetrfactual with tauf =0 and other model: What is the effect of labor
-% income tax with endogenous growth
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-xgr_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-test_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-xgr_nsk_all=helper.LF_COUNT';
-helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-nsk_all=helper.LF_COUNT';
-RES_count_SAMETAUL_onlytaul=containers.Map({'xgr','nsk', 'xgr_nsk', 'test'},...
-                            {xgr_all, nsk_all, xgr_nsk_all, test_all});
-RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
+% if plotts.regime_gov==3
+%     for to=[0,1,2] % loop over counterfactual versions
+%     helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+%     nsk_all=helper.LF_COUNT';
+%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+%     xgr_all=helper.LF_COUNT';
+%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep,indic.PV,  etaa));
+%     xgr_nsk_all=helper.LF_COUNT';
+%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+%     test_all=helper.LF_COUNT';
+%     
+%     if to==2
+%         RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+%         RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
+%     elseif to==1 % only tauf
+%         RES_count_onlytauf=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+%         RES_count_onlytauf=add_vars(RES_count_onlytauf, list, params, indic, list.allvars, symms);
+%     elseif to==0 % only taul
+%         RES_count_onlytaul=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
+%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
+%         RES_count_onlytaul=add_vars(RES_count_onlytaul, list, params, indic, list.allvars, symms);
+%     end               
+%     end
+% end
+% 
+% % counetrfactual with tauf =0 and other model: What is the effect of labor
+% % income tax with endogenous growth
+% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+% xgr_all=helper.LF_COUNT';
+% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+% test_all=helper.LF_COUNT';
+% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
+% xgr_nsk_all=helper.LF_COUNT';
+% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+% nsk_all=helper.LF_COUNT';
+% RES_count_SAMETAUL_onlytaul=containers.Map({'xgr','nsk', 'xgr_nsk', 'test'},...
+%                             {xgr_all, nsk_all, xgr_nsk_all, test_all});
+% RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
 
 % no knowledge spillovers 
-helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, etaa));
+helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
 opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_1008_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, etaa));
+helper=load(sprintf('OPT_target_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
 opt_t_notaus=helper.opt_all';
 RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                             {opt_t_notaus, opt_not_notaus});
 RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms);
     
 % counetrfactual with optimal policy from no spill over plugged in benchmark model
-
-helper=load(sprintf('COMPEquN_SIM_taufopt4_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-test_all=helper.LF_COUNT';
-RES_count_NKinBen=containers.Map({'all'},{test_all});
-RES_count_NKinBen=add_vars(RES_count_NKinBen, list, params, indic, list.allvars, symms);
+% 
+% helper=load(sprintf('COMPEquN_SIM_taufopt4_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
+% test_all=helper.LF_COUNT';
+% RES_count_NKinBen=containers.Map({'all'},{test_all});
+% RES_count_NKinBen=add_vars(RES_count_NKinBen, list, params, indic, list.allvars, symms);
 
 %% Tables
 if plotts.table==1
@@ -200,7 +192,7 @@ for nsk= 0:1
         end
     end
     %%
-    save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, indic.sep, nsk, etaa, xgr, indic.PV, indic.extern), 'TableSWF_PV');
+    save(sprintf('Table_SWF_%s_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d_sizeequ%d_GOV%d.mat',date, indic.sep, nsk, etaa, xgr, indic.PV, indic.extern, plotts.sizeequ, plotts.GOV), 'TableSWF_PV');
 end
 end
 end
@@ -1102,9 +1094,9 @@ if plotts.single_pol==1
             ytickformat('%.2f')
             xticklabels(Year10)
             if indic.count_techgap==0
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, plotts.sizeequ, plotts.GOV,   etaa);
             else
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_PV%d_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV, etaa);
+                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV,plotts.sizeequ, plotts.GOV, etaa);
             end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -1685,9 +1677,7 @@ if plotts.comp_OPT_NK==1
     % without tagret dynamic 
      fprintf('plotting levels opt benchmark and no knowledge spillovers') 
 
-     if plotts.regime_gov==3
         RES=OTHERPOLL{plotts.regime_gov+1};
-     end
         allvars= RES('OPT_T_NoTaus');
         allvarsNK =RES_noknspil('OPT_T_NoTaus');
         
@@ -1717,7 +1707,7 @@ if plotts.comp_OPT_NK==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_KN_FullMod_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_KN_FullMod_sizeequ%d_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f_lgd%d.png',date, varr, plotts.sizeequ, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,plotts.GOV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end

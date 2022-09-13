@@ -134,9 +134,13 @@ options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFu
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
 % if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
+if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 )
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
-% end
+else
+    sol3=sol2;
+end
+ 
 if exitf<=0
     error('code did not solve')
 end

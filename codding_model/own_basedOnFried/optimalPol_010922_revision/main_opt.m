@@ -116,26 +116,32 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
-
+indic.sizeequ=0;
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
-for tata=0:1
+indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
+
+for tata=1
     indic.taul0=tata; %==1 then sets taul =0
-for GG=0:1
+for GG=1
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0:1
+for ff=0
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
-    scc=185; % rff estimate per ton of carbon
-    scc_giga22=185*1e9; % 185*1e9: price per gigaton in 2022 prices
-    %=> in 2019 prices
-    scc_giga19= scc_giga22/1.12; % 12% inflation from 2019 to 2022
-    % => get in units of GDP over 2015-2019 horizon
-    tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 => price as percent of gdp
-    POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of fossil in model
+    if indic.tauff=='SCC'
+        scc=185; % rff estimate per ton of carbon
+        scc_giga22=185*1e9; % 185*1e9: price per gigaton in 2022 prices
+        %=> in 2019 prices
+        scc_giga19= scc_giga22/1.12; % 12% inflation from 2019 to 2022
+        % => get in units of GDP over 2015-2019 horizon
+        tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 => price as percent of gdp
+        POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of fossil in model
+    elseif indic.tauff=='BAU'
+        POL(list.pol=='tauf')=0;
+    end
 end
 
 for ee=0
@@ -148,7 +154,7 @@ for ee=0
 % full model
 for nsk=0:1
     indic.noskill=nsk;
-    for xgr=1
+    for xgr=0:1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -180,11 +186,15 @@ for nsk=0:1
         tauf_CO2=tauf./Sparams.omegaa;
         tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton in 2019 prices
         TAUF(:,nnt+1)=tauf_perton2019*1.12; % to have it in 2022 prices
-        
+%         tauf_alt=tauf_CO2/x0LF(list.choice=='pf')*10.1554 *106.5850/100/0.07454;
+    if ~(indic.tauff=="BAU" && indic.limit_LF==0)
         save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        save(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
+    else
+        save(sprintf('BAU_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+    end                
         clearvars COMP pol FVAL
     end
-    save(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
 
 end
 end
@@ -199,24 +209,29 @@ end
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=1;
+plotts.regime=0;
 indic
 
 % choose sort of plots to be plotted
-plotts.tauf_comp       = 0;
-plotts.tauf_compTaul   = 0;
-plotts.compRed         = 0;
-plotts.compRed_noGS    = 1;
-plotts.compTaul_Red    = 0;
-plotts.compRed_TaulPer = 0;
+plotts.tauf_comp                = 0;
+plotts.tauf_comp_Byregime       = 0;
+plotts.tauf_compTaul            = 0;
+plotts.tauf_compTaul_BYregime   = 0;
+plotts.perDif_notauf            = 0;
+plotts.perDif_notauf_compTaul   = 0;
+plotts.compRed                  = 0;
+plotts.compRed_noGS             = 0;
+plotts.compTaul_Red             = 1;
+plotts.compRed_TaulPer          = 0;
 
-for ee=0
+for ee=0 % ==0 then uses benchmark
     indic.emsbase=ee;
         
-for ll=0
+for ll=1
     indic.limit_LF=ll;
        
-    for xgr =0
-        for nsk=0
+    for xgr =0:1
+        for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     plotts
@@ -248,6 +263,8 @@ end
 % save(sprintf('BAU_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
 %% Laissez faire
+% 13/09: if interesed in BAU: need to set taul = 0.181 (above code does not
+% give bau solution as tauf neq 0. 
 taus=0;
 tauf=0;
 taul=0;
@@ -258,16 +275,16 @@ pol=eval(symms.pol);
 %  if indic.noskill==0
 % note: taul0 indicator irrelevant if taul in pol vector =0
 indic.limit_LF=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.sizeequ=1;
 
-for gg=0:1
+for gg=0
     indic.GOV=gg;
-for nnt=[0,1,2,3,4,5,7]
+for nnt=7%[0,1,2,3,4,5,7]
       indic.notaul=nnt;
-  for i=0:1
+  for i=1
       indic.noskill=i;
-      for xgr=0:1
+      for xgr=1
           indic.xgrowth=xgr;
 
           if indic.xgrowth==0
@@ -277,7 +294,7 @@ for nnt=[0,1,2,3,4,5,7]
             indic.xgrowth=0;
             [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic,Ems);
           else
-            LF_SIM = solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+            [LF_SIM , pol, FVAL]= solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
           end
         save(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,indic.notaul, indic.GOV, indic.sizeequ, params(list.params=='etaa')),'LF_SIM', 'Sparams');
         clearvars LF_SIM helper
@@ -308,8 +325,8 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-for xgr=0
+indic.sizeequ=1;
+for xgr=0:1
     indic.xgrowth=xgr;
     for ns=0:1
         indic.noskill=ns;
@@ -339,8 +356,8 @@ indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =1;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
-indic.sizeequ=1; 
-indic.noknow_spill=0;
+indic.sizeequ=0; 
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
 
 for tr =0:1
@@ -349,7 +366,7 @@ for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=[0]
+ for nnt=[4]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -362,7 +379,7 @@ end
 end
 end
 
-%%
+%% TO BE UPDATED FOR NEW STRUCTURE OF TAX! 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
@@ -439,7 +456,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  3; % = equals policy version to be plotted
+plotts.regime_gov=  0; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -450,37 +467,37 @@ plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
 plotts.extern=      0;
-plotts.compEff_mod_dev1=0;
- plotts.count_taul_nsk_LF=0;
-plotts.count_taul_xgr_LF =0;
-plotts.count_taul_xgr_lev =0;
-plotts.count_tauflev =0; % counterfactual with only tauf in laissez faire
-plotts.count_taullev =0; % counterfactual with only taul in laissez faire
-plotts.count_tauflev_Ben =0; % laissez faire, only optimal tauf and benchmark policy
-plotts.count_tauflev_Ben_noLF=0;
-plotts.compnsk_xgr = 0;
-plotts.compnsk_xgr1= 0;
+plotts.compEff_mod_dev1         = 0;
+plotts.count_taul_nsk_LF        = 0;
+plotts.count_taul_xgr_LF        = 0;
+plotts.count_taul_xgr_lev       = 0;
+plotts.count_tauflev            = 0; % counterfactual with only tauf in laissez faire
+plotts.count_taullev            = 0; % counterfactual with only taul in laissez faire
+plotts.count_tauflev_Ben        = 0; % laissez faire, only optimal tauf and benchmark policy
+plotts.count_tauflev_Ben_noLF   = 0;
+plotts.compnsk_xgr              = 0;
+plotts.compnsk_xgr1             = 0;
 
-plotts.compnsk_xgr_dev= 0;
-plotts.compnsk_xgr_dev1 =0;
-plotts.count_modlev= 0; 
+plotts.compnsk_xgr_dev          = 0;
+plotts.compnsk_xgr_dev1         = 0;
+plotts.count_modlev             = 0; 
 
-plotts.count_modlev_eff= 0;
-plotts.single_pol=  0;
-plotts.singov=      0;
+plotts.count_modlev_eff         = 0;
+plotts.single_pol               = 0;
+plotts.singov                   = 0;
 
-plotts.notaul=      0; % policy comparisons; this one needs to be switched on to get complete table
-plotts.bau=         0; % do plot bau comparison
-plotts.lf=          0; % comparison to laissez faire allocation 
+plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
+plotts.bau                      = 0; % do plot bau comparison
+plotts.lf                       = 0; % comparison to laissez faire allocation 
 
-plotts.comptarg=    0; % comparison with and without target
-plotts.compeff=     0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3=    0; % sp versus optimal benchmark
-plotts.comp_LFOPT=  0; % laissez faire and optimal with and without taul
+plotts.comptarg                 = 0; % comparison with and without target
+plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -494,24 +511,21 @@ plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
-plotts.compREd=1;
+plotts.compREd=0;
     
-for ll=0:1
-    indic.limit_LF=ll;
-    if indic.limit_LF==1
-        for ee=0:1
-            indic.emsbase=ee;
+for xgr =0
+    for nsk=0
+        for se=1
+plotts.xgr = xgr; % main version to be used for plots
+plotts.nsk = nsk;
+plotts.sizeequ =se; % important for comparison of 
+plotts.GOV =0;
+indic.noknow_spill=0; % in the benchmark allocation there are kn spillovers
 
-    for xgr =0:1
-        for nsk=0:1
-    plotts.xgr = xgr; % main version to be used for plots
-    plotts.nsk = nsk;
-    plotts
-    %%
+plotts
+%%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
-    plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
-        end
-    end
+plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
         end
     end
 end

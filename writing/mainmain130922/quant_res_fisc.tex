@@ -1,0 +1,251 @@
+\section{Quantitative experiment and results}\label{sec:simul}
+
+To solve for the optimal policy, I solve the Ramsey problem in each period for 60 periods which corresponds to the time frame from 2020 to 2080. The static structure of the model allows for this approach which is numerically equivalent to the results in a dynamic setting.\footnote{\ In the dynamic approach I follow \cite{Jones1993OptimalGrowth}: the planner takes the time span up to some finite period into account when maximising the social welfare function plus a continuation value. Note that there is no continuation value in this model since machines depreciate fully in each period; in other words, there is no savings technology. However, the problem simplifies substantially when solving the model separately for each period. }
+
+In the following, I discuss the evolution of the economy, first, under the business as usual calibration, where tax progressivity equals $\tau =0.181$, and a laissez-faire scenario. Second, I study the optimal policy and allocations.
+
+
+
+\subsection{Business as usual and Laissez-faire}
+In the representative agent model, the laissez-faire economy coincides with the economy under the optimal policy without an emission target, since there are neither inefficiencies nor inequality which would motivate government action. 
+
+Figures \ref{fig:onlyBAU_subs} and \ref{fig:onlyBAU_comp} show the evolution of the economy under business as usual and the laissez-faire economy for substitutes and complements, respectively.
+Independent of the degree of substitutability of goods, the positive progressivity parameter inefficiently reduces labour supply, production, and output; compare the dashed to the solid graphs in  figures \ref{fig:onlyBAU_subs} and \ref{fig:onlyBAU_comp}.
+
+When goods are substitutes, production inputs transition to the more productive, dirty sector. As the dirty good becomes relatively cheaper at a relatively higher productivity, demand for this good increases. Since the clean good can be substituted for by the dirty one, the percentage change in the output ratio relative to the change in prices exceeds unity. Input goods all transition to the dirty sector; compare figure \ref{fig:onlyBAU_add}. 
+
+When goods are complements, instead, the economy, too, features a rising output ratio of dirty to clean goods. However, input goods transition to the less productive sector; see figure \ref{fig:onlyBAU_comp_add}. As final good producer's demand is less responsive to the relative price, demand for the clean good remains relatively high.  In fact, it increases as the dirty good becomes cheaper. To satisfy the rise in demand for clean goods, input factors are allocated to the less productive, clean sector. As a result, the transition to the dirty sector is muted, nevertheless, the economy  both under the business-as-usual calibration and in the laissez-faire scenario violates the emission target. This finding is in line with \cite{Ngai2007StructuralGrowth} who study the effect of heterogeneous productivities on structural transformation.
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Business as usual (BAU) versus laissez-faire, substitutes }\label{fig:onlyBAU_subs}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption, $c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_c_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill, $h_h$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_hh_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill, $h_l$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_hl_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Price dirty good, $p_d$}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_pd_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Price clean good, $p_c$}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_pc_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Output ratio, $y_d/y_c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_ydyc_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Business as usual (BAU) versus laissez-faire, complements }\label{fig:onlyBAU_comp}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption, $c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_c_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill, $h_h$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_hh_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill, $h_l$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_hl_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) Price dirty good, $p_d$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_pd_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) Price clean good, $p_c$}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_pc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Output ratio, $y_d/y_c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticBAU_LF_separate_ydyc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\subsection{Optimal policies and allocations}
+As argued earlier, without emission target, the optimal policy is to set a flat tax rate, hence, the elasticity of post- to pre-tax income is 1; compare panel (a) in figure \ref{fig:optpol}. This does not interfere with households' labour supply decision.
+
+The remaining panels in the same figure depict the optimal progressivity parameter when the government has to satisfy an emission target for when the clean and dirty goods are substitutes, panel (b), or complements, panel (c).
+When the government is concerned with satisfying an emission target, the optimal tax system is progressive in all periods: $\tau >0$. Progressivity increases over time and jumps close to but below the highest  possible level, $\tau=1$,\footnote{\ So that post- and pre-tax income are still positively correlated.} when net emissions have to be zero. This result is independent of whether goods are substitutes or complements.   
+
+The dynamic pattern of the optimal tax progressivity follows from the positive growth rate in dirty output. To counteract the rise in output, labour supply has to decrease more to satisfy the emission target. Tax progressivity is chosen higher when goods are substitutes. As argued above, when goods are substitutes a higher demand for the more productive, dirty good increases emissions more. Consequently, to counter this market force, the government has to set an even higher tax progressivity. In contrast, when goods are complements, market mechanisms make less government intervention necessary. 
+
+%This finding is in contrast to the results in \cite{Acemogxxx}. In their model with directed technical change, a higher substitutability of goods renders less government intervention sufficient. In this model with exogeneous growth, complementability of goods retards the output growth in the dirty sector due to the slower growth in the complementary clean sector. With exogeneous growth, complementarity of goods directs too much resources to the dirty sector absent government intervention. \tr{HOW IS IT IN LAISSEZ FAIRE?}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Policy }\label{fig:optpol}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Without target }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_tauul_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget0_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) With target, $\varepsilon>1$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_tauul_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(c) With target, $\varepsilon<1$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_tauul_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+\end{minipage}
+\end{figure}
+
+Figures \ref{fig:optallo_subs_onlyR} and \ref{fig:optallo_comp_onlyR} depict the allocation resulting from the optimal policy.
+Irrespective of the degree of substitutability between goods, the optimal policy enforces a decreasing consumption and work pattern.  
+Since the return to labour reduces as tax progressivity increases, the representative household diminishes its labour supply over time, panels (b) and (c).\footnote{\ In the optimal labour supply, $H=(1-\tau)^{\frac{1}{1+\sigma}}$, the exponent of $(1/(1+\sigma))$ constitutes a multiplier effect: as the return to labour in terms of income reduces, the household, on impact, diminishes its labour supply, which again raises the shadow value of income; this effect mitigates the total reduction in hours worked.} 
+As a result, consumption is  decreasing and relatively lower than in the laissez-faire allocation. 
+
+When goods are complements,  the smaller tax progressivity suffices to reduce dirty output more than in the world where goods are substitutes. Compare panel (e) across figures. Furthermore, the smaller reduction in labour supply under the less aggressive policy keeps clean production comparably high; compare panels (d) across figures. Nevertheless, consumption falls more due to the necessity of dirty output in final good production. 
+
+\newpage
+% only ramsey Subs
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal allocation with emission target, substitutes }\label{fig:optallo_subs_onlyR}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption, $c$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_c_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill, $h_h$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_hh_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill, $h_l$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_hl_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Clean output, $y_c$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_yc_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Dirty output, $y_d$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_yd_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Output ratio, $y_d/y_c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_ydyc_periods59_eppsilon4.00_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+% only ramsey Comp
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal allocation with emission target, complements }\label{fig:optallo_comp_onlyR}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption, $c$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_c_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill, $h_h$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_hh_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill, $h_l$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_hl_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Clean output, $y_c$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_yc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Dirty output, $y_d$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_yd_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Output ratio, $y_d/y_c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticonlyRam_separate_ydyc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{comment}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal allocation with and without emission target, complements }\label{fig:optallo_comp_target}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/static_CompTarget_c_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_util0_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill supply }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/static_CompTarget_hh_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_util0_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill supply}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_hl_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) clean output }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_yc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) dirty output }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_yd_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) machines dirty}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_xd_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) machines clean}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_xc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Output ratio $y_d/y_c$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/Own/figures/Rep_agent/staticRam_LF_separate_ydyc_periods59_eppsilon0.40_zeta1.40_Ad08_Ac04_thetac0.70_thetad0.56_HetGrowth1_tauul0.181_util0_withtarget1_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+	content...
+\end{comment}
+
+
+

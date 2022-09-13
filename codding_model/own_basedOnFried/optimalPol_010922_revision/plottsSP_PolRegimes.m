@@ -2,7 +2,7 @@ function []=plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plo
 
 % this script plots results
 
-date="5Sept22";
+date="13Sept22";
 if ~isfile(sprintf('figures/all_%s', date ))
     mkdir(sprintf('figures/all_%s', date));
 end
@@ -79,8 +79,11 @@ for nsk =0:1
         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
         helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
-
-        RES = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
+        helper = load(sprintf('BAU_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        BAU = helper.COMP';
+        helper = load(sprintf('BAU_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        LF = helper.COMP';
+        RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
         %- add additional variables
         if xgr==0 && nsk==0
             OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
@@ -139,8 +142,7 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
-%% effect of taul in model without xgr and with xgr
-% compare effect of only taul in benchmark and in exogenous growth model
+%% plotting necessary tauf 
 if plotts.tauf_comp==1
     
     fprintf('plott tauf needed for emission limit')
@@ -149,10 +151,10 @@ if plotts.tauf_comp==1
         TaufP=TAUFF(kk);  
     for lgdind=0:1
             gcf=figure('Visible','off');
-            main=plot(time,TaufP(1:T, 4+1), time,TaufP(1:T, 0+1), time,TaufP(1:T, 7+1), time,TaufP(1:T, 2+1),  'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
+            main=plot(time,TaufP(1:T, 4+1), time,TaufP(1:T, 0+1), time,TaufP(1:T, 7+1), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'} )   
             if lgdind==1
-               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
+               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
@@ -179,10 +181,10 @@ if plotts.tauf_compTaul==1
     TaufDif=(TaufTC-TaufT0)./TaufT0.*100;
     for lgdind=0:1
             gcf=figure('Visible','off');
-            main=plot(time,TaufDif(1:T, 4+1), time,TaufDif(1:T, 0+1), time,TaufDif(1:T, 7+1), time,TaufDif(1:T, 2+1),  'LineWidth', 1.1);   
+            main=plot(time,TaufDif(1:T, 4+1), time,TaufDif(1:T, 0+1), time,TaufDif(1:T, 7+1), 'LineWidth', 1.1);   
             set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
             if lgdind==1
-               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
+               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
@@ -198,6 +200,172 @@ if plotts.tauf_compTaul==1
         close gcf
     end
 end
+
+%% plotting necessary tauf 
+if plotts.tauf_comp_Byregime==1
+    
+    fprintf('plott tauf needed for emission limit with and without taul')
+    TaufTC=TAUFF('TaulCalib');  
+    TaufT0=TAUFF('Taul0');  
+
+    for lgdind=0:1
+            gcf=figure('Visible','off');
+            main=plot(time,TaufTC(1:T, plotts.regime+1),time,TaufT0(1:T, plotts.regime+1), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+            if lgdind==1
+               lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' , 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           xlim([1, time(end)])
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/TAUFCO2_LevDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+    end
+end
+%% TAUF comparison with and without taul
+% compare effect of only taul in benchmark and in exogenous growth model
+
+if plotts.tauf_compTaul_BYregime==1
+    
+    fprintf('plott tauf needed for emission limit with and without taul ')
+    TaufTC=TAUFF('TaulCalib');  
+    TaufT0=TAUFF('Taul0');  
+    TaufDif=(TaufTC-TaufT0)./TaufT0.*100;
+    for lgdind=0
+            gcf=figure('Visible','off');
+            main=plot(time,TaufDif(1:T, plotts.regime+1), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+            if lgdind==1
+               lgd=legend( 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           xlim([1, time(end)])
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/TAUFCO2_PerDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+    end
+end
+%% effect of tauf single regime
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.perDif_notauf==1
+    
+    fprintf('plott effect tauf by policy regime')
+  
+
+        Cons=OTHERPOLL{plotts.regime+1};
+       
+        
+    for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
+        kk=string(k);
+        allvarsCons=Cons(kk);
+        if kk=='TaulCalib'
+            bench=Cons('BAU');
+        else
+            bench=Cons('LF');
+        end
+
+        perdif=(allvarsCons-bench)./bench*100;
+        
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,perdif(find(varlist==varr),1:T),'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'}  )  
+
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
+%% effect of tauf single regime
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.perDif_notauf_compTaul==1
+    
+    fprintf('plott effect tauf by policy regime')
+  
+
+        Cons=OTHERPOLL{plotts.regime+1};
+       
+        
+        allvarsConsTAUL=Cons('TaulCalib');
+        allvarsConsTAUL0=Cons('Taul0');
+
+        benchTAUL=Cons('BAU');
+        benchTAUL0=Cons('LF');
+
+        perdifCalib=(allvarsConsTAUL-benchTAUL)./benchTAUL*100;
+        perdif0=(allvarsConsTAUL0-benchTAUL0)./benchTAUL0*100;
+    for lgdind=0:1
+
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,perdifCalib(find(varlist==varr),1:T),time,perdif0(find(varlist==varr),1:T),'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k';grrey}  )  
+
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            if lgdind==1
+                   lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        
+    end
+    end
+    end
+
 %% effect of taul in model without xgr and with xgr
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compRed==1
@@ -207,17 +375,15 @@ if plotts.compRed==1
         LS=OTHERPOLL{4+1};
         Cons=OTHERPOLL{0+1};
         GS=OTHERPOLL{7+1};
-        NR=OTHERPOLL{2+1};
        
-    for k=keys(LS)
+    for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
         kk=string(k);
-        allvarsNR=NR(kk);
         allvarsCons=Cons(kk);
         allvarsGS=GS(kk);
         allvarsLS=LS(kk);
 
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="HH"%keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -225,12 +391,24 @@ if plotts.compRed==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
-                time,allvarsGS(find(varlist==varr),1:T), time, allvarsNR(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
-            if lgdind==1
-               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            if varr=="Emnet"
+                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
+                    time,allvarsGS(find(varlist==varr),1:T), time, Ems);   
+                set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; grrey; 'k'} , {'LineWidth'}, {1.1;1.1;1.1;0.8})  
+
+                if lgdind==1
+                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'net emissions limit',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+            else
+                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
+                time,allvarsGS(find(varlist==varr),1:T),'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-';'-.'; '--'}, {'color'}, {'k'; orrange; grrey}  )  
+
+                if lgdind==1
+                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
             end
             
            xticks(txx)
@@ -263,7 +441,7 @@ if plotts.compRed_noGS==1
         Cons=OTHERPOLL{0+1};
         NR=OTHERPOLL{2+1};
        
-    for k=keys(LS)
+    for k={'TaulCalib', 'Taul0'}%keys(LS)
         kk=string(k);
         allvarsNR=NR(kk);
         allvarsCons=Cons(kk);
@@ -313,7 +491,7 @@ end
 if plotts.compTaul_Red==1
     
     fprintf('plott comp taul by policy regime')
-   for reg=[0,2,4,7]
+   for reg=plotts.regime%[0,2,4,7]
         allvars=OTHERPOLL{reg+1};
         
         allvarsTaulCalib=allvars('TaulCalib');
@@ -327,14 +505,21 @@ if plotts.compTaul_Red==1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-
-            main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; orrange} )   
-            if lgdind==1
-               lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' ,  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            if varr=="Emnet"
+                main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T),time, Ems);   
+                set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; grrey; 'k'}, {'LineWidth'}, {1.1; 1.1; 0.8} )   
+                if lgdind==1
+                   lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$', 'net emission limit',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+            else
+                main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; grrey} )   
+                if lgdind==1
+                   lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' ,  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
             end
-            
            xticks(txx)
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
@@ -407,6 +592,5 @@ if plotts.compRed_TaulPer==1
         end
     end
     end
-end
 
 end     

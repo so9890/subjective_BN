@@ -40,7 +40,7 @@ nn= length(list.opt); % number of variables
 if indic.target==1
      
 %         helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,  5, indic.sep, indic.xgrowth, indic.PV, etaa));
-       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,1, indic.sep, indic.xgrowth, indic.PV, 1, 0, etaa));
+       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %      helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV,indic.GOV, etaa));
 
         opt_all=helper.opt_all;
@@ -70,13 +70,13 @@ kappaa = kappaa*(1-1e-10);
         x0(T*(find(list.opt=='G')-1)+1:T*(find(list.opt=='G')))     =opt_all(:,list.allvars=='G');   % G
         
    if indic.xgrowth==0
-        x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
+        x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))  =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
    end  
 elseif indic.target==0
 %         helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 5, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
-         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus, indic.noskill,1, indic.sep, indic.extern, indic.xgrowth, indic.PV, 1, 0, etaa));
+         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus, indic.noskill,5, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %          helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.GOV, etaa));
 
     opt_all=helper.opt_all;

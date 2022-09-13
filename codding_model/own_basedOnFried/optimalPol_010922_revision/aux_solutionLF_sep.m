@@ -83,9 +83,14 @@ end
 
 if indic.notaul<2 || ...
    indic.notaul == 6 % tauf redistributed via income tax
+if indic.noskill==0
     SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
         +tauf.*F;
+else
+    
+    SGov = (w.*h-lambdaa.*(w.*h).^(1-taul))+tauf.*F;
+end
     Tls =zeros(size(F));    
     GovCon =zeros(size(F));
     
@@ -148,7 +153,7 @@ Cincome=Y-xn-xf-xg-GovCon- GovRev;
 
 diff=C-Cincome;
 
-if max(abs(diff))>1e-7
+if max(abs(diff))>1e-6
     error('market clearing does not hold')
 else
     fprintf('goods market cleared!')
