@@ -1,4 +1,4 @@
-function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx]=get_params_Base( T, indic, lengthh)
+function [params, Sparams,  pol, init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM , indexx , StatsEms]=get_params_Base( T, indic, lengthh)
 
 % function to read in parameter values and to calibrate direct parameters
 % calls on calibration_matching and calibration_emissions 
@@ -130,7 +130,7 @@ MOM.GDP1519MILLION=101950887.298532; %sum GDP over 2015-2019 expressedn in 2019 
 
 
 %% - emissions
-[deltaa, Ems, MOM]= calibration_emissions(T, lengthh, MOM); 
+[deltaa, Ems, MOM, StatsEms]= calibration_emissions(T, lengthh, MOM); 
 % -omegaa follows in main calibration
 %% save directly calibrated variables
 parsHelp = eval(symms.paramsdir);

@@ -79,8 +79,8 @@ if isfile(sprintf('params_0209.mat'))
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
-    indic.notaul=0; indic.limit_LF=0;
-    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx]=get_params_Base( T, indic, lengthh);
+    indic.notaul=0; indic.limit_LF=0; indic.sizeequ=0; indic.taul0=0; indic.GOV=1; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.sep
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]=get_params_Base( T, indic, lengthh);
     save(sprintf('params_0209'))
 end
 if indic.spillovers==1
@@ -117,6 +117,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
+indic.noknow_spill=1; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
 
@@ -189,7 +190,7 @@ for nsk=0:1
 %         tauf_alt=tauf_CO2/x0LF(list.choice=='pf')*10.1554 *106.5850/100/0.07454;
     if ~(indic.tauff=="BAU" && indic.limit_LF==0)
         save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-        save(sprintf('TAUF_taulZero%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
+        save(sprintf('TAUF_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
     else
         save(sprintf('BAU_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
     end                
@@ -210,6 +211,7 @@ etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=1;
 plotts.regime=0;
+indic.sizeequ=0;
 indic
 
 % choose sort of plots to be plotted
@@ -220,14 +222,17 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0;
 plotts.perDif_notauf_compTaul   = 0;
 plotts.compRed                  = 0;
-plotts.compRed_noGS             = 0;
-plotts.compTaul_Red             = 1;
+plotts.LF_BAU                   = 0;
+plotts.LF_BAU_PER               = 1;
+plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
+
+plotts.compRed_noGS             = 0;
 
 for ee=0 % ==0 then uses benchmark
     indic.emsbase=ee;
         
-for ll=1
+for ll=0
     indic.limit_LF=ll;
        
     for xgr =0:1

@@ -9,7 +9,13 @@ guess_trans=guess;
 
 guess_trans(indexx.sqr)=sqrt(guess(indexx.sqr));
 guess_trans(indexx.exp)=log(guess(indexx.exp));
-guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab)*0.999)./(guess(indexx.lab)*0.999));
+
+if max(ismember(guess(indexx.lab), params(listt=='upbarH')))==1
+    guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab)*0.999)./(guess(indexx.lab)*0.999));
+else
+    guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab))./(guess(indexx.lab)));
+end
+
 guess_trans(indexx.oneab)=log((1-guess(indexx.oneab))./guess(indexx.oneab));
 
 
