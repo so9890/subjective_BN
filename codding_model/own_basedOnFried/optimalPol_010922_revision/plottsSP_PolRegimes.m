@@ -99,21 +99,68 @@ for nsk =0:1
             TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
         end
     end
+
 end
+end
+
+%- results with equal capital share
+
+for nsk =0:1
+    
+    indic.xgrowth=0; 
+    indic.noskill=nsk;
+   
+%- other results
+    for i=[0,1,2,3,4,5,7] % loop over policy versions
+        helper=load(sprintf('COMP_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_TaulC=helper.COMP';
+        helper=load(sprintf('COMP_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_Taul0=helper.COMP';
+%         helper=load(sprintf('TAUF_taulZero0_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
+%         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
+%         helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
+%         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
+        helper = load(sprintf('BAU_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        BAU = helper.COMP';
+        helper = load(sprintf('BAU_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        LF = helper.COMP';
+        RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
+        %- add additional variables
+        if xgr==0 && nsk==0
+            OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+        elseif xgr==0 && nsk==1
+            OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+        elseif xgr==1 && nsk==0
+            OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_xgr=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+        elseif xgr==1 && nsk==1
+            OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+        end
+    end
+
 end
 
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0
     OTHERPOLL= OTHERPOL;
+    OTHERPOLLEL = OTHERPOL_EQULab;
     TAUFF =TAUFS;
 elseif plotts.xgr ==1 && plotts.nsk==0
     OTHERPOLL= OTHERPOL_xgr;
+    OTHERPOLLEL = OTHERPOL_EQULab_xgr;
     TAUFF =TAUFS_xgr;
 elseif plotts.xgr ==0 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_nsk;
+    OTHERPOLLEL = OTHERPOL_EQULab_nsk;
     TAUFF =TAUFS_nsk;
 elseif plotts.xgr ==1 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_xgr_nsk;
+    OTHERPOLLEL = OTHERPOL_EQULab_xgr_nsk;    
     TAUFF =TAUFS_xgr_nsk;
 end
 

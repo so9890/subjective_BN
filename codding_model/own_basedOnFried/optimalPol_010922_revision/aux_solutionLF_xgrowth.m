@@ -69,28 +69,6 @@ pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
 pf=SLF.pf;
-%- params
-sigmaa = Sparams.sigmaa;
-chii = Sparams.chii;
-% sigmaas = Sparams.sigmaas;
-% chiis = Sparams.chiis;
-
-eppse = Sparams.eppse;
-eppsy = Sparams.eppsy;
-deltay= Sparams.deltay;
-thetaa = Sparams.thetaa;
-thetan = Sparams.thetan;
-thetag = Sparams.thetag;
-thetaf = Sparams.thetaf;
-rhof   = Sparams.rhof;
-rhon   = Sparams.rhon;
-rhog   = Sparams.rhog;
-zh     = Sparams.zh; 
-alphag=Sparams.alphag;
-alphaf=Sparams.alphaf;
-alphan=Sparams.alphan;
-deltaa =Sparams.deltaa;
-omegaa =Sparams.omegaa;
 
 % auxiliary variables 
 An=An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);

@@ -28,10 +28,15 @@ thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');
 thetag = params(list.params=='thetag');
 
-alphag = params(list.params=='alphag');
-alphaf = params(list.params=='alphaf');
-alphan = params(list.params=='alphan');
-
+if indic.labshareequ==0
+    alphag = params(list.params=='alphag');
+    alphaf = params(list.params=='alphaf');
+    alphan = params(list.params=='alphan');
+else
+    alphag = (params(list.params=='alphag')+params(list.params=='alphan')+params(list.params=='alphaf'))/3;
+    alphaf = alphag;
+    alphan = alphag; 
+end
 if indic.subs==0
     eppsy = params(list.params=='eppsy');
 else

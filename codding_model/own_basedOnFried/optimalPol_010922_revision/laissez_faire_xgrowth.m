@@ -14,7 +14,6 @@ read_in_pol;
 Af_lag=laggs(list.init=='Af0');
 An_lag=laggs(list.init=='An0');
 Ag_lag=laggs(list.init=='Ag0');
-
 % choice variables
 %- transform variables directly instead of in code
 if indic.noskill==0

@@ -63,6 +63,7 @@ indic.emsbase=1; % ==0 then uses emission limits as calculated
 indic.zero = 0;  % ==1 then version without growth
 indic.GOV=0; % ==0 then no gov revenues
 indic.taul0=1; %==0 then calibrated value for taul; ==1 then 0
+indic.labshareequ =1; %==1 then equal capital shares in fossil green and non-energy sectors
 indic
 
 percon = 0;  % periods nonconstrained before 50\% constrained
@@ -117,18 +118,21 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
+indic.labshareequ=0;
 indic.noknow_spill=1; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
-indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
+indic.tauff="SCC"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
+                   % => to get LF run with BAU and tata=1
+indic
 
-for tata=1
+for tata=0:1 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
-for GG=1
+for GG=0:1
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0
+for ff=0:1
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -145,7 +149,7 @@ if indic.limit_LF==0
     end
 end
 
-for ee=0
+for ee=0:1
     indic.emsbase=ee;
     if indic.emsbase==1
         Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
@@ -155,7 +159,7 @@ for ee=0
 % full model
 for nsk=0:1
     indic.noskill=nsk;
-    for xgr=0:1
+    for xgr=1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -188,16 +192,26 @@ for nsk=0:1
         tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton in 2019 prices
         TAUF(:,nnt+1)=tauf_perton2019*1.12; % to have it in 2022 prices
 %         tauf_alt=tauf_CO2/x0LF(list.choice=='pf')*10.1554 *106.5850/100/0.07454;
-    if ~(indic.tauff=="BAU" && indic.limit_LF==0)
-        save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-        save(sprintf('TAUF_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
-    else
-        save(sprintf('BAU_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-    end                
-        clearvars COMP pol FVAL
-    end
 
-end
+    %-- save stuff
+    if indic.labshareequ==0
+        if ~(indic.tauff=="BAU" && indic.limit_LF==0)
+            save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+            save(sprintf('TAUF_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
+        else
+            save(sprintf('BAU_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        end                
+    else % homogeneous labor shares
+        if ~(indic.tauff=="BAU" && indic.limit_LF==0)
+            save(sprintf('COMP_equLAb_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+            save(sprintf('TAUF_equLAb_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
+        else
+            save(sprintf('BAU_equLAb_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+        end     
+    end
+       clearvars COMP pol FVAL
+    end
+    end
 end
 end
 end
