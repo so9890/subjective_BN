@@ -117,14 +117,14 @@ upbS     = 0.01;
 taul    = 0.181;
 taus    = 0; 
 tauf    = 0; 
-GovRev    = 0.327937187350175; % as percentage of GDP, average from 2014-2019; from OECD data
+GovRev  = 0;% 0.327937187350175; % as percentage of GDP, average from 2014-2019; from OECD data
 
 %% - indirect calibration 
 %-- get moments
 MOM = calibration_moments();
 % MOM.S = 0.01; % from fried: Supply scientists in base year
 MOM.growth = (1.017795)^5 -1; %5 year grwoth rate from OECD over initial period
-MOM.Debt=GovRev;  % as share of GDP
+MOM.Debt=0; %GovRev;  % as share of GDP
 MOM.GDP1519MILLION=101950887.298532; %sum GDP over 2015-2019 expressedn in 2019 preisen
 %102140824.682949; %98280493; 
 

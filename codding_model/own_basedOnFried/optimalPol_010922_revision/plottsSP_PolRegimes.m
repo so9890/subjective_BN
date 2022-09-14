@@ -62,90 +62,63 @@ TAUFS_xgr={};
 TAUFS_nsk={};
 TAUFS_xgr_nsk={};
 % baseline results 
+for lablab =0:1 % with equal and non-equal labor supply
 for xgr=0:1
 for nsk =0:1
     indic.xgrowth=xgr;
     indic.noskill=nsk;
-   
 %- other results
-    for i=[0,1,2,3,4,5,7] % loop over policy versions
-        helper=load(sprintf('COMP_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+    for i=[0,5] % loop over policy versions
+        helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
         all_TaulC=helper.COMP';
-        helper=load(sprintf('COMP_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
         all_Taul0=helper.COMP';
-        helper=load(sprintf('TAUF_taulZero0_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
+        helper=load(sprintf('TAUF_1409_taulZero0_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',...
+            indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV), 'TAUF');
         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
-        helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
+        helper=load(sprintf('TAUF_1409_taulZero1_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',...
+           indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV), 'TAUF');
         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
-        helper = load(sprintf('BAU_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
         BAU = helper.COMP';
-        helper = load(sprintf('BAU_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', ...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', ...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, indic.notaul, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
         LF = helper.COMP';
         RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
         %- add additional variables
-        if xgr==0 && nsk==0
-            OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
-        elseif xgr==0 && nsk==1
-            OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
-        elseif xgr==1 && nsk==0
-            OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_xgr=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
-        elseif xgr==1 && nsk==1
-            OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+        if lablab ==0
+            if xgr==0 && nsk==0
+                OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                TAUFS=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+            elseif xgr==0 && nsk==1
+                OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                TAUFS_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+            elseif xgr==1 && nsk==0
+                OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                TAUFS_xgr=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+            elseif xgr==1 && nsk==1
+                OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+            end
+        else
+            if nsk==0 && xgr ==0
+                OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            elseif nsk==1 && xgr ==0
+                OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+             elseif xgr==1 && nsk==0
+                 OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            elseif xgr==1 && nsk==1
+                OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            end
+
         end
     end
 
 end
 end
-
-%- results with equal capital share
-
-for nsk =0:1
-    indic.noskill=nsk;
-   for xgr=0:1
-       indic.xgrowth=xgr; 
-        if xgr==1 && nsk==0
-            nsk=1;
-            indic.noskill=nsk;
-        end
-    for i=plotts.regime %[0,1,2,3,4,5,7] % loop over policy versions
-        helper=load(sprintf('COMP_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit0_Emsalt0_countec0_GovRev1_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,  etaa));
-        all_TaulC=helper.COMP';
-        helper=load(sprintf('COMP_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit0_Emsalt0_countec0_GovRev1_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,  etaa));
-        all_Taul0=helper.COMP';
-%         helper=load(sprintf('TAUF_taulZero0_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
-%         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
-%         helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
-%         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
-        helper = load(sprintf('BAU_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec0_GovRev1_etaa%.2f.mat', ...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,i, params(list.params=='etaa')) );
-        BAU = helper.COMP';
-        helper = load(sprintf('BAU_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec0_GovRev1_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,i,  params(list.params=='etaa')));
-        LF = helper.COMP';
-        RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
-        %- add additional variables
-        if nsk==0 && xgr ==0
-            OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-        elseif nsk==1 && xgr ==0
-            OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-%         elseif xgr==1 && nsk==0
-%             OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-        elseif xgr==1 && nsk==1
-            OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-        end
-    end
-
-   end
 end
 
 %% Pick main policy version for plots
@@ -155,7 +128,7 @@ if plotts.xgr ==0 && plotts.nsk==0
     TAUFF =TAUFS;
 elseif plotts.xgr ==1 && plotts.nsk==0
     OTHERPOLL= OTHERPOL_xgr;
-%     OTHERPOLLEL =  OTHERPO_EQULabL_xgr;
+    OTHERPOLLEL =  OTHERPO_EQULabL_xgr;
     TAUFF =TAUFS_xgr;
 elseif plotts.xgr ==0 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_nsk;
@@ -214,7 +187,7 @@ if plotts.tauf_comp==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/TAUFCO2_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date,kk, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap,indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/TAUFCO2_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date,kk, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap,indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -244,7 +217,7 @@ if plotts.tauf_compTaul==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/TAUFCO2_PerDifTAUL_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/TAUFCO2_PerDifTAUL_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -273,7 +246,7 @@ if plotts.tauf_comp_Byregime==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/TAUFCO2_LevDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/TAUFCO2_LevDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -303,7 +276,7 @@ if plotts.tauf_compTaul_BYregime==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/TAUFCO2_PerDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/TAUFCO2_PerDifTAUL_regime%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -580,7 +553,7 @@ if plotts.LF_BAU==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompTaul_LFBAU_Reg%d_%s_spillover%d_nsk%d_xgr%d_sep%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep, indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/CompTaul_LFBAU_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep, indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -626,7 +599,7 @@ if plotts.LF_BAU_PER==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompTaul_LFBAUPer_Reg%d_%s_spillover%d_nsk%d_xgr%d_sep%d_countec%d_GovRev%d_etaa%.2f.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep, indic.count_techgap, indic.GOV,  etaa);
+            path=sprintf('figures/all_%s/CompTaul_LFBAUPer_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_countec%d_GovRev%d_etaa%.2f.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep, indic.count_techgap, indic.GOV,  etaa);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

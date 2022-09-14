@@ -1,4 +1,4 @@
-function f=laissez_faireVECT_xgrowth(x, params, list, varrs, laggs,T, indic)
+function f=laissez_faireVECT_xgrowth(x, params, list, varrs, laggs,T, indic, MOM)
 
 % called by script 'test_results.m'
 % takes optimal policy results as input
@@ -58,59 +58,71 @@ end
 
 %% - read in auxiliary equations
 %- initial condition
+% 
+% Af_lag=laggs(list.init=='Af0');
+% An_lag=laggs(list.init=='An0');
+% Ag_lag=laggs(list.init=='Ag0');
+% 
+% Af=zeros(size(pf));
+% Ag=zeros(size(pf));
+% An=zeros(size(pf));
+% 
+% for i=1:T
+%     An(i)=(1+vn)*An_lag;
+%     Ag(i)=(1+vg)*Ag_lag;
+%     Af(i)=(1+vf)*Af_lag;
+%     - update laggs
+%     An_lag=An(i);
+%     Af_lag=Af(i);
+%     Ag_lag=Ag(i);
+% end
+% 
+sn=MOM.targethour;
+sff=MOM.targethour;
+sg=MOM.targethour;
 
-Af_lag=laggs(list.init=='Af0');
-An_lag=laggs(list.init=='An0');
-Ag_lag=laggs(list.init=='Ag0');
-
-Af=zeros(size(pf));
-Ag=zeros(size(pf));
-An=zeros(size(pf));
-
-for i=1:T
-    An(i)=(1+vn)*An_lag;
-    Ag(i)=(1+vg)*Ag_lag;
-    Af(i)=(1+vf)*Af_lag;
-    %- update laggs
-    An_lag=An(i);
-    Af_lag=Af(i);
-    Ag_lag=Ag(i);
-end
+An=An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
+Af=Af_lag.*(1+gammaa.*(sff./rhof).^etaa*(A_lag./Af_lag).^phii);
+Ag=Ag_lag.*(1+gammaa.*(sg./rhog).^etaa*(A_lag./Ag_lag).^phii);
+ 
 
 if indic.noskill==0
     Lg      = hhg.^thetag.*hlg.^(1-thetag);
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
-    
-    if indic.notaul<2 % tauf redistributed via income tax
-        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
-
-    end
 else
-    if indic.notaul<2
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-            +tauf.*pf.*F;
-    else
-        SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-
-    end
+    hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
 end
-% gov con
-        if 2<=indic.notaul && indic.notaul <4
-            GovCon = tauf.*pf.*F;
-        else
-            GovCon =zeros(size(F));
-        end
-% lump sum transfers
-if indic.notaul >=4
-    Tls =tauf.*pf.*F;
-else
-    Tls =zeros(size(F));
+
+if indic.notaul<2 || ...
+   indic.notaul == 6 % tauf redistributed via income tax
+    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +tauf.*F;
+    Tls =zeros(size(F));    
+    GovCon =zeros(size(F));
+
+elseif indic.notaul == 2 ||...
+        indic.notaul==3 %2,3,4,5,7
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon = tauf.*F; % GovCon = env tax consumed by government
+    Tls =zeros(size(F));    
+elseif indic.notaul == 4 || indic.notaul ==5
+    if indic.noskill==0
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    else
+        SGov = w.*h-lambdaa.*(w.*h).^(1-taul);
+    end
+    GovCon =zeros(size(F));
+    Tls  = tauf.*F;
+elseif indic.notaul == 7 % earmarking
+    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    GovCon =zeros(size(F));
+    Tls =zeros(size(F));    
+    taus = tauf.*F./(pg.*G); % subsidy on green sector
 end
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
@@ -140,13 +152,13 @@ if indic.noskill==0
     f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
     %3- budget
     q=q+1;
-    f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+SGov+Tls-C; %=> determines C
+    f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C; %=> determines C
 else
     q=q+1;
     f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
    %3- budget
     q=q+1;
-    f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+SGov+Tls-C; %=> determines C
+    f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
 
 end
 %4- output fossil

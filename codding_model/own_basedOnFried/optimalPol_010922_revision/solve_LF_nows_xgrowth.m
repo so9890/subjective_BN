@@ -1,4 +1,4 @@
-function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall, MOM, Ems)
+function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params,   symms, x0LF, init, indexx, indic, Sall, MOM, Ems)
 % simulate economy under laissez faire
 
 % input: 
@@ -158,10 +158,10 @@ options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxF
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        [LF_SIM(:,t-1), An0, Ag0,Af0] =aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
+        [LF_SIM(:,t-1), An0, Ag0,Af0] =aux_solutionLF_xgrowth( SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
         FVAL(t-1)=max(abs(fval));
     else
-        [~, An0, Ag0,Af0] =aux_solutionLF_xgrowth(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
+        [~, An0, Ag0,Af0] =aux_solutionLF_xgrowth( SLF, pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim);
     end
     %% - update for next round
     x0 = LF; % initial guess

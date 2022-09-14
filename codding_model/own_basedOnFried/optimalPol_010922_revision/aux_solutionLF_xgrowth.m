@@ -1,4 +1,4 @@
-function [LF_t, An, Ag,Af]=aux_solutionLF_xgrowth(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim)
+function [LF_t, An, Ag,Af]=aux_solutionLF_xgrowth( SLF,pol, laggs, list, symms, indexx, params, indic, MOM,t,Emlim)
 
 % output
 % LF_t: column vector of simulated variables in period t
@@ -60,9 +60,6 @@ sg=MOM.targethour;
 
 S=sn+sg+sff; %zeros(size(gammalh));
 ws=zeros(size(gammalh));
-wsg=ws;
-wsn=ws;
-wsf=ws; 
 gammasg=ws; gammasn=ws; gammasf=ws;
 
 pg=SLF.pg;
@@ -119,6 +116,10 @@ xn = SLF.pn*alphan*N;
 xg = SLF.pg*(1+taus)*alphag*SLF.G;
 xf = SLF.pf*alphaf*SLF.F;
 
+wsf = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+wsg = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+wsn = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
@@ -145,7 +146,7 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-Cincome=Y-xn-xf-xg-GovCon- GovRev;
+Cincome=Y-xn-xf-xg-GovCon- SGov;
 
 if abs(C-Cincome)>1e-6
     error('market clearing does not hold')

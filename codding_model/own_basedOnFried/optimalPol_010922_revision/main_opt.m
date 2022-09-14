@@ -80,7 +80,7 @@ if isfile(sprintf('params_0209.mat'))
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
-    indic.notaul=0; indic.limit_LF=0; indic.sizeequ=0; indic.taul0=0; indic.GOV=1; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.sep
+    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=1; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.sep
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]=get_params_Base( T, indic, lengthh);
     save(sprintf('params_0209'))
 end
@@ -118,16 +118,21 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
-indic.labshareequ=1;
-indic.noknow_spill=1; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
+% indic.labshareequ=1;
+% indic.noknow_spill=0; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
-indic.tauff="SCC"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
+% indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
                    % => to get LF run with BAU and tata=1
 indic
-
-for tata=1 % ==0 then uses calibrated taul
+for lablab =0:1
+    indic.labshareequ=lablab;
+for nknk =0:1
+    indic.noknow_spill=nknk; 
+for bb =["BAU", "SCC"]
+    indic.tauff=bb;
+for tata=0:1 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
-for GG=1
+for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
@@ -157,33 +162,33 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=1
+for nsk=0:1
     indic.noskill=nsk;
-    for xgr=1
+    for xgr=0:1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=0%[0,1,2,3,4,5,7]
+    for nnt=[0,5]
         indic.notaul=nnt;
 
         if xgr==0
             if indic.count_techgap==0
-                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems_alt);
+                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params, symms, x0LF, init201014, indexx, indic, Sall, Ems_alt);
                 helper.LF_SIM=LF_SIM;
-                [COMP]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems_alt);
+                [COMP]=solve_LF_VECT(T, list,  params,symms, init201519, helper, indic, Ems_alt, MOM);
             else
                 iin=load('init_techgap.mat');
-                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall, Ems_alt);
+                [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, POL, params,   symms, x0LF, iin.initcount, indexx, indic, Sall, Ems_alt);
                  helper.LF_SIM=LF_SIM;
-                [COMP]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic, Ems_alt);
+                [COMP]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic, Ems_alt, MOM);
             end
         else   
             if indic.count_techgap==0
-               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems_alt);
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems_alt);
             else
                 iin=load('init_techgap.mat');
-               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params, Sparams,  symms, x0LF,iin.initcount, indexx, indic, Sall, MOM, Ems_alt);
+               [COMP, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, POL, params,  symms, x0LF,iin.initcount, indexx, indic, Sall, MOM, Ems_alt);
             end
         end
         % umrechnung tauf in per ton of carbon in 2014-19 us dollars
@@ -194,24 +199,19 @@ for nsk=1
 %         tauf_alt=tauf_CO2/x0LF(list.choice=='pf')*10.1554 *106.5850/100/0.07454;
 
     %-- save stuff
-    if indic.labshareequ==0
         if ~(indic.tauff=="BAU" && indic.limit_LF==0)
-            save(sprintf('COMP_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-            save(sprintf('TAUF_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
+            save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV), 'TAUF')
         else
-            save(sprintf('BAU_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
+            save(sprintf('BAU_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ,  indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
         end                
-    else % homogeneous labor shares
-        if ~(indic.tauff=="BAU" && indic.limit_LF==0)
-            save(sprintf('COMP_equLAb_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-            save(sprintf('TAUF_equLAb_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF')
-        else
-            save(sprintf('BAU_equLAb_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams')
-        end     
-    end
+
        clearvars COMP pol FVAL
     end
     end
+end
+end
+end
 end
 end
 end
@@ -223,7 +223,7 @@ end
 %% plotts policy regimes comparison
 etaa=params(list.params=='etaa');
 weightext=0.01;
-indic.GOV=1;
+indic.GOV=0;
 plotts.regime=0;
 indic.sizeequ=0;
 indic.noknow_spill=1;
@@ -237,10 +237,10 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0;
 plotts.perDif_notauf_compTaul   = 0;
 plotts.compRed                  = 0;
-plotts.LF_BAU                   = 0;
-plotts.LF_BAU_PER               = 0;
-plotts.LF_BAU_equlab            = 1;
-plotts.LF_BAU_PER_equlab        = 1;
+plotts.LF_BAU                   = 1;
+plotts.LF_BAU_PER               = 1;
+plotts.LF_BAU_equlab            = 0;
+plotts.LF_BAU_PER_equlab        = 0;
 
 
 plotts.compTaul_Red             = 0;
@@ -255,7 +255,7 @@ for ll=0
     indic.limit_LF=ll;
        
     for xgr =0:1
-        for nsk=1
+        for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     plotts

@@ -16,7 +16,7 @@ pg=trProd(list.prod=='pg');
 % omegaa = trProd(list.prod=='omegaa');
 deltay = trProd(list.prod=='deltay');
 
-Y = MOM.Y;
+Y   = MOM.Y;
 pf  = MOM.FG^(-1/eppse)*pg- tauf; % optimality energy
 pee  = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse)); 
 E   = MOM.EpeY*Y/pee; 

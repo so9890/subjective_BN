@@ -1,4 +1,4 @@
-function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic, Ems)
+function [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic, Ems, MOM)
 %test OPT policy result without target in competitive equilibrium
 read_in_params;
 
@@ -123,7 +123,7 @@ objf=@(x)objectiveCALIBSCI(x);
             constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
         end
     else
-        constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic);
+        constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic, MOM);
     end
 
     if indic.xgrowth==0 && indic.noskill==1

@@ -1,4 +1,4 @@
-function [LF_SIM, poll, FVAL, indexx] = solve_LF_nows(T, list, poll, params, Sparams,  symms, x0LF, init, indexx, indic, Sall, Ems)
+function [LF_SIM, poll, FVAL, indexx] = solve_LF_nows(T, list, poll, params, symms, x0LF, init, indexx, indic, Sall, Ems)
 % simulate economy under laissez faire
 indic.xgrowth=0;
 indic.ineq=0;
@@ -116,8 +116,12 @@ while t<=T+1 % because first iteration is base year
      else
          constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic, Emlim, t);
      end
-options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-[sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
+     if indic.labshareequ==0
+        options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+     else
+        options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+     end
+    [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
 %[c,fval]=constrf(sol3);
 % 
 %- other solvers
@@ -134,7 +138,7 @@ options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFu
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
 % if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
-if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 )
+if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 ) &&  (indic.labshareequ==1&& indic.GOV==0 && indic.noknow_spill==0 )
      options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
      [sol3, fval, exitf] = fsolve(modFF, sol2, options);
 else
@@ -160,9 +164,9 @@ end
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
         if indic.sep==0
-            LF_SIM(:,t-1)=aux_solutionLF(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic);
+            LF_SIM(:,t-1)=aux_solutionLF( SLF, pol, laggs, list, symms, indexx, params, indic);
         else
-            LF_SIM(:,t-1)=aux_solutionLF_sep(Sparams, SLF, pol, laggs, list, symms, indexx, params, indic, Emlim, t);
+            LF_SIM(:,t-1)=aux_solutionLF_sep( SLF, pol, laggs, list, symms, indexx, params, indic, Emlim, t);
         end
         FVAL(t-1)=max(abs(fval));
     end

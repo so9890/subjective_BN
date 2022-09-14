@@ -1,4 +1,4 @@
-function LF_t=aux_solutionLF_sep(Sparams, SLF,pol, laggs, list, symms, indexx, params, indic, Emlim, t)
+function LF_t=aux_solutionLF_sep( SLF,pol, laggs, list, symms, indexx, params, indic, Emlim, t)
 
 % output
 % LF_t: column vector of simulated variables in period t
@@ -149,7 +149,8 @@ end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
-Cincome=Y-xn-xf-xg-GovCon- GovRev;
+
+Cincome=Y-xn-xf-xg-GovCon- SGov;
 
 diff=C-Cincome;
 

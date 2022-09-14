@@ -296,8 +296,12 @@ f(q)= gammasn.*(upbarH-sn);
 
 % balanced budget government
 q=q+1;
-f(q)= SGov-GovRev;
-
+f(q)= SGov-GovRev*Y;
+% if indic.noskill==0
+%     f(q)= SGov-GovRev*(wh.*hh+wl.*hl);
+% else
+%     f(q)= SGov-GovRev*(w.*h);
+% end
 %- if emission limit determines tauf
 if indic.limit_LF==1
 q=q+1;

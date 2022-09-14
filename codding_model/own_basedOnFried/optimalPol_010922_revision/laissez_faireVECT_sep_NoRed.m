@@ -282,7 +282,7 @@ end
 
 % income schedule budget clearing
 q=q+1;
-f((q-1)*T+1:T*q)= SGov-GovRev; % match gov revenues from calibration 
+f((q-1)*T+1:T*q)= SGov-GovRev*Y; % match gov revenues from calibration 
 
 % emisson limit 
 if indic.limit_LF==1
