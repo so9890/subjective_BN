@@ -118,21 +118,21 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
-indic.labshareequ=0;
+indic.labshareequ=1;
 indic.noknow_spill=1; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 indic.tauff="SCC"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
                    % => to get LF run with BAU and tata=1
 indic
 
-for tata=0:1 % ==0 then uses calibrated taul
+for tata=1 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
-for GG=0:1
+for GG=1
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0:1
+for ff=0
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -149,7 +149,7 @@ if indic.limit_LF==0
     end
 end
 
-for ee=0:1
+for ee=0
     indic.emsbase=ee;
     if indic.emsbase==1
         Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
@@ -157,14 +157,14 @@ for ee=0:1
         Ems_alt=Ems;
     end
 % full model
-for nsk=0:1
+for nsk=1
     indic.noskill=nsk;
     for xgr=1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[0,1,2,3,4,5,7]
+    for nnt=0%[0,1,2,3,4,5,7]
         indic.notaul=nnt;
 
         if xgr==0
@@ -226,6 +226,7 @@ weightext=0.01;
 indic.GOV=1;
 plotts.regime=0;
 indic.sizeequ=0;
+indic.noknow_spill=1;
 indic
 
 % choose sort of plots to be plotted
@@ -237,7 +238,11 @@ plotts.perDif_notauf            = 0;
 plotts.perDif_notauf_compTaul   = 0;
 plotts.compRed                  = 0;
 plotts.LF_BAU                   = 0;
-plotts.LF_BAU_PER               = 1;
+plotts.LF_BAU_PER               = 0;
+plotts.LF_BAU_equlab            = 1;
+plotts.LF_BAU_PER_equlab        = 1;
+
+
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
@@ -250,7 +255,7 @@ for ll=0
     indic.limit_LF=ll;
        
     for xgr =0:1
-        for nsk=0:1
+        for nsk=1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     plotts

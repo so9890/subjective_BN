@@ -79,9 +79,11 @@ for nsk =0:1
         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
         helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
-        helper = load(sprintf('BAU_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
         BAU = helper.COMP';
-        helper = load(sprintf('BAU_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', ...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
         LF = helper.COMP';
         RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
         %- add additional variables
@@ -106,43 +108,44 @@ end
 %- results with equal capital share
 
 for nsk =0:1
-    
-    indic.xgrowth=0; 
     indic.noskill=nsk;
-   
-%- other results
-    for i=[0,1,2,3,4,5,7] % loop over policy versions
-        helper=load(sprintf('COMP_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+   for xgr=0:1
+       indic.xgrowth=xgr; 
+        if xgr==1 && nsk==0
+            nsk=1;
+            indic.noskill=nsk;
+        end
+    for i=plotts.regime %[0,1,2,3,4,5,7] % loop over policy versions
+        helper=load(sprintf('COMP_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit0_Emsalt0_countec0_GovRev1_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,  etaa));
         all_TaulC=helper.COMP';
-        helper=load(sprintf('COMP_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        helper=load(sprintf('COMP_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_emlimit0_Emsalt0_countec0_GovRev1_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, i,  etaa));
         all_Taul0=helper.COMP';
 %         helper=load(sprintf('TAUF_taulZero0_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
 %         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
 %         helper=load(sprintf('TAUF_taulZero1_limit%d_EmsBase%d_xgr%d_nsk%d_countec%d_GovRev%d',  indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill, indic.count_techgap, indic.GOV), 'TAUF');
 %         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
-        helper = load(sprintf('BAU_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_equLAb_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec0_GovRev1_etaa%.2f.mat', ...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,i, params(list.params=='etaa')) );
         BAU = helper.COMP';
-        helper = load(sprintf('BAU_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec%d_GovRev1_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.notaul, indic.count_techgap,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019', 'Sparams');
+        helper = load(sprintf('BAU_equLAb_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_sep%d_notaul%d_countec0_GovRev1_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,i,  params(list.params=='etaa')));
         LF = helper.COMP';
         RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
         %- add additional variables
-        if xgr==0 && nsk==0
+        if nsk==0 && xgr ==0
             OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
-        elseif xgr==0 && nsk==1
+        elseif nsk==1 && xgr ==0
             OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
-        elseif xgr==1 && nsk==0
-            OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_xgr=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
+%         elseif xgr==1 && nsk==0
+%             OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
         elseif xgr==1 && nsk==1
             OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
-            TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
         end
     end
 
+   end
 end
 
 %% Pick main policy version for plots
@@ -152,7 +155,7 @@ if plotts.xgr ==0 && plotts.nsk==0
     TAUFF =TAUFS;
 elseif plotts.xgr ==1 && plotts.nsk==0
     OTHERPOLL= OTHERPOL_xgr;
-    OTHERPOLLEL = OTHERPOL_EQULab_xgr;
+%     OTHERPOLLEL =  OTHERPO_EQULabL_xgr;
     TAUFF =TAUFS_xgr;
 elseif plotts.xgr ==0 && plotts.nsk==1
     OTHERPOLL= OTHERPOL_nsk;
@@ -413,7 +416,7 @@ if plotts.perDif_notauf_compTaul==1
     end
     end
 
-%% effect of taul in model without xgr and with xgr
+%% effect of redistribution regime
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compRed==1
     
@@ -478,7 +481,7 @@ if plotts.compRed==1
     end
     end
 end
-%% Allocation taul by policy regime
+%% Effect Allocation taul by policy regime
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compTaul_Red==1
     
@@ -633,7 +636,112 @@ if plotts.LF_BAU_PER==1
     end
 end
 
+%% LF and BAU by policy regime
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.LF_BAU_equlab==1
+    
+    fprintf('plott comp taul LF and BAU')
+   for reg=plotts.regime%[0,2,4,7]
+        allvars=OTHERPOLLEL{reg+1};
+        
+        allvarsBAU=allvars('BAU');
+        allvarsLF=allvars('LF');
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
 
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            if varr=="Emnet"
+                main=plot(time,allvarsBAU(find(varlist==varr),1:T), time, allvarsLF(find(varlist==varr),1:T),time, Ems);   
+                set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; grrey; 'k'}, {'LineWidth'}, {1.1; 1.1; 0.8} )   
+                if lgdind==1
+                   lgd=legend('BAU, $\tau_{\iota}=0.181$', 'Laissez-faire, $\tau_{\iota}=0$', 'net emission limit',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+            else
+                main=plot(time,allvarsBAU(find(varlist==varr),1:T), time, allvarsLF(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; grrey} )   
+                if lgdind==1
+                   lgd=legend('BAU, $\tau_{\iota}=0.181$', 'Laissez-faire, $\tau_{\iota}=0$',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+            end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CompTaul_Equlab_LFBAU_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep, indic.count_techgap, indic.GOV,  etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+    end
+end
+%% LF and BAU by policy regime
+% compare effect of only taul in benchmark and in exogenous growth model
+if plotts.LF_BAU_PER_equlab==1
+    
+    fprintf('plott comp taul LF and BAU')
+   for reg=plotts.regime%[0,2,4,7]
+        allvars=OTHERPOLLEL{reg+1};
+        
+        allvarsBAU=allvars('BAU');
+        allvarsLF=allvars('LF');
+        Perdif = (allvarsBAU-allvarsLF)./allvarsLF*100;
+        
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+                
+            main=plot(time,Perdif(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+%             if lgdind==1
+%                lgd=legend('BAU, $\tau_{\iota}=0.181$', 'Laissez-faire, $\tau_{\iota}=0$',  'Interpreter', 'latex');
+%                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+%             end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CompTaul_Equlab_LFBAUPer_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_countec%d_GovRev%d_etaa%.2f.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill,    indic.sep, indic.count_techgap, indic.GOV,  etaa);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+ 
+    end
+end
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Below not yet updated
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% effect of taul in model percentage deviation
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compRed_TaulPer==1
