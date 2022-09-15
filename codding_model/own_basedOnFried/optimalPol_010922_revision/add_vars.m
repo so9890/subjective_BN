@@ -33,7 +33,10 @@ for k = keys(RES)
     Y = varrs(varlist=='Y',:)';
     tauf = varrs(varlist=='tauf',:)';
     pf = varrs(varlist=='pf',:)';
-    
+    pee = varrs(varlist=='pee',:)';
+    pg = varrs(varlist=='pg',:)';
+    pn = varrs(varlist=='pn',:)';
+
 % welfare measures
 
 if thetaa~=1
@@ -70,7 +73,8 @@ end
 GFF = G./F;
 EY= E./Y;
 LgLf = Lg./Lf;
-
+pgpftf =pg./(pf+tauf);
+pepn = pee./pn;
 CY = C./Y;
 hhhl = hh./hl;
 whwl = wh./wl;

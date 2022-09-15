@@ -226,7 +226,7 @@ weightext=0.01;
 indic.GOV=0;
 plotts.regime=0;
 indic.sizeequ=0;
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic
 
 % choose sort of plots to be plotted
@@ -239,8 +239,8 @@ plotts.perDif_notauf_compTaul   = 0;
 plotts.compRed                  = 0;
 plotts.LF_BAU                   = 1;
 plotts.LF_BAU_PER               = 1;
-plotts.LF_BAU_equlab            = 0;
-plotts.LF_BAU_PER_equlab        = 0;
+plotts.LF_BAU_equlab            = 1;
+plotts.LF_BAU_PER_equlab        = 1;
 
 
 plotts.compTaul_Red             = 0;
