@@ -63,6 +63,7 @@ TAUFS_nsk={};
 TAUFS_xgr_nsk={};
 % baseline results 
 for lablab =0:1 % with equal and non-equal labor supply
+    indic.labshareequ=lablab; % relevant for additional variables
 for xgr=0:1
 for nsk =0:1
     indic.xgrowth=xgr;
@@ -325,7 +326,7 @@ if plotts.perDif_notauf==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
+            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -335,7 +336,6 @@ if plotts.perDif_notauf==1
 end
 
 %% effect of tauf single regime
-% compare effect of only taul in benchmark and in exogenous growth model
 if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by policy regime')
@@ -379,7 +379,7 @@ if plotts.perDif_notauf_compTaul==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -390,7 +390,6 @@ if plotts.perDif_notauf_compTaul==1
     end
 
 %% effect of redistribution regime
-% compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compRed==1
     
     fprintf('plott comp policy regimes')

@@ -235,13 +235,12 @@ plotts.tauf_comp_Byregime       = 0;
 plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0;
-plotts.perDif_notauf_compTaul   = 0;
+plotts.perDif_notauf_compTaul   = 1;
 plotts.compRed                  = 0;
-plotts.LF_BAU                   = 1;
-plotts.LF_BAU_PER               = 1;
-plotts.LF_BAU_equlab            = 1;
-plotts.LF_BAU_PER_equlab        = 1;
-
+plotts.LF_BAU                   = 0;
+plotts.LF_BAU_PER               = 0;
+plotts.LF_BAU_equlab            = 0;
+plotts.LF_BAU_PER_equlab        = 0;
 
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
