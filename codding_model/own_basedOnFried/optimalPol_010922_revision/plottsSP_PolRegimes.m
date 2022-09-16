@@ -62,7 +62,7 @@ TAUFS_xgr={};
 TAUFS_nsk={};
 TAUFS_xgr_nsk={};
 % baseline results 
-for lablab =0:1 % with equal and non-equal labor supply
+for lablab =0:1 % with equal and non-equal labor supply % MAKE sure this parameter is not used anymore further down
     indic.labshareequ=lablab; % relevant for additional variables
 for xgr=0:1
 for nsk =0:1
@@ -453,7 +453,7 @@ if plotts.compRed==1
     end
     end
 end
-%% Effect Allocation taul by policy regime
+%% Effect Allocation taul
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.compTaul_Red==1
     
