@@ -229,7 +229,6 @@ weightext=0.01;
 indic.GOV=0;
 plotts.regime=0;
 indic.sizeequ=0;
-indic.noknow_spill=0;
 indic
 
 % choose sort of plots to be plotted
@@ -237,35 +236,44 @@ plotts.tauf_comp                = 0;
 plotts.tauf_comp_Byregime       = 0;
 plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
-plotts.perDif_notauf            = 0;
-plotts.perDif_notauf_compTaul   = 1;
-plotts.compRed                  = 0;
+%- allocations with and without tauf 
+plotts.perDif_notauf            = 0; %
+plotts.perDif_notauf_compTaul   = 0;
+plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
+plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
+
+%- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
 plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
+%- comparison policy regime
+plotts.compRed                  = 0;
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
 plotts.compRed_noGS             = 0;
 
-for ee=0 % ==0 then uses benchmark
+for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=0
+for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-       
-    for xgr =0:1
-        for nsk=0:1
+for nknk=1 % nowledge spillovers
+    for xgr =1
+        for nsk=1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
+    indic.noknow_spill=nknk;
+
     plotts
     %%
     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
     %plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
         end
     end
+end
 end
 end
 

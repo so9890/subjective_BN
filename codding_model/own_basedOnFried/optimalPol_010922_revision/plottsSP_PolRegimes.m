@@ -283,17 +283,21 @@ if plotts.tauf_compTaul_BYregime==1
         close gcf
     end
 end
-%% effect of tauf single regime
-% compare effect of only taul in benchmark and in exogenous growth model
-if plotts.perDif_notauf==1
-    
-    fprintf('plott effect tauf by policy regime')
-  
 
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Effect of tauf allocation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% effect of tauf percent
+if plotts.perDif_notauf==1
+       fprintf('plott effect tauf percent')
+ for lablab =0:1
+     if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
-       
-        
-    for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
+     else
+         Cons=OTHERPOLLEL{plotts.regime+1};
+     end
+    for k={'TaulCalib', 'Taul0'}% keys are with and without taul
         kk=string(k);
         allvarsCons=Cons(kk);
         if kk=='TaulCalib'
@@ -326,24 +330,28 @@ if plotts.perDif_notauf==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
-    
+            if lablab ==0
+                path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
+            else
+                path=sprintf('figures/all_%s/PerdifNoTauf_Equlab_regime%d_%s_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f.png',date, plotts.regime, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa);
+            end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
     end
     end
 end
-
-%% effect of tauf single regime
+end
+%% effect of tauf by taul in percent
 if plotts.perDif_notauf_compTaul==1
     
-    fprintf('plott effect tauf by policy regime')
-  
-
+    fprintf('plott effect tauf by taul')
+for lablab =0:1
+    if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
-       
-        
+    else
+        Cons=OTHERPOLLEL{plotts.regime+1};
+    end
         allvarsConsTAUL=Cons('TaulCalib');
         allvarsConsTAUL0=Cons('Taul0');
 
@@ -379,33 +387,43 @@ if plotts.perDif_notauf_compTaul==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
-    
+            if lablab ==0
+                path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            else
+                path=sprintf('figures/all_%s/PerdifNoTauf_Equlab_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         
     end
     end
-    end
+end
+end
 
-%% effect of redistribution regime
-if plotts.compRed==1
-    
-    fprintf('plott comp policy regimes')
-  
-        LS=OTHERPOLL{4+1};
-        Cons=OTHERPOLL{0+1};
-        GS=OTHERPOLL{7+1};
-       
-    for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
+%% effect of tauf in levels
+
+if plotts.tauf_notauf==1
+for lablab=0:1    
+    fprintf('plott effect tauf in levels')
+
+    if lablab==0
+        Cons=OTHERPOLL{plotts.regime+1};
+    else
+        Cons=OTHERPOLLEL{plotts.regime+1};
+    end
+for k={'TaulCalib', 'Taul0'}% keys are with and without taul
         kk=string(k);
         allvarsCons=Cons(kk);
-        allvarsGS=GS(kk);
-        allvarsLS=LS(kk);
+        if kk=='TaulCalib' % choose correct benchmark
+            bench=Cons('BAU');
+        else
+            bench=Cons('LF');
+        end
+ 
+for lgdind=0:1
 
-    for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -413,54 +431,48 @@ if plotts.compRed==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            if varr=="Emnet"
-                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
-                    time,allvarsGS(find(varlist==varr),1:T), time, Ems);   
-                set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; grrey; 'k'} , {'LineWidth'}, {1.1;1.1;1.1;0.8})  
+            main=plot(time, allvarsCons(find(varlist==varr),1:T),time,bench(find(varlist==varr),1:T),'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k';grrey}  )  
 
-                if lgdind==1
-                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'net emissions limit',  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-                end
-            else
-                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
-                time,allvarsGS(find(varlist==varr),1:T),'LineWidth', 1.1);   
-                set(main, {'LineStyle'},{'-';'-.'; '--'}, {'color'}, {'k'; orrange; grrey}  )  
-
-                if lgdind==1
-                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies',  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-                end
-            end
-            
            xticks(txx)
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
            else             
                 xlim([1, time(end)])
            end
-           
+            if lgdind==1
+                   lgd=legend('with $\tau_f=SCC$', '$\tau_f=0$',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompRed_%s_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
-    
+            if lablab==0
+                path=sprintf('figures/all_%s/LevTaufNoTauf_%s_regime%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            else
+                path=sprintf('figures/all_%s/LevTaufNoTauf_%s_Equlab_regime%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
-    end
-    end
-    end
 end
-%% Effect Allocation taul
+end
+end
+end
+end
+%% Allocation tauf in levels with and without taul
 % compare effect of only taul in benchmark and in exogenous growth model
-if plotts.compTaul_Red==1
+if plotts.compTauf_Lev==1
     
-    fprintf('plott comp taul by policy regime')
+    fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-        allvars=OTHERPOLL{reg+1};
-        
+   for lablab=0:1
+           if lablab ==0
+               allvars=OTHERPOLL{reg+1};
+           else
+               allvars=OTHERPOLLEL{reg+1};
+           end
         allvarsTaulCalib=allvars('TaulCalib');
         allvarsTaul0=allvars('Taul0');
         
@@ -498,15 +510,25 @@ if plotts.compTaul_Red==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompTaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
-    
+            if lablab ==0
+                path=sprintf('figures/all_%s/CompTauf_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            else
+                path=sprintf('figures/all_%s/CompTauf_bytaul_Equlab_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            end                
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
     end
     end
-    end
+   end
+   end
 end
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Effect of tauf: compariosn BAU and LF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% LF and BAU by policy regime
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.LF_BAU==1
@@ -709,26 +731,25 @@ if plotts.LF_BAU_PER_equlab==1
     end
 end
 
-
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Below not yet updated
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% effect of taul in model percentage deviation
-% compare effect of only taul in benchmark and in exogenous growth model
-if plotts.compRed_TaulPer==1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Comparison redistribution regimes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% effect of redistribution regime
+if plotts.compRed==1
     
-    fprintf('plott comp taul all policy regimes percent')
+    fprintf('plott comp policy regimes')
   
         LS=OTHERPOLL{4+1};
         Cons=OTHERPOLL{0+1};
         GS=OTHERPOLL{7+1};
-        NR=OTHERPOLL{2+1};
        
-        DifLS  =(LS('TaulCalib')-LS('Taul0'))./LS('Taul0').*100;
-        DifCons=(Cons('TaulCalib')-Cons('Taul0'))./Cons('Taul0').*100;
-        DifGS  =(GS('TaulCalib')-GS('Taul0'))./GS('Taul0').*100;
-        DifNR  =(NR('TaulCalib')-NR('Taul0'))./NR('Taul0').*100;
+    for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
+        kk=string(k);
+        allvarsCons=Cons(kk);
+        allvarsGS=GS(kk);
+        allvarsLS=LS(kk);
 
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -739,12 +760,24 @@ if plotts.compRed_TaulPer==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,DifLS(find(varlist==varr),1:T), time,DifCons(find(varlist==varr),1:T),...
-                time,DifGS(find(varlist==varr),1:T), time, DifNR(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; 'b'; grrey} )   
-            if lgdind==1
-               lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'no redistribution',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            if varr=="Emnet"
+                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
+                    time,allvarsGS(find(varlist==varr),1:T), time, Ems);   
+                set(main, {'LineStyle'},{'-';'-.'; '--'; ':'}, {'color'}, {'k'; orrange; grrey; 'k'} , {'LineWidth'}, {1.1;1.1;1.1;0.8})  
+
+                if lgdind==1
+                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies', 'net emissions limit',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+            else
+                main=plot(time,(allvarsLS(find(varlist==varr),1:T)), time,allvarsCons(find(varlist==varr),1:T),...
+                time,allvarsGS(find(varlist==varr),1:T),'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-';'-.'; '--'}, {'color'}, {'k'; orrange; grrey}  )  
+
+                if lgdind==1
+                   lgd=legend('lump-sum transfers', 'consolidated budget' , 'green subsidies',  'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
             end
             
            xticks(txx)
@@ -758,12 +791,14 @@ if plotts.compRed_TaulPer==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompRedTaulPer_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/CompRed_%s_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
     end
     end
+    end
+end
 
 end     
