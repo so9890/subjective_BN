@@ -346,7 +346,7 @@ end
 if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by taul')
-for lablab =0:1
+for lablab =0
     if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
     else
@@ -467,7 +467,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0:1
+   for lablab=0
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
