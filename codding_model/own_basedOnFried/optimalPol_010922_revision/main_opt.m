@@ -240,7 +240,7 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
 
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
@@ -258,10 +258,10 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=1 % no emission limit : 
+for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0:1 % nowledge spillovers
-    for xgr =0:1
+for nknk=1 % nowledge spillovers
+    for xgr =0
         for nsk=1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
