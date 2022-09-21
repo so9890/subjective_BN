@@ -467,7 +467,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -514,6 +514,69 @@ if plotts.compTauf_Lev==1
                 path=sprintf('figures/all_%s/CompTauf_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             else
                 path=sprintf('figures/all_%s/CompTauf_bytaul_Equlab_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            end                
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+   end
+   end
+end
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Difference in percent between regimes with and without taul
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Allocation tauf in levels with and without taul
+% compare effect of tauf with and without taul (relevant in model where
+% fossil tax is endoegenous, i.e. limitLF=1 ) 
+if plotts.compTauf_PER==1
+    
+    fprintf('plott comp tauf by preexisting taul in percent')
+   for reg=plotts.regime%[0,2,4,7]
+   for lablab=0:1
+           if lablab ==0
+               allvars=OTHERPOLL{reg+1};
+           else
+               allvars=OTHERPOLLEL{reg+1};
+           end
+        allvarsTaulCalib=allvars('TaulCalib');
+        allvarsTaul0=allvars('Taul0');
+        
+        %percentage difference between with and without taul allocation
+        Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+                main=plot(time,Perdif(find(varlist==varr),1:T),  'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+                if lgdind==1
+                   lgd=legend('percentage difference with taul to no taul', 'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            if lablab ==0
+                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            else
+                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Equlab_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             end                
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
