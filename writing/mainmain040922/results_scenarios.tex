@@ -1,418 +1,57 @@
 \subsection{Results }
-In this section, I discuss how a environmental tax equal to the social cost of carbon as calculated by the rff affects key variables of the model. 
+In this section, I discuss how a carbon tax equal to the social cost of carbon calculated by the rff affects key variables of the model.\footnote{\ The effect of the carbon tax is by and large unaffected by the value of income tax progressvity. Except for the reaction of labor supply. The fossil tax changes the skill premium since demand for the green-specific high skill labor increases. High-skill hours in equilibrium rise, while hours of low-skilled workers reduce.  A progressive income tax scheme mutes the effect of changes in the wage rate, that is, the pre-tax labor income, on labor supply. The reason is the the elasticity of after-tax labor income with respect to pre-tax labor income reduces. However, this does not affect the greenness of production as it is numerically negligible. OR HIGHER GROWTH IN FOSSIL ABSORBED BY LOWER GREEN TO FOSSIL LABOR SHARE?}
+
+Second, I calculate the carbon tax necessary to meet the IPCC's emission limit in a model with and without progressive labor income tax. When the labor income tax scheme is progressive, the required carbon tax reduces by xxx. Furthermore, the allocation is characterized by a higher yyy. 
 
 
-This section depicts the environmental tax which is required to meet the emission limits and the evolution of key variables under distinct policy regimes. The income tax scheme is kept fixed at its calibrated levels: $\tau_{\iota t}=0.181$, $\lambda=0.43$.
-I consider the following regimes: first, environmental tax revenues are redistributed lump sum to households. Second, the government runs a consolidated budget and environmental tax revenues are redistributed via the income tax scheme; that is, $\lambda$ adjusts. Third, environmental tax revenues are recycled as subsidies to the green sector. Fourth, the government consumes environmental tax revenues. 
+\subsubsection{Effect of tauf}
+ \begin{itemize}
+ 	\item  emissions continue to rise due to knowledge spillovers \checkmark
+ 	\item  effect on research (non-energy research) \checkmark
+ 	\item taul has level effect on emissions, interaction: compositional effect but small (but could become relevant through disadvantageous effect of tauf on non-energy research) \checkmark 	
+ \end{itemize}
 
-\textbf{Aussagen, die ich treffen will}
-\begin{itemize}
-	\item \textbf{No taul}:  Without lump-sum redistribution labor supply is too high, and higher environmental tax is necessary.  comparison of labor supply by scenario (lump-sum scenario as benchmark bcs shown before that in this case reductive effect of tauf not needed)
-	\ar comparison across policy regimes
-	\item \textbf{With taul (availability of taul): comparison within policy regime}
-	\begin{enumerate}
-	\item should profit from spillover effects as compared to no taul
- 	\item 
-	also with lump-sum redistribution, should see effect of spillover effects when going from without taul to with taul	
-	\end{enumerate}
-	\item effect of tauf on energy share, effect on growth due to spillover effects
-\end{itemize}
-
-
-\subsubsection{Allocation with calibrated taul across policy regimes, same fossil tax}
-
-I now discuss the effect of a carbon tax equal to the social cost of carbon calculated by the \textit{rff} amounting to 185\$ per ton of CO$_2$. As benchmark policy regime serves the consolidated budget version. 
-Figure fff shows the percentage change induced by the carbon tax relative to the business-as-usual allocation (BAU). The black graph corresponds to the calibrated value of the tax progressivity, $\tau_{\iota}=0.181$. I also include the effect of the carbon tax when the progressivity parameter $\tau_\iota$ is set to zero; the dash gray graph.\footnote{\ Due to the log-utility specification, the remaining policy measure $\lambda$ cancels from the household's labor supply decision. The government has a non-distortionary tool to generate funds.} 
-
-Focus first on the black solid graphs. The carbon tax reduces net emissions relative to the BAU policy by between 41 and 42.5\% over the period from 2020 to 2075. The reduction decreases over time due to 
-\tr{Where is more growth coming from?}
-; \tr{Why is effect on net emissions reducing?}
 \begin{figure}[h!!]
 	\centering
-	\caption{Effect of fossil tax with and without progressive income tax scheme}\label{fig:CompRegimes}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_Emnet_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(b) Aggregate growth}}
+	\caption{Carbon tax equal to social cost of carbon }\label{fig:Leveltauf_nsk0_xgr0_noknow_notaul}
+\begin{minipage}[]{0.4\textwidth}
+	\centering{\footnotesize{(a) Net emissions}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_gAagg_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr0_knspil0_sep1_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
 \end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(c) Hours worked}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hh_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(d) Fossil research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sff_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}		
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(e) Green research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sg_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(f)Non-energy research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sn_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}		
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g) Consumption}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_C_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(h) Net emissions in levels}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_Emnet_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\end{figure}
 
-\begin{figure}[h!!]
-	\centering
-	\caption{Allocation with fossil tax with and without progressive income tax scheme}\label{fig:AlloTAuf}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_Emnet_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Aggregate growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_gAagg_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) High-skilled hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_hh_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Fossil research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sff_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Green research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sg_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f)Non-energy research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sn_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_C_spillover0_nsk0_xgr0_sep1_LFlimit0_emsbase1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-\end{figure}
+\end{figure} 
+ The carbon tax diminishes emissions by around 43\% initially. As energy producers face a higher price for fossil energy, they lower demand for fossil and rise demand for green energy. The lower demand for fossil reduces the demand for labor from the fossil sector. As a result more labor is available for green energy production, and green supply increases. The price of green goods may fall despite the higher demand.\footnote{\ This supply-side mechanism facilitates a transition to green energy; however, it is muted due to (1) a low labor share in the green sector.}
+ As the market size of the green sector increases, profitability of research in the green sector rises. In contrast, research in the fossil sector loses in attractiveness. 
+ 
+ As a side effect of the fossil tax, research in the non-energy sector also reduces. The reason is that a higher price of the energy good lowers demand for non-energy goods, and the price for non-energy goods reduces. As a result, non-energy research gets less profitable. 
+ 
+ In contrast, an income tax progressivity does not change growth in the non-energy sector,\tr{ since the level effect is absorbed by price changes} CHECK THIS. A compositional effect arises when skills are heterogeneous. In equilibrium, high-skill workers work more hours due to a higher wage rate. Therefore, the marginal gains from leisure are higher for this type. When the tax scheme becomes more progressive, high-skill workers are more responsive and curb their labor supply more.\footnote{\ They have to be compensated by a higher wage rate for a further reduction of leisure. The additional unit of leisure is more valuable to them.}  A more progressive tax scheme makes green labor more expensive and green production reduces more than fossil production. More research in the fossil sector amplifies this compositional effect. %A smaller labor share in the green sector mitigates the compositional effect and a higher tax progressivity reduces fossil production more than when labor shares are equal and the effect on green output is smaller. 
+ 
+ \paragraph{Knowledge spillovers}
+ Knowledge spillovers diminish the effectiveness of the fossil tax to lower emissions over time. Initially, the fossil tax reduces research in the fossil sector, however, as green technology advances, research in the fossil sector gains in profitability, and fossil research resurges. It is not only that a constant amount of researchers becomes more productive but also a change in the equilibrium level of fossil researchers which intensifies the effect of knowledge spillovers. This mechanism explains the quick increase in emissions under a constant fossil tax. Therefore, when knowledge spillovers are strong, reducing emissions to a net-zero emission limit requires a continues intensification of environmental intervention. 
+ 
+ \cite{Acemoglu2012TheChange} abstract from knowledge spillovers, heterogeneous capital shares, and conclude that when dirty and clean goods are sufficient substitutes, a temporary intervention suffices. 
+ \paragraph{Role of heterogeneous labor shares}
+ Under the baseline calibration, capital shares are heterogeneous across sectors. The green sector has the smallest labor share. Labor is more important in the fossil and most important in the non-energy sector. This heterogeneity lowers the effectiveness of the fossil tax. The reduction in demand for labor from the fossil sector does not lower production costs for the green sector as much and the green good remains more expensive, the share of green energy and labor rises less. 
 
-\subsection{Effect of labor tax progressivity}
-\tr{Why does a more progressive labor tax raise growth?}
-1) check homogeneous skill \ar only level effect and labor share effect
+Over time, a smaller labor share in the green sector raises fossil production since as the fossil sector becomes more productive, the marginal product of labor in the fossil sector increases more and labor transitions to the fossil sector.  (Note that consequently the economy is not on a bgp in BAU)
 
-\begin{figure}[h!!]
-	\centering
-	\caption{Laissez-faire and BAU allocation }\label{fig:LF_BAU}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_Emnet_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Aggregate growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_gAagg_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) High-skilled hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_hh_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Fossil research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sff_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Green research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sg_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f)Non-energy research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sn_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_C_spillover0_nsk0_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-\end{figure}
-
-\begin{figure}[h!!]
-	\centering
-	\caption{Laissez-faire and BAU allocation homogeneous skills }\label{fig:LF_BAU_nsk1}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_Emnet_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Aggregate growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_gAagg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_hh_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Fossil research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sff_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Green research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f)Non-energy research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_sn_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_C_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(f)Fossil scientists wage}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_wsf_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}		
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(i) Green scientists wage}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_wsg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}		
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(i) Non-energy scientists wage}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAU_Reg0_wsn_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\end{figure}
-
-
-\begin{figure}[h!!]
-	\centering
-	\caption{Laissez-faire and BAU allocation homogeneous skills percent: effect progressive tax }\label{fig:LF_BAU_nsk1_per}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_Emnet_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Aggregate growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_gAagg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_hh_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Fossil research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_sff_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Green research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_sg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f)Non-energy research}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_sn_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_C_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f)Fossil scientists wage}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_wsf_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(i) Green scientists wage}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_wsg_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}		
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(i) Non-energy scientists wage}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_LFBAUPer_Reg0_wsn_spillover0_nsk1_xgr0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-\end{figure}
-
-\begin{figure}[h!!]
-	\centering
-	\caption{Effect taul in percent: homogeneous skills, exogenous growth and equal capital share }\label{fig:LF_BAU_nsk1_xgr1_equalcapShare}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Net emissions}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_Emnet_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_hh_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_C_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(a) Net emissions: Levels}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_Emnet_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(c) Hours worked}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_hh_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g) Consumption}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_C_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(a) GFF}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_GFF_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(c) EY}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_EY_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g)growth non-energy}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_gAn_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g)growth green}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_gAg_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g)growth fossil}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_gAf_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g)growth aggregate}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAU_Reg0_gAagg_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79_lgd0.png}
-\end{minipage}	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(i) Green-to-fossil ratio}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_GFF_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-	\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(i) Energy share}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_EY_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-\end{minipage}		
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g) Price Energy}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_pee_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(i) Price Non-energy}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_pn_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(j) Price fossil}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_pf_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(j) Price green}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Equlab_LFBAUPer_Reg0_pg_spillover0_nsk1_xgr1_knspil0_sep1_countec0_GovRev0_etaa0.79.png}
-\end{minipage}
-	\floatfoot{Notes: When capital shares are equal, growth is exogenous, and there is only one skill type, a more progressive tax has no recomposing effect. Over time, however, the reduction in consumption decreases because growth accelerates}
-\end{figure}
-
-
-\subsubsection{Effect of Taul on necessary environmental tax and allocation}
-
-The previous exercise shows that the emission limit would be violated by use of a constant carbon tax. I, therefore, ask in this subsection, how high a carbon tax has to be in order to meet the emission limit. To shed light on the role of income tax progressivity, I compare the necessary fossil tax and resulting allocations to models with a linear \tr{look up term in Heathcote} and a progressive tax scheme. 
-
-\tr{Is there more growth possible in model with progressive tax scheme?}
-
-Panel (a) in figure \ref{fig:CompRegimes} shows the necessary carbon tax per ton of CO$_2$ for different policy regimes. The carbon tax required to meet emission limits is highest in when the government consumes environmental tax revenues. When revenues are redistributed lump-sum, the necessary carbon tax reduces. As argued in the analytical section, a higher environmental tax is required, when lump-sum transfers do not reduce economic activity. 
-
-\textbf{The higher the income tax progressivity, the lower higher the aggregate growth rate. Research in all sectors is higher. \ar Points to an advantage of income taxes.}
-\begin{figure}[h!!]
-	\centering
-	\caption{Effect of income tax progressivity with emission limit }\label{fig:CompTaul_TAUF}	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Necessary fossil tax, $\tau_f$}}
-		%	\captionsetup{width=.45\linewidth}
-t		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/TAUFCO2_LEVDifTAUL_regime0_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(b) Net emissions in levels}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_Emnet_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(c) Growth}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_gAagg_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(d) Fossil research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sff_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(e) Green research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sg_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(f) Non-energy research}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_sn_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g) Hours high skill}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_hh_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}	
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(g) Hours low skill}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaul_Reg0_hl_spillover0_nsk0_xgr0_sep1_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-\end{minipage}
-\end{figure}
+Endogenous growth intensifies this adverse effect of heterogeneous capital shares: as the market size of green goods is depressed, the fossil tax does not boost green research as much as with equal capital shares. In sum, heterogeneous labor shares imply an increasing path of emissions over time under the fossil tax. The rising path follows from the faster increase in the marginal product of labor in the fossil sector. 
+ 
+ 
+ \paragraph{Role of heterogeneous skills}
+ When skills are heterogeneous, emissions diminish because availability of the labor input good reduces. The effect of the fossil tax is similar to the model with homogeneous skills, yet, the fossil tax now affects labor.\footnote{\ With homogeneous skills, the equilibrium level of labor is unaffected by the fossil tax due to the log-utility of consumption implying that income and substitution effects of the wage rate cancel.}
+ With two types of skills and heterogeneous high-skill share, the fossil tax has a diminishing effect on low-skill hours in equilibrium and raises high-skill hours. The reason is that a higher demand for green produce translates into a higher demand for the green-specific labor good which is high-skill biased. 
+ 
+ The effect on working hours through the fossil tax is affected by the presence of a progressive income tax scheme. The higher income tax progressivity, the smaller the effect of a change in the wage rate on labor supply, since the elasticity of post-tax labor income with respect to pre-tax labor income falls. 
+ This asymmetry has an effect on research. A smaller reduction in low-skill supply makes non-energy goods, which are more low-skill intense than energy goods, cheaper. The lower price of non-energy goods and its complementarity to energy goods (so that demand for energy remains high) explains a stronger reduction in non-energy research when the income tax scheme is progressive.\footnote{\ The price for non-energy research also reduces more in equilibrium. The reduction in non-energy research is demand-side driven.} Energy research reduces less under a progressive income tax scheme. Since a relatively higher low-skill supply boosts the market share of fossil producers, fossil research diminishes less than green research in presence of a progressive income tax. 
+ Consequently, the presence of a progressive income tax scheme counters the intention to lower fossil and energy production when skills are heterogeneous. Nevertheless, is numerically negligible. 
+ \clearpage
+ 
+ \subsection{Necessary fossil tax to meet emission limit}
+ \begin{itemize}
+ 	\item dynamics. rising over time due to capital ratio heterogeneity and knowledge spillovers
+ 	\item role of taul as a level effect versus compositional effect
+ 	\item advantages under policy tuple progressive income tax and lower fossil tax as opposed to only fossil tax?
+ \end{itemize}
