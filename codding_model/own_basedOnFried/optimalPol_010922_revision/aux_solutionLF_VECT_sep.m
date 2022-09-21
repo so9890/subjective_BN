@@ -43,15 +43,19 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
- if indic.xgrowth==0 && indic.noskill==1
+  if indic.xgrowth==0 && indic.noskill==1
     sff     = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
     sg     = upbarH./(1+exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)));
     sn     = upbarH./(1+exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)));
-else
+    se     = upbarH./(1+exp(x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)));
+
+ else
     sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
     sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
     sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
- end
+    se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
+
+  end
  gammasg     = (x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T)).^2;
  gammasn     = (x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T)).^2;
  gammasf     = (x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T)).^2;
@@ -141,8 +145,11 @@ if indic.noskill==0
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
+if indic.sep~=3
  Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
-
+else
+     Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*se.^(1+sigmaas)./(1+sigmaas);
+end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing

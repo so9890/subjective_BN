@@ -13,19 +13,28 @@ z=sqrt(varrs);
 
 % create new list
 syms HL HH H w Lf Lg Ln tauf real
-if indic.noskill==0
-    symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH];
-else
+    if indic.noskill==0
+        symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'), HL, HH];
+    else
 
-    symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
-                &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
-                &list.choice~='wl'&list.choice~='gammall'), H, w, Lf, Lg, Ln];
-end
-
+        symms.test= [symms.choice(list.choice~='hl'&list.choice~='hh'&list.choice~='hhn'&list.choice~='hhg'...
+                    &list.choice~='hhf'&list.choice~='hln'&list.choice~='hlg'&list.choice~='hlf'&list.choice~='wh'...
+                    &list.choice~='wl'&list.choice~='gammall'), H, w, Lf, Lg, Ln];
+    end
 if indic.limit_LF==1
     symms.test=[symms.test, tauf];
 end
 list.test=string(symms.test);
+
+if indic.sep==2
+      symms.test= symms.test(list.test~='wsf'&list.test~='wsg'& list.test~='wsn'...
+                     &list.test~='gammasf'&list.test~='gammasg'& list.test~='gammasn');
+      list.test=string(symms.test);
+elseif indic.sep==3
+    syms se real
+      symms.test= [symms.test(list.test~='gammasf'), se];
+      list.test=string(symms.test);
+end
 
 % read in results from social planner
 if indic.noskill==0
@@ -55,6 +64,8 @@ F=y(list.allvars=='F', :)';
 G=y(list.allvars=='G', :)';
 
 %- research sector if endogenous growth
+se=(varrs(list.allvars=='sff',:)'+varrs(list.allvars=='sg',:)');
+
 if indic.xgrowth==0
     Af = y(list.allvars=='Af', :)';
     Ag = y(list.allvars=='Ag', :)';
@@ -62,10 +73,12 @@ if indic.xgrowth==0
         sff =log((params(list.params=='upbarH')-varrs(list.allvars=='sff', :))./(varrs(list.allvars=='sff', :)))';
         sg =log((params(list.params=='upbarH')-varrs(list.allvars=='sg', :))./(varrs(list.allvars=='sg', :)))';
         sn =log((params(list.params=='upbarH')-varrs(list.allvars=='sn', :))./(varrs(list.allvars=='sn', :)))';
+        se = log((params(list.params=='upbarH')-se)./se);
     else
         sff =z(list.allvars=='sff', :)';
         sg =z(list.allvars=='sg', :)';
         sn =z(list.allvars=='sn', :)';
+        se=sqrt(se);
     end
     An =y(list.allvars=='An', :)';
 
@@ -117,7 +130,7 @@ ub=[];
 
 objf=@(x)objectiveCALIBSCI(x);
     if indic.xgrowth==0
-        if indic.sep==1
+        if indic.sep>=1
             constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic, Ems);
         else
             constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);

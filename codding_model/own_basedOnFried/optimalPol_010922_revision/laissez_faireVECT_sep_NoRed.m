@@ -53,20 +53,29 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
     sff     = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
     sg     = upbarH./(1+exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)));
     sn     = upbarH./(1+exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)));
-else
+    se     = upbarH./(1+exp(x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)));
+
+ else
     sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
     sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
     sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
- end
- gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
- gammasg = x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T).^2;
- gammasn = x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T).^2;
+    se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
 
+ end
+ if indic.sep~=2
+     gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
+     gammasg = x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T).^2;
+     gammasn = x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T).^2;
+     wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
+     wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
+     wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
+ else
+     wsn =wsnpar;
+     wsg=wsgpar;
+     wsf=wsfpar;
+ end
  
  gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
- wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
- wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
- wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
  pg     = exp(x((find(list.test=='pg')-1)*T+1:(find(list.test=='pg'))*T));
  pn     = exp(x((find(list.test=='pn')-1)*T+1:(find(list.test=='pn'))*T));
  pee     = exp(x((find(list.test=='pee')-1)*T+1:(find(list.test=='pee'))*T));
@@ -182,6 +191,12 @@ if indic.xgrowth==0
     q=q+1;
     f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 end
+if indic.sep==3
+    
+    q=q+1;
+    f((q-1)*T+1:T*q)= wsg -wsf;
+    
+end
 %10- LOM technology
 q=q+1;
 f((q-1)*T+1:T*q) = An-An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
@@ -251,18 +266,27 @@ end
 % q=q+1;
 % f((q-1)*T+1:T*q) = S-(sn+sff+sg);
 % scientists supply
-if indic.xgrowth==0
-    q=q+1;
-    f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(muu.*wsf-gammasf); % scientist hours supply
-    q=q+1;
-    f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((muu.*wsg-gammasg));
+if indic.xgrowth==0 && indic.sep~=2
+    if indic.sep==1
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*sff.^sigmaas-(muu.*wsf-gammasf); % scientist hours supply
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*sg.^sigmaas-((muu.*wsg-gammasg));
+        
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
+    else
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*se.^sigmaas-((muu.*wsg-gammasg));
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammasg.*(se-upbarH);  
+        q=q+1;
+        f((q-1)*T+1:T*q)= sff+sg-se;
+    end
     q=q+1;
     f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
-
-    q=q+1;
-    f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
-    q=q+1;
-    f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
     q=q+1;
     f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
 end

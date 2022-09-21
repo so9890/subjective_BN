@@ -43,6 +43,42 @@ if indic.noskill==1
     indexx('LF_noskill_sep1')=indexxLFsep;
 
 end
+
+if indic.sep==2
+    x0=x0(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn' &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
+    symms.choice= symms.choice(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn'...
+                     &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
+    list.choice=string(symms.choice);
+
+    indexxLFsep2.lab = boolean(zeros(size(list.choice)));
+    indexxLFsep2.exp = boolean(zeros(size(list.choice)));
+    indexxLFsep2.sqr = boolean(zeros(size(list.choice)));
+    indexxLFsep2.oneab = boolean(zeros(size(list.choice)));
+
+    indexxLFsep2.lab( list.choice=='hh'|list.choice=='hl'| list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
+    indexxLFsep2.exp(list.choice~='hh'&list.choice~='hl'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+        &list.choice~='gammalh'&list.choice~='gammall'& list.choice~='lambdaa')=1;
+    indexxLFsep2.sqr(list.choice=='gammalh' | list.choice=='gammall' )=1;
+
+    indexx('LF_sep2')=indexxLFsep2;
+end
+    
+if indic.sep==3
+    x0=x0(list.choice~='gammasf');
+    syms se real
+    symms.choice= [symms.choice(list.choice~='gammasf'), se];
+    list.choiceold=list.choice;
+    list.choice=string(symms.choice);
+    x0=[x0,Sall.sff+Sall.sg]; % order has to match how variables are added to symms.choice!
+    hhelper=indexx('LF');
+    hhelper.lab = [hhelper.lab(list.choiceold~='gammasf'), boolean(ones(1,1))];
+    hhelper.exp = [hhelper.exp(list.choiceold~='gammasf'), boolean(zeros(1,1))];
+    hhelper.sqr = [hhelper.sqr(list.choiceold~='gammasf'), boolean(zeros(1,1))];
+    hhelper.oneab = [hhelper.oneab(list.choiceold~='gammasf'), boolean(zeros(1,1))];
+    indexx('LF_sep3')=hhelper;
+
+end
+    
 %%
 %-- check size of policy matrix
 [row]=size(poll);
@@ -57,19 +93,28 @@ if indic.limit_LF==1
     list.choice = string(symms.choice);
     x0=[x0, 2];
 
-    if indic.noskill==0
-        hhelper=indexx('LF');
+    if indic.sep<=2
+        if indic.noskill==0
+            hhelper=indexx('LF');
+        else
+            hhelper=indexx('LF_noskill_sep1');
+        end
     else
-        hhelper=indexx('LF_noskill_sep1');
+        hhelper=indexx(sprintf('LF_sep%d', indic.sep));
     end
     hhelper.lab = [hhelper.lab, boolean(zeros(1,1))];
     hhelper.exp = [hhelper.exp, boolean(zeros(1,1))];
     hhelper.sqr = [hhelper.sqr, boolean(zeros(1,1))];
     hhelper.oneab = [hhelper.oneab, boolean(zeros(1,1))];
+    
+    if indic.sep<=2
     if indic.noskill==0
         indexx('LF')=hhelper;
     else
         indexx('LF_noskill_sep1')=hhelper;
+    end
+    else
+        indexx(sprintf('LF_sep%d', indic.sep))=hhelper;
     end
 end
 %%
@@ -94,18 +139,26 @@ while t<=T+1 % because first iteration is base year
     end
     %% - transforming variables to unbounded variables
     %-- index for transformation 
-    if indic.noskill==0
-        guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
+    if indic.sep<=2
+        if indic.noskill==0
+            guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
+        else
+            guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), x0, params, list.params);
+        end
     else
-        guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), x0, params, list.params);
+        guess_trans=trans_guess(indexx(sprintf('LF_sep%d',indic.sep)), x0, params, list.params);        
     end
     
     % test
     if indic.sep==0
         error('without separate markets not yet updated')
         f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
-    else
+    elseif indic.sep==1
         f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic, Emlim, t);
+    elseif indic.sep == 2 % partial equilibrium version, wsf wsg and wsn are fixed
+        f=laissez_faire_nows_partialS(guess_trans, params, list, pol, laggs, indic, Emlim, t);
+    elseif indic.sep==3
+        f=laissez_faire_nows_sepSe(guess_trans, params, list, pol, laggs, indic, Emlim, t);
     end
     %% - solving model
      lb=[];
@@ -127,10 +180,16 @@ while t<=T+1 % because first iteration is base year
 %- other solvers
     if indic.sep==0
         modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs, indic);
-    else
+    elseif indic.sep==1
         modFF = @(x)laissez_faire_nows_sep(x, params, list, pol, laggs, indic, Emlim, t);
+    elseif indic.sep==2
+        modFF = @(x)laissez_faire_nows_partialS(x, params, list, pol, laggs, indic, Emlim, t);
+    elseif indic.sep==3
+        modFF = @(x)laissez_faire_nows_sepSe(x, params, list, pol, laggs, indic, Emlim, t);
     end
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+%    [sol2, fval, exitf] = fsolve(modFF, guess_trans, options);
+
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
     % pass to standard algorithm
@@ -138,9 +197,13 @@ while t<=T+1 % because first iteration is base year
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
 % if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
-if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 ) &&  (indic.labshareequ==1&& indic.GOV==0 && indic.noknow_spill==0 )
-     options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-     [sol3, fval, exitf] = fsolve(modFF, sol2, options);
+if indic.sep<=2
+    if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 ) &&  (indic.labshareequ==1&& indic.GOV==0 && indic.noknow_spill==0 )
+         options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+         [sol3, fval, exitf] = fsolve(modFF, sol2, options);
+    else
+        sol3=sol2;
+    end
 else
     sol3=sol2;
 end
@@ -148,17 +211,20 @@ end
 if exitf<=0
     error('code did not solve')
 end
-    %- transform results to bounded variables
+%- transform results to bounded variables
+if indic.sep<=2
     if indic.noskill==0
-%         if indic.sep==0
             LF=trans_allo_out(indexx('LF'), sol3, params, list.params, indic);
 %         else
 %                 LF=trans_allo_out(indexx('LF_sep'), sol3, params, list.params, indic);
 %         end
      else
         LF=trans_allo_out(indexx(sprintf('LF_noskill_sep%d', indic.sep)), sol3, params, list.params, indic);
-    end
-    %% - save results
+     end
+else
+         LF=trans_allo_out(indexx(sprintf('LF_sep%d', indic.sep)), sol3, params, list.params, indic);
+end
+%% - save results
     % this part also checks correctness of results!
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);

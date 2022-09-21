@@ -14,7 +14,11 @@ else
 end
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
-
+if indic.sep==2
+    wsfpar     = 0.01; %exp(x(list.choice=='wsf'));
+    wsnpar     = 0.1; %exp(x(list.choice=='wsn'));
+    wsgpar     = 0.01; %exp(x(list.choice=='wsg'));
+end
 upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');
 zh  = params(list.params=='zh');

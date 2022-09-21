@@ -30,10 +30,10 @@ indic.util =0; % ==0 log utility, otherwise as  in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
-indic.sep =1; %==1 is the benchmark; when finalising should be dropped
+indic.sep =3; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
-indic.sizeequ=1; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
+indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
 indic.notaul=0; % Indicator of policy
@@ -45,7 +45,7 @@ indic.notaul=0; % Indicator of policy
                 % ==5 lump sum trans, no taul
                 % ==6 consolidated budget and taul adjusts (lambdaa fixed)
                 % ==7 earmarking
-indic.limit_LF =1; % ==1 then tauf is determined by meeting limit in each period
+indic.limit_LF =0; % ==1 then tauf is determined by meeting limit in each period
                    %  set by a planner who knows how economy works but each
                    %  period; not dynamic! (in optimal policy taking dynamics into account)
 indic.taus =0; %==0 then no subsedy on green 
@@ -62,8 +62,8 @@ indic.PVwork =0; %==0 then disutility of work is not in
 indic.emsbase=1; % ==0 then uses emission limits as calculated
 indic.zero = 0;  % ==1 then version without growth
 indic.GOV=0; % ==0 then no gov revenues
-indic.taul0=1; %==0 then calibrated value for taul; ==1 then 0
-indic.labshareequ =1; %==1 then equal capital shares in fossil green and non-energy sectors
+indic.taul0=0; %==0 then calibrated value for taul; ==1 then 0
+indic.labshareequ =0; %==1 then equal capital shares in fossil green and non-energy sectors
 indic
 
 percon = 0;  % periods nonconstrained before 50\% constrained
@@ -124,20 +124,20 @@ POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 % indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
                    % => to get LF run with BAU and tata=1
 indic
-for lablab =1
+for lablab =0:1
     indic.labshareequ=lablab;
-for nknk =0
+for nknk =0:1
     indic.noknow_spill=nknk; 
 for bb =["BAU", "SCC"]
     indic.tauff=bb;
-for tata=0 % ==0 then uses calibrated taul
+for tata=0:1 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
 for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0
+for ff=0:1
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -162,9 +162,9 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=0:1
+for nsk=0
     indic.noskill=nsk;
-    for xgr=0:1
+    for xgr=0
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -202,8 +202,8 @@ for nsk=0:1
         if ~(indic.tauff=="BAU" && indic.limit_LF==0)
             save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
                 indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
-            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',...
-                indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV), 'TAUF')
+            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+                indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV, indic.sep), 'TAUF')
         else
             save(sprintf('BAU_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
                 indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ,  indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')

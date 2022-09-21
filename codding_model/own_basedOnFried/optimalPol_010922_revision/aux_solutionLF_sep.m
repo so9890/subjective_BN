@@ -9,9 +9,19 @@ read_in_pol;
 
 % read in vars
 gammalh=SLF.gammalh;
-gammasg=SLF.gammasg;
-gammasn=SLF.gammasn;
-gammasf=SLF.gammasf;
+if indic.sep~=1
+    gammasg=SLF.gammasg;
+    gammasn=SLF.gammasn;
+    if indic.sep==1
+        gammasf=SLF.gammasf;
+    else
+        gammasf=0;
+    end
+elseif indic.sep==2
+    gammasg =0;
+    gammasn =0;
+    gammasf =0;
+end
 
 if indic.noskill==0
     hhf=SLF.hhf;
@@ -56,10 +66,10 @@ sff=SLF.sff;
 sg=SLF.sg;
 sn=SLF.sn;
 S= sff+sg+sn;
+if indic.sep==3
+    se=SLF.se;
+end
 
-wsg=SLF.wsg;
-wsn=SLF.wsn;
-wsf=SLF.wsf;
 pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;
@@ -131,6 +141,15 @@ wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 
 Emnet     = omegaa*F-deltaa; % net emissions
+if indic.sep ~=2
+    wsg=SLF.wsg;
+    wsn=SLF.wsn;
+    wsf=SLF.wsf;
+else
+    wsf     = wsfpar;
+    wsn     = wsnpar;
+    wsg     = wsgpar;
+end
 
 % utility
 if thetaa~=1
@@ -162,28 +181,40 @@ end
 
 % test variables read in properly
 xx=eval(symms.choice);
-if indic.noskill==0
-if indic.ineq==0
+if indic.sep==1
 
-%     if indic.sep==1
-%            guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
-%     else
-       guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-%     end
+    if indic.noskill==0
+        if indic.ineq==0
+
+        %            guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
+        %     else
+               guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
+        %     end
+        else
+
+        %     if indic.sep==1
+        %           guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
+        %     else
+               guess_trans=trans_guess(indexx('LF_ineq'), xx, params, list.params);
+        %     end
+        end
+    else
+        guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);
+    end
+    
+    f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic, Emlim, t);
+
 else
-
-%     if indic.sep==1
-%           guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
-%     else
-       guess_trans=trans_guess(indexx('LF_ineq'), xx, params, list.params);
-%     end
+   guess_trans=trans_guess(indexx(sprintf('LF_sep%d',indic.sep)), xx, params, list.params);
+   if indic.sep==2
+       f=laissez_faire_nows_partialS(guess_trans, params, list, pol, laggs, indic, Emlim, t);
+   else
+       f=laissez_faire_nows_sepSe(guess_trans, params, list, pol, laggs, indic, Emlim, t);
+   end
 end
-else
-    guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);
-end
-f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic, Emlim, t);
 
-if (max(abs(f)))>1e-9
+
+if (max(abs(f)))>1e-7
     fprintf('f only solved at less than 1e-9, max abs f = %f',max(abs(f)) )
 else
     fprintf('saved variables are correct!')
