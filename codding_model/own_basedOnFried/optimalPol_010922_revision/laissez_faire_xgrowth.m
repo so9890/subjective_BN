@@ -61,9 +61,10 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 % An=(1+vn)*An_lag;
 % Ag=(1+vg)*Ag_lag;
 % Af=(1+vf)*Af_lag;
-sn=MOM.targethour*0.01;
-sff=MOM.targethour*0.01;
-sg=MOM.targethour*0.01;
+    sn=    0.0034; %0.01*MOM.targethour;
+    sff=   5.5660e-10; %0.01*MOM.targethour;
+    sg=   1.0305e-08; %0.01*MOM.targethour;
+
 
 An=An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);
 Af=Af_lag.*(1+gammaa.*(sff./rhof).^etaa*(A_lag./Af_lag).^phii);

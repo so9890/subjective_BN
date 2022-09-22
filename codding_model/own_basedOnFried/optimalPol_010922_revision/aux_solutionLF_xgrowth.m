@@ -64,11 +64,11 @@ if indic.sep~=0
     ws=zeros(size(gammalh));
     gammasg=ws; gammasn=ws; gammasf=ws;
 else
-     sn=0.01*MOM.targethour;
-    sff=0.01*MOM.targethour;
-    sg=0.01*MOM.targethour;
+    sn=    0.0034; %0.01*MOM.targethour;
+    sff=   5.5660e-10; %0.01*MOM.targethour;
+    sg=   1.0305e-08; %0.01*MOM.targethour;
 
-    S=sn+sg+sff; %zeros(size(gammalh));
+    S=(sn+sg+sff)/0.01; %zeros(size(gammalh));
 end  
 
 pg=SLF.pg;
