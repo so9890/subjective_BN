@@ -92,7 +92,7 @@ betaa    = (.985)^5;  % Barrage, but here for 5 years
 upbarH     = 1;
 
 eppse    = 1.5;            % Fried
-eppsy    = 0.05;           % Fried
+eppsy    = 0.05;  g         % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
 alphag   = 1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried

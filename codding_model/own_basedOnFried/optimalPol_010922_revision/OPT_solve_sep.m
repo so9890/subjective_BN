@@ -40,7 +40,7 @@ nn= length(list.opt); % number of variables
 if indic.target==1
      
 %         helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,  5, indic.sep, indic.xgrowth, indic.PV, etaa));
-       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %      helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV,indic.GOV, etaa));
 
         opt_all=helper.opt_all;
@@ -76,7 +76,7 @@ kappaa = kappaa*(1-1e-10);
    end  
 elseif indic.target==0
 %         helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 5, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
-         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus, indic.noskill,5, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus, indic.noskill,indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %          helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.GOV, etaa));
 
     opt_all=helper.opt_all;
@@ -207,9 +207,62 @@ elseif indic.target==0
         end
      %   end
 end
-%   save('0508_results_opt_main_notaul1_notarget_newems', 'x')
+  save(sprintf('2209_results_opt_main_notaul0_target%d', indic.target), 'x')
 % gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
 % x=gg.x;
+
+%% add further direct optimization periods => goal: so that continuation value does not impact allocation anymore
+hhh= load(sprintf('2209_results_opt_main_notaul0_target%d', indic.target), 'x');
+x=hhh.x;
+T=12;
+count=0; % count number of iterations
+mm=10;
+Emsnew=Ems;
+Tinit=T;
+
+while mm>1e-7
+    % save starting values
+    Told=T;
+    xold=x;
+    Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
+    Ftarget =  (Emsnew'+deltaa)/omegaa;
+
+    % sequentially increase number of explicit periods
+    count=count+1; 
+    T=T+1;
+
+    %- update initial values: add last period value as guess for new direct
+    % optimization period
+    x0 = zeros(nn*T,1);
+        for ll=list.opt
+            x0(T*(find(list.opt==ll)-1)+1:T*(find(list.opt==ll)))  = [xold(Told*(find(list.opt==ll)-1)+1:Told*(find(list.opt==ll)));xold(Told*(find(list.opt==ll)))]; 
+        end
+    %- optimization for new horizon
+     constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
+     objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
+    
+     if ~isfile(sprintf('2209_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
+
+         options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
+         save(sprintf('2209_results_opt_main_notaul0_notarget_Tplus%d', count), 'x')
+     else
+         helper=load(sprintf('2209_results_opt_main_notaul0_target%d_Tplus%d', indic.target, count));
+         x=helper.x;
+     end
+      abbs=zeros(length(list.opt),1);
+      
+      for ll=1:length(list.opt)
+          %- slice by variable
+          old = xold(Told*(ll-1)+1:Told*(ll));
+          new = x(T*(ll-1)+1:T*(ll));
+          %- compares only first 12 periods
+            abbs(ll)=max(abs((new(1:Tinit)-old(1:Tinit))./old(1:Tinit))); % x= new, xold=old
+      end
+      mm=max(abbs);
+      fprintf('biggest deviation in percent %d, number of finished iterations %d', mm*100, count)
+      
+end
 %% transform
 % helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
 % x=xsqp;
@@ -249,7 +302,8 @@ end
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(out_trans, list, params, T, init201519, indic, MOM);
+            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]...
+            = OPT_aux_vars_notaus_flex_newTauf(out_trans, list, params, T, init201519, indic, MOM);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
     else

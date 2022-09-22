@@ -30,7 +30,7 @@ indic.util =0; % ==0 log utility, otherwise as  in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
-indic.sep =1; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
+indic.sep =0; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
 indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
@@ -81,7 +81,8 @@ if isfile(sprintf('params_0209.mat'))
 else
     fprintf('calibrating model')
     indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=1; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.sep
-    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]=get_params_Base( T, indic, lengthh);
+    [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]...
+        =get_params_Base( T, indic, lengthh);
     save(sprintf('params_0209'))
 end
 if indic.spillovers==1
@@ -391,7 +392,7 @@ indic.sep =1;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
 
 for tr =0:1
