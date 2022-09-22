@@ -30,7 +30,7 @@ indic.util =0; % ==0 log utility, otherwise as  in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
-indic.sep =3; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
+indic.sep =1; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
 indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
@@ -260,9 +260,9 @@ for ee=0 % ==0 then uses benchmark emission limit
         
 for ll=1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0:1 % nowledge spillovers
-    for xgr =0
-        for nsk=1
+for nknk=0 % nowledge spillovers
+    for xgr =1
+        for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
