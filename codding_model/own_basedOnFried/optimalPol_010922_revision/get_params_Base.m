@@ -92,7 +92,7 @@ betaa    = (.985)^5;  % Barrage, but here for 5 years
 upbarH     = 1;
 
 eppse    = 1.5;            % Fried
-eppsy    = 0.05;  g         % Fried
+eppsy    = 0.05;           % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
 alphag   = 1-0.09;         % Fried
 alphan   = 1-0.64;         % Fried
@@ -136,22 +136,12 @@ MOM.GDP1519MILLION=101950887.298532; %sum GDP over 2015-2019 expressedn in 2019 
 parsHelp = eval(symms.paramsdir);
 polhelp= eval(symms.poldir);
 %%
-[x0LF, ~, ~, ~, Sall, ~,  init201014 , ~, init201519, Sparams, ~, params, pol, symms, MOM,indexx, list]...
+if indic.sep==1
+    [x0LF, ~, ~, ~, Sall, ~,  init201014 , ~, init201519, Sparams, ~, params, pol, symms, MOM,indexx, list]...
     = calibration_matching_GOOD_sep(MOM, symms, list, parsHelp, polhelp, indic);
-
-
-% %% - parameters for no-skill version
-% Sparams_noskill=Sparams;
-% Sparams_noskill.thetaf=0.5;
-% Sparams_noskill.thetag=0.5;
-% Sparams_noskill.thetan=0.5;
-% Sparams_noskill.zh=0.5;
-% 
-% params_noskill = params;
-% params_noskill(list.params=='thetan')=0.5;
-% params_noskill(list.params=='thetaf')=0.5;
-% params_noskill(list.params=='thetag')=0.5;
-% params_noskill(list.params=='zh')=0.5;
-
+else
+    [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519, Sparams, Spol, params, pol, symms, MOM, indexx, list]...
+    = calibration_matching_GOOD_nonsep(MOM, symms, list, parsHelp, polhelp, indic);
+end
 
 end

@@ -74,16 +74,16 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-if isfile(sprintf('params_0209.mat'))
+if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
     fprintf('loading parameter values')
-    load(sprintf('params_0209.mat'),...
+    load(sprintf('params_0209_sep%d', indic.sep),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
     fprintf('calibrating model')
-    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=1; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.sep
+    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; 
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]...
         =get_params_Base( T, indic, lengthh);
-    save(sprintf('params_0209'))
+    save(sprintf('params_0209_sep%d', indic.sep))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -92,21 +92,23 @@ end
 
 %% 
 %%%%% LIST for separate markets
-%     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
-%     syms wsg wsn wsf gammasg gammasf gammasn real
-    symms.sepchoice=symms.choice; %[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
+     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
+     syms wsg wsn wsf gammasg gammasf gammasn real
+    symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice=string(symms.sepchoice);
     
     %- allvars 
-%     symms.sepallvars=symms.allvars(list.allvars~='ws');
-    symms.sepallvars=symms.allvars; %[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
+     symms.sepallvars=symms.allvars(list.allvars~='ws');
+    symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars=string(symms.sepallvars);
     
     %- without growth
-    symms.choice_xgrowth=symms.choice(list.choice~='sff'&list.choice~='sn'&list.choice~='sg'&list.choice~='Af'&list.choice~='An'&list.choice~='Ag'&list.choice~='wsg'&list.choice~='wsn'&list.choice~='wsf'&list.choice~='gammasf'&list.choice~='gammasn'&list.choice~='gammasg');
-    list.choice_xgrowth=string(symms.choice_xgrowth);
-    symms.allvars_xgrowth=symms.allvars(list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'&list.allvars~='wsf'&list.allvars~='wsn'&list.allvars~='wsg'&list.allvars~='gammasf'&list.allvars~='gammasn'&list.allvars~='gammasg');
-    list.allvars_xgrowth=string(symms.allvars_xgrowth);
+     symms.choice_xgrowth=symms.choice(list.choice~='S'&list.choice~='gammas'&list.choice~='sff'&list.choice~='sn'&list.choice~='sg'...
+         &list.choice~='Af'&list.choice~='An'&list.choice~='Ag'&list.choice~='ws'&list.choice~='wsg'&list.choice~='wsn'&list.choice~='wsf'&list.choice~='gammasf'&list.choice~='gammasn'&list.choice~='gammasg');
+     list.choice_xgrowth=string(symms.choice_xgrowth);
+     symms.allvars_xgrowth=symms.allvars(list.allvars~='S'& list.allvars~='sff'&list.allvars~='sn'&list.allvars~='sg'...
+         &list.allvars~='wsf'&list.allvars~='wsn'&list.allvars~='wsg'&list.allvars~='ws'&list.allvars~='gammasf'&list.allvars~='gammasn'&list.allvars~='gammasg');
+     list.allvars_xgrowth=string(symms.allvars_xgrowth);
 
     % to save additional government variables
     syms GovCon Tls real;
@@ -163,9 +165,9 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=0
+for nsk=0:1
     indic.noskill=nsk;
-    for xgr=0
+    for xgr=1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios

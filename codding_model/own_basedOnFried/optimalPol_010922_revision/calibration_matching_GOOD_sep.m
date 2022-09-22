@@ -180,12 +180,12 @@ Lf = hhf.^Sparams.thetaf.*hlf.^(1-Sparams.thetaf);
 if isfile('calib_308_rem_Agr_mu.mat')
     rr=load(sprintf('calib_308_rem_Agr_mu'), 'x');
 else
-     sg  = log(0.1);
+     sg  = log(0.01);
      wsg  = log(3);
      wsf  = log(3);
      wsn  = log(3);
      gammaa =log(1);
-     sff = log(0.1);
+     sff = log(0.01);
 
      sn  = log(MOM.targethour-exp(sg)-exp(sff)); 
 
@@ -201,7 +201,7 @@ Af = AfLf/Lf;
 An = AnLn/Ln;
 Ag = AgLg/Lg;
 
-
+%%
 %-- find upper bound on growth rate
 xup=[log(Af), log(Ag), log(An), log(0.1)];
 
@@ -216,7 +216,7 @@ gammaa=exp(x(4));
 % hhel=exp(rr.x(list.calib3=='gammaa'));
  rr.x=rr.x(list.calib3~='gammaa'); %=log((gammaup-gammaup*0.6)/gammaup*0.6);
 %-- solving model
- f=calibRem_nows_fsolve_GOOD_sep_nogam(rr.x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
+f=calibRem_nows_fsolve_GOOD_sep_nogam(rr.x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
 modF3 = @(x)calibRem_nows_fsolve_GOOD_sep_nogam(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 
@@ -244,7 +244,7 @@ resSci=[eval(symms.calib3 ), gammaa];
 syms gammaa real 
 symms.calib3=[symms.calib3, gammaa];
 % get calibrated parameters and policy
-[Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp);
+[Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp, indic);
 
 %% save all results 
 [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM); 

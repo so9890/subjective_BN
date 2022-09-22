@@ -5,7 +5,7 @@ function f = calibProd(x, MOM, list, paramss, polhelp)
 % read_in_pars_calib;
 eppse=paramss(list.paramsdir=='eppse');
 eppsy=paramss(list.paramsdir=='eppsy');
-tauf =polhelp(list.poldir=='tauf');
+tauf =0; %polhelp(list.poldir=='tauf');
 % vars
 pn = exp(x(list.prod=='pn'));
 pg = exp(x(list.prod=='pg'));

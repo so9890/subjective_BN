@@ -56,12 +56,13 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
     se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
 
   end
+ S     = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
+ gammas     = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
+ ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
+
  gammasg     = (x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T)).^2;
  gammasn     = (x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T)).^2;
  gammasf     = (x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T)).^2;
-
- 
- 
  wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
  wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
  wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
@@ -126,7 +127,9 @@ xg=pg.*(1+taus).*alphag.*G;
 xf=pf.*alphaf.*F;
 
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-S=sff+sg+sn;
+if indic.sep~=0
+    S=sff+sg+sn;
+end
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
@@ -145,10 +148,12 @@ if indic.noskill==0
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
-if indic.sep~=3
- Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
-else
+if indic.sep~=3 && indic.sep~=0
+    Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
+elseif indic.sep==3
      Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*se.^(1+sigmaas)./(1+sigmaas);
+elseif indic.sep==0
+    Utilsci = 0.01*chiis*S.^(1+sigmaas)./(1+sigmaas);
 end
  SWF = Utilcon-Utillab-Utilsci;
 

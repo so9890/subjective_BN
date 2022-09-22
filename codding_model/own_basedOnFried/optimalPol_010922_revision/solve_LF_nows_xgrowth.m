@@ -10,7 +10,7 @@ function [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, para
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %- new initial point: drop science and technology as choices
-    x0=x0LF(list.choice~='wsf' & list.choice~='wsn'& list.choice~='wsg' & list.choice~='gammasn'& list.choice~='gammasf'& list.choice~='gammasg'...
+    x0=x0LF(list.choice~='ws'&list.choice~='S' &list.choice~='gammas' &list.choice~='wsf' & list.choice~='wsn'& list.choice~='wsg' & list.choice~='gammasn'& list.choice~='gammasf'& list.choice~='gammasg'...
         &list.choice~='sff' & list.choice~='sg' & list.choice~='sn'&list.choice~='Af' & list.choice~='Ag' & list.choice~='An');
     %- new set of choice variables
     list.choice=list.choice_xgrowth;

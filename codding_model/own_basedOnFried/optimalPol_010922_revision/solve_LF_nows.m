@@ -34,17 +34,23 @@ if indic.noskill==1
     indexxLFsep.sqr = boolean(zeros(size(list.choice)));
     indexxLFsep.oneab = boolean(zeros(size(list.choice)));
 
-    indexxLFsep.lab( list.choice=='h'| list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
-    indexxLFsep.exp(list.choice~='h'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
-        &list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn' ...
-        & list.choice~='lambdaa')=1;
-    indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
-
-    indexx('LF_noskill_sep1')=indexxLFsep;
-
+    if indic.sep==1
+        indexxLFsep.lab( list.choice=='h'| list.choice=='sff'  | list.choice=='sg' | list.choice=='sn')=1;
+        indexxLFsep.exp(list.choice~='h'&list.choice~='sff'&list.choice~='sg'& list.choice~='sn'...
+            &list.choice~='gammalh'& list.choice~='gammasg'& list.choice~='gammasf'& list.choice~='gammasn' ...
+            & list.choice~='lambdaa')=1;
+        indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammasg'| list.choice=='gammasn'| list.choice=='gammasf' )=1;
+    else
+        indexxLFsep.lab( list.choice=='h'| list.choice=='S')=1;
+        indexxLFsep.exp(list.choice~='h'&list.choice~='S'...
+            &list.choice~='gammalh'& list.choice~='gammas' & list.choice~='lambdaa')=1;
+        indexxLFsep.sqr(list.choice=='gammalh'| list.choice=='gammas' )=1;
+    end
+        indexx(sprintf('LF_noskill_sep%d', indic.sep))=indexxLFsep;
+        
 end
 
-if indic.sep==2
+if indic.sep==2 % partial equilibrium
     x0=x0(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn' &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
     symms.choice= symms.choice(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn'...
                      &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
@@ -63,7 +69,7 @@ if indic.sep==2
     indexx('LF_sep2')=indexxLFsep2;
 end
     
-if indic.sep==3
+if indic.sep==3 % free movement energy scientists
     x0=x0(list.choice~='gammasf');
     syms se real
     symms.choice= [symms.choice(list.choice~='gammasf'), se];
@@ -150,10 +156,7 @@ while t<=T+1 % because first iteration is base year
     end
     
     % test
-    if indic.sep==0
-        error('without separate markets not yet updated')
-        f=laissez_faire_nows(guess_trans, params, list, pol, laggs, indic);
-    elseif indic.sep==1
+    if indic.sep<=1
         f=laissez_faire_nows_sep(guess_trans, params, list, pol, laggs, indic, Emlim, t);
     elseif indic.sep == 2 % partial equilibrium version, wsf wsg and wsn are fixed
         f=laissez_faire_nows_partialS(guess_trans, params, list, pol, laggs, indic, Emlim, t);
@@ -164,11 +167,11 @@ while t<=T+1 % because first iteration is base year
      lb=[];
      ub=[];
      objf=@(x)objectiveCALIBSCI(x);
-     if indic.sep==0
-        constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
-     else
+%     if indic.sep==0
+  %      constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
+ %    else
          constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic, Emlim, t);
-     end
+ %    end
      if indic.labshareequ==0
         options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
      else
@@ -178,9 +181,7 @@ while t<=T+1 % because first iteration is base year
 %[c,fval]=constrf(sol3);
 % 
 %- other solvers
-    if indic.sep==0
-        modFF = @(x)laissez_faire_nows(x, params, list, pol, laggs, indic);
-    elseif indic.sep==1
+    if indic.sep<=1
         modFF = @(x)laissez_faire_nows_sep(x, params, list, pol, laggs, indic, Emlim, t);
     elseif indic.sep==2
         modFF = @(x)laissez_faire_nows_partialS(x, params, list, pol, laggs, indic, Emlim, t);
@@ -229,11 +230,11 @@ end
     cell_par=arrayfun(@char, symms.choice, 'uniform', 0);
     SLF=cell2struct(num2cell(LF), cell_par, 2);
     if t>1
-        if indic.sep==0
-            LF_SIM(:,t-1)=aux_solutionLF( SLF, pol, laggs, list, symms, indexx, params, indic);
-        else
+%         if indic.sep==0
+%             LF_SIM(:,t-1)=aux_solutionLF( SLF, pol, laggs, list, symms, indexx, params, indic);
+%         else
             LF_SIM(:,t-1)=aux_solutionLF_sep( SLF, pol, laggs, list, symms, indexx, params, indic, Emlim, t);
-        end
+%         end
         FVAL(t-1)=max(abs(fval));
     end
     %% - update for next round

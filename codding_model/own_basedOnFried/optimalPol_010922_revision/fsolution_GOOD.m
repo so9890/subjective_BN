@@ -1,5 +1,5 @@
 function [x0LF, SL, SP, SR, Sall, ...
-    Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, paramss, list, poll, MOM) 
+    Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, paramss, list, poll, MOM, indic) 
 
 read_in_pars_calib;
 %soltions
@@ -73,15 +73,19 @@ wlf   = Lfwlf/Lf;
 sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
-S = sff+sg+sn; % determined by chii in science problem
+S = (sff+sg+sn)/0.01; % determined by chii in science problem
 gammasg =0;
 gammasn=0;
 gammasf=0;
 % wse = SR.wse;
-wsg = SR.wsg;
-wsn = SR.wsn;
-wsf = SR.wsf;
-% chiisT=ws/(C^thetaa*S^sigmaas);
+if indic.sep==0
+    ws=SR.ws;
+elseif indic.sep==1
+    wsg = SR.wsg;
+    wsn = SR.wsn;
+    wsf = SR.wsf;
+end
+    % chiisT=ws/(C^thetaa*S^sigmaas);
 Af0 = SR.Af_lag; % 2010-2014
 Ag0 = SR.Ag_lag;
 An0 = SR.An_lag;
@@ -134,6 +138,7 @@ Sinit201519=cell2struct(num2cell(init201519), cell_par, 2);
 gammasn =0;
 gammasg =0;
 gammasf =0;
+gammas=0;
 x0LF= eval(symms.choice);
 
 % tests

@@ -42,33 +42,39 @@ else
  Ln    = exp(x((find(list.test=='Ln')-1)*T+1:(find(list.test=='Ln'))*T));
 end
 
-C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
-
+ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
  F      = exp(x((find(list.test=='F')-1)*T+1:(find(list.test=='F'))*T));
  G      = exp(x((find(list.test=='G')-1)*T+1:(find(list.test=='G'))*T));
  Af     = exp(x((find(list.test=='Af')-1)*T+1:(find(list.test=='Af'))*T));
  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
- if indic.xgrowth==0 && indic.noskill==1
-    sff     = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
-    sg     = upbarH./(1+exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)));
-    sn     = upbarH./(1+exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)));
-    se     = upbarH./(1+exp(x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)));
+ 
+     if indic.xgrowth==0 && indic.noskill==1 
+        sff    = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
+        sg     = upbarH./(1+exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)));
+        sn     = upbarH./(1+exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)));
+        se     = upbarH./(1+exp(x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)));
 
- else
-    sff     = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
-    sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
-    sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
-    se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
-
- end
+     else
+        sff    = (x((find(list.test=='sff')-1)*T+1:(find(list.test=='sff'))*T)).^2;
+        sg     = (x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)).^2;
+        sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
+        se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
+     end
+S    = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
  if indic.sep~=2
-     gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
-     gammasg = x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T).^2;
-     gammasn = x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T).^2;
-     wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
-     wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
-     wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
+     if indic.sep~=0
+         gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
+         gammasg = x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T).^2;
+         gammasn = x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T).^2;
+         wsn     = (x((find(list.test=='wsn')-1)*T+1:(find(list.test=='wsn'))*T)).^2;
+         wsg     = (x((find(list.test=='wsg')-1)*T+1:(find(list.test=='wsg'))*T)).^2;
+         wsf     = (x((find(list.test=='wsf')-1)*T+1:(find(list.test=='wsf'))*T)).^2;
+     else
+        gammas = x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T).^2;
+        ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
+        
+     end
  else
      wsn =wsnpar;
      wsg=wsgpar;
@@ -181,21 +187,33 @@ q=q+1;
 f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
+
 if indic.xgrowth==0
-    q=q+1;
-    f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
-    %8
-    q=q+1;
-    f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
-    %9
-    q=q+1;
-    f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
-end
-if indic.sep==3
-    
-    q=q+1;
-    f((q-1)*T+1:T*q)= wsg -wsf;
-    
+    if indic.sep~=0
+            q=q+1;
+            f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+            %8
+            q=q+1;
+            f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+            %9
+            q=q+1;
+            f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+        if indic.sep==3
+
+            q=q+1;
+            f((q-1)*T+1:T*q)= wsg -wsf;
+
+        end
+    elseif indic.sep==0
+        q=q+1;
+            f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+            %8
+            q=q+1;
+            f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+            %9
+            q=q+1;
+            f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+    end
 end
 %10- LOM technology
 q=q+1;
@@ -277,18 +295,31 @@ if indic.xgrowth==0 && indic.sep~=2
         f((q-1)*T+1:T*q)= gammasf.*(sff-upbarH);
         q=q+1;
         f((q-1)*T+1:T*q)= gammasg.*(sg-upbarH);
-    else
+        
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
+    elseif indic.sep==3
         q=q+1;
         f((q-1)*T+1:T*q)= (chiis).*se.^sigmaas-((muu.*wsg-gammasg));
         q=q+1;
         f((q-1)*T+1:T*q)= gammasg.*(se-upbarH);  
         q=q+1;
         f((q-1)*T+1:T*q)= sff+sg-se;
+        
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
+    elseif indic.sep==0
+        q=q+1;
+        f((q-1)*T+1:T*q)= sff+sg+sn-S*0.01; % determines wage in neutral sector
+        q=q+1;
+        f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
+        q=q+1;
+        f((q-1)*T+1:T*q)= gammas.*(upbarH-S);
     end
-    q=q+1;
-    f((q-1)*T+1:T*q)= (chiis).*sn.^sigmaas-((muu.*wsn-gammasn));
-    q=q+1;
-    f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
 end
 
 %13- Kuhn Tucker Labour supply

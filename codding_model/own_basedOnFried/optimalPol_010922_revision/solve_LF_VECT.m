@@ -83,8 +83,8 @@ if indic.xgrowth==0
     An =y(list.allvars=='An', :)';
 
     if indic.sep==0
-        gammas =sqrt(zeros(size(lambdaa)));
-        S =z(list.allvars=='S', :)';
+        gammas =sqrt(zeros(size(An)));
+        S =log((params(list.params=='upbarH')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
         ws=z(list.allvars=='ws', :)';
     else
         gammasg =z(list.allvars=='gammasg', :)';
@@ -130,11 +130,11 @@ ub=[];
 
 objf=@(x)objectiveCALIBSCI(x);
     if indic.xgrowth==0
-        if indic.sep>=1
+%         if indic.sep>=1
             constLF=@(x)laissez_faireVECT_sep_fmincon(x, params, list, varrs, init201519,T, indic, Ems);
-        else
-            constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
-        end
+%         else
+%             constLF=@(x)laissez_faireVECT_fmincon(x, params, list, varrs, init201519,T, indic);
+%         end
     else
         constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic, MOM);
     end
@@ -153,11 +153,11 @@ objf=@(x)objectiveCALIBSCI(x);
 % end
 % test solution to 
 if indic.xgrowth==0
-    if indic.sep==0
-        f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
-    else
+%     if indic.sep==0
+%         f=laissez_faireVECT(x, params, list, varrs, init201519,T, indic);
+%     else
         f=laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic, Ems);
-    end
+%     end
 else
     f=laissez_faireVECT_xgrowth(x, params, list, varrs, init201519, T, indic);
 end
@@ -168,11 +168,11 @@ end
 
 % save results
 if indic.xgrowth==0
-if indic.sep==0
-    LF_SIM=aux_solutionLF_VECT(x, list, symms, varrs, params, T, indic);
-else
+% if indic.sep==0
+%     LF_SIM=aux_solutionLF_VECT(x, list, symms, varrs, params, T, indic);
+% else
     LF_SIM=aux_solutionLF_VECT_sep(x, list, symms, varrs, params, T, indic);
-end
+% end
 else
     LF_SIM=aux_solutionLF_VECT_xgrowth(x, list, symms,varrs, params, T , indic, init201519);
 end

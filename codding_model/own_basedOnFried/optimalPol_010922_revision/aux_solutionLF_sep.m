@@ -9,13 +9,19 @@ read_in_pol;
 
 % read in vars
 gammalh=SLF.gammalh;
-if indic.sep~=1
+if indic.sep~=2
+    if indic.sep==1
+        
     gammasg=SLF.gammasg;
     gammasn=SLF.gammasn;
-    if indic.sep==1
         gammasf=SLF.gammasf;
-    else
+    elseif indic.sep==3
+        
+    gammasg=SLF.gammasg;
+    gammasn=SLF.gammasn;
         gammasf=0;
+    elseif indic.sep==0
+        gammas=SLF.gammas;
     end
 elseif indic.sep==2
     gammasg =0;
@@ -65,7 +71,12 @@ An=SLF.An;
 sff=SLF.sff;
 sg=SLF.sg;
 sn=SLF.sn;
-S= sff+sg+sn;
+if indic.sep==0
+    S=SLF.S;
+else
+    S= sff+sg+sn;
+end
+
 if indic.sep==3
     se=SLF.se;
 end
@@ -142,9 +153,13 @@ wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af;
 
 Emnet     = omegaa*F-deltaa; % net emissions
 if indic.sep ~=2
-    wsg=SLF.wsg;
-    wsn=SLF.wsn;
-    wsf=SLF.wsf;
+    if indic.sep~=0
+        wsg=SLF.wsg;
+        wsn=SLF.wsn;
+        wsf=SLF.wsf;
+    else
+        ws=SLF.ws;
+    end
 else
     wsf     = wsfpar;
     wsn     = wsnpar;
@@ -163,8 +178,11 @@ if indic.noskill==0
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
+if indic.sep~=0
  Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
-
+else
+    Utilsci=chiis*S.^(1+sigmaas)./(1+sigmaas)*0.01;
+end
  SWF = Utilcon-Utillab-Utilsci;
 
 % test market clearing
@@ -181,22 +199,13 @@ end
 
 % test variables read in properly
 xx=eval(symms.choice);
-if indic.sep==1
+if indic.sep<=1
 
     if indic.noskill==0
         if indic.ineq==0
-
-        %            guess_trans=trans_guess(indexx('LF_sep'), xx, params, list.params);
-        %     else
                guess_trans=trans_guess(indexx('LF'), xx, params, list.params);
-        %     end
         else
-
-        %     if indic.sep==1
-        %           guess_trans=trans_guess(indexx('LF_sep_ineq'), xx, params, list.params);
-        %     else
                guess_trans=trans_guess(indexx('LF_ineq'), xx, params, list.params);
-        %     end
         end
     else
         guess_trans=trans_guess(indexx(sprintf('LF_noskill_sep%d', indic.sep)), xx, params, list.params);
@@ -215,7 +224,7 @@ end
 
 
 if (max(abs(f)))>1e-7
-    fprintf('f only solved at less than 1e-9, max abs f = %f',max(abs(f)) )
+    fprintf('f only solved at less than 1e-7, max abs f = %f',max(abs(f)) )
 else
     fprintf('saved variables are correct!')
 end

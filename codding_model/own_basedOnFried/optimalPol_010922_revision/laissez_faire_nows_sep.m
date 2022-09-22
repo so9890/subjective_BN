@@ -43,19 +43,29 @@ G      = exp(x(list.choice=='G'));
 Af     = exp(x(list.choice=='Af'));
 Ag     = exp(x(list.choice=='Ag'));
 An     = exp(x(list.choice=='An'));
-sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
-sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
-sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
 
-%  S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
-wsf     = exp(x(list.choice=='wsf'));
-wsn     = exp(x(list.choice=='wsn'));
-wsg     = exp(x(list.choice=='wsg'));
+if indic.sep==1
+    sff     = upbarH/(1+exp(x(list.choice=='sff')));%exp(x(list.choice=='S')); % total labour supply
+    sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % total labour supply
+    sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
 
+    wsf     = exp(x(list.choice=='wsf'));
+    wsn     = exp(x(list.choice=='wsn'));
+    wsg     = exp(x(list.choice=='wsg'));
+    gammasg = x(list.choice=='gammasg')^2;
+    gammasn = x(list.choice=='gammasn')^2;
+    gammasf = x(list.choice=='gammasf')^2;
+
+else
+    
+    sff     = exp(x(list.choice=='sff'));
+    sn     = exp(x(list.choice=='sn'));
+    sg     = exp(x(list.choice=='sg'));
+    S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
+    ws= exp(x(list.choice=='ws'));
+    gammas = x(list.choice=='gammas')^2;
+end
 gammalh = x(list.choice=='gammalh')^2;
-gammasg = x(list.choice=='gammasg')^2;
-gammasn = x(list.choice=='gammasn')^2;
-gammasf = x(list.choice=='gammasf')^2;
 
 pg     = exp(x(list.choice=='pg'));
 pn     = exp(x(list.choice=='pn'));
@@ -124,9 +134,9 @@ end
 
 muu   = C.^(-thetaa); % same equation in case thetaa == 1
    
-E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+E     = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
 
-N       =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
+N     =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producers 
 Y     = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
@@ -188,16 +198,26 @@ q=q+1;
 f(q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
-q=q+1;
-f(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
-
-%8
-q=q+1;
-f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
-
-%9
-q=q+1;
-f(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+if indic.sep==1
+    q=q+1;
+    f(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+    %8
+    q=q+1;
+    f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+    %9
+    q=q+1;
+    f(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+else
+    
+    q=q+1;
+    f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+    %8
+    q=q+1;
+    f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+    %9
+    q=q+1;
+    f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+end
 
 %10- LOM technology
 q=q+1;
@@ -277,23 +297,29 @@ else
 end
 
 % optimality scientists
-q=q+1;
-f(q)= (chiis)*sff^sigmaas-(muu*wsf-gammasf); % scientist hours supply
-q=q+1;
-f(q)= (chiis)*sg^sigmaas-((muu*wsg-gammasg));
-q=q+1;
-f(q)= (chiis)*sn^sigmaas-((muu*wsn-gammasn));
-% Kuhn tucker scientists
-q=q+1;
-f(q)= gammasf.*(upbarH-sff);
-q=q+1;
-f(q)= gammasg.*(upbarH-sg);
-q=q+1;
-f(q)= gammasn.*(upbarH-sn);
-%market for scientists
-% q=q+1;
-% f(q)= sff+sg+sn-S; % determines wage in neutral sector
-
+if indic.sep==1
+    q=q+1;
+    f(q)= (chiis)*sff^sigmaas-(muu*wsf-gammasf); % scientist hours supply
+    q=q+1;
+    f(q)= (chiis)*sg^sigmaas-((muu*wsg-gammasg));
+    q=q+1;
+    f(q)= (chiis)*sn^sigmaas-((muu*wsn-gammasn));
+    % Kuhn tucker scientists
+    q=q+1;
+    f(q)= gammasf.*(upbarH-sff);
+    q=q+1;
+    f(q)= gammasg.*(upbarH-sg);
+    q=q+1;
+    f(q)= gammasn.*(upbarH-sn);
+elseif indic.sep==0
+    %market for scientists
+     q=q+1;
+     f(q)= sff+sg+sn-S*0.01; % determines wage in neutral sector
+    q=q+1;
+    f(q)= (chiis)*S^sigmaas-((muu*ws-gammas));
+    q=q+1;
+    f(q)= gammas.*(upbarH-S);
+end
 % balanced budget government
 q=q+1;
 f(q)= SGov-GovRev*Y;
@@ -311,5 +337,5 @@ else
     f(q)=omegaa*F-deltaa-Emlim;
 end
 end
-%fprintf('number equations: %d; number variables %d', q, length(list.choice));
+% fprintf('number equations: %d; number variables %d', q, length(list.choice));
 end

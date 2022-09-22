@@ -54,13 +54,22 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 % An=(1+vn)*An_lag;
 % Ag=(1+vg)*Ag_lag;
 % Af=(1+vf)*Af_lag;
-sn=MOM.targethour;
-sff=MOM.targethour;
-sg=MOM.targethour;
 
-S=sn+sg+sff; %zeros(size(gammalh));
-ws=zeros(size(gammalh));
-gammasg=ws; gammasn=ws; gammasf=ws;
+if indic.sep~=0
+    sn=MOM.targethour;
+    sff=MOM.targethour;
+    sg=MOM.targethour;
+
+    S=sn+sg+sff; %zeros(size(gammalh));
+    ws=zeros(size(gammalh));
+    gammasg=ws; gammasn=ws; gammasf=ws;
+else
+     sn=0.01*MOM.targethour;
+    sff=0.01*MOM.targethour;
+    sg=0.01*MOM.targethour;
+
+    S=sn+sg+sff; %zeros(size(gammalh));
+end  
 
 pg=SLF.pg;
 pn=SLF.pn;
@@ -119,7 +128,7 @@ xf = SLF.pf*alphaf*SLF.F;
 wsf = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 wsg = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
 wsn = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
-
+ws=wsn;
 A   = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
