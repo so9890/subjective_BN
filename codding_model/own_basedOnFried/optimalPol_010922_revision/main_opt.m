@@ -78,7 +78,7 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
 if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
-    fprintf('loading parameter values')
+    fprintf('loading parameter values sep%d', indic.sep)
     load(sprintf('params_0209_sep%d', indic.sep),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
 else
@@ -95,6 +95,7 @@ end
 
 %% 
 %%%%% LIST for separate markets
+
      symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
      syms wsg wsn wsf gammasg gammasf gammasn real
     symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
@@ -233,7 +234,8 @@ end
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=0;
-plotts.regime=0;
+indic.sep=0;
+plotts.regime=5;
 indic.sizeequ=0;
 indic
 
@@ -246,13 +248,13 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 1;
 %- plots: effect of taul
-plotts.LF_BAU                   = 0;
-plotts.LF_BAU_PER               = 0;
-plotts.LF_BAU_equlab            = 0;
-plotts.LF_BAU_PER_equlab        = 0;
+plotts.LF_BAU                   = 1;
+plotts.LF_BAU_PER               = 1;
+plotts.LF_BAU_equlab            = 1;
+plotts.LF_BAU_PER_equlab        = 1;
 
 %- comparison policy regime
 plotts.compRed                  = 0;
@@ -264,11 +266,11 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=1 % no emission limit : 
+for ll=0:1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0 % nowledge spillovers
-    for xgr =1
-        for nsk=0
+for nknk=0:1 % nowledge spillovers
+    for xgr =0:1
+        for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -305,44 +307,44 @@ end
 %% Laissez faire
 % 13/09: if interesed in BAU: need to set taul = 0.181 (above code does not
 % give bau solution as tauf neq 0. 
-taus=0;
-tauf=0;
-taul=0;
-lambdaa=1; % placeholder, determined in comp eqbm
-pol=eval(symms.pol);
-
-%%
-%  if indic.noskill==0
-% note: taul0 indicator irrelevant if taul in pol vector =0
-indic.limit_LF=0; 
-indic.noknow_spill=0;
-indic.sizeequ=1;
-
-for gg=0
-    indic.GOV=gg;
-for nnt=7%[0,1,2,3,4,5,7]
-      indic.notaul=nnt;
-  for i=1
-      indic.noskill=i;
-      for xgr=1
-          indic.xgrowth=xgr;
-
-          if indic.xgrowth==0
-            [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
-
-            helper.LF_SIM=LF_SIM;
-            indic.xgrowth=0;
-            [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic,Ems);
-          else
-            [LF_SIM , pol, FVAL]= solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
-          end
-        save(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,indic.notaul, indic.GOV, indic.sizeequ, params(list.params=='etaa')),'LF_SIM', 'Sparams');
-        clearvars LF_SIM helper
-      
-     end
- end
-end
-end
+% taus=0;
+% tauf=0;
+% taul=0;
+% lambdaa=1; % placeholder, determined in comp eqbm
+% pol=eval(symms.pol);
+% 
+% %%
+% %  if indic.noskill==0
+% % note: taul0 indicator irrelevant if taul in pol vector =0
+% indic.limit_LF=0; 
+% indic.noknow_spill=0;
+% indic.sizeequ=0;
+% 
+% for gg=0
+%     indic.GOV=gg;
+% for nnt=[0,1,2,3,4,5,7]
+%       indic.notaul=nnt;
+%   for i=0:1
+%       indic.noskill=i;
+%       for xgr=0:1
+%           indic.xgrowth=xgr;
+% 
+%           if indic.xgrowth==0
+%             [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
+% 
+%             helper.LF_SIM=LF_SIM;
+%             indic.xgrowth=0;
+%             [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic,Ems);
+%           else
+%             [LF_SIM , pol, FVAL]= solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
+%           end
+%         save(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,indic.notaul, indic.GOV, indic.sizeequ, params(list.params=='etaa')),'LF_SIM', 'Sparams');
+%         clearvars LF_SIM helper
+%       
+%      end
+%  end
+% end
+% end
 %- version LF with counterfac tec gap
      
 %     indic.xgrowth=0; % does not exist with exogenous growth
@@ -365,7 +367,9 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%%      Section 4: Sociel Planner allocation                             %%%
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-indic.sizeequ=1;
+indic.sizeequ=0;
+indic.noknow_spill=0;
+indic.sep=0; % Has to be equal to loaded parameters!!!
 for xgr=0:1
     indic.xgrowth=xgr;
     for ns=0:1
@@ -373,7 +377,7 @@ for xgr=0:1
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=1
+       for tar=0
             indic.target=tar;
             indic               
             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
@@ -393,20 +397,21 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 indic.taus  = 0; % with ==0 no taus possible!
-indic.sep =1;
+indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
 indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
+indic.testT =1; % do not test value of T
 
-for tr =0:1
+for tr =1
     indic.target=tr;
 for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=[4]
+ for nnt=0
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -488,9 +493,9 @@ end
 end
 end
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: PLOTS       %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic
@@ -523,7 +528,7 @@ plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 
 plotts.count_modlev_eff         = 0;
-plotts.single_pol               = 0;
+plotts.single_pol               = 1;
 plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
@@ -537,7 +542,7 @@ plotts.comp_LFOPT               = 0; % laissez faire and optimal with and withou
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -555,7 +560,7 @@ plotts.compREd=0;
     
 for xgr =0
     for nsk=0
-        for se=1
+        for se=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =se; % important for comparison of 

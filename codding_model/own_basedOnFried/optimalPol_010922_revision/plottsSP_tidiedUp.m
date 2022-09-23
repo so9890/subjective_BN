@@ -64,20 +64,25 @@ for nsk =0:1
     indic.xgrowth=xgr;
     indic.noskill=nsk;
     %- sp solution independent of policy
-    helper=load(sprintf('SP_target_1008_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, etaa));
+    helper=load(sprintf('SP_target_1008_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+        indic.spillovers, indic.noknow_spill, indic.noskill, 1,  indic.xgrowth, indic.PV, indic.sizeequ, etaa));
     sp_t=helper.sp_all';
-    helper=load(sprintf('SP_notarget_1008_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat',  indic.spillovers, indic.noskill, indic.sep, indic.xgrowth,  indic.PV,etaa));
+    helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', ...
+        indic.spillovers, indic.noknow_spill, indic.noskill, 1, indic.xgrowth,  indic.PV, indic.sizeequ, etaa));
     sp_not=helper.sp_all';
 
 %- other results
     for i=[0,1,4,5] % loop over policy versions
       
-        helper=load(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill,indic.xgrowth, indic.sep, i,plotts.GOV, plotts.sizeequ,  etaa));
-        LF=helper.LF_SIM';
-
-        helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV,  plotts.sizeequ, plotts.GOV, etaa));
+       helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul0_countec%d_GovRev%d_etaa%.2f.mat', ...
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+        LF = helper.COMP';
+        
+        helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',... 
+            indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV,  plotts.sizeequ, plotts.GOV, etaa));
         opt_not_notaus=helper.opt_all';
-        helper=load(sprintf('OPT_target_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+        helper=load(sprintf('OPT_target_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', ... 
+            indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
         opt_t_notaus=helper.opt_all';
 
         RES = containers.Map({'LF', 'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
@@ -139,13 +144,13 @@ end
 % RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
 
 % no knowledge spillovers 
-helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-opt_not_notaus=helper.opt_all';
-helper=load(sprintf('OPT_target_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-opt_t_notaus=helper.opt_all';
-RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                            {opt_t_notaus, opt_not_notaus});
-RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms);
+%     helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+%     opt_not_notaus=helper.opt_all';
+%     helper=load(sprintf('OPT_target_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+%     opt_t_notaus=helper.opt_all';
+%     RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
+%                                 {opt_t_notaus, opt_not_notaus});
+%     RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms);
     
 % counetrfactual with optimal policy from no spill over plugged in benchmark model
 % 

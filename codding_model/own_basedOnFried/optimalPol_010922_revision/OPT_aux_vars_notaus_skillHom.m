@@ -17,12 +17,19 @@ if indic.xgrowth==0
     sn      = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
     sg      = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sff      = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
+    
+ if indic.sep==1
+    S    = sn+sg+sff;
+ elseif indic.sep==0
+    S     = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
+ end
 else
-    sff=MOM.targethour* ones(size(F));
-    sn=MOM.targethour* ones(size(F));
-    sg=MOM.targethour* ones(size(F));
- 
+   sff=sff0*ones(size(F));
+    sn=sn0*ones(size(F));
+    sg=sg0*ones(size(F));
+    S=sn+sff+sg;
 end
+
 %% auxiliary variables
 % loop over technology
 if indic.zero==0
@@ -72,7 +79,6 @@ else
         Af_lag=Af(i);
         Ag_lag=Ag(i);
     end
-    S=sn+sff+sg;
     A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
 
 end
@@ -107,7 +113,6 @@ w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; % lab
 %     wsn=zeros(size(sff));
 % end
 %- relevant for code without separate markets
-S    = sn+sg+sff;
 ws   = (chiis*S.^sigmaas)./muu; 
 
 if indic.notaul >=4

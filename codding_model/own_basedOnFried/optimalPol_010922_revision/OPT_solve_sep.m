@@ -18,9 +18,9 @@ else
         end
     elseif indic.sep==0
         if indic.noskill==0
-        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh S sn sff sg];
+        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg S];
     else
-            symms.opt = [Lf Lg C F G h S sn sff sg];
+            symms.opt = [Lf Lg C F G h sn sff sg S];
         end
     end
         
@@ -43,12 +43,17 @@ nn= length(list.opt); % number of variables
 %     symms.allvars=symms.sepallvars;
 % end
 
+    % use correct list to read in variables!
+%      saved=list.allvars;
+%      hhelper= load(sprintf('params_0209_sep%d', 1));
+% % 
+%      list.allvars=hhelper.list.allvars;
 %% Initial Guess %%% 
 %%%%%%%%%%%%%%%%%%%%%
 if indic.target==1
      
 %         helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,  5, indic.sep, indic.xgrowth, indic.PV, etaa));
-       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+       helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill,indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %      helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV,indic.GOV, etaa));
 
         opt_all=helper.opt_all;
@@ -81,19 +86,19 @@ kappaa = kappaa*(1-1e-10);
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))  =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
-        if indic.sep==0
-                    x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
-        end
+         if indic.sep==0
+                     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
+         end
    end  
 elseif indic.target==0
 %         helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 5, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
-         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus, indic.noskill,indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.taus,indic.noskill,indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %          helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.GOV, etaa));
 
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);
-    
     if indic.noskill==0
+        
         x0(T*(find(list.opt=='hhf')-1)+1:T*(find(list.opt=='hhf'))) =opt_all(:,list.allvars=='hhf'); % hhf; first period in LF is baseline
         x0(T*(find(list.opt=='hhg')-1)+1:T*(find(list.opt=='hhg'))) =opt_all(:,list.allvars=='hhg'); % hhg
         x0(T*(find(list.opt=='hlf')-1)+1:T*(find(list.opt=='hlf'))) =opt_all(:,list.allvars=='hlf'); % hlf
@@ -116,9 +121,9 @@ elseif indic.target==0
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
-        if indic.sep==0
-           x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
-        end
+         if indic.sep==0
+            x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
+         end
     end 
 end
 
@@ -142,37 +147,21 @@ else
         x0(T*(find(list.opt=='h')-1)+1:T*(find(list.opt=='h'))));
 end
 % initial value of scientists might be zero (in version with target; other transformation required)
-if indic.target==1
-     if indic.sep==1
-        guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
-        x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
-        guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
-        x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
-        guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
-        x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));
-     elseif indic.sep==0
-         guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-         guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-         guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-        guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
-        x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-     end
-else
-    if indic.sep==1
-        guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
-        x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
-        guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
-        x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
-        guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
-        x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))); 
-     elseif indic.sep==0
-         guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-         guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-         guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-        guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
-        x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-     end
-end
+
+if indic.sep==1
+    guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
+    x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
+    guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
+    x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
+    guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
+    x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))); 
+ elseif indic.sep==0
+     guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+     guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+     guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+    guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
+    x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+ end
 
 if indic.target==1
      guess_trans(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F')))=log((Ftarget-x0(T*(find(list.opt=='F')-1)+1:T*(find(list.opt=='F'))))./...
@@ -230,65 +219,116 @@ elseif indic.target==0
         end
      %   end
 end
-  save(sprintf('2209_results_opt_main_notaul0_target%d', indic.target), 'x')
-% gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
-% x=gg.x;
+save('incase_of_error', 'x')
+%%
+if indic.testT==1
+      save(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x')
+    % gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
+    % x=gg.x;
 
-%% add further direct optimization periods => goal: so that continuation value does not impact allocation anymore
-hhh= load(sprintf('2209_results_opt_main_notaul0_target%d', indic.target), 'x');
-x=hhh.x;
-T=12;
-count=0; % count number of iterations
-mm=10;
-Emsnew=Ems;
-Tinit=T;
+    %% add further direct optimization periods => goal: so that continuation value does not impact allocation anymore
+    hhh= load(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x');
+    x=hhh.x;
+    T=12;
+    count=0; % count number of iterations
+    mm=10;
+    Emsnew=Ems;
+    Tinit=T;
 
-while mm>1e-7
-    % save starting values
-    Told=T;
-    xold=x;
-    Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
-    Ftarget =  (Emsnew'+deltaa)/omegaa;
-
-    % sequentially increase number of explicit periods
-    count=count+1; 
-    T=T+1;
-
-    %- update initial values: add last period value as guess for new direct
-    % optimization period
-    x0 = zeros(nn*T,1);
-        for ll=list.opt
-            x0(T*(find(list.opt==ll)-1)+1:T*(find(list.opt==ll)))  = [xold(Told*(find(list.opt==ll)-1)+1:Told*(find(list.opt==ll)));xold(Told*(find(list.opt==ll)))]; 
+    while mm>1e-5
+        % save starting values
+        Told=T;
+        xold=x;
+        %- transform and save for comparison
+        out_trans=exp(x);
+        if indic.noskill==0
+            out_trans((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=upbarH./(1+exp(x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
+            out_trans((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=upbarH./(1+exp(x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+        else
+            out_trans((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)=upbarH./(1+exp(x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
         end
-    %- optimization for new horizon
-     constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
-     objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
-    
-     if ~isfile(sprintf('2209_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
 
-         options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-         [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
-         save(sprintf('2209_results_opt_main_notaul0_notarget_Tplus%d', count), 'x')
-     else
-         helper=load(sprintf('2209_results_opt_main_notaul0_target%d_Tplus%d', indic.target, count));
-         x=helper.x;
-     end
-      abbs=zeros(length(list.opt),1);
-      
-      for ll=1:length(list.opt)
-          %- slice by variable
-          old = xold(Told*(ll-1)+1:Told*(ll));
-          new = x(T*(ll-1)+1:T*(ll));
-          %- compares only first 12 periods
-            abbs(ll)=max(abs((new(1:Tinit)-old(1:Tinit))./old(1:Tinit))); % x= new, xold=old
-      end
-      mm=max(abbs);
-      fprintf('biggest deviation in percent %d, number of finished iterations %d', mm*100, count)
-      
+        if indic.sep==1
+            out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+            out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+            out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+        elseif indic.sep==0
+            out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+            out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+            out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+            out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+        end    
+
+        out_transold=out_trans; 
+
+        Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
+        Ftarget =  (Emsnew'+deltaa)/omegaa;
+
+        % sequentially increase number of explicit periods
+        count=count+1; 
+        T=T+1;
+
+        %- update initial values: add last period value as guess for new direct
+        % optimization period
+        x0 = zeros(nn*T,1);
+            for ll=list.opt
+                x0(T*(find(list.opt==ll)-1)+1:T*(find(list.opt==ll)))  = [xold(Told*(find(list.opt==ll)-1)+1:Told*(find(list.opt==ll)));xold(Told*(find(list.opt==ll)))]; 
+            end
+        %- optimization for new horizon
+         constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
+         objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
+
+         if ~isfile(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
+
+             options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+             [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
+             save(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d',indic.target, count), 'x')
+         else
+             helper=load(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d', indic.target, count));
+             x=helper.x;
+         end
+          abbs=zeros(length(list.opt),1);
+            
+          %- transform
+            out_trans=exp(x);
+            if indic.noskill==0
+                out_trans((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=upbarH./(1+exp(x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
+                out_trans((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)=upbarH./(1+exp(x((find(list.opt=='hh')-1)*T+1:find(list.opt=='hh')*T)));
+            else
+                out_trans((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)=upbarH./(1+exp(x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
+            end
+
+            if indic.sep==1
+                out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
+                out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
+                out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
+            elseif indic.sep==0
+                out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+                out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+                out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+                out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+            end    
+        if indic.target==1
+            out_trans((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
+        end
+
+
+          for ll=1:length(list.opt)
+              %- slice by variable
+              old = out_transold(Told*(ll-1)+1:Told*(ll));
+              new = out_trans(T*(ll-1)+1:T*(ll));
+              %- compares only first 12 periods
+                abbs(ll)=max(abs((new(1:Tinit)-old(1:Tinit))./old(1:Tinit))); % x= new, xold=old
+          end
+          mm=max(abbs);
+          fprintf('max deviation in percent %d, number of finished iterations %d', mm*100, count)
+
+    end
 end
 %% transform
 % helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
 % x=xsqp;
+
 out_trans=exp(x);
 if indic.noskill==0
     out_trans((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)=upbarH./(1+exp(x((find(list.opt=='hl')-1)*T+1:find(list.opt=='hl')*T)));
@@ -297,29 +337,23 @@ else
     out_trans((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)=upbarH./(1+exp(x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
 end
 
-if indic.target == 0
+if indic.sep==1
     out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
     out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-
-else
-    if etaa<1
-    out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-    out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
-    out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-    else
-        out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+elseif indic.sep==0
+    out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
     out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
-    end 
-end
+    out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+end    
+
 
 if indic.target==1
     out_trans((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
 end
 
 %% generate auxiliary variables
-
     if indic.noskill==0
             [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
@@ -351,7 +385,8 @@ obs =[PV, PVSWF, objF]; % save measures of objective function
 % if indic.sep==1
 %    opt_all=eval(symms.sepallvars);
 % else
-    opt_all=eval(symms.allvars);
+% list.allvars=saved;
+opt_all=eval(symms.allvars);
 % end
 
 % additional government variabls

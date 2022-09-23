@@ -16,28 +16,22 @@ else
     x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T) = upbarH./(1+exp(y((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
 end
 
-if indic.target == 0
+if indic.sep==1
     x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
     x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
     x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
-
-else
-    if etaa<1
-        x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-        x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
-        x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
-    else
-         x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
-         x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
-         x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
-    end
+elseif indic.sep==0
+     x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+     x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+     x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 end
+
 
 if indic.target==1
     Ftarget=(Ems'+deltaa)./omegaa; 
     x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)   = Ftarget./(1+exp(y((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
 end
-
 
 
 %- auxiliary variables
@@ -69,7 +63,7 @@ c(T+1:T*2) = -Tls; % lump-sum transfers cannot be negative
 
 if indic.xgrowth==0
     if indic.sep==0
-        c(T*2+1:T*3)   = S-upbarH;
+        %c(T*2+1:T*3)   =S- upbarH;
     else
         c(T*2+1:T*3)   = sg-upbarH;
         c(3*T+1:4*T)   = sff-upbarH;
@@ -96,13 +90,23 @@ end
             ceq(T*6+1:T*7) = ws-wsf; % wage clearing
             ceq(T*7+1:T*8) = ws-wsg;
             ceq(T*8+1:T*9) = ws-wsn;
+            
+            ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
+         ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
+          
+         % hh budget different for with and without inequality version
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
+            ceq(T*12+1:T*13) = S-sn-sff-sg;
+            
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+                ceq(T*13+1:T*14) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
+            end
+         
            else
              ceq(T*6+1:T*7) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
              ceq(T*7+1:T*8) = (chiis)*sg.^sigmaas-muu.*wsg;
              ceq(T*8+1:T*9) = (chiis)*sn.^sigmaas-muu.*wsn;
-           end
-           
-         ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
+             ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
          ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
          
          % hh budget different for with and without inequality version
@@ -110,6 +114,9 @@ end
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
+         
+           end
+           
          
      elseif indic.xgrowth==1
          ceq(1:T)       = chii*hh.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wh).^(1-taul));
@@ -137,15 +144,18 @@ end
                 ceq(T*4+1:T*5) = ws-wsf; % wage clearing
                 ceq(T*5+1:T*6) = ws-wsg;
                 ceq(T*6+1:T*7) = ws-wsn;
-               else
+                ceq(T*7+1:T*8) = S-sn-sg-sff;
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+                ceq(T*8+1:T*9)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
+                end
+              else
                  ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
                  ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-muu.*wsg;
                  ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-muu.*wsn;
-               end
-
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
                 ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
-            end
+                end
+               end
 
      elseif indic.xgrowth==1
             ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 

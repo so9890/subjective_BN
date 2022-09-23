@@ -71,24 +71,25 @@ wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % pri
 
 
 % prices compatible with sp solution 
-pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
-pf = (G./F).^(1/eppse).*pg; 
-tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
-% tauf2= 1-xf./(pf.*alphaf.*F); 
-pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
-wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*(1-tauf).*Af_lag)./(Af.*rhof^etaa); 
+pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
+pf      = (F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf); % production fossil
+
+tauf      = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
+
+pee     = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
 wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
 wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+        (pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+        (pf).^(1/(1-alphaf)).*Af;
 taul    = (log(wh./wl)-sigmaa*log(hh./hl))./(log(hh./hl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
+lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
 
 
@@ -98,7 +99,7 @@ Emnet     = omegaa*F-deltaa; % net emissions
 
 
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 
 
 % utility
@@ -128,14 +129,9 @@ if indic.sep==0
     
     % continuation value
     %- last period growth rate as proxy for future growth rates
-    gammay = Y(T)/Y(T-1)-1;
+      gammay = Y(T)/Y(T-1)-1;
     PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
-    UtillabMean = chii.*(zh.*mean(hh).^(1+sigmaa)+(1-zh).*mean(hl).^(1+sigmaa))./(1+sigmaa);
-
-   UtilsciMean = chiis*mean(sff).^(1+sigmaas)./(1+sigmaas)+chiis*mean(sg).^(1+sigmaas)./(1+sigmaas)+chiis*mean(sn).^(1+sigmaas)./(1+sigmaas);
-
- 
-    PVwork = indic.PVwork *1/(1-betaa)*(UtillabMean+UtilsciMean); % this decreases last period work and science 
+    PVwork = indic.PVwork*1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
     PV= betaa^T*(PVconsump-PVwork);
 
     %Objective function value:

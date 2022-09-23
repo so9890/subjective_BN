@@ -61,7 +61,7 @@ end
     end
     if indic.sep==0
         ws=z(list.allvars=='ws', :)';
-        S =z(list.allvars=='S', :)';
+        S =log((params(list.params=='upbarH')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
         gammas =zeros(size(S));
     else
         wsf=z(list.allvars=='wsf', :)';
@@ -86,7 +86,7 @@ x0=x0(:);
 
 % test solution to 
 % if indic.xgrowth==0
-    if indic.sep==1
+    if indic.sep<=1
        f= laissez_faireVECT_sep_NoRed(x0, params, list, varrs, init201519, T, indic);
 %        f=laissez_faireVECT_sep(x0, params, list, varrs, init201519,T, indic);
     else

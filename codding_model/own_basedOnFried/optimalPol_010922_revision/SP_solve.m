@@ -21,17 +21,22 @@ end
 list.sp  = string(symms.sp); 
 nn= length(list.sp); 
 
+% to start from solution with sep==1
+saved=list.allvars;
+      hhelper= load(sprintf('params_0209_sep%d', 1));
+% % 
+      list.allvars=hhelper.list.allvars;
 %%
 %%%%%%%%%%%%%%%%%%%%%%
 % Initial Guess %
 %%%%%%%%%%%%%%%%%%%%%
 
 %- use competitive equilibrium with policy (taus=0; tauf=0; taul=0)
-    helper=load(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul0_GOV0_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.sizeequ, params(list.params=='etaa')));
+    helper=load(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul0_GOV0_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.xgrowth, 1, indic.sizeequ, params(list.params=='etaa')));
     LF_SIM=helper.LF_SIM';
 
 if indic.count_techgap==1
-    helper=load(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, params(list.params=='etaa')));
+    helper=load(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, 1, params(list.params=='etaa')));
     LF_SIM=helper.LF_SIM;
 end
 
@@ -46,7 +51,7 @@ if indic.target==0
     x0 = zeros(nn*T,1);
     Ftarget = 0; % placeholder
 
-    if ~isfile(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep,indic.xgrowth, 1, params(list.params=='etaa')))
+    if ~isfile(sprintf('SP_notarget_0308_spillover%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, 1,indic.xgrowth, 1, params(list.params=='etaa')))
         if indic.noskill==0
             x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =LF_SIM(list.allvars=='hhf',1:T); % hhf; first period in LF is baseline
             x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =LF_SIM(list.allvars=='hhg',1:T); % hhg
@@ -82,7 +87,8 @@ if indic.target==0
     
     else
        fprintf('using sp solution') 
-         helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep,indic.xgrowth, 1, params(list.params=='etaa')));
+      helper=load(sprintf('SP_notarget_1008_spillover%d_knspil0_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1,indic.xgrowth, indic.PV, params(list.params=='etaa')));
+%          helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, 1,indic.xgrowth, 1, params(list.params=='etaa')));
 %        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,4, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
         sp_all=helper.sp_all;
@@ -124,7 +130,7 @@ elseif indic.target==1
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
         fprintf('using sp solution as initial value')
-       helper= load(sprintf('SP_target_1008_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.xgrowth, 1, params(list.params=='etaa')));
+       helper= load(sprintf('SP_target_1008_spillover%d_knspil0_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1, indic.xgrowth, indic.PV, params(list.params=='etaa')));
        %helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.noskill, 4 , indic.sep, indic.xgrowth, indic.PV, etaa));
 
         sp_all=helper.sp_all;
@@ -280,11 +286,12 @@ gammasf = zeros(size(pn));
 gammasn = zeros(size(pn));
 obs =[PV, PVSWF, objF]; % save measures of objective function 
 %%
-if indic.sep==0
-    sp_all=eval(symms.allvars);
-else
-    sp_all=eval(symms.sepallvars);
-end
+list.allvars=saved;
+% if indic.sep==0
+sp_all=eval(symms.allvars);
+% else
+%     sp_all=eval(symms.sepallvars);
+% end
 
 %%
 if indic.count_techgap==0

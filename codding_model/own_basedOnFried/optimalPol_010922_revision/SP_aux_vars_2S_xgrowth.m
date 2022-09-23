@@ -26,24 +26,62 @@ Ch=C; Cl=C;
 
 F      = x((find(list.sp=='F')-1)*T+1:find(list.sp=='F')*T);
 
+sff     = sff0*ones(size(xf));
+sg      = sg0*ones(size(xf));
+sn      = sn0*ones(size(xf));
+S       = sff+sg+sn;
 
-% initial values
-An_lag=init(list.init=='An0');
-Ag_lag=init(list.init=='Ag0');
-Af_lag=init(list.init=='Af0');
+% loop over technology
+if indic.zero==0
+    Af=zeros(T,1);
+    Af_lag=[init(list.init=='Af0'); Af(1:T)]; % drop last value later
+    Ag=zeros(T,1);
+    Ag_lag=[init(list.init=='Ag0'); Ag(1:T)];
+    An=zeros(T,1);
+    An_lag=[init(list.init=='An0'); An(1:T)];
+    A_lag=zeros(T,1);
 
-Af=zeros(size(xf));
-Ag=zeros(size(xf));
-An=zeros(size(xf));
+    for i=1:T
+        A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
 
-for i=1:T
-    An(i)=(1+vn)*An_lag;
-    Ag(i)=(1+vg)*Ag_lag;
-    Af(i)=(1+vf)*Af_lag;
-    %- update laggs
-    An_lag=An(i);
-    Af_lag=Af(i);
-    Ag_lag=Ag(i);
+        Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
+        Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
+        An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
+
+        %-update lags
+
+        Af_lag(i+1)=Af(i);
+        Ag_lag(i+1)=Ag(i);
+        An_lag(i+1)=An(i);
+
+    end
+
+    Af_lag=Af_lag(1:end-1);
+    An_lag=An_lag(1:end-1);
+    Ag_lag=Ag_lag(1:end-1);
+else % version with zero growth
+    An_lag=init(list.init=='An0');
+    Ag_lag=init(list.init=='Ag0');
+    Af_lag=init(list.init=='Af0');
+
+    Af=zeros(size(F));
+    Ag=zeros(size(F));
+    An=zeros(size(F));
+
+    for i=1:T
+        An(i)=(1+vn)*An_lag;
+        Ag(i)=(1+vg)*Ag_lag;
+        Af(i)=(1+vf)*Af_lag;
+        %- update laggs
+        An_lag=An(i);
+        Af_lag=Af(i);
+        Ag_lag=Ag(i);
+    end
+    
+    An_lag=An;
+    Af_lag=Af;
+    Ag_lag=Ag;
+    A_lag=Ag_lag;
 end
 
 % aux variables
@@ -51,84 +89,70 @@ end
 Lg      = hhg.^thetag.*hlg.^(1-thetag);
 Ln      = hhn.^thetan.*hln.^(1-thetan);
 Lf      = hhf.^thetaf.*hlf.^(1-thetaf);
-%A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
-% Af_lag  = [Af0;Af(1:T-1)]; % shift Af backwards
-% Ag_lag  = [Ag0;Ag(1:T-1)];
-% An_lag  = [An0;An(1:T-1)];
-% %A_lag   = [max([Af0,Ag0,An0]);A(1:T-1)];
-% A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
-% 
-% sff     = ((Af./Af_lag-1).*rhof^etaa/gammaa.*(Af_lag./A_lag).^phii).^(1/etaa);
-% sg      = ((Ag./Ag_lag-1).*rhog^etaa/gammaa.*(Ag_lag./A_lag).^phii).^(1/etaa); 
-% sn      = ((An./An_lag-1).*rhon^etaa/gammaa.*(An_lag./A_lag).^phii).^(1/etaa);
-S       = zeros(size(xf));
-sff     = zeros(size(xf));
-sg      = zeros(size(xf));
-sn      = zeros(size(xf));
 
-% the absolute amount of scientists supplied is determined by scientist
-% preferences, the planner has to take this as given (otherwise there is no bound on science!)
-% alternatively add disutility from scientists to objective function 
- 
-N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
-
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
+
+N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
+pn      = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
+A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
+A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
+wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
+wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
+
 
 % prices compatible with sp solution 
-pg = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag;
-pn = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
-pf = (G./F).^(1/eppse).*pg; 
-tauf = 1-(F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf.*pf); 
-% tauf2= 1-xf./(pf.*alphaf.*F); 
-pee     = (pf.^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
-wsf     = zeros(size(xf));
-wsn     = zeros(size(xf));
+pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
+pf      = (F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf); % production fossil
 
-% S       = (wsn/chiis)^(1/sigmaas);
-wsg     = zeros(size(xf));
+tauf      = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
+
+pee     = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
+wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
+wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
 wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
+        (pf).^(1/(1-alphaf)).*Af; % from optimality labour input producers fossil, and demand labour fossil
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
-        ((1-tauf).*pf).^(1/(1-alphaf)).*Af;
+        (pf).^(1/(1-alphaf)).*Af;
 taul    = (log(wh./wl)-sigmaa*log(hh./hl))./(log(hh./hl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*pf.*F)./...
+lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-            +tauf.*pf.*F;
+            +tauf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
-A  = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 
-muu      = C.^(-thetaa); % same equation in case thetaa == 1
+
+muu   = C.^(-thetaa); % same equation in case thetaa == 1
+
 muuh=muu; muul=muu;
 
-wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
 wlg     = pg.^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
-wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*((1-tauf).*pf).^(1/(1-alphaf)).*Af; 
+wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 
-
-%- continuation value: assuming after period T constant growth rate
-%  note that A and Af refer to the last direct period T so do not use lags
-%  here!, Assumption that research input sff is constant after period T
-% gives additional value to last period research 
-gammac = gammaa.*(sff(T)./rhof).^etaa.*(A(T)./Af(T)).^phii;
 
 % utility
 
-        if thetaa~=1
-            Utilcon = (C.^(1-thetaa))./(1-thetaa);
-        elseif thetaa==1
-            Utilcon = log(C);
-        end
-Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
-Utilsci = zeros(size(xf));
+if thetaa~=1
+    Utilcon = (C.^(1-thetaa))./(1-thetaa);
+elseif thetaa==1
+    Utilcon = log(C);
+end
 
-SWF = Utilcon-Utillab-Utilsci;
-% objective function measures
- %- create discount vector
+Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+
+if indic.sep==0
+      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+ else
+      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+ end
+ SWF = Utilcon-Utillab-Utilsci;
+ 
+%% social welfare
+
+    %- create discount vector
      disc=repmat(betaa, 1,T);
      expp=0:T-1;
      vec_discount= disc.^expp;
@@ -138,7 +162,7 @@ SWF = Utilcon-Utillab-Utilsci;
     %- last period growth rate as proxy for future growth rates
     gammay = Y(T)/Y(T-1)-1;
     PVconsump= 1/(1-betaa*(1+gammay)^(1-thetaa))*Utilcon(T);
-    PVwork =indic.PVwork* 1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
+    PVwork = indic.PVwork*1/(1-betaa)*(Utillab(T)+Utilsci(T)); % this decreases last period work and science 
     PV= betaa^T*(PVconsump-PVwork);
 
     %Objective function value:

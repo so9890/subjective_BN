@@ -25,13 +25,18 @@ if indic.xgrowth==0
     sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
-else
-    sff=sff0; %MOM.targethour* ones(size(F));
-    sn=sn0; %MOM.targethour* ones(size(F));
-    sg=sg0; %MOM.targethour* ones(size(F));
-end
-S    = sn+sg+sff;
+ if indic.sep==1
+    S    = sn+sg+sff;
+ elseif indic.sep==0
+    S     = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
+ end
 
+else
+    sff=sff0*ones(size(F));
+    sn=sn0*ones(size(F));
+    sg=sg0*ones(size(F));
+    S=sn+sff+sg;
+end
 
 %% auxiliary variables
 

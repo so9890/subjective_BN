@@ -76,17 +76,17 @@ for nsk =0:1
         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
             indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
         all_Taul0=helper.COMP';
-        helper=load(sprintf('TAUF_1409_taulZero0_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',...
-            indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV), 'TAUF');
+        helper=load(sprintf('TAUF_1409_taulZero0_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+            indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV, indic.sep), 'TAUF');
         tauff_TaulC=helper.TAUF; % tauff is independent of notaul!
-        helper=load(sprintf('TAUF_1409_taulZero1_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d',...
-           indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV), 'TAUF');
+        helper=load(sprintf('TAUF_1409_taulZero1_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+           indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,lablab, indic.count_techgap, indic.GOV, indic.sep), 'TAUF');
         tauff_Taul0=helper.TAUF; % tauff is independent of notaul!
         helper = load(sprintf('BAU_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, i, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
         BAU = helper.COMP';
         helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', ...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, indic.notaul, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, lablab, indic.sep, i, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
         LF = helper.COMP';
         RES = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
         %- add additional variables
@@ -604,7 +604,7 @@ if plotts.LF_BAU==1
         allvarsLF=allvars('LF');
         
     for lgdind=0:1
-    for l ="Add"%keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -658,7 +658,7 @@ if plotts.LF_BAU_PER==1
         allvarsLF=allvars('LF');
         Perdif = (allvarsBAU-allvarsLF)./allvarsLF*100;
         
-    for l ="Add"%keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -705,7 +705,7 @@ if plotts.LF_BAU_equlab==1
         allvarsLF=allvars('LF');
         
     for lgdind=0:1
-    for l ="Add"%keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -759,7 +759,7 @@ if plotts.LF_BAU_PER_equlab==1
         allvarsLF=allvars('LF');
         Perdif = (allvarsBAU-allvarsLF)./allvarsLF*100;
         
-    for l ="Add"%keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 

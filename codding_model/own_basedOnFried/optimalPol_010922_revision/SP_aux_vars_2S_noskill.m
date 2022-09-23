@@ -23,6 +23,10 @@ if indic.xgrowth==0
     sff     = x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T);
     sg      = x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T);
     sn      = x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T);
+else
+    sff=sff0*ones(size(xf));
+    sg=sg0*ones(size(xf));    
+    sn=sn0*ones(size(xf));
 end
 
 
@@ -44,28 +48,57 @@ if indic.xgrowth==0
     Ag_lag  = [Ag0;Ag(1:T-1)];
     An_lag  = [An0;An(1:T-1)];
 else
-    % initial values
-    An_lag=init(list.init=='An0');
-    Ag_lag=init(list.init=='Ag0');
-    Af_lag=init(list.init=='Af0');
+  if indic.zero==0
+    Af=zeros(T,1);
+    Af_lag=[init(list.init=='Af0'); Af(1:T)]; % drop last value later
+    Ag=zeros(T,1);
+    Ag_lag=[init(list.init=='Ag0'); Ag(1:T)];
+    An=zeros(T,1);
+    An_lag=[init(list.init=='An0'); An(1:T)];
+    A_lag=zeros(T,1);
 
-    Af=zeros(size(xf));
-    Ag=zeros(size(xf));
-    An=zeros(size(xf));
+        for i=1:T
+        A_lag(i)   = (rhof*Af_lag(i)+rhon*An_lag(i)+rhog*Ag_lag(i))./(rhof+rhon+rhog);
 
-    for i=1:T
-        An(i)=(1+vn)*An_lag;
-        Ag(i)=(1+vg)*Ag_lag;
-        Af(i)=(1+vf)*Af_lag;
-        %- update laggs
-        An_lag=An(i);
-        Af_lag=Af(i);
-        Ag_lag=Ag(i);
+        Af(i)=Af_lag(i).*(1+gammaa*(sff(i)/rhof).^etaa.*(A_lag(i)/Af_lag(i))^phii);
+        Ag(i)=Ag_lag(i).*(1+gammaa*(sg(i)/rhog).^etaa.*(A_lag(i)/Ag_lag(i))^phii);
+        An(i)=An_lag(i).*(1+gammaa*(sn(i)/rhon).^etaa.*(A_lag(i)/An_lag(i))^phii);
+
+        %-update lags
+
+        Af_lag(i+1)=Af(i);
+        Ag_lag(i+1)=Ag(i);
+        An_lag(i+1)=An(i);
+
+        end
+
+        Af_lag=Af_lag(1:end-1);
+        An_lag=An_lag(1:end-1);
+        Ag_lag=Ag_lag(1:end-1);
+    else % version with zero growth
+        An_lag=init(list.init=='An0');
+        Ag_lag=init(list.init=='Ag0');
+        Af_lag=init(list.init=='Af0');
+
+        Af=zeros(size(F));
+        Ag=zeros(size(F));
+        An=zeros(size(F));
+
+        for i=1:T
+            An(i)=(1+vn)*An_lag;
+            Ag(i)=(1+vg)*Ag_lag;
+            Af(i)=(1+vf)*Af_lag;
+            %- update laggs
+            An_lag=An(i);
+            Af_lag=Af(i);
+            Ag_lag=Ag(i);
+        end
+
+        An_lag=An;
+        Af_lag=Af;
+        Ag_lag=Ag;
+        A_lag=Ag_lag;
     end
-    sff     = zeros(size(xf));
-    sg      = zeros(size(xf));
-    sn      = zeros(size(xf));
-
 end
 G       = xg.^alphag.*(Ag.*Lg).^(1-alphag); 
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
