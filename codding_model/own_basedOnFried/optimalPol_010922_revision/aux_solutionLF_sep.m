@@ -181,7 +181,7 @@ end
 if indic.sep~=0
  Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
 else
-    Utilsci=chiis*S.^(1+sigmaas)./(1+sigmaas)*0.01;
+    Utilsci=chiis*S.^(1+sigmaas)./(1+sigmaas);
 end
  SWF = Utilcon-Utillab-Utilsci;
 

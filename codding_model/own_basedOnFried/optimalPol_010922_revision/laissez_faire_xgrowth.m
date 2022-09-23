@@ -61,9 +61,9 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 % An=(1+vn)*An_lag;
 % Ag=(1+vg)*Ag_lag;
 % Af=(1+vf)*Af_lag;
-    sn=    0.0034; %0.01*MOM.targethour;
-    sff=   5.5660e-10; %0.01*MOM.targethour;
-    sg=   1.0305e-08; %0.01*MOM.targethour;
+    sn=   sn0; %x0LF(list.choice=='') 0.0034; %0.01*MOM.targethour;
+    sff=  sff0; % 5.5660e-10; %0.01*MOM.targethour;
+    sg=   sg0; %1.0305e-08; %0.01*MOM.targethour;
 
 
 An=An_lag.*(1+gammaa.*(sn./rhon).^etaa.*(A_lag./An_lag).^phii);

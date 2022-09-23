@@ -153,7 +153,7 @@ if indic.sep~=3 && indic.sep~=0
 elseif indic.sep==3
      Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*se.^(1+sigmaas)./(1+sigmaas);
 elseif indic.sep==0
-    Utilsci = 0.01*chiis*S.^(1+sigmaas)./(1+sigmaas);
+    Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
 end
  SWF = Utilcon-Utillab-Utilsci;
 

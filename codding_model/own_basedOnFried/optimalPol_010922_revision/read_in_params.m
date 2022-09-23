@@ -76,3 +76,15 @@ weightext=0.01; % high weight:
 vn=0;
 vg=0;
 vf=0;
+
+% for exogenous growth fix research inputs at initial ss value
+if indic.xgrowth==1
+%hhelper= load(sprintf('params_0209_sep%d', indic.sep));
+if indic.sep==0
+sg0 =1.0305e-06; %hhelper.x0LF(hhelper.list.choice=='sg');% 
+sff0=5.5660e-08; %hhelper.x0LF(hhelper.list.choice=='sff');
+sn0= 0.3364; %hhelper.x0LF(hhelper.list.choice=='sn'); %
+else
+    error('initial values for scientists not given')
+end
+end

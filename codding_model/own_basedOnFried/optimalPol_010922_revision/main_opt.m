@@ -30,7 +30,10 @@ indic.util =0; % ==0 log utility, otherwise as  in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
-indic.sep =0; %==1 is the benchmark; when finalising should be dropped; ==2 if partial equbm; energy scientsis
+indic.sep =0; % ==0 one joint market (in calibration very low fossil and green scientists to satisfy wage clearing 
+              % ==1 3 separate markets 
+              % ==2 if partial equbm; energy scientsis
+              % ==3 energy market joint and non-energy market separate
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
 indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
@@ -59,7 +62,7 @@ indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
 indic.PV = 1; % ==1 if continuation value is added to planners problem
 indic.PVwork =0; %==0 then disutility of work is not in 
-indic.emsbase=1; % ==0 then uses emission limits as calculated
+indic.emsbase=0; % ==0 then uses emission limits as calculated
 indic.zero = 0;  % ==1 then version without growth
 indic.GOV=0; % ==0 then no gov revenues
 indic.taul0=0; %==0 then calibrated value for taul; ==1 then 0

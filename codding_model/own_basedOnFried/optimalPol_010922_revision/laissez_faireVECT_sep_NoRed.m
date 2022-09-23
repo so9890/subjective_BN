@@ -314,7 +314,7 @@ if indic.xgrowth==0 && indic.sep~=2
         f((q-1)*T+1:T*q)= gammasn.*(sn-upbarH);
     elseif indic.sep==0
         q=q+1;
-        f((q-1)*T+1:T*q)= sff+sg+sn-S*0.01; % determines wage in neutral sector
+        f((q-1)*T+1:T*q)= sff+sg+sn-S; % determines wage in neutral sector
         q=q+1;
         f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
         q=q+1;

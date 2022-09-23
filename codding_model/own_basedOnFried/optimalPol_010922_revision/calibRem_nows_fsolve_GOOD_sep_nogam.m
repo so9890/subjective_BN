@@ -51,7 +51,7 @@ q=0;
 
 % chis
 q=q+1;
-ceq(q)= (sff+sg+sn)/3-MOM.targethour;
+ceq(q)= (sff+sg+sn)-MOM.targethour*3;
 
 
 % LOM => lagged technology

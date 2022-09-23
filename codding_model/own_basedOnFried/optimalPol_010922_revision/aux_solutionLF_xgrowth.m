@@ -55,22 +55,13 @@ A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)/(rhof+rhon+rhog);
 % Ag=(1+vg)*Ag_lag;
 % Af=(1+vf)*Af_lag;
 
-if indic.sep~=0
-    sn=MOM.targethour;
-    sff=MOM.targethour;
-    sg=MOM.targethour;
+    sn=  sn0;%  0.0034; %0.01*MOM.targethour;
+    sff= sff0; % 5.5660e-10; %0.01*MOM.targethour;
+    sg=  sg0; % 1.0305e-00.018; %0.01*MOM.targethour;
 
-    S=sn+sg+sff; %zeros(size(gammalh));
-    ws=zeros(size(gammalh));
-    gammasg=ws; gammasn=ws; gammasf=ws;
-else
-    sn=    0.0034; %0.01*MOM.targethour;
-    sff=   5.5660e-10; %0.01*MOM.targethour;
-    sg=   1.0305e-08; %0.01*MOM.targethour;
-
-    S=(sn+sg+sff)/0.01; %zeros(size(gammalh));
-end  
-
+    S=(sn+sg+sff); %zeros(size(gammalh))
+    gammasg=zeros(size(gammalh)); gammasn=zeros(size(gammalh)); gammasf=zeros(size(gammalh));
+   
 pg=SLF.pg;
 pn=SLF.pn;
 pee=SLF.pee;

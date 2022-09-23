@@ -66,7 +66,7 @@ q=q+1;
 ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 q=q+1;
-ceq(q)= sff+sg+sn-MOM.targethour*0.01;
+ceq(q)= sff+sg+sn-MOM.targethour;
 q=q+1;
 ceq(q)= MOM.targethour-(muu*ws/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 %  q=q+1;

@@ -108,7 +108,7 @@ w       = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; % lab
 % end
 %- relevant for code without separate markets
 S    = sn+sg+sff;
-ws   = chiis*S.^sigmaas; 
+ws   = (chiis*S.^sigmaas)./muu; 
 
 if indic.notaul >=4
     Tls =tauf.*F;

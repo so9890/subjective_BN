@@ -247,7 +247,7 @@ symms.calib3=[symms.calib3, gammaa];
 [Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp, indic);
 
 %% save all results 
-[x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM); 
+[x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM, indic); 
 
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);

@@ -69,7 +69,7 @@ c(T+1:T*2) = -Tls; % lump-sum transfers cannot be negative
 
 if indic.xgrowth==0
     if indic.sep==0
-        c(T*2+1:T*3)    = S-upbarH;
+        c(T*2+1:T*3)   = S-upbarH;
     else
         c(T*2+1:T*3)   = sg-upbarH;
         c(3*T+1:4*T)   = sff-upbarH;

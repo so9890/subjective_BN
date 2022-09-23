@@ -10,12 +10,20 @@ syms hhf hhg hlf hlg hhn hln C Ch Cl F G Af Ag An hl hh S sff sn sg Lf Lg h gamm
 if indic.taus ==1
     symms.opt = [hhf hhg hlf hlg hhn hln C F G Af Ag An hl hh s sg];    
 else
-    if indic.noskill==0
-        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg];
+    if indic.sep==1
+        if indic.noskill==0
+            symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg];
+        else
+                symms.opt = [Lf Lg C F G h sn sff sg];
+        end
+    elseif indic.sep==0
+        if indic.noskill==0
+        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh S sn sff sg];
     else
-            symms.opt = [Lf Lg C F G h sn sff sg];
-
+            symms.opt = [Lf Lg C F G h S sn sff sg];
+        end
     end
+        
 end
 
 if indic.xgrowth==1
@@ -73,6 +81,9 @@ kappaa = kappaa*(1-1e-10);
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))  =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
+        if indic.sep==0
+                    x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
+        end
    end  
 elseif indic.target==0
 %         helper=load(sprintf('OPT_notarget_1008_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 5, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
@@ -105,6 +116,9 @@ elseif indic.target==0
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
+        if indic.sep==0
+           x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
+        end
     end 
 end
 
@@ -129,26 +143,35 @@ else
 end
 % initial value of scientists might be zero (in version with target; other transformation required)
 if indic.target==1
-     if etaa<1
+     if indic.sep==1
         guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
         guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
         guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));
-     else
+     elseif indic.sep==0
          guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
          guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
          guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-
+        guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
+        x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
      end
 else
-    guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
-    x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
-    guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
-    x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
-    guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
-    x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))); 
+    if indic.sep==1
+        guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
+        x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
+        guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
+        x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
+        guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
+        x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))); 
+     elseif indic.sep==0
+         guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+         guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+         guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+        guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
+        x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+     end
 end
 
 if indic.target==1

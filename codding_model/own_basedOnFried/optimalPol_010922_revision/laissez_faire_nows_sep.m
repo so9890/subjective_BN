@@ -314,7 +314,7 @@ if indic.sep==1
 elseif indic.sep==0
     %market for scientists
      q=q+1;
-     f(q)= sff+sg+sn-S*0.01; % determines wage in neutral sector
+     f(q)= sff+sg+sn-S; % determines wage in neutral sector
     q=q+1;
     f(q)= (chiis)*S^sigmaas-((muu*ws-gammas));
     q=q+1;

@@ -103,7 +103,7 @@ if indic.limit_LF==1
         if indic.noskill==0
             hhelper=indexx('LF');
         else
-            hhelper=indexx('LF_noskill_sep1');
+            hhelper=indexx(sprintf('LF_noskill_sep%d', indic.sep));
         end
     else
         hhelper=indexx(sprintf('LF_sep%d', indic.sep));
@@ -117,7 +117,7 @@ if indic.limit_LF==1
     if indic.noskill==0
         indexx('LF')=hhelper;
     else
-        indexx('LF_noskill_sep1')=hhelper;
+        indexx(sprintf('LF_noskill_sep%d', indic.sep))=hhelper;
     end
     else
         indexx(sprintf('LF_sep%d', indic.sep))=hhelper;

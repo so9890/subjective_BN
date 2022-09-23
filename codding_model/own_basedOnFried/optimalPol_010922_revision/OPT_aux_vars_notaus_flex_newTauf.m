@@ -26,9 +26,9 @@ if indic.xgrowth==0
     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
 else
-    sff=MOM.targethour* ones(size(F));
-    sn=MOM.targethour* ones(size(F));
-    sg=MOM.targethour* ones(size(F));
+    sff=sff0; %MOM.targethour* ones(size(F));
+    sn=sn0; %MOM.targethour* ones(size(F));
+    sg=sg0; %MOM.targethour* ones(size(F));
 end
 S    = sn+sg+sff;
 
@@ -124,7 +124,7 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
     wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
 
     %- relevant for code without separate markets
-    ws   = chiis*S.^sigmaas; 
+    ws   = (chiis*S.^sigmaas)./muu; 
 % else
 %     ws=zeros(size(F));
 %     wsf =zeros(size(F));

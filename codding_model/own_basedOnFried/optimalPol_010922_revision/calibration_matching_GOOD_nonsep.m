@@ -197,8 +197,8 @@ x0 = eval(symms.calib3);
 %-- find upper bound on growth rate
 xup=[log(Af), log(Ag), log(An), log(0.1)];
 
-[ceq]= calibRem_upbar_gammaa_nonsep(xup, MOM, list, parsHelp,polhelp,  Af, An, Ag);
-modg=@(x)calibRem_upbar_gammaa_nonsep(x, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+[ceq]= calibRem_upbar_gammaa(xup, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+modg=@(x)calibRem_upbar_gammaa(x, MOM, list, parsHelp,polhelp,  Af, An, Ag);
 options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [x, fval, exitf] = fsolve(modg, xup, options);
 gammaa=exp(x(4));
@@ -259,7 +259,8 @@ symms.calib3=[symms.calib3, gammaa];
 [Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp);
 
 %% save all results 
-[x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]=fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM, indic); 
+[x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]...
+    =fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM, indic); 
 
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
@@ -268,7 +269,7 @@ indic.ineq=0;
 f=laissez_faire_nows_sep(guess_transLF, params, list, pol, init201014, indic);
 
 
-if max(abs(f))>1e-11
+if max(abs(f))>1e-10
     error('calibration is not a solution to LF')
 else
     fprintf('Hurray!!! LF solves at baseline calibration!!!');
