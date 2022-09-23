@@ -129,15 +129,17 @@ while t<=T+1 % because first iteration is base year
  objf=@(x)objectiveCALIBSCI(x);
  constrf = @(x)laissez_faire_xgrowth_fmincon(x, params, list, pol, laggs, indic, MOM,t, Emlim);
 
-options = optimset('algorithm','active-set','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+options = optimset('algorithm','sqp','TolCon', 1e-11,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
+[sol3,fval,exitflag,output,lambda] = fmincon(objf,sol3,[],[],[],[],lb,ub,constrf,options);
+
 %[c,fval]=constrf(sol3);
 % 
 %- other solvers
     modFF = @(x)laissez_faire_xgrowth(x, params, list, pol, laggs, indic, MOM,t, Emlim);
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
-     [sol2, fval, exitf] = fsolve(modFF,sol2, options);
+    [sol2, fval, exitf] = fsolve(modFF,sol2, options);
 
     % pass to standard algorithmop
 %      options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,);%, );%, );%, 'Display', 'Iter', );

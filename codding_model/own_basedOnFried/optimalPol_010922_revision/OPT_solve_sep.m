@@ -222,7 +222,7 @@ end
 save('incase_of_error', 'x')
 %%
 if indic.testT==1
-      save(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x')
+    %  save(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x')
     % gg=  load('0308_results_opt_noskill_notaul0_notarget', 'x');
     % x=gg.x;
 
@@ -258,7 +258,9 @@ if indic.testT==1
             out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
             out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
         end    
-
+        if indic.target==1
+            out_trans((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)=Ftarget./(1+exp(x((find(list.opt=='F')-1)*T+1+percon:find(list.opt=='F')*T)));
+        end
         out_transold=out_trans; 
 
         Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
@@ -278,15 +280,15 @@ if indic.testT==1
          constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
          objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
 
-         if ~isfile(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
+        if ~isfile(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
 
              options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
              [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
              save(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d',indic.target, count), 'x')
-         else
-             helper=load(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d', indic.target, count));
-             x=helper.x;
-         end
+        else
+           helper=load(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d', indic.target, count));
+          x=helper.x;
+        end
           abbs=zeros(length(list.opt),1);
             
           %- transform

@@ -133,7 +133,7 @@ POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 indic
 for lablab =0:1
     indic.labshareequ=lablab;
-for nknk =0:1
+for nknk =0
     indic.noknow_spill=nknk; 
 for bb =["BAU", "SCC"]
     indic.tauff=bb;
@@ -171,12 +171,12 @@ for ee=0
 % full model
 for nsk=0:1
     indic.noskill=nsk;
-    for xgr=1
+    for xgr=0
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[0,5]
+    for nnt=7%[0,5]
         indic.notaul=nnt;
 
         if xgr==0
@@ -209,7 +209,7 @@ for nsk=0:1
         if ~(indic.tauff=="BAU" && indic.limit_LF==0)
             save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
                 indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
-            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+            save(sprintf('TAUF7_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
                 indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV, indic.sep), 'TAUF')
         else
             save(sprintf('BAU_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
