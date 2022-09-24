@@ -235,7 +235,7 @@ if indic.testT==1
     Emsnew=Ems;
     Tinit=T;
 
-    while mm>1e-6
+    while mm>1e-5
         % save starting values
         Told=T;
         xold=x;

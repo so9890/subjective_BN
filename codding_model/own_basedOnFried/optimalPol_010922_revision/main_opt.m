@@ -236,7 +236,7 @@ end
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=0;
-indic.sep=2;
+indic.sep=0;
 plotts.regime=0;
 indic.sizeequ=0;
 indic
@@ -250,12 +250,12 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
-plotts.compTauf_PER             = 1;
+plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_PER             = 0;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
-plotts.LF_BAU_equlab            = 0;
+plotts.LF_BAU_equlab            = 1;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
@@ -268,11 +268,11 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=0:1 % no emission limit : 
+for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0:1 % nowledge spillovers
+for nknk=0 % nowledge spillovers
     for xgr =0
-        for nsk=0:1
+        for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -544,7 +544,7 @@ plotts.comp_LFOPT               = 0; % laissez faire and optimal with and withou
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
