@@ -51,9 +51,14 @@ if indic.noskill==1
 end
 
 if indic.sep==2 % partial equilibrium
-    x0=x0(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn' &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
+    x0=x0(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn'& list.choice~='ws' &...
+        list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn'& list.choice~='gammas'& list.choice~='S');
+    
     symms.choice= symms.choice(list.choice~='wsf'&list.choice~='wsg'& list.choice~='wsn'...
-                     &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn');
+                     &list.choice~='gammasf'&list.choice~='gammasg'& list.choice~='gammasn' ...
+                     & list.choice~='gammas' & list.choice~='ws' & list.choice~='S' );
+                 % sff sg sn are still endogenous and chosen by machine
+                 % producers
     list.choice=string(symms.choice);
 
     indexxLFsep2.lab = boolean(zeros(size(list.choice)));
@@ -145,7 +150,7 @@ while t<=T+1 % because first iteration is base year
     end
     %% - transforming variables to unbounded variables
     %-- index for transformation 
-    if indic.sep<=2
+    if indic.sep<=1
         if indic.noskill==0
             guess_trans=trans_guess(indexx('LF'), x0, params, list.params);
         else
@@ -198,7 +203,7 @@ while t<=T+1 % because first iteration is base year
 %     [sol, fval, exitf] = fsolve(modFF, x1, options);
 % 
 % if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
-if indic.sep<=2
+if indic.sep<=1
     if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 ) &&  (indic.labshareequ==1&& indic.GOV==0 && indic.noknow_spill==0 )
          options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
          [sol3, fval, exitf] = fsolve(modFF, sol2, options);
@@ -213,7 +218,7 @@ if exitf<=0
     error('code did not solve')
 end
 %- transform results to bounded variables
-if indic.sep<=2
+if indic.sep<=1
     if indic.noskill==0
             LF=trans_allo_out(indexx('LF'), sol3, params, list.params, indic);
 %         else

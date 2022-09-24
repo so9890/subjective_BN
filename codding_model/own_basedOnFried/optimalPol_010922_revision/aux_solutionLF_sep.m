@@ -12,21 +12,19 @@ gammalh=SLF.gammalh;
 if indic.sep~=2
     if indic.sep==1
         
-    gammasg=SLF.gammasg;
-    gammasn=SLF.gammasn;
+        gammasg=SLF.gammasg;
+        gammasn=SLF.gammasn;
         gammasf=SLF.gammasf;
     elseif indic.sep==3
         
-    gammasg=SLF.gammasg;
-    gammasn=SLF.gammasn;
+        gammasg=SLF.gammasg;
+        gammasn=SLF.gammasn;
         gammasf=0;
     elseif indic.sep==0
         gammas=SLF.gammas;
     end
 elseif indic.sep==2
-    gammasg =0;
-    gammasn =0;
-    gammasf =0;
+    gammas =0;
 end
 
 if indic.noskill==0
@@ -55,7 +53,7 @@ F=SLF.F;
 G=SLF.G;
 if indic.ineq==0
     C=SLF.C;
-Cl=C;Ch=C;
+    Cl=C;Ch=C;
 else
     Cl=SLF.Cl;
     Ch=SLF.Ch;
@@ -161,9 +159,7 @@ if indic.sep ~=2
         ws=SLF.ws;
     end
 else
-    wsf     = wsfpar;
-    wsn     = wsnpar;
-    wsg     = wsgpar;
+    ws     = wspar;
 end
 
 % utility
@@ -179,7 +175,7 @@ else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end
 if indic.sep~=0
- Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
+    Utilsci = chiis*sn.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sff.^(1+sigmaas)./(1+sigmaas);
 else
     Utilsci=chiis*S.^(1+sigmaas)./(1+sigmaas);
 end

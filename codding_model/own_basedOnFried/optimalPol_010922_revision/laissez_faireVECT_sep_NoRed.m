@@ -76,9 +76,9 @@ S    = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)))
         
      end
  else
-     wsn =wsnpar;
-     wsg=wsgpar;
-     wsf=wsfpar;
+     ws =wspar;
+%      wsg=wsgpar;
+%      wsf=wsfpar;
  end
  
  gammalh = x((find(list.test=='gammalh')-1)*T+1:(find(list.test=='gammalh'))*T).^2;
@@ -189,7 +189,7 @@ f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 %7- demand green scientists
 
 if indic.xgrowth==0
-    if indic.sep~=0
+    if indic.sep~=0 && indic.sep~=2
             q=q+1;
             f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
             %8
@@ -204,8 +204,8 @@ if indic.xgrowth==0
             f((q-1)*T+1:T*q)= wsg -wsf;
 
         end
-    elseif indic.sep==0
-        q=q+1;
+    elseif indic.sep==0 || indic.sep==2
+            q=q+1;
             f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
             %8
             q=q+1;

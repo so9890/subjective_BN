@@ -48,14 +48,11 @@ sg      = upbarH/(1+exp(x(list.choice=='sg')));%exp(x(list.choice=='S')); % tota
 sn      = upbarH/(1+exp(x(list.choice=='sn')));%exp(x(list.choice=='S')); % total labour supply
 
 %  S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
-wsf     = wsfpar; %exp(x(list.choice=='wsf'));
-wsn     = wsnpar; %exp(x(list.choice=='wsn'));
-wsg     = wsgpar; %exp(x(list.choice=='wsg'));
+ws     = wspar; %exp(x(list.choice=='wsf'));
+% wsn     = wsnpar; %exp(x(list.choice=='wsn'));
+% wsg     = wsgpar; %exp(x(list.choice=='wsg'));
 
 gammalh = x(list.choice=='gammalh')^2;
-% gammasg = x(list.choice=='gammasg')^2;
-% gammasn = x(list.choice=='gammasn')^2;
-% gammasf = x(list.choice=='gammasf')^2;
 
 pg     = exp(x(list.choice=='pg'));
 pn     = exp(x(list.choice=='pn'));
@@ -189,15 +186,15 @@ f(q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 q=q+1;
-f(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
+f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
 
 %8
 q=q+1;
-f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
 
 %9
 q=q+1;
-f(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
+f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
 
 %10- LOM technology
 q=q+1;
@@ -273,7 +270,7 @@ else
     q=q+1;
     f(q) = Lf+Lg+Ln-h;
     q=q+1;
-    f(q)= gammalh.*(h-upbarH);
+    f(q)= gammalh.*(upbarH-h);
 end
 
 % optimality scientists

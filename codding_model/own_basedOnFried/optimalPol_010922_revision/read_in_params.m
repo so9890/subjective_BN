@@ -15,9 +15,10 @@ end
 sigmaa = params(list.params=='sigmaa');
 sigmaas = params(list.params=='sigmaas');
 if indic.sep==2
-    wsfpar     = 0.01; %exp(x(list.choice=='wsf'));
-    wsnpar     = 0.1; %exp(x(list.choice=='wsn'));
-    wsgpar     = 0.01; %exp(x(list.choice=='wsg'));
+    % relative to sep==0 calibration
+    wspar       = 1; %0.0683; %1; %exp(x(list.choice=='wsf'));
+%     wsnpar     = 0.1; %exp(x(list.choice=='wsn'));
+%     wsgpar     = 0.01; %exp(x(list.choice=='wsg'));
 end
 upbarH  = params(list.params=='upbarH');
 chii  = params(list.params=='chii');
@@ -80,7 +81,7 @@ vf=0;
 % for exogenous growth fix research inputs at initial ss value
 if indic.xgrowth==1
 % hhelper= load(sprintf('params_0209_sep%d', indic.sep));
-if indic.sep==0
+if indic.sep==0 || indic.sep==2
     sg0 =1.0305e-06; %hhelper.x0LF(hhelper.list.choice=='sg');% 
     sff0=5.5660e-08; %hhelper.x0LF(hhelper.list.choice=='sff');
     sn0= 0.3364; %hhelper.x0LF(hhelper.list.choice=='sn'); %

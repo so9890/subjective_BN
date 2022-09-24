@@ -467,7 +467,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -536,7 +536,7 @@ if plotts.compTauf_PER==1
     
     fprintf('plott comp tauf by preexisting taul in percent')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else

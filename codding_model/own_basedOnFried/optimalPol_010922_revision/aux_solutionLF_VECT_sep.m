@@ -44,7 +44,7 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
  Ag     = exp(x((find(list.test=='Ag')-1)*T+1:(find(list.test=='Ag'))*T));
  An     = exp(x((find(list.test=='An')-1)*T+1:(find(list.test=='An'))*T));
   if indic.xgrowth==0 && indic.noskill==1
-    sff     = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
+    sff    = upbarH./(1+exp(x((find(list.test=='sff')-1)*T+1:find(list.test=='sff')*T)));
     sg     = upbarH./(1+exp(x((find(list.test=='sg')-1)*T+1:(find(list.test=='sg'))*T)));
     sn     = upbarH./(1+exp(x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)));
     se     = upbarH./(1+exp(x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)));
@@ -56,10 +56,17 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
     se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
 
   end
- S     = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
- gammas     = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
- ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
-
+  if indic.sep==0
+     S     = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
+     gammas = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
+     ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
+  elseif indic.sep==2
+    ws =wspar*ones(size(C));
+    S=sff+sg+sn;
+    gammas=zeros(size(S));
+  else
+      S=sg+sff+sn;
+  end
  gammasg     = (x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T)).^2;
  gammasn     = (x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T)).^2;
  gammasf     = (x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T)).^2;

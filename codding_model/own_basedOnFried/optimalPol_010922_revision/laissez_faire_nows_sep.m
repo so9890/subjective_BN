@@ -58,11 +58,11 @@ if indic.sep==1
 
 else
     
-    sff     = exp(x(list.choice=='sff'));
+    sff    = exp(x(list.choice=='sff'));
     sn     = exp(x(list.choice=='sn'));
     sg     = exp(x(list.choice=='sg'));
     S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
-    ws= exp(x(list.choice=='ws'));
+    ws     = exp(x(list.choice=='ws'));
     gammas = x(list.choice=='gammas')^2;
 end
 gammalh = x(list.choice=='gammalh')^2;

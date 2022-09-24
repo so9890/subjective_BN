@@ -27,8 +27,8 @@ end
 list.test=string(symms.test);
 
 if indic.sep==2
-      symms.test= symms.test(list.test~='wsf'&list.test~='wsg'& list.test~='wsn'...
-                     &list.test~='gammasf'&list.test~='gammasg'& list.test~='gammasn');
+      symms.test= symms.test(list.test~='wsf'&list.test~='wsg'& list.test~='wsn'& list.test~='ws' & list.test~='S'...
+                     &list.test~='gammasf'&list.test~='gammasg'& list.test~='gammasn'& list.test~='gammas');
       list.test=string(symms.test);
 elseif indic.sep==3
     syms se real

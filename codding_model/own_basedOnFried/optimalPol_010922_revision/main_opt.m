@@ -32,7 +32,7 @@ indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart:
                  % thetaa > 1
 indic.sep =0; % ==0 one joint market (in calibration very low fossil and green scientists to satisfy wage clearing 
               % ==1 3 separate markets 
-              % ==2 if partial equbm; energy scientsis
+              % ==2 if partial equbm; relative to joint market
               % ==3 energy market joint and non-energy market separate
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
@@ -77,6 +77,7 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
+
 if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
     fprintf('loading parameter values sep%d', indic.sep)
     load(sprintf('params_0209_sep%d', indic.sep),...
@@ -125,6 +126,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
+indic.sep=2;
 % indic.labshareequ=1;
 % indic.noknow_spill=0; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
@@ -169,14 +171,14 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=0:1
+for nsk=0
     indic.noskill=nsk;
     for xgr=0
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=7%[0,5]
+    for nnt=[0,5]
         indic.notaul=nnt;
 
         if xgr==0
@@ -209,7 +211,7 @@ for nsk=0:1
         if ~(indic.tauff=="BAU" && indic.limit_LF==0)
             save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
                 indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
-            save(sprintf('TAUF7_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
                 indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV, indic.sep), 'TAUF')
         else
             save(sprintf('BAU_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
@@ -234,8 +236,8 @@ end
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=0;
-indic.sep=0;
-plotts.regime=5;
+indic.sep=2;
+plotts.regime=0;
 indic.sizeequ=0;
 indic
 
@@ -251,10 +253,10 @@ plotts.tauf_notauf              = 0; % plots allocation with and without tauf in
 plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 1;
 %- plots: effect of taul
-plotts.LF_BAU                   = 1;
-plotts.LF_BAU_PER               = 1;
-plotts.LF_BAU_equlab            = 1;
-plotts.LF_BAU_PER_equlab        = 1;
+plotts.LF_BAU                   = 0;
+plotts.LF_BAU_PER               = 0;
+plotts.LF_BAU_equlab            = 0;
+plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
 plotts.compRed                  = 0;
@@ -269,7 +271,7 @@ for ee=0 % ==0 then uses benchmark emission limit
 for ll=0:1 % no emission limit : 
     indic.limit_LF=ll;
 for nknk=0:1 % nowledge spillovers
-    for xgr =0:1
+    for xgr =0
         for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
@@ -401,17 +403,17 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
-indic.testT =1; % do not test value of T
+indic.testT =0; % do not test value of T
 
 for tr =1
     indic.target=tr;
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
-for nsk=0:1
+for nsk=0
     indic.noskill=nsk;
- for nnt=0
+ for nnt=4
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
