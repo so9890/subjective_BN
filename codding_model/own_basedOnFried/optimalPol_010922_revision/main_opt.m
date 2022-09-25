@@ -248,14 +248,14 @@ plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 %- allocations with and without tauf 
 plotts.perDif_notauf            = 0; %
-plotts.perDif_notauf_compTaul   = 0;
+plotts.perDif_notauf_compTaul   = 1;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
 plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
-plotts.LF_BAU_equlab            = 1;
+plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
@@ -270,9 +270,9 @@ for ee=0 % ==0 then uses benchmark emission limit
         
 for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0 % nowledge spillovers
-    for xgr =0
-        for nsk=0
+for nknk=0:1 % nowledge spillovers
+    for xgr =0:1
+        for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -370,7 +370,7 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.sizeequ=0;
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.sep=0; % Has to be equal to loaded parameters!!!
 for xgr=0:1
     indic.xgrowth=xgr;
@@ -403,17 +403,17 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 
-for tr =0
+for tr =1
     indic.target=tr;
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
-for nsk=0:1
+for nsk=1
     indic.noskill=nsk;
- for nnt=2
+ for nnt=[5]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -437,9 +437,36 @@ indic.sizeequ=0;
 indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
-
+indic
 count=30;% addiitonal periods
-for tr =0:1
+for tr =1
+    indic.target=tr;
+for xgr=[1,0]
+    indic.xgrowth=xgr;
+for nsk=[0, 1]
+    indic.noskill=nsk;
+ for nnt=1
+     indic.notaul=nnt;
+     indic
+[symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
+ end
+end
+end
+end
+%%
+%-- extend optimality for count
+% for 0,3,4 => code with taul generated directly from non-taul alternative
+indic.taus  = 0; % with ==0 no taus possible!
+indic.sep =0;
+indic.extern=0;
+indic.GOV=0; % ==0 then no gov revenues
+indic.sizeequ=0; 
+indic.noknow_spill=0;
+indic.limit_LF=0; % no need to test this
+indic.testT =0; % do not test value of T
+indic
+count=30;% addiitonal periods
+for tr =1
     indic.target=tr;
 for xgr=1
     indic.xgrowth=xgr;
@@ -448,7 +475,7 @@ for nsk=0:1
  for nnt=5
      indic.notaul=nnt;
      indic
-[symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
+[symms, list, opt_all]= OPT_solve_sep_ExtT_direct(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
  end
 end
 end

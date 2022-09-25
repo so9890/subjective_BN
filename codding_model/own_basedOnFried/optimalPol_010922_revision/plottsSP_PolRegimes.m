@@ -404,7 +404,7 @@ end
 %% effect of tauf in levels
 
 if plotts.tauf_notauf==1
-for lablab=0:1    
+for lablab=0   
     fprintf('plott effect tauf in levels')
 
     if lablab==0

@@ -234,8 +234,10 @@ for cc=1:count        % number of additional periods
         Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
         Ftarget =  (Emsnew'+deltaa)/omegaa;
 
-        % sequentially increase number of explicit periods
+        % new number of explicit optimization periods
         T=T+1;
+
+        if ~isfile((sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d.mat',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill)))
 
         %- update initial values: add last period value as guess for new direct
         % optimization period
@@ -249,9 +251,13 @@ for cc=1:count        % number of additional periods
 
          options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
-         options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         options = optimset('algorithm','active-set','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-         save(sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
+         save(sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
+        else
+         hhelper=load(sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x');
+         x=hhelper.x;
+        end
 end
 %% transform
 % helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
