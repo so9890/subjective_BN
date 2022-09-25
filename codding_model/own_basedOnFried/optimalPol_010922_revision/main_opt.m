@@ -403,17 +403,17 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 
-for tr =1
+for tr =0
     indic.target=tr;
-for xgr=1
+for xgr=0:1
     indic.xgrowth=xgr;
-for nsk=0
+for nsk=0:1
     indic.noskill=nsk;
- for nnt=4
+ for nnt=2
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -426,6 +426,33 @@ end
 end
 end
 
+%%
+%-- extend optimality for count
+
+indic.taus  = 0; % with ==0 no taus possible!
+indic.sep =0;
+indic.extern=0;
+indic.GOV=0; % ==0 then no gov revenues
+indic.sizeequ=0; 
+indic.noknow_spill=0;
+indic.limit_LF=0; % no need to test this
+indic.testT =0; % do not test value of T
+
+count=30;% addiitonal periods
+for tr =0:1
+    indic.target=tr;
+for xgr=1
+    indic.xgrowth=xgr;
+for nsk=0:1
+    indic.noskill=nsk;
+ for nnt=5
+     indic.notaul=nnt;
+     indic
+[symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
+ end
+end
+end
+end
 %% TO BE UPDATED FOR NEW STRUCTURE OF TAX! 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: Competitive equi 
