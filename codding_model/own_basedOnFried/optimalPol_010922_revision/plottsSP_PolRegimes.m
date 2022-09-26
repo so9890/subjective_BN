@@ -404,7 +404,7 @@ end
 %% effect of tauf in levels
 
 if plotts.tauf_notauf==1
-for lablab=0   
+for lablab=0:1  
     fprintf('plott effect tauf in levels')
 
     if lablab==0
@@ -467,7 +467,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=1
+   for lablab=0:1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else

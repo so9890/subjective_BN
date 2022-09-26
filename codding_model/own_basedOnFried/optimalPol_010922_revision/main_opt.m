@@ -248,9 +248,9 @@ plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 %- allocations with and without tauf 
 plotts.perDif_notauf            = 0; %
-plotts.perDif_notauf_compTaul   = 1;
+plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
@@ -270,7 +270,7 @@ for ee=0 % ==0 then uses benchmark emission limit
         
 for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0:1 % nowledge spillovers
+for nknk=0:1 % knowledge spillovers
     for xgr =0:1
         for nsk=0:1
     plotts.xgr = xgr; % main version to be used for plots
@@ -434,18 +434,18 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
 count=30;% addiitonal periods
-for tr =0
+for tr =1
     indic.target=tr;
 for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=[0, 1]
     indic.noskill=nsk;
- for nnt=1
+ for nnt=0
      indic.notaul=nnt;
      indic
 [symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
@@ -461,18 +461,18 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
 count=30;% addiitonal periods
-for tr =1
+for tr =0
     indic.target=tr;
-for xgr=1
+for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=0:1
     indic.noskill=nsk;
- for nnt=5
+ for nnt=0
      indic.notaul=nnt;
      indic
 [symms, list, opt_all]= OPT_solve_sep_ExtT_direct(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
@@ -631,15 +631,85 @@ plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon)
     end
 end
 %%
-for gg=0:1
-    indic.xgrowth=gg;
-for ns=0:1
-    indic.noskill=ns;
-    plottsSP(list, T, etaa, weightext,indic, params, Ems, plotts, percon); 
-    % T-1 as time period as last period is dropped from regency 
-end
-end
+etaa=params(list.params=='etaa');
+weightext=0.01;
+indic
 
+% choose sort of plots to be plotted
+plotts.regime_gov=  0; % = equals policy version to be plotted
+
+plotts.table=       0;
+plotts.cev  =       0; 
+plotts.analyta =    0;
+plotts.limit=       0; %==1 if plots emission target
+plotts.robust=      0;
+plotts.countcomp=   0;
+plotts.countcomp2=  0;
+plotts.countcomp3=  0;
+plotts.extern=      0;
+plotts.compEff_mod_dev1         = 0;
+plotts.count_taul_nsk_LF        = 0;
+plotts.count_taul_xgr_LF        = 0;
+plotts.count_taul_xgr_lev       = 0;
+plotts.count_tauflev            = 0; % counterfactual with only tauf in laissez faire
+plotts.count_taullev            = 0; % counterfactual with only taul in laissez faire
+plotts.count_tauflev_Ben        = 0; % laissez faire, only optimal tauf and benchmark policy
+plotts.count_tauflev_Ben_noLF   = 0;
+plotts.compnsk_xgr              = 0;
+plotts.compnsk_xgr1             = 0;
+
+plotts.compnsk_xgr_dev          = 0;
+plotts.compnsk_xgr_dev1         = 0;
+plotts.count_modlev             = 0; 
+
+plotts.count_modlev_eff         = 0;
+plotts.single_pol               = 1;
+plotts.singov                   = 0;
+
+plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
+plotts.bau                      = 0; % do plot bau comparison
+plotts.lf                       = 0; % comparison to laissez faire allocation 
+
+plotts.comptarg                 = 0; % comparison with and without target
+plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
+plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
+plotts.compeff1=    0; %1; only social planner
+plotts.compeff2=    0; %1; efficient and non benchmark
+plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
+plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
+plotts.per_BAUt0 =  0;
+plotts.per_effopt0= 0;
+plotts.per_effoptd= 0;
+plotts.per_baud =   0;
+plotts.per_LFd  =   0; % dynamic lf as benchmark
+plotts.per_LFd_nt=  0; % dynamic lf as benchmark plus no income tax
+plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
+
+plotts.per_LFt0  =  0; % 2020  lf as benchmark
+plotts.per_optd =   0;
+
+plotts.tauf_comp=0;
+plotts.compREd=0;
+    
+for xgr =0:1
+    for nsk=0:1
+        for se=0
+plotts.xgr = xgr; % main version to be used for plots
+plotts.nsk = nsk;
+plotts.sizeequ =se; % important for comparison of 
+plotts.GOV =0;
+indic.noknow_spill=0; % in the benchmark allocation there are kn spillovers
+
+plotts
+%%
+%     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
+
+plotts_extT(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon)
+        end
+    end
+end
 %% tables
 % constructed in plotsSP file
 
