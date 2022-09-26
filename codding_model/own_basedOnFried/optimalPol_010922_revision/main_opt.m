@@ -250,8 +250,8 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
-plotts.compTauf_PER             = 0;
+plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_PER             = 1;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
@@ -372,6 +372,9 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 indic.sizeequ=0;
 indic.noknow_spill=1;
 indic.sep=0; % Has to be equal to loaded parameters!!!
+count=30;
+Tinit=T;
+
 for xgr=0:1
     indic.xgrowth=xgr;
     for ns=0:1
@@ -379,10 +382,11 @@ for xgr=0:1
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=0
+       for tar=1
             indic.target=tar;
-            indic               
-            SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+            indic         
+            SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
+%             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
        end            
     end
 end
@@ -466,13 +470,13 @@ indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
 count=30;% addiitonal periods
-for tr =0
+for tr =1
     indic.target=tr;
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
-for nsk=0:1
+for nsk=1
     indic.noskill=nsk;
- for nnt=0
+ for nnt=4
      indic.notaul=nnt;
      indic
 [symms, list, opt_all]= OPT_solve_sep_ExtT_direct(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
@@ -636,7 +640,6 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  0; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -663,7 +666,7 @@ plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 
 plotts.count_modlev_eff         = 0;
-plotts.single_pol               = 1;
+plotts.single_pol               = 0;     
 plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
@@ -677,7 +680,8 @@ plotts.comp_LFOPT               = 0; % laissez faire and optimal with and withou
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
+plotts.comp_OPTPer= 1; % comparison in percent with and without taul
+plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -692,7 +696,9 @@ plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
-    
+for rr= [0,4]
+    plotts.regime_gov=  rr; % = equals policy version to be plotted
+
 for xgr =0:1
     for nsk=0:1
         for se=0
@@ -709,6 +715,7 @@ plotts
 plotts_extT(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon)
         end
     end
+end
 end
 %% tables
 % constructed in plotsSP file
