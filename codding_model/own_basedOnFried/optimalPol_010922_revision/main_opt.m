@@ -439,9 +439,9 @@ indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
 count=30;% addiitonal periods
-for tr =1
+for tr =0
     indic.target=tr;
-for xgr=[1,0]
+for xgr=0:1
     indic.xgrowth=xgr;
 for nsk=[0, 1]
     indic.noskill=nsk;
