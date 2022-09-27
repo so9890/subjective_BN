@@ -1,4 +1,4 @@
-function [RESall]=add_vars(RES, list, params, indic, varlist, symms)
+function [RESall]=add_vars(RES, list, params, indic, varlist, symms, MOM)
 
 read_in_params;
 
@@ -89,6 +89,12 @@ gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;
 % analytical measure of taul in integrated policy regime
 analyTaul = tauf.*pf.*F./Y;
 
+%- tauf in tons per C02
+
+tauf_CO2=tauf./omegaa;
+tauf_perton2019 = tauf_CO2*(MOM.GDP1519MILLION*1e6)./(1e9); % denominator to go from gigaton to ton in 2019 prices
+Tauf=tauf_perton2019*1.12; % to have it in 2022 prices
+%       
 %- update variables and varlist to include additional variables
 jj= eval(symms.plotsvarsAdd); 
 

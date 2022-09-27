@@ -375,7 +375,7 @@ indic.sep=0; % Has to be equal to loaded parameters!!!
 count=30;
 Tinit=T;
 
-for xgr=0:1
+for xgr=1
     indic.xgrowth=xgr;
     for ns=0:1
         indic.noskill=ns;
@@ -588,7 +588,7 @@ plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 
 plotts.count_modlev_eff         = 0;
-plotts.single_pol               = 1;
+plotts.single_pol               = 0;
 plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
@@ -602,7 +602,7 @@ plotts.comp_LFOPT               = 0; % laissez faire and optimal with and withou
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -677,10 +677,10 @@ plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
-plotts.compeff1=    0; %1; only social planner
+plotts.compeff1=    1; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
-plotts.comp_OPTPer= 1; % comparison in percent with and without taul
+plotts.comp_OPTPer= 0; % comparison in percent with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
@@ -696,23 +696,24 @@ plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
-for rr= [0,4]
+for rr= [0]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
-for xgr =0:1
-    for nsk=0:1
-        for se=0
+for xgr =1
+    for nsk=1
+        for nknk=0:1
+            
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
-plotts.sizeequ =se; % important for comparison of 
+plotts.sizeequ =0; % important for comparison of 
 plotts.GOV =0;
-indic.noknow_spill=0; % in the benchmark allocation there are kn spillovers
+indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
 
 plotts
 %%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
 
-plotts_extT(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon)
+plotts_extT(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
         end
     end
 end
