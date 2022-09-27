@@ -70,13 +70,8 @@ for nsk =0:1
 
 %- other results
     for i=[0,1,4,5] % loop over policy versions
-        if indic.noskill==0
-            helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-         indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
-        else
-           helper= load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-         indic.spillovers,indic.noknow_spill, 0, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
-        end
+        helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+        indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
         sp_t=helper.sp_all';
     
        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul0_countec%d_GovRev%d_etaa%.2f.mat', ...
