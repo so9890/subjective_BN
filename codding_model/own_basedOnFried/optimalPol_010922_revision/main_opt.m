@@ -677,7 +677,7 @@ plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
-plotts.compeff1=    1; %1; only social planner
+plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
@@ -689,19 +689,19 @@ plotts.per_effoptd= 0;
 plotts.per_baud =   0;
 plotts.per_LFd  =   0; % dynamic lf as benchmark
 plotts.per_LFd_nt=  0; % dynamic lf as benchmark plus no income tax
-plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
+plotts.per_LFd_ne_nt=1; % dynamic lf as benchmark plus no income tax
 
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
 plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
-for rr= [0]
+for rr= [0,4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
-for xgr =1
-    for nsk=1
-        for nknk=0:1
+for xgr =0
+    for nsk=0
+        for nknk=1
             
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

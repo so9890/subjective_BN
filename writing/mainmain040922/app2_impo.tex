@@ -191,72 +191,96 @@ Production of $Y_t$ is defined by the equations describing production in the mod
 \section{Quantitative results}\label{app:quant_res}
 
 \input{app_experiment2}
-\begin{comment}
-content...
-\subsection{Social planner allocation}\label{subsec:sp_q}
- Figure \ref{fig:fb_opt} depicts in levels the efficient and the optimal allocation by the black solid and the orange dashed graphs, respectively. 
+\subsection{Optimal policy and allocation without knowledge spillovers}
+\begin{figure}[h!!!]
+	\centering
+	\caption{Costs and benefits of progressive income taxes, no knowledge spillovers % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
+	}\label{fig:optAll_percLf_dyn_noknow}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High-skill hours worked\\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low-skill hours worked\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Environmental tax, $\tau_{Ft}$\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaul_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure} 
+
+
+
+
+\subsection{Optimal policy in model without knowledge spillovers}
 \begin{figure}[h!!]
 	\centering
-	\caption{Comparison to efficient allocation in levels}\label{fig:fb_opt}
-	
+	\caption{Comparison optimal allocation in benchmark model and without knowledge spillovers }\label{fig:noKNSPIL}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Consumption}}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$ \\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/C_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd1_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) High skill hours worked}}
+		\centering{\footnotesize{(b) Environmental tax, $\tau_{Ft}$\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hh_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Low skill hours worked}}
+		\centering{\footnotesize{(c) Fossil research\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/hl_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
-	\end{minipage}
-	
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Aggregate growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/gAagg_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Energy mix, $\frac{G}{F}$}}
+		\centering{\footnotesize{(d) Green research\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/GFF_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
 	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f) Utility}}
+		\centering{\footnotesize{(e) Non-energy research\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_10Aout22/SWF_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
 	\end{minipage}
-	%\begin{minipage}[]{0.32\textwidth}
-	%	\centering{\footnotesize{(f) Utility Scientists}}
-	%	%	\captionsetup{width=.45\linewidth}
-	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utilsci_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
-	%\end{minipage}
-	%\begin{minipage}[]{0.32\textwidth}
-	%	\centering{\footnotesize{(f) Utility labour}}
-	%	%	\captionsetup{width=.45\linewidth}
-	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utillab_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
-	%\end{minipage}
-	%\begin{minipage}[]{0.32\textwidth}
-	%	\centering{\footnotesize{(f) Utility con}}
-	%	%	\captionsetup{width=.45\linewidth}
-	%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_190722_tidiedUp/figures/all_July22/Utilcon_CompEffOPT_T_NoTaus_regime3_opteff_spillover0_noskill0_sep1_xgrowth0_countec0_etaa0.79_lgd0_lff0.png}
-	%\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Non-energy price\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/pn_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Energy price\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/pee_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Energy share\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
 \end{figure}
 
 
-The social planner allocation, too, is a combination of recomposing and reductive measures. 
-The social planner reduces consumption less than in the Ramsey planner allocation in order to reach emission limits; compare panel (a). There is a reduction in hours worked for high- and low-skill labor over time as emission limits become stricter. Relative to a scenario without emission limit the efficient level of hours also reduces; see panels (b) and (c) in figure \ref{fig:eff_with_notarget} in appendix section \ref{app:eff_notarg} which compares the efficient allocation absent emission limit to the one with emission limit.\footnote{\ For the given calibration, the planner reduces hours worked once there is an emission limit. Since with log-utility the income and substitution effect cancel, the social planner does not increase hours worked to compensate for lower output. Compare the discussion of the efficient allocation in section \ref{sec:theory}.} 
-The optimal allocation mimics the reduction in hours worked; yet, for the high-skill the reduction is too strong starting from 2030. The gap between the efficient and the optimal level of high-skill hours reduces as tax progressivity declines in 2050. Optimal labor supply of the low skilled is inefficiently high for all periods considered.
-
-Higher growth rates contribute to more consumption in the efficient allocation; see panel (d) showing aggregate growth. While the Ramsey planner can boost growth through the labor income tax only, the social planner can directly allocate scientists. The ratio of green to fossil energy, depicted in panel (e), moves similarly in the efficient and the optimal allocation. This illustrates the recomposing quality of the efficient allocation to cope with stricter emission limits. However, the Ramsey planner chooses a lower green-to-fossil energy mix starting from 2050. 
-
-Utility of the representative household in the efficient and the optimal allocation is decreasing overall, panel (f). The reduction happens in steps when a tighter emission limit becomes active. Utility is rising when the emission limit is stable but more so under the social planner. Recall that utility is net of environmental concerns solely determined by consumption and leisure in the present framework. In the periods absent emission limit, from 2020 to 2030, utility under the optimal policy exceeds utility in the efficient allocation. This counterintuitive behaviour highlights the dynamic structure of the model: the social planner forgoes this higher utility level to profit from a higher technology level in future periods.
-\end{comment}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%OLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results in model with exogenous growth and skill homogeneity}
 
 Figure \ref{fig:optAll_EFF_nskxgr} compares the optimal allocation with and without income tax scheme in the model with exogenous growth and one skill type to the efficient allocation. 

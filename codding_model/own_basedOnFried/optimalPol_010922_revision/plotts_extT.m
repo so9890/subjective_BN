@@ -114,17 +114,21 @@ end
     RES_SP=add_vars(RES_SP, list, params, indic, list.allvars, symms, MOM);
   
 %- no knowledge spillovers 
-     helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+     helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+         indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
      opt_not_notaus=helper.opt_all';
-     helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+     helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+         indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
      opt_t_notaus=helper.opt_all';
      RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                                  {opt_t_notaus, opt_not_notaus});
      RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms, MOM);
     % no knowledge spillovers in benchmark
-        helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_extern0_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.regime_gov,  indic.sep,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+        helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_extern0_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            indic.spillovers, plotts.regime_gov,  indic.sep,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
      opt_not_notaus=helper.opt_all';
-     helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,  plotts.regime_gov, indic.sep, indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+     helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+         indic.spillovers,  plotts.regime_gov, indic.sep, indic.PV, plotts.sizeequ, plotts.GOV, etaa));
      opt_t_notaus=helper.opt_all';
      RES_bench_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                                  {opt_t_notaus, opt_not_notaus});
@@ -1290,7 +1294,7 @@ if plotts.comp_OPT_NK==1
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
             
-            main=plot( time,(allvarsNK(find(varlist==varr),1:T)),time,(allvars(find(varlist==varr),1:T)),'LineWidth', 1.1);            
+            main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)),'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -1303,11 +1307,11 @@ if plotts.comp_OPT_NK==1
             ytickformat('%.2f')
             xticklabels(Year10)
            if lgdind==1
-              lgd=legend('no knowledge spillovers', 'benchmark', 'Interpreter', 'latex');
+              lgd=legend('benchmark model', 'no knowledge spillovers',  'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_KN_FullMod_sizeequ%d_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f_lgd%d.png',date, varr, plotts.sizeequ, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,plotts.GOV,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_KN_FullMod_sizeequ%d_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f_lgd%d.png',date, varr, plotts.sizeequ, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,plotts.GOV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
