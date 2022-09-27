@@ -169,7 +169,9 @@ else
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 end
-  save('2609_SP_incaseoferror')
+save('sp_target_nn0_noknow', 'x')
+%   ll=load('2609_SP_incaseoferror_noknowwithtar.mat')
+ ll=load('2609_SP_incaseoferror_withknowtar.mat');
 %%
 out_trans=exp(x);
 if indic.noskill==0
@@ -220,7 +222,7 @@ gammasf = zeros(size(pn));
 gammasn = zeros(size(pn));
 obs =[PV, PVSWF, objF]; % save measures of objective function 
 %%
-list.allvars=saved;
+%list.allvars=saved;
 % if indic.sep==0
 sp_all_all=eval(symms.allvars);
 sp_all=sp_all_all(1:Tinit,:);
