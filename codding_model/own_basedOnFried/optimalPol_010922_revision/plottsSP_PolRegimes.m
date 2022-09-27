@@ -1,4 +1,4 @@
-function []=plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon)
+function []=plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
 
 % this script plots results
 
@@ -92,27 +92,27 @@ for nsk =0:1
         %- add additional variables
         if lablab ==0
             if xgr==0 && nsk==0
-                OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
                 TAUFS=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
             elseif xgr==0 && nsk==1
-                OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
                 TAUFS_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
             elseif xgr==1 && nsk==0
-                OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
                 TAUFS_xgr=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
             elseif xgr==1 && nsk==1
-                OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
                 TAUFS_xgr_nsk=containers.Map({'TaulCalib', 'Taul0'},{tauff_TaulC, tauff_Taul0});
             end
         else
             if nsk==0 && xgr ==0
-                OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_EQULab{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
             elseif nsk==1 && xgr ==0
-                OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_EQULab_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
              elseif xgr==1 && nsk==0
-                 OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                 OTHERPO_EQULabL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
             elseif xgr==1 && nsk==1
-                OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+                OTHERPOL_EQULab_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
             end
 
         end
@@ -122,6 +122,17 @@ end
 end
 end
 
+
+%- for comparison model without knowledge spillovers
+    helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_TaulC=helper.COMP';
+        helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_Taul0=helper.COMP';
+     RES_NK = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0,});
+     RES_NK=add_vars(RES_NK, list, params, indic, list.allvars, symms, MOM);
+    
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0
     OTHERPOLL= OTHERPOL;
@@ -584,6 +595,57 @@ if plotts.compTauf_PER==1
     end
     end
    end
+   end
+end
+
+%% contrast to no spillover
+% fossil tax is endoegenous, i.e. limitLF=1 ) 
+if plotts.compTauf_PER_NK==1
+    
+    fprintf('plott comp tauf by preexisting taul in percent comparison NK')
+   for reg=plotts.regime%[0,2,4,7]
+   
+        allvars=OTHERPOLL{reg+1};
+        allvarsTaulCalib=allvars('TaulCalib');
+        allvarsTaul0=allvars('Taul0');
+        
+        allCAlibNK=RES_NK('TaulCalib');
+        all0NK=RES_NK('Taul0');
+        %percentage difference between with and without taul allocation
+        Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
+        PerdifNK = 100*(allCAlibNK-all0NK)./all0NK;
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+                main=plot(time,Perdif(find(varlist==varr),1:T), time,PerdifNK(find(varlist==varr),1:T),  'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+                if lgdind==1
+                   lgd=legend('benchmark model', 'no knowledge spillovers', 'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+        path=sprintf('figures/all_%s/CompTaufPER_bytaul_KN_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
    end
 end
 
