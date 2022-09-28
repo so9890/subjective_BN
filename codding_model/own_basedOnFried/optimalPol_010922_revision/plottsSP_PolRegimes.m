@@ -142,6 +142,22 @@ end
          all_Taul0=helper.COMP';
      RES_GS = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
      RES_GS=add_vars(RES_GS, list, params, indic, list.allvars, symms, MOM);
+ %- partial equilibrium sep=2
+        helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, indic.sep, 0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_TaulC=helper.COMP';
+        helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0,  0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_Taul0=helper.COMP';
+        helper = load(sprintf('BAU_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr, 0, 0, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
+       
+        BAU = helper.COMP';
+        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', ...
+            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, 0, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+        LF = helper.COMP';
+        RES_Par = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
+        RES_Par=add_vars(RES_Par, list, params, indic, list.allvars, symms, MOM);
 
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0

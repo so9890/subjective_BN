@@ -126,7 +126,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
-indic.sep=0;
+indic.sep=2;
 % indic.labshareequ=1;
 % indic.noknow_spill=0; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
@@ -137,16 +137,16 @@ for lablab = 0
     indic.labshareequ=lablab;
 for nknk =1
     indic.noknow_spill=nknk; 
-for bb =["BAU", "SCC"]
+for bb ="SCC" %["BAU", "SCC"]
     indic.tauff=bb;
-for tata=0:1 % ==0 then uses calibrated taul
+for tata=0 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
 for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0:1
+for ff=0
     indic.limit_LF=ff;
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -171,14 +171,14 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=0
+for nsk=1
     indic.noskill=nsk;
     for xgr=0
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[7]
+    for nnt=[0,5]
         indic.notaul=nnt;
 
         if xgr==0
@@ -236,7 +236,7 @@ end
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=0;
-indic.sep=0;
+indic.sep=2;
 plotts.regime=0;
 indic.sizeequ=0;
 indic
@@ -248,19 +248,19 @@ plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 %- allocations with and without tauf 
 plotts.perDif_notauf            = 0; %
-plotts.perDif_notauf_compTaul   = 0;
+plotts.perDif_notauf_compTaul   = 1;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
 plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 plotts.compTauf_PER_NK          = 0;
 %- plots: effect of taul
-plotts.LF_BAU                   = 0;
-plotts.LF_BAU_PER               = 0;
+plotts.LF_BAU                   = 1;
+plotts.LF_BAU_PER               = 1;
 plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
-plotts.compRed                  = 1;
+plotts.compRed                  = 0;
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
@@ -269,7 +269,7 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=0:1 % no emission limit : 
+for ll=0 % no emission limit : 
     indic.limit_LF=ll;
 for nknk=0 % knowledge spillovers
     for xgr =0
