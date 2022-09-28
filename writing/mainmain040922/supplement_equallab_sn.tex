@@ -1,0 +1,233 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{The Importance of Fiscal Policies to the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+
+\begin{document}
+	
+	\begin{figure}{Comparison in exogenous growth model effect of tauf on ey and pepn }
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) pepn xgr hetero shares }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) EY xgr hetero shares}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn xgr hetero shares }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) EY xgr hetero shares: per dif}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) pepn xgr hetero shares: per dif}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pepn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) pn xgr hetero shares: per dif}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+	
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) pepn xgr equal shares}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pepn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d EY xgr equal shares}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn xgr equal shares}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) EY xgr equal shares: per dif}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{(d) pepn xgr equakl shares: per dif}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) pn xgr equakl shares: per dif}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pn_spillover0_nsk0_xgr1_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+	\end{figure}
+
+	\begin{figure}{Comparison in endogenous growth model effect of tauf on ey and pepn }
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn xgr hetero shares }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) EY xgr hetero shares}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn xgr hetero shares }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) EY xgr hetero shares: per dif}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn xgr hetero shares: per dif}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pepn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn xgr equal shares}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pepn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d EY xgr equal shares}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) EY xgr equal shares: per dif}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn xgr equakl shares: per dif}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+\end{document}

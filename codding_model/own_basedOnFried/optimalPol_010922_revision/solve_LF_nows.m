@@ -171,19 +171,21 @@ while t<=T+1 % because first iteration is base year
     %% - solving model
      lb=[];
      ub=[];
-     objf=@(x)objectiveCALIBSCI(x);
-%     if indic.sep==0
-  %      constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
- %    else
-         constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic, Emlim, t);
- %    end
-     if indic.labshareequ==0
-        options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-     else
-        options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+     if ~(indic.limit_LF==1 && indic.notaul==7 && indic.noknow_spill==0)
+         objf=@(x)objectiveCALIBSCI(x);
+    %     if indic.sep==0
+      %      constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
+     %    else
+             constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic, Emlim, t);
+     %    end
+         if indic.labshareequ==0
+            options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         else
+            options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         end
+        [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
      end
-    [sol3,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constrf,options);
-%[c,fval]=constrf(sol3);
+    %[c,fval]=constrf(sol3);
 % 
 %- other solvers
     if indic.sep<=1
@@ -194,8 +196,9 @@ while t<=T+1 % because first iteration is base year
         modFF = @(x)laissez_faire_nows_sepSe(x, params, list, pol, laggs, indic, Emlim, t);
     end
     options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-%    [sol2, fval, exitf] = fsolve(modFF, guess_trans, options);
-
+        if (indic.limit_LF==1 && indic.notaul==7 && indic.noknow_spill==0)
+            [sol3, fval, exitf] = fsolve(modFF, guess_trans, options);
+        end
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
 
     % pass to standard algorithm

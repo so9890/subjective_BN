@@ -130,9 +130,19 @@ end
         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
             indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
         all_Taul0=helper.COMP';
-     RES_NK = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0,});
+     RES_NK = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
      RES_NK=add_vars(RES_NK, list, params, indic, list.allvars, symms, MOM);
-    
+
+ %- earmarking
+   helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+        all_TaulC=helper.COMP';
+         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+             indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+         all_Taul0=helper.COMP';
+     RES_GS = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
+     RES_GS=add_vars(RES_GS, list, params, indic, list.allvars, symms, MOM);
+
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0
     OTHERPOLL= OTHERPOL;
@@ -861,14 +871,16 @@ end
 %%% Comparison redistribution regimes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 %% effect of redistribution regime
 if plotts.compRed==1
     
     fprintf('plott comp policy regimes')
   
-        LS=OTHERPOLL{4+1};
+        LS=OTHERPOLL{5+1};
         Cons=OTHERPOLL{0+1};
-        GS=OTHERPOLL{7+1};
+        GS=RES_GS;
        
     for k={'TaulCalib', 'Taul0'}%keys(LS) % keys are with and without taul
         kk=string(k);
@@ -916,7 +928,7 @@ if plotts.compRed==1
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CompRed_%s_%s_spillover%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+            path=sprintf('figures/all_%s/CompRed_%s_%s_spillover%d_knspil%d_nsk%d_xgr%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, kk, varr, indic.spillovers,indic.noknow_spill, plotts.nsk, plotts.xgr, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

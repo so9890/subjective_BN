@@ -126,16 +126,16 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
-indic.sep=2;
+indic.sep=0;
 % indic.labshareequ=1;
 % indic.noknow_spill=0; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 % indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
                    % => to get LF run with BAU and tata=1
 indic
-for lablab =0:1
+for lablab = 0
     indic.labshareequ=lablab;
-for nknk =0
+for nknk =1
     indic.noknow_spill=nknk; 
 for bb =["BAU", "SCC"]
     indic.tauff=bb;
@@ -178,7 +178,7 @@ for nsk=0
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[0,5]
+    for nnt=[7]
         indic.notaul=nnt;
 
         if xgr==0
@@ -252,7 +252,7 @@ plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
 plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
-plotts.compTauf_PER_NK          = 1;
+plotts.compTauf_PER_NK          = 0;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
@@ -260,7 +260,7 @@ plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
-plotts.compRed                  = 0;
+plotts.compRed                  = 1;
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
@@ -269,7 +269,7 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=1 % no emission limit : 
+for ll=0:1 % no emission limit : 
     indic.limit_LF=ll;
 for nknk=0 % knowledge spillovers
     for xgr =0
@@ -291,11 +291,11 @@ end
 %% to be continued updating
 %- version with counterfactual technology gap
 
-% An0=init201014(list.init=='An0');
-% Ag0=0.9*An0;
-% Af0=Ag0/0.4; 
-% initcount= eval(symms.init); % vector or counterfactual technology 
-% iin=load('init_techgap.mat');
+ An0=init201014(list.init=='An0');
+ Ag0=0.9*An0;
+ Af0=Ag0/0.4; 
+ initcount= eval(symms.init); % vector or counterfactual technology 
+ iin=load('init_techgap.mat');
 % [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
 %  helper.LF_SIM=LF_SIM;
 % %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
@@ -408,23 +408,23 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 
 for tr =1
     indic.target=tr;
-for xgr=1
+for xgr=0
     indic.xgrowth=xgr;
-for nsk=1
+for nsk=0
     indic.noskill=nsk;
- for nnt=[5]
+ for nnt=[1]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
-     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems*10, MOM, percon);
  else
-     OPT_solve_sep(list, symms, params, x0LF, init1519count, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Ems*10, MOM, percon);
  end
  end
 end
