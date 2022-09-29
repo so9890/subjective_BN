@@ -1,6 +1,4 @@
 \subsection{Calibration}\label{subsec:calib}
-\tr{\textbf{Have to mention functional forms}}
-\tr{\textbf{Update CV part; write something on BGP; upadet tables (Pavel)}}
 \tr{Inflation data \url{/home/sonja/Documents/projects/subjective_BN/writing/mainmain}}
 
 
@@ -39,122 +37,99 @@ In the second step, I calibrate the weight on energy in final good production by
   		\captionsetup{width=0.9\textwidth}
   		\caption{ Calibration baseline model: labor, government, and emissions}
   		\label{tab:calib2}
-  		\begin{tabular}{c|lll}
+  		\begin{tabular}{c|ll}
   			%			\hline \hline
   			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
   			\hline \hline
-  			Parameter& Target/Source& \makecell[l]{Calibration}& \makecell[l]{Meaning}\\ 
+  			Parameter& Target/Source& \makecell[l]{Calibration}\\ 
   			\hline
   			\hline
-  			Labor production&\multicolumn{3}{c}{}\\
+  			Labor production&\multicolumn{2}{c}{}\\
   			\hline 
   			
   			\hline
-  			$\theta_F$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.42&\makecell[l]{income share high \\ skill fossil sector}\\
-  			\hline
-  			$\theta_G$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% }&0.57&\makecell[l]{income share high \\skill green sector}\\
-  			\hline
-  			$\theta_N$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% }&0.42&\makecell[l]{income share high \\ skillnon-energy sector}\\
+  			$\theta_F$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% \citep{Consoli2016DoCapital} }&0.42\\
+  			$\theta_G$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% \citep{Consoli2016DoCapital}}&0.57 \\
+  			$\theta_N$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% \citep{Consoli2016DoCapital} }&0.42\\
   			\hline
   			\hline
-  			Government&\multicolumn{3}{c}{}\\
+  			Government&\multicolumn{2}{c}{}\\
   			\hline
   			
   			\hline
-  			$\tau_F$&- &0& sales tax on fossil energy\\
-  			\hline
-  			$\tau_\iota$&\cite{Heathcote2017OptimalFramework} &0.18& income tax progressivity\\
+  			$\tau_F$&- &0.00\\
+  			$\tau_\iota$&\cite{Heathcote2017OptimalFramework} &0.18\\
   			\hline	
   			\hline
-  			Emissions&\multicolumn{3}{c}{}\\
+  			Emissions&\multicolumn{2}{c}{}\\
   			\hline
   			
   			\hline
-  			$\delta$& \makecell[l]{EPA}&3.19&carbon sinks \\
-  			\hline
-  			$\omega$& EPA&217.39& \makecell[l]{ gross emissions as a\\ fraction of fossil output}\\
+  			$\delta$& \makecell[l]{EPA}&3.19\\
+  			$\omega$& EPA&217.3\\
   			\hline \hline
   		\end{tabular}
   	\end{center}
   \end{table}
 
- \thispagestyle{empty}
  \begin{table}[h!]
  	\begin{center}
  		\captionsetup{width=0.9\textwidth}
  		\caption{ Calibration baseline model: Households, Research and Production}
  		\label{tab:calib}
- 		\begin{tabular}{c|lll}
+ 		\begin{tabular}{c|ll}
  			%			\hline \hline
  			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
  			\hline \hline
- 			Parameter& Target/Source& \makecell[l]{Calibration}& \makecell[l]{Meaning}\\ 
+ 			Parameter& Target/Source& \makecell[l]{Calibration}\\ 
  			\hline
  			\hline
- 			Household&\multicolumn{3}{c}{}\\
+ 			Household&\multicolumn{2}{c}{}\\
  			\hline 
  			
  			\hline
- 			$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$ & inverse Frisch elasticity labor  \\
- 			\hline
- 			$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}&0.21&\makecell[l]{share of\\ high-skill workers} \\	
- 			\hline			
- 			$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.02 & disutility labor \\
- 			\hline
- 			$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.93 & 5-year discount factor  \\
- 			\hline
- 			$\bar{H}$& \makecell[l]{14.5 hours per day\\ \cite{Jones1993OptimalGrowth}}&1&\makecell[l]{economic time endowment \\per 5 years, normalized} \\
+ 			$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$  \\
+ 			$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}&0.21\\	
+ 			$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.02 \\
+ 			$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.93 \\
+ 			$\bar{H}$& \makecell[l]{14.5 hours per day\\ \cite{Jones1993OptimalGrowth}}&1.00 \\
  			\hline
  			\hline
- 			Research&\multicolumn{3}{c}{}\\
+ 			Research&\multicolumn{2}{c}{}\\
  			\hline
  			
  			\hline
- 			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$ & inverse Frisch elasticity research \\
- 			\hline
- 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}} & 0.12 & disutility research\\
- 			\hline
- 			$\eta$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.79 & spillover research\\
- 			\hline			
- 			$\rho_F$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 &\makecell[l]{research tasks in\\ fossil sector}\\
- 			\hline			
- 			$\rho_G$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 &\makecell[l]{research tasks in\\ green sector}\\
- 			\hline			
- 			$\rho_N$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 1.00 &\makecell[l]{research tasks in \\non-energy sector}\\
- 			\hline			
- 			$\phi$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.50 &knowledge spillovers\\
- 			\hline
- 			$\gamma$ &\makecell[l]{maximum aggregate growth:\\4\% per annum, 0.2167 per period} & 0.06 & productivity of research\\
+ 			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$\\
+ 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}} & 0.12 \\
+ 			$\eta$ & & 0.79 \\
+ 			$\rho_F$ & & 0.01 \\
+ 			$\rho_G$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 \\
+ 			$\rho_N$ & & 1.00 \\
+ 			$\phi$ && 0.50 \\
+ 			$\gamma$ &\makecell[l]{maximum aggregate growth:\\4\% per annum} & 0.06\\
  			\hline
  			\hline
- 			Production&\multicolumn{3}{c}{}\\
+ 			Production&\multicolumn{2}{c}{}\\
  			\hline
  			
  			\hline
- 			$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05& \makecell[l]{substitutability \\ energy and non-energy}\\			
- 			\hline
- 			$\delta_y$&\makecell[l]{expenditure share \\ on energy IEA}&0.38& \makecell[l]{weight on energy in\\ final good production}\\	
- 			\hline
- 			$\varepsilon_e$&\cite{Fried2018ClimateAnalysis}&1.50& \makecell[l]{substitutability \\ green and fossil energy}\\	
- 			\hline
- 			$\alpha_F$&\cite{Fried2018ClimateAnalysis} &0.72& capital share fossil  \\
- 			\hline
- 			$\alpha_G$&\cite{Fried2018ClimateAnalysis} &0.91& capital share green \\
- 			\hline
- 			$\alpha_N$&\cite{Fried2018ClimateAnalysis} &0.36& capital share non-energy  \\
+ 			$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05\\			
+ 			$\delta_y$&\makecell[l]{expenditure share \\ on energy IEA}&0.38\\	
+ 			$\varepsilon_e$&&1.50\\	
+ 			$\alpha_F$&\cite{Fried2018ClimateAnalysis} &0.72\\
+ 			$\alpha_G$& &0.91\\
+ 			$\alpha_N$& &0.36 \\
  			%\hline
  			%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
  			\hline
  			\hline
- 			Initial Productivity&\multicolumn{3}{c}{}\\
+ 			Initial Productivity&\multicolumn{2}{c}{}\\
  			\hline
  			
  			\hline
- 			$A_{F0}$&- &1840.60& \makecell[l]{initial productivity \\ fossil sector, 2015-2019}  \\
- 			\hline
- 			$A_{G0}$&- &14.79& \makecell[l]{initial productivity \\ green sector, 2015-2019}  \\
- 			\hline
- 			$A_{N0}$&- &5.24& \makecell[l]{initial productivity \\ non-energy sector, 2015-2019}  \\
+ 			$A_{F0}$&- &1840.60  \\
+ 			$A_{G0}$&- &14.79  \\
+ 			$A_{N0}$&- &5.24 \\
  			\hline \hline
  		\end{tabular}
  	\end{center}
@@ -194,7 +169,6 @@ To deduce emission limits for the US, further assumptions on the distribution of
 			\hline 
 			\hline
 			Periods&20-24&25-29&30-34&35-39&40-44&45-49&50-80\\
-			\hline	
 			Limits in GtCO$_2$&3.6079&3.5396&3.4798&3.4245&3.3697&3.3164&0\\
 			\hline \hline
 		 			
