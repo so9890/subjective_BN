@@ -16,6 +16,13 @@
 \usepackage{soul}
 \usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
 \usepackage{natbib}
+\usepackage{etoolbox}
+\newif\ifabbreviation
+\pretocmd{\thebibliography}{\abbreviationfalse}{}{}
+\AtBeginDocument{\abbreviationtrue}
+\DeclareRobustCommand\acroauthor[2]{%
+	\ifabbreviation #2\else #1 (\mbox{#2})\fi}
+
 %\usepackage[natbibapa]{apacite}
 %\usepackage{apacite}
 %\bibliographystyle{apacite}

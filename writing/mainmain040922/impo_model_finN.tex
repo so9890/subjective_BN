@@ -141,12 +141,12 @@ The government chooses the growth rate in each sector, taking into account that 
   
 \paragraph{Markets}
 In equilibrium, I require markets to clear. I explicitly model markets for skill, scientists, and the final consumption good:
-\begin{align}
+\begin{align*}
 z_h h_{ht}&=h_{hFt}+h_{hGt}+h_{hNt},\\
 (1-z_h) h_{lt}&=h_{lFt}+h_{lGt}+h_{lNt},\\
 S_t&=s_{Ft}+s_{Gt}+s_{Nt},\\
-C_t&=Y_t-\int_{0}^{1}x_{Fit}+x_{Git}+x_{Nit}di  %-Gov_t.
-\end{align}
+C_t&=Y_t-\int_{0}^{1}x_{Fit}+x_{Git}+x_{Nit}di.  %-Gov_t.
+\end{align*}
 %The government does not redistribute environmental tax revenues and instead consumes the final output good captured by $Gov_t$. 
 
 \paragraph{Government}
@@ -168,7 +168,7 @@ s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0
 \end{align*}
 
 %- emission constraint
-Constraint (1) is the emission limit. I denote the limit on net flow emissions in period $t$ by $\Omega_t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted CO$_2$ through sinks, such as forests and moors.  The parameter $\omega$ determines  CO$_2$ emissions caused per unit of fossil energy produced. \tr{\textit{I abstract from other greenhouse gases, since CO$_2$ is the most important pollutant and gives the biggest opportunity for adjustment.}}
+Constraint (1) is the emission limit. I denote the limit on net flow emissions in period $t$ by $\Omega_t$.  The parameter $\delta$ captures the capacity of the environment to reduce emitted CO$_2$ through sinks, such as forests and moors.  The parameter $\omega$ determines  CO$_2$ emissions caused per unit of fossil energy produced. I abstract from other greenhouse gases. This keeps the model simple while accounting for the greenhouse gas the most relevant for mitigation policies.\footnote{\ CO$_2$ dominates total greenhouse gas forcing \citep[p.29]{IPCC2022}, and other greenhouse gasses hold a smaller mitigation potential (p.26).}
 
 %- gov budgets
 The scale parameter on income taxes, $\lambda_t$, adjusts to balance the budget, constraint (2).
@@ -177,18 +177,22 @@ The government runs a consolidated budget and redistributes environmental tax re
 The variable $\lambda_t$ adjusts to balance the budget. 
 
 %\paragraph{Setup of problem: focus on current population; continuation value}
-\tr{Continue}
-The continuation value, $CV$, in the objective function captures that the planner cares about what the economy bequeaths to its successors, that is, after period $T$. 
-This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS}.\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
+
+Since I cannot solve explicitly for the optimal policy over an infinite horizon, I truncate the problem after period $T$. 
+In the literature, utility in periods after $T$ are approximated under the assumption that policy variables are fixed and the economy reaches a balanced growth path \citep{Barrage2019OptimalPolicy, Jones1993OptimalGrowth}. However, assuming a constant carbon tax would most likely violate the emission limit since the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium, as we observe today.
+
+I motivate the design of the continuation value by pretending the planner would hand over the economy to a successor after period $T$. The continuation value, $CV$, in the objective function captures that the planner cares about what the economy bequeaths to its successors, that is, after period $T$. 
+This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS}\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
 	}" (p.24). This is a vague definition.  \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
 	"\textit{[...] each generation should bequeath to its successor at least as large a productive base as it had inherited from its predecessor. }". 
 	However, this cannot be used to derive a sensible condition on the optimization in the present setting, since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
-	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } It attaches some value to the final technology level. Truncating the model at $T$ would otherwise devalue technology and research: its future value through dynamic spillovers would be neglected.
- Yet, this framework does not rely on the existence of a balanced growth path which is doubtful due to the absolute limit on emissions.\footnote{\  For example, defining the balanced growth path as in \cite{Fried2018ClimateAnalysis} requires constant ratios. This assumption would force the economy not to grow any further once fossil output has reached its limit. Furthermore, as the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium as we observe today, the emission limit might soon be violated once policy is assumed to be fixed. Under dynamic policies, however, the existence of a balanced growth path is questionable.}
+	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } by attaching some value to the final technology level. I approximate the value of future technology levels by assuming constant growth rates.  Appendix section \ref{app:PV} expounds  the continuation value.
+
+To mitigate concerns that the choice of the continuation value drives the results, I experiment with the exact value of explicit optimization periods. I truncate the problem once explicitly adding a further period leaves the optimal allocation numerically unchanged. That is the case after $T=42$, or 210 years. %Then the discounted continuation value tends to zero. 
+ %\footnote{\  For example, defining the balanced growth path as in \cite{Fried2018ClimateAnalysis} requires constant ratios. This assumption would force the economy not to grow any further once fossil output has reached its limit. Furthermore, as the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium as we observe today, the emission limit might soon be violated once policy is assumed to be fixed. Under dynamic policies, however, the existence of a balanced growth path is questionable.}
 
 
 %Given the absolute emission target, policy intervention cannot be assumed to be static. Market forces direct production towards the fossil sector. This complicates the theoretic derivation of a balanced growth path.  On the other hand, truncating the optimization problem 
 
-In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
-Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate.  Appendix section \ref{app:PV} expounds  the continuation value.
+
 

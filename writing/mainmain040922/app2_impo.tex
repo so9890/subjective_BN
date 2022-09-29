@@ -150,6 +150,11 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 \end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
+\tr{T set to 42 that is all explicit periods. \ar drop below the discussion on T+1 etc.}
+\textit{In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
+Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate. 
+}
+\tr{\textbf{Misses time spent working}}
 I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency, that is, period $T+1$:
 \begin{align}
 CV=\beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{G{T+1}}, s_{N{T+1}}, s_{F{T+1}})+\sum_{s=T+2}^{\infty} \beta^{s}u(C_s). %,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
