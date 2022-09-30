@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff snS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul PV CEVv CEVvPV CEVvDy Tauf AgAf sgsff snS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV AgAf sgsff snS  GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul PV Tauf AgAf sgsff snS  GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -143,22 +143,22 @@ end
      RES_GS = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
      RES_GS=add_vars(RES_GS, list, params, indic, list.allvars, symms, MOM);
  %- partial equilibrium sep=2
-        helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, indic.sep, 0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-        all_TaulC=helper.COMP';
-        helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0,  0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-        all_Taul0=helper.COMP';
-        helper = load(sprintf('BAU_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr, 0, 0, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
-       
-        BAU = helper.COMP';
-        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', ...
-            indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, 0, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
-        LF = helper.COMP';
-        RES_Par = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
-        RES_Par=add_vars(RES_Par, list, params, indic, list.allvars, symms, MOM);
-
+%         helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, indic.sep, 0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%         all_TaulC=helper.COMP';
+%         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0,  0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%         all_Taul0=helper.COMP';
+%         helper = load(sprintf('BAU_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr, 0, 0, indic.count_techgap, indic.GOV,  params(list.params=='etaa')));
+%        
+%         BAU = helper.COMP';
+%         helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_countec%d_GovRev%d_etaa%.2f.mat', ...
+%             indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, 0, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+%         LF = helper.COMP';
+%         RES_Par = containers.Map({'TaulCalib', 'Taul0', 'BAU', 'LF'},{all_TaulC, all_Taul0, BAU, LF});
+%         RES_Par=add_vars(RES_Par, list, params, indic, list.allvars, symms, MOM);
+% 
 %% Pick main policy version for plots
 if plotts.xgr ==0 && plotts.nsk==0
     OTHERPOLL= OTHERPOL;
@@ -514,7 +514,7 @@ if plotts.compTauf_Lev==1
         allvarsTaul0=allvars('Taul0');
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -586,7 +586,7 @@ if plotts.compTauf_PER==1
         Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -642,7 +642,7 @@ if plotts.compTauf_PER_NK==1
         PerdifNK = 100*(allCAlibNK-all0NK)./all0NK;
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
