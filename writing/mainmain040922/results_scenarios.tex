@@ -1,8 +1,9 @@
-\subsection{Results 1}\label{subsec:exp}
+\subsection{Policy experiments}\label{subsec:exp}
 
 
-We are now equipped to study how a carbon tax  equal to the social costs of carbon of 185\$, as found by a joint research effort of the \textit{Resources for the Future} (RFF), an independent research institution, and the University of Berkley \citep{RFF} affects the economy. In particular, I am interested in whether a progressive income tax scheme shapes the effectiveness of a carbon tax. 
- Comparing the level of emissions resulting under the constant carbon tax to the emission limits following the IPCC reveals that a stronger reduction in emissions is required. Therefore, I calculate a necessary environmental tax to satisfy the US emission limit. A progressive income tax lowers the required environmental tax by between 10 and 7\%. Furthermore, the allocation is characterized by higher technology growth in the fossil and non-energy sector. 
+We are now equipped to study how a carbon tax  equal to the social costs of carbon of 185\$, as found by a joint research effort of the \textit{Resources for the Future} (RFF), an independent research institution, and the University of Berkeley \citep{RFF} affects the economy. In particular, I am interested in whether a progressive income tax scheme shapes the effectiveness of a carbon tax (sections \ref{subsec:eff_cc}). 
+ Comparing the level of emissions resulting under the constant carbon tax to the emission limits following the IPCC reveals that a stronger reduction in emissions is required. Therefore, I calculate a necessary environmental tax to satisfy the US emission limit in section  \ref{subsec:meetlim}. A progressive income tax lowers the required environmental tax by between 10 and 7\%. Furthermore, the allocation is characterized by higher technology growth in the fossil and non-energy sector.
+ 
 
 
 \subsubsection{Effect of a constant carbon tax and the role of income tax progressivity}\label{subsec:eff_cc}
@@ -31,13 +32,13 @@ We are now equipped to study how a carbon tax  equal to the social costs of carb
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
 \end{minipage}
 
-\floatfoot{Notes:{ Panel (a) shows levels of net emissions under a constant carbon tax equal to 185\$ for a world with progressive income taxation at $\tau_l=0.181$, the solid graph, and without progressive income taxation, $\tau_l=0$. The thin dotted graph shows the emission limit suggested by the IPCC. Panels (b) and (c) show the percentage difference between the business-as-usual policy without carbon tax and with carbon tax in the economy with and without progressive income tax by the solid and dash graphs, respectively. }}
+\floatfoot{Notes:{ Panel (a) shows levels of net emissions under a constant carbon tax equal to 185\$ for a world with progressive income taxation at $\tau_l=0.181$, the solid graph, and without progressive income taxation, $\tau_l=0$. The thin dotted graph shows the emission limit suggested by the IPCC. Panels (b) and (c) show the percentage difference between the business-as-usual (BAU) policy without carbon tax and with carbon tax in the economy with and without progressive income tax by the solid and dash graphs, respectively. }}
 \end{figure} 
 
 \paragraph{Static effect of a carbon tax}
 % 1) reallocation of demand by energy producers and by final good producers. 
- The carbon tax equal to 185\$ diminishes emissions by around 42.4\% initially relative to the business-as-usual policy (BAU) without carbon tax.
- Panel (a) in figure \ref{fig:Leveltauf_nsk0_xgr0_know} shows how net emissions evolve under the carbon tax in a world with and without progressive income tax. Importantly, net emissions exceed the emission limit  derived previously; see the dotted line. Panels (b) and (c) show the deviation from the BAU allocation for fossil energy and the energy share in final production.
+ A carbon tax equal to 185\$ diminishes emissions by around 42.4\% initially relative to the business-as-usual policy without carbon tax.
+ Panel (a) in figure \ref{fig:Leveltauf_nsk0_xgr0_know} shows how net emissions evolve under the carbon tax in a world with and without progressive income tax. In this and all following figures, the x-axis indicates the first year of the 5 year period to which the variable value corresponds.  Importantly, net emissions exceed the emission limit  derived previously; see the dotted line. Panels (b) and (c) show the deviation from the BAU allocation for fossil energy and the energy share in final production.
  
   As energy producers face a higher price for fossil energy, they lower demand for fossil and rise demand for green energy. Fossil production falls  (panel (b)), and green production rises.\footnote{\  I show research related and other variables in figure \ref{fig:Leveltauf_nsk0_xgr0_add} in appendix \ref{app:polexp_cc}. 
   }  
@@ -168,16 +169,16 @@ Overall, the smaller level in production induced by the tax on labor helps to re
 %  \end{comment}
   
   
- \subsubsection{Meeting the emission limit}
+ \subsubsection{Meeting the emission limit}\label{subsec:meetlim}
  
- The previous section made apparent that, first, the carbon tax suggested by the RFF does not cause emissions in line with the IPCC's limit.  Second, it showed that model dynamics call for a dynamic carbon tax. In this section, I calculate the necessary carbon tax to meet the emission limit derived in section \ref{subsec:calib}. I compare the resulting tax and allocations for the policy regimes with and without progressive income tax. 
+ The previous section made apparent that, first, the carbon tax suggested by the RFF does not cause emissions in line with the IPCC's limit.  Second, it showed that model dynamics call for a dynamic carbon tax. In this section, I calculate the necessary carbon tax to meet the emission limit derived in section \ref{subsec:calib}. I compare the resulting tax and allocations for the policy regimes with and without progressive income tax.\footnote{\ For results under other policy regimes, with lump-sum transfers and green subsidies see appendix \ref{app:pol_regimes}. }
  
 
  \begin{figure}[h!!]
  	\centering
  	\caption{Necessary carbon tax with and without progressive income tax  }\label{fig:Limit_nsk0_xgr0_know}		
  	\begin{minipage}[]{0.32\textwidth}
- 		\centering{\footnotesize{(a) Tax per ton of carbon \$US}}
+ 		\centering{\footnotesize{(a) Tax per ton of carbon US\$}}
  		%	\captionsetup{width=.45\linewidth}
  		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Tauf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
  	\end{minipage}		\begin{minipage}[]{0.32\textwidth}
@@ -215,8 +216,11 @@ Overall, the smaller level in production induced by the tax on labor helps to re
  	\floatfoot{Notes:{  Except for panel (b) all graphs show variables in levels when the emission limit has to be met (i) in a scenario without income taxation, $\tau_{\iota}=0$, the gray dashed graph, and (ii) in a scenario with a progressive income tax, $\tau_\iota=0.181$, the solid graph. Panel (b) depicts the deviation in the required carbon tax in the scenario with progressive income tax relative to the carbon tax necessary in the world without progressive income tax. }}
  \end{figure} 
  
+ % necessary carbon tax
+ %     0.9371    1.0025    1.0678    1.1334    1.2000    1.2674    2.7431    2.8254    2.9098    2.9961    3.0841    3.1735
+ 
 Figure \ref{fig:Limit_nsk0_xgr0_know} shows the necessary carbon tax and allocations by progressivity scenario. 
-The necessary carbon tax ranges from 1000\$ US in 2020 prices in 2020 to around 3000\$ US in 2020 prices in 2075. It is lower when labor is taxed (panel (a)). The deviation of the carbon tax reaches -10\% in initial periods but diminishes over time to approximately -7.25\% (panel (b)).
+The necessary carbon tax ranges from US\$937.1 in 2022 prices in 2020 to around US\$3,173.5\$ in 2022 prices in 2075. It is lower when labor is taxed (panel (a)). The deviation of the carbon tax reaches -10\% in initial periods but diminishes over time to approximately -7.25\% (panel (b)).
 The smaller deviation under the net-zero emission limit results primarily from the tightness of the emission limit itself.\footnote{\ Abstracting from all model features discussed earlier, the carbon tax approaches the one without progressive income tax, as well, as the emission limit gets tighter. I show the deviation in emission limits in figure \ref{fig:zeromod_tauf} in appendix \ref{app:eff_feat_exp}. Absent heterogeneous skills, tax progressivity has no adverse compositional effect which should be countered by the carbon tax and which might be changing over time. }
 
 %On top, adverse compositional effects of the progressive income tax aggravate. The reason is as follows. The tighter emission limit makes a higher carbon tax necessary. This again aggravates the compositional effect of the labor tax:  as the carbon tax increases demand for high-skill the difference in leisure across skill types broadens. Then high-skill labor is more responsive to a change in the tax progressivity.\footnote{\ For a more in depth discussion see section \ref{subsec:eff_cc} above.}
@@ -268,22 +272,22 @@ This underlines the previous observation that emissions rise faster especially i
 
  %\textbf{comparison effect taul with and without knowledge spillovers}%As a result, the required fossil tax deviates more from the fossil tax when no progressive income tax is present. 
  
-\tr{\textbf{Continue}}
-The combination of a progressive income tax and a lower carbon tax leads to a smaller decline in green growth in future periods when knowledge spills over from the fossil sector (panel (e)). In addition, fossil growth rises less (panel (d)). Fossil grows more slowely as it is hampered by knowledge spillovers as leading sector. As a result, the green-to-fossil energy ratio falls less in the model with knowledge spillovers when a progressive income tax is present. Knowledge spillovers, therefore, lower the costs, i.e. an adverse green-to-fossil ratio, of a combined environmental policy consisting of a progressive income tax and a carbon tax. The gains are higher growth rates in the fossil and non-energy sector.
-The smaller reduction in the green-to-fossil ratio indcuded by knowledge spillovers, allows the planner to choose a lower carbon tax in future periods, compare panel (b).
+
+The combination of a progressive income tax and a lower carbon tax leads to a smaller decline in green growth in future periods when knowledge spills over from the fossil sector (panel (e)). In addition, fossil growth rises less (panel (d)). Fossil grows more slowly as it is hampered by knowledge spillovers as leading sector. As a result, the green-to-fossil energy ratio falls less in the model with knowledge spillovers when a progressive income tax is present. Knowledge spillovers, therefore, lower the costs, i.e. an adverse green-to-fossil ratio, of a combined environmental policy consisting of a progressive income tax and a carbon tax. The gains are higher growth rates in the fossil and non-energy sector.
+The smaller reduction in the green-to-fossil ratio induced by knowledge spillovers, allows the planner to choose a lower carbon tax in future periods, compare panel (b).
  %the required carbon tax can deviate more from the necessary carbon tax without progressive income tax then absent knowledge spillovers. %In other words, due to the better green-to-fossil energy ratio resulting from knowledge spillovers, a lower carbon tax can be set in future periods. 
 %In the initial periods, however, the carbon tax in the benchmark model can deviate less from its counterpart since \tr{maybe because the reductive effect of the progressive tax is smaller. I thought knowledge spillovers mitigate the compositional effect of labor taxes.}
 %The energy-to-output ratio exceeds its counterpart under the scenario with only a carbon tax approximately by the same percentage in early periods; later, however, it is higher due to the lower carbon tax.  \footnote{\ It is not that knowledge spillovers make a fossil tax more costly in terms of technology growth in fossil or non-energy. In fact, growth in these two sectors is closer to the allocation with a combined policy.   Non-energy growth is higher because non-energy research rises more as the non-energy good is relatively more expensive absent knowledge spillovers. Fossil growth faster as it is hampered by knowledge spillovers as leading sector.}
 
-This section preempts some of the optimal policy results which I will discuss in section \ref{sec:res}: progressive income taxes are optimally used to substitute for carbon taxes due to knowledge spillovers. This policy achieves higher growth rates in the fossil and non-energy sector at the cost of slower green growth.
+This section preempts some of the optimal policy results which I will discuss in section \ref{sec:res}: Progressive income taxes are optimally used to substitute for carbon taxes due to knowledge spillovers. This policy achieves higher growth rates in the fossil and non-energy sector at the cost of slower green growth.
  But only when the costs of lower green growth in the future is mitigated by knowledge spillovers, the Ramsey planner finds such a policy optimal. 
 
-I discuss the effects of heterogeneous skills, heterogeneous labor shares, and heteorgeneous skills in appendix \ref{app:eff_feat_exp}. 
+I discuss the effects of heterogeneous skills, heterogeneous labor shares, and endogenous growth in appendix \ref{app:eff_feat_exp}. 
  \begin{figure}[h!!]
 	\centering
 	\caption{Comparison in deviations with and without knowledge spillovers}\label{fig:Limit_nsk0_xgr0_know_Devs}
 		\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Tax per ton of carbon in \$US}}
+		\centering{\footnotesize{(a) Tax per ton of carbon in US\$}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Tauf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
 	\end{minipage}	
@@ -311,7 +315,7 @@ I discuss the effects of heterogeneous skills, heterogeneous labor shares, and h
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_KN_Reg0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png} 
 	\end{minipage}	
-\floatfoot{Notes: \footnotesize{The panel (a) shows the carbon tax when there are no knowledge spillovers. Panels (b) to (f) show the percentage difference in allocations in the model with to the model without progressive income tax. The solid graph refers to the benchmark model, while the grays dashed graph represents deviations in the model without knowledge spillovers, $\phi=0$. }}	
+\floatfoot{Notes: \footnotesize{The panel (a) shows the carbon tax when there are no knowledge spillovers. Panels (b) to (f) show the percentage difference in allocations in the model with to the model without progressive income tax. The solid graph refers to the benchmark model, while the gray dashed graph represents deviations in the model without knowledge spillovers, $\phi=0$. }}	
 \end{figure}
 \clearpage
 

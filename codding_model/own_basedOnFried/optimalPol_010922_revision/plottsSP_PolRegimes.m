@@ -514,7 +514,7 @@ if plotts.compTauf_Lev==1
         allvarsTaul0=allvars('Taul0');
         
     for lgdind=0:1
-    for l ="Add"% keys(lisst) % loop over variable groups
+    for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -586,7 +586,7 @@ if plotts.compTauf_PER==1
         Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
         
     for lgdind=0:1
-    for l ="Add" keys(lisst) % loop over variable groups
+    for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -642,7 +642,7 @@ if plotts.compTauf_PER_NK==1
         PerdifNK = 100*(allCAlibNK-all0NK)./all0NK;
         
     for lgdind=0:1
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 

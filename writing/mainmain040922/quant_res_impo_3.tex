@@ -1,58 +1,64 @@
 \section{Quantitative results}\label{sec:res}
 
-In this section, I present and discuss the quantitative results. Under the benchmark policy regime, the government runs a consolidated budget: environmental tax revenues are redistributed via the income tax scheme. 
+In this section, I present and discuss the quantitative results. Under the benchmark policy regime, the government runs a consolidated budget: environmental tax revenues are redistributed via the income tax scheme.\footnote{\ I consider the effect of distinct policy regimes in appendix section \ref{app:pol_regimes} following the exercise in section \ref{subsec:meetlim}. }
 First, in section \ref{subsec:exp}, I use the model to learn (i) how a constant carbon tax affects the economy, (ii) how it interacts with a progressive income tax, and (iii) how high a carbon tax is necessary to meet emission limits.
-Second, I ask how the government can optimally satisfy the emission limit in section \ref{subsec:mr} by jointly choosing the progressivity of the income tax scheme and the carbon tax. Section \ref{subsec:dis} discusses the results of the optimality analysis. 
+Second, I ask how the government can optimally satisfy the emission limit in section \ref{subsec:mr} by jointly choosing the progressivity of the income tax scheme and the carbon tax. 
 
 %I focus on analyzing the mechanisms and welfare benefits from integrating the income tax scheme into the environmental policy. I also discuss the costs of not using lump-sum transfers.
 
 \input{results_scenarios}
 
 \subsection{Optimal Policy}\label{subsec:mr}
-This section seeks to answer the question how a benevolent planner optimally attains the emission limit. After showing the results, I discuss the intention behind the optimal policy with a special attention given to the role of income taxes. 
+
+
+This section seeks to answer the question how a benevolent planner optimally attains the emission limit. After showing the results in section \ref{sec:optres}, I discuss the intention behind the optimal policy in section \ref{subsec:dis}. 
 %This section depicts results on the optimal policy followed by the implied allocation in the benchmark model where environmental tax revenues are redistributed via the income tax scheme. 
 
+\subsubsection{Optimal Policy Results}\label{sec:optres}
+To meet the emission limits suggested by the IPCC, the optimal income tax is progressive for all periods; see panel (a) in figure \ref{fig:optPol}.  The x-axis indicates the first year of the 5 year period to which the variable value corresponds. 
 \begin{figure}[h!!]
 	\centering
 	\caption{Optimal Policy }\label{fig:optPol}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$}}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_OPT_T_NoTaus_taul_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{minipage}
+\begin{minipage}[]{0.1\textwidth}
+	\
+\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Environmental tax, $\tau_{Ft}$ }}
+		\centering{\footnotesize{(b) Carbon tax per ton of carbon in 2022 US\$ }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_OPT_T_NoTaus_Tauf_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(c) Net emissions }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_OPT_T_NoTaus_Emnet_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
-\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{(c) Net emissions\\ \  }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_OPT_T_NoTaus_Emnet_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+%\end{minipage}
 \end{figure} 
-
-
 %\paragraph{Optimal policy}
-To meet the emission limits suggested by the IPCC, the optimal income tax is progressive for all periods; see panel (a) in figure \ref{fig:optPol}.  The x-axis indicates the first year of the 5 year period to which the variable value corresponds. 
 % optimal taul over time:   
 %   0.0824    0.0830    0.0835    0.0839    0.0842    0.0843    0.0927    0.0919    0.0913    0.0907    0.0902    0.0898
 
-The optimal income tax scheme is progressive. The progressivity  increases during the 2020 to 2045 period and decreases afterwards during the net-zero periods. Starting from a value of 0.082 in 2020. When the net-zero emission limit is implemented in 2050, the progressivity parameter displays some discontinuity rising from 0.084 to 0.093 from where it  declines to 0.090 in 2070.
+The optimal income tax scheme is progressive. The progressivity  increases during the 2020 to 2045 period starting from 0.082 in 2020  and decreases afterwards during the net-zero emission periods.  When the net-zero emission limit is implemented in 2050, the progressivity parameter jumps from 0.084 to 0.093 from where it  declines to 0.090 in 2070.
 Overall, the optimal tax progressivity is approximately  around half the size found for the US in \cite{Heathcote2017OptimalFramework}: $\tau_{l}=0.181$.
 
 %   optimal tauf
 %        1.8967    2.0254    2.1536    2.2826    2.4135    2.5461    5.4378    5.6006    5.7675    5.9382    6.1120    6.2887
 
+% optimal Tauf per ton of carbon *1.e³
+%     0.9963    1.0639    1.1312    1.1989    1.2677    1.3374    2.8563    2.9417    3.0294    3.1191    3.2104
 
-Consider panel (b). The optimal fossil tax is increasing over the period considered and jumps to higher levels when the zero-net emission limit is introduced in 2050.
-In 2020, the environmental tax equals 86\% of the fossil sector's revenues, from where it rises steadily to 90\% in 2030.  As the emission limit declines to net-zero in 2050, the tax rapidly surges to 95\% and gradually increases afterwards reaching 97\% in 2070. 
+Consider panel (b). The optimal carbon tax is increasing over the period considered and jumps to a higher level when the net-zero emission limit is introduced in 2050.
+In 2020, the carbon tax equals US\$996.3 and rises steadily to US\$1,337.4 in 2045.  As the emission limit declines to net-zero in 2050, the tax rapidly surges to US\$2,856.3 and gradually increases afterwards reaching US\$3,210.4 in 2070. 
 
+%Panel (c) shows the evolution of emissions. The optimal policy meets the emission limit 
 %\paragraph{Allocation}
-Figure \ref{fig:optAll} depicts the optimal allocation. Limiting emissions in line with the Paris Agreement is concomitant with a reduction of research over time, panel (c), and a shift to more green research; see the black dashed graph in panel (c).  When the net-zero limit becomes binding, there is a recomposition towards the green research. 
+Figure \ref{fig:optAll} depicts the optimal allocation. Limiting emissions in line with the Paris Agreement is concomitant with a reduction of research over time, panel (c), and a shift to more green research; see the black dashed graph in panel (c).  When the net-zero limit becomes binding, there is a recomposition towards green research. 
  
-Panel (a) shows consumption which increases over time; yet, its level reduces when the net-emission limit become active in  2050. From the lower level it continues to grow comparably fast as before. Labor effort of both skill types decreases over time.  In comparison to hours supplied by low-skill workers, high-skill workers lower hours more as the tax progressivity jumps in 2050; compare panel (c). 
-The rise in consumption after each reduction is driven by technological progress.
+Panel (a) shows consumption which increases over time; yet, its level reduces when the net-emission limit becomes active in  2050. From the lower level it continues to grow approximately as fast as before. Labor effort of both skill types seems comparably stable over time  and decreases once the tighter emission limit binds (panel(b)).
 %; compare panel (d) which shows 5-year growth rates by sector and as aggregate in per cent. 
 %The green sector sees a rise in technological progress, the dashed black line, while growth in the fossil and the non-energy sector is positive, yet diminishing over time. Overall, aggregate growth is positive and increasing; compare the gray dashed graph. 
 
@@ -109,16 +115,17 @@ The rise in consumption after each reduction is driven by technological progress
 %% DISCUSSION 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Discussion}\label{subsec:dis}
+\subsubsection{Discussion}\label{subsec:dis}
 
  What explains the optimal policy?
- In section \ref{subsec:notaul}, I contrast the optimal allocation under the benchmark policy regime to (i) a scenario where no income tax is available and to (ii) the efficient allocation. I investigate whether there is a role for income taxes beyond lowering inefficiently high labor supply by looking at a policy regime with lump-sum transfers of environmental tax revenues in section \ref{subsec:tls}. 
+ I, first, contrast the optimal allocation under the benchmark policy regime to (i) a scenario where no income tax is available and to (ii) the efficient allocation. Second, I investigate whether there is a role for income taxes beyond lowering inefficiently high labor supply by looking at a policy regime with lump-sum transfers of environmental tax revenues. 
 
-\subsubsection{The role of income taxes}\label{subsec:notaul}
+\paragraph{The role of income taxes}\label{subsec:notaul}
 
-In figure \ref{fig:optAll_percLf_dyn}, I contrast the optimal allocation under the benchmark regime with income tax scheme, black solid graph, with the optimal allocation without a labor income tax, the gray dashed graph. As a benchmark to the optimal policy, the figure depicts the social planner's allocation by the orange dotted graph.\footnote{\ I formulate the social planner's problem in appendix section \ref{app:sp_prob}.} 
+In figure \ref{fig:optAll_percLf_dyn}, I contrast the optimal allocation under the a policy regime where the planner can choose a progressive income tax, black solid graph, with the optimal allocation without progressive income tax, i.e., the progressivity parameter is fixed at zero, $\tau_{\iota t}=0$, the gray dashed graph. I will refer to the former as \textit{integrated} regime and the latter as \textit{separate} regime. Again, the planner runs a consolidated budget: She redistributes carbon tax revenues via the income tax scheme.  As a benchmark to the optimal policy, each plot depicts the social planner's or efficient allocation by the orange dotted graph.\footnote{\ I formulate the social planner's problem in appendix section \ref{app:sp_prob}.} 
 The efficient allocation can be perceived as the allocation the Ramsey planner seeks to implement. However, she may not be able to achieve the efficient allocation due to the reliance on tax instruments.
-All graphs depict percentage changes relative to the laissez-faire allocation of the same period.\footnote{\ Figure \ref{fig:LF} in appendix section \ref{app:quant_res} shows the laissez-faire allocation in levels. } Except for panel (f) which compares the environmental tax in the model with and without income tax. 
+All graphs depict percentage changes relative to the laissez-faire allocation of the same period.\footnote{\ Figure \ref{fig:LF} in appendix section \ref{app:quant_res_opt} shows the laissez-faire and the optimal allocation under the benchmark policy regime in levels. Figure \ref{fig:optAll_percLf_dyn_app} shows additional variables.}
+ Except for panel (f) which compares the environmental tax in the model with and without income tax. 
 
 \begin{figure}[h!!!]
 	\centering
@@ -142,7 +149,7 @@ All graphs depict percentage changes relative to the laissez-faire allocation of
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 	\end{minipage}
 \begin{minipage}[]{0.32\textwidth}
 \centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
@@ -150,27 +157,29 @@ All graphs depict percentage changes relative to the laissez-faire allocation of
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 \end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{\ \\(f) Environmental tax, $\tau_{Ft}$\\ \ }}
+		\centering{\footnotesize{\ \\(f) Carbon tax per ton of carbon in 2022 US\$  }}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaul_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaul_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 	\end{minipage}
-	\floatfoot{Notes: \footnotesize{ The figure shows the percentage deviation of the allocation resulting under the benchmark policy, that is, with income tax (the black solid graph), the optimal allocation when no progressive income tax is available (the gray dashed graph), and the efficient allocation (the orange dotted graph), relative to the laissez-faire allocation. 
-			Panel (d) shows aggregate growth where the variable value in $t$ refers to the growth rate from  period $t$ to period $t+1$. Hence, from 2045 to 2050 growth reduces significantly, since in 2050 the net-emission limit has to be satisfied. Panel (f) shows the level of the environmental tax under the two policy regimes considered.
+	\floatfoot{Notes: \footnotesize{ The figure shows the percentage deviation of the allocation resulting under the integrated policy, that is, the progressivity of the income tax can be chosen (the black solid graph), the optimal allocation in the separate regime when no progressive income tax is available (the gray dashed graph), and the efficient allocation (the orange dotted graph), relative to the laissez-faire allocation. 
+			Panel (d) shows aggregate growth where the variable value in $t$ refers to the growth rate from  period $t$ to period $t+1$. Hence, from 2045 to 2050 growth reduces significantly, since in 2050 the net emission limit has to be satisfied. Panel (f) shows the level of the carbon tax under the two policy regimes considered.
 }}
 \end{figure} 
 %
 %\clearpage
 %%
 % Labor supply
-In comparison to a policy scenario without income tax, the Ramsey planner is able to more closely resemble the efficient levels of labor, panels (b) and (c). 
-The social planner reduces hours worked for both the high- and the low-skill type by between 4 to 4.4 percent relative to the laissez-faire allocation.\footnote{\ During the net-zero emission periods, starting from 2050, the reduction in hours declines: the social planner chooses a higher work effort. The reason is that consumption becomes more valuable as the emission limit tightens. This is the income effect of  externality mitigation on hours discussed in the analytical section.\tr{ For the impact of the emission limit on the efficient allocation see figure \ref{fig:eff_with_notarget} in appendix section \ref{app:quant_res}.}}
+In comparison to a separate policy regime, the Ramsey planner is able to more closely resemble the efficient levels of labor, panels (b) and (c). 
+The social planner reduces hours worked for both the high- and the low-skill type by between 4 to 4.4 percent relative to the laissez-faire allocation.\footnote{\ During the net-zero emission periods, starting from 2050, the reduction in hours declines. The reason is that consumption becomes more valuable as the emission limit tightens. This is the income effect of  externality mitigation on hours discussed in the analytical section.} %\tr{ For the impact of the emission limit on the efficient allocation see figure \ref{fig:eff_with_notarget} in appendix section \ref{app:quant_res}.}}
 
-When no labor income tax is available, hours of both types remain largely unchanged. There is a small decrease in low-skill hours and an increase in high-skill hours due to the strengthened importance of high-skill-intense green energy. When the government has income taxes available, it reduces hours worked of both types closer to the efficient allocation. Tthe efficient allocation sees a stronger decline in working time of low-skill workers compared to high-skill workers in line with the importance of the high skill for green energy. The optimal allocation, in contrast, features a stronger decrease in high-skill labor and too low a reduction of the low-skill ones. This result emerges from the higher wage elasticity of substitution for the high-skill type which works more hours in the laissez-faire allocation so that leisure is more valuable. The income channel of the wage rate is similar to both worker types because of perfect income insurance.
+Under the separate regime, hours of both types remain largely unchanged. There is a small decrease in low-skill hours and an increase in high-skill hours due to the strengthened importance of high-skill-intense green energy.\footnote{\ For levels see figure \ref{fig:LF}.} When the progressivity parameter can be chosen, it reduces hours worked of both types closer to the efficient allocation. The efficient allocation sees a stronger decline in working time of low-skill workers compared to high-skill workers in line with the importance of the high skill for green energy. The optimal allocation, in contrast, features a stronger decrease in high-skill labor and too low a reduction of the low-skill ones. This result emerges from the higher wage elasticity of substitution for the high-skill type.
 
 %- Labor income taxes have advantage in terms of growth
 A second benefit of progressive income taxation in the quantitative model arises from endogenous growth. 
 In all periods, the optimal policy with progressive income tax achieves a higher fossil and non-energy growth rate; consider panels (d) and (e).
-The smaller carbon tax increases demand for fossil energy. The bigger market size renders research in the fossil sector more attractive. Research in the non-energy sector increases, because the lower carbon tax makes the energy good less expensive. This rises demand for the non-energy good since it is a complement to energy products in final production. The price for non-energy goods rises \tr{Check this in model with exogenous growth}. In sum, revenues of the non-energy sector increase thereby raising the gains to non-energy research.The progressive income tax contributes to this increase in research; albeit negligibly in size as discussed in section \ref{subsec:exp}.  The higher growth rate in the fossil sector is acceptable in light of the emission limit due to the reduction in labor supply through the progressive income tax. 
+As shown in section \ref{subsec:exp}, the smaller carbon tax mainly accounts for this result. 
+
+The higher growth rate in the fossil sector is acceptable in light of the emission limit due to the reduction in labor supply through the progressive income tax. I will argue below that it is optimal when green growth is not hampered too much in future periods. This is the case when knowledge spillovers are sufficiently strong. 
 
 %\tr{Compare optimal allocation in model without knowledge spillovers in appendix\ar not insightful since aspect of lowering hours worked present too }
 
@@ -202,11 +211,11 @@ The smaller carbon tax increases demand for fossil energy. The bigger market siz
 
 
 % costs
-The benefits of the progressive income tax, more leisure and higher technology growth, come at the cost of less consumption, panel (a). 
+The benefits of the integrated policy, more leisure and higher technology growth, come at the cost of less consumption, panel (a). 
  The social planner implements continuous consumption growth and only reduces consumption below laissez-faire levels during the first periods. In contrast, the optimal allocation reduces consumption relative to the laissez-faire world in all periods. The reduction is increasing over time, %\footnote{\ This observation speaks to the literature investigating limits to growth. When the Ramsey planner can only use fossil and income taxes, the emission limit is best satisfied by a continuous reduction in growth relative to the laissez-faire allocation. Yet, the government cannot use research subsidies in the present setting. However, the efficient allocation with emission limit is characterized by a reduction in consumption and in consumption growth; consider figure \ref{fig:eff_with_notarget}.}
-  and it is stronger in the model with income tax. As growth rates are higher, or only minimally lower in the model with income tax, the additional reduction in consumption is explained by lower work effort. %The additional decrease in consumption as the net-zero limit is established, occurs despite more work effort (note that hours worked in the laissez-faire equilibrium are constant over time). The reduction in growth and a lower marginal product of labor as the fossil tax increases explain this result. 
+  and it is stronger in the model with income tax. As growth rates are higher, or only minimally lower in the model with income tax, the additional reduction in consumption is explained by lower working hours. %The additional decrease in consumption as the net-zero limit is established, occurs despite more work effort (note that hours worked in the laissez-faire equilibrium are constant over time). The reduction in growth and a lower marginal product of labor as the fossil tax increases explain this result. 
 
- It is unclear if the higher fossil and non-energy growth come as a side-effect of more progressive taxes which are primarily chosen to lower inefficiently high work effort, or whether there is an additional motive for income tax progressivity. The next section studies the optimal policy in a model with lump-sum redistribution of environmental tax revenues to scrutinize this aspect.
+
 \begin{comment}
 The higher green-to-fossil energy ratio (panel (g)) in the efficient allocation is driven by a reallocation of input factors towards the green sector; see panel (i). In contrast, the ratio of scientists remains largely unchanged (panel (h)). This observation suggests that the social planner recomposes the economy by inputs and not through an adjustment in technology growth in order to further profit from knowledge spillovers. In fact, these spillovers in favor of the less advanced sector enable the social planner to implement a higher green to fossil technology ratio than in the laissez-faire economy (panel (l)). 
 
@@ -244,44 +253,34 @@ The weak double-dividend result posits that when environmental tax revenues suff
 %Even though labor income taxes have the advantage of being redistributed to households and lowering the externality, they are not used to substitute environmental tax revenues.\footnote{\ This might be a motive to prefer labor income taxes as an instrument to reduce emissions since labor income tax revenues are redistributed back to the household while environmental tax revenues are not in this setting. Nevertheless, the observation that the environmental tax only adjusts slightly once an income tax tool is available points to the advantage of environmental taxes in handling too high emissions.
 %}
 \end{comment}
-\subsubsection{Optimal policy with lump-sum transfers}\label{subsec:tls}
-To challenge the claim that income taxes serve as a substitute to carbon taxes, I now turn to discuss the optimal policy tuple in a policy regime with lump-sum transfers. According to the theory established in section \ref{sec:theory}, lump-sum transferring environmental tax revenues implements the efficient level of labor. 
-Hence, observing a progressive income tax in this policy regime points to another advantage of taxing labor. 
+\paragraph{Optimal policy with lump-sum transfers}\label{subsec:tls}
 
+ It is unclear if the higher fossil and non-energy growth come as a side-effect of more progressive taxes which are primarily chosen to lower inefficiently high work effort, or whether there is an additional motive for income tax progressivity. I now study the optimal policy in a model with lump-sum redistribution of environmental tax revenues to scrutinize this aspect.
+ According to the theory established in section \ref{sec:theory}, lump-sum transferring environmental tax revenues implements the efficient level of labor. 
+Hence, observing a progressive income tax in this policy regime points to another advantage of distortive labor taxation. 
+
+In figure \ref{fig:opt_TLs}, I show percentage deviations of the allocation under the integrated policy regime relative to the separate regime where $\tau_{\iota t}=0$. Panel (a) shows the income tax in levels.
 The optimal income tax scheme is mildly progressive in the first periods and becomes regressive afterwards. The gain of this policy is more fossil and non-energy growth during initial periods until 2035  and higher growth rates in the green sector during the net-zero emission periods (panels (c) to (e)). % \textit{is the higher green growth due to knowledge spillovers or due to the regressive labor tax?}
-Thanks to the reductive effect of the progressive income tax, the carbon tax can be set lower during the initial periods considered. Once the income tax scheme becomes regressive the optimal carbon tax exceeds the counterpart in the model absent income tax. 
-
-
-The driving model feature of this result are knowledge spillovers. Absent knowledge spillovers, the optimal income tax scheme is regressive throughout which boosts labor supply in general and raises the high-to-low skill ratio supplied.  As a result of both the higher carbon tax and the regressive income tax, green growth is higher, and fossil and non-energy growth decline.\footnote{\ Figure \ref{fig:opt_TLs_noknow} in appendix section \ref{app:TLS } replicates figure \ref{fig:opt_TLs} above in a model without knowledge spillovers. 
-	 When skill are homogeneous so that there is no compositional effect of income tax progressivity, the optimal income tax is even more regressive and the carbon tax is raised more above the counterpart in a model without income tax. This policy achieves a stronger composition towards green production and growth through the higher carbon tax, while the regressive income tax mitigates the reductive effect of the higher environmental tax and transfers on labor supply. Figure \ref{fig:opt_TLs_noknow_homoskill} in appendix section \ref{app:TLS } shows the results.}
-
-Thus, knowledge spillovers render it advantageous to boost technology growth in fossil energy which fosters non-energy and green sector growth especially in future periods instead of pushing towards green growth directly via higher carbon taxes. 
-%The utility gains of this policy arise during the initial 10 years from 2020 to 2030, panel (f). 
-
-As emission limits tighten over time, the government can no longer profit from knowledge spillovers from the fossil sector. The emission limit would be violated. It prevents to substitute fossil with labor income taxes to reap the gains from knowledge spillovers.\footnote{\ This channel points to additional costs of carbon taxation due to knowledge spillovers. Then, the economy can no longer profit from knowledge spillovers from the fossil sector. \cite{Acemoglu2012TheChange} demonstrate that consumption growth is hampered by a transition from dirty to green production when the dirty sector is more productive. However, their channel persists absent knowledge spillovers. Rather, final good production is slowed down more when dirty and fossil goods are easily substitutable: then, the good with the higher technology is favored in production and technology improvements in the backward sector do not contribute to overall output growth.} 
-Ironically, while the motivation for this paper was to study labor income taxes as a reductive policy tool, their advantage emerges from boosting technology growth. Under the consolidated budget regime with income tax the planner implements the emission limit at higher growth rates and more leisure. In light of this mechanism, progressive income taxes and carbon taxes arise as substitutes. 
-%NICE FORMULATION: Then, the reductive effect of the progressive income tax does not suffice to diminish the fossil tax in a way that non-energy research increases.
-
-Comparing the degree of income tax progressivity in the model with lump-sum transfers to the one with consolidated budget suggests that the main driver of progressive income taxes is the motive to correct for the inefficiency in labor markets; the channel studied in the analytical section of this paper \ref{sec:theory}. 
+Thanks to the reductive effect of the progressive income tax, the carbon tax can be set lower during the initial periods considered (panel (b)). Once the income tax scheme becomes regressive the optimal carbon tax exceeds the counterpart in the model absent income tax. 
 
 \begin{figure}[h!!!]
 	\centering
 	\caption{Optimal policy with lump-sum transfers}\label{fig:opt_TLs}
 	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(b) Carbon tax, $\tau_{Ft}$}}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-\end{minipage}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{(c) Fossil growth }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-\end{minipage}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
 	\begin{minipage}[]{0.32\textwidth}
 		\centering{\footnotesize{(d) Green growth }}
 		%	\captionsetup{width=.45\linewidth}
@@ -292,12 +291,23 @@ Comparing the degree of income tax progressivity in the model with lump-sum tran
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{(f) Period utility }}
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-\end{minipage}
-	\floatfoot{Notes: \footnotesize{ 	}}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
 \end{figure} 
+
+
+The driving model feature of this result are knowledge spillovers. Absent knowledge spillovers, the optimal income tax scheme is regressive throughout which boosts labor supply in general and raises the high-to-low skill ratio supplied.  As a result of both the higher carbon tax and the regressive income tax, green growth is higher, and fossil and non-energy growth decline in all periods relative to the separate policy regime. Consider figure \ref{fig:opt_TLs_noknow} in appendix section \ref{app:TLS} which shows the results in a model without knowledge spillovers.\footnote{ The optimal income tax is not regressive due to the compositional effect but rather due to the level effect on economic activity. When skills are homogeneous, so that there is no compositional effect of income tax progressivity, the optimal income tax is even more regressive and the carbon tax is raised more above the counterpart in a model without income tax. This policy achieves a stronger composition towards green production and growth through the higher carbon tax, while the regressive income tax mitigates the reductive effect of the higher environmental tax and transfers on labor supply. Figure \ref{fig:opt_TLs_noknow_homoskill} in appendix section \ref{app:TLS} shows the results.}
+Thus, knowledge spillovers render it advantageous to boost technology growth in fossil energy which fosters non-energy and green sector growth especially in future periods instead of pushing towards green growth directly via higher carbon taxes. 
+%The utility gains of this policy arise during the initial 10 years from 2020 to 2030, panel (f). 
+As emission limits tighten over time, the government can no longer profit from knowledge spillovers from the fossil sector. The emission limit would be violated. It prevents substitution of carbon taxes with labor income taxes to reap the gains from knowledge spillovers.\footnote{\ This channel points to additional costs of carbon taxation due to knowledge spillovers. Then, the economy can no longer profit from knowledge spillovers from the fossil sector. \cite{Acemoglu2012TheChange} demonstrate that consumption growth is hampered by a transition from dirty to green production when the dirty sector is more productive. However, their channel persists absent knowledge spillovers. Rather, final good production is slowed down more when dirty and fossil goods are easily substitutable: then, the good with the higher technology is favored in production and technology improvements in the backward sector do not contribute to overall output growth.} 
+
+Ironically, while the motivation for this paper was to study labor income taxes as a reductive policy tool, one of their benefits emerges from boosting technology growth. Under the integrated regime with income tax, the planner implements the emission limit at higher growth rates and more leisure. In light of this mechanism, progressive income taxes and carbon taxes arise as substitutes. 
+%NICE FORMULATION: Then, the reductive effect of the progressive income tax does not suffice to diminish the fossil tax in a way that non-energy research increases.
+
+Comparing the degree of income tax progressivity in the model with lump-sum transfers to the one with consolidated budget suggests that the main driver of progressive income taxes is to correct for the inefficiency in labor markets; the channel studied in the analytical section of this paper \ref{sec:theory}. 
 
 

@@ -250,7 +250,7 @@ plotts.tauf_compTaul_BYregime   = 0;
 plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 plotts.compTauf_PER_NK          = 0;
 %- plots: effect of taul
@@ -260,7 +260,7 @@ plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
-plotts.compRed                  = 0;
+plotts.compRed                  = 1;
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
@@ -271,7 +271,7 @@ for ee=0 % ==0 then uses benchmark emission limit
         
 for ll=1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=1 % knowledge spillovers
+for nknk=0 % knowledge spillovers
     for xgr =0
         for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
@@ -672,13 +672,13 @@ plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau                      = 0; % do plot bau comparison
-plotts.lf                       = 0; % comparison to laissez faire allocation 
+plotts.lf                       = 1; % comparison to laissez faire allocation in levels
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
-plotts.compeff1=    1; %1; only social planner
+plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
@@ -700,9 +700,9 @@ plotts.compREd=0;
 for rr= [0,4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
-for xgr =0:1
-    for nsk=0:1
-        for nknk=0:1
+for xgr =0
+    for nsk=0
+        for nknk=0
             
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

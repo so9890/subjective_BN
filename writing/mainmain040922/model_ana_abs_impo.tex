@@ -1,4 +1,4 @@
-\section{Core Model}\label{sec:mod_an}
+\section{Tractable Model}\label{sec:mod_an}
 %\tr{if $tau_f$ was to replicate share of marginal products, then $H^*\geq H_{FB}$; i.e. absent lump-sum transfers (sub-optimal setting)}
 %\textbf{Points to be made}
 %\begin{enumerate}
@@ -9,7 +9,7 @@
 %\item redistribution through the income tax scheme establishes the efficient allocation if the income tax is progressive \textit{Intuition: in contrast to lump-sum transfers, transferring environmental tax revenues through the income tax scheme constitutes a positive multiplication of labor income \ar this increases labor efforts. The progressive tax counters this tendency.} \checkmark
 %\end{enumerate}
 
-This section develops a general model which is at the core of the analytical and quantitative results. 
+This section develops a general model  to derive the theoretic results. 
 The model presented in this section is designed as simple as possible to derive the theoretical results. In section \ref{sec:model}, the model is extended to the quantitative framework notably by adding endogenous growth and skill heterogeneity. %investigate the inefficiency arising in hours worked when an environmental externality has to be taken care of.
 
 In the model, the household sector can be described by a representative household. The household faces a consumption and labor supply decision. The final consumption good is a composite of a fossil and a green good. Labor is the only input to production. For simplicity, the green sector does not induce any externality; yet, whenever intermediate goods are no perfect substitutes, final good production is never perfectly green. The core model abstracts from endogenous growth and is static. 
@@ -33,18 +33,19 @@ characterized by (i) a scaling factor, $\lambda$, which determines the level of 
 \cite{Heathcote2017OptimalFramework} show that whenever $\tau_{\iota}>0$ the tax scheme is progressive since the marginal tax rate exceeds the average tax rate irrespective of  pre-tax labor income. Hence, average tax payments increase with labor income. An alternative intuition is that when $\tau_{\iota}>0$, the elasticity of post- to pre-tax labor income is smaller unity for all levels of pre-tax labor income.  %\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
 
 \paragraph{Production}
-All sectors of production are perfectly competitive and production functions have decreasing returns to scale. %\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
-Intermediate goods are produced from labor, $L_J$, and technology, $A_J$, where $J\in \{F,G\}$ indicates the fossil and the green sector: 
+All sectors of production are perfectly competitive, and production functions have decreasing returns to scale. %\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
+Intermediate goods are produced from the labor input good, $L_J$, and technology, $A_J$, where $J\in \{F,G\}$ indicates the fossil and the green sector. The variable $Y$ stands in for final output.  
 \begin{align}
 Y=Y(F, G), \hspace{5mm} F=F(A_F, L_F),\hspace{5mm} G=G(A_G, L_G) \label{eq:prod}
 \end{align}
 
 \paragraph{Government}
-The government raises income taxes from households and levies ad-valorem sales taxes, $\tau_F$, on fossil producers' revenues $p_FF$, where $p_F$ denotes the price of the fossil good paid by final good producers. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule, while environmental tax revenues are either lump-sum redistributed to households, $T_{ls}$, consumed by the government, $Gov$, or redistributed through the income tax scheme, $T_\iota$:
+The government raises income taxes from households and levies ad-valorem sales taxes, $\tau_F$ - the environmental tax -  on fossil producers' revenues $p_FF$, where $p_F$ denotes the price of the fossil good paid by final good producers. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule, while environmental tax revenues are either lump-sum redistributed to households, $T_{ls}$, consumed by the government, $Gov$, or redistributed through the income tax scheme, $T_\iota$:
 \begin{align}
 \tau_{F}p_FF=T_{ls}+T_\iota+Gov, \hspace{7mm}
 0={w H}-\lambda(w H)^{1-\tau_{\iota}}+T_\iota. \label{eq:gov_but}
 \end{align}
+The scaling parameter $\lambda$ adjusts to balance the government's budget. 
 %Environmental tax revenues are either transferred lump-sum, fully consumed by the government, or transferred through the income tax schedule.
 
 \paragraph{Markets}
@@ -55,7 +56,7 @@ H=L_F+L_G,\ \hspace{5mm} Y=C+Gov. \label{eq:market_clear}
  The final good, $Y$, is the numeraire. In this simple model, labor moves freely between the green and fossil sector. 
 %I summarize the equations determining the competitive equilibrium in appendix section \ref{app:model}.
 \paragraph{Competitive equilibrium}
-In a competitive equilibrium, household behavior is determined by the budget constraint, equation \ref{eq:hhbudget}, and labor supply which follows from the household first order conditions and substituion of $\lambda$ from the government's budget on the income tax:
+In a competitive equilibrium, household behavior is determined by the budget constraint, equation \ref{eq:hhbudget}, and labor supply which follows from the household first order conditions and substitution of $\lambda$ from the government's budget on the income tax:
 \begin{align}
 -U_H=U_C(1-\tau_{\iota})w\left(1+\frac{T_\iota}{wH}\right). \label{eq:hsup}
 \end{align}
@@ -66,7 +67,7 @@ p_F = \frac{\partial Y}{\partial F}, \hspace{5mm}
 w= p_F(1-\tau_F)\frac{\partial F}{\partial L_F}=p_G\frac{\partial G}{\partial L_G}.\label{eq:profmax}
 \end{align}
 
-The competitive equilibrium is defined as prices and allocations so that households and firms behave optimally; i.e. equations \ref{eq:hhbudget}, \ref{eq:hsup} and \ref{eq:profmax} hold. Production happens according to \ref{eq:prod}.  Equilibrium prices and the wage rate adjust to clear markets, equations \ref{eq:market_clear}. Finally, the government's budgets are satisfied \ref{eq:gov_but}. Policy variables $\tau_F$ and $\tau_\iota$ are taken as given. 
+The competitive equilibrium is defined as prices and allocations so that households and firms behave optimally; i.e. equations \ref{eq:hhbudget}, \ref{eq:hsup}, and \ref{eq:profmax} hold. Production happens according to \ref{eq:prod}.  Equilibrium prices and the wage rate adjust to clear markets, equations \ref{eq:market_clear}. Finally, the government's budgets are satisfied \ref{eq:gov_but}. Policy variables $\tau_F$ and $\tau_\iota$ are taken as given. 
 
 \section{Theoretic results}\label{sec:theory}
 This section derives and discusses the main theoretical results. Section \ref{subsec:sp} defines the efficient allocation. It constitutes a benchmark for the optimal allocation which is discussed in section \ref{subsec:decen_ec}. 
@@ -88,7 +89,7 @@ Absent an externality, $U_F=0$, the efficient distribution of labor across secto
 When there is an externality, the social planner adjusts the allocation by two modulations: (i) a recomposing and (ii) a scaling one. 
 The recomposition is determined by equation \ref{eq:fbs}.
 The negative externality of fossil production makes it efficient to adjust the fossil labor share so that  a marginal reallocation of labor to the fossil sector would raise output.\footnote{\ Note that $U_F<0$ by assumption so that the right-hand side is positive and that $\frac{dG}{ds}<0$. }
-One can show that the social planner reduces the fossil labor share when the aggregate production function features decreasing returns to scale in its labor inputs, $L_G$ and $L_F$\footnote{\ This follows from assuming that either final good and/or intermediate good production functions are decreasing returns to scale.}.
+I show in appendix \ref{app:redeffs} that the social planner reduces the fossil labor share when the aggregate production function features decreasing returns to scale in its labor inputs, $L_G$ and $L_F$.
 \begin{comment}
 The equation 
 \begin{align}
@@ -98,7 +99,7 @@ The term on the left-hand side is the social cost of the externality: it measure
 \end{comment}
 
 The scaling effect is summarized by equation \ref{eq:fbh}.
-First note that equation \ref{eq:fbh} can be rewritten by substituting equation \ref{eq:fbs} and noticing the relation of derivatives with respect to $H$ and $s$.\footnote{\ This is done in more detail for the optimal allocation in appendix section\ref{app:incometax0}. The relation of derivatives are summarized in section \ref{app:dervs_use}.}  
+First note that equation \ref{eq:fbh} can be rewritten by substituting equation \ref{eq:fbs} and noticing the relation of derivatives with respect to $H$ and $s$.\footnote{\ This is done in more detail for the optimal allocation in appendix section \ref{app:incometax0}. The relation of derivatives are summarized in section \ref{app:dervs_use}.}  
 The second first order condition becomes:
 \begin{align}\label{eq:fbh_simp}
 -U_H=U_C\frac{\partial Y}{\partial G}\frp{G}{L_G}.
@@ -108,7 +109,6 @@ Hence, the externality drops from the expression which determines efficient labo
 The recomposition of labor input towards the  green sector reduces the marginal product of labor in the green sector and the utility gains from more labor decline.  This effect has two opposing impacts on efficient labor supply. On the one hand, there is a substitution effect: as leisure becomes less costly, the efficient amount of hours reduces (note that the right-hand side of equation \ref{eq:fbh} is increasing in $H$). On the other hand, the economy becomes poorer in terms of consumption and more work effort might be efficient. This is captured by the term $U_C$ and equivalent to an income effect. 
 %In total, which effect dominates depends on the curvature of the utility from consumption, $\theta$. With $\theta>1$ the  lower marginal product of labor decreases the efficient amount of hours worked. 
 %Second, the social planner reduces hours worked due to their negative exeternality through fossil production. This effect is introduced by the term $U_F\frac{dF}{dH}<0$. 
-
 Proposition \ref{prop:0} summarizes above discussion
 \begin{prop}\label{prop:0}
 	Efficient externality mitigation consists of a recomposing and a scaling approach. Efficiency of the scaling effect arises indirectly due to the reduction in the marginal product of labor induced by a recomposition of input factors.
@@ -208,7 +208,7 @@ The optimal environmental policy then consists of both a progressive income tax 
 
 \begin{prop}\label{prop:2}\textbf{Optimal environmental policy without redistribution of environmental tax revenues}
 When environmental tax revenues are not redistributed but instead consumed by the government, i.e., $Gov=\tau_Fp_FF$ and $T_{ls}=T_\iota=0$, then (i) the Pigou principle is violated, and (ii) a motive for labor taxation arises: the optimal income tax scheme is progressive. % if the aggregate production function features decreasing or constant returns to scale. 
-The efficient allocation is infeasible.  
+The efficient allocation is infeasible.  Either work effort is inefficiently high, or consumption is inefficiently low. 
 \end{prop}
 
 Proof: in appendix sections \ref{app:reiv_tauf} to \ref{app:ineff}.

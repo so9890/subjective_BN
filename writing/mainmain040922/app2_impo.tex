@@ -40,20 +40,22 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 
 \section{Quantitative model}\label{app:quant_mod}
 \subsection{Model equations}
-
+\vspace{-2mm}
 %Assume interior solutions for labor and research supply.
 \begin{align}
-\text{\textbf{Household}}&\nonumber\\ \text{period utility}\vspace{4mm}&  \log(C_t)-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{s_F^{1+\sigma}+s_G^{1+\sigma}+s_N^{1+\sigma}}{{1+\sigma}} \nonumber %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
+\text{\textbf{Household}}&\nonumber\\ \text{period utility}\vspace{4mm}&  \log(C_t)-\chi\frac{z_hh_{ht}^{1+\sigma}+z_lh_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{S_t^{1+\sigma}}{{1+\sigma}} \nonumber %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
-\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}+T_{ls, t}\nonumber\\ %+T_{lst}\\
+\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}\nonumber\\ %+T_{lst}\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-1}= \mu_tp_{t}\nonumber\\
 & \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{ht}^{1-\tau_{\iota t}}h_{ht}^{-\tau_{\iota t}}-\gamma_{ht}/z_h\nonumber\\
 & \chi h_{lt}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{lt}^{1-\tau_{\iota t}}h_{lt}^{-\tau_{\iota t}}-\gamma_{lt}/(1-z_h)\nonumber\\
 %&( h_{st})^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{st}^{1-\tau_{\iota t}}h_{st}^{-\tau_{\iota t}}\\
 %\Rightarrow\ \ & \frac{h_{ht}}{h_{lt}}=\left(\frac{w_{ht}}{w_{lt}}\right)^{\frac{1-\tau_{\iota t}}{{\sigma+\tau_{\iota t}}}}\ \text{(Interior solution)}\\
-& \chi_s s_{Jt}^{\sigma_s} =\mu_t w_{sJt}-\gamma_{sJt},\ for  J\in\{F,G,N\} \nonumber\\ %\text{(scientist income confiscated by gov.)}\\
-& \text{where $\gamma_{ht}, \gamma_{lt}$, and $\gamma_{sJt}$ are Lagrange multipliers on the inequality constraints}\nonumber \\ & \text{with respect to time endowment.}\\
+& \chi_s S_{t}^{\sigma_s} =\mu_t w_{st}-\gamma_{st} \nonumber\\ %\text{(scientist income confiscated by gov.)}\\
+& \text{where $\gamma_{ht}, \gamma_{lt}$, and $\gamma_{sJt}$ are Lagrange multipliers}\nonumber \\ 
+& \text{on the inequality constraints}\nonumber \\ 
+& \text{with respect to time endowment.}\nonumber\\
 \text{\textbf{Final good and Energy producers}}&\nonumber\\
 \text{Optimality}\ \vspace{4mm}&
 %\frac{E_t}{N_t}=\frac{\delta_y}{(1-\delta_y)}\left(\frac{p_{Nt}}{p_{Et}}\right)^{\varepsilon_y}\\
@@ -84,19 +86,18 @@ Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon
 \text{Labour demand}\ \vspace{4mm}%\label{eq:lab_demand}\\
 & w_{lFt}=(p_{Ft})^\frac{1}{1-\alpha_F}(1-\alpha_F)(\alpha_F)^\frac{\alpha_F}{1-\alpha_F}A_{Ft}\nonumber\\
 & w_{lNt}=p_{Nt}^\frac{1}{1-\alpha_N}(1-\alpha_N)(\alpha_N)^\frac{\alpha_N}{1-\alpha_N}A_{Nt}\nonumber\\
-& w_{lGt}=(p_{Gt}(1+\tau_{Gt}))^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
+& w_{lGt}=(p_{Gt})^\frac{1}{1-\alpha_G}(1-\alpha_G)(\alpha_G)^\frac{\alpha_G}{1-\alpha_G}A_{Gt}\nonumber
 \\
 \text{Machine demand}\ \vspace{4mm}
 &x_{Fit}= \left(\alpha_F p_{Ft}\right)^\frac{1}{1-\alpha_F}L_{Ft}A_{Fit}\nonumber\\
 &x_{Nit}= \left(\alpha_N p_{Nt}\right)^\frac{1}{1-\alpha_N}L_{Nt}A_{Nit}\nonumber\\
-&x_{Git}= \left(\alpha_G p_{Gt}(1+\tau_{Gt})\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
+&x_{Git}= \left(\alpha_G p_{Gt}\right)^\frac{1}{1-\alpha_G}L_{Gt}A_{Git}\nonumber
 \\
 \text{\textbf{Labour producers}}&\nonumber
 \\
 \text{Production}\ \vspace{4mm}& L_{Ft}=h_{hFt}^{\theta_{F}}h_{lFt}^{1-\theta_{F}}\label{mod:LF}\\
 & L_{Nt}=h_{hNt}^{\theta_{N}}h_{lNt}^{1-\theta_{N}}\label{mod:LN}\\
 & L_{Gt}=h_{hGt}^{\theta_{g}}h_{lGt}^{1-\theta_{G}}\label{mod:LG}\\
-\ \\
 \text{Optimality}\ \vspace{4mm}& h_{hFt}= \theta_{F}L_{Ft}\frac{w_{lFt}}{w_{ht}}\nonumber\\ %\label{eq:opt_lab_pro}\\
 & h_{hNt}= \theta_{N}L_{Nt}\frac{w_{lNt}}{w_{ht}}\nonumber\\
 & h_{hGt}= \theta_{G}L_{Gt}\frac{w_{lGt}}{w_{ht}}\nonumber\\
@@ -112,11 +113,11 @@ Y_t=\left(\delta_y^\frac{1}{\varepsilon_y}E_t^\frac{\varepsilon_y-1}{\varepsilon
 &p_{xGit}=\frac{1}{\alpha_G(1+\zeta_G)}
 \nonumber\\ 
 \text{Demand Scientists}\ \vspace{4mm}&
-w_{sFt}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho_F}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_F}s_{Ft}A_{Ft}}\nonumber\\
+w_{st}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho_F}\right)^{\eta}p_{Ft}F_t}{\frac{1}{1-\alpha_F}s_{Ft}A_{Ft}}\nonumber\\
 &
-w_{sNt}=\frac{\eta \gamma  A_{Nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{Nt}}{\rho_N}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}s_{Nt}A_{Nt}}\nonumber\\
+w_{st}=\frac{\eta \gamma  A_{Nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{Nt}}{\rho_N}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}s_{Nt}A_{Nt}}\nonumber\\
 &
-w_{sGt}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}(1+\tau_{Gt})G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
+w_{st}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
 \text{Innovation}\ \vspace{4mm}&
 A_{Fit}=A_{Ft-1}\left(1+\gamma\left(\frac{s_{Fit}}{\rho_F}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Ft-1}}\right)^{\phi}\right)\nonumber \\
 &
@@ -138,110 +139,255 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 %&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\nonumber\\
-&Gov_{\iota t}=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})+T_{\iota t}\nonumber\\&+\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+ w_{sFt}s_{Ft}+w_{sGt}s_{Gt}+w_{sNt}s_{Nt}\nonumber\\ &-\int_{0}^{1} p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}di\nonumber\\
+&Gov_{\iota t}=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})\nonumber\\&
++\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+ w_{st}S_t+\tau_{Ft}F_t\nonumber\\ &-\int_{0}^{1} p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}di\nonumber\\
 \text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for J\in\{F,G,N\}\nonumber \\
-\text{simplified}\ \vspace{4mm} & Gov_{\iota t}= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})
-\nonumber\\\
-&Gov_{Ft}=\tau_{Ft}F_t\hspace{2mm} or\hspace{2mm} \tau_{Gt}p_{Gt}G_t=\tau_{Ft}F_t \hspace{2mm} or \hspace{2mm} T_{ls, t}=\tau_{Ft}F_t\hspace{2mm} or \hspace{2mm} T_{\iota t}=\tau_{Ft}F_t\nonumber \\
+%\text{simplified:}\ \vspace{4mm} & Gov_{\iota t}= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})}) +\tau_{Ft}F_t
+%\nonumber\\
+%&Gov_{Ft}=\tau_{Ft}F_t\hspace{2mm} or\hspace{2mm} \tau_{Gt}p_{Gt}G_t=\tau_{Ft}F_t \hspace{2mm} or \hspace{2mm} T_{ls, t}=\tau_{Ft}F_t\hspace{2mm} or \hspace{2mm} T_{\iota t}=\tau_{Ft}F_t\nonumber \\
 \text{\textbf{Markets}}&\nonumber\\
 &h_{hFt}+h_{hNt}+h_{hGt}=z_{h} h_{ht}\nonumber\\
 &h_{lFt}+h_{lNt}+h_{lGt}=(1-z_h) h_{lt}\nonumber\\
-&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i++Gov_{\iota t}+Gov_{Ft}=Y_t\nonumber
+&s_{Ft}+s_{Nt}+s_{Gt}=S_{t}\nonumber\\
+&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i=Y_t\nonumber
 \end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
-\tr{T set to 42 that is all explicit periods. \ar drop below the discussion on T+1 etc.}
-\textit{In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
-Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate. 
-}
-\tr{\textbf{Misses time spent working}}
-I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period plus the utility derived in the next period after the government's regency, that is, period $T+1$:
-\begin{align}
-CV=\beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{G{T+1}}, s_{N{T+1}}, s_{F{T+1}})+\sum_{s=T+2}^{\infty} \beta^{s}u(C_s). %,h_{hs}, h_{ls}, s_{gs}, s_{ns}, s_{fs}).
-\end{align}
-Solving explicitly for period $T+1$ to derive the starting value of consumption which is handed over to the next generation is important to reflect a value of research under the last period under the regency of the planner that is equivalent than in the prior periods.
-After the last explicit period, $T+1$, the infinite sum over consumption utilities approximates the value of dynamic technology spillovers. 
-I do not approximate a value of labor and research by current values as this would imply that work efforts today would be felt forever. In tendency making reductions in hours worked even more beneficial. On the other hand, however, the approach leads to an inflation of the value of bequeathed technology. 
 
-I make two simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
+%\textit{In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
+%Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate. 
+%}
+
+I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period
+\begin{align*}
+CV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s, h_{hs}, h_{ls}, S_{s}).
+\end{align*}
+
+
+I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
 I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
-Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period.\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
-Let $\gamma_{yT+1}=\frac{Y_{T+1}}{Y_{T}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT+1})^{s-(T+1)}C_{T+1}$.
-Given the functional forms
+Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period. Third, hours of workers and scientists remain at their value in the last explicit optimization period. %\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
+Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-(T)}C_{T}$.
+Given the functional form
 \begin{align*}
 u(C_s)= \frac{C_s^{1-\theta}}{1-\theta},
 \end{align*}
 the continuation value reduces to
 \begin{align*}
-CV= \beta^{T+1} u(C_{T+1},h_{h{T+1}}, h_{l{T+1}}, s_{G{T+1}}, s_{N{T+1}}, s_{F{T+1}})+\beta^{T+1}\frac{1}{1-\beta (1+\gamma_{yT+1})^{1-\theta}}\frac{C_{T+1}^{1-\theta}}{1-\theta}.
+CV= \beta^{T}\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_{T}^{1-\theta}}{1-\theta}+ \frac{1}{1-\beta}u(h_{hT}, h_{lT}, S_T)\right).
 \end{align*}
-When $\theta\underset{\lim}{\rightarrow} 1$,  the second summand becomes
-\begin{align*}\beta^{T+1}\frac{1}{1-\beta}\log(C_{T+1}).
+Where $u(C_s, h_{hs}, h_{ls}, S_{s})=u(c_s)+u(h_{hT}, h_{lT}, S_T)$.
+When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand becomes
+\begin{align*}
+\beta^{T}\frac{1}{1-\beta}\log(C_{T}).
 \end{align*}
+
 %\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
 %
 
 \subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes the social welfare function 
-\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, s_{Ft}, s_{Nt}, s_{Gt})+ CV\\
+\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV\\
 s.t.\ &  \omega F_{t} -\delta \leq \Omega_t\\
 &C_t+x_{Ft}+x_{Gt}+x_{Nt}=Y_t\\
-&\text{LOM technology}\\
+&\text{Law of Motion of technologies}\\
 &z_h h_{ht}=h_{hFt}+h_{hGt}+h_{hNt},\\
 &(1-z_h) h_{lt}=h_{lFt}+h_{lGt}+h_{lNt},\\
+&S_{t}=s_{Ft}+s_{Gt}+s_{Nt},\\
 &\text{time endowment scientists and workers}\\
 \end{align*}
-Production of $Y_t$ is defined by the equations describing production in the model: equations \ref{mod:y} to \ref{mod:G}, and \ref{mod:LF} to \ref{mod:LG}. It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
+Production of $Y_t$ is defined by the equations describing production in the model: equations \ref{mod:y} to \ref{mod:LG}. It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 %\subsection{Social planner problem}
 %The social planner chooses 
 \section{Quantitative results}\label{app:quant_res}
 
 \input{app_experiment2}
 
+\subsection{Optimal Policy}\label{app:quant_res_opt}
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Costs and benefits of progressive income taxes in percentage deviations from the laissez-faire allocation % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
+	}\label{fig:optAll_percLf_dyn_app}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Green growth\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_PercentageLFDynNT_Target_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)  Green-to-fossil energy ratio \\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_PercentageLFDynNT_Target_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b)  Energy to GDP\\ \  }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_PercentageLFDynNT_Target_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{minipage}
+\floatfoot{Notes: \footnotesize{The figure shows the percentage deviation of the allocation resulting under the benchmark policy, that is, the progressivity of the income tax can be chosen (the black solid graph), the optimal allocation when no progressive income tax is available (the gray dashed graph), and the efficient allocation (the orange dotted graph), relative to the laissez-faire allocation. }}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Allocations in levels }\label{fig:LF}	
+	\begin{subfigure}{1\textwidth}		
+		\caption{Laissez-faire and optimal allocation, benchmark regime}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompOPT_T_NoTaus_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) High-skill hours worked}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompOPT_T_NoTaus_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) Low-skill hours worked}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompOPT_T_NoTaus_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{minipage}	
+	\end{subfigure}	
+	\begin{subfigure}{1\textwidth}		
+	\caption{Laissez-faire and social planner allocation}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompSP_T_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High-skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompSP_T_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low-skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompSP_T_regime0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{subfigure}	
+\end{figure}
+\clearpage
+
+\subsubsection{Optimal policy in model with lump-sum transfers}\label{app:TLS}
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers
+	}\label{fig:opt_TLs_noknow}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	%	\floatfoot{Notes: \footnotesize{ 	}}
+\end{figure} 
 
 
-
-%\subsection{Optimal policy in model without knowledge spillovers}
-%\begin{figure}[h!!]
-%	\centering
-%	\caption{Comparison optimal allocation in benchmark model and without knowledge spillovers }\label{fig:noKNSPIL}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{\iota t}$ \\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(b) Environmental tax, $\tau_{Ft}$\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(c) Fossil research\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(d) Green research\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(e) Non-energy research\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(f) Non-energy price\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/pn_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(g) Energy price\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/pee_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.32\textwidth}
-%		\centering{\footnotesize{(h) Energy share\\ \ }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_KN_FullMod_sizeequ0_regime0_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%\end{figure}
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers, and homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax, $\tau_{Ft}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) Hours worked }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(h) Hours worked levels}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	%	\floatfoot{Notes: \footnotesize{ 	}}
+\end{figure} 
+With homogeneous skills, there is no compositional effect of the income tax progressivity. Nevertheless, the optimal policy features regressive income taxes to boost labor supply in combination with higher carbon taxes. This policy allows to redirect research and production towards the green sector while the regressive income tax keeps working hours high. % \textit{is there an effect of tauf on labor supply with homoskill and no know? When capital is heterogeneous? NO not with regime 0}
+\clearpage
+\subsubsection{Optimal policy and allocation without knowledge spillovers}
+\begin{figure}[h!!!]
+	\centering
+	\caption{Costs and benefits of progressive income taxes, no knowledge spillovers % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
+	}\label{fig:optAll_percLf_dyn_noknow}
+	%	\begin{minipage}[]{0.32\textwidth}
+	%		\centering{\footnotesize{(a) Consumption\\ \ }}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	%	\end{minipage}
+	%	\begin{minipage}[]{0.32\textwidth}
+	%		\centering{\footnotesize{(b) High-skill hours worked\\ \  }}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	%	\end{minipage}
+	%	\begin{minipage}[]{0.32\textwidth}
+	%		\centering{\footnotesize{(c) Low-skill hours worked\\ \ }}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	%	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Environmental tax, $\tau_{Ft}$\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaul_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure} 

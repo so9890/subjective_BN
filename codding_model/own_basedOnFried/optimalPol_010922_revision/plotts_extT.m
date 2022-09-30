@@ -1144,7 +1144,7 @@ if plotts.comp_OPT==1
         allvarsnt =RESnt('OPT_T_NoTaus');
         
     %% 
-    for l = keys(lisst) % loop over variable groups
+    for l ="Add"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1180,7 +1180,7 @@ end
 if plotts.comp_OPTPer==1
     % plot graphs in percent relative toefficient/optimal world
     % without tagret dynamic 
-     fprintf('plotting levels opt and no taul no eff') 
+     fprintf('plotting percentage opt and no taul no eff') 
 
      if plotts.regime_gov==3
         RES=OTHERPOLL{plotts.regime_gov+1};
@@ -1439,12 +1439,12 @@ end
 %% comparison to LF
 if plotts.lf==1
     fprintf('plotting LF graphs') 
-for nt =  1:length(OTHERPOLL) % loop over policy regimes
+for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
         count=nt-1;
         RES=OTHERPOLL{nt};
         bau=RES('LF');
 
-    for i ={'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
+    for i ={'OPT_T_NoTaus'} % SP_T, 'OPT_NOT_NoTaus'
         ii=string(i);
         allvars= RES(ii);
 
@@ -1474,7 +1474,7 @@ for nt =  1:length(OTHERPOLL) % loop over policy regimes
             xticklabels(Year10)
            if lgdind==1
                if contains(ii, 'SP')
-                  lgd=legend('Social planner', 'laissez-faire', 'Interpreter', 'latex');
+                  lgd=legend('social planner', 'laissez-faire', 'Interpreter', 'latex');
                else
                   lgd=legend('Ramsey planner', 'laissez-faire', 'Interpreter', 'latex');
                end

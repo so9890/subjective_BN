@@ -259,7 +259,7 @@ Panels (e) to (f) show deviations in allocations induced by the joint policy, i.
 \end{figure} 
 
 
-\subsubsection{Effect of model features}\label{app:eff_feat_exp}
+\subsubsection{Effect of model features on the necessary carbon tax}\label{app:eff_feat_exp}
 
 \paragraph{Role of heterogeneous labor shares}
 Heterogeneous capital shares increase the necessary fossil tax to meet emission limits since a positive supply side effect is muted. 
@@ -369,196 +369,90 @@ In line with \cite{Fried2018ClimateAnalysis}, I find that a smaller fossil tax i
 %\end{figure} 
 
 \clearpage
-\subsection{Effect of policy regime}
+\subsection{Effect of policy regime}\label{app:pol_regimes}
 
 The analytical section has highlighted the importance of how environmental tax revenues are used. In the main part, I focus on the policy regime where environmental tax revenues are redistributed through the income tax scheme; the government runs a consolidated budget. 
 The present section is dedicated to discussing the necessary carbon tax under alternative redistribution systems: lump-sum redistribution and recycling environmental tax revenues as subsidies to the green sector. 
 
-The progressive income tax is kept constant at its calibrated value, $\tau_{\iota}=0.181$. 
+The progressive income tax is kept constant at its calibrated value, $\tau_{\iota}=0.181$. Figure \ref{fig:regs} depicts the results.
+Using environmental tax revenues to subsidize the green sector achieves the highest green-to-fossil energy ratio at the smallest carbon tax, panels (a) and (b). Interestingly, non-energy growth is also highest in the scenario with green subsidies. The reason is that the energy to non-energy price is smaller due to a lower carbon tax. On the one hand, this implies a higher energy share in final production, panel (c). On the other hand, this directs research to non-energy goods, and non-energy growth follows a higher trajectory. In sum, when carbon tax revenues are used to subsidize green producers, the economy can attain the emission limit at a higher energy share but at an advantageous green-to-fossil energy ratio. 
+
+Hours worked of both skill types are similar in the model under the consolidated budget and the green-subsidy regime. With lump-sum transfers, hours worked are lower for both types. Hence, there does not seem to be a work-increasing effect of green subsidies through a higher labor demand. In fact, the typical labor good of the green sector, high-skill labor, is smaller under the regime with green subsidies than under the consolidated budget one. 
+
 \begin{figure}[h!!]
-	\caption{Necessary carbon tax by policy regime}\label{fig:regs}
-\begin{subfigure}{0.9\textwidth}
-	\centering
-	\caption{ With progressive income tax, $\tau_{\iota}=0.181$}
+	\caption{Necessary carbon tax and allocation by policy regime in levels}\label{fig:regs}
 	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Carbon tax}}
+US\$		\centering{\footnotesize{(a) Tax per ton of carbon in \$US}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_Tauf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
 	\end{minipage}
 \begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{Green-to-fossil energy ratio}}
+\centering{\footnotesize{(b) Green-to-fossil energy ratio}}
 %	\captionsetup{width=.45\linewidth}
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_GFF_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
 \end{minipage}
 \begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Fossil growth}}
+	\centering{\footnotesize{(c) Energy to GDP}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_EY_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) Fossil growth}}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_gAf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
 \end{minipage}
 \begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Non-energy growth}}
+	\centering{\footnotesize{(e) Non-energy growth}}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_gAn_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
 \end{minipage}
 \begin{minipage}[]{0.32\textwidth}
-\centering{\footnotesize{Green growth}}
+\centering{\footnotesize{(f) Green growth}}
 %	\captionsetup{width=.45\linewidth}
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_gAg_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
 \end{minipage}
-\end{subfigure}
-
-\begin{subfigure}{0.9\textwidth}
-	\centering
-	\caption{ $\tau_\iota=0$}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Carbon tax}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_Tauf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Green-to-fossil energy ratio}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_GFF_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Fossil growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Non-energy growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAn_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Green growth}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAg_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
-	\end{minipage}
-\end{subfigure}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(g) High-skill hours worked}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_hh_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(h) Low-skill hours worked}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_TaulCalib_hl_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+%
+%\begin{subfigure}{0.9\textwidth}
+%	\centering
+%	\caption{ $\tau_\iota=0$}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Carbon tax}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_Tauf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Green-to-fossil energy ratio}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_GFF_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Fossil growth}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAf_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Non-energy growth}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAn_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{Green growth}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompRed_Taul0_gAg_spillover0_knspil0_nsk0_xgr0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%\end{subfigure}
 \end{figure} 
 
 
 \clearpage
-\subsection{Results: Optimal policy}
-\subsubsection{Optimal policy in model with lump-sum transfers}\label{app:TLS}
-\begin{figure}[h!!!]
-	\centering
-	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers
-	}\label{fig:opt_TLs_noknow}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Carbon tax, $\tau_{Ft}$}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Fossil growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Green growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Non-energy growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f) Period utility }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	%	\floatfoot{Notes: \footnotesize{ 	}}
-\end{figure} 
 
-Without homogeneous skills, there is no compositional effect of the income tax progressivity. Nevertheless, the optimal policy features regressive income taxes to boost labor supply in combination with higher carbon taxes. This policy allows to redirect research and production towards the green sector while the regressive income tax keeps working hours high. % \textit{is there an effect of tauf on labor supply with homoskill and no know? When capital is heterogeneous? NO not with regime 0}
-
-\begin{figure}[h!!!]
-	\centering
-	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers and homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) Carbon tax, $\tau_{Ft}$}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Fossil growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(d) Green growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(e) Non-energy growth }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(f) Period utility }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(g) Hours worked }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{(h) Hours worked levels}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{minipage}
-	%	\floatfoot{Notes: \footnotesize{ 	}}
-\end{figure} 
-\subsubsection{Optimal policy and allocation without knowledge spillovers}
-\begin{figure}[h!!!]
-	\centering
-	\caption{Costs and benefits of progressive income taxes, no knowledge spillovers % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
-	}\label{fig:optAll_percLf_dyn_noknow}
-	%	\begin{minipage}[]{0.32\textwidth}
-	%		\centering{\footnotesize{(a) Consumption\\ \ }}
-	%		%	\captionsetup{width=.45\linewidth}
-	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-	%	\end{minipage}
-	%	\begin{minipage}[]{0.32\textwidth}
-	%		\centering{\footnotesize{(b) High-skill hours worked\\ \  }}
-	%		%	\captionsetup{width=.45\linewidth}
-	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	%	\end{minipage}
-	%	\begin{minipage}[]{0.32\textwidth}
-	%		\centering{\footnotesize{(c) Low-skill hours worked\\ \ }}
-	%		%	\captionsetup{width=.45\linewidth}
-	%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_PercentageLFDynNT_noeff_Target_regime0_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	%	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{\ \\(f) Environmental tax, $\tau_{Ft}$\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaul_regime0_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{minipage}
-\end{figure} 
