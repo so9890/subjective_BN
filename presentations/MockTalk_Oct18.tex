@@ -1,0 +1,1823 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+%\documentclass[11pt,aspectratio=169, handout]{beamer}
+%\usepackage{handoutWithNotes}
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\definecolor{myorange}{rgb}{0.8500, 0.3250, 0.0980}
+\setbeamercolor{alerted text}{bg={}, fg=myorange }
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+
+%table
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+
+
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz\\ \footnotesize{University of Bonn, RTG 2281 The Macroeconomics of Inequality}\\ }
+\institute[University of Bonn]{}
+\title{Labour Income Taxes\\ and Social Responsibility in an Unequal World }
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+%\institute{University of Bonn} 
+\date{\small{EEA-ESEM Congress 2022\\ August 22, 2022 }} 
+%\subject{} 
+\begin{document}
+	
+	{\setbeamertemplate{footline}{}
+		\begin{frame}
+			\titlepage
+		\end{frame}
+	}
+	\addtocounter{framenumber}{-1}
+	
+	% {\setbeamertemplate{footline}{}
+	% \begin{frame}{Content}
+	% \vspace{4mm}
+	% \tableofcontents
+	% \end{frame}
+	% }
+	% \addtocounter{framenumber}{-1}
+	
+	
+	%---------------------------------------
+	%            Intro
+	%---------------------------------------
+	
+	
+	
+	\begin{frame}{Motivation}
+		\vspace{4mm}
+		\begin{itemize}[<+-| alert@+>]
+			\setbeamercolor{alerted text}{fg=black} %change the font color
+			\setbeamerfont{alerted text}{} 
+			
+			%	\item<1-> climate change raises the need for a transition to sustainable production
+			%	\vspace{3mm}
+			\item<+-|alert@+>households'  \textcolor{myorange}{\textbf{willingness to pay to avoid negative externalities}} \\ (``social responsibility'') is rising  %\citep{Bartling2015DoResponsibility, Kronthal-Sacco2020SustainableMessages}
+
+			\begin{itemize}
+				\vspace{4mm}
+				\item<+->  \cite{Bartling2015DoResponsibility} provide experimental evidence for the existence of social responsibility in markets 
+%				%				\vspace{2mm}
+%				%				\item<+-> 
+%				%				global share of households willing to pay a
+%				%				premium rose from 50\% in 2013 to 66\% in 2015 \citep{NielsenSUSIMp} %(sample of 60 countries)
+				\vspace{2mm}
+				\item<+-> in the US, the market share of sustainable consumer-packaged goods rose from 14\% in 2013 to 16\% in 2018 despite a price premium \citep{Kronthal-Sacco2020SustainableMessages}%; faster growth in product sales with sustainability claim (March 2017-March2018) \citep{NielsenSUS2018}
+%				\vspace{2mm} 
+%				\item<+-> accepted price premium on average: 25\% %(multi-country)
+%				\citep{SK2021}
+			\end{itemize} % \ar \textbf{\textcolor{myorange}{social responsibility}}% \footnotesize{(Note:ADD link to NIELSEN DATA on willingness to pay/ identity/ benabou)}
+			\vspace{5mm}
+			\item[]<+-|alert@+>\ar {a demand-driven transition to sustainable production}
+			\vspace{5mm}
+			
+			\item<+-| alert@+>  but: \textcolor{myorange}{\textbf{inequality}} renders sustainable goods unaffordable for poor households
+		\end{itemize}
+		
+		% the role of demand and redistribution on an corrective externality is what has in large been overlooked by the macroeconomic literature...
+		\vspace{5mm}
+		\hfill	\hyperlink{indis}{\tiny{$\rightarrow$ graph,}}
+		\hyperlink{rise2}{\tiny{$\rightarrow$ rise}}
+	\end{frame}
+	
+	
+	
+	\begin{frame}{Therefore, ...}
+
+		\vspace{-3mm}
+		\textbf{\textcolor{myorange}{... rising social responsibility has opposed consequences for the optimal policy}}
+		\pause
+		\vspace{2mm}
+		%\begin{minipage}[t!]{0.45\textwidth}
+		%\begin{center}
+		\begin{itemize}	\setbeamercolor{alerted text}{fg=black} %change the font color
+			\setbeamerfont{alerted text}{series=\bfseries}
+			
+			\item<+-> \underline{On the one hand:}
+			%\end{center} 
+			\begin{itemize}	\setbeamercolor{alerted text}{fg=black} %change the font color
+				\setbeamerfont{alerted text}{series=\bfseries}
+				\vspace{2mm}
+				\item[-]<+-| alert@+> demand-driven reduction of the externality
+				\ar less government intervention; lower externality attained at higher equity/output level
+				%		\vspace{1mm}
+				%		\item[\ar]<+-| alert@+> less government intervention necessary
+				%		\
+				%, as households derive less utility from consuming the unsustainable good 
+				%\item<+-> high elasticity of demand at relative price equal to 1
+				%	\vspace{1mm}
+				%	\item<+-| alert@+> the corrective tax can raise consumption utility of the poor %by making the sustainable good the cheaper alternative
+				%				\vspace{1mm}
+				%				\item[\ar]<+-| alert@+>
+				%				higher corrective tax
+			\end{itemize}
+			\vspace{2mm}
+			\item<+-> \underline{On the other hand:}
+			%	\end{center} 
+			\begin{itemize}	
+				\setbeamercolor{alerted text}{fg=black} %change the font color
+				\setbeamerfont{alerted text}{series=\bfseries}
+				\vspace{2mm}
+				\item[-]<+-| alert@+> basic needs mute shift in demand
+				\vspace{1mm}
+				%	\item<+-| alert@+> the efficiency level of the externality declines
+				%%	
+				%	\vspace{1mm}
+				\item[-]<+-| alert@+> consumption inequality increases
+				\vspace{2mm}
+				\item[\ar]<+-| alert@+> more government intervention due to equity; high inequality and small reduction in externality %: the poor (i) consume less of the desired bundle and (ii) accept too low consumption levels
+				
+				%allowing poor households to consume more sustainable goods
+				%	\vspace{1mm}
+				%	\item[\ar]<+-| alert@+> more government intervention necessary
+			\end{itemize}
+			%\end{minipage}
+			%\vspace{2mm}
+			%	\item<+-> both motives compete due to efficiency costs of policy instruments
+			% despite the demand driven reduction, the government might find it optimal to relinquish an efficient reduction of the externality; 
+			%			alternatively: as ext reduces, more resources for redistribution \ar also able to achieve higher equity at lower externality
+			\vspace{2mm}
+			%			\item<+-> optimal policy depends on relative importance of each motive
+			
+			
+			\item<+-> \underline{Then again:} redistribution may target both motives
+			%\vspace{3mm}
+			\vspace{2mm}
+			\item[]<+-| alert@+> 
+			\textcolor{myorange}{\textbf{\ar What is the optimal policy as social responsibility increases?}}
+			% it could be that inequality rises so much that the gov. forfeits an efficient reduction in the externality
+		\end{itemize}
+	\hypertarget{backmov}{}
+	\end{frame}
+	\begin{comment}
+	\begin{frame}{This Paper}
+	\begin{itemize}
+	\item<+-> two-sector model with demand-determined economic structure \vspace{2mm}
+	
+	\item<+-> unsustainable sector causes an \alert{\textbf{corrective externality}}%: $U(c_i, l_i; H_n)$ 
+	\vspace{2mm}% relative sector size is a function of social responsibility and inequality
+	\item<+-> two household types: income-rich and income-poor \vspace{2mm}
+	\item<+-> households %\hyperlink{share}{\textbf{share}}
+	tastes over sustainable and unsustainable goods are homogeneous
+	%		$
+	%		c_i =
+	%		\left(\textcolor{myorange}{\omega}^{\frac{1}{\sigma}}c_{st}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{myorange}{\omega})^{\frac{1}{\sigma}}c_{nt}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}.
+	%		$
+	
+	\vspace{2mm}
+	\item<+-> requirement to satisfy \alert{\textbf{basic needs}}%: $ U(c_i,l_i;H_{n})= u(c_i,l_i) \textcolor{myorange}{-\frac{1}{\phi}\exp(-\phi(c_{ni}+c_{si}-\bar{c}))}+g(H_{n}).$ 
+	\vspace{2mm} % \pause \ar \alert{\textbf{income-dependent marginal propensities to consume unsustainably}} (MPCU) % role for redistribution as corrective policy
+	\item<+-> Ramsey planner can use corrective and distortionary labour tax %to maximise social welfare
+	\vspace{2mm}% focus on role of redistribution, trade-off with corrective tax which is classically used as corrective policy (Pigou) 
+	\item<+-> study effect of an \textbf{\alert{exogenous rise in social responsibility}} on optimal policy %and allocations
+	
+	% either social responsibility absent inequality, and in optimal climate change macro litertaure: no inequality role for demand
+	\end{itemize}
+	\end{frame}
+	
+	content...
+	\end{comment}
+	
+
+	\begin{frame}{Preview of results}
+		\hypertarget{backCont}{}
+		\vspace{1mm}
+		\begin{itemize}
+			\item[]<+->\textbf{\alert{Irrespective of social responsibility, ...}}
+			\vspace{4mm}
+			\begin{itemize}[<+-| alert@+>]
+				\setbeamercolor{alerted text}{fg=black} %change the font color
+				\setbeamerfont{alerted text}{series=\bfseries} 
+				\item<+-| alert@+>  ... labour income taxes are optimally used to target the externality due to inequality.
+								\vspace{3mm}
+			\end{itemize}
+			
+			\item[]<+->\textbf{\alert{As social responsibility rises, ...}}
+			\vspace{4mm}
+			\begin{itemize}[<+-| alert@+>]
+				\setbeamercolor{alerted text}{fg=black} %change the font color
+				\setbeamerfont{alerted text}{series=\bfseries} 
+				\item<+-| alert@+>  ... the optimal policy shifts away from corrective taxation to redistribution since inequality aggravates.
+				\vspace{3mm}
+				\item<+-| alert@+> ... the government redistributes even more to target the externality.
+			%	\vspace{3mm} \item<+-| alert@+> ... redistribution becomes the central pillar of the corrective policy.  % accounting for up 93\% of the policy effect on the externality%if social responsibility is high%as social responsibility rises
+				% less costly in terms of equity
+
+			\end{itemize}
+			
+			
+		\end{itemize}
+		%		\hfill	\hyperlink{Contrib}{\tiny{$\rightarrow$ Contribution to the literature}}
+	\end{frame}
+	
+
+
+	%-----------------Model-----------------------------
+		\begin{comment}
+	\begin{frame}{Roadmap}
+		\tableofcontents
+	\end{frame}
+	\end{comment}
+
+	\section{Model}
+	
+	
+	\begin{frame}{Model}
+		\textbf{Timing:} static model\\
+		\vspace{1mm}
+		\pause
+		\textbf{Inequality:}
+		\vspace{-2mm}
+		\begin{itemize}
+			\item[-] fraction $\lambda$ is rich with productivity $z_h$
+			\item[-]  fraction $1-\lambda$ is poor with productivity $z_l<z_h$
+		\end{itemize} 
+	\pause
+		\textbf{Production:}
+		\vspace{-2mm}
+		\begin{itemize}
+			\item[-] two perfectly competitive sectors s and n 
+			\item[-] production function: $Y_j=A_jH_j,\ \text{for} \ j\in\{s,n\}$
+			\item[-] profits: $\pi_s=p_sY_s-wH_s$, \\ \hspace{12mm} $\pi_n=Y_n-w(1+\pmb{\textcolor{myorange}{\tau_n}})H_n$
+		\end{itemize} 
+	\pause
+	\textbf{Government:} Ramsey planner maximises Utilitarian social welfare choosing $\tau_n$ and $\tau_l$\\
+	\pause
+	 		\vspace{1mm}
+	\textbf{Markets:} for goods and labour clear
+	\end{frame}
+	
+	\begin{frame}{Household problem} % \tr{here I want to motivate the penalty term}
+		\vspace{2mm}
+		\begin{minipage}[t!]{1\textwidth}
+			\begin{align*}
+			\tikzmarkin{first}(0.8,2.8)(-0.4,-2.6)
+			%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+			\underset{c_{si},c_{ni}, l_i}{\max} U_i=\ \hspace{2mm} \underset{c_{si},c_{ni}, l_i}{\max} \log(c(c_{si},c_{ni}))-\chi\frac{l_i^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  \textcolor{black!10}{-\frac{1}{\phi}\exp(-\phi(c_{si}+c_{ni}-\bar{c})) -\psi H_n^\eta}\\
+			s.t.\ \hspace{6mm}  \hspace{2mm }p_{s}c_{si}+c_{ni}\leq w(1-\pmb{\textcolor{myorange}{\tau_l}})z_il_i+T%; \ \hspace{6mm}(2) \ l_i\leq L
+			\\	\hspace{-10mm} \textcolor{black!10}{where} \hspace{8mm}\textcolor{black!10}{c =
+				\left(\textcolor{black!10}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{black!10}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}}%& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+			\tikzmarkend{first}
+			\end{align*}
+		\end{minipage}
+		
+		%\begin{minipage}[t!]{0.4\textwidth}
+		%
+		%\begin{align*}
+		%\hspace{4mm}c =
+		%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+		%\end{align*}
+		%\end{minipage}
+		
+		\small
+		\begin{minipage}[t!]{0.4\textwidth}
+			\vspace{7mm}
+			\begin{itemize}
+				\item[] $c_s$: sustainable good \vspace{-2mm}
+				\item[] $c_n$: unsustainable good\vspace{-2mm}
+				\item[] $\tau_l$: linear labour tax
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.4\textwidth}
+			\vspace{7mm}
+			%\begin{itemize}	
+			%	\item[] $\bar{c}$: basic needs
+			%	\vspace{-2mm}
+			%	\item[] $\phi$: importance penalty
+			%\vspace{-2mm}	
+			%		\item[] $H_n$: unsustainable labour input	
+			%	\end{itemize}
+		\end{minipage}
+		
+	\end{frame}
+	
+		\addtocounter{framenumber}{-1}
+	\begin{frame}{Household problem} % \tr{here I want to motivate the penalty term}
+		\hypertarget{backAtt}{}
+		\vspace{2mm}
+		\begin{minipage}[t!]{1\textwidth}
+			\begin{align*}
+			\tikzmarkin{first}(0.8,3)(-0.4,-2.6)
+			%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+			\underset{c_{si},c_{ni}, l_i}{\max} U_i=\ \hspace{2mm} \underset{c_{si},c_{ni}, l_i}{\max} \log(c(c_{si},c_{ni}))-\chi\frac{l_i^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  \textcolor{black!10}{-\frac{1}{\phi}\exp(-\phi(c_{si}+c_{ni}-\bar{c})) -\psi H_n^\eta}\\
+			s.t.\ \hspace{6mm}  \hspace{2mm }p_{s}c_{si}+c_{ni}\leq w(1-\textcolor{black}{\tau_l})z_il_i+T%; \ \hspace{6mm}(2) \ l_i\leq L
+			\\
+			where \hspace{8mm}c(c_{si},c_{ni}) =
+			\left(\pmb{\textcolor{myorange}{\omega}}^{\frac{1}{\sigma}}c_{si}^{\frac{\sigma-1}{\sigma}}+(1-\pmb{\textcolor{myorange}{\omega}})^{\frac{1}{\sigma}}c_{ni}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}%& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+			\tikzmarkend{first}
+			\end{align*}
+		\end{minipage}
+		
+		%\begin{minipage}[t!]{0.4\textwidth}
+		%
+		%\begin{align*}
+		%\hspace{4mm}c =
+		%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+		%\end{align*}
+		%\end{minipage}
+		
+		\small
+		\begin{minipage}[t!]{0.32\textwidth}
+			\vspace{7mm}
+			\begin{itemize}
+				\item[] $c_s$: sustainable good \vspace{-2mm}
+				\item[] $c_n$: unsustainable good\vspace{-2mm}
+				\item[] $\tau_l$: linear labour tax
+				\item[]
+				\item[]
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.35\textwidth}
+			\vspace{8mm}
+			\begin{itemize}
+				\item[$\sigma$:]  governs price elasticity of substitution%; for $\sigma>1$ goods are substitutes
+				\vspace{-2mm}
+				\item[$\omega$:] \textit{social responsibility}; governs willingness to pay for sustainable goods % which is increasing in $\omega_t$: % in equilibrium wtp of the marginal buyer
+				\item[]	
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.4\textwidth}
+			\vspace{7mm}
+			%\begin{itemize}	
+			%	\item[] $\bar{c}$: basic needs
+			%	\vspace{-2mm}
+			%	\item[] $\phi$: importance penalty
+			%\vspace{-2mm}	
+			%		\item[] $H_n$: unsustainable labour input	
+			%	\end{itemize}
+		\end{minipage}
+		
+		\vspace{-7mm}
+		\hfill	\hyperlink{atts}{\tiny{$\rightarrow$ Attitudes by income}}
+	\end{frame}
+	
+	\begin{comment}
+	\begin{frame}{Household problem} % \tr{here I want to motivate the penalty term}
+	%	\hypertarget{backBN}{}
+	%	\hypertarget{backengel}{}
+	\vspace{2mm}
+	\begin{minipage}[t!]{1\textwidth}
+	\begin{align*}
+	\tikzmarkin{first}(0.8,3)(-0.4,-2.6)
+	%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+	\underset{c_{si},c_{ni}, l_i}{\max} U_i=\ \hspace{2mm} \underset{c_{si},c_{ni}, l_i}{\max} \log(c(c_{si},c_{ni}))-\chi\frac{l_i^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  \pmb{\textcolor{myorange}{-\frac{1}{\phi}\exp(-\phi(c_{si}+c_{ni}-\bar{c}))}}\textcolor{black!10}{ -\psi H_n^\eta}\\ 
+	s.t.\ \hspace{6mm}  \hspace{2mm }p_{s}c_{si}+c_{ni}\leq w(1-\textcolor{black}{\tau_l})z_il_i+T%; \ \hspace{6mm}(2) \ l_i\leq L
+	\\\hspace{-10mm} where \hspace{8mm}c_i =
+	\left(\textcolor{black}{\omega}^{\frac{1}{\sigma}}c_{si}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{black}{\omega})^{\frac{1}{\sigma}}c_{ni}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}%& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+	\tikzmarkend{first}
+	\end{align*}
+	\end{minipage}
+	
+	%\begin{minipage}[t!]{0.4\textwidth}
+	%
+	%\begin{align*}
+	%\hspace{4mm}c =
+	%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+	%\end{align*}
+	%\end{minipage}
+	
+	\small
+	\begin{minipage}[t!]{0.32\textwidth}
+	\vspace{7mm}
+	\begin{itemize}
+	\item[] $c_s$: sustainable good \vspace{-2mm}
+	\item[] $c_n$: unsustainable good\vspace{-2mm}
+	\item[] $\tau_l$: linear labour tax
+	\item[]
+	\item[]
+	\end{itemize}
+	\end{minipage}
+	\begin{minipage}[t!]{0.35\textwidth}
+	\vspace{8mm}
+	\begin{itemize}
+	\item[$\sigma$:]  governs price elasticity of substitution%; for $\sigma>1$ goods are substitutes
+	\vspace{-2mm}
+	\item[$\omega$:] \textit{social responsibility}; governs willingness to pay for sustainabile goods % which is increasing in $\omega_t$: % in equilibrium wtp of the marginal buyer
+	\item[]	
+	\end{itemize}
+	\end{minipage}
+	\begin{minipage}[t!]{0.3\textwidth}
+	\vspace{7mm}
+	\begin{itemize}	
+	\item[] $\bar{c}$: basic needs
+	\vspace{-2mm}
+	\item[] $\phi$: importance penalty
+	\vspace{-2mm}	
+	\item[]% $H_n$: unsustainable labour input	
+	\item[]
+	\item[]
+	
+	\vspace{-2mm}
+	%				\hfill	\hyperlink{wtp}{\tiny{$\rightarrow$ Willingness to pay}}\\ \vspace{-2mm} \hfill	\hyperlink{intensiveMargin}{\tiny{$\rightarrow$ Intensive margin}}\\ \vspace{-2mm} 
+	%	\hfill \hyperlink{engel}{\tiny{$\rightarrow$ Engel curves}}
+	\end{itemize}
+	\end{minipage}
+	\end{frame}
+	
+	content...
+	\end{comment}
+	
+	\addtocounter{framenumber}{-1}
+	\begin{frame}{Household problem} % \tr{here I want to motivate the penalty term}
+		\hypertarget{backBN}{}
+		\hypertarget{backengel}{}
+		\hypertarget{wtp}{}
+		\vspace{2mm}
+		\begin{minipage}[t!]{1\textwidth}
+			\begin{align*}
+			\tikzmarkin{first}(0.8,3)(-0.4,-2.6)
+			%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+			\underset{c_{si},c_{ni}, l_i}{\max} U_i=\ \hspace{2mm} \underset{c_{si},c_{ni}, l_i}{\max} \log(c(c_{si},c_{ni}))-\chi\frac{l_i^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  \pmb{\textcolor{myorange}{-\frac{1}{\phi}\exp(-\phi(c_{si}+c_{ni}-\bar{c}))}}\textcolor{black!10}{ -\psi H_n^\eta}\\ 
+			s.t.\ \hspace{6mm}  \hspace{2mm }p_{s}c_{si}+c_{ni}\leq w(1-\textcolor{black}{\tau_l})z_il_i+T%; \ \hspace{6mm}(2) \ l_i\leq L
+			\\\hspace{-10mm} where \hspace{8mm}c(c_{si},c_{ni}) =
+			\left(\textcolor{black}{\omega}^{\frac{1}{\sigma}}c_{si}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{black}{\omega})^{\frac{1}{\sigma}}c_{ni}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}%& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+			\tikzmarkend{first}
+			\end{align*}
+		\end{minipage}
+		
+		%\begin{minipage}[t!]{0.4\textwidth}
+		%
+		%\begin{align*}
+		%\hspace{4mm}c =
+		%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+		%\end{align*}
+		%\end{minipage}
+		
+		\small
+		\begin{minipage}[t!]{0.32\textwidth}
+			\vspace{7mm}
+			\begin{itemize}
+				\item[] $c_s$: sustainable good \vspace{-2mm}
+				\item[] $c_n$: unsustainable good\vspace{-2mm}
+				\item[] $\tau_l$: linear labour tax
+				\item[]
+				\item[]
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.35\textwidth}
+			\vspace{8mm}
+			\begin{itemize}
+				\item[$\sigma$:]  governs price elasticity of substitution%; for $\sigma>1$ goods are substitutes
+				\vspace{-2mm}
+				\item[$\omega$:] \textit{social responsibility}; governs willingness to pay for sustainable goods % which is increasing in $\omega_t$: % in equilibrium wtp of the marginal buyer
+				\item[]	
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.3\textwidth}
+			\vspace{7mm}
+			\begin{itemize}	
+				\item[] $\bar{c}$: basic needs
+				\vspace{-2mm}
+				\item[] $\phi$: importance penalty
+				\vspace{-2mm}	
+				\item[]% $H_n$: unsustainable labour input	
+				\item[]
+				\item[]
+				
+				\vspace{-2mm}
+				\hfill	\hyperlink{WTP}{\tiny{$\rightarrow$ Willingness to pay}}\\ \vspace{-2mm} %\hfill	\hyperlink{intensiveMargin}{\tiny{$\rightarrow$ Intensive margin}}\\ \vspace{-2mm} 
+				\hfill \hyperlink{engel}{\tiny{$\rightarrow$ Engel curves}}
+			\end{itemize}
+		\end{minipage}
+	\end{frame}
+	
+	
+	\addtocounter{framenumber}{-1}
+	\begin{frame}{Household problem} % \tr{here I want to motivate the penalty term}
+		\vspace{2mm}
+		\begin{minipage}[t!]{1\textwidth}
+			\begin{align*}
+			\tikzmarkin{first}(0.8,3)(-0.4,-2.6)
+			%	\underset{c_{s,i},c_{n,i}, l_i}{\max} \ \hspace{2mm} U(c_{s,i}, c_{n,i}, l_i; h_n)= 
+			\underset{c_{si},c_{ni}, l_i}{\max} U_i=\ \hspace{2mm} \underset{c_{si},c_{ni}, l_i}{\max} \log(c(c_{si},c_{ni}))-\chi\frac{l_i^{1+\frac{1}{\theta}}}{1+\frac{1}{\theta}}  \textcolor{black}{-\frac{1}{\phi}\exp(-\phi(c_{si}+c_{ni}-\bar{c}))}\pmb{\textcolor{myorange}{ -\psi H_n^\eta}}\\ 
+			s.t.\ \hspace{6mm}  \hspace{2mm }p_{s}c_{si}+c_{ni}\leq w(1-\textcolor{black}{\tau_l})z_il_i+T%; \ \hspace{6mm}(2) \ l_i\leq L
+			\\\hspace{-10mm} where \hspace{8mm}c(c_{si},c_{ni}) =
+			\left(\textcolor{black}{\omega}^{\frac{1}{\sigma}}c_{si}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{black}{\omega})^{\frac{1}{\sigma}}c_{ni}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}%& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+			\tikzmarkend{first}
+			\end{align*}
+		\end{minipage}
+		
+		%\begin{minipage}[t!]{0.4\textwidth}
+		%
+		%\begin{align*}
+		%\hspace{4mm}c =
+		%\left(\textcolor{blue}{\omega}^{\frac{1}{\sigma}}c_{s}^{\frac{\sigma-1}{\sigma}}+(1-\textcolor{blue}{\omega})^{\frac{1}{\sigma}}c_{n}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}& \hspace{2mm} \text{where} \hspace*{2mm} \sigma \neq 1
+		%\end{align*}
+		%\end{minipage}
+		
+		\small
+		\begin{minipage}[t!]{0.32\textwidth}
+			\vspace{7mm}
+			\begin{itemize}
+				\item[] $c_s$: sustainable good \vspace{-2mm}
+				\item[] $c_n$: unsustainable good\vspace{-2mm}
+				\item[] $\tau_l$: linear labour tax
+				\item[]
+				\item[]
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.35\textwidth}
+			\vspace{8mm}
+			\begin{itemize}
+				\item[$\sigma$:]  governs price elasticity of substitution%; for $\sigma>1$ goods are substitutes
+				\vspace{-2mm}
+				\item[$\omega$:] \textit{social responsibility}; governs willingness to pay for sustainable goods % which is increasing in $\omega_t$: % in equilibrium wtp of the marginal buyer
+				% the higher omega the higher the utility derived from sustainable consumption
+				\item[]	
+			\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t!]{0.3\textwidth}
+			\vspace{9mm}
+			\begin{itemize}	
+				\item[] $\bar{c}$: basic needs
+				\vspace{-2mm}
+				\item[] $\phi$: importance penalty
+				\vspace{-2mm}	
+				\item[] $H_n$: unsustainable labour input	
+				\item[]
+				\item[]
+			\end{itemize}
+		\end{minipage}
+	\\ 
+	\vspace{-8mm}
+	\hfill
+		\hyperlink{red}{\tiny{$\rightarrow$ Calibration,}}		\hyperlink{backpa}{\tiny{$\rightarrow$ Ramsey}}
+	\hypertarget{backmodel}{}
+	\end{frame}
+%	
+
+	
+	%-----------------results---------------------------
+	\hypertarget{backres}{}
+	\section{ Results}
+	\hypertarget{backOmega}{}
+	
+	%-----------------------Experiment--------------
+	
+	%\begin{frame}{Quantitative Exercises and Results} 
+	%	%\vspace{6mm}
+	%	
+	%	\begin{enumerate}[<+-| alert@+>]
+	%		\setbeamercolor{alerted text}{fg=black} %change the font color
+	%		\setbeamerfont{alerted text}{series=\bfseries} 
+	%		%	\item<+-| alert@+> Effects of social responsibility: Engel Curves
+	%		%			\vspace{4mm}		
+	%		\item<+->  \textcolor{myorange}{{\textbf{Optimal policy and allocation}}} (exogenously changing social responsibility)
+	%		\vspace{3mm}
+	%		\item[]<+-> Interpretation:
+	%		Comparison to efficient allocation
+	%		\vspace{4mm}
+	%		\item<+->\textcolor{myorange}{ \textbf{Income tax as an corrective policy instrument}}  
+	%		
+	%		(comparison to models without externality)
+	%		\vspace{4mm}
+	%		\item<+-> \textcolor{myorange}{\textbf{Importance of redistribution for the corrective policy}} 
+	%		
+	%		(timing assumption to decompose policy effects)
+	%	\end{enumerate}
+	%	
+	%	
+	%	
+	%	%\vspace{30mm}
+	%	%		\hfill	\hyperlink{intensiveMargin}{\tiny{$\rightarrow$ Intensive margin}}
+	%\end{frame}
+	
+	
+	
+	%----------------Main results ------------------------
+%	\section*{Optimal policy}
+	%---------- optimal allocation
+	\begin{frame}{ Optimal policy}
+		\hypertarget{backmain}{}
+		\vspace{4mm}
+		\centering
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{Corrective tax, $\tau_n$\\ \ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_tauun_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{Income tax, $\tau_l$\\ \ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_tauul_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{Transfers, T\\ \ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_T_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+		\end{minipage}
+		\vspace{5mm}
+		\begin{itemize}[<+-| alert@+>]
+			\setbeamercolor{alerted text}{fg=black}
+			\item shift in optimal policy mix away from corrective taxation to redistribution 			     
+		\end{itemize}
+		
+			\vspace{11mm}
+			\hfill
+			\hyperlink{backallo}{\tiny{$\rightarrow$ allocation}}
+			\hypertarget{backopt}{}
+	\end{frame}
+	
+	
+	%-------------optimal allocation
+	%\begin{frame}{Optimal allocation}
+	%	%\tr{this one and next slide to be moved to appendix (partially); this slide: comparison baseline model with basic needs to model without basic needs}
+	%	\vspace{-5mm}
+	%	\hypertarget{backallo}{}
+	%	\begin{figure}			
+	%		\begin{minipage}[]{0.32\textwidth}
+	%			\centering{\footnotesize{Externality, $Y_n$\\ \ }}
+	%			%	\captionsetup{width=.45\linewidth}
+	%			\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_yn_withps0_nolgd_notauun0_pslow0_PSID1_matchGDP0_phii15.png}
+	%		\end{minipage}	
+	%		\begin{minipage}[]{0.32\textwidth}
+	%			\centering{\footnotesize{Output\\ \ }}
+	%			%	\captionsetup{width=.45\linewidth}
+	%			\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_agg_output_withps0_nolgd_notauun0_pslow0_PSID1_matchGDP0_phii15.png}
+	%		\end{minipage}
+	%		\begin{minipage}[]{0.32\textwidth}
+	%			\ 
+	%%			\centering{\footnotesize{Gini of consumption\\ \ }}
+	%%			%		%	\captionsetup{width=.45\linewidth}
+	%%			\includegraphics[width=1\textwidth]{\ }
+	%		\end{minipage}
+	%	\end{figure}
+	%	\begin{itemize}
+	%		\item reduction in externality at higher output level
+	%	%	\item<1-> inequality rises
+	%		%	\item<2-> I will argue: higher output is a choice to mitigate inequality
+	%	\end{itemize}
+	%	%		\vspace{-1mm}
+	%	%		\hfill
+	%	%		\hyperlink{conc}{\tiny{$\rightarrow$ Conclusion}}
+	%\end{frame}	
+	%
+	%\addtocounter{framenumber}{-1}
+	
+%	\section*{Mechanism}
+	%\begin{frame}{Optimal policy without basic needs}
+	%\begin{itemize}
+	%\item no rise in inequality
+	%\item redistribution does not change the externality
+	%\end{itemize}
+	%\end{frame}
+	%\addtocounter{framenumber}{-1}
+	
+	%	\begin{frame}{Efficient allocation}
+	%		Basic needs alter effectiveness of corrective tax\\  \ar unclear if policy difference driven by inequality or externality motive
+	%	
+	%\end{frame}
+	%
+	%\addtocounter{framenumber}{-1}
+	
+%	\begin{frame}{Efficient allocation}
+%		
+%		\vspace{4mm}
+%		\begin{figure}
+%			\begin{minipage}[]{0.32\textwidth}
+%				\centering{\footnotesize{ Externality, $Y_n$ \\ \  }}
+%				%	\captionsetup{width=.45\linewidth}
+%				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_yn_lgd1_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+%			\end{minipage}
+%			\begin{minipage}[]{0.32\textwidth}
+%				\
+%			%	\centering{\footnotesize{ Output ratio, $Y_n/Y_s$ \\ \  }}
+%				%	\captionsetup{width=.45\linewidth}
+%			%	\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_output_ratio_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+%			\end{minipage}
+%			\begin{minipage}[]{0.32\textwidth}
+%				\ 
+%			%	\centering{\footnotesize{ Output ratio, $Y_n/Y_s$, \\ without basic needs}}
+%				%	\captionsetup{width=.45\linewidth}
+%			%	\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen0_targetext_2_output_ratio_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+%			\end{minipage}
+%			
+%			%\begin{minipage}[]{0.32\textwidth}
+%			%	\centering{\footnotesize{ Unsustainable output, $y_n$, \\ baseline model}}
+%			%	%	\captionsetup{width=.45\linewidth}
+%			%	\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_yn_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii15.png}
+%			%\end{minipage}
+%		\end{figure}
+%		\vspace{4mm}
+%		\begin{itemize}
+%			%		\item<1-> efficient allocation same in both models
+%			%		\item<2-> reduces as households prefer polluting good less
+%			
+%			\item<1-> the planner forfeits an efficient reduction of the externality due to inequality
+%			\vspace{2mm}
+%		%	\item<1->  basic needs prevent a reduction of the output ratio closer to the efficient level
+%			%		\vspace{2mm}
+%		\end{itemize}
+%		\vspace{1mm}
+%		\hfill		
+%		\hyperlink{conc}{\tiny{$\rightarrow$ conclusion,}}
+%		\hyperlink{effallo}{\tiny{$\rightarrow$ allocation,}} \hyperlink{backpol}{\tiny{$\rightarrow$ policy focus,}}
+%		\hyperlink{skipallo}{\tiny{$\rightarrow$ standard model,}}
+%		\hypertarget{backeff}{}
+%		\hyperlink{moreaggtaun}{\tiny{$\rightarrow$ counterfactual}}
+%	\end{frame}
+%
+%	\addtocounter{framenumber}{-1}
+
+\begin{frame}{Efficient allocation}
+	
+%	\vspace{4mm}
+	\begin{figure}
+		\begin{minipage}[]{0.45\textwidth}
+			\centering{\footnotesize{ Unsustainable output, $Y_n$ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_yn_lgd1_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+		\end{minipage}
+%		\begin{minipage}[]{0.32\textwidth}
+%			\centering{\footnotesize{ Output ratio, $Y_n/Y_s$ \\ \  }}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_output_ratio_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+%		\end{minipage}
+%		\begin{minipage}[]{0.32\textwidth}
+%			\centering{\footnotesize{ Output ratio, $Y_n/Y_s$, \\ without basic needs}}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen0_targetext_2_output_ratio_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+%		\end{minipage}
+%		
+		%\begin{minipage}[]{0.32\textwidth}
+		%	\centering{\footnotesize{ Unsustainable output, $y_n$, \\ baseline model}}
+		%	%	\captionsetup{width=.45\linewidth}
+		%	\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_yn_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii15.png}
+		%\end{minipage}
+	\end{figure}
+	\vspace{4mm}
+	\begin{itemize}
+		%		\item<1-> efficient allocation same in both models
+		%		\item<2-> reduces as households prefer polluting good less
+		
+		\item<1-> the Ramsey planner forfeits an efficient reduction of the externality due to inequality and basic needs
+		%\vspace{2mm}
+		%\item<2-> basic needs prevent a reduction of the output ratio closer to the efficient level
+		%		\vspace{2mm}
+	\end{itemize}
+	\vspace{-2mm}
+	\hfill		
+	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion,}}
+	\hyperlink{effallo}{\tiny{$\rightarrow$ allocation,}} \hyperlink{backpol}{\tiny{$\rightarrow$ policy focus,}}
+	\hyperlink{skipallo}{\tiny{$\rightarrow$ standard model,}}
+	\hypertarget{backeff}{}
+	\hyperlink{moreaggtaun}{\tiny{$\rightarrow$ counterfactual}}
+\end{frame}
+
+	
+%	\section*{Decomposing income taxes}
+	\begin{frame}{Decomposing income taxes} 
+		%	\tr{@Pavel: I will drop this slide and explain the experiment wh}
+		\alert{\textbf{How much of the income tax is explained by equity and how much by the externality motive?}}
+		\pause
+		\vspace{3mm}
+		\begin{itemize}
+			\item<+-> \textbf{Problem:} corrective tax changes costs and benefits of redistribution %\\ \ar difference of income tax in full model to income tax in model without externality not solely due to externality!
+			\vspace{3mm}
+			\item[\ar]<+-> include optimal corrective tax as a parameter in the model without externality  and solve for the optimal income tax %\\ \ar size of labour tax only driven by equity concerns % due to externality and effect of corrective tax
+			\vspace{3mm}
+			\item<+-> difference to full model due to externality 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Optimal income tax: no externality}
+		\hypertarget{backLF}{}
+		%	\vspace{1mm}
+		\begin{center}
+			\begin{minipage}[]{0.45\textwidth}
+				\centering{{Income tax, $\tau_l$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_onlynoext_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+			\end{minipage}	
+		\end{center}
+		\vspace{3mm}
+		\begin{itemize}
+			\item more redistribution when social responsibility is high to avoid poverty and rising consumption inequality
+		\end{itemize}
+		%\begin{itemize}
+		%	\item comparison to full model optimal income tax can be driven by both equity or corrective motive due to different corrective tax
+		%	\item
+		%\end{itemize}
+		\vspace{-1mm}
+		\hfill
+		\hyperlink{LF}{\tiny{$\rightarrow$ Laissez-faire}}
+	\end{frame}
+	
+	
+	\addtocounter{framenumber}{-1}
+	\begin{frame}{Optimal income tax: $\tau_n$ as parameter}
+		%	\vspace{1mm}
+		\begin{center}
+			\begin{minipage}[]{0.45\textwidth}
+				\centering{{Income tax, $\tau_l$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_notfullmodel_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+			\end{minipage}
+		\end{center}
+		\vspace{3mm}
+		\begin{itemize}
+			\item corrective tax revenues used to lower income tax, when $\omega$ is low 
+			\vspace{2mm}
+			\item $\tau_n$ regressive, when the sustainable good is more expensive \ar higher labour tax
+		\end{itemize}
+	\end{frame}
+	
+	
+	\addtocounter{framenumber}{-1}
+	\begin{frame}{Optimal income tax: with externality}
+		
+		\begin{center}
+			\begin{minipage}[]{0.45\textwidth}
+				\centering{{Income tax, $\tau_l$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_withnoext_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+			\end{minipage}
+		\end{center}
+		%\begin{minipage}[]{0.45\textwidth}
+		%	\centering{{Income tax, $\tau_l$}}
+		%	%	\captionsetup{width=.45\linewidth}
+		%	\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_poorPoorer130_pen1_targetext_2_yn_withnoext_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+		%\end{minipage}
+		\vspace{2mm}
+		\begin{itemize}
+			\item<1-> income tax optimally used as a corrective policy tool for all levels of $\omega$
+			\vspace{2mm}
+			%\item externality motive adds between 30 and 2.5 percentage points
+			\item<1-> use of income tax to target the externality persists without basic needs %because inequality makes a lower corrective tax optimal, the planner chooses a higher income tax to target the externality
+		\end{itemize}
+		\vspace{-2mm}
+		\hfill
+		\hyperlink{noBN}{\tiny{$\rightarrow$ standard model,}} 
+		\hyperlink{3exp}{\tiny{$\rightarrow$ quantification,}} 
+		\hyperlink{sensi}{\tiny{$\rightarrow$ sensitivity}}
+		\hypertarget{backpe}{}
+	\end{frame}
+	
+	
+	
+	%%	\addtocounter{framenumber}{-1}
+	%\begin{frame}{Main result: Redistribution as corrective policy instrument}
+	%	%\hypertarget{backpe}{}
+	%	\vspace{2mm}
+	%	\centering
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\centering{{Policy effects}}
+	%		%	%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/contribs_sep_tauun_quant_redistribution_pen1_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii15_lgd1_presentation.png}
+	%	\end{minipage}	
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\ 
+	%		%		\centering{{Labour tax, $\tau_l$}}
+	%		%		%	\captionsetup{width=.45\linewidth}
+	%		%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_withouttauunfixed_notauun0_pslow0_PSID1_matchGDP0_presentation.png}
+	%	\end{minipage}
+	%	\vspace{4mm}
+	%	%\begin{itemize} 
+	%	%	\item redistribution becomes the central pillar of corrective policy
+	%	%\item<2-> reliance on redistribution due to intensified severity of inequality
+	%	%\end{itemize}
+	%\end{frame}
+	%
+	%\addtocounter{framenumber}{-1}
+	%\begin{frame}{Main result: Redistribution as corrective policy instrument}
+	%	\hypertarget{backpe}{}
+	%	\vspace{2mm}
+	%	\centering
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\centering{{Policy effects}}
+	%		%	%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/contribs_tauun_red_quant_redistribution_pen1_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii15_lgd1_presentation.png}
+	%	\end{minipage}
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\ 
+	%		%		\centering{{Labour tax, $\tau_l$}}
+	%		%		%	\captionsetup{width=.45\linewidth}
+	%		%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_withouttauunfixed_notauun0_pslow0_PSID1_matchGDP0_presentation.png}
+	%	\end{minipage}
+	%	\vspace{4mm}
+	%	\begin{itemize} 
+	%		\item redistribution becomes the central pillar of corrective policy
+	%		%\item<2-> reliance on redistribution due to intensified severity of inequality
+	%	\end{itemize}
+	%	
+	%	\vspace{2mm}
+	%	\hfill
+	%	%	\hyperlink{labt}{\tiny{$\rightarrow$ labour tax}}\\
+	%	%	\vspace{-2mm}
+	%	%		\hfill
+	%	\hyperlink{eff}{\tiny{$\rightarrow$ efficiency channel}}\\
+	%	\vspace{-2mm}
+	%	\hfill
+	%	\hyperlink{wtp}{\tiny{$\rightarrow$ policy shift}}	
+	%\end{frame}
+	%\addtocounter{framenumber}{-1}
+	%\begin{frame}{Main result: Redistribution as corrective policy instrument}
+	%	\hypertarget{backpe}{}
+	%	\centering
+	%	\vspace{2mm}
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\centering{{Policy effects}}
+	%		%	%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/contribs_tauun_red_quant_redistribution_pen1_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+	%	\end{minipage}
+	%	\begin{minipage}[]{0.45\textwidth}
+	%		\centering{{Labour tax, $\tau_l$}}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/tauunfixed_pen1_targetext_2_tauul_withouttauunfixed_notauun0_pslow0_PSID1_matchGDP0_presentation.png}
+	%	\end{minipage}
+	%	\vspace{4mm}
+	%	\begin{itemize} 
+	%		\item redistribution becomes the central pillar of corrective policy
+	%		\vspace{2mm}
+	%		\item labour tax chosen higher than absent externality
+	%	\end{itemize}
+	%	\vspace{-7mm}
+	%	\hfill
+	%	\hyperlink{labt}{\tiny{$\rightarrow$ labour tax}}\\
+	%	\vspace{-2mm}
+	%	\hfill
+	%	\hyperlink{eff}{\tiny{$\rightarrow$ efficiency channel}}\\
+	%	\vspace{-2mm}
+	%	\hfill
+	%	\hyperlink{wtp}{\tiny{$\rightarrow$ policy shift}}	
+	%\end{frame}
+	%
+	%-----------Conclusion -----------------------
+	\hypertarget{conc}{}
+	\section{Conclusion}
+	
+	\begin{frame}{Conclusion}
+		
+		\begin{itemize}[<+-| alert@+>]
+			\setbeamercolor{alerted text}{fg=black} %change the font color
+			\setbeamerfont{alerted text}{series=\bfseries}
+			\item How should the optimal policy react if we all became  more socially responsible?
+			\vspace{4mm}
+			%			\item Assume we all want to consume more socially responsibile, then, inequality prevents an efficient reduction of the externality under the optimal policy when the productivity gap is high. 
+			\item The optimal policy shifts away from corrective taxes to redistribution. % since inequality aggravates. %as the sustainable good gets more preferred,
+		%	and redistribution becomes the central pillar of the corrective policy.
+			\vspace{4mm}
+			\item Inequality aggravates with social responsibility. Therefore, the government forfeits an efficient reduction in the externality. % as social responsibility rises %associated with social responsibility
+			\vspace{4mm}
+			\item The income tax is used to lower the externality for all levels of social responsibility due to inequality.
+			%			\item \textcolor{myorange}{\textbf{Timing of changes in social responsibility (generational, within generations) becomes relevant when endogenising growth}}
+		\end{itemize}
+	\end{frame}
+	
+	\appendix
+	
+
+	
+	\begin{frame}[allowframebreaks]{References}
+		
+		\bibliography{../../bib_2_0}
+		\bibliographystyle{apa}
+	\end{frame}
+	
+	
+	
+	\begin{frame}{Social responsibility}
+		\hypertarget{rise1}{}
+		\begin{itemize}
+			\vspace{4mm}
+			\item<1->  \cite{Bartling2015DoResponsibility} provide experimental evidence for the existence of social responsibility in markets 
+			%				\vspace{2mm}
+			%				\item<+-> 
+			%				global share of households willing to pay a
+			%				premium rose from 50\% in 2013 to 66\% in 2015 \citep{NielsenSUSIMp} %(sample of 60 countries)
+			\vspace{2mm}
+			\item<1-> in the US, the market share of sustainable consumer-packaged goods rose from 14\% in 2013 to 16\% in 2018 despite a price premium \citep{Kronthal-Sacco2020SustainableMessages}%; faster growth in product sales with sustainability claim (March 2017-March2018) \citep{NielsenSUS2018}
+			\vspace{2mm} 
+			\item<1-> accepted price premium on average: 25\% %(multi-country)
+			\citep{SK2021}
+		\end{itemize} % \ar
+		\hfill
+		\hyperlink{backmov}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+
+\begin{frame}{Income dependent support for costly policy}
+	\hypertarget{rise2}{}
+	\vspace{-4mm}
+	\begin{figure}
+		\includegraphics[width=.55\textwidth]{../codding/calibration/emp_results/reg_coal_emissions_inc_present.png}
+	\end{figure}
+	\vspace{-3mm}
+	\tiny{Source: \cite{CCAM}; ``\textit{How much do you support or oppose the
+			following policy?
+			Set strict carbon dioxide emission limits on
+			existing coal-fired power plants to reduce
+			global warming and improve public health.
+			Power plants would have to reduce their
+			emissions and/or invest in renewable energy
+			and energy efficiency. The cost of electricity to
+			consumers and companies would likely
+			increase}"}
+	\vspace{-9mm}
+	\hfill	\hyperlink{backmov}{\tiny{$\rightarrow$ back}}
+\end{frame}
+	\begin{frame}{In the US}
+			\hypertarget{indis}{}
+		\vspace{-5mm}
+	\begin{minipage}[]{1\textwidth}
+		\begin{figure}
+			%		%	\caption{Distribution of per-capita disposable income in 2018 }\label{fig:poverty}	
+			%			
+			%			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=.7\textwidth]{../codding_new/calibration/emp_results/Poster_histogramme_prices_estimatedpdf_PSID.png}	
+		\end{figure}
+		\centering
+		\tiny{Sources: Disposable Income: PSID, TAXSIM; Basic Needs: Institute for Women's Policy Research, Prices: USDA}
+		%		
+	\end{minipage}
+	\vspace{-10mm}
+	\hfill	\hyperlink{backmov}{\tiny{$\rightarrow$ back}}
+\end{frame}
+
+	\begin{frame}{}
+		\hypertarget{Contrib}{}
+		\vspace{4mm}
+		\begin{block}{Contribution to the literature}
+			impact of \textbf{\alert{social responsibility}} on  (1) \textbf{\alert{optimal policy}} in an (2) \textbf{\alert{unequal economy}}
+		\end{block}
+		\begin{itemize}
+			\item<1-> \textbf{social responsibility} in behavioural economics \citep{Benabou2010IndividualResponsibility, Bartling2015DoResponsibility, Falk2021FightingValues}; a macro example: \cite{Aghion2021EnvironmentalDirty}\\ \ar basic needs %as an obstacle
+			%			\vspace{2mm}
+			%			\item<1-> macro models on \textbf{optimal climate policy} mainly focus on supply side \\ \citep[e.g.][]{Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology}%; \textit{no demand-side perspective, no role for redistribution}
+			\vspace{2mm}
+			\item<1-> optimal \textbf{corrective policy in distortionary fiscal setting}
+			
+			%(\textit{re-evaluation optimal-Pigouvian gap})% \ar add inequality and motive for lower env. tax and more redistribution%\ar env. tax falls short of Pigouvian rate if gov. has motive to generate funds % and cannot use transfers
+			\begin{itemize}
+				\vspace{1mm}
+				\item<1->  with representative agent \citep[e.g.][]{ LansBovenberg1994EnvironmentalTaxation, Barrage2019OptimalPolicy} 
+				\item<1-> \cite{Vona2011IncomeTechnologies, Jacobs2019RedistributionCurves} role of redistribution due to non-linear Engel curves  \ar non-linearity as a function of social responsibility
+			\end{itemize}
+			\item<1-> \textbf{structural transformation} \\ \citep{Herrendorf2014GrowthTransformation, Matsuyama2002TheSocieties, Foellmi2008StructuralGrowth, Boppart2014StructuralPreferences}
+		\end{itemize}
+		%\vspace{2mm}
+		%		\hfill	\hyperlink{backCont}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+		\section{Empirical Backup}
+	
+	\begin{frame}{Social Responsibility: homogeneous across income groups}
+		\hypertarget{atts}{}
+		\vspace{0mm}
+		%		\begin{itemize}
+		%			%	\item<1-> climate change raises the need for a transition to sustainable production
+		%			%	\vspace{3mm}
+		%			\item \textcolor{black}{\textbf{Claim: $\pmb{\omega}$ is }}
+		%		\end{itemize}
+		%\tr{env. attitudes as main driver of social responsibility\ar similar rise across income groups and intensive margin more relevant}
+		%\pause
+		\vspace{2mm}
+		\centering
+		\begin{minipage}[]{0.6\textwidth}
+			\centering{\footnotesize{Share worried by climate change}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=0.9\textwidth]{../codding/calibration/emp_results/worry_inc_present.png}
+		\end{minipage}
+		
+		\tiny{Source: \cite{CCAM}}
+		\vspace{-9mm}
+		\hfill	\hyperlink{backAtt}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	%	\addtocounter{framenumber}{-1}
+	
+	
+	%	\begin{frame}{Social Responsibility}
+	%		\vspace{0mm}
+	%		\begin{itemize}
+	%			
+	%			%	\item<1-> climate change raises the need for a transition to sustainable production
+	%			%	\vspace{3mm}
+	%			\item Claim 1: $\pmb{\omega}$ is homogeneous across income groups
+	%			\item \textcolor{black}{\textbf{Claim 2: $\pmb{\omega}$ rises on the intensive margin}}
+	%		\end{itemize}
+	%		%\tr{env. attitudes as main driver of social responsibility\ar similar rise across income groups and intensive margin more relevant}
+	%		\vspace{5mm}
+	%		\centering
+	%		%	\pause
+	%		\begin{minipage}[]{0.45\textwidth}
+	%			\centering{\footnotesize{Share strongly worried}}
+	%			%	\captionsetup{width=.45\linewidth}
+	%			\includegraphics[width=\textwidth]{../codding/calibration/emp_results/str_support_worry_inc_present.png}
+	%		\end{minipage}
+	%		\begin{minipage}[]{0.45\textwidth}
+	%			\centering{\footnotesize{Share weakly worried}}
+	%			%	\captionsetup{width=.45\linewidth}
+	%			\includegraphics[width=\textwidth]{../codding/calibration/emp_results/sw_support_worry_inc_nolgd_present.png}
+	%		\end{minipage}
+	%		
+	%		\tiny{Source: \cite{CCAM}}
+	%		\vspace{-9mm}
+	%		\hfill	\hyperlink{backAtt}{\tiny{$\rightarrow$ back}}
+	%	\end{frame}
+	
+	
+	\begin{frame}{Decomposition policy support}
+		\vspace{4mm}
+		\begin{minipage}[]{0.47\textwidth}
+			\centering{\footnotesize{  \textbf{Strong} support}}
+			\includegraphics[width=\textwidth]{../codding/calibration/emp_results/str_support_reg_coal_emissions_inc_present.png}
+		\end{minipage}
+		\begin{minipage}[]{0.47\textwidth}
+			\centering{\footnotesize{  \textbf{Weak} support}}
+			\includegraphics[width=\textwidth]{../codding/calibration/emp_results/sw_support_reg_coal_emissions_inc_nolgd_present.png}
+		\end{minipage}
+		
+		\vspace{0mm}
+		\tiny{Source: \cite{CCAM}}
+		
+		\vspace{8mm}
+		\hfill	\hyperlink{wtp}{\tiny{$\rightarrow$ back }}
+	\end{frame}
+	
+	\section{Model behaviour}
+	\begin{frame}{Engel Curves}
+		\hypertarget{engel}{}
+		\begin{figure}[h!!]
+			\centering
+			\begin{minipage}[h!!]{0.39\textwidth}  
+				%	\captionsetup{width=.45\linewidth}
+				\centering\textbf{ $p_s=1.56; \ \omega=0.9$ }
+				\includegraphics[width=1\textwidth]{../codding_new/calibration/calib_results/Demand_fullandstandard_PSID1_ws0.90_ps1.56_nozero_phii12_lgd0_presentation_labmatchedaverage.png}
+			\end{minipage}
+			\begin{minipage}[h!!]{0.39\textwidth}  
+				%	\captionsetup{width=.45\linewidth}
+				\centering\textbf{ $p_s=1.56;\ \omega=0.24$ }
+				\includegraphics[width=1\textwidth]{../codding_new/calibration/calib_results/Demand_fullandstandard_PSID1_ws0.24_ps1.56_nozero_phii12_lgd0_presentation_labmatchedaverage.png}
+			\end{minipage}
+			\begin{minipage}[h!!]{0.03\textwidth}  
+			\end{minipage}
+			\begin{minipage}[h!!]{0.19\textwidth}  
+				%	\captionsetup{width=.45\linewidth}
+				%\centering\textbf{ $p_s=0.64;\ \omega_s=0.26$ }
+				\includegraphics[width=1\textwidth]{../codding/calibration/calib_results/legend_EC_pre.png}
+			\end{minipage}
+		\end{figure}
+		
+		
+		\hfill 
+		\hyperlink{backengel}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+
+%%%%
+\section{Model}
+
+\begin{frame}{Model: {Ramsey planner}}
+	
+	\vspace{8mm}
+%	\textbf
+	\begin{align*}
+	\underset{\{\tau_n, \tau_l\}}{\max} \ \lambda U_{r}+(1-\lambda) U_{p}%-\psi h_n^\eta
+	\end{align*}
+	\vspace{-10mm}
+	\begin{align*}
+	s.t. \hspace{10mm}& (1)\  T=\tau_l wH+\tau_nwH_{n}\\
+	&	(2)\  \text{behaviour of firms and households}\\
+	&(3) \ \text{feasibility}\\
+	& (4)\ H =\lambda z_h l_r+(1-\lambda)z_l l_p
+	\end{align*}
+	%\item[-] solved using primal approach
+	%\item[-] markets for individual goods and labour clear
+	
+	%\vfill	\hfill	\hyperlink{pa}{\tiny{$\rightarrow$ primal approach}}
+	%		\pause 
+	%		\textbf{Markets for goods and labour clear}\\ 
+	\vspace{6mm}
+	\hfill
+	\hyperlink{backmodel}{\tiny{$\rightarrow$ back}}
+\end{frame}
+
+	%%%CALIBRATION%%%
+\section{Calibration}
+
+\begin{frame}{Calibration overview}
+	
+	\begin{itemize}
+		\item<+-> calibration to the US in 2018
+		\item<+-> I proceed in three steps
+		\vspace{4mm}
+		\begin{enumerate}[<+-| alert@+>]\setbeamercolor{alerted text}{fg=black} %change the font color
+			\item separately match $\lambda$, $\bar{c}$, $\phi$, $\omega$, $\theta$, $L$, $\tau_l$, and $\tau_n$
+			\vspace{2mm}
+			\item jointly calibrate $A_n$, $A_s$, $\chi$, $z_h$, $z_l$% so that equilibrium equations and target equations hold
+			\vspace{2mm}
+			\item calibrate parameters governing the externality, $\eta$ and $\psi$
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Calibration I}
+	\hypertarget{red}{}
+	\vspace{-3mm}
+	\begin{center}
+		\resizebox{!}{.75\height}{
+			%	\begin{table}[hh!!]
+			
+			%	\caption{ Calibration of the baseline model }
+			\begin{tabular}{c|cll}
+				%			\hline \hline
+				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+				\hline \hline
+				Parameter& Calibrated value& Meaning&Target/Source\\ \hline
+				\hline
+				$\phi$ & 12 & importance of basic needs& - \\
+				\hline
+				$\sigma$&1.71& \makecell[l]{governs price elasticity\\ of substitution} &  \makecell[l]{price elasticities in US milk market \\ \cite{Chen2018OrganicMilk}} \\
+				\hline
+				\alert{$\pmb{\omega}$}&\alert{\textbf{0.24}}& \makecell[l]{governs \\ social responsibility}&  \makecell[l]{market share of sustainable goods (cpg)\\  \cite{Kronthal-Sacco2020SustainableMessages}}\\			
+				\hline
+				\alert{$\pmb{\bar{c}}$}&\alert{\textbf{1}}&basic needs, normalised& \makecell[l]{in US\$: 25,128\$\\  \cite{BESt}}  \\
+				\hline
+				\alert{$\pmb{\lambda}$}&\alert{\textbf{0.56}}& share of rich households& \makecell[l]{can cover basic needs with sustainable goods alone\\  prices from USDA,\\ food bundle from \cite{FoodCommission}\\ Income from PSID, TAXSIM}\\
+				%\hline
+				%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
+				\hline
+				L&1&\makecell[l]{annual time endowment,\\ normalised} &  14.5 hours per day, \cite{Jones1993OptimalGrowth}\\
+				\hline
+				$\theta$& 0.75&Frisch elasticity& \cite{Chetty2011AreMargins} \\
+				\hline	
+				$\tau_l$&0.24&labour income tax & \cite{Barrage2019OptimalPolicy}\\
+				\hline
+				$\tau_n$ &0&corrective tax& - \\
+				\hline \hline
+			\end{tabular}
+			%	\end{table}
+		}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Calibration II}
+	\hypertarget{backcalib}{}
+	\vspace{-5mm}	
+	\begin{center}
+		\resizebox{!}{0.75\height}{
+			%	\begin{table}[hh!!]
+			
+			%	\caption{ Calibration of the baseline model }
+			\begin{tabular}{c|cll}
+				%			\hline \hline
+				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+				\hline \hline
+				Parameter& Calibrated value& Meaning&Target/Source\\ \hline
+				\alert{$\pmb{z_l}$}&\alert{\textbf{0.03}}&effective labour productivity poor& \makecell[l]{average  income poor (PSID): \\0.68 basic-needs bundles}\\
+				\hline
+				\alert{$\pmb{z_h}$}&\alert{\textbf{2.13}}& effective labour productivity rich& \makecell[l]{difference average income\\ poor and GDP p.c.: 4.00 basic-needs bundles}\\
+				\hline	
+				$\chi$&23.51&disutility from labour& \makecell[l]{average annual labour supply per \\ worker worked: 34.29 per week\\ \cite{OECDHoursworked}}\\
+				\hline
+				$A_n$&8.62&TFP unsustainable sector&\makecell[l]{GDP p.c.: 63,043\$;\\ 2.5 basic-needs bundles (OECD)} \\
+				\hline
+				$ A_s$&5.52&TFP sustainable sector& relative price of sustainable food bundle: 1.56\\ 
+				&&& USDA, \cite{FoodCommission}\\ 
+				\hline
+				$\eta$&1.34&curvature externality& rich willing to give up 2\% of annual con-\\
+				$\psi$ &9.98&weight on externality& sumption for 1\% reduction in $H_n$ at baseline\\
+				\hline \hline
+			\end{tabular}
+			%	\end{table}
+		}
+	\end{center}
+	\vspace{-1mm}
+	\hfill
+	\hyperlink{backmodel}{\tiny{$\rightarrow$ back}}
+	
+\end{frame}	
+	
+	\begin{frame}{}
+		\hypertarget{tabIncome}{}
+		\vspace{20mm}
+		\centering
+		\begin{tabular}{l|rrr}
+			\multicolumn{4}{c}{\textbf{	Average annual income per capita in 2018}}\\
+			\hline \hline
+			Variable &poor&   rich&    total\\     
+			\hline \hline 
+			in US\$  &    17,249&  67,330 &   45,083\\
+			\hline
+			in basic needs&&&\\
+			unsustainable prices  & 0.69     &     2.68   &  1.79\\
+			\hline
+			in basic needs&&&\\
+			sustainable prices& 0.56        &    2.19  & 1.47\\
+			\hline \hline
+			\multicolumn{4}{l}{\tiny{Sources: PSID, TAXSIM}}
+		\end{tabular}
+		
+		\vspace{13mm}
+		\hfill
+		\hyperlink{backmodel}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	
+	
+	%\begin{frame}{Willingness to pay and the role of redistribution}
+	%	\hypertarget{wtp}{}
+	%	\centering
+	%	\begin{minipage}[]{0.55\textwidth}
+	%		%	\captionsetup{width=.45\linewidth}
+	%		\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/fullmodel_WTP_pen1_targetext_2_withps1_lgd_notauun0_pslow0_PSID1_matchGDP0_phii15.png}
+	%	\end{minipage}
+	%\vspace{2mm}
+	%	\begin{itemize}
+	%		\item the shift in the corrective policy to redistribution is optimal when the willingness to pay equals 1
+	%	\end{itemize}
+	%	
+	%	\vspace{0mm}
+	%	\hfill
+	%	\hyperlink{backpe}{\tiny{$\rightarrow$ back}}
+	%\end{frame}
+	
+	\section{Additional results}
+	%---- optimal allocation
+		\begin{frame}{Optimal allocation}
+		%\tr{this one and next slide to be moved to appendix (partially); this slide: comparison baseline model with basic needs to model without basic needs}
+		\vspace{-5mm}
+		\hypertarget{backallo}{}
+		\begin{figure}			
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Externality, $Y_n$\\ \ }}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_yn_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}	
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Output\\ \ }}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_agg_output_withps0_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Gini of consumption\\ \ }}
+				%		%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/fullmodel_pen1_targetext_2_Gini_consumption_withps1_lgd0_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+		\end{figure}
+		\begin{itemize}
+			\item reduced externality at higher output
+			\item inequality rises
+			%	\item<2-> I will argue: higher output is a choice to mitigate inequality
+		\end{itemize}
+		\vspace{-1mm}
+		\hfill
+		\hyperlink{backopt}{\tiny{$\rightarrow$ back}}
+	\end{frame}	
+	
+	%--------Efficient allocation -----
+	\begin{frame}{Efficient allocation}
+		\hypertarget{effallo}{}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{ Externality, $Y_n$\\ \ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/socialPlanner_pen1_ext1_targetext_2_yn_nolgd_pslow0_PSID1_matchGDP0_phii12_labmatchedaverage.png}
+		\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{ Output\\ \ }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/socialPlanner_pen1_ext1_targetext_2_agg_out_nolgd_pslow0_PSID1_matchGDP0_phii12_labmatchedaverage.png}
+		\end{minipage}
+		%	\begin{minipage}[]{0.32\textwidth}
+		%		\centering{(c) Output }
+		%		%	\captionsetup{width=.45\linewidth}
+		%		\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/socialPlanner_pen1_ext1_targetext_2_agg_out_nolgd_pslow0_PSID1_matchGDP0_phii12_labmatchedaverage.png}
+		%	\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+			\centering{\footnotesize{ Composite consumption rich/ poor}}
+			%	\captionsetup{width=.45\linewidth	
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/socialPlanner_pen1_ext1_targetext_2_Cr_nolgd_pslow0_PSID1_matchGDP0_phii12_labmatchedaverage.png}
+		\end{minipage}
+	\vspace{4mm}
+		\begin{itemize}
+			\item trade-off between consumption and pollution loses intensity as social responsibility rises: \ar higher composite consumption and lower unsustainable production 
+			\item disutility from labour exceeds utility from consumption when $\omega$ is very high
+			\item no inequality
+		\end{itemize}
+		\vspace{-3mm}
+		\hfill
+		\hyperlink{backeff}{\tiny{$\rightarrow$ back}}
+	\end{frame}	
+	
+	
+	\begin{frame}{Policy effect}
+		\hypertarget{backpol}{}
+		\begin{figure}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{Externality, $Y_n$}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/total_impact_modelcomp_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii15_lgd1.png}	
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{Output}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/total_impact_modelcomp_targetext_2_ext1_agg_output_pslow0_PSID1_matchGDP0_phii15_lgd0.png}	
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{{ Gini of consumption}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/total_impact_modelcomp_targetext_2_ext1_Gini_consumption_pslow0_PSID1_matchGDP0_phii15_lgd0.png}
+			\end{minipage}
+			
+		\end{figure}
+		\vspace{4mm}
+		\begin{itemize}
+			\item with basic needs, the policy focus shifts away from the externality to inequality
+			\vspace{2mm}
+			\item inequality explains shift to redistribution
+		\end{itemize}
+		\vspace{9mm}
+		\hfill
+		\hyperlink{backeff}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	
+	\begin{frame}{Counterfactual Policy: More aggressive corrective tax}
+		%	\vspace{-5mm}
+		\hypertarget{moreaggtaun}{}
+		\begin{figure}	
+			
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Output ratio, $y_n/y_s$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_counterfac_pen1_targetext_2_output_ratio_lgd1_notauun0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}		
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Externality, $Y_n$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/counterfac_pen1_targetext_2_yn_pslow0_lgd1_PSID1_matchGDP0_phii12.png}
+			\end{minipage}	
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Output}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/counterfac_pen1_targetext_2_agg_output_pslow0_lgd0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}	\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Transfers, T}}
+				%		%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/counterfac_pen1_targetext_2_T_pslow0_lgd0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Gini of consumption}}
+				%		%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/counterfac_pen1_targetext_2_Gini_consumption_pslow0_lgd0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}		
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Penalty poor}}
+				%		%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/counterfac_pen1_targetext_2_penalty poor_pslow0_lgd0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+			%		\begin{minipage}[]{0.32\textwidth}
+			%			\begin{itemize}
+			%				\item higher corrective tax attains lower externality level
+			%				\item inequality rises; poverty more severe
+			%			\end{itemize}
+			%		\end{minipage}
+		\end{figure}
+		\vspace{-3mm}
+		\hfill
+		\hspace{6mm}
+		\hyperlink{backeff}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	\begin{frame}{Optimal policy without basic needs}
+		% efficiency level of externality equal to baseline model
+		% social resp does not affect inequality
+		% redistribution no effect on externality
+		\hypertarget{skipallo}{}
+		\vspace{2mm}
+		\begin{figure}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Corrective tax, $\tau_n$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/comparison_targetext_2_tauun_penaltycomparison_nocounter_notauun0_lgd1_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}	
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Income tax, $\tau_l$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/comparison_targetext_2_tauul_penaltycomparison_nocounter_notauun0_lgd0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Transfers, T}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/comparison_targetext_2_T_penaltycomparison_nocounter_notauun0_lgd0_pslow0_PSID1_matchGDP0_phii12.png}
+			\end{minipage}
+		\end{figure}
+	\vspace{4mm}
+		%	\underline{Without basic needs}
+		\begin{itemize}
+			\item optimal corrective tax decreases; rise in income tax to mitigate drop in revenues from corrective tax
+			\vspace{3mm}
+			\item no shift to redistribution! %\ar basic needs explain shift to redistribution
+		\end{itemize}
+		\hfill
+		\hyperlink{backeff}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	
+	\begin{frame}{Laissez-faire allocation}
+		\hypertarget{LF}{}
+		\vspace{6mm}
+		\begin{center}
+			\begin{minipage}[]{0.45\textwidth}
+				\centering{{Gini of consumption}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/LF_vsRamsey_pen1ext1_targetext_2_Gini_consumption_pslow0_PSID1_matchagg0_phii12_lgd1.png}
+			\end{minipage}	
+			\begin{minipage}[]{0.45\textwidth}
+				\centering{{Penalty poor}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/LF_vsRamsey_pen1ext1_targetext_2_penalty poor_pslow0_PSID1_matchagg0_phii12_lgd1.png}
+			\end{minipage}	
+		\end{center}
+		\vspace{11mm}
+		\hfill
+		\hyperlink{backLF}{\tiny{$\rightarrow$ back}}
+	\end{frame}
+	
+	
+%	\begin{frame}{Decomposition standard model}
+%		\vspace{3mm}
+%		\hypertarget{noBN}{}
+%		\centering
+%		\begin{minipage}[]{0.45\textwidth}
+%			\centering{{Income tax, $\tau_l$}}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_pen0_targetext_2_tauul_withnoext_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+%		\end{minipage}
+%		\vspace{7mm}
+%		\begin{itemize} 
+%			%\item redistribution becomes the central pillar of corrective policy
+%			\item labour tax chosen higher to reduce the externality
+%			%\item driven by intensified severity of inequality
+%		\end{itemize}
+%		\vspace{0mm}
+%		\hfill
+%		\hyperlink{backpe}{\tiny{$\rightarrow$ back}}
+%	\end{frame}	
+	
+	\begin{frame}{Decomposition: no basic needs}
+		\vspace{3mm}
+		\hypertarget{noBN}{}
+		\centering
+		\begin{minipage}[]{0.45\textwidth}
+			\centering{{Income tax, $\tau_l$}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/tauunfixed_pen0_targetext_2_tauul_withnoext_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+		\end{minipage}
+		\vspace{3mm}
+		\begin{itemize} 
+			%\item redistribution becomes the central pillar of corrective policy
+			\item income tax also chosen higher to reduce the externality
+			\item presence of corrective tax lowers income tax below optimal level without externality 
+			%\item driven by intensified severity of inequality
+		\end{itemize}
+		\vspace{-7mm}
+		\hfill	
+		\hyperlink{backpe}{\tiny{$\rightarrow$ back}}		 
+	\end{frame}	
+	
+	
+	%%% policy effects
+%	\section*{3rd: Decomposing policy effects}
+	
+	\begin{frame}{Effectiveness of policy instruments}
+		\hypertarget{3exp}{}
+		\alert{	\textbf{What is the role of the different policy channels on the externality?}}
+		
+		\vspace{3mm}
+		\begin{itemize}
+			\item \textbf{Problem:} policy effects are interrelated 
+			\vspace{2mm}
+			\item[\ar] additional timing assumption \\
+			\vspace{2mm}
+			\begin{enumerate}
+				\item<2-> solve for the optimal policy tuple in full model
+				\vspace{2mm}
+				\item<3-> in laissez-faire allocation, impose optimal corrective tax \ar effect of corrective tax
+				\vspace{2mm}
+				\item<4-> next, add the optimal income tax but keep labour supply fixed \ar redistribution channel
+				\vspace{2mm}
+				\item<5-> allow labour supply to adjust \ar efficiency channel
+			\end{enumerate}
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}{Effectiveness of policy instruments}
+		\hypertarget{backDecomp}{}
+		\vspace{2mm}
+		\centering
+		\begin{minipage}[]{0.55\textwidth}
+			\centering{{Policy effects}}
+			%	%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/contribs_nototal_quant_redistribution_pen1_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+		\end{minipage}
+		%	\vspace{4mm}
+		%		\begin{itemize} 
+		%			\item redistribution becomes the central pillar of corrective policy
+		%			%\item<2-> reliance on redistribution due to intensified severity of inequality
+		%		\end{itemize}
+		
+		\vspace{7mm}
+		\hfill	
+		\hyperlink{backpe}{\tiny{$\rightarrow$ back}}		 
+		%		\hyperlink{sensi}{\tiny{$\rightarrow$ sensitivity}}
+		
+	\end{frame}
+
+	\begin{frame}{Effectiveness of policy instruments: no basic needs}
+		\hypertarget{effDecomp}{}
+		\vspace{2mm}
+		\centering
+		\begin{minipage}[]{0.55\textwidth}
+			\centering{{Policy effects}}
+			%	%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/contribs_nototal_quant_redistribution_pen0_targetext_2_ext1_yn_pslow0_PSID1_matchGDP0_phii12_lgd1_presentation.png}
+		\end{minipage}
+		%	\vspace{4mm}
+		%		\begin{itemize} 
+		%			\item redistribution becomes the central pillar of corrective policy
+		%			%\item<2-> reliance on redistribution due to intensified severity of inequality
+		%		\end{itemize}
+		
+		\vspace{7mm}
+		\hfill	
+		\hyperlink{backpe}{\tiny{$\rightarrow$ back}}		 
+		
+	\end{frame}
+	
+	\section{Sensitivity}
+	\begin{frame}{Less inequality}
+		\hypertarget{sensi}{}
+		\begin{figure}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Corrective tax, $\tau_n$ \\ \ }}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/higherInq130_pen1_targetext_2_tauun_PSID1_matchGDP0_phii12_lgd1.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Income tax, $\tau_l$\\ \ }}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/higherInq130_pen1_targetext_2_tauul_PSID1_matchGDP0_phii12_lgd0.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Transfers\\ \ }}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/higherInq130_pen1_targetext_2_T_PSID1_matchGDP0_phii12_lgd0.png}
+			\end{minipage} 
+		\end{figure}
+		\begin{itemize}
+			\item $z_h=2.14$, $z_l=0.14$ in contrast to $z_h=2.13$, $z_l=0.03$
+			\item  even if the poor were 30\% richer, the shift to redistribution would remain optimal
+		\end{itemize}
+		%	\vspace{-1mm}
+		%	\hfill
+		%	\hyperlink{count}{\tiny{$\rightarrow$  counterfactual}},
+		\vspace{-1mm}
+		\hfill 
+		\hyperlink{backpe}{\tiny{$\rightarrow$ back,}}
+		\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}	
+	\end{frame}
+	
+	
+	\begin{frame}{Lower productivity gap: $\frac{A_n}{A_s}=1.26$}
+		%\hypertarget{sensi}{}
+		\begin{figure}
+			%		\begin{minipage}[]{0.322\textwidth}
+			%			\centering{\footnotesize{ Corrective tax, $\tau_n$}}
+			%			%	\captionsetup{width=.45\linewidth}
+			%			\includegraphics[width=1\textwidth]{../codding/policies_solution/solutions_paper/lowerProGap_pen1_targetext_2_tauun_PSID1_matchGDP0_phii15_lgd1.png}
+			%		\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Labour tax, $\tau_l$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/lowerProGap_pen1_targetext_2_tauul_PSID1_matchGDP0_phii12_lgd1.png}
+			\end{minipage}
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{Transfers, T}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/lowerProGap_pen1_targetext_2_T_PSID1_matchGDP0_phii12_lgd0.png}
+			\end{minipage}  
+			\begin{minipage}[]{0.32\textwidth}
+				\centering{\footnotesize{ Output ratio, $y_n/y_s$}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_new/policies_solution/solutions_paper/Compariosn_socialPlanner_pen1_targetext_2_output_ratio_lgd1_notauun0_pslow1_PSID1_matchGDP0_phii12.png}
+			\end{minipage}  
+		\end{figure}
+		\begin{itemize}
+			\item  redistribution is not used as an corrective policy instrument%, similar to model without basic needs%consumption inequality does not become too severe
+			\item the output ratio approaches the efficient one
+		\end{itemize}
+		%	\vspace{-1mm}
+		%	\hfill
+		%	\hyperlink{count}{\tiny{$\rightarrow$  counterfactual}},
+		\vspace{-1mm}
+		\hfill 
+		\hyperlink{backpe}{\tiny{$\rightarrow$ back,}}	
+		\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}	
+	\end{frame}
+	
+	
+	\section{Data supplement}
+	\begin{frame}
+		\vspace{5mm}
+		%\begin{minipage}[]{\textwidth}
+		\centering{\textbf{ Weekly expenses for an organic and a conventional food bundle}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding/calibration/emp_results/expenses_joint_s.png}
+		%\end{minipage}
+		\small{The food bundle is determined by the \cite{FoodCommission}, which provides a food bundle in line with planetary and bodily health.}
+	\end{frame}
+	
+	\begin{frame}{}
+		\vspace{5mm}
+		\begin{table}[h!!]
+			\centering
+			\caption{\textbf{Monthly basic expenses for a US single working adult in US\$ in 2018}}
+			\begin{tabular}{l|rrr} 
+				\hline \hline
+				\text{ Category}	&\text{ (1) Unsustainable}& \text{(2) Sustainable} & \text{(3) Sustainable} \\ &&&\text{exists}\\
+				\hline
+				\text{ Housing \& Utilities}&785   & 785& {false}\\
+				\text{ Food}&267   & 417.23& {true}\\
+				\text{ Transportation}&476   & 476&{false}\\ 
+				\text{ Personal \& Household items}&389   & 607.88& {true}\\
+				\text{ Healthcare}&177  & 276.59 &{true}\\ 
+				\hline 
+				\text{Monthly basic needs (sum) }& 2,094& 2,562.70&\\
+				
+				\text{Annual basic needs }& 25,128& 30,752.38&\\
+				\hline \hline
+			\end{tabular} 
+
+		\flushleft
+		\footnotesize{Source: \cite{BESt}}
+		\end{table}
+	\end{frame}
+\end{document}
