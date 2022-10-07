@@ -1,0 +1,1939 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{The Importance of Fiscal Policies to the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+\section{Understanding effect of fossil tax: With redistribution via income tax scheme!}
+\subsection{Wie wirkt tauf; interaction with taul?}
+\subsection{Model homo skill, exo growth, no knowledge spills, equal capital shares}
+
+With knowledge spillovers, net emissions reduce, bcs the fossil sector grows less and the green sector grows more. Demand switches to green energy. Indeed, in BAu there is a higher green to fossil production. the energy share grows less because the non-energy sector grows faster. Green price relative to fossil price is falling over time since the green sector catches up. 
+
+But also the effect of tauf on green to fossil production is muted in future periods, bcs fossil grows as green sector grows. \textbf{\tr{\ar higher fossil taxes to meet emission limit? and motive to use labor taxes to reduce research overall?}}
+With endogenous growth this difference should be intensified as the direction of research reacts. Even bigger surge in fossil production in later periods when tauf is constant. 
+
+\begin{figure}[h!!]
+\centering
+\caption{Levels tauf no tauf: homogeneous skills, exogenous growth, equal capital share, }\label{fig:Leveltauf_nsk1_xgr1_equalcapShare_withtaul}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) Net emissions}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) hours}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) consumption}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_C_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) fossil production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_F_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_G_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) fossil price}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pg_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) energy price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pee_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) pgpftauf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pgpftf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) pepn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pepn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) energy share}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green to fossil production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_GFF_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) energy production}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_E_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Non-energy production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_N_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) LgLF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: homogeneous skills, exogenous growth, equal capital share, (with tauf}\label{fig:Leveltauf_nsk1_xgr1_equalcapShare_withtaul2}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Ln_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) wage rate}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+
+\subsubsection{Effect in percent and in comparison without taul: Interactions?}
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: homogeneous skills, exogenous growth, equal capital share )}\label{fig:Leveltauf_nsk1_xgr1_equalcapShare_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) Net emissions: with tauf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_C_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_F_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) green  production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_G_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) pe}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pee_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) fossil price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) green  price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pg_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) pn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) LgLf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_LgLf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) GF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_GFF_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Energy share}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) pepn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) pgpftf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pgpftf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure} 
+\clearpage
+\newpage 
+
+\subsection{Model homo skill, exo growth,hetero capital shares}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels tauf no tauf: homogeneous skills, exogenous growth,hetero capital share}\label{fig:Leveltauf_nsk1_xgr1_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_C_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_F_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_G_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pg_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) energy price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pee_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pgpftauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pgpftf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_GFF_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) energy production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_E_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Non-energy production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_N_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: homogeneous skills, exogenous growth, hetero capital share, }\label{fig:Leveltauf_nsk1_xgr1_withtaul2}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Ln_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) wage rate}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+\subsubsection{Effect in percent and in comparison without taul: Interactions?}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: homogeneous skills, exogenous growth, hetero capital share}\label{fig:Leveltauf_nsk1_xgr1_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hh_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_C_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_F_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_G_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pee_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pg_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) green  to fossil plus tauf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pgpftf_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) non-energy  price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pn_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_GFF_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) EY}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+
+\clearpage
+\newpage 
+
+\subsection{Model hetero skill, exo growth, equal capital shares}
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, exogenous growth, equal capital share, }\label{fig:Leveltauf_nsk0_xgr1_equalcapShare_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) low skill hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Skill premium}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_whwl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) high skill wage}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) low skill wage}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_F_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_G_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) fossi price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green to fossil production}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_GFF_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) green to fossil price}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pgpftf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) E}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_E_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Energy share}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+\caption{Levels and per eff tauf no tauf: heterogeneous skills, exogenous growth, equal capital share, }\label{fig:Leveltauf_nsk0_xgr1_equalcapShare_withtaul2}
+
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) green to fossil labor}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) N}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_N_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) pn}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Af}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Af_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) Ag}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Ag_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) An}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_An_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) LgLf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+\clearpage
+\newpage
+\subsubsection{Effect in percent and in comparison without taul: Interactions?}
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, exogenous growth, equal capital share }\label{fig:Leveltauf_nsk0_xgr1_equalcapShare_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(b) low skill hours}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_F_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_G_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_GFF_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Lglf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_LgLf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Lg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Lg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Ln}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Ln_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) EY}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) N}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_N_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) pepn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) Lf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Lf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}			
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, exogenous growth, equal capital share )}\label{fig:Leveltauf_nsk0_xgr1_equalcapShare_notaul2}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) pg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}		\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) pgpftf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pgpftf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}		\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) pf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}		\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) pe}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pee_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}		\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) pn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}		\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) pepn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) sn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) sf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sff_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) sg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) ws}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_ws_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}
+\end{figure}
+
+\clearpage \newpage
+\section{heterogeneous skills, hetero capital share, exo growth}
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, exogenous growth, hetero capital share}\label{fig:Leveltauf_nsk0_xgr1_noknow_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)low hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_F_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_G_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pee_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pgpftf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pgpftf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pepn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_GFF_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, exogenous growth, hetero capital share, no knowledge spillovers )}\label{fig:Leveltauf_nsk0_xgr1_noknow_notaul3}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sff_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) ws}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_ws_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, exogenous growth, hetero capital share, no knowledge spillovers}\label{fig:Leveltauf_nsk0_xgr1_noknow_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) low hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) low  wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) skill premium}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_whwl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_F_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_G_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_GFF_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pgpftf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) E}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_E_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, exogenous growth, hetero capital share, no knowledge spillovers; Comp to BAU (with tauf}\label{fig:Leveltauf_nsk0_xgr1_noknow_withtaul2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_N_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Ln_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Af}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Ag}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth An}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sff_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) ws}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_ws_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\clearpage \newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Endogenous growth
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Endogenous growth}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: homogeneous skills, endogenous growth, equal capital share, }\label{fig:Leveltauf_nsk1_xgr0_equalcapShare_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)  wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_F_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_G_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_GFF_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pgpftf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) E}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_E_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) pepn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pepn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+	\caption{Levels and per eff tauf no tauf: homogeneous skills, endogenous growth, equal capital share, }\label{fig:Leveltauf_nsk1_xgr0_equalcapShare_withtaul2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_N_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) Ln}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Ln_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Af}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Ag}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth An}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) sf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sff_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) sg}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) sn}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) ws}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_ws_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: homogeneous skills, endogenous growth, equal capital share )}\label{fig:Leveltauf_nsk1_xgr0_equalcapShare_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_F_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_G_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pee_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) pgpftf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pgpftf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) pepn}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) EY}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(e) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_GFF_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: homogeneous skills, endogenous growth, equal capital share}\label{fig:Leveltauf_nsk1_xgr0_equalcapShare_notaul2}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) sff}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sff_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) sg}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) ws}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_ws_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\end{figure}
+\clearpage \newpage
+\subsection{Endogenous growth and heterogeneous capital}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: homogeneous skills, endogenous growth, hetero capital share )}\label{fig:Leveltauf_nsk1_xgr0_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk1_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_F_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_G_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pee_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pgpftf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pgpftf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, hetero capital share,  }\label{fig:Leveltauf_nsk1_xgr0_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)  wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_F_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_G_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_GFF_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pgpftf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) E}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_E_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, hetero capital share, }\label{fig:Leveltauf_nsk1_xgr0_withtaul2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_N_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Ln_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Af}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Ag}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth An}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+
+\clearpage \newpage
+\subsection{Endogenous growth and heterogeneous skills}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, endogenous growth, equal capital share}\label{fig:Leveltauf_nsk0_xgr0_equalcapShare_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b)low hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pee_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pgpftf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pgpftf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_pepn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, endogenous growth, equal capital share}\label{fig:Leveltauf_nsk0_xgr0_equalcapShare_notaul3}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) sn}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) sf}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) sg}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(e) ws}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_Equlab_regime0_CompTaul_ws_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, equal capital share,}\label{fig:Leveltauf_nsk0_xgr0_equalcapShare_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) low hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) low  wage}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_wl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) skill premium}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_whwl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pgpftf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) E}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_E_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, equal capital share, no knowledge spillovers; Comp to BAU (with tauf}\label{fig:Leveltauf_nsk0_xgr0_equalcapShare_noknow_withtaul2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pepn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_N_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_Ln_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_pn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Af}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Ag}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth An}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_LgLf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) sf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) sg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) sn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) ws}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_Equlab_regime0_ws_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+\clearpage \newpage
+
+\section{Endogenous growth and heterogeneous skills, hetero capital share}
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, endogenous growth, hetero capital share}\label{fig:Leveltauf_nsk0_xgr0_noknow_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions: with tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b)low hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) pe}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pee_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) green  price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pgpftf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pgpftf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_pepn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Effect tauf in percent: heterogeneous skills, endogenous growth, hetero capital share, no knowledge spillovers )}\label{fig:Leveltauf_nsk0_xgr0_noknow_notaul3}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) ws}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/PerdifNoTauf_regime0_CompTaul_ws_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, hetero capital share, no knowledge spillovers}\label{fig:Leveltauf_nsk0_xgr0_noknow_withtaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) low hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) high wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) low  wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_wl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) skill premium}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_whwl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil production}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil price}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pgpftf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) E}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_E_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Energy share}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+\end{figure}
+
+\begin{figure}
+	\centering
+	\caption{Levels and per eff tauf no tauf: heterogeneous skills, endogenous growth, hetero capital share, no knowledge spillovers; Comp to BAU (with tauf}\label{fig:Leveltauf_nsk0_xgr0_noknow_withtaul2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pepn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pepn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) green to fossil labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_N_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_Ln_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) pn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_pn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Af}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth Ag}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth An}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_LgLf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) ws}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/LevTaufNoTauf_TaulCalib_regime0_ws_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+\end{document}

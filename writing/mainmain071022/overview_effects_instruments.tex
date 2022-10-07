@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{The Importance of Fiscal Policies to the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+\section{Argument for calibration not on BGP}
+\begin{itemize}
+	\item on bgp fossil catches up \ar this is an argument to calibrate on BGP in order to not underestimate tauf
+\end{itemize}	
+\section{Overview effects of tauf}
+
+\begin{itemize}
+	\item as energy becomes more expensive (and price of non-energy good falls as more labor gets available), research gets directed to energy sector \ar potential advantage of taul by keeping research in non-energy sector\\ With knowledge spillovers this effect is muted. Research remains in non-energy sector because it is so backwards. And over time, non-energy catches up despite adverse price effect. 
+	\item non-equal capital shares mute the supply side effect of a reduction of fossil demand on the supply of green; instead, supply of non-energy increases \ar even stronger reduction in non-energy price \ar more reseach in direction of energy. 
+	\item with knowledge spillovers, green production is higher BAU but also: fossil production surges as green sector catches up. \ar higher tauf to meet emissions. Hence, knowledge spillovers mute the percentage change induced by tauf but also keep net emissions high in absolute terms. Knowledge spillovers mute effect of tauf on emissions because the backward (1) fossil production lower in bau, but also higher level under tauf
+	\item kn spil effect on endogenous growth: endogenous growth intensifies the rise in emissions due to knowledge spillovers. (Counters argument in AABH); despite knowledge spillovers tauf has a reducing effect on non-energy research. 
+\end{itemize}
+
+\section{Overview effects taul}
+
+\begin{itemize}
+	\item heterogeneous capital shares do not introduce compositional effect of taul
+	\item with heterogeneous skills, hetero capital shares do now shape the compositional effect of taul since labor input goods are no longer heterogeneous. 
+	\item compare effect of taul on emissions and growth to effect of tauf
+	\item what is the effect of taul on sn? Sn should rise when labor becomes more expensive and hence non-energy goods
+	\item compositional effect of taul on GFF is small (if not negligible) and reduces with endogenous growth. \ar why does endogenous growth not intensify reduction in GFF?
+	\item research in levels does not react to lower labor supply, the effect is absorbed by a smaller wage rate which researchers accept 
+\end{itemize}
+\end{document}

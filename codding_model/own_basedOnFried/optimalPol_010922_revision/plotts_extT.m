@@ -60,7 +60,7 @@ OTHERPOL_xgr_nsk={};
 
 % baseline results 
 for xgr=0:1
-for nsk =0:1
+for nsk =0
     indic.xgrowth=xgr;
     indic.noskill=nsk;
     %- sp solution independent of policy
@@ -69,10 +69,10 @@ for nsk =0:1
 %     sp_not=helper.sp_all';
 
 %- other results
-    for i=[0,1,4,5] % loop over policy versions
+    for i=[4,5] % loop over policy versions
         helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
         indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
-        sp_t=helper.sp_all';
+        sp_t=helper.sp_all_all(1:T,:)';
     
        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul0_countec%d_GovRev%d_etaa%.2f.mat', ...
             indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
@@ -80,13 +80,19 @@ for nsk =0:1
         
         helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',... 
             indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV,  plotts.sizeequ, plotts.GOV, etaa));
-        opt_not_notaus=helper.opt_all';
+        opt_not_notaus=helper.opt_all_all(1:T,:)';
         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', ... 
             indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-        opt_t_notaus=helper.opt_all';
+        opt_t_notaus=helper.opt_all_all(1:T,:)';
 
-        RES = containers.Map({'LF', 'OPT_T_NoTaus', 'OPT_NOT_NoTaus', 'SP_T'},...
-                                { LF, opt_t_notaus, opt_not_notaus, sp_t});
+        %- with externality 
+        %- RES without 
+        helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, i,indic.sep,weightext, indic.xgrowth,indic.PV,indic.sizeequ, plotts.GOV, etaa));
+        opt_t_ext=helper.opt_all(1:12,:)';
+
+        RES = containers.Map({'LF', 'OPT_T_NoTaus', 'OPT_NOT_NoTaus', 'SP_T', 'Ext'},...
+                                { LF, opt_t_notaus, opt_not_notaus, sp_t, opt_t_ext});
         %- add additional variables
         if xgr==0 && nsk==0
             OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
@@ -115,8 +121,16 @@ end
      helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
          indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
      opt_t_notaus=helper.opt_all';
-     RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
-                                 {opt_t_notaus, opt_not_notaus});
+     helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil1_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+        indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+     sp_t=helper.sp_all';
+    
+    helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+        indic.spillovers, indic.taus, plotts.nsk, plotts.regime_gov,indic.sep,weightext, plotts.xgr,indic.PV,indic.sizeequ, plotts.GOV, etaa));
+    opt_ext=helper.opt_all(1:12,:)';    
+     RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus', 'SP_T', 'Ext'},...
+                                 {opt_t_notaus, opt_not_notaus, sp_t, opt_ext});
+                             
      RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms, MOM);
     % no knowledge spillovers in benchmark
         helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_extern0_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
@@ -129,12 +143,6 @@ end
                                  {opt_t_notaus, opt_not_notaus});
      RES_bench_noknspil=add_vars(RES_bench_noknspil, list, params, indic, list.allvars, symms, MOM);
   
-% counetrfactual with optimal policy from no spill over plugged in benchmark model
-% 
-% helper=load(sprintf('COMPEquN_SIM_taufopt4_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-% test_all=helper.LF_COUNT';
-% RES_count_NKinBen=containers.Map({'all'},{test_all});
-% RES_count_NKinBen=add_vars(RES_count_NKinBen, list, params, indic, list.allvars, symms);
 
 %% Tables
 if plotts.table==1
@@ -609,28 +617,28 @@ if plotts.single_pol==1
   
 
     %- loop over economy versions
-    for i = ["OPT_T_NoTaus" "OPT_NOT_NoTaus"]% only plotting polcies separately
+    for i = ["OPT_T_NoTaus"]% only plotting polcies separately
         ii=string(i);
         allvars= RES(ii);
     fprintf('plotting %s',ii );
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-            if ll=="HH" && varr=="Emnet"
-                main=plot(time,allvars(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
-                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-                lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-
-            else
+%             if ll=="HH" && varr=="Emnet"
+%                 main=plot(time,allvars(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+%                 set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+%                 lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+%                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+% 
+%             else
                 main=plot(time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
                 set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
 
-            end
+%             end
            xticks(txx)
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
@@ -643,9 +651,9 @@ if plotts.single_pol==1
             ytickformat('%.2f')
             xticklabels(Year10)
             if indic.count_techgap==0
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date,  ii,varr , plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, plotts.sizeequ, plotts.GOV,   etaa);
+                path=sprintf('figures/all_%s/Single_periods%d_%s_%s_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date, T, ii,varr , plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, plotts.sizeequ, plotts.GOV,   etaa);
             else
-                path=sprintf('figures/all_%s/Single_%s_%s_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date,  ii, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV,plotts.sizeequ, plotts.GOV, etaa);
+                path=sprintf('figures/all_%s/Single_periods%d_%s_%s_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_countec_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date, T, ii, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.extern, indic.PV,plotts.sizeequ, plotts.GOV, etaa);
             end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -846,30 +854,35 @@ if plotts.compeff==1
 
     %- read in container of results
     RES=OTHERPOLL{plotts.regime_gov+1};
-    bb=1:length(OTHERPOLL);
-    bb=bb(bb~=plotts.regime_gov+1); % drop benchmark policy
+%     bb=1:length(OTHERPOLL);
+%     bb=bb(bb~=plotts.regime_gov+1); % drop benchmark policy
     
     for withlff=0
         lff=RES('LF');
-        eff= string({'SP_T', 'SP_NOT'});
-        opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+        eff= string({'SP_T'});
+        opt=string({'OPT_T_NoTaus'});
 
     for i =1:length(eff)
 
         ie=eff(i);
         io=opt(i);
         varl=varlist;
-
-         %- benchmark policy
-         allvars= RES(io);
-         allvarseff=RES(ie); 
+        allvarseff=RES(ie); 
 
      %- comparison         
-     for nt = 3% bb % loop over policy scenarios but benchmark
-        RES_help=OTHERPOLL{nt};
-        count=nt-1;
-        allvarsnotaul =RES_help(io);
-
+     if plotts.regime_gov==3
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        RESnt =OTHERPOLL{2+1}; % version without taul
+     elseif plotts.regime_gov == 0
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        RESnt =OTHERPOLL{1+1}; % version without taul 
+     elseif plotts.regime_gov == 4         
+        RES=OTHERPOLL{plotts.regime_gov+1};
+        RESnt =OTHERPOLL{5+1}; % version without taul
+     end
+        allvars= RES('OPT_T_NoTaus');
+        allvarsnt =RESnt('OPT_T_NoTaus');
+  
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
@@ -878,11 +891,11 @@ if plotts.compeff==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
            if withlff==1
-               main=plot(time, lff(find(varl==varr),1:T),  time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
+               main=plot(time, lff(find(varl==varr),1:T),  time,allvars(find(varl==varr),1:T), time,allvarsnt(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
                set(main,{'LineWidth'}, {1; 1.2; 1.2; 1},  {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {grrey; 'k'; orrange; 'b'} )   
            else
-               main=plot( time,allvars(find(varl==varr),1:T), time,allvarsnotaul(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
-               set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+               main=plot( time,allvars(find(varl==varr),1:T), time,allvarsnt(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
+               set(main,{'LineWidth'}, { 1.2; 1.2; 1},  {'LineStyle'},{'-'; '--'; ':'}, {'color'}, {'k'; 'k'; orrange} )   
            end
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -898,46 +911,20 @@ if plotts.compeff==1
            if lgdind==1
                if withlff==1
 
-                   if count ==0
-                        lgd=legend('laissez-faire', 'benchmark policy',  'integrated policy, with income tax', 'efficient','Interpreter', 'latex');
-                   elseif count ==1
-                        lgd=legend('laissez-faire', 'benchmark policy', 'integrated policy, no income tax',   'efficient', 'Interpreter', 'latex');
-                   elseif count ==2
-                        lgd=legend('laissez-faire', 'with income tax', 'without income tax', 'efficient',  'Interpreter', 'latex'); 
-                   elseif count==3
-                        lgd=legend('laissez-faire', 'benchmark policy', 'no redistribution, with income tax', 'efficient',  'Interpreter', 'latex');
-                   elseif count==4
-                        lgd=legend('laissez-faire', 'benchmark policy', 'lump-sum transfers, with income tax', 'efficient',  'Interpreter', 'latex');
-                   elseif count==5
-                        lgd=legend('laissez-faire',  'benchmark policy', 'lump-sum transfers, no income tax', 'efficient',  'Interpreter', 'latex');                        
-                   end
+                  lgd=legend('laissez-faire', 'with income tax', 'without income tax',  'social planner', 'Interpreter', 'latex');
                    
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                else
-                   if count ==0
-                        lgd=legend(  'benchmark policy', 'integrated policy, with income tax',  'efficient', 'Interpreter', 'latex');
-                   elseif count ==1
-                        lgd=legend( 'benchmark policy', 'integrated policy, no income tax', 'efficient',   'Interpreter', 'latex');
-                   elseif count ==2
-                        lgd=legend(  'with income tax', 'without income tax',  'efficient', 'Interpreter', 'latex'); 
-                   elseif count==3
-                        lgd=legend(  'benchmark policy', 'no redistribution, with income tax', 'efficient',  'Interpreter', 'latex');
-                   elseif count==4
-                        lgd=legend( 'benchmark policy', 'lump-sum transfers, with income tax',  'efficient', 'Interpreter', 'latex');
-                   elseif count==5
-                        lgd=legend( 'benchmark policy', 'lump-sum transfers, no income tax', 'efficient',  'Interpreter', 'latex');                        
-                   end
-                   
-                   
+                  lgd=legend( 'with income tax', 'without income tax',  'social planner', 'Interpreter', 'latex');
+                                 
                   set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
                end
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_benchregime%d_pol%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d_lff%d.png',date, varr, io, plotts.regime_gov, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa, lgdind, withlff);
+        path=sprintf('figures/all_%s/%s_CompEff%s_benchregime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d_lff%d.png',date, varr, io, plotts.regime_gov, indic.spillovers,indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         end
-      end
     end
     end
     end
@@ -1140,11 +1127,15 @@ if plotts.comp_OPT==1
         RES=OTHERPOLL{plotts.regime_gov+1};
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
+     if plotts.extern==0
         allvars= RES('OPT_T_NoTaus');
         allvarsnt =RESnt('OPT_T_NoTaus');
-        
+     elseif plotts.extern==1
+        allvars= RES('Ext');
+        allvarsnt =RESnt('Ext');
+     end
     %% 
-    for l ="Add"% keys(lisst) % loop over variable groups
+    for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1169,7 +1160,11 @@ if plotts.comp_OPT==1
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+           if indic.extern==0
+                path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+           else
+                path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_extern%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov,plotts.extern, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+           end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1192,8 +1187,14 @@ if plotts.comp_OPTPer==1
         RES=OTHERPOLL{plotts.regime_gov+1};
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
+     
+     if plotts.extern==0
         allvars= RES('OPT_T_NoTaus');
         allvarsnt =RESnt('OPT_T_NoTaus');
+     elseif plotts.extern==1
+        allvars= RES('Ext');
+        allvarsnt =RESnt('Ext');
+     end
         Perdif=100*(allvars-allvarsnt)./allvarsnt;
     %% 
     for l = keys(lisst) % loop over variable groups
@@ -1219,8 +1220,11 @@ if plotts.comp_OPTPer==1
 %               lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
 %               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
 %            end
-
-        path=sprintf('figures/all_%s/%s_OPT_COMPtaulPer_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+        if plotts.extern==0
+            path=sprintf('figures/all_%s/%s_OPT_COMPtaulPer_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+        elseif plotts.extern ==1
+             path=sprintf('figures/all_%s/%s_OPT_COMPtaulPer_regime%d_extern_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+        end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1277,8 +1281,10 @@ if plotts.comp_OPT_NK==1
      fprintf('plotting levels opt benchmark and no knowledge spillovers') 
 
         RES=OTHERPOLL{plotts.regime_gov+1};
-        allvars= RES('OPT_T_NoTaus');
-        allvarsNK =RES_noknspil('OPT_T_NoTaus');
+    for i={'Ext'} %{'OPT_T_NoTaus', 'SP_T'}
+            ii=string(i);
+        allvars= RES(ii);
+        allvarsNK =RES_noknspil(ii);
         
     %% 
     for l = keys(lisst) % loop over variable groups
@@ -1289,8 +1295,8 @@ if plotts.comp_OPT_NK==1
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
             
-            main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)),'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+           main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)),'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
            xticks(txx)
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
@@ -1302,15 +1308,16 @@ if plotts.comp_OPT_NK==1
             ytickformat('%.2f')
             xticklabels(Year10)
            if lgdind==1
-              lgd=legend('benchmark model', 'no knowledge spillovers',  'Interpreter', 'latex');
+              lgd=legend('with knowledge spillovers', 'no knowledge spillovers',  'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_KN_FullMod_sizeequ%d_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f_lgd%d.png',date, varr, plotts.sizeequ, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,plotts.GOV,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_%s_KN_FullMod_sizeequ%d_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f_lgd%d.png',date, varr, ii, plotts.sizeequ, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,plotts.GOV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         end
+    end
    end
 end
 %% comparison social planner and optimal policy benchmark

@@ -1,0 +1,378 @@
+\section{Quantitative results}\label{sec:res}
+
+In this section, I present and discuss the quantitative results.
+Subsection \ref{subsec:mr} depicts the optimal policy given the emission target. Subsection \ref{subsec:dis} discusses the results. In particular, I focus on understanding the role of income tax progressivity. %Finally, section \ref{sec:sens} will soon present a sensitivity analysis.
+
+
+\subsection{Main results}\label{subsec:mr}
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Policy }\label{fig:optPol}
+	\begin{minipage}[]{0.4\textwidth}
+		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
+	\begin{minipage}[]{0.4\textwidth}
+		\centering{\footnotesize{(b) Fossil tax, $\tau_{ft}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+\end{figure} 
+%\begin{figure}[h!!]
+%	\centering
+%	\caption{Optimal Policy }\label{fig:optPol}
+%	\begin{minipage}[]{0.4\textwidth}
+%		\centering{\footnotesize{(a) Income tax progressivity, $\tau_{lt}$}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN1_ineq0_etaa0.79.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{minipage}[]{0.4\textwidth}
+%		\centering{\footnotesize{(b) Fossil tax, $\tau_{ft}$ }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN1_ineq0_etaa0.79.png}
+%	\end{minipage}
+%\end{figure}
+
+To meet the IPCCs suggested emission target, the optimal income tax is progressive for all periods between 2030 and 2080; see panel (a) in figure \ref{fig:optPol}. As the emission target is less strict, between 2030 to 2045, optimal income tax progressivity is around $\tau_{lt}=0.04$. As the emission target jumps to net-zero emissions in 2050, optimal tax progressivity accelerates to above 0.08 and gradually increases in the subsequent years to around 0.09. This is approximately half the size found for the US in \cite{Heathcote2017OptimalFramework}: $\tau_{l}=0.181$. 
+In the period without emission target from 2020 to 2030, the optimal income tax is slightly regressive.
+
+Consider panel (b). The optimal fossil tax displays a similar step pattern as the income tax progressivity. From 2020 to the beginning of 2030, it is negative. It jumps to around 70\% as the emission target is to reduce emissions by 50\% relative to 2019 emissions. As the emission target rises  to net-zero emissions in 2050, the optimal tax on fossil sales is close to 90\%. 
+
+Figure \ref{fig:optAll} depicts the optimal allocation while meeting emission targets. Limiting emissions in line with the Paris Agreement is concomitant with both a reduction and recomposition of consumption and production over time. 
+
+Panel (a) shows consumption which reduces significantly when new emission limits become active, in 2030 and in 2050, but starting from the new low levels continues to grow. labour effort of both skill types also reduces visibly as stricter emission targets are enforced; panel (b). In contrast to consumption, hours worked for both types of labour decrease over time. In comparison to hours supplied by low-skilled workers, high-skilled workers reduce hours more; compare panel (c) which shows the ratio of hours worked by high to low skill workers. 
+
+The rise in consumption after each reduction is driven by technological progress in all sectors; compare panel (d) which shows growth rates by sector and as aggregate in per cent. 
+The green sector sees a rise in technological progress, the dashed black line, while growth in the fossil and the non-energy sector is positive, yet diminishing over time. Overall, aggregate growth is positive but decreasing; compare the grey dashed graph. 
+Summing up the last two paragraphs, the emission target is best achieved with more leisure at higher technology levels in all sectors. 
+
+Nevertheless, there would be potential for more growth which is forfeited to meet emission targets. This becomes apparent when looking at the allocation of scientists in panel (e). Again, there is a recomposition towards the green sector: while research in the non-energy and the fossil sector decrease over time, green research effort rises. Yet, overall, the amount of scientists reduces; compare the grey graph which depicts the sum of researchers across sectors. 
+Finally, labour input goods are also redirected towards the green sector; see panel (f). 
+
+%The recomposing aspect of the optimal policy is best underlined by looking at labour inputs and research. Panels (g) to (i) show the labour composite used in the distinct sectors. While labour input in the fossil sector reduces, it increases in the green sector. The economy recomposes its energy consumption towards green energy. The reductive aspect of the optimal policy, is highlighted by the reduction of non-energy labour input; panel (i). 
+%\begin{comment}
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal Allocation }\label{fig:optAll}
+	
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Hours worked }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_labour_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) High-to-low-skill ratio hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_hhhl_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\ (d) Technology growth}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Growth_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Scientists }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_Science_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(f) labour input}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SingleJointTOT_OPT_T_NoTaus_labourInp_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{(d) labour fossil sector}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Lf_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{(e) labour green}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Lg_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{(f) labour neutral}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_Ln_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%\end{minipage}
+\end{figure} 
+
+%\end{comment}
+
+
+\subsection{Discussion}\label{subsec:dis}
+To study the role of income tax progressivity, I compare the optimal policy and allocation in the full model to a  model where no labour income tax is available in subsection \ref{subsub:withwithout}. In section \ref{subsub:compeff}, I compare these figures to the allocation a social planner would choose.
+But first, I highlight the effect of government intervention relative to the business as usual policy in \ref{subsub:bau}. 
+
+\subsubsection{Business as usual}\label{subsub:bau}
+This subsection serves to underline that government intervention to satisfy emission targets is necessary. Compare figure \ref{fig:BAU}.  Without any change in government policy, emissions grow almost twice as big than the emission limit in the period 2030-2050 amounting to around 6 Gt. Net emissions increase gradually under business as usual reaching more than 6Gt in 2080. 
+As the economy grows, consumption and the high-to-low skill ratio of hours worked increase; compare the dashed orange graphs in panels (b) and (c), respectively. While the government implements a decreasing consumption pattern to meet emission targets, consumption is relatively higher for the first 30 years considered. The optimal policy becomes reductive relative to the BAU economy only once the net emission target falls to zero. In the BAU calibration income tax progressivity is fixed at $\tau_{lt}=0.181$ which is higher than the optimal policy to meet the emission target. This explains the increase in consumption and high-to-low skill supply under the constrained optimal policy. 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Emissions under Business as usual }\label{fig:BAU}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_BAU_Emnet_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) High-to-low skill ratio hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_BAUCompOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure} 
+
+
+\subsubsection{Comparison with and without income taxes}\label{subsub:withwithout}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to regime without income tax }\label{fig:Compno_taul_BN0}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Emnet_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Fossil tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_C_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) High skill hours worked }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_hh_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_hl_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Social welfare}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_SWF_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(g) labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Lf_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(h) labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Lg_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(i) labour non-energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Ln_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(j) Research fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sff_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(k) Green research}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sg_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(l) Non-energy research }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_sn_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{\ \\(m) Fossil output}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_F_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{\ \\(n) Green output}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_G_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{\ \\(o) Non-energy output}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_N_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%	\end{minipage}
+\end{figure} 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to regime without income tax }\label{fig:Compno_taul_prices}
+	\begin{minipage}[]{0.24\textwidth}
+		\centering{\footnotesize{(a) high skill wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/wh_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.24\textwidth}
+		\centering{\footnotesize{(b) Low skill wage}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/wl_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.24\textwidth}
+	\centering{\footnotesize{(c) High skill hours}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.24\textwidth}
+	\centering{\footnotesize{(d) Low skill hours}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure} 
+
+Figure  \ref{fig:Compno_taul_BN0} compares the allocation under the policy regime with income tax, the black solid lines, to the counterfactual regime without income tax, the orange dashed graphs. 
+The first thing to note is that a fossil tax suffices to meet the emission target: As shown by panel (a), net emissions are similar under both policy regimes. To achieve this level of emissions, the optimal fossil tax is slightly higher absent an income tax from 2030 onwards; compare panel (b).
+
+% how labour income tax contributes to meeting the target
+The advantage from relying on labour income taxes to meet the emission target stems from a higher utility from leisure. Less time spent working, especially for high-skilled workers,  outweighs lower consumption levels; compare panels (c) to (e). In fact, the rise in social welfare arises from the periods with  emission targets, especially under the net-zero emission limit, as shown by panel (f) which compares social welfare levels across policy regimes. A comparison of welfare measured in present value  shows that using income taxes amounts to a welfare gain of 0.1\% over the period from 2020 to 2080.
+
+Hence, households work too high hours absent an income tax. % The higher hours worked do not translate into a sufficient rise in consumption which would outweigh the disutility from labour since fossil output is constrained. 
+As green energy is not a perfect substitute for fossil energy and, in addition, energy and non-energy goods are complements, the cap on fossil output prevents a rise in final production which would compensate the additional hours worked. 
+Panels (g) to (l) compare labour and research effort for the three different sectors. labour and research input in the fossil sector remain unchanged to meet emission targets irrespective of the availability of an income tax, compare panels (g) and (j). Higher hours worked result in too high labour effort and research in the green and non-energy sector. In other words, there are utility gains from reducing productivity growth in exchange for more leisure time.
+
+Income taxes can be used to boost research through a labour supply channel: By subsidising labour supply production increases rendering research more profitable. When the government does not care about emissions, it optimally implements a regressive tax to boost research; compare panel (a) in figure \ref{fig:Compno_eff_BN0_notarget} in the appendix. %This market size effect might make more growth infeasible as it is intensified by higher labour supply.\footnote{\ It might be the case that due to the positive correlation of growth and labour supply, the emission target requires a stronger reduction in an endogenous growth model than in an exogenous one. % investigate this in the literature This finding would be in difference to the result in \cite{Fried2018ClimateAnalysis}, who finds that a lower corrective tax suffices to meet en exogenous emission target as market mechanisms boost green innovation.} 
+
+
+%Although consumption rises due to the higher work effort when there is no income tax, the gains from labour effort are diminished due to the cap on fossil energy. Since green and fossil energy are no perfect substitutes, the economy cannot profit as much from the rise in green energy. HYPOTHESIS: WITH ENERGY SOURCES BEING BETTER COMPLEMENTS, WORK EFFORTS WOULD BE MORE FRUITEFUL. The muted effect of green energy on total energy output is intensified when considering total output where input goods are complements. 
+%\begin{figure}
+%
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{\ \\(p) Energy output}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_E_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%\end{minipage}
+%\begin{minipage}[]{0.32\textwidth}
+%	\centering{\footnotesize{\ \\(q) Final output}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/comp_notaul_OPT_T_NoTaus_Y_spillover0_sep1_BN0_ineq0_etaa0.79.png}
+%\end{minipage}
+%\end{figure}
+ 
+\subsubsection{Comparison to social planner allocation}\label{subsub:compeff}
+
+
+In figure \ref{fig:Compno_eff_BN0}, I contrast the optimal allocation under the regime with income tax, the blue dashed lines, and without income tax, the orange dotted graph, to the efficient allocation  a social planner would choose, the black solid graph. 
+Without income tax, the Ramsey planner matches the low and high skill ratio a social planner would choose in all periods; compare panel (a). Yet, both skills are supplied in too high amounts in periods with emission target; as shown by panels (b) and (c). The gap widens, the stricter the target. 
+
+Reverting to an income tax allows the Ramsey planner to close this gap by reducing hours supplied. This, however, comes at the cost of inefficiently low relative supply of high skill labour; panel (a). When the emission target becomes active in 2030, the optimal supply of high-skilled labour falls below the efficient level while the supply of low-skill labour is inefficiently high. The reason is that the response of high-skilled labour to the income tax is more pronounced than that of low-skilled labour due to the skill premium. While income tax progressivity affects the supply of both skills equivalently through an income effect, the substitution effect is more pronounced for high-skill workers.
+
+Interestingly, with an income tax, the supply of both skills is inefficiently high when there is no emission target although levels closer to the efficient allocation would be attainable at zero tax progressivity. Yet, as a result of higher work effort, consumption is closer to the efficient level in the world with income taxes; see panel (d).
+
+Despite the lower work effort until 2050, the efficient allocation implies higher consumption levels for all years considered, panel (c). More consumption is caused by a higher technology levels under the social planner; see panels (e) to (g) in all sectors.\footnote{\ The abrupt reduction in skill effort under the social planner could be driven by the missing continuation value in the social and Ramsey planner problem. }
+
+Looking at labour input, panels (j) to (l), and research, panels (h) to (i), highlights that in the optimal allocation with income taxation the planner forfeits an efficient rise in growth in order to align leisure time closer to the efficient level. As noted earlier, the muted effect on growth due to the cap on fossil energy makes additional work efforts too costly. 
+%Panel (h) depicts the ratio of scientists employed in the green relative to the fossil sector. In all planner versions considered, the ratio increases as the emission target becomes stricter. It is remarkably that the social planner chooses a lower ratio of green to fossil scientists compared to the Ramsey planner. This picture underlines that work and research effort in the green and neutral sector under the optimal policy are too high despite an arguably emission-reducing compostition as shown by panels (i) and (k). 
+
+In sum, the social planner meets the emission target at higher technology levels and generally lower hours worked. This allocation is not attainable for the Ramsey planner as a reduction in hours worked comes at a recomposition of skill supply. Furthermore, the government is not able to achieve efficient growth rates as both machine producers and scientists do not internalise the social value of research.  One way to increase research would be through higher labour effort. Yet, the overall return to more hours worked is too low given the cap on fossil energy. 
+%If it would, hours worked would increase as the marginal product of labour rises. However, higher work effort at higher productivity would violate the emission target. 
+%(WITH ONE SKILL THE RAMSEY PLANNER SHOULD BE ABLE TO MEET SAME WORK ALLOCATION... OR IS THE TRADE OFF (A) HOUSEHOLDS WORK LESS \ar (B) LOWER RESEARCH INPUT \ar Compare to version without endogenous growth (say gov can choose technology level within a range)!)
+
+% IDEA: study how the Ramsey planner achieves emission target when having to accept efficient growth levels!
+ 
+ %IDEQ2: Interpretation: we cannot grow more because households would work too much. WRONG as in this specification work effort is independent of technology growth. But instead: More work effort would be needed to foster more research but this would violate the emission target!
+ 
+%\subsubsection{Role of skill heterogeneity}
+\begin{figure}[h!!]
+	\centering
+	\caption{Comparison to efficient allocation }\label{fig:Compno_eff_BN0}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High to low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hhhl_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low skill hours worked}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e)  Technology fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Af_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{\ \\(f) Technology green}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ag_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(g) Technology neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/An_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(h) Green scientists}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sg_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{\ \\(i) Fossil scientists}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{\ \\(h) Scientists fossil}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sff_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+%	\end{minipage}
+%	\begin{minipage}[]{0.32\textwidth}
+%		\centering{\footnotesize{\ \\(i) Scientists neutral}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/sn_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+%	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(j) labour green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lg_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(k) labour fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Lf_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(l) labour neutral}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Ln_CompEffOPT_T_NoTaus_spillover0_sep1_BN0_ineq0_red0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure}
+%\subsection{Sensitivity}\label{sec:sens}

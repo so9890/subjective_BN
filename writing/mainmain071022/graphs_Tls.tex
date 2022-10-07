@@ -1,0 +1,926 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{The Importance of Fiscal Policies to the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Costs and benefits of progressive income taxes % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
+	}\label{fig:optAll_percLf_dyn}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDynNT_Target_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High-skill hours worked\\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_PercentageLFDynNT_Target_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low-skill hours worked\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_PercentageLFDynNT_Target_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Carbon tax per ton of carbon in 2022 US\$  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ The figure shows the percentage deviation of the allocation resulting under the integrated policy, that is, the progressivity of the income tax can be chosen (the black solid graph), the optimal allocation in the separate regime when no progressive income tax is available (the gray dashed graph), and the efficient allocation (the orange dotted graph), relative to the laissez-faire allocation. 
+			Panel (d) shows aggregate growth where the variable value in $t$ refers to the growth rate from  period $t$ to period $t+1$. Hence, from 2045 to 2050 growth reduces significantly, since in 2050 the net emission limit has to be satisfied. Panel (f) shows the level of the carbon tax under the two policy regimes considered.
+}}
+\end{figure} 
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Costs and benefits of progressive income taxes % \tr{plot: consumption, hours worked, growth rates 2 points: a) more leisure, 2) more growth} 
+	}\label{fig:optAll_percLf_dyn}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDynNT_Target_regime4_spillover0_noskill1_sep0_xgrowth1_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) High-skill hours worked\\ \  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_PercentageLFDynNT_Target_regime4_spillover0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Low-skill hours worked\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_PercentageLFDynNT_Target_regime4_spillover0_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(d) Fossil growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_PercentageLFDynNT_noeff_Target_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(e) Non-energy growth\\ \ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_PercentageLFDynNT_noeff_Target_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{\ \\(f) Carbon tax per ton of carbon in 2022 US\$  }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ The figure shows the percentage deviation of the allocation resulting under the integrated policy, that is, the progressivity of the income tax can be chosen (the black solid graph), the optimal allocation in the separate regime when no progressive income tax is available (the gray dashed graph), and the efficient allocation (the orange dotted graph), relative to the laissez-faire allocation. 
+			Panel (d) shows aggregate growth where the variable value in $t$ refers to the growth rate from  period $t$ to period $t+1$. Hence, from 2045 to 2050 growth reduces significantly, since in 2050 the net emission limit has to be satisfied. Panel (f) shows the level of the carbon tax under the two policy regimes considered.
+	}}
+\end{figure} 
+
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers, exogenous growth, homo skill
+	}\label{fig:opt_TLs_noknow_exg}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, with knowledge spillovers, exogenous growth, hom
+	}\label{fig:opt_TLs_noknow_hom}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth1_PV1_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_etaa0.79.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers, endogenous growth, hom
+	}\label{fig:opt_TLs_noknow_hom}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(f) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers, endogenous growth, hetero
+	}\label{fig:opt_TLs_noknow_hetero}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(g) GFF }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy with lump-sum transfers, no knowledge spillovers, endogenous growth, hetero
+	}\label{fig:opt_TLs_know_hetero}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) GFF }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(g) C }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+
+\clearpage
+\subsection{Externality in utility function no emission limit}
+\begin{figure}[h!!!]
+	\centering
+	\caption{Externality! Optimal policy with lump-sum transfers, with knowledge spillovers, endogenous growth, hetero
+	}\label{fig:opt_TLs_know_hetero_ext}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_Ext_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_extern1_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_extern1_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) GFF }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) C }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_COMPtaulPer_regime4_extern_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+\clearpage
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Externality! Optimal policy with lump-sum transfers, no knowledge spillovers, endogenous growth, hetero
+	}\label{fig:opt_TLs_noknow_hetero_ext}
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_Ext_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Carbon tax}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Fossil growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Green growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(e) Non-energy growth }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(f) Period utility }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) GFF }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(g) C }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_COMPtaulPer_regime4_extern_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{minipage}
+	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+\end{figure} 
+
+\clearpage
+\subsection{Comparison to social planner allocation: WITH heterogeneous skills:}
+\begin{figure}[h!!!]
+	\centering
+	\caption{Comparison to social planner; exogenous growth, heterogeneous skills, no knowledge spillovers}\label{fig:CompEff_TLs_noknow_hetero}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) scientists green}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) scientists fossil }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) scientists non-energy }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\end{figure} 
+
+\clearpage
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Comparison to social planner; endogenous growth, heterogeneous skills, no knowledge spillovers}\label{fig:CompEff_TLs_endogr_hetero}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) scientists green}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) scientists fossil }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) scientists non-energy }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+\end{minipage}
+\end{figure} 
+
+\clearpage
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Comparison to social planner; exogenous growth, heterogeneous skills, no knowledge spillovers}\label{fig:CompEff_TLs_endogr_hetero}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) scientists fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) scientists non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil1_noskill0_sep0_xgrowth1_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure} 
+\clearpage
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Comparison to social planner; endogenous growth, heterogeneous skills, with knowledge spillovers}\label{fig:CompEff_TLs_endogr_hetero_withkn}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) scientists fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) scientists non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_CompEffOPT_T_NoTaus_benchregime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0_lff0.png}
+	\end{minipage}
+\end{figure} 
+
+
+\clearpage
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Sp allocation with and without kn}\label{fig:CompEff_KN}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) scientists fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) scientists non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) growth green}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(c) growth fossil }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) growth non-energy }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(d) EY }}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) LgLf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/LgLf_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(d) S}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/S_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure} 
+
+
+\clearpage
+\begin{figure}[h!!!]
+	\centering
+	\caption{OPT with income tax allocation with and without kn}\label{fig:CompEff_KN}		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Labor Income Tax Progressivity}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}
+		\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{Carbon Tax }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) scientists fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) scientists non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) growth fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) EY }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/LgLf_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) S}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/S_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure} 
+
+\clearpage
+
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Sp allocation with and without kn exogenous growth}\label{fig:CompEff_KN_xgr}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{High skill labor }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) Low skill labor}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) Period welfare }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) scientists green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) scientists fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) scientists non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(b) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(c) growth fossil }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) growth non-energy }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) EY }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) LgLf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/LgLf_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(d) S}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/S_SP_T_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth1_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{minipage}
+\end{figure} 
+\end{document}

@@ -371,7 +371,7 @@ sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.sizeequ=0;
-indic.noknow_spill=1;
+indic.noknow_spill=0;
 indic.sep=0; % Has to be equal to loaded parameters!!!
 count=30;
 Tinit=T;
@@ -405,20 +405,20 @@ end
 
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =0;
-indic.extern=0;
+indic.extern=1;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=1;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 
-for tr =1
+for tr =0
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[1]
+ for nnt=[4]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -672,7 +672,7 @@ plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau                      = 0; % do plot bau comparison
-plotts.lf                       = 1; % comparison to laissez faire allocation in levels
+plotts.lf                       = 0; % comparison to laissez faire allocation in levels
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
@@ -682,7 +682,7 @@ plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
 plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
-plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -697,17 +697,18 @@ plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
-for rr= [0,4]
+for rr= [4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
 for xgr =0
     for nsk=0
-        for nknk=0
-            
+        for nknk=0:1
+            T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
 plotts.GOV =0;
+plotts.extern =1;
 indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
 
 plotts

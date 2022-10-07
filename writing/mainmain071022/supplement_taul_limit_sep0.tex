@@ -1,0 +1,1022 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{The Importance of Fiscal Policies to the Optimal Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+	\vspace{1mm}
+	%Preliminary and incomplete\\
+	%First version: January 9, 2022\\
+	This version: \today }
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+
+\section{Effect of taul on necessary taul and allocation: Is there potentially some advantage of taul above tauf}
+
+\ar compare models with same limit with and without taul
+\subsection{Baseline model}
+\begin{figure}[h!!]
+	\centering
+	\caption{Baseline model comparison allocation}\label{fig:Leveltauf_nsk0_xgr0_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) tauf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_tauf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) high skill hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) low skill hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) consumption}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) growth fossil}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) growth non-energy}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) growth green}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a)SWF}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_SWF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+\end{minipage}	
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk0_xgr0_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_tauf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) High skill hours}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Low skill hours}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Consumption }}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) sff}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) sg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+	\centering{\footnotesize{(a) sn}}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) gAf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) gAg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) gAn}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Lf}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Lg}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) Ln}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Ln_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}			
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) GFF}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) EY}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk0_xgr02}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_N_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) G}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}	
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(a) F}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}		
+\begin{minipage}[]{0.32\textwidth}
+\centering{\footnotesize{(b) Emissions}}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+\end{minipage}
+\end{figure}
+Under the joint policy, fossil research and non-energy research is higher. The reason is that the lower fossil tax allows for a higher fossil share in energy production so that fossil research is more profitable (the impact of he progressive income tax on fossil research is small but positive. Fossil research increases because the fossil labor good becomes relatively cheaper than the green one and energy producers increase their share of fossil goods. This makes fossil research more attractive. ) The reduction in green research is driven by the lower fossil tax (the progressive labor tax raises green research ). Over time, the difference to the policy regime without taul vanishes because the corrective taxes converge. The convergence becomes necessary as knowledge spillovers boost fossil production. 
+
+Under the policy with progressive income tax scheme, higher growth rates in all sectors are achieved (in the green sector after some time). Especially growth in the fossil sector increases but also in the non-energy sector. 
+%Yet, in the non-energy sector growth rate becomes smaller despite the lower fossil tax due to the progressive income tax which makes the energy good more expensive thereby directing research to the energy sector. 
+Green growth deviates first negatively as less research is directed to the green sector when the lower fossil tax decreases the market size of green energy. However, \textbf{knowledge spillovers make the green sector profit from higher growth rates in the non-energy and fossil sector so that eventually the economy can profit from more green growth despite a lower fossil tax and lower research.} 
+
+The green to fossil ratio decreases and the energy share rises under the joint policy. This could speak for a lower labor income tax to be optimal. 
+Also consumption is lower. 
+
+
+\clearpage \newpage
+\subsection{No knowledge spillovers}
+\begin{figure}[h!!]
+	\centering
+	\caption{Baseline model no knowledge spillovers comparison allocation}\label{fig:Leveltauf_nsk1_xgr0_noknow_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_tauf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) high skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hh_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hl_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_C_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth non-energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+\end{figure}
+
+Without knowledge spillovers, the necessary fossil tax is almost only half as big as in the model with knowledge spillovers. 
+The differences between the required fossil tax seems largely unaffected by knowledge spillovers. \textit{Is it unequal capital shares which makes reduction in fossil tax less required?} 
+Without knowledge spillovers, the gains from taul in terms of more research vanish: sff increases less. Without knowledge spillovers, green research reduces more under the joint policy (driven by the smaller fossil tax.) And eventually non.energy research becomes lower under the joint policy. Without knowledge spillovers green growth is smaller under the joint policy. Without knowledge spillovers the reduction in the green to fossil ratio is stronger ((1) taul affects the ratio more negatively, and (2) a reduction in taul has a stronger effect on GF through less green growth)
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model no knowledge spills comparison allocation}\label{fig:Pertauf_nsk0_xgr0_noknow}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_tauf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hh_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hl_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_C_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sff}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sff_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Ln_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}			
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_GFF_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+ even absent knowledge spillovers, growth in the non-energy sector is higher \tr{in the first periods considered under the joint policy. However, it becomes negative bcs the progressive income tax on top of the high fossil tax directs research to the more expensive energy sector. \ar It depends whether the reduction in levels through the progressive income tax suffices to reduce the fossil tax enough (despite the higher green to fossil ratio) so that the economy can profit from higher technology growth while meeting the emission limit.}
+ \ar knowledge spillovers intensify the gains from progressive income taxation as an environmental policy tool. 
+ 
+ Furthermore, knowledge spillovers allow to meet the emission limit by a lower fossil tax! (BUT only small difference) Even though knowledge spillovers make an increasing fossil tax necessary, they also render the progressive income tax more adequate to lower emissions. Or better: they reduce the adverse compositional effect of a progressive income tax, since growth in fossil means more  growth in green energy and the compositional effect diminishes (CHECK THIS: compare effect taul in model with knwoledge spills versus no knowledge spillovers \ar indeed: with knowledge spillovers green output reduces less than without knowledge spillovers; plus the effect diminishes over time due to the standing on the shoulder of giants effect.) When the green good is cheaper there is also a lower fossil ratio. The adverse effect of the progressive income tax on the green to fossil energy ratio reduces. Indeed, absent knowledge spillovers there is a stronger negative deviation in the scenario with progressive income tax than in the model with knowledge spillovers even though the fossil tax is closer to the fossil tax in the model without progressive income tax. 
+\tr{ \ar knowledge spillovers mitigate the negative compositional effect of taul yet the positive effect of higher growth in green and non-energy on fossil technology keeps growth in this sector high \ar more fossil therefore, the fossil tax has to increase over time. It reduces over time in the model without knowledge spillovers}
+
+\paragraph{Pros and Cons of Knowledge spillovers:}
+Pros: they allow to profit from growth in fossil sector \ar a combination of taul and tauf reaches higher growth rates also in the green sector. 
+Cons: They keep growth in the fossil sector high and an increasing path of tauf is required. 
+ 
+ The energy share is higher under the joint policy
+ Absent knowledge spillovers, growth in the green sector is always lower when the income tax scheme is progressive. 
+ 
+Green to fossil ratio reduces more in model without knowledge spillovers under the joint policy due to smaller growth in green sector. 
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model no knowledge spills comparison allocation}\label{fig:Pertauf_nsk0_xgr0_noknow2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_N_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) G}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_G_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) F}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_F_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+\clearpage 
+\newpage
+\subsection{Equal capital shares}
+With equal capital shares the necessary fossil tax halfs. The supply side effect of more available input to the green sector contributes to raising green energy share.
+
+When capital shares are equal, the necessary fossil tax reduces much less than with heterogeneous capital shares. The reason is
+
+
+With equal capital shares non-energy growth and green growth is higher under the joint policy. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Baseline model but equal labor shares; comparison allocation}\label{fig:Leveltauf_nsk1_xgr0_noknow_equallab_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_tauf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) high skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth non-energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Equlab_Reg0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+\end{figure}
+When the green sector has a smaller labor share, the reduction in high-skill supply is less costly to green production and green output is affected less by income tax progressivity. This should keep green growth higher when comparing a scenario with and without progressive income tax. Hence, the effect of taul on the green to fossil ratio is mitigated when the green sector has a smaller labor share. 
+
+On the other hand, a smaller labor share of the green sector lets green production profit less from the increase in labor supply and a higher fossil tax is required. With the same fossil tax the green to fossil ratio increases less when capital shares are heterogeneous. \ar BUt this effect shapes the level in both the with and without taul scenario.\textbf{  
+When capital shares are equal, tauf is closer to the fossil tax absent a progressive income tax because taul is more devastating!}
+
+Overall, a higher tauf is required because of a more devastating effect of taul on the green to fossil ratio when capital shares are equal. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model equal capital shares comparison allocation}\label{fig:Pertauf_nsk0_xgr0_equal}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_tauf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_hh_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_hl_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_C_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sff}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sff_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAn_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Lf_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Lg_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Ln_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}			
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_GFF_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_EY_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model equal cap comparison allocation}\label{fig:Pertauf_nsk0_xgr0_eqaul}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_N_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) G}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_G_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) F}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_F_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+\clearpage \newpage
+\subsection{Homogeneous skills}
+
+
+In levels, tauf is higher because the supply of fossil input good is higher. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Baseline model but homogeneous skills comparison allocation}\label{fig:Leveltauf_nsk1_xgr0_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_tauf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a)  hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth non-energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+\end{figure}
+Labor tax progressivity only has a reductive effect, and there should be  a stronger reduction in tauf possible. BUT the reduction in tauf is smaller bcs labor supply from household side does not respond, while it responds in the model with heterogenous skills raising the high to low skill ratio. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk1_xgr0_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_tauf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hh_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hl_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_C_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sff}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sff_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAn_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lf_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lg_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Ln_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}			
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_GFF_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_EY_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk1_xgr02}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_N_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) G}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_G_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) F}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_F_spillover0_nsk1_xgr0_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+
+\clearpage \newpage
+
+\subsection{Exogenous growth}
+\begin{figure}[h!!]
+	\centering
+	\caption{Baseline model comparison allocation}\label{fig:Leveltauf_nsk0_xgr1_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Net emissions}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_Emnet_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_tauf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) high skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) consumption}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth fossil}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth non-energy}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) growth green}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTauf_bytaul_Reg0_gAg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{minipage}	
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk0_xgr1_notaul}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_tauf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hh_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_hl_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_C_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sff}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sff_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_sn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_gAn_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lf_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Lg_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_Ln_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}			
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_GFF_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_EY_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model comparison allocation}\label{fig:Pertauf_nsk0_xgr12}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_N_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) G}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_G_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) F}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Reg0_F_spillover0_nsk0_xgr1_knspil0_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+
+\clearpage \newpage
+\subsection{No knowledge spills and equal capital shares}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model no knowledge spills comparison allocation}\label{fig:Pertauf_nsk0_xgr0_noknow}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Tauf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_tauf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) High skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_hh_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Low skill hours}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_hl_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Consumption }}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_C_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sff}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sff_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) sn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_sn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) gAn}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_gAn_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lf}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Lf_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Lg}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Lg_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) Ln}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_Ln_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}			
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) GFF}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_GFF_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}		
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) EY}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_EY_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+even absent knowledge spillovers, growth in the non-energy sector is higher \tr{in the first periods considered under the joint policy. However, it becomes negative earlier bcs the progressive income tax on top of the high fossil tax directs research to the more expensive energy sector. \ar It depends whether the reduction in levels through the progressive income tax suffices to reduce the fossil tax enough (despite the higher green to fossil ratio) so that the economy can profit from higher technology growth while meeting the emission limit.}
+\ar knowledge spillovers intensify the gains from progressive income taxation as an environmental policy tool. 
+
+Furthermore, knowledge spillovers allow to meet the emission limit by a lower fossil tax! Even though knowledge spillovers make an increasing fossil tax necessary, they also render the progressive income tax more adequate to lower emissions. Or better: they reduce the adverse compositional effect of a progressive income tax, since growth in fossil means more  growth in green energy and the compositional effect diminishes (CHECK THIS: compare effect taul in model with knwoledge spills versus no knowledge spillovers \ar indeed: with knowledge spillovers green output reduces less than without knowledge spillovers; plus the effect diminishes over time due to the standing on the shoulder of giants effect.) When the green good is cheaper there is also a lower fossil ratio. The adverse effect of the progressive income tax on the green to fossil energy ratio reduces. Indeed, absent knowledge spillovers there is a stronger negative deviation in the scenario with progressive income tax than in the model with knowledge spillovers even though the fossil tax is closer to the fossil tax in the model without progressive income tax. 
+\tr{ \ar knowledge spillovers mitigate the negative compositional effect of taul and therefore allow for an even lower fossil tax}
+
+The energy share is higher initially under the joint policy, but it becomes lower over time when there are no knowledge spillovers. 
+
+Absent knowledge spillovers, growth in the green sector is always lower when the income tax scheme is progressive. 
+
+stronger deviation in green to fossil despite smaller gap between fossil taxes. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Percentage difference of policies: Baseline model no knowledge spills comparison allocation}\label{fig:Pertauf_nsk0_xgr0_noknow2}
+	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) N}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_N_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) G}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_G_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+	\begin{minipage}[]{0.32\textwidth}
+		\centering{\footnotesize{(a) F}}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CompTaufPER_bytaul_Equlab_Reg0_F_spillover0_nsk0_xgr0_knspil1_sep0_LFlimit1_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{minipage}	
+\end{figure}
+\end{document}

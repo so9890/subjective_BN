@@ -1,11 +1,8 @@
-function [symms, list, sp_all]=SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
+function [symms, list, sp_all]=SP_solve_extT(list, symms, params, count, init201519, indic, T, Ems, MOM, percon)
 
 % pars
 read_in_params;
-T=Tinit+count;
 
-Ems=[Ems,zeros(1,count)];
-Ftarget =  (Ems+deltaa)/omegaa;
 % function to find social planner allocation 
 syms hhf hhg hhn hlf hlg hln xn xf xg An Af Ag C Ch Cl hh hl F sff sg sn Lg Ln h real
 if indic.noskill==0
@@ -13,6 +10,8 @@ if indic.noskill==0
 else
     symms.sp = [Lg Ln xn xf xg An Af Ag C h F sff sg sn];
 end
+
+Ftarget =  (Ems+deltaa)/omegaa;
 
 if indic.xgrowth==1
     if indic.noskill==0
@@ -32,9 +31,10 @@ nn= length(list.sp);
 %%
 if indic.target==0
     x0 = zeros(nn*T,1);
+%        helper=load(sprintf('SP_notarget_1008_spillover%d_knspil0_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep,indic.xgrowth, indic.PV, params(list.params=='etaa')));
 
-        helper=load(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-        sp_all=helper.opt_all_all;
+         helper=load(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+        sp_all=helper.opt_all;
             if indic.noskill==0
                 x0(T*(find(list.sp=='hhf')-1)+1:T*(find(list.sp=='hhf'))) =sp_all(1:T, list.allvars=='hhf'); % hhf; first period in LF is baseline
                 x0(T*(find(list.sp=='hhg')-1)+1:T*(find(list.sp=='hhg'))) =sp_all(1:T, list.allvars=='hhg'); % hhg
@@ -71,9 +71,10 @@ elseif indic.target==1
     
     x0 = zeros(nn*T,1);
        fprintf('using sp solution as initial value')
-       helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+      helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+%       helper= load(sprintf('SP_target_1008_spillover%d_knspil0_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1, indic.xgrowth, indic.PV, params(list.params=='etaa')));
 
-        sp_all=helper.opt_all_all;
+        sp_all=helper.opt_all;
         % with new emission target
         kappaa = [repmat(Ftarget(1),1, percon),Ftarget]./sp_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
         kappaa = kappaa*(1-1e-10);
@@ -170,9 +171,48 @@ else
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 end
 save('sp_target_nn0_nsk', 'x')
-%   ll=load('2609_SP_incaseoferror_noknowwithtar.mat')
-%  ll=load('2609_SP_incaseoferror_withknowtar.mat');
-%%
+%- add further periods
+    Emsnew=Ems;
+    Tinit=T;
+
+for cc=1:count        % number of additional periods
+    fprintf('number of iteration %d', cc)
+    indic
+        Told=T;
+        xold=x;
+
+        Emsnew=[Emsnew,0]; % add another net zero period to emissions limit
+        Ftarget =  (Emsnew'+deltaa)/omegaa;
+
+        % new number of explicit optimization periods
+        T=T+1;
+
+        if ~isfile((sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d.mat',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill)))
+
+        %- update initial values: add last period value as guess for new direct
+        % optimization period
+        x0 = zeros(nn*T,1);
+            for ll=list.sp
+                x0(T*(find(list.sp==ll)-1)+1:T*(find(list.sp==ll)))  = [xold(Told*(find(list.sp==ll)-1)+1:Told*(find(list.sp==ll)));xold(Told*(find(list.sp==ll)))]; 
+            end
+        %- optimization for new horizon
+       objfSP=@(x)objectiveSP(x,T,params, list, Ftarget', indic, initOPT, percon);
+       constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Emsnew, indic, percon, MOM);
+
+         options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+         [x,fval,exitflag,output,lambda] = fmincon(objfSP,x0,[],[],[],[],lb,ub,constfSP,options);
+         options = optimset('algorithm','active-set','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
+         save(sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
+        else
+         hhelper=load(sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x');
+         x=hhelper.x;
+        end
+end
+%% transform
+% helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
+% x=xsqp;
+T=Tinit+count;
 out_trans=exp(x);
 if indic.noskill==0
     out_trans((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)=upbarH./(1+exp(x((find(list.sp=='hl')-1)*T+1:find(list.sp=='hl')*T)));

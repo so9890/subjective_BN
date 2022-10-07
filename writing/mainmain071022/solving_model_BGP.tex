@@ -1,0 +1,34 @@
+\section{Guideline Computations}
+\begin{enumerate}
+	\item calibrate initial situation to data, using observed tax rates (this would be a competitive equilibrium with taxes as given)
+	\item find BGP; BGP exists when $c^*_s+c_n^*\geq \bar{c}$; that is optimal allocation without penalty satisfies basic needs; from this point onwards there are no reallocations across sectors and sectors grow at a constant rate, this is equivalent to the solution of the problem without penalty term \ar \textbf{Need to solve Ramsey problem for BGP absent penalty term}
+	Could also solve for the BGP in Ramsey model numerically: get model equations and set growth corrected variables to constant values\\
+	Follow \cite{Jones1993OptimalGrowth}:
+	\begin{enumerate}
+		\item fix assumed SS tax rates and transfers relative to output
+		\item calculate ss values of consumption/output, other variables relative to output (constant in ss)
+		\item make end corrections to Ramsey problem which is explicitly solved up to period T given the values from point 1 and 2 above
+		\item iterate until guess in 1 matches with solution for ss value 
+	\end{enumerate}
+end corrections are derived analytically.
+	\item for competitive equilibrium follow \cite{Acemoglu2008CapitalGrowth}: 
+	\begin{enumerate}
+		\item analytically or numerically calculate BGP values
+		\item initial values and parameters match to data (including tax rates and transfers)
+		\item use shooting (or relaxation) algorithm to find solution, i.e. sequence of allocations that solve two boundary value problem: shooting algorithm finds initial conditions that s.t. ss values are matched. 
+		\item proof uniqueness of transition path? 
+	\end{enumerate}
+	
+	they write \begin{quote}
+		The previous subsection demonstrated that there exists a unique CGP with  nonbalanced  sectoral  growth;  that  is,  there  is  aggregate  output growth at a constant rate together with differential sectoral growth and reallocation of factors of production across sectors. We now investigate whether the competitive equilibrium will approach the CGP. 
+	\end{quote} 
+\ar From where my economy starts today with calibrated ws, and taxes (a constant growth path), does it converge to a new constant growth path where ws is higher? 
+\item in my model growth rates of sectoral consumption are not constant over time! Households reallocate shares as they get richer
+\end{enumerate}
+
+Simple version without growth
+\begin{enumerate}
+	\item economy is in SS today, as households income does not change their consumption is fixed, period t=0
+	\item then in period t=1 ws rises (1)\ar what is the optimal policy when ws rises starting from calibrated tax rates; (2)\ar what is the new ss and how does the economy converge?
+	\item[\ar] I know initial and end conditions, the shock system is also known a priori, then use shooting or relaxation algorithm to calculate transition
+\end{enumerate}

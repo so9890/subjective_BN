@@ -229,13 +229,8 @@ else
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 end
-% if indic.noskill==0
-%  save('1008_SP_target_noskill')
-% else
-%      save('0308_SP_main_withtarget_newEms_as_xgr_nosk')
-% end
-%  gg=load('0308_SP_main_withtarget_newEms_as_xgr_nosk')
-%  x=gg.x;
+  save('1008_SP_target_noskill')
+
 %%
 out_trans=exp(x);
 if indic.noskill==0

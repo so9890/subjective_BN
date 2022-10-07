@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+\usepackage{etoolbox}
+\newif\ifabbreviation
+\pretocmd{\thebibliography}{\abbreviationfalse}{}{}
+\AtBeginDocument{\abbreviationtrue}
+\DeclareRobustCommand\acroauthor[2]{%
+	\ifabbreviation #2\else #1 (\mbox{#2})\fi}
+
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Labor Income Taxes and Effective Environmental Policy}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\author{Sonja Dobkowitz
+\thanks{\ {University of Bonn, sonja.dobkowitz@uni-bonn.de, \url{https://sonjadobkowitz.wordpress.com/}.} \newline
+	I am deeply grateful to my supervisors Keith Kuester, Pavel Brendler, and Farzad Saidi for their support and guidance. 
+	I would like to thank Philippe Aghion, Christian Bayer, Gregor Boehl, Thomas Hintermaier,  Moritz Kuhn, Katrin Millock, Hélène Ollivier,  Janosch Brenzel-Weiss, Rubén Domínguez-Díaz, Paul Schäfer, and Fabian Schmitz for helpful discussions and comments.  
+	I further thank participants at the PSE Summer School on Climate Change 2022, the RTG-2281 Retreat 2022, the Bonn Macro Lunch Seminar Winter 2021.
+	Financial support by the German Research Foundation (DFG) through RTG-2281 “The macroeconomics of inequality” is gratefully acknowledged.}}
+	%University of Bonn\\
+%Preliminary and incomplete\\
+%First version: January 9, 2022\\
+\date{\today %\\ \vspace{1mm} \small{Find the latest version  \href{https://sonjadobkowitz.wordpress.com/job-market-paper/}{here}}
+}
+\usepackage{graphicx,caption}
+%\usepackage{hyperref}
+\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
+\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+
+\begin{document}
+%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+	\begin{abstract}
+		\begin{singlespacing}
+			\textbf{Abstract \ }
+How should the US government optimally set the labor income tax and the carbon tax to fulfill a net-zero emission limit? I build an endogenous growth model in which an emission limit makes fossil energy socially costly. The optimal policy in the calibrated model is to reduce the carbon tax to profit from fossil research in the short run. Labor income taxes lower work effort to meet the emission limit. Once the net-zero emission limit binds, fossil research has to be reduced more and the carbon tax rises. A subsidy on labor stabilizes output. 
+%	\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
+			
+		\end{singlespacing}
+		
+		\end{abstract}
+%\tableofcontents
+\input{intro_impo_2}
+%\input{input_lit} %<- contains summaries of potentially relevant papers
+\input{model_ana_abs_impo}
+\input{impo_modeL_FinN}
+%\input{theory_DTC}<- potentially relevant stuff
+\input{calib_simple_fisc}
+\input{quant_res_impo_3}
+%\input{quant_res_modelfeatures}% <- analysis of optimality results with different model features
+\input{conclusion_simple_fisc}
+%\input{going_forward1208}
+\input{app2_impo}
+%\input{red_recomp_lit}
+%\input{appendix_fisc}<- Important notes on nature and on Balanced growth path in model based on fried
+%\input{solving_model_BGP}
+%-------------------------------------
+\clearpage
+\bibliography{../../../bib_2_0}
+\addcontentsline{toc}{section}{References}
+\end{document}
