@@ -2,7 +2,7 @@
 %\tr{Inflation data \url{/home/sonja/Documents/projects/subjective_BN/writing/mainmain}}
 
 
-For now, I calibrate the model to the US in the baseline period from 2015 to 2019. Using this calibration approach, it is not ensured that the economy is on a balanced growth path. However, the goal of this paper is to study necessary interventions to meet an absolute emission limit. Therefore, in contrast to a relative reduction objective, it is important whether the economy is transitioning, for example, to a balanced growth path with a higher fossil share. These transitions are relevant for the dynamic policy. 
+ I calibrate the model to the US in the baseline period from 2015 to 2019. Using this calibration approach, it is not ensured that the economy is on a balanced growth path. However, the goal of this paper is to study necessary interventions to meet an absolute emission limit. Therefore, in contrast to a relative reduction objective, it is important whether the economy is transitioning, for example, to a balanced growth path with a higher fossil share. These transitions are relevant for the dynamic policy. 
 %To differentiate model dynamics from policy effects, I take care to interpret results as deviations from the economy without policy intervention. 
 
 
@@ -16,7 +16,7 @@ The log-utility ensures that the scaling parameter of the government's budget do
 This simplifies the analysis. On the other hand, recent research has shown that substitution and income effects of the wage rate most likely do not cancel. \cite{Boppart2019LaborPerspectiveb} argue for a slightly higher income effect so that hours fall over time as productivity increases. I plan to conduct a sensitivity analysis by assuming the utility specification suggested by \cite{Boppart2019LaborPerspectiveb}. Most likely, the continuous rise in carbon taxation over time lowers the wage rate and labor supply increases. A lack of lump-sum rebates would most likely aggravate the inefficiency of hours worked. %Nevertheless, as shown in the analytical part for a general utility function, some reductive policy is required to implement the efficient allocation. But, compared to the laissez-faire scenario, hours will rise. 
 
 \paragraph{Parameter values}
-To calibrate the model, I proceed in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions hold. Third, I choose parameters relating production, emissions, and the emission limit. Tables \ref{tab:calib}, \ref{tab:calib2}, and \ref{tab:emlimit} summarize the calibrated parameter values.
+To calibrate the model, I proceed in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions hold. Third, I choose parameters relating production, emissions, and the emission limit. Tables \ref{tab:calib} and \ref{tab:emlimit} summarize the calibrated parameter values.
 
 In the first step, I mainly rely on \cite{Fried2018ClimateAnalysis} to calibrate the parameters governing research processes, $\eta, \rho_F,\rho_N, \rho_G, \phi $, and production, $\varepsilon_e, \varepsilon_y, \alpha_F, \alpha_G, \alpha_N$.  Important for the present project: the labor share in the green sector is remarkably low with $\alpha_G=0.91$. This diminishes the significance of labor supply for green innovation and production. Furthermore, fossil and green energy are no close substitutes with $\varepsilon_e=1.5$ so that the cap on fossil energy cannot be fully substituted for by green energy. The utility parameters, $\beta, \sigma$ are set to $0.984^5$ and $0.75^{-1}$ following \cite{Barrage2019OptimalPolicy} and \cite{Chetty2011AreMargins}, respectively. The business-as-usual policy is set to $\tau_\iota=0.181, \tau_F=0$, where I borrow the tax progressivity parameter from \cite{Heathcote2017OptimalFramework}. 
 %The period over which the government maximizes, T, is chosen to focus on the population living during the transition to the net-zero emission limit. 
@@ -35,8 +35,9 @@ In the second step, I calibrate the weight on energy in final good production by
  \begin{table}[h!]
  	\begin{center}
  		\captionsetup{width=0.9\textwidth}
- 		\caption{ Calibration baseline model: Households, Research and Production}
+ 		\caption{ Calibration baseline model}
  		\label{tab:calib}
+ 		\resizebox{5in}{!}{
  		\begin{tabular}{c|ll}
  			%			\hline \hline
  			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
@@ -60,11 +61,9 @@ In the second step, I calibrate the weight on energy in final good production by
  			
  			\hline
  			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$\\
- 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} & 0.12 \\
+ 			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} & 0.48 \\
  			$\eta$ & & 0.79 \\
- 			$\rho_F$ & & 0.01 \\
- 			$\rho_G$ &\makecell[l]{\cite{Fried2018ClimateAnalysis}} & 0.01 \\
- 			$\rho_N$ & & 1.00 \\
+ 			($\rho_F$,$\rho_G$,$\rho_N$) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}  & (0.01, 0.01, 1.00) \\
  			$\phi$ && 0.50 \\
  			$\gamma$ &\makecell[l]{maximum aggregate growth:\\4\% per annum} & 0.06\\
  			\hline
@@ -76,9 +75,7 @@ In the second step, I calibrate the weight on energy in final good production by
  			$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05\\			
  			$\delta_y$&\makecell[l]{expenditure share \\ on energy \citep{EIAEnergy}}&0.38\\	
  			$\varepsilon_e$&&1.50\\	
- 			$\alpha_F$&\cite{Fried2018ClimateAnalysis} &0.72\\
- 			$\alpha_G$& &0.91\\
- 			$\alpha_N$& &0.36 \\
+			($\alpha_F$, $\alpha_G$, $\alpha_N$)&\cite{Fried2018ClimateAnalysis} &(0.72, 0.91, 0.36)\\
  			%\hline
  			%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
  			\hline
@@ -87,43 +84,13 @@ In the second step, I calibrate the weight on energy in final good production by
  			\hline
  			
  			\hline
- 			$A_{F0}$&- &1840.60  \\
- 			$A_{G0}$&- &14.79  \\
- 			$A_{N0}$&- &5.24 \\
+ 			($A_{F0}$, $A_{G0}$, $A_{N0}$)&- &(1840.60, 14.79, 5.24)  \\
  			\hline \hline
- 		\end{tabular}
- 	\end{center}
- \end{table}
-
- 
- %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO$_2$ equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
- 
- % procedure
- Finally, I calibrate emissions and the emission limit. As discussed in the model section \ref{sec:model},  I consider CO$_2$ emissions only and abstract from other greenhouse gasses since carbon is the most important pollutant with the highest mitigation potential \citep[p.29]{IPCC2022}.
- %	 WG3 IPCC report (p.37) \textbf{\textit{The trajectory of future CO$_2$ emissions plays a critical role in mitigation, given CO$_2$ long-term impact and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO$_2$ greenhouse gas emissions less than CO$_2$ due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}.  
- 
- The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO$_2$ emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO$_2$ in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO$_2$ emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting the 1.5°C climate target.  Furthermore, the report stipulates a remaining global net CO$_2$ budget of 510 GtCO$_2$ ($\approx$ 510,000 million metric tons of CO$_2$) from 2020 to the net-zero phase starting from 2050 \citep[p.5, Chapter3,]{IPCC2022}. 
-To deduce emission limits for the US, further assumptions on the distribution of mitigation burdens have to be made. I follow \cite{RobiouDuPont2017EquitableGoals} who consider 5 distinct principles of distributive burden sharing. For now, I use an \textit{equal-per-capita} approach according to which emissions per capita shall be equalized across countries. 
-   
- \begin{table}[hh!!!!!]
- 	\begin{center}
- 		\captionsetup{width=0.9\textwidth}
- 		\caption{ Calibration baseline model: labor, government, and emissions}
- 		\label{tab:calib2}
- 		\begin{tabular}{c|ll}
- 			%			\hline \hline
- 			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
- 			\hline \hline
- 			Parameter& Target/Source& \makecell[l]{Calibration}\\ 
- 			\hline
- 			\hline
- 			Labor production&\multicolumn{2}{c}{}\\
+ 				Labor production&\multicolumn{2}{c}{}\\
  			\hline 
  			
  			\hline
- 			$\theta_F$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% \citep{Consoli2016DoCapital} }&0.42\\
- 			$\theta_G$&\makecell[l]{share of high skill\\ green occupations: \\40.71\% \citep{Consoli2016DoCapital}}&0.57 \\
- 			$\theta_N$&\makecell[l]{share of high skill\\ non-green occupations: \\27.55\% \citep{Consoli2016DoCapital} }&0.42\\
+ 			($\theta_F$,$\theta_G$,$\theta_N$)&\makecell[l]{share of high skill\\ non-green: \\27.55\%, green: 40.71\% \citep{Consoli2016DoCapital} }& (0.42, 0.57, 0.42)\\
  			\hline
  			\hline
  			Government&\multicolumn{2}{c}{}\\
@@ -142,8 +109,19 @@ To deduce emission limits for the US, further assumptions on the distribution of
  			$\omega$& \cite{EPAems}&217.3\\
  			\hline \hline
  		\end{tabular}
+ 	}
  	\end{center}
  \end{table}
+ 
+ %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO$_2$ equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
+ 
+ % procedure
+ Finally, I calibrate emissions and the emission limit. As discussed in the model section \ref{sec:model},  I consider CO$_2$ emissions only and abstract from other greenhouse gasses since carbon is the most important pollutant with the highest mitigation potential \citep[p.29]{IPCC2022}.
+ %	 WG3 IPCC report (p.37) \textbf{\textit{The trajectory of future CO$_2$ emissions plays a critical role in mitigation, given CO$_2$ long-term impact and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO$_2$ greenhouse gas emissions less than CO$_2$ due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}.  
+ 
+ The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO$_2$ emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO$_2$ in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO$_2$ emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting the 1.5°C climate target.  Furthermore, the report stipulates a remaining global net CO$_2$ budget of 510 GtCO$_2$ ($\approx$ 510,000 million metric tons of CO$_2$) from 2020 to the net-zero phase starting from 2050 \citep[p.5, Chapter3,]{IPCC2022}. 
+To deduce emission limits for the US, further assumptions on the distribution of mitigation burdens have to be made. I follow \cite{RobiouDuPont2017EquitableGoals} who consider 5 distinct principles of distributive burden sharing. For now, I use an \textit{equal-per-capita} approach according to which emissions per capita shall be equalized across countries. 
+
  
  % data
  %, 2022: Mitigation pathways compatible with long-term goals. In IPCC, 2022: Climate

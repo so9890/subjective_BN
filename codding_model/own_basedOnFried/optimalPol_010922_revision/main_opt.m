@@ -383,7 +383,7 @@ for xgr=0
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=1
+       for tar=0
             indic.target=tar;
             indic         
             SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)

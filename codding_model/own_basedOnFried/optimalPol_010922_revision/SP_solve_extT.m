@@ -170,7 +170,7 @@ else
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 end
-save('sp_target_nn0_nsk', 'x')
+load('sp_target_nn0_nsk', 'x')
 %- add further periods
     Emsnew=Ems;
     Tinit=T;
@@ -203,7 +203,7 @@ for cc=1:count        % number of additional periods
          [x,fval,exitflag,output,lambda] = fmincon(objfSP,x0,[],[],[],[],lb,ub,constfSP,options);
          options = optimset('algorithm','active-set','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 %         [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
-%          save(sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
+          save(sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
         else
          hhelper=load(sprintf('710_results_SP_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x');
          x=hhelper.x;
@@ -227,7 +227,7 @@ if indic.xgrowth==0
 end
 
 if indic.target==1
-    out_trans((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)=Ftarget'./(1+exp(x((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)));
+    out_trans((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)=Ftarget./(1+exp(x((find(list.sp=='F')-1)*T+1+percon:find(list.sp=='F')*T)));
 end
 
 %%

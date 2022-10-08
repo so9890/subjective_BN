@@ -1,6 +1,6 @@
 \section{Quantitative model and calibration}\label{sec:model}
 
-Section \ref{subsec:quantmod} builds the quantitative model which is calibrated in section \ref{subsec:calib}.
+Section \ref{subsec:quantmod} builds the quantitative model which is calibrated in Section \ref{subsec:calib}.
 
 \subsection{Quantitative model}\label{subsec:quantmod}
 %\tr{update scientists, and tauf}
@@ -25,7 +25,7 @@ Modeling the economy as a representative family allows to abstract from inequali
 \underset{C_{t}, h_{lt}, h_{ht}, S_t}{max}&
 u(C_{t}, h_{lt}, h_{ht}, S_t)\\
 s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{\iota t})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
-z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{\iota t}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{\iota t}},\\ %+T_t\\
+z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{\iota t}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{\iota t}}+T_{lst},\\
 \ & h_{ht}\leq \bar{H},\ \hspace{2mm} h_{lt}\leq \bar{H},\ \hspace{2mm}  S_{t}\leq \bar{H}
 \end{align}
 The government levies a non-linear tax on income at the skill level. 
@@ -145,7 +145,7 @@ In equilibrium, I require markets to clear. I explicitly model markets for skill
 z_h h_{ht}&=h_{hFt}+h_{hGt}+h_{hNt},\\
 (1-z_h) h_{lt}&=h_{lFt}+h_{lGt}+h_{lNt},\\
 S_t&=s_{Ft}+s_{Gt}+s_{Nt},\\
-C_t&=Y_t-\int_{0}^{1}x_{Fit}+x_{Git}+x_{Nit}di.  %-Gov_t.
+C_t&=Y_t-\int_{0}^{1}\left(x_{Fit}+x_{Git}+x_{Nit}\right)di.  %-Gov_t.
 \end{align*}
 %The government does not redistribute environmental tax revenues and instead consumes the final output good captured by $Gov_t$. 
 
@@ -161,10 +161,10 @@ s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0
 & (1)\ \omega F_{t} -\delta \leq \Omega_t % \ \hspace{3mm} \forall t \in\{0,T\}, 
 \\ %\hspace{3mm} \text{(emission target)}\\
 & (2)\ z_h\left(w_{ht}h_{ht}-\lambda_t \left(w_{ht}h_{ht}\right)^{1-\tau_{\iota t}}\right)+(1-z_h)\left(w_{lt}h_{lt}-\lambda_t\left(w_{lt}h_{lt}\right)^{1-\tau_{\iota t}}\right) \\
-& \hspace{5mm} +\sum_{J\in\{F,G,N\}}\left(\int_{0}^{I}\pi_{Jit}di-\zeta_{Jt}\int_{0}^{I}p_{Jixt}x_{Jit}di+w_{st}s_{Jt}\right) + \tau_{Ft}F_{t}= 0\\ %\ \hspace{3mm} \forall \ t\in\{0,T\}, \\
-%& (3)\ \upsilon_{ct}+\upsilon_{dt}\leq\Upsilon\  \forall \ t\geq 0\\
-& (3)\ \text{behavior of firms and households}\\
-& (4)\ \text{feasibility}
+& \hspace{5mm} +\sum_{J\in\{F,G,N\}}\left(\int_{0}^{I}\pi_{Jit}di-\zeta_{Jt}\int_{0}^{I}p_{Jixt}x_{Jit}di+w_{st}s_{Jt}\right) = 0\\ %\ \hspace{3mm} \forall \ t\in\{0,T\}, \\
+& (3)\ \tau_{Ft}F_{t}=T_{ls}\\
+& (4)\ \text{behavior of firms and households}\\
+& (5)\ \text{feasibility}
 \end{align*}
 
 %- emission constraint
