@@ -32,6 +32,9 @@ for k = keys(RES)
     E = varrs(varlist=='E',:)';
     Y = varrs(varlist=='Y',:)';
     tauf = varrs(varlist=='tauf',:)';
+    taul = varrs(varlist=='taul',:)';
+    lambdaa = varrs(varlist=='lambdaa',:)';
+
     pf = varrs(varlist=='pf',:)';
     pee = varrs(varlist=='pee',:)';
     pg = varrs(varlist=='pg',:)';
@@ -89,6 +92,13 @@ gAf = [(Af(2:end)-Af(1:end-1))./Af(1:end-1);0]*100;
 % analytical measure of taul in integrated policy regime
 analyTaul = tauf.*pf.*F./Y;
 
+%- average tax rates 
+% dTaulHH dTaulHl: marginal tax rate
+% dTaulAv: average income weighted marginal tax rate
+
+dTaulHh = (1-(1-taul).*lambdaa.*(wh.*hh).^(-taul)).*100;
+dTaulHl = (1-(1-taul).*lambdaa.*(wl.*hl).^(-taul)).*100;
+dTaulAv = 1./(wl.*hl+wh.*hh).*(wh.*hh.*dTaulHh+wl.*hl.*dTaulHl);
 %- tauf in tons per C02
 
 tauf_CO2=tauf./omegaa;

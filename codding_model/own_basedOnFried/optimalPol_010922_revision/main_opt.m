@@ -237,7 +237,7 @@ etaa=params(list.params=='etaa');
 weightext=0.01;
 indic.GOV=0;
 indic.sep=0;
-plotts.regime=0;
+plotts.regime=5; % 5= lump sum transfers
 indic.sizeequ=0;
 indic
 
@@ -251,7 +251,7 @@ plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
 plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
-plotts.compTauf_PER             = 0;
+plotts.compTauf_PER             = 1;
 plotts.compTauf_PER_NK          = 0;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
@@ -260,7 +260,7 @@ plotts.LF_BAU_equlab            = 0;
 plotts.LF_BAU_PER_equlab        = 0;
 
 %- comparison policy regime
-plotts.compRed                  = 1;
+plotts.compRed                  = 0;
 plotts.compTaul_Red             = 0;
 plotts.compRed_TaulPer          = 0;
 
@@ -680,9 +680,9 @@ plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
+plotts.comp_OPT=    1; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
-plotts.comp_OPT_NK= 1; % laissez faire and optimal with and without taul
+plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
 plotts.per_effopt0= 0;
@@ -702,13 +702,13 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0:1
+        for nknk=0
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
 plotts.GOV =0;
-plotts.extern =1;
+plotts.extern =0;
 indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
 
 plotts
