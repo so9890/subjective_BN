@@ -98,7 +98,7 @@ analyTaul = tauf.*pf.*F./Y;
 
 dTaulHh = (1-(1-taul).*lambdaa.*(wh.*hh).^(-taul)).*100;
 dTaulHl = (1-(1-taul).*lambdaa.*(wl.*hl).^(-taul)).*100;
-dTaulAv = 1./(wl.*hl+wh.*hh).*(wh.*hh.*dTaulHh+wl.*hl.*dTaulHl);
+dTaulAv = 1./((1-zh)*wl.*hl+zh*wh.*hh).*(zh*wh.*hh.*dTaulHh+(1-zh).*wl.*hl.*dTaulHl);
 %- tauf in tons per C02
 
 tauf_CO2=tauf./omegaa;

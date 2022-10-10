@@ -60,7 +60,7 @@ OTHERPOL_xgr_nsk={};
 
 % baseline results 
 for xgr=0:1
-for nsk =0
+for nsk =0:1
     indic.xgrowth=xgr;
     indic.noskill=nsk;
     %- sp solution independent of policy
@@ -86,10 +86,18 @@ for nsk =0
         opt_t_notaus=helper.opt_all_all(1:T,:)';
 
         %- with externality 
-        %- RES without 
-        helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
-            indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, i,indic.sep,weightext, indic.xgrowth,indic.PV,indic.sizeequ, plotts.GOV, etaa));
-        opt_t_ext=helper.opt_all(1:12,:)';
+        %- RES without
+        if plotts.nsk==1 && (indic.extern==1 || plotts.extern==1)
+           error('do not have results with externality and homo skills')
+        else
+            if indic.noskill==1
+                     opt_t_ext=helper.opt_all_all(1:T,:)';
+            else
+                helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+                    indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, i,indic.sep,weightext, indic.xgrowth,indic.PV,indic.sizeequ, plotts.GOV, etaa));
+                opt_t_ext=helper.opt_all(1:12,:)';
+            end
+        end
 
         RES = containers.Map({'LF', 'OPT_T_NoTaus', 'OPT_NOT_NoTaus', 'SP_T', 'Ext'},...
                                 { LF, opt_t_notaus, opt_not_notaus, sp_t, opt_t_ext});
@@ -110,24 +118,35 @@ end
 %- social planner only with target and nsk 0 xgr 0 
     helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
          indic.spillovers,indic.noknow_spill, 0, indic.sep, 0, indic.PV,indic.sizeequ, etaa));
-    sp_t=helper.sp_all';
+    sp_t=helper.sp_all_all(1:T,:)';
     RES_SP=containers.Map({'SP_T',}, {sp_t});
     RES_SP=add_vars(RES_SP, list, params, indic, list.allvars, symms, MOM);
   
 %- no knowledge spillovers 
      helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
          indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-     opt_not_notaus=helper.opt_all';
+     opt_not_notaus=helper.opt_all_all(1:T,:)';
      helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
          indic.spillovers, plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-     opt_t_notaus=helper.opt_all';
-     helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil1_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-        indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
-     sp_t=helper.sp_all';
-    
-    helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
-        indic.spillovers, indic.taus, plotts.nsk, plotts.regime_gov,indic.sep,weightext, plotts.xgr,indic.PV,indic.sizeequ, plotts.GOV, etaa));
-    opt_ext=helper.opt_all(1:12,:)';    
+     opt_t_notaus=helper.opt_all_all(1:T,:)';
+     if plotts.nsk==1 && plotts.xgr==0
+         sp_t= opt_t_notaus;
+     else
+         helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil1_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+            indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+         sp_t=helper.sp_all_all(1:T,:)';
+     end    
+        if plotts.nsk==1 && (indic.extern==1 || plotts.extern==1)
+           error('do not have results with externality and homo skills')
+        else
+            if indic.noskill==1
+               opt_ext=opt_t_notaus;
+            else     
+                helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+                    indic.spillovers, indic.taus, plotts.nsk, plotts.regime_gov,indic.sep,weightext, plotts.xgr,indic.PV,indic.sizeequ, plotts.GOV, etaa));
+                opt_ext=helper.opt_all(1:12,:)';    
+            end
+        end
      RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus', 'SP_T', 'Ext'},...
                                  {opt_t_notaus, opt_not_notaus, sp_t, opt_ext});
                              
@@ -135,10 +154,10 @@ end
     % no knowledge spillovers in benchmark
         helper=load(sprintf('OPT_notarget_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_extern0_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
             indic.spillovers, plotts.regime_gov,  indic.sep,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-     opt_not_notaus=helper.opt_all';
+     opt_not_notaus=helper.opt_all_all(1:T,:)';
      helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
          indic.spillovers,  plotts.regime_gov, indic.sep, indic.PV, plotts.sizeequ, plotts.GOV, etaa));
-     opt_t_notaus=helper.opt_all';
+     opt_t_notaus=helper.opt_all_all(1:T,:)';
      RES_bench_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                                  {opt_t_notaus, opt_not_notaus});
      RES_bench_noknspil=add_vars(RES_bench_noknspil, list, params, indic, list.allvars, symms, MOM);
@@ -613,11 +632,9 @@ if plotts.single_pol==1
 
     %- read in variable container of chosen regime
     RES=OTHERPOLL{plotts.regime_gov+1};
-%     RES=ccc;
-  
 
     %- loop over economy versions
-    for i = ["OPT_T_NoTaus"]% only plotting polcies separately
+    for i = ["OPT_NOT_NoTaus"]% only plotting polcies separately
         ii=string(i);
         allvars= RES(ii);
     fprintf('plotting %s',ii );
@@ -628,17 +645,17 @@ if plotts.single_pol==1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
-%             if ll=="HH" && varr=="Emnet"
-%                 main=plot(time,allvars(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
-%                 set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
-%                 lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
-%                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-% 
-%             else
+             if ll=="HH" && varr=="Emnet"
+                 main=plot(time,allvars(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+                 set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+                 lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+
+             else
                 main=plot(time,allvars(find(varlist==varr),1:T), 'LineWidth', 1.1);   
                 set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
 
-%             end
+             end
            xticks(txx)
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
@@ -1089,11 +1106,8 @@ if plotts.comp_LFOPT==1
             main=plot(time,(revall(find(varlist==varr),1:T)), time,(allvars(find(varlist==varr),1:T)),time,(allvarsnt(find(varlist==varr),1:T)),'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-.';'-'; '--'}, {'color'}, {grrey; 'k'; 'b'} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+            xlim([1, time(end-1)])
+          
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1127,15 +1141,17 @@ if plotts.comp_OPT==1
         RES=OTHERPOLL{plotts.regime_gov+1};
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
+     for i ={'OPT_NOT_NoTaus'} %'OPT_T_NoTaus'
+         ii=string(i);
      if plotts.extern==0
-        allvars= RES('OPT_T_NoTaus');
-        allvarsnt =RESnt('OPT_T_NoTaus');
+        allvars= RES(ii);
+        allvarsnt =RESnt(ii);
      elseif plotts.extern==1
         allvars= RES('Ext');
         allvarsnt =RESnt('Ext');
      end
     %% 
-    for l ="Add"% keys(lisst) % loop over variable groups
+    for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1146,11 +1162,8 @@ if plotts.comp_OPT==1
             main=plot( time,(allvars(find(varlist==varr),1:T)),time,(allvarsnt(find(varlist==varr),1:T)),'LineWidth', 1.1);            
            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+          
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1161,7 +1174,7 @@ if plotts.comp_OPT==1
            end
 
            if indic.extern==0
-                path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/%s_%s_COMPtaul_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, ii, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
            else
                 path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_extern%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov,plotts.extern, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
            end
@@ -1169,7 +1182,8 @@ if plotts.comp_OPT==1
         close gcf
         end
         end
-   end
+     end
+     end
 end
 %% optimal with and without taul in levels 
 if plotts.comp_OPTPer==1
@@ -1188,9 +1202,11 @@ if plotts.comp_OPTPer==1
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
      
+     for i=  {'OPT_NOT_NoTaus'} % 'OPT_T_NoTaus'
+         ii=string(i);
      if plotts.extern==0
-        allvars= RES('OPT_T_NoTaus');
-        allvarsnt =RESnt('OPT_T_NoTaus');
+        allvars= RES(ii);
+        allvarsnt =RESnt(ii);
      elseif plotts.extern==1
         allvars= RES('Ext');
         allvarsnt =RESnt('Ext');
@@ -1204,14 +1220,10 @@ if plotts.comp_OPTPer==1
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
             
-            main=plot( time,(Perdif(find(varlist==varr),1:T)),'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+            main=plot( time,(Perdif(find(varlist==varr),1:T)),time,zeros(size(time)));            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey},{'LineWidth'}, {1.1; 1} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1221,14 +1233,15 @@ if plotts.comp_OPTPer==1
 %               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
 %            end
         if plotts.extern==0
-            path=sprintf('figures/all_%s/%s_OPT_COMPtaulPer_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+            path=sprintf('figures/all_%s/%s_%s_COMPtaulPer_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, ii, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
         elseif plotts.extern ==1
-             path=sprintf('figures/all_%s/%s_OPT_COMPtaulPer_regime%d_extern_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+             path=sprintf('figures/all_%s/%s_COMPtaulPer_regime%d_extern_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
         end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
-   end
+     end
+     end
 end
 
 %% counterfactual optimal policy in NKS model in benchmark
@@ -1281,7 +1294,7 @@ if plotts.comp_OPT_NK==1
      fprintf('plotting levels opt benchmark and no knowledge spillovers') 
 
         RES=OTHERPOLL{plotts.regime_gov+1};
-    for i={'Ext'} %{'OPT_T_NoTaus', 'SP_T'}
+    for i={'OPT_T_NoTaus', 'OPT_NOT_NoTaus'}
             ii=string(i);
         allvars= RES(ii);
         allvarsNK =RES_noknspil(ii);
@@ -1294,15 +1307,17 @@ if plotts.comp_OPT_NK==1
         for v=1:length(plotvars)
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
-            
-           main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)),'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
-           xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
+           if ismember(varr, ["dTaulHh" "dTaulHl" "dTaulAv" "taul"]) 
+                main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)), time, zeros(size(time)), 'LineWidth', 1.1);            
+                set(main, {'LineStyle'},{'-'; '--'; '--'}, {'color'}, {'k'; 'k';grrey} )   
+           else
+               main=plot(time,(allvars(find(varlist==varr),1:T)), time,(allvarsNK(find(varlist==varr),1:T)),'LineWidth', 1.1);            
+               set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
            end
+           
+           xticks(txx)
+           xlim([1, time(end-1)])
+           
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')

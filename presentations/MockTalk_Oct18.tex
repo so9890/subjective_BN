@@ -38,7 +38,7 @@
 % have to run bibtex mydocument.aux after first run to generate bbl file. 
 \usepackage{appendixnumberbeamer}
 \usepackage{xcolor}
-
+\usepackage{subcaption}
 %table
 \usepackage{makecell}
 \usepackage{multirow}
@@ -70,6 +70,7 @@
 double distance=1.4pt, shorten >= 5.5pt,
 preaction = {decorate},
 postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+\usetikzlibrary{shapes}
 
 
 %TITLE
@@ -92,6 +93,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %\subject{} 
 \begin{document}
 	
+	\tikzstyle{modus}=[rectangle,inner sep=5mm,align=center, draw]
+	\tikzstyle{dialog}=[diamond, align=center, draw]
+	\tikzstyle{sphere}=[circle, align=center, dotted, minimum size=3cm, draw]
+	\tikzstyle{circll}=[circle, align=center, minimum size=3cm, draw]
 	{\setbeamertemplate{footline}{}
 		\begin{frame}
 		\titlepage
@@ -122,9 +127,11 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %	\vspace{3mm}
 	\item 	We need to transition to net-zero emissions by 2050 \citep{IPCC2022}
 \vspace{3mm}
-	\item Carbon taxes direct demand towards low-emission alternatives \underline{and} direct research across sectors
+	\item Carbon taxes direct demand towards low-emission alternatives \underline{and} research across sectors
 	\vspace{3mm}
-	\item A labor income tax affects the level of production \ar a combined policy may allow to target research more
+	\item A labor income tax affects the level of production 
+	\vspace{3mm}
+	\item[\ar] a combined policy may allow to target research more
 	\vspace{3mm}
 \item \textbf{What is the optimal policy mix to implement the emission limit?}
 \end{itemize}
@@ -184,45 +191,37 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 
 \begin{frame}{Model Overview}
+\begin{figure}[h]
 	
 	\centering
-	\resizebox{0.9\textwidth}{!}{
-		\begin{tikzpicture}[  yshift=.25\baselineskip]
-		\node [mainbox] (ffr) {$r^{ff}$ \textbf{$\downarrow$}};
-		<-2>\node [mainbox, right of=ffr, node distance =10em] (aggdem) {aggregate demand $\uparrow$};
-		\node [mainbox, right of=aggdem , node distance =11em, text width=10em] (output) {output $\uparrow$\\ inflationary pressure \\ labour demand $\uparrow$};
-		\node [mainbox, right of=output , node distance =11em] (vacancies) {vacancy posting $\uparrow$};
-		\node [mainbox, right of=vacancies , node distance =10em] (participation) {job market \\participation $\uparrow$};
-		
-		\coordinate (middle) at ($(vacancies.south)!0.5!(participation.south)$);
-	%	\coordinate (mid) at ($(ffr.east)!0.5!(spread.west)$);
-		
-		\node [dummybox, below of=middle , node distance =10em, text width =15em] (sam_eff) {};
-		
-		
-		\coordinate (left_sam) at ($(sam_eff.north)!0.5!(middle.north)$);
-		
-		\node [dummybox, left of=left_sam , node distance =10em,] (sam_eff) {};
-		
-		%actors
-		% \node [box, above of=left, node distance =4em] (banks) {Banks' market power };
-		% \node [mainbox, below of=middle, node distance =5em] (loans) { bank new portfolio (long-term) lending $\downarrow $ };
-		
-		\path [line] (ffr) |- (aggdem);
-		\path [line] (aggdem) |- (output);
-		\path [line] (output) |- (vacancies);
-		\path [line] (vacancies) |- (participation);
-		
-		% \path [line](depos)|- (loans.east);
-		% \draw [->, very thick]  (banks) -- (left);
-		
-		% \node[mainbox, right of=loans, node distance =14em] (PLSbank) {PLS lending $\uparrow$};
-		
-		% \path [line](depos)|- (PLSbank.west);
-		
-		\end{tikzpicture}
-		
-	}
+	\begin{tikzpicture}[auto,scale=.6, transform shape]
+	
+	\node[circll] (A) at (-4,4) {Production};
+	\node[circll] (B) at (7,4) {Household};
+	\node[sphere] (C) at (-4,-5) {Research};
+	\node[circll] (D) at (7,-5) {Government};
+	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
+	\node[draw=none] (G) at (3.5,-11) {};
+	
+	\draw [->] (A) to [out=0,in=90] (F);
+	\draw [->] (B) to [out=180,in=90] (F);
+	\draw [->] (F) to node[]{4} (D);
+	
+	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
+	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
+	
+	\begin{pgfinterruptboundingbox}
+	\draw [->] (A) to [out=-140, in=-150, out looseness=1.5, in looseness=3, inner sep=0pt,outer sep=0pt] node[pos=0.2, outer sep=2.5, swap]{1} (F);
+	\draw [->] (B) to [out=-40, in=-30, out looseness=1.5, in looseness=3, inner sep=0pt,outer sep=0pt] node[pos=0.2, outer sep=2.5]{7} (C) ;
+	\end{pgfinterruptboundingbox}
+	
+	\draw [->] (B) to node[pos=0.75]{5} (D);
+	\draw [->] (B) to node[pos=0.75]{6} (F);
+	\end{tikzpicture}
+	
+	\caption{Epistemische Topologie des \textit{Sinngedichts}}
+	
+\end{figure}
 \end{frame}
 
 \begin{frame}{Model overview}
@@ -535,7 +534,7 @@ C_t&=Y_t-\int_{0}^{1}\left(x_{fit}+x_{git}+x_{nit}\right)di
 		\tikzmarkin{9th}(9.7,4.5)(-1.3,-4)
 		&\max_{\{\tau_{ft}\}_{t=0}^{T}, \{\tau_{\iota t}\}_{t=0}^{T}} \sum_{t=0}^{T}\beta^t U_{t}\\
 		s.t. \hspace{4mm}
-		&(1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}p_{ft}F_{t}\\
+		&(1)\ \ T_t= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota t}}}})+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{\alert{\pmb{1-\tau_{\iota t}}}})\\ & \hspace{15mm }+\alert{\pmb{\tau_{ft}}}F_{t}\\
 		& (2)\ \text{behaviour of firms, scientists, and households}\\
 		& (3)\ \text{feasibility} \\
 		&\textcolor{black!10}{
@@ -590,7 +589,7 @@ s.t. \hspace{4mm}
 \vspace{7mm}
 \begin{itemize}
 	\item[] $T_t$: transfers, set to zero  \vspace{0mm}
-	\item[] $\omega$:\ \ $CO_2$-equivalent emissions \\ \hspace{4mm} per unit of fossil energy
+	\item[] $\omega$:\ \ CO$_2$-equivalent emissions \\ \hspace{4mm} per unit of fossil energy
 \end{itemize}
 \end{minipage}
 \begin{minipage}[t!]{0.4\textwidth}
@@ -606,72 +605,58 @@ s.t. \hspace{4mm}
 %\hfill \hyperlink{calib}{\tiny{$\rightarrow$ calibration tables}} 
 
 \end{frame}
-
-\begin{frame}{Emission limit}
-	\vspace{6mm}
-\centering
-	\begin{minipage}[]{0.5\textwidth}
-\centering{\footnotesize{Emission limit, $\Omega_t$}}
-\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/emission_lim.png}
-\end{minipage}
-
-
-\vspace{9mm}
-\hfill
-\hyperlink{calib}{\tiny{$\rightarrow$ calibration tables}} 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Calibration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypertarget{calback}{}
+\section{Calibration}
+	\begin{frame}{Calibration overview}
+	\begin{itemize}
+		\item<+-> calibration to the US in 2015-2019
+		\item<+-> I proceed in three steps
+		\vspace{4mm}
+		\begin{enumerate}[<+-| alert@+>]\setbeamercolor{alerted text}{fg=black} %change the font color
+			\item separately match $\lambda$, $\bar{c}$, $\phi$, $\omega$, $\theta$, $L$, $\tau_l$, and $\tau_n$
+			\vspace{2mm}
+			\item jointly calibrate $A_n$, $A_s$, $\chi$, $z_h$, $z_l$% so that equilibrium equations and target equations hold
+			\vspace{2mm}
+			\item calibrate parameters governing the externality, $\eta$ and $\psi$
+		\end{enumerate}
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hypertarget{resback}{}
 \section{Results}
-\begin{frame}{Status quo: $\tau_{\iota t}=0.181$, $\tau_{ft}=0$}
-	\hypertarget{sq}{}
+
+\begin{frame}{Optimal Policy}
+	\alert{Add zero indicator to marginal tax rate; drop 00 in carbon tax, lgd emiss}
+\begin{figure}[h!!]
 	\centering
-	\begin{minipage}[]{0.4\textwidth}
-		\centering{\footnotesize{ Net emissions}}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Net emissions, GtC0$_2$}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_BAU_Emnet_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
-	\end{minipage}
-	
-%	\vspace{-4mm}
-%	\hfill
-%	\hyperlink{backmainres}{\tiny{$\rightarrow$ back}} 
-\end{frame}
-
-%\begin{frame}{Outline}
-%\begin{enumerate}
-%	\item main results
-%	\item discussion: role of income tax progressivity
-%	\item no skill heterogeneity
-%\end{enumerate}
-%\end{frame}
-%\section*{Main Result}
-
-\begin{frame}{Main Result}
-	\vspace{4mm}
-			\centering
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Income tax progressivity, $\tau_{\iota t}$ }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_taul_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
-\end{minipage}
-\begin{minipage}[]{0.05\textwidth}
-	\ \ \\ 
-	\ \ 
-\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Fossil tax, $\tau_{ft}$  }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Single_OPT_T_NoTaus_tauf_spillover0_sep1_BN0_ineq0_red0_etaa0.79.png}
-\end{minipage}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_periods12_OPT_T_NoTaus_Emnet_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+	\end{subfigure}
+\pause
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Average marginal tax rate}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dtaulAv_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}	
+		\begin{subfigure}{0.32\textwidth}		
+		\caption{Tax per ton of carbon,  US\$}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_periods12_OPT_T_NoTaus_Tauf_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+	\end{subfigure}
+	\end{figure}
 \vspace{5mm}
 \begin{block}{}
 	\ \\
-	\ \ \ \  The optimal income tax is progressive when the government  \\ \ \ \ \ is constrained to meet an emission limit. \  \ \\ \ 
-\end{block}
-	\vspace{-2mm}
+	\ \ \ \  Before the net-zero emission limit: tax labor  \\ \ \ \ \ Under the net-zero limit: subsidy on labor. \  \ \\ \ 
+\end{block}	
+\vspace{-2mm}
 \hfill
 \hyperlink{notopt}{\tiny{$\rightarrow$ no emission target,}} 
 \hyperlink{alloc}{\tiny{$\rightarrow$ allocation,}} 
@@ -680,266 +665,149 @@ s.t. \hspace{4mm}
 \hypertarget{backmainres}{}
 \end{frame}
 
-%\begin{frame}{Optimal allocation ii: Recomposition}
-%	\centering
-%\end{frame}
-
-
-
 \hypertarget{benf}{}
-\section*{Benefits of progressive income taxes}
+\section*{Mechanism}
 
-%% How income tax makes 
-%\begin{frame}{Experiment}
-%\hspace{-6mm}	\alert{\textbf{How does the availability of income taxes affect the optimal allocation and policy?}}
-%
-%	\begin{enumerate}
-%		\item<2-> solve for the optimal allocation  without income tax
-%		\vspace{2mm}
-%		\item<3-> compare results to the efficient allocation a social planner would choose						\vspace{2mm}
-%		\item<4-> compare to optimal allocation in model with income and fossil tax 
-%		\vspace{2mm}
-%	%	\item[\ar]<5-> costs and benefits of using income taxes
-%	\end{enumerate}
-%\end{frame}
-\begin{frame}{Efficient and optimal allocation i}
+\begin{frame}{Comparison to optimal policy without labor income tax}
 	\centering
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.05\textwidth}
-		\ \ \\ 
-		\ \ 
-	\end{minipage}
-	%	\begin{minipage}[]{0.3\textwidth}
-	%		\centering{\footnotesize{Net emissions}}
-	%		%	\captionsetup{width=.45\linewidth}
-	%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Emnet_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	%	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Social welfare}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SWF_CompEffSP_T_onlyeff_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-	
-	\vspace{6mm}
-	\begin{itemize}
-		\item[] %the fossil tax is close to the Pigouvian tax
-	\end{itemize}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Efficient and optimal allocation i}
+\begin{figure}[h!!]
 	\centering
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Carbon tax}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
-	\end{minipage}
-\begin{minipage}[]{0.05\textwidth}
-	\ \ \\ 
-	\ \ 
-\end{minipage}
-%	\begin{minipage}[]{0.3\textwidth}
-%		\centering{\footnotesize{Net emissions}}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Emnet_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-%	\end{minipage}
-	\begin{minipage}[]{0.32\textwidth}
-		\centering{\footnotesize{Social welfare}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SWF_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-
-\vspace{6mm}
-\begin{itemize}
-	\item no income tax: the fossil tax is close to the Pigouvian tax
-\end{itemize}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Efficient and optimal allocation i}
-	\centering
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Fossil tax, $\tau_{ft}$}}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+	\caption{Fossil growth}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/tauf_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
-\end{minipage}
-\begin{minipage}[]{0.05\textwidth}
-	\ \ \\ 
-	\ \ 
-\end{minipage}
-%\begin{minipage}[]{0.3\textwidth}
-%	\centering{\footnotesize{Net emissions}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/Emnet_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-%\end{minipage}
-\begin{minipage}[]{0.32\textwidth}
-	\centering{\footnotesize{Social welfare}}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+	\caption{Green growth}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/SWF_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-\end{minipage}
-
-\vspace{6mm}
-\begin{itemize}
-	\item  availability of an income tax leaves the optimal fossil tax largely unchanged 
-	\vspace{2mm}
-%	\item fossil tax and emissions only negligibly affected by income tax
-	\item<2-> a welfare gain of 0.11\% due to  the availability of an income tax
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Efficient and optimal allocation ii }
-	\centering
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{High skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
-	\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Low skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-	\end{minipage}
-	
-	\vspace{3mm}
-	\begin{itemize}
-		\item it is efficient to reduce hours worked as emission limits become stricter 
-		\item[] %the fossil tax leaves hours worked almost unaffected
-	\end{itemize}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Efficient and optimal allocation ii }
-	\centering
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{High skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1_lff1.png}
-	\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Low skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0_lff1.png}
-	\end{minipage}
-		\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_noopt_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0_lff1.png}
-	\end{minipage}
-	
-	\vspace{3mm}
-
-	\begin{itemize}
-\item as emission limits become stricter, it is efficient to reduce hours worked
-		\item the fossil tax leaves hours worked almost unaffected
-	\end{itemize}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Efficient and optimal allocation ii }
-
-\vspace{6mm}
-	\centering
-	\begin{minipage}[]{0.3\textwidth}
-		\centering{\footnotesize{High skill hours worked }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd1.png}
-	\end{minipage}
-\begin{minipage}[]{0.3\textwidth}
-	\centering{\footnotesize{Low skill hours worked}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-\end{minipage}
-	\begin{minipage}[]{0.3\textwidth}
-	\centering{\footnotesize{Consumption}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_T_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-\end{minipage}
-
-\vspace{6mm}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+\end{figure}
+\vspace{5mm}
 \begin{block}{}
-	\ \\ 	\ \ \ \ 
-	 The planner uses the income tax to reduce hours worked closer to the efficient \\ \ \ \ \  allocation.  \\ \ 
-\end{block}
-
-%\begin{itemize}
-%%	\item the use of the income tax allows to prevent 
-%%	\item<+-> income tax  reduces hours worked closer to the efficient allocation
-%%%	\vspace{2mm}
-%%%	\item<+-> accepting lower and less efficient consumption %and a lower high to low skill ratio and
-%%	\item[]<+-> \ar without income tax: private benefits of labour exceed social ones 
-%%	\item[]<+-> \ar welfare gains from  leisure 
-%	\vspace{2mm}
-%	\item[-]<+-> 
-%	
-%\end{itemize}
-	\vspace{-3mm}
-\hfill
-\hyperlink{effalloOthers}{\tiny{$\rightarrow$ growth, ratios,}}
-\hyperlink{disen}{\tiny{$\rightarrow$ policy effects,}}
-\hyperlink{robustness}{\tiny{$\rightarrow$ robustness,}}
-\hyperlink{heterogeneity}{\tiny{$\rightarrow$ heterogeneity,}}
-\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
- 
-\hypertarget{effalloback}{}
+	\ \\
+	\ \ \ \ The carbon tax is smaller when a labor income tax is available before the net-zero emission limit binds. It is higher afterwards.\  \ \\ \ 
+\end{block}	
 \end{frame}
 
-%\begin{frame}{Efficient and optimal allocation without externality}
-%	
-%	\vspace{7mm}
-%	\centering
-%	\begin{minipage}[]{0.3\textwidth}
-%		\centering{\footnotesize{High skill hours worked }}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hh_CompEffOPT_NOT_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.3\textwidth}
-%		\centering{\footnotesize{Low skill hours worked}}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/hl_CompEffOPT_NOT_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%	\begin{minipage}[]{0.3\textwidth}
-%		\centering{\footnotesize{Aggregate growth}}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_elastS_DisuSci/figures/all_1705/C_CompEffOPT_NOT_NoTaus_spillover0_noskill0_sep1_BN0_ineq0_red0_xgrowth0_zero0_countec0_etaa0.79_lgd0.png}
-%	\end{minipage}
-%\end{frame}
+\begin{frame}{Comparison to optimal policy without labor income tax: No emission limit}
+	\centering
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.32\textwidth}		
+			\caption{Carbon tax}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_NOT_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{subfigure}{0.32\textwidth}		
+			\caption{Average marginal tax rate homo skills}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_NOT_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}	
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Average marginal tax rate hetero skills}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_NOT_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}		\begin{subfigure}{0.32\textwidth}		
+	\caption{Homo skill non-energy growth}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_NOT_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}	
+\begin{subfigure}{0.32\textwidth}		
+\caption{Hetero skill non-energy growth}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_NOT_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+	\end{figure}
+	\vspace{5mm}
+	\begin{block}{}
+		\ \\
+		\ \ \ \ The carbon tax is smaller when a labor income tax is available before the net-zero emission limit binds. It is higher afterwards.\  \ \\ \ 
+	\end{block}	
+\end{frame}
+\begin{frame}{Welfare effects}
+\begin{figure}
+		\begin{subfigure}{0.32\textwidth}		
+		\caption{Period welfare}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}	
+	\begin{subfigure}{0.32\textwidth}		
+	\caption{Deviation in period welfare}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+\end{figure}
+\end{frame}
 
+\begin{frame}{Knowledge spillovers}
+	\centering
 
-%------------------------------
-% Conclusion
-%------------------------------
+\begin{figure}[h!!]
+	\centering
+		\begin{subfigure}{0.32\textwidth}		
+		\caption{Tax on carbon \\ \ }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Average marginal tax rate\\ \ }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd1.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Deviation carbon tax without knowledge spillovers}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{subfigure}
+\end{figure}
+\vspace{5mm}
+\begin{block}{}
+\begin{itemize}
+	\item knowledge spillovers drag fossil growth \ar higher carbon tax
+	\item but: knowledge spillovers mitigate costs of fossil growth tomorrow
+\end{itemize}
+\end{block}	
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Green to fossil output}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_OPT_T_NoTaus_KN_FullMod_sizeequ0_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_GOV0_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}		
+		\caption{Fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_OPT_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
 \hypertarget{conc}{}
 \section*{Conclusion}
 \begin{frame}{Conclusion}
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} %change the font color
 		\setbeamerfont{alerted text}{}
-	\item I study the role of income tax progressivity for the optimal environmental policy % in a quantitative, 3 sector model 
+	\item I study the optimal mix of taxes on carbon and labor to satisfy a limit on emissions
 	\vspace{3mm}
-	\item the optimal income tax is progressive to reduce inefficiently high
-	hours worked
+	\item under the net-zero emission limit: carbon is taxed heavily to reduce fossil demand and research. A subsidy on labor boosts R\&D investment in general
 	\vspace{3mm}
-	\item emissions are mainly targeted by the fossil tax
-		\vspace{3mm}
-	\item the welfare gains of an income tax amount to 0.11\%  over the period from 2020 to 2080 %\small{(and to 0.85\% with one skill type)}
-   \vspace{3mm}
-%	\item<+-> robust  qualitative finding is robust to
-%	\begin{itemize}
-%		\item exogeneity of growth 
-%		\item modeling of externality
-%		\item substitutability of energy and non-energy goods
-%		\item  productivity gaps 
-%	\end{itemize}
+	\item in the short run, it is optimal to reduce fossil research less by choosing lower carbon taxes. A tax on labor reduces emissions. 
+	\vspace{3mm}
+	\item knowledge spillovers are crucial to reduce the cost of fossil growth tomorrow
 \end{itemize}
 \end{frame}
 \begin{frame}[shrink]{References}

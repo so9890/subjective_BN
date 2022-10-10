@@ -288,7 +288,7 @@ end
 end
 end
 
-%% to be continued updating
+%% Counterfactual productivity levels
 %- version with counterfactual technology gap
 
  An0=init201014(list.init=='An0');
@@ -296,75 +296,7 @@ end
  Af0=Ag0/0.4; 
  initcount= eval(symms.init); % vector or counterfactual technology 
  iin=load('init_techgap.mat');
-% [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, polCALIB, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
-%  helper.LF_SIM=LF_SIM;
-% %    helper=load(sprintf('LF_BAU_spillovers%d.mat', indic.spillovers));
-% %- initial gap 2015/19
-% % An0=LF_SIM(list.sepallvars=='An', 1);
-% % Ag0=LF_SIM(list.sepallvars=='Ag', 1);
-% % Af0=LF_SIM(list.sepallvars=='Af', 1);
-% % init1519count=eval(symms.init);
-% [LF_BAU]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic);
-% save(sprintf('BAU_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
 
-%% Laissez faire
-% 13/09: if interesed in BAU: need to set taul = 0.181 (above code does not
-% give bau solution as tauf neq 0. 
-% taus=0;
-% tauf=0;
-% taul=0;
-% lambdaa=1; % placeholder, determined in comp eqbm
-% pol=eval(symms.pol);
-% 
-% %%
-% %  if indic.noskill==0
-% % note: taul0 indicator irrelevant if taul in pol vector =0
-% indic.limit_LF=0; 
-% indic.noknow_spill=0;
-% indic.sizeequ=0;
-% 
-% for gg=0
-%     indic.GOV=gg;
-% for nnt=[0,1,2,3,4,5,7]
-%       indic.notaul=nnt;
-%   for i=0:1
-%       indic.noskill=i;
-%       for xgr=0:1
-%           indic.xgrowth=xgr;
-% 
-%           if indic.xgrowth==0
-%             [LF_SIM, polLF, FVAL] =solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, Ems);
-% 
-%             helper.LF_SIM=LF_SIM;
-%             indic.xgrowth=0;
-%             [LF_SIM]=solve_LF_VECT(T, list, params,symms, init201519, helper, indic,Ems);
-%           else
-%             [LF_SIM , pol, FVAL]= solve_LF_nows_xgrowth(T, list, pol, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall, MOM, Ems);
-%           end
-%         save(sprintf('LF_SIM_spillover%d_knspil%d_noskill%d_xgr%d_sep%d_notaul%d_GOV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep,indic.notaul, indic.GOV, indic.sizeequ, params(list.params=='etaa')),'LF_SIM', 'Sparams');
-%         clearvars LF_SIM helper
-%       
-%      end
-%  end
-% end
-% end
-%- version LF with counterfac tec gap
-     
-%     indic.xgrowth=0; % does not exist with exogenous growth
-%     [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, pol, params, Sparams,  symms, x0LF, iin.initcount, indexx, indic, Sall);
-%     helper.LF_SIM=LF_SIM;
-%     [LF_COUNTTec]=solve_LF_VECT(T, list, params,symms, iin.init1519count, helper, indic, Ems_alt);
-%     save(sprintf('LF_countec_spillovers%d_knspil%d_noskill%d_sep%d_notaul%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.notaul, indic.GOV, params(list.params=='etaa')), 'LF_SIM', 'Sparams')
-    
-%% end
-%%% Check swf value in LF
-disc=repmat(Sparams.betaa, 1,T);
- expp=0:T-1;
- vec_discount= disc.^expp;
-hhel= load(sprintf('BAU_spillovers%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul, params(list.params=='etaa')));
-sswfbau=vec_discount*hhel.LF_BAU( :, list.sepallvars=='SWF');
-hhblf = load(sprintf('LF_SIM_NOTARGET_spillover%d_noskill%d_sep%d_notaul%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.notaul,  params(list.params=='etaa')));
-sswf=vec_discount*hhblf.LF_SIM( :, list.sepallvars=='SWF');
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 4: Sociel Planner allocation                             %%%
@@ -405,7 +337,7 @@ end
 
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =0;
-indic.extern=1;
+indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
 indic.noknow_spill=1;
@@ -635,7 +567,7 @@ plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon)
         end
     end
 end
-%%
+%% Optimal policy results
 etaa=params(list.params=='etaa');
 weightext=0.01;
 indic
@@ -701,9 +633,9 @@ for rr= [4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
 for xgr =0
-    for nsk=0
+    for nsk=1
         for nknk=0
-            T=12;
+            T=13;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
@@ -715,7 +647,7 @@ plotts
 %%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
 
-plotts_extT(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
+plotts_extT(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
         end
     end
 end
