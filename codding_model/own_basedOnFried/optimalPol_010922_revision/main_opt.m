@@ -81,7 +81,7 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
     fprintf('loading parameter values sep%d', indic.sep)
     load(sprintf('params_0209_sep%d', indic.sep),...
-        'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx')
+        'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx', 'StatsEms')
 else
     fprintf('calibrating model')
     indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; 
@@ -417,33 +417,34 @@ for nsk=1
 end
 end
 end
-%% TO BE UPDATED FOR NEW STRUCTURE OF TAX! 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=4 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
-indic.tauf=tf; % ==1 uses version with optimal tauf but taul=0; ==0 uses version with tauf optimal but taul =0
-indic.notaul=0;
+for tf=1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+indic.tauf=tf; % ==1 uses version with optimal taul=0 but tauf=1; ==0 uses version with tauf=0 optimal but taul =1
 indic.PV=1;
+indic.notaul=4;
+indic.limit_LF=0; % for simulation, not a policy calculation
 indic.noknow_spill=0; % counterfactuals so far only without knowledge spillovers
 T=12;
 
-for xgr=1
+for xgr=0
     indic.xgrowth=xgr;
-    for nsk=0:1
+    for nsk=0
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
     if tf~=4
-        helper=load(sprintf('OPT_target_1008_spillover%d_knspil%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers, indic.noknow_spill, indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill, indic.notaul, indic.sep, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif tf==4
-        helper=load(sprintf('OPT_target_1008_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_etaa%.2f.mat',indic.spillovers, indic.notaul, indic.sep, indic.PV, Sparams.etaa));
+         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, indic.notaul, indic.sep, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     end
 elseif tf<2 % load in same model wsrt skill xgr
-     helper=load(sprintf('OPT_target_1008_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, Sparams.etaa));
+             helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 end
-         if  indic.tauf==1 || indic.noskill==1 % get better starting values!
+         if  indic.tauf>1 || indic.noskill==1 % get better starting values!
              if indic.tauf<2
                  T=11;
              end
@@ -452,11 +453,11 @@ end
                     x0LF(list.choice==ll)=LF_SIM(1, list.allvars==ll);
                 end
                  if indic.tauf>=2
-                     poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
+                     poll= [LF_SIM(:,list.allvars=='taul'), LF_SIM(:,list.allvars=='taus'),LF_SIM(:,list.allvars=='tauf'), LF_SIM(:,list.allvars=='lambdaa')];
                  elseif indic.tauf==0
-                     poll= [LF_SIM(:,list.sepallvars=='taul'), LF_SIM(:,list.sepallvars=='taus'),zeros(size(LF_SIM(:,list.sepallvars=='tauf'))), LF_SIM(:,list.sepallvars=='lambdaa')];
+                     poll= [LF_SIM(:,list.allvars=='taul'), LF_SIM(:,list.allvars=='taus'),zeros(size(LF_SIM(:,list.allvars=='tauf'))), LF_SIM(:,list.allvars=='lambdaa')];
                  elseif indic.tauf==1
-                     poll= [zeros(size(LF_SIM(:,list.sepallvars=='taul'))), LF_SIM(:,list.sepallvars=='taus'),LF_SIM(:,list.sepallvars=='tauf'), LF_SIM(:,list.sepallvars=='lambdaa')];
+                     poll= [zeros(size(LF_SIM(:,list.allvars=='taul'))), LF_SIM(:,list.allvars=='taus'),LF_SIM(:,list.allvars=='tauf'), LF_SIM(:,list.allvars=='lambdaa')];
                      
                  end
              if indic.xgrowth==0
@@ -479,9 +480,9 @@ end
 
          end
          T=12; 
-        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic);
+        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic, Ems, MOM);
         % helper.opt_all: as initial values and to deduce policy 
-        save(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+        save(sprintf('COMPEquN_SIM_1110_taufopt%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
     end
 end
 end
@@ -597,6 +598,7 @@ plotts.compnsk_xgr1             = 0;
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
+plotts.count_devs               = 1;
 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
@@ -612,7 +614,7 @@ plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.comp_OPT=    1; % laissez faire and optimal with and without taul
+plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
@@ -633,9 +635,9 @@ for rr= [4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
 for xgr =0
-    for nsk=1
+    for nsk=0
         for nknk=0
-            T=13;
+            T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 

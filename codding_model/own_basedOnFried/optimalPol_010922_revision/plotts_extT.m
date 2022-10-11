@@ -162,7 +162,18 @@ end
                                  {opt_t_notaus, opt_not_notaus});
      RES_bench_noknspil=add_vars(RES_bench_noknspil, list, params, indic, list.allvars, symms, MOM);
   
-
+%- only optimal tauf
+if plotts.nsk==0 && plotts.xgr==0 && indic.noknow_spill==0
+    helper=load(sprintf('COMPEquN_SIM_1110_taufopt1_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+        indic.noknow_spill,  indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_taul=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_1110_taufopt0_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+        indic.noknow_spill,  indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_tauf=helper.LF_COUNT';
+        RES_count=containers.Map({'CountOnlyTauf', 'CountOnlyTaul'},{count_taul, count_tauf});
+     RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms, MOM);
+  
+end
 %% Tables
 if plotts.table==1
 for xgr=0:1
@@ -248,16 +259,13 @@ Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 % in levels
 if plotts.count_modlev==1
     
-    fprintf('plott counterfactual model level')
+    fprintf('plott counterfactual model level efficient and optimal policy')
 
     %- read in variable container of chosen regime
     RES=OTHERPOL{plotts.regime_gov+1};
-%     RESnsk=OTHERPOL_nsk{plotts.regime_gov+1};
-%     RESxgr=OTHERPOL_xgr{plotts.regime_gov+1};  
-    %- loop over economy versions
+        allvarseff=RES("SP_T");
         allvars= RES("OPT_T_NoTaus");
-        allvarsnsk=RES_count("nsk");
-        allvarsxgr=RES_count("xgr");
+        allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -268,25 +276,22 @@ if plotts.count_modlev==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,allvars(find(varlist==varr),1:T),time,allvarsxgr(find(varlist==varr),1:T) ,time,allvarsnsk(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'b'; orrange} )   
+            main=plot(time,allvarseff(find(varlist==varr),1:T),time,allvars(find(varlist==varr),1:T) ,time,allvarscount(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'k'; orrange} )   
             if lgdind==1
-               lgd=legend('benchmark' , 'exogenous growth', 'homogeneous skills',  'Interpreter', 'latex');
+               lgd=legend('social planner' , 'optimal policy', 'only $\tau_F^*$',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+
            
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/CountMod1_target_%s_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr , plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/CountTAUF_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -294,7 +299,44 @@ if plotts.count_modlev==1
     end
     end
 end
+%% 
+if plotts.count_devs==1
+    
+    fprintf('plott counterfactual deviation from optimal pol => role of taul')
 
+    %- read in variable container of chosen regime
+    RES=OTHERPOL{plotts.regime_gov+1};
+        allvars= RES("OPT_T_NoTaus");
+        allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
+        perdif= 100*(allvars-allvarscount)./allvarscount;
+        
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,perdif(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+            
+            
+           xticks(txx)
+           xlim([1, time(end-1)])
+
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTAUFPerDif_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+end
 %% Comparison model versions in one graph
 % in levels
 if plotts.compnsk_xgr1==1
@@ -1141,7 +1183,7 @@ if plotts.comp_OPT==1
         RES=OTHERPOLL{plotts.regime_gov+1};
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
-     for i ={'OPT_NOT_NoTaus'} %'OPT_T_NoTaus'
+     for i ={'OPT_T_NoTaus'} %'OPT_T_NoTaus'
          ii=string(i);
      if plotts.extern==0
         allvars= RES(ii);
@@ -1202,7 +1244,7 @@ if plotts.comp_OPTPer==1
         RESnt =OTHERPOLL{5+1}; % version without taul
      end
      
-     for i=  {'OPT_NOT_NoTaus'} % 'OPT_T_NoTaus'
+     for i=  {'OPT_T_NoTaus'} % 'OPT_T_NoTaus'
          ii=string(i);
      if plotts.extern==0
         allvars= RES(ii);
