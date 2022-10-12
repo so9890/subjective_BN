@@ -133,6 +133,10 @@ POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
 % indic.tauff="BAU"; %=> also: to get BAU policy, run with tata=0, and indic.tauff=='BAU', GOV=='1', indic.limit_LF=='0'
                    % => to get LF run with BAU and tata=1
 indic
+StatsEms.RFF2022=1.11*185; % social cost of carbon from resources for the future in 2022 prices.
+StatsEms.RFF2019=0.99*185; % social cost of carbon from resources for the future in 2022 prices.
+StatsEms.RFF2022up=1.1*413; % social cost of carbon from resources for the future in 2022 prices.
+
 for lablab = 0
     indic.labshareequ=lablab;
 for nknk =1

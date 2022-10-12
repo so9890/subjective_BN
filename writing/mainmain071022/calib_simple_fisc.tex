@@ -1,8 +1,10 @@
-\subsection{Calibration}\label{subsec:calib}
+\subsection{Calibration}\label{sec:calib}
 %\tr{Inflation data \url{/home/sonja/Documents/projects/subjective_BN/writing/mainmain}}
 
 
- I calibrate the model to the US in the baseline period from 2015 to 2019. Using this calibration approach, it is not ensured that the economy is on a balanced growth path. However, the goal of this paper is to study necessary interventions to meet an absolute emission limit. Therefore, in contrast to a relative reduction objective, it is important whether the economy is transitioning, for example, to a balanced growth path with a higher fossil share. These transitions are relevant for the dynamic policy. 
+ I calibrate the model to the US in the baseline period from 2015 to 2019. Using this calibration approach, it is not ensured that the economy is on a balanced growth path. However, the goal of this paper is to study necessary interventions to meet an absolute emission limit. Therefore, %in contrast to a relative reduction objective, 
+ it is important whether the economy is transitioning, for example, to %a balanced growth path with
+ a higher fossil share. The optimal dynamic policy would have to counteract these forces. %These transitions are relevant for the dynamic policy. 
 %To differentiate model dynamics from policy effects, I take care to interpret results as deviations from the economy without policy intervention. 
 
 
@@ -10,13 +12,14 @@
 
 \paragraph{Functional forms} I assume the following functional form of the period utility
 \begin{align}
-u(C_t,h_{ht}, h_{lt}, S_t )= \log(C_t)-z_h\chi\frac{h_{ht}^{1+\sigma}}{{1+\sigma}}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{{1+\sigma}}-\chi_s\frac{S^{1+\sigma_s}}{1+\sigma_s}.
+u(C_t,h_{ht}, h_{lt}, S_t )= \log(C_t)-z_h\chi\frac{h_{ht}^{1+\sigma}}{{1+\sigma}}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{{1+\sigma}}-\chi_s\frac{S_t^{1+\sigma_s}}{1+\sigma_s}.
 \end{align}
-The log-utility ensures that the scaling parameter of the government's budget does not affect hours worked. It cancels from the optimality condition describing labor supply since the income and substitution effect cancel under the log-utility. 
-This simplifies the analysis. On the other hand, recent research has shown that substitution and income effects of the wage rate most likely do not cancel. \cite{Boppart2019LaborPerspectiveb} argue for a slightly higher income effect so that hours fall over time as productivity increases. I plan to conduct a sensitivity analysis by assuming the utility specification suggested by \cite{Boppart2019LaborPerspectiveb}. Most likely, the continuous rise in carbon taxation over time lowers the wage rate and labor supply increases. A lack of lump-sum rebates would most likely aggravate the inefficiency of hours worked. %Nevertheless, as shown in the analytical part for a general utility function, some reductive policy is required to implement the efficient allocation. But, compared to the laissez-faire scenario, hours will rise. 
+The log-utility ensures that the scaling parameter of the income tax scheme does not affect hours worked. It cancels from the optimality condition describing labor supply since the income and substitution effect cancel under the log-utility. 
+This simplifies the analysis. On the other hand, recent research has shown that substitution and income effects of the wage rate most likely do not cancel. ´\cite{Boppart2019LaborPerspectiveb} argue for a slightly higher income effect so that hours fall over time as productivity increases. I plan to conduct a sensitivity analysis by assuming the utility specification suggested by \cite{Boppart2019LaborPerspectiveb}. 
+%Most likely, the continuous rise in carbon taxation over time lowers the wage rate and labor supply increases. A lack of lump-sum rebates would most likely aggravate the inefficiency of hours worked. %Nevertheless, as shown in the analytical part for a general utility function, some reductive policy is required to implement the efficient allocation. But, compared to the laissez-faire scenario, hours will rise. 
 
 \paragraph{Parameter values}
-To calibrate the model, I proceed in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions hold. Third, I choose parameters relating production, emissions, and the emission limit. Tables \ref{tab:calib} and \ref{tab:emlimit} summarize the calibrated parameter values.
+To calibrate the model, I proceed in three steps. First, I set certain parameters to values used in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions and target equations hold. Third, I choose parameters relating production, emissions, and the emission limit. Tables \ref{tab:calib} and \ref{tab:emlimit} summarize the calibrated parameter values.
 
 In the first step, I mainly rely on \cite{Fried2018ClimateAnalysis} to calibrate the parameters governing research processes, $\eta, \rho_F,\rho_N, \rho_G, \phi $, and production, $\varepsilon_e, \varepsilon_y, \alpha_F, \alpha_G, \alpha_N$.  Important for the present project: the labor share in the green sector is remarkably low with $\alpha_G=0.91$. This diminishes the significance of labor supply for green innovation and production. Furthermore, fossil and green energy are no close substitutes with $\varepsilon_e=1.5$ so that the cap on fossil energy cannot be fully substituted for by green energy. The utility parameters, $\beta, \sigma$ are set to $0.984^5$ and $0.75^{-1}$ following \cite{Barrage2019OptimalPolicy} and \cite{Chetty2011AreMargins}, respectively. The business-as-usual policy is set to $\tau_\iota=0.181, \tau_F=0$, where I borrow the tax progressivity parameter from \cite{Heathcote2017OptimalFramework}. 
 %The period over which the government maximizes, T, is chosen to focus on the population living during the transition to the net-zero emission limit. 

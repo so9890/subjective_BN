@@ -45,7 +45,7 @@ When the effect of a decreased wage  en gros reduces labor supply, it makes it m
 \begin{align}
 \text{\textbf{Household}}&\nonumber\\ \text{period utility}\vspace{4mm}&  \log(C_t)-\chi\frac{z_hh_{ht}^{1+\sigma}+(1-z_h)h_{lt}^{1+\sigma}}{1+\sigma}-\chi_s\frac{S_t^{1+\sigma}}{{1+\sigma}} \nonumber %when z is also to the power of 1+sigma than, the higher zh the lower hours supplied! Not reasonable
 \\
-\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}\nonumber\\ %+T_{lst}\\
+\text{Budget}\ \vspace{4mm}& C_t=z_h \lambda_t (w_{ht}h_{ht})^{1-\tau_{\iota t}}+(1-z_h) \lambda_t (w_{lt}h_{lt})^{1-\tau_{\iota t}}+T_{lst}\nonumber\\ %\\
 \text{Optimality}\ \vspace{4mm}
 & C_t^{-1}= \mu_tp_{t}\nonumber\\
 & \chi h_{ht}^{\sigma}=\mu_t \lambda_t(1-\tau_{\iota t})w_{ht}^{1-\tau_{\iota t}}h_{ht}^{-\tau_{\iota t}}-\gamma_{ht}/z_h\nonumber\\
@@ -139,9 +139,10 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 %&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\nonumber\\
-&Gov_{\iota t}=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})\nonumber\\&
-+\int_{0}^{1}\pi_{Fit}+\pi_{Git}+\pi_{Nit}di+ w_{st}S_t+\tau_{Ft}F_t\nonumber\\ &-\int_{0}^{1} p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}di\nonumber\\
+&0=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})}) +(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})\nonumber\\
+&T_{\pi t}= -\int_{0}^{1} \left(p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}\right)di\nonumber\\ &\hspace{10mm}+\int_{0}^{1}\left(\pi_{Fit}+\pi_{Git}+\pi_{Nit}\right)di = -w_{st}S_t\nonumber\\
 \text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for J\in\{F,G,N\}\nonumber \\
+& T_{lst}=\tau_{Ft}F_t\nonumber\\
 %\text{simplified:}\ \vspace{4mm} & Gov_{\iota t}= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})}) +\tau_{Ft}F_t
 %\nonumber\\
 %&Gov_{Ft}=\tau_{Ft}F_t\hspace{2mm} or\hspace{2mm} \tau_{Gt}p_{Gt}G_t=\tau_{Ft}F_t \hspace{2mm} or \hspace{2mm} T_{ls, t}=\tau_{Ft}F_t\hspace{2mm} or \hspace{2mm} T_{\iota t}=\tau_{Ft}F_t\nonumber \\
@@ -149,7 +150,7 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 &h_{hFt}+h_{hNt}+h_{hGt}=z_{h} h_{ht}\nonumber\\
 &h_{lFt}+h_{lNt}+h_{lGt}=(1-z_h) h_{lt}\nonumber\\
 &s_{Ft}+s_{Nt}+s_{Gt}=S_{t}\nonumber\\
-&C_{t}+\int_{0}^{1} x_{Fit}+x_{Nit}+x_{Git}d_i=Y_t\nonumber
+&C_{t}+\int_{0}^{1} \left(x_{Fit}+x_{Nit}+x_{Git}\right)d_i=Y_t\nonumber
 \end{align}
 
 \subsection{Continuation value of planner's objective function}\label{app:PV}
@@ -158,16 +159,16 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 %Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate. 
 %}
 
-I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period
+I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period:
 \begin{align*}
 CV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s, h_{hs}, h_{ls}, S_{s}).
 \end{align*}
 
 
 I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
-I assume that the private consumption share in period $c_s$ with $C_s=c_sY_s$ is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
+I assume that the private consumption share in period $c_s$, with $C_s=c_sY_s$, is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
 Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period. Third, hours of workers and scientists remain at their value in the last explicit optimization period. %\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
-Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-(T)}C_{T}$.
+Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_{T}$.
 Given the functional form
 \begin{align*}
 u(C_s)= \frac{C_s^{1-\theta}}{1-\theta},
@@ -177,27 +178,27 @@ the continuation value reduces to
 CV= \beta^{T}\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_{T}^{1-\theta}}{1-\theta}+ \frac{1}{1-\beta}u(h_{hT}, h_{lT}, S_T)\right).
 \end{align*}
 Where $u(C_s, h_{hs}, h_{ls}, S_{s})=u(c_s)+u(h_{hT}, h_{lT}, S_T)$.
-When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand becomes
+When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand in brackets becomes
 \begin{align*}
-\beta^{T}\frac{1}{1-\beta}\log(C_{T}).
+\frac{1}{1-\beta}\log(C_{T}).
 \end{align*}
 
 %\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
 %
 
-\subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes the social welfare function 
-\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV\\
-s.t.\ &  \omega F_{t} -\delta \leq \Omega_t\\
-&C_t+x_{Ft}+x_{Gt}+x_{Nt}=Y_t\\
-&\text{Law of Motion of technologies}\\
-&z_h h_{ht}=h_{hFt}+h_{hGt}+h_{hNt},\\
-&(1-z_h) h_{lt}=h_{lFt}+h_{lGt}+h_{lNt},\\
-&S_{t}=s_{Ft}+s_{Gt}+s_{Nt},\\
-&\text{time endowment scientists and workers}\\
-\end{align*}
-Production of $Y_t$ is defined by the eq.s describing production in the model: eq. \eqref{mod:y} to \ref{mod:LG}. It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
-%\subsection{Social planner problem}
-%The social planner chooses 
+\subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes social welfare, $\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV$, subject to the emission limit and feasibility. 
+%\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV\\
+%s.t.\ &  \omega F_{t} -\delta \leq \Omega_t,\\
+%&C_t+x_{Ft}+x_{Gt}+x_{Nt}=Y_t,\\
+%&\text{Law of Motion of technologies}\\
+%&z_h h_{ht}=h_{hFt}+h_{hGt}+h_{hNt},\\
+%&(1-z_h) h_{lt}=h_{lFt}+h_{lGt}+h_{lNt},\\
+%&S_{t}=s_{Ft}+s_{Gt}+s_{Nt},\\
+%&\text{time endowment scientists and workers}\\
+%\end{align*}
+%Production of $Y_t$ is defined by the eq.s describing production in the model: eq. \eqref{mod:y} to \ref{mod:LG}. 
+It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
+
 \section{Quantitative results}\label{app:quant_res}
 
 \input{app_experiment2}
