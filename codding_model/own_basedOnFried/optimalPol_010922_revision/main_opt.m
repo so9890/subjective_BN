@@ -255,8 +255,8 @@ plotts.perDif_notauf            = 0; %
 plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
 plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
-plotts.compTauf_PER             = 1;
-plotts.compTauf_PER_NK          = 0;
+plotts.compTauf_PER             = 0;
+plotts.compTauf_PER_NK          = 1;
 %- plots: effect of taul
 plotts.LF_BAU                   = 0;
 plotts.LF_BAU_PER               = 0;
@@ -426,7 +426,7 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+for tf=0:1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
 indic.tauf=tf; % ==1 uses version with optimal taul=0 but tauf=1; ==0 uses version with tauf=0 optimal but taul =1
 indic.PV=1;
 indic.notaul=4;
@@ -436,7 +436,7 @@ T=12;
 
 for xgr=0
     indic.xgrowth=xgr;
-    for nsk=0
+    for nsk=1
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
@@ -448,7 +448,7 @@ if tf>=2 % read in benchmark model wrt skill xgr
 elseif tf<2 % load in same model wsrt skill xgr
              helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 end
-         if  indic.tauf>1 || indic.noskill==1 % get better starting values!
+         if  indic.tauf>1  % get better starting values!
              if indic.tauf<2
                  T=11;
              end
@@ -523,7 +523,7 @@ plotts.compnsk_xgr1             = 0;
 
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
-plotts.count_modlev             = 0; 
+plotts.count_modlev             = 1; 
 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;
@@ -602,7 +602,7 @@ plotts.compnsk_xgr1             = 0;
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
-plotts.count_devs               = 1;
+plotts.count_devs               = 0;
 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
@@ -610,7 +610,7 @@ plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau                      = 0; % do plot bau comparison
-plotts.lf                       = 0; % comparison to laissez faire allocation in levels
+plotts.lf                       = 1; % comparison to laissez faire allocation in levels
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
@@ -640,7 +640,7 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0
+        for nknk=1
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

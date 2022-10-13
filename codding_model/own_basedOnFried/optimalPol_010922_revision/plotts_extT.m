@@ -70,10 +70,7 @@ for nsk =0:1
 
 %- other results
     for i=[4,5] % loop over policy versions
-        helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-        indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
-        sp_t=helper.sp_all_all(1:T,:)';
-    
+        
        helper = load(sprintf('BAU_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul0_countec%d_GovRev%d_etaa%.2f.mat', ...
             indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
         LF = helper.COMP';
@@ -84,7 +81,14 @@ for nsk =0:1
         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', ... 
             indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
         opt_t_notaus=helper.opt_all_all(1:T,:)';
+        if indic.noskill~=1
 
+                helper=load(sprintf('SP_target_plus30_2609_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+                indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, etaa));
+                sp_t=helper.sp_all_all(1:T,:)';
+        else
+               sp_t=opt_t_notaus;
+        end
         %- with externality 
         %- RES without
         if plotts.nsk==1 && (indic.extern==1 || plotts.extern==1)
@@ -139,7 +143,7 @@ end
         if plotts.nsk==1 && (indic.extern==1 || plotts.extern==1)
            error('do not have results with externality and homo skills')
         else
-            if indic.noskill==1
+            if plotts.nsk==1
                opt_ext=opt_t_notaus;
             else     
                 helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus%d_noskill%d_notaul%d_sep%d_extern1_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
@@ -163,7 +167,7 @@ end
      RES_bench_noknspil=add_vars(RES_bench_noknspil, list, params, indic, list.allvars, symms, MOM);
   
 %- only optimal tauf
-if plotts.nsk==0 && plotts.xgr==0 && indic.noknow_spill==0
+if plotts.xgr==0 
     helper=load(sprintf('COMPEquN_SIM_1110_taufopt1_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
         indic.noknow_spill,  indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
     count_taul=helper.LF_COUNT';
@@ -318,8 +322,8 @@ if plotts.count_devs==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,perdif(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+            main=plot(time,perdif(find(varlist==varr),1:T),time,zeros(size(perdif(find(varlist==varr),1:T))), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
             
             
            xticks(txx)
@@ -699,11 +703,8 @@ if plotts.single_pol==1
 
              end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+            xlim([1, time(end-1)])
+          
            
             ax=gca;
             ax.FontSize=13;
@@ -1508,7 +1509,7 @@ for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
         RES=OTHERPOLL{nt};
         bau=RES('LF');
 
-    for i ={'OPT_T_NoTaus'} % SP_T, 'OPT_NOT_NoTaus'
+    for i ={'SP_T'} %OPT_T_NoTaus SP_T, 'OPT_NOT_NoTaus'
         ii=string(i);
         allvars= RES(ii);
 
@@ -1545,7 +1546,7 @@ for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_LFComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, ii, count, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_LFComp%s_regime%d_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, ii, count,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1818,29 +1819,26 @@ if plotts.per_LFd==1
         gcf=figure('Visible','off');
             varr=string(plotvars(v));
             
-            main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+            main=plot(time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+          
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
            if lgdind==1
-              lgd=legend('efficient', 'optimal policy', 'Interpreter', 'latex');
+              lgd=legend('optimal policy', 'social planner',  'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
 
-        path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
         end
-      end
+     end
     
 end   
  
