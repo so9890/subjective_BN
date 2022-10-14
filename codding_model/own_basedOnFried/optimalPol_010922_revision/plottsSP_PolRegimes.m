@@ -328,7 +328,7 @@ end
 %% effect of tauf percent
 if plotts.perDif_notauf==1
        fprintf('plott effect tauf percent')
- for lablab =0:1
+ for lablab =0
      if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
      else
@@ -383,7 +383,7 @@ end
 if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by taul')
-for lablab =0
+for lablab =1
     if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
     else
@@ -504,7 +504,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0:1
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -573,7 +573,7 @@ if plotts.compTauf_PER==1
     
     fprintf('plott comp tauf by preexisting taul in percent')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0:1
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -623,7 +623,51 @@ if plotts.compTauf_PER==1
    end
    end
 end
+%% contrast to no spillover
+% fossil tax is endoegenous, i.e. limitLF=1 ) 
+if plotts.compTauf_Lev_NK==1
+    
+    fprintf('plott comp tauf by preexisting taul in levels comparison NK')
+   for reg=plotts.regime%[0,2,4,7]
+   
+        allvars=OTHERPOLL{reg+1};
+        allvarsTaulCalib=allvars('TaulCalib');
+        allCAlibNK=RES_NK('TaulCalib');
+  
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
 
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+                main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time,allCAlibNK(find(varlist==varr),1:T),  'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+                if lgdind==1
+                   lgd=legend('benchmark model', 'no knowledge spillovers', 'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+        path=sprintf('figures/all_%s/CompTauf_bytaul_KN_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+   end
+end
 %% contrast to no spillover
 % fossil tax is endoegenous, i.e. limitLF=1 ) 
 if plotts.compTauf_PER_NK==1

@@ -266,7 +266,7 @@ if plotts.count_modlev==1
     fprintf('plott counterfactual model level efficient and optimal policy')
 
     %- read in variable container of chosen regime
-    RES=OTHERPOL{plotts.regime_gov+1};
+    RES=OTHERPOLL{plotts.regime_gov+1};
         allvarseff=RES("SP_T");
         allvars= RES("OPT_T_NoTaus");
         allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
@@ -309,7 +309,7 @@ if plotts.count_devs==1
     fprintf('plott counterfactual deviation from optimal pol => role of taul')
 
     %- read in variable container of chosen regime
-    RES=OTHERPOL{plotts.regime_gov+1};
+    RES=OTHERPOLL{plotts.regime_gov+1};
         allvars= RES("OPT_T_NoTaus");
         allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         perdif= 100*(allvars-allvarscount)./allvarscount;

@@ -38,42 +38,33 @@ In the second step, I calibrate the weight on energy in final good production by
  \begin{table}[h!]
  	\begin{center}
  		\captionsetup{width=0.9\textwidth}
- 		\caption{ Calibration baseline model}
+ 		\caption{ Calibration}
  		\label{tab:calib}
  		\resizebox{5in}{!}{
  		\begin{tabular}{c|ll}
  			%			\hline \hline
  			%			\multicolumn{7}{c}{Calibration based on basic needs}\\
  			\hline \hline
- 			Parameter& Target/Source& \makecell[l]{Calibration}\\ 
- 			\hline
+ 			Parameter& Target/Source& \makecell[l]{Value}\\ 
  			\hline
  			Household&\multicolumn{2}{c}{}\\
  			\hline 
- 			
- 			\hline
  			$\sigma$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$  \\
  			$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}&0.21\\	
  			$\chi$ &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \cite{OECDHoursworked}}& 10.02 \\
  			$\beta$ &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}& 0.93 \\
  			$\bar{H}$& \makecell[l]{14.5 hours per day\\ \cite{Jones1993OptimalGrowth}}&1.00 \\
  			\hline
- 			\hline
  			Research&\multicolumn{2}{c}{}\\
- 			\hline
- 			
  			\hline
  			$\sigma_s$ &  \makecell[l]{\cite{Chetty2011AreMargins}}& $1.33$\\
  			$\chi_s$ &\makecell[l]{average hours worked per \\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} & 0.48 \\
  			$\eta$ & & 0.79 \\
- 			($\rho_F$,$\rho_G$,$\rho_N$) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}  & (0.01, 0.01, 1.00) \\
+ 			($\rho_F$, $\rho_G$, $\rho_N$) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}  & (0.01, 0.01, 1.00) \\
  			$\phi$ && 0.50 \\
  			$\gamma$ &\makecell[l]{maximum aggregate growth:\\4\% per annum} & 0.06\\
  			\hline
- 			\hline
  			Production&\multicolumn{2}{c}{}\\
- 			\hline
- 			
  			\hline
  			$\varepsilon_y$&\cite{Fried2018ClimateAnalysis}&0.05\\			
  			$\delta_y$&\makecell[l]{expenditure share \\ on energy \citep{EIAEnergy}}&0.38\\	
@@ -82,31 +73,20 @@ In the second step, I calibrate the weight on energy in final good production by
  			%\hline
  			%$\beta$&\makecell{ annual nominal rate 3\%\\ and annual inflation rate of 2\%}& 0.9903& discount factor\\ 
  			\hline
- 			\hline
  			Initial Productivity&\multicolumn{2}{c}{}\\
  			\hline
- 			
- 			\hline
  			($A_{F0}$, $A_{G0}$, $A_{N0}$)&- &(1840.60, 14.79, 5.24)  \\
- 			\hline \hline
- 				Labor production&\multicolumn{2}{c}{}\\
  			\hline 
- 			
+ 				Labor production&\multicolumn{2}{c}{}\\ 			
  			\hline
- 			($\theta_F$,$\theta_G$,$\theta_N$)&\makecell[l]{share of high skill\\ non-green: \\27.55\%, green: 40.71\% \citep{Consoli2016DoCapital} }& (0.42, 0.57, 0.42)\\
- 			\hline
+ 			($\theta_F$,$\theta_G$,$\theta_N$)&\makecell[l]{share of high skill\\ non-green: 27.55\%,\\ green: 40.71\% \citep{Consoli2016DoCapital} }& (0.42, 0.57, 0.42)\\
  			\hline
  			Government&\multicolumn{2}{c}{}\\
  			\hline
- 			
- 			\hline
  			$\tau_F$&- &0.00\\
  			$\tau_\iota$&\cite{Heathcote2017OptimalFramework} &0.18\\
- 			\hline	
  			\hline
  			Emissions&\multicolumn{2}{c}{}\\
- 			\hline
- 			
  			\hline
  			$\delta$& \makecell[l]{\cite{EPAems}}&3.19\\
  			$\omega$& \cite{EPAems}&217.3\\
@@ -119,7 +99,7 @@ In the second step, I calibrate the weight on energy in final good production by
  %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO$_2$ equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
  
  % procedure
- Finally, I calibrate emissions and the emission limit. As discussed in the model section \ref{sec:model},  I consider CO$_2$ emissions only and abstract from other greenhouse gasses since carbon is the most important pollutant with the highest mitigation potential \citep[p.29]{IPCC2022}.
+ Finally, I calibrate emissions and the emission limit. As discussed in the model Section \ref{sec:model},  I consider CO$_2$ emissions only and abstract from other greenhouse gasses since carbon is the most important pollutant with the highest mitigation potential \citep[p.29]{IPCC2022}.
  %	 WG3 IPCC report (p.37) \textbf{\textit{The trajectory of future CO$_2$ emissions plays a critical role in mitigation, given CO$_2$ long-term impact and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO$_2$ greenhouse gas emissions less than CO$_2$ due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}.  
  
  The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO$_2$ emissions in the 2030s by 50\% relative to 2019\footnote{\ p. 5 Chapter 3: "\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO$_2$ in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO$_2$ emissions in the 2050s [...] (\textnormal{medium confidence}).}"}  as essential to meeting the 1.5°C climate target.  Furthermore, the report stipulates a remaining global net CO$_2$ budget of 510 GtCO$_2$ ($\approx$ 510,000 million metric tons of CO$_2$) from 2020 to the net-zero phase starting from 2050 \citep[p.5, Chapter3,]{IPCC2022}. 

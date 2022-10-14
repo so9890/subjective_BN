@@ -1,7 +1,7 @@
 \section{Quantitative model and calibration}\label{sec:model}
 
 The previous section shows that there is no role for labor income taxation in the optimal policy. However, the model abstracts from endogenous growth. When growth is endogenous, carbon taxes may be used to target the allocation of research across sectors as discussed in \cite{Acemoglu2012TheChange}. Then, a motive for income taxation may arise from optimal emission mitigation because the carbon tax deviates from implementing the efficient share of fossil production. 
-Therefore, section \ref{sec_quantmod} extends the core model to a quantitative framework mainly building on \cite{Fried2018ClimateAnalysis}. Section \ref{sec:calib} calibrates the quantitative model. 
+Therefore, Section \ref{sec_quantmod} extends the core model to a quantitative framework mainly building on \cite{Fried2018ClimateAnalysis}. Section \ref{sec:calib} calibrates the quantitative model. 
 
 \subsection{Quantitative model}\label{sec_quantmod}
 %Either, if the carbon tax is set to decrease fossil research, the labor income tax
@@ -152,12 +152,12 @@ C_t&=Y_t-\int_{0}^{1}\left(x_{Fit}+x_{Git}+x_{Nit}\right)di.  %-Gov_t.
 
 \paragraph{Government}
 
-The government seeks to maximize utility of the representative household over a finite period of length $T$ plus a continuation value, $CV$. Each period, the government is constrained by an emission limit, $\Omega_t$, in line with the Paris Agreement.  
+The government seeks to maximize lifetime utility of the representative household. Each period, the government is constrained by an emission limit, $\Omega_t$, in line with the Paris Agreement.  
 It is characterized as a Ramsey planner taking the behavior of firms and households as given and discounting utility by the household's time discount factor, $\beta$.
 The planner chooses time paths for environmental taxes and the tax progressivity parameter on the income tax scheme to solve:%\footnote{\ I code the planner's problem using a primal approach going back to \cite{Lucas1983OptimalCapital} where prices and tax instruments are replaced by equilibrium equations describing the competitive equilibrium. It is straight forward to show that the Ramsey allocation is a competitive equilibrium allocation when prices and taxes are chosen adequately.}
 \begin{align}
-\underset{\{\tau_{Ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{\max}&\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_t)%-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}
-+ CV\nonumber \\
+\underset{\{\tau_{Ft}\}_{t=0}^{\infty},\{\tau_{\iota t}\}_{t=0}^{\infty}}{\max}&\sum_{t=0}^{\infty}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_t)%-\chi_s\frac{s_{ft}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{gt}^{1-\sigma_s}}{{1-\sigma_s}}-\chi_s\frac{s_{nt}^{1-\sigma_s}}{{1-\sigma_s}}
+\nonumber \\
 s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0\\
 &  \omega F_{t} -\delta \leq \Omega_t, \label{eq:emslim} % \ \hspace{3mm} \forall t \in\{0,T\}, 
 \\ %\hspace{3mm} \text{(emission target)}\\
@@ -175,17 +175,3 @@ The government also generates revenues from confiscating profits which are used 
 Finally, the government redistributes environmental tax revenues lump sum, eq. \eqref{eq:envbud}.
 
 %\paragraph{Setup of problem: focus on current population; continuation value}
-
-Since I cannot solve explicitly for the optimal policy over an infinite horizon, I truncate the problem after period $T$. 
-In the literature, utility in periods after $T$ are approximated under the assumption that policy variables are fixed, and the economy reaches a balanced growth path \citep{Barrage2019OptimalPolicy, Jones1993OptimalGrowth}. However, assuming a constant carbon tax would most likely violate the emission limit since the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium. 
-
-I motivate the design of the continuation value by pretending the planner would hand over the economy to a successor after period $T$. The continuation value, $CV$, in the objective function captures that the planner cares about what the economy bequeaths to its successors, that is, after period $T$. 
-This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS}\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
-	}" (p.24). This is a vague definition.  \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
-	"\textit{[...] each generation should bequeath to its successor at least as large a productive base as it had inherited from its predecessor. }". 
-	However, this cannot be used to derive a sensible condition on the optimization in the present setting, since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
-	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } by attaching some value to the final technology level. I approximate the value of future technology levels by assuming constant growth rates.  Appendix section \ref{app:PV} expounds  the continuation value.
-
-To mitigate concerns that the choice of the continuation value drives the results, I experiment with the exact value of explicit optimization periods. I truncate the problem once explicitly adding a further period leaves the optimal allocation numerically unchanged. That is the case after $T=42$, or 210 years. %Then the 
-
-

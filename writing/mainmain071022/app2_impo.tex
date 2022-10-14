@@ -153,18 +153,29 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 &C_{t}+\int_{0}^{1} \left(x_{Fit}+x_{Nit}+x_{Git}\right)d_i=Y_t\nonumber
 \end{align}
 
-\subsection{Continuation value of planner's objective function}\label{app:PV}
+\subsection{Numerical appendix}\label{app:PV}
 
-%\textit{In particular, I let the planner solve explicitly for the first period after his regency which gives the starting value of the economy which is now assumed to exist for infinity. 
-%Then, research in period $T$ enters the optimization problem similarly as in previous periods through next period technology.\footnote{\ Not including period $T+1$ explicitly leads to sharp drops in research effort in period $T$. }  From period $T+1$ onward, I approximate the value of today's research by future consumption levels under the assumption of a constant growth rate. 
-%}
+Since I cannot solve explicitly for the optimal policy over an infinite horizon, I truncate the problem after period $T$. 
+In the literature, utility in periods after $T$ are approximated under the assumption that policy variables are fixed, and the economy reaches a balanced growth path \citep{Barrage2019OptimalPolicy, Jones1993OptimalGrowth}. However, assuming a constant carbon tax would most likely violate the emission limit since the model is designed to reflect market forces describing an economy with green and fossil sectors operating in equilibrium. 
 
-I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period:
+
+I motivate the design of the continuation value by pretending the planner would hand over the economy to a successor after period $T$. A continuation value, $PV$, in the objective function captures that the planner cares about utility after period $T$. 
+This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS} by attaching some value to the final technology level.\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
+	}" (p.24). This is a vague definition.  \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
+	"\textit{[...] each generation should bequeath to its successor at least as large a productive base as it had inherited from its predecessor. }". 
+	However, this cannot be used to derive a sensible condition on the optimization in the present setting, since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
+	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } I approximate the value of future technology levels by assuming constant growth rates.  
+To mitigate concerns that the choice of the continuation value drives the results, I experiment with the exact value of explicit optimization periods. I truncate the problem once explicitly adding a further period leaves the optimal allocation numerically unchanged. That is the case after $T=42$, or 210 years. %Then the 
+The planner's objective function becomes: 
 \begin{align*}
-CV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s, h_{hs}, h_{ls}, S_{s}).
+\underset{\{\tau_{Ft}\}_{t=0}^{\infty},\{\tau_{\iota t}\}_{t=0}^{\infty}}{\max}&\sum_{t=0}^{\infty}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_t)
++PV.
 \end{align*}
 
-
+In more detail, I define the continuation value as the consumption utility over the infinite horizon starting from the last explicit maximization period:
+\begin{align*}
+PV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s, h_{hs}, h_{ls}, S_{s}).
+\end{align*}
 I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
 I assume that the private consumption share in period $c_s$, with $C_s=c_sY_s$, is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
 Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period. Third, hours of workers and scientists remain at their value in the last explicit optimization period. %\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
@@ -175,7 +186,7 @@ u(C_s)= \frac{C_s^{1-\theta}}{1-\theta},
 \end{align*}
 the continuation value reduces to
 \begin{align*}
-CV= \beta^{T}\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_{T}^{1-\theta}}{1-\theta}+ \frac{1}{1-\beta}u(h_{hT}, h_{lT}, S_T)\right).
+PV= \beta^{T}\left(\frac{1}{1-\beta (1+\gamma_{yT})^{1-\theta}}\frac{C_{T}^{1-\theta}}{1-\theta}+ \frac{1}{1-\beta}u(h_{hT}, h_{lT}, S_T)\right).
 \end{align*}
 Where $u(C_s, h_{hs}, h_{ls}, S_{s})=u(c_s)+u(h_{hT}, h_{lT}, S_T)$.
 When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand in brackets becomes
@@ -203,7 +214,7 @@ It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 
 \input{app_experiment2}
 
-\subsection{Optimal Policy}\label{app:quant_res_opt}
+\subsection{Optimal policy}\label{app:quant_res_opt}
 
 
 \begin{figure}[h!!]
@@ -515,7 +526,52 @@ It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 %	\captionsetup{width=.45\linewidth}
 \includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
 \end{subfigure}
-	\floatfoot{Notes: \footnotesize{ Except for panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
+	\floatfoot{Notes: \footnotesize{ Except for Panel (a), all graphs show the percentage deviation of the variable under the integrated policy regime where the planner can choose income tax progressivity and the separate regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
 \end{figure} 
 
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Deviation under optimal policy with and without optimal labor income tax; homogeneous skills}\label{fig:opt_Count_homskill}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Average marginal income tax rate }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+	\caption{Tax per ton of carbon}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Fossil production}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_F_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}	
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Hours worked}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_hh_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sff_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Green scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sg_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Non-energy scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sn_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Green-to-fossil output}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_GFF_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+\end{figure}
 
