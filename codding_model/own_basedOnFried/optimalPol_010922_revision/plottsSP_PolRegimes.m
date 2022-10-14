@@ -383,7 +383,7 @@ end
 if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by taul')
-for lablab =1
+for lablab =0:1
     if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
     else
@@ -418,11 +418,17 @@ for lablab =1
            end
             if lgdind==1
                    lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$',  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
             end
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr == "F" 
+                ytickformat('%.1f')
+            elseif varr == "G" 
+                ytickformat('%.0f')                
+            else
+                ytickformat('%.2f')
+            end
             xticklabels(Year10)
             if lablab ==0
                 path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
@@ -504,7 +510,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=1
+   for lablab=0:1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -523,17 +529,17 @@ if plotts.compTauf_Lev==1
             varr=string(plotvars(v));
             if varr=="Emnet"
                 main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T),time, Ems);   
-                set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; grrey; 'k'}, {'LineWidth'}, {1.1; 1.1; 0.8} )   
+                set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'k'; 'k'}, {'LineWidth'}, {1.1; 1.1; 1} )   
                 if lgdind==1
                    lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$', 'net emission limit',  'Interpreter', 'latex');
                     set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
                 end
             else
                 main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T), 'LineWidth', 1.1);   
-                set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; grrey} )   
+                set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'k'} )   
                 if lgdind==1
                    lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' ,  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
             end
            xticks(txx)
@@ -545,7 +551,13 @@ if plotts.compTauf_Lev==1
            
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="Tauf" || varr=="gAg" || varr=="Emnet"
+                ytickformat('%.0f')
+            elseif varr == "gAn"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.2f')
+            end
             xticklabels(Year10)
             if lablab ==0
                 path=sprintf('figures/all_%s/CompTauf_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
@@ -573,7 +585,7 @@ if plotts.compTauf_PER==1
     
     fprintf('plott comp tauf by preexisting taul in percent')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=1
+   for lablab=0
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -585,7 +597,7 @@ if plotts.compTauf_PER==1
         %percentage difference between with and without taul allocation
         Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
         
-    for lgdind=0:1
+    for lgdind=1
     for l = keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
@@ -597,7 +609,7 @@ if plotts.compTauf_PER==1
                 set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
                 if lgdind==1
                    lgd=legend('percentage difference with taul to no taul', 'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -608,7 +620,13 @@ if plotts.compTauf_PER==1
            
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="Tauf" || varr=="gAg"
+                ytickformat('%.0f')
+            elseif varr == "gAn"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.2f')
+            end
             xticklabels(Year10)
             if lablab ==0
                 path=sprintf('figures/all_%s/CompTaufPER_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
@@ -636,7 +654,7 @@ if plotts.compTauf_Lev_NK==1
   
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -644,10 +662,10 @@ if plotts.compTauf_Lev_NK==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
                 main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time,allCAlibNK(find(varlist==varr),1:T),  'LineWidth', 1.1);   
-                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
                 if lgdind==1
-                   lgd=legend('benchmark model', 'no knowledge spillovers', 'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                   lgd=legend('with knowledge spillovers', 'no knowledge spillovers', 'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -658,7 +676,13 @@ if plotts.compTauf_Lev_NK==1
            
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr =="Tauf" || varr=="gAg"
+                 ytickformat('%.0f')
+            elseif varr =="gAf" || varr=="GFF"
+                 ytickformat('%.1f')                 
+            else
+                 ytickformat('%.2f')
+            end
             xticklabels(Year10)
         path=sprintf('figures/all_%s/CompTauf_bytaul_KN_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
@@ -694,10 +718,10 @@ if plotts.compTauf_PER_NK==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
                 main=plot(time,Perdif(find(varlist==varr),1:T), time,PerdifNK(find(varlist==varr),1:T),  'LineWidth', 1.1);   
-                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
                 if lgdind==1
-                   lgd=legend('benchmark model', 'no knowledge spillovers', 'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                   lgd=legend('with knowledge spillovers', 'no knowledge spillovers', 'Interpreter', 'latex');
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
            if ismember(varr, list.growthrates)
@@ -708,7 +732,14 @@ if plotts.compTauf_PER_NK==1
            
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr =="Tauf" || varr=="gAg"
+                 ytickformat('%.0f')
+
+            elseif varr =="gAf" || varr=="GFF"
+                 ytickformat('%.1f')                 
+            else
+                 ytickformat('%.2f')
+            end
             xticklabels(Year10)
         path=sprintf('figures/all_%s/CompTaufPER_bytaul_KN_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)

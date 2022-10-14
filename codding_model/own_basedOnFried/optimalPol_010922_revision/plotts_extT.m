@@ -680,7 +680,7 @@ if plotts.single_pol==1
     RES=OTHERPOLL{plotts.regime_gov+1};
 
     %- loop over economy versions
-    for i = ["OPT_NOT_NoTaus"]% only plotting polcies separately
+    for i = ["OPT_T_NoTaus"]% only plotting polcies separately
         ii=string(i);
         allvars= RES(ii);
     fprintf('plotting %s',ii );
@@ -708,7 +708,11 @@ if plotts.single_pol==1
            
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            else
+                ytickformat('%.2f')
+            end
             xticklabels(Year10)
             if indic.count_techgap==0
                 path=sprintf('figures/all_%s/Single_periods%d_%s_%s_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',date, T, ii,varr , plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, plotts.sizeequ, plotts.GOV,   etaa);
@@ -1209,7 +1213,11 @@ if plotts.comp_OPT==1
           
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.2f')
+            end
             xticklabels(Year10)
            if lgdind==1
               lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
@@ -1269,7 +1277,13 @@ if plotts.comp_OPTPer==1
            xlim([1, time(end-1)])
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="SWF" || varr== "sn"
+               ytickformat('%.0f')
+            elseif varr=="sff" || varr=="sg"
+               ytickformat('%.1f')
+            else
+               ytickformat('%.2f')
+            end
             xticklabels(Year10)
 %            if lgdind==1
 %               lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
@@ -1826,11 +1840,20 @@ if plotts.per_LFd==1
           
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr=="hl" || varr== "hh"
+                ytickformat('%.3f')
+            elseif varr=="GFF"
+                ytickformat('%.0f')
+            elseif varr=="C" || varr =="S" 
+                ytickformat('%.1f')
+            else
+               ytickformat('%.2f')
+            end
+
             xticklabels(Year10)
            if lgdind==1
               lgd=legend('optimal policy', 'social planner',  'Interpreter', 'latex');
-              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
            end
 
         path=sprintf('figures/all_%s/%s_PercentageLFDyn_Target_regime%d_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
