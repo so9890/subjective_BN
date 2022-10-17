@@ -17,7 +17,7 @@ cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/
 %Section 1: Select Fiscal Scenario
 %....          
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PercentageLFDyn_Target
 %%%      Section 1: Select Scenario        %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -604,9 +604,9 @@ plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 plotts.count_devs               = 0;
-
+plotts.count_devs_fromcto       = 1; 
 plotts.count_modlev_eff         = 0;
-plotts.single_pol               = 1;     
+plotts.single_pol               = 0;     
 plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
@@ -619,7 +619,7 @@ plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.comp_OPT=    1; % laissez faire and optimal with and without taul
+plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPTPer= 0; % comparison in percent with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
@@ -641,7 +641,7 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0
+        for nknk=0:1
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

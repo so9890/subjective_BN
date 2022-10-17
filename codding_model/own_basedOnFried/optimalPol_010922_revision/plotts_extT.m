@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sgsff snS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
-symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
+symms.plotsvarsRes =[sn sff sg S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV AgAf Tauf dTaulHh dTaulHl dTaulAv sgsff snS  GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -314,7 +314,7 @@ if plotts.count_devs==1
         allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         perdif= 100*(allvars-allvarscount)./allvarscount;
         
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -335,6 +335,46 @@ if plotts.count_devs==1
             ytickformat('%.2f')
             xticklabels(Year10)
             path=sprintf('figures/all_%s/CountTAUFPerDif_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+end
+
+%% comparison only carbon tax (reg 5) to only tauf from combined
+if plotts.count_devs_fromcto==1
+    
+    fprintf('plott counterfactual deviation from carbon tax only pol => role of adjustment in tauf')
+
+    %- read in variable container of chosen regime
+    if plotts.regime_gov==4
+        RES=OTHERPOLL{5+1};
+    end
+        allvars= RES("OPT_T_NoTaus");
+        allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
+        perdif= 100*(allvarscount-allvars)./allvars;
+        
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,perdif(find(varlist==varr),1:T),time,zeros(size(perdif(find(varlist==varr),1:T))), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+            
+            
+           xticks(txx)
+           xlim([1, time(end-1)])
+
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTAUF_CTOPer_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -998,39 +1038,36 @@ end
 %% only social planner
 if plotts.compeff1==1
     fprintf('plotting efficient')   
-        RES=OTHERPOLL{1}; % same for all regimes
+        RES=OTHERPOLL{plotts.regime_gov+1}; % same for all regimes
         allvarseff=RES('SP_T'); 
 
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
-        for lgdind=0
+        for lgdind=0:1
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
            if varr ~="Emnet"
                main=plot( time,allvarseff(find(varlist==varr),1:T));            
-               set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'-'}, {'color'}, {'k'} )  
+               set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'--'}, {'color'}, {'k'} )  
            else
                main=plot( time,allvarseff(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T));            
-               set(main,{'LineWidth'}, {1.2; 1.2},  {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )  
+               set(main,{'LineWidth'}, {1.2; 1.2},  {'LineStyle'},{'--'; '--'}, {'color'}, {'k'; orrange} )  
            end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
 
            if lgdind==1
-              lgd=legend('Social Planner', 'Interpreter', 'latex');
-              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
+              lgd=legend('social planner', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff_Target_onlyeff_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr, indic.spillovers,indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
+        path=sprintf('figures/all_%s/%s_CompEff_Target_onlyeff_reg%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr,plotts.regime_gov, indic.spillovers,indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1264,7 +1301,7 @@ if plotts.comp_OPTPer==1
      end
         Perdif=100*(allvars-allvarsnt)./allvarsnt;
     %% 
-    for l = keys(lisst) % loop over variable groups
+    for l = "Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for v=1:length(plotvars)
@@ -1398,13 +1435,13 @@ if plotts.compeff3==1
     fprintf('plotting comparison efficient-optimal graphs')   
     RES=OTHERPOLL{plotts.regime_gov+1};
 
-    for withlff=0
-         lff=RES('LF');
+    for withlff=1
+        lff=RES('LF');
     
-        eff= string({'SP_T', 'SP_NOT'});
-        opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+        eff= string({'SP_T'});
+        opt=string({'OPT_T_NoTaus'});
 
-    for i =[1,2]
+    for i =[1]
 
         ie=eff(i);
         io=opt(i);
@@ -1413,7 +1450,7 @@ if plotts.compeff3==1
         varl=varlist;
         allvarseff=RES(ie); 
 
-    for l =keys(lisst) % loop over variable groups
+    for l ="Res" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1421,36 +1458,41 @@ if plotts.compeff3==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
       if withlff==1
-            main=plot(time, lff(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T));            
-           set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {grrey; 'k'; orrange} )   
+            main=plot(time, lff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
+           set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{':';'-'; '--'}, {'color'}, {'k'; 'k'; 'k'} )   
       else
-            main=plot(time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T));            
-           set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+            main=plot( time,allvars(find(varl==varr),1:T),time,allvarseff(find(varl==varr),1:T));            
+           set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
       end
       xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+      xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
+            if varr == "sff" 
+                ytickformat('%.2f')
+                ylim([-0.05, 0.2])
+            end
+
             xticklabels(Year10)
 
            if lgdind==1
                if withlff==1
-                    lgd=legend('laissez-faire', 'efficient', 'optimal policy', 'Interpreter', 'latex');
+                    lgd=legend('laissez-faire', 'optimal policy', 'social planner', 'Interpreter', 'latex');
                else
 %                    if varr =="tauf"
 %                       lgd=legend( 'social cost of emissions', 'no income tax', 'Interpreter', 'latex');
 %                    else
-                     lgd=legend( 'efficient', ' optimal policy', 'Interpreter', 'latex');
+                     lgd=legend( 'optimal policy', 'social planner', 'Interpreter', 'latex');
 %                    end
                end
-              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
+               if varr~="sff"
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+               else
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'west', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+               end
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
+        path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
@@ -1523,7 +1565,7 @@ for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
         RES=OTHERPOLL{nt};
         bau=RES('LF');
 
-    for i ={'SP_T'} %OPT_T_NoTaus SP_T, 'OPT_NOT_NoTaus'
+    for i ={'SP_T', 'OPT_T_NoTaus'} % SP_T, 'OPT_NOT_NoTaus'
         ii=string(i);
         allvars= RES(ii);
 
@@ -1539,23 +1581,20 @@ for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
 
             varr=string(plotvars(v));
             %subplot(floor(length(plotvars)/nn)+1,nn,v)
-            main=plot(time,allvars(find(varlist==varr),1:T), time,bau(find(varlist==varr),1:T), 'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+            main=plot(time,bau(find(varlist==varr),1:T), time,allvars(find(varlist==varr),1:T),  'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{':'; '-'}, {'color'}, {'k';'k'} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+          
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
             xticklabels(Year10)
            if lgdind==1
                if contains(ii, 'SP')
-                  lgd=legend('social planner', 'laissez-faire', 'Interpreter', 'latex');
+                  lgd=legend('laissez-faire', 'social planner',  'Interpreter', 'latex');
                else
-                  lgd=legend('Ramsey planner', 'laissez-faire', 'Interpreter', 'latex');
+                  lgd=legend('laissez-faire', 'optimal policy',  'Interpreter', 'latex');
                end
             set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
            end
@@ -1825,7 +1864,7 @@ if plotts.per_LFd==1
         revall =RES('LF');
 
     %% 
-    for l = keys(lisst) % loop over variable groups
+    for l = "HH"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1840,11 +1879,11 @@ if plotts.per_LFd==1
           
             ax=gca;
             ax.FontSize=13;
-            if varr=="hl" || varr== "hh"
+            if varr=="hl" || varr== "hh" || varr =="Hagg"
                 ytickformat('%.3f')
             elseif varr=="GFF"
                 ytickformat('%.0f')
-            elseif varr=="C" || varr =="S" 
+            elseif (varr=="C" && indic.noknow_spill==0) || varr =="S" 
                 ytickformat('%.1f')
             else
                ytickformat('%.2f')

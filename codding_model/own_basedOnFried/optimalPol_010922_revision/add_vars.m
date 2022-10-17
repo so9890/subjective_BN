@@ -69,10 +69,16 @@ AgAf=Ag./Af;
 if max(sff~=zeros(size(sff)))
     sgsff= sg./sff;
     snS= sn./S;
+    sffS =sff./S;
+    sgS =sg./S; 
 else
     sgsff=zeros(size(AgAf));
-    snS=zeros(size(AgAf));    
+    snS=zeros(size(AgAf)); 
+    sgS=snS;
+    sffS=snS;
 end
+
+
 GFF = G./F;
 EY= E./Y;
 LgLf = Lg./Lf;
@@ -81,7 +87,7 @@ pepn = pee./pn;
 CY = C./Y;
 hhhl = hh./hl;
 whwl = wh./wl;
-
+Hagg = zh.*hh+(1-zh).*hl;
 %- growth rates
 gAg = [(Ag(2:end)-Ag(1:end-1))./Ag(1:end-1);0]*100;
 gAagg = [(A(2:end)-A(1:end-1))./A(1:end-1);0]*100;
