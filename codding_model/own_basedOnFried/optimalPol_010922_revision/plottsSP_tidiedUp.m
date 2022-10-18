@@ -1,4 +1,4 @@
-function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts, percon)
+function []=plottsSP_tidiedUp(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
 
 % this script plots results
 
@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul PV CEVv CEVvPV CEVvDy AgAf sgsff snS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy AgAf sgsff snS sffS sgS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul PV AgAf sgsff snS  GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV AgAf sgsff snS sffS sgS  GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -59,16 +59,18 @@ OTHERPOL_nsk={};
 OTHERPOL_xgr_nsk={}; 
 
 % baseline results 
+if indic.count_techgap~=1
 for xgr=0:1
 for nsk =0:1
     indic.xgrowth=xgr;
     indic.noskill=nsk;
     %- sp solution independent of policy
+
     helper=load(sprintf('SP_target_1008_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-        indic.spillovers, indic.noknow_spill, indic.noskill, 1,  indic.xgrowth, indic.PV, indic.sizeequ, etaa));
+        indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep,  indic.xgrowth, indic.PV, indic.sizeequ, etaa));
     sp_t=helper.sp_all';
     helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', ...
-        indic.spillovers, indic.noknow_spill, indic.noskill, 1, indic.xgrowth,  indic.PV, indic.sizeequ, etaa));
+        indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth,  indic.PV, indic.sizeequ, etaa));
     sp_not=helper.sp_all';
 
 %- other results
@@ -89,18 +91,27 @@ for nsk =0:1
                                 { LF, sp_t, sp_not, opt_t_notaus, opt_not_notaus});
         %- add additional variables
         if xgr==0 && nsk==0
-            OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            OTHERPOL{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
         elseif xgr==0 && nsk==1
-            OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            OTHERPOL_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
         elseif xgr==1 && nsk==0
-            OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            OTHERPOL_xgr{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
         elseif xgr==1 && nsk==1
-            OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms);
+            OTHERPOL_xgr_nsk{i+1}=add_vars(RES, list, params, indic, list.allvars, symms, MOM);
         end
     end
 end
 end
+end
+%% counterfac technology
 
+    helper=load('SP_target_1008_countec_spillover0_knspil0_noskill0_sep0_xgrowth0_zero1_PV0_sizeequ7.900000e-01_etaa.mat');
+    sp_t=helper.sp_all';
+    helper=load('SP_notarget_1008_countec_spillover0_knspil0_noskill0_sep0_extern0_xgrowth0_PV1_sizeequ0_etaa0.79.mat');
+    sp_not=helper.sp_all';
+RES_count=containers.Map({'SP_T', 'SP_NOT' },...
+                                {  sp_t, sp_not});
+RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms, MOM);
 %% counetrfactual model
 % if plotts.regime_gov==3
 %     for to=[0,1,2] % loop over counterfactual versions
@@ -150,7 +161,7 @@ end
  opt_t_notaus=helper.opt_all';
  RES_noknspil=containers.Map({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'},...
                              {opt_t_notaus, opt_not_notaus});
- RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms);
+ RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms, MOM);
 
 %  
 % counetrfactual with optimal policy from no spill over plugged in benchmark model
@@ -1251,18 +1262,22 @@ end
 %- string to loop over 
 if plotts.comptarg==1
     fprintf('plotting comparison target graphs')
-    RES=OTHERPOLL{plotts.regime_gov+1};
-    ssr= string({'SP_T', 'SP_NOT' ,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+    ssr= string({'SP_T', 'SP_NOT' });%,'OPT_T_NoTaus', 'OPT_NOT_NoTaus'
 
-    for i =[1,3] % to filter benchmark: policy with target
+    for i =[1] % to filter benchmark: policy with target
         ii=ssr(i);
         %- read in data
         t=string(ssr(i));
         nt=string(ssr(i+1));
+        if indic.count_techgap==0
+                RES=OTHERPOLL{plotts.regime_gov+1};
 
-         allvars= RES(t);
-         allvarsnot=RES(nt); 
-
+                 allvars= RES(t);
+                 allvarsnot=RES(nt); 
+        else
+                 allvars =RES_count(t);
+                 allvarsnot=RES_count(nt); 
+        end
 
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
@@ -1272,13 +1287,10 @@ if plotts.comptarg==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
             main=plot(time,allvars(find(varlist==varr),1:T), time,allvarsnot(find(varlist==varr),1:T), 'LineWidth', 1.1);            
-           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1287,8 +1299,12 @@ if plotts.comptarg==1
               lgd=legend('wih emission limit', 'no emission limit', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 18,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_TargetComp%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ii, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa, lgdind);
-        exportgraphics(gcf,path,'Resolution', 400)
+           if indic.count_techgap==0
+                path=sprintf('figures/all_%s/%s_TargetComp%s_regime%d_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ii, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa, lgdind);
+           else
+                path=sprintf('figures/all_%s/%s_TargetComp%s_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa%.2f_lgd%d.png', date, varr, ii, etaa, lgdind);
+           end
+            exportgraphics(gcf,path,'Resolution', 400)
        close gcf
         end
         end
@@ -1406,18 +1422,23 @@ if plotts.compeff1==1
     fprintf('plotting efficient')   
 
     %- read in container of results: any fine for social planner
-    RES=OTHERPOLL{1};
     
     eff= ["SP_T" "SP_NOT"];   
     for i =[1,2]
 
         ie=eff(i);
-        allvarseff=RES(ie); 
+        if indic.count_techgap==0
+            
+            RES=OTHERPOLL{plotts.regime_gov+1};
+            allvarseff=RES(ie); 
+        else
+            allvarseff =RES_count(ie);
+        end
 
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
-        for lgdind=0:1
+        for lgdind=0
         for v=1:length(plotvars)
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
@@ -1425,11 +1446,8 @@ if plotts.compeff1==1
            main=plot( time,allvarseff(find(varlist==varr),1:T));            
            set(main,{'LineWidth'}, {1.2},  {'LineStyle'},{'-'}, {'color'}, {'k'} )   
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
             ytickformat('%.2f')
@@ -1439,7 +1457,12 @@ if plotts.compeff1==1
               lgd=legend('efficient', 'Interpreter', 'latex');
               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_onlyeff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ie, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
+           if indic.count_techgap==0
+                path=sprintf('figures/all_%s/%s_CompEff%s_onlyeff_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr, ie, indic.spillovers,indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
+           else
+                path=sprintf('figures/all_%s/%s_CompEff%s_count_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa%.2f_lgd%d.png', date, varr, ie, etaa, lgdind);
+
+           end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end

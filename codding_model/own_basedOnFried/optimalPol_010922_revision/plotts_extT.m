@@ -711,6 +711,26 @@ if plotts.compnsk_xgr_dev1==1
     end
 end
 
+%% emission limit
+if plotts.ems==1
+    gcf=figure('Visible','off');
+    main= plot( time(percon+1:end),zeros(size(Ems(1:T))), time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+    set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} ) 
+    xticks(txx)
+    xlim([1, time(end-1)])
+    ylim([-0.5, 4])
+    ytickformat('%.1f')
+    ax=gca;
+    ax.FontSize=13;
+    xticklabels(Year10)
+    path=sprintf('figures/all_%s/Emnet.png',date);
+    
+    exportgraphics(gcf,path,'Resolution', 400)
+    close gcf
+
+end
+
+
 %% All figures single
 if plotts.single_pol==1
     
@@ -1381,7 +1401,7 @@ if plotts.comp_Bench_CountNK==1
         end
    end
 end
-%% optimal with and without taul in levels 
+%% comparison kn in levels
 if plotts.comp_OPT_NK==1
     % plot graphs in percent relative toefficient/optimal world
     % without tagret dynamic 
@@ -1588,6 +1608,7 @@ for nt =plotts.regime_gov+1 %  1:length(OTHERPOLL) % loop over policy regimes
           
             ax=gca;
             ax.FontSize=13;
+           
             ytickformat('%.2f')
             xticklabels(Year10)
            if lgdind==1

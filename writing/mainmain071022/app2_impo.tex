@@ -210,204 +210,182 @@ When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand in brackets beco
 %Production of $Y_t$ is defined by the eq.s describing production in the model: eq. \eqref{mod:y} to \ref{mod:LG}. 
 It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 
+\section{Calibration}\label{app:calib}
+\subsection{Emission limit}
+In 2019 global net CO$_2$ emissions amounted to 44.25Gt \citep[compare Figure SPM1.a p.11 in ][]{IPCCSPM} yielding a net emission limit in the 2030s of 22.125Gt per annum. The IPCC report is vague on the exact year when the 50\% reduction has to be reached; I assume that the net emission limit becomes binding in 2035 and is active until the limit reduces to zero in 2050. 
+To back out the share of the emission limit assigned to the US following the \textit{equal-per-capita} principle, I use population projections from the \cite{UNPOP}. %\footnote{\ Retrieved on 4 August, 2022 from \url{https://population.un.org/dataportal/data/indicators/49/locations/900,840/start/2010/end/2100/table/pivotbylocation}.} 
+Since the US population share is projected to decline over the period from 2035 to 2050, the emission limit reduces over this period. 
+
+Following this approach, the remaining net CO$_2$ budget for the period 2020-2035 happens to be smaller than total CO$_2$ emissions equal to the limit between 2035-2050. This conflicts with the downward sloping time path of emissions foreseen by the IPCC (p.3-28).\footnote{\ The reason is that global net-CO$_2$ emissions are so high that a 50\% reduction starting from 2035 results in more than half the emissions of the remaining carbon budget.}
+To generate a non-increasing pattern of the emission limit, I set the global emission limit for the period from 2035 to 2050 to half the CO$_2$ budget. This leaves an equal budget share for the initial 15 years. I assume that in the period from 2020 to 2035 the budget is equally distributed across years to simplify the numeric calculation of the optimal policy. Similar to the derivation for the period from 2035 to 2050, I apply the year-specific population share and sum over those years which form a model period. In sum, this approach amounts to distributing the remaining budget of 510Gt equally over the 30 years until the net-zero limit.
+
 \section{Quantitative results}\label{app:quant_res}
 
 \input{app_experiment2}
+
+%\subsection{Efficient allocation with and without emission limit}\label{app:eff_notar}
+%
+%\begin{figure}[h!!!]
+%	\centering
+%	\caption{Efficient and optimal allocation in deviation from laissez-faire without knowledge spillovers	}\label{fig:eff_all_tar}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(a) Green to fossil growth }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/AgAf_TargetCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(b) Green scientists }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sg_TargetCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}
+%
+%	\begin{subfigure}[]{0.4\textwidth}
+%	\centering{\footnotesize{(c) Fossil scientists}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sff_TargetCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%	\
+%\end{minipage}
+%\begin{subfigure}[]{0.4\textwidth}
+%	\centering{\footnotesize{(d) Non-energy scientists }}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sn_TargetCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%\end{subfigure}
+%
+%	\begin{subfigure}[]{0.4\textwidth}
+%	\centering{\footnotesize{(e) Green to fossil scientists no target}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sgsff_CompEffSP_NOT_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0.png}
+%\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%	\
+%\end{minipage}
+%\begin{subfigure}[]{0.4\textwidth}
+%	\centering{\footnotesize{(f) Green to fossil scientists target}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sgsff_CompEffSP_T_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0.png}
+%\end{subfigure}
+%
+%
+%\begin{subfigure}[]{0.4\textwidth}
+%	\centering{\footnotesize{(f) Green scientists no target}}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sg_CompEffSP_NOT_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0.png}
+%\end{subfigure}
+%\end{figure}
+%
+%
+%\begin{figure}[h!!!]
+%	\centering
+%	\caption{Efficient and optimal allocation in deviation from laissez-faire without knowledge spillovers	}\label{fig:eff_all_tar_count}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(a) Green to fossil growth }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/AgAf_TargetCompSP_T_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(b) Green scientists }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sg_TargetCompSP_T_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(c) Fossil scientists}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sff_TargetCompSP_T_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(d) Non-energy scientists }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sn_TargetCompSP_T_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}
+%	
+%		\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(d) scientists }}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/S_TargetCompSP_T_countec_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%	\end{subfigure}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(e) Green to fossil scientists no target}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sgsff_CompEffSP_NOT_count_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
+%		\
+%	\end{minipage}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(f) Green to fossil scientists target}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sgsff_CompEffSP_T_count_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%	\end{subfigure}
+%	\begin{subfigure}[]{0.4\textwidth}
+%		\centering{\footnotesize{(f) Green scientists no target}}
+%		%	\captionsetup{width=.45\linewidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/sg_CompEffSP_NOT_count_onlyeff_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%	\end{subfigure}
+%\end{figure}
+%Absent an emission limit, the efficient allocation is to keep green growth low. The ratio of green to fossil scientists 
 
 \subsection{Optimal policy}\label{app:quant_res_opt}
 
 
 \begin{figure}[h!!]
 	\centering
-	\caption{Allocation in levels }\label{fig:LF}	
-	\begin{subfigure}{1\textwidth}		
-		\caption{Laissez-faire and optimal allocation}
+	\caption{Laissez-faire, optimal, and efficient allocation in levels }\label{fig:LF}	
 	\begin{subfigure}[]{0.32\textwidth}
 		\centering{\footnotesize{(a) Consumption}}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
 	\end{subfigure}	
 	\begin{subfigure}[]{0.32\textwidth}
 	\centering{\footnotesize{(b) High-skill hours worked}}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 \end{subfigure}	
 \begin{subfigure}[]{0.32\textwidth}
 \centering{\footnotesize{(c) Low-skill hours worked}}
 %	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-\end{subfigure}	
-%	\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(d) Fossil scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-%\end{subfigure}	
-%\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(e) Non-energy scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-%\end{subfigure}	
-%\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(f) Green scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-%\end{subfigure}
-	\end{subfigure}	
-	\begin{subfigure}{1\textwidth}		
-	\caption{Laissez-faire and social planner allocation}
-	\begin{subfigure}[]{0.32\textwidth}
-		\centering{\footnotesize{(a) Consumption}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}	
-	\begin{subfigure}[]{0.32\textwidth}
-		\centering{\footnotesize{(b) High-skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}	
-	\begin{subfigure}[]{0.32\textwidth}
-		\centering{\footnotesize{(c) Low-skill hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-%	\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(f) Fossil scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-%\end{subfigure}	
-%\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(e) Non-energy scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-%\end{subfigure}	
-%\begin{subfigure}[]{0.32\textwidth}
-%	\centering{\footnotesize{(f) Green scientists}}
-%	%	\captionsetup{width=.45\linewidth}
-%	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_LFCompSP_T_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-%\end{subfigure}	
+\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 \end{subfigure}	
 \end{figure}
-\clearpage
-\thispagestyle{empty}
-\begin{figure}[h!!!]
-	\centering
-	\caption{Efficient and optimal allocation in deviation from laissez-faire without knowledge spillovers	}\label{fig:optAll_percLf_dyn_nokn}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{(a) Consumption\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
-	\
-\end{minipage}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{(b) Average hours worked\\ \  }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Hagg_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-\begin{minipage}[]{0.1\textwidth}
-	\
-\end{minipage}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{\ \\(d) Fossil scientists\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{\ \\(e) Non-energy scientists\\ \ }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
-	\
-\end{minipage}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{\ \\(f) Green scientists \\ \   }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{\ \\(g) Green-to-fossil output \\ \   }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}\begin{minipage}[]{0.1\textwidth}
-	\
-\end{minipage}
-	\begin{subfigure}[]{0.4\textwidth}
-		\centering{\footnotesize{\ \\(h) Energy share in GDP \\ \   }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/EY_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-\end{figure} 
 
-\clearpage
 \begin{figure}[h!!]
 	\centering
-	\caption{Allocations in levels; no knowledge spillovers }\label{fig:LF_noKN}	
-	\begin{subfigure}{1\textwidth}		
-		\caption{Laissez-faire and optimal allocation}
+	\caption{Laissez-faire, optimal, and efficient allocation in levels: no knowledge spillovers }\label{fig:LF_noKN}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(a) Consumption}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(b) High-skill hours worked}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(c) Low-skill hours worked}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(d) Fossil scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(e) Non-energy scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}	
 		\begin{subfigure}[]{0.32\textwidth}
 			\centering{\footnotesize{(f) Green scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_LFCompOPT_T_NoTaus_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
 		\end{subfigure}
-	\end{subfigure}	
-	\begin{subfigure}{1\textwidth}		
-		\caption{Laissez-faire and social planner allocation}
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(a) Consumption}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}	
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(b) High-skill hours worked}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}	
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(c) Low-skill hours worked}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hl_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(f) Fossil scientists}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}	
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(e) Non-energy scientists}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}	
-		\begin{subfigure}[]{0.32\textwidth}
-			\centering{\footnotesize{(f) Green scientists}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_LFCompSP_T_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}	
-	\end{subfigure}	
 \end{figure}
 \clearpage
 %\subsubsection{Comparison combined and carbon-tax-only policy regime }
@@ -445,89 +423,72 @@ It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 
 \begin{figure}[h!!!]
 	\centering
-	\caption{Deviation from optimal policy with only a carbon tax; No knowledge spillovers}\label{fig:opt_TLs_noKN}
-		\begin{subfigure}{0.32\textwidth}
-		\caption{Av. marginal income tax rate }
+	\caption{Deviation of combined policy from carbon-tax-only: no knowledge spillovers}\label{fig:opt_TLs_noKN}
+		\begin{subfigure}{0.4\textwidth}
+		\caption{Average marginal income tax rate }
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+\begin{minipage}[]{0.1\textwidth}
+	\
+\end{minipage}
+	\begin{subfigure}{0.4\textwidth}
 		\caption{Carbon tax}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
-		\caption{Period utility}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}	
-	\begin{subfigure}{0.32\textwidth}
-		\caption{Fossil scientists}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sff_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
-		\caption{Green scientists}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-%	\begin{subfigure}{0.4\textwidth}
-%		\caption{Non-energy scientists}
+%	\begin{subfigure}{0.32\textwidth}
+%		\caption{Period utility}
 %		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-%	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}
+%		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+%	\end{subfigure}	
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Green-to-fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sgsff_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
+	\begin{subfigure}{0.4\textwidth}
 		\caption{Green-to-fossil output}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{subfigure}
-	\floatfoot{Notes: \footnotesize{ Graphs show the percentage deviations of the variable under the combined policy regime where the planner can choose income tax progressivity and the carbon-tax-only regime without income tax, $\tau_{\iota t}=0$. }}
+	\floatfoot{Notes: \footnotesize{ Graphs show percentage deviations of variables under the combined policy regime  and the carbon-tax-only regime without income tax, $\tau_{\iota t}=0$. }}
 \end{figure} 
 
 \clearpage
 
 \begin{figure}[h!!!]
 	\centering
-	\caption{Effect of combined policy regime in model with lump-sum transfers, no knowledge spillovers, and homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
-	\begin{subfigure}{0.32\textwidth}
-		\caption{Labor income tax progressivity, $\tau_{\iota t}$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/taul_OPT_COMPtaul_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{Carbon tax}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{Fossil growth }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{Green growth }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{ Non-energy growth }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAn_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{Period utility }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/SWF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{subfigure}[]{0.32\textwidth}
-		\caption{ Hours worked }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/hh_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
-	\end{subfigure}
-\begin{subfigure}[]{0.32\textwidth}
-\caption{Consumption }
-%	\captionsetup{width=.45\linewidth}
-\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/C_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+	\caption{Deviation of combined policy from carbon-tax-only: without knowledge spillovers and with homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
+	\begin{subfigure}{0.4\textwidth}
+	\caption{Average marginal income tax rate }
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+	\
+\end{minipage}
+\begin{subfigure}{0.4\textwidth}
+	\caption{Carbon tax}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+
+	\begin{subfigure}{0.4\textwidth}
+	\caption{Green-to-fossil scientists}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sgsff_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+	\
+\end{minipage}
+\begin{subfigure}{0.4\textwidth}
+	\caption{Green-to-fossil output}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
 \end{subfigure}
 	\floatfoot{Notes: \footnotesize{ Except for Panel (a), all graphs show the percentage deviation of the variable under the combined policy regime where the planner can choose income tax progressivity and the carbon-tax-only regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. Panel (a) shows the income tax progressivity by regime.}}
 \end{figure} 
@@ -535,42 +496,43 @@ It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 \thispagestyle{empty}
 \begin{figure}[h!!!]
 	\centering
-	\caption{Deviation under optimal policy with and without optimal labor income tax; homogeneous skills}\label{fig:opt_Count_homskill}
+	\caption{Optimal combined policy versus only optimal carbon tax: homogeneous skills}\label{fig:opt_Count_homskill}
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Average marginal income tax rate }
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 	\end{subfigure}
-	\begin{subfigure}{0.4\textwidth}
-	\caption{Tax per ton of carbon in 2022 US\$}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill1_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-\end{subfigure}
-	\begin{subfigure}{0.4\textwidth}
-		\caption{Fossil production}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_F_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
-	\end{subfigure}	
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Average hours worked}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_hh_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
+
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Fossil scientists}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sff_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Green scientists}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sg_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
+
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Non-energy scientists}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_sn_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Green-to-fossil output}
 		%	\captionsetup{width=.45\linewidth}

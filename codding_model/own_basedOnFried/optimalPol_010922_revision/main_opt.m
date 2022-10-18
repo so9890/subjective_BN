@@ -126,7 +126,7 @@ end
 % in this section I simulate the economy starting from 2015-2019
 % order of variables in LF_SIM as in list.allvars
 indic.sizeequ=0;
-indic.sep=2;
+indic.sep=0;
 % indic.labshareequ=1;
 % indic.noknow_spill=0; % ==1 then version without knowledge spillovers : should find different effect of tauf on growth and emissions?
 POL=polCALIB; % tauf chosen in code; or updated below of limit-LF=0
@@ -137,13 +137,13 @@ StatsEms.RFF2022=1.11*185; % social cost of carbon from resources for the future
 StatsEms.RFF2019=0.99*185; % social cost of carbon from resources for the future in 2022 prices.
 StatsEms.RFF2022up=1.1*413; % social cost of carbon from resources for the future in 2022 prices.
 
-for lablab = 0
+for lablab = 0:1
     indic.labshareequ=lablab;
-for nknk =1
+for nknk =0:1
     indic.noknow_spill=nknk; 
 for bb ="SCC" %["BAU", "SCC"]
     indic.tauff=bb;
-for tata=0 % ==0 then uses calibrated taul
+for tata=0:1 % ==0 then uses calibrated taul
     indic.taul0=tata; %==1 then sets taul =0
 for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
@@ -156,9 +156,10 @@ for ff=0
 if indic.limit_LF==0
     if indic.tauff=='SCC'
         scc=185; % rff estimate per ton of carbon
-        scc_giga22=185*1e9; % 185*1e9: price per gigaton in 2022 prices
-        %=> in 2019 prices
-        scc_giga19= scc_giga22/1.12; % 12% inflation from 2019 to 2022
+        scc_giga20=185*1e9; % 185*1e9: price per gigaton in 2020 prices 
+        %=> in 2019 prices:
+        scc_giga19=0.99*scc_giga20; 
+%        scc_giga19= scc_giga22/1.12; % 12% inflation from 2019 to 2022 MISTAKE HERE HAVE to deflate from 2020 prices first!
         % => get in units of GDP over 2015-2019 horizon
         tauftilde= scc_giga19/(1e6*MOM.GDP1519MILLION); % in units of total GDP from 15 to 19 => price as percent of gdp
         POL(list.pol=='tauf')=tauftilde*Sparams.omegaa; % => tauf per unit of fossil in model
@@ -175,9 +176,9 @@ for ee=0
         Ems_alt=Ems;
     end
 % full model
-for nsk=1
+for nsk=0:1
     indic.noskill=nsk;
-    for xgr=0
+    for xgr=0:1
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
@@ -274,11 +275,11 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=0 % no emission limit : 
+for ll=1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0:1 % knowledge spillovers
+for nknk=0 % knowledge spillovers
     for xgr =0
-        for nsk=0:1
+        for nsk=1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -310,28 +311,33 @@ end
 indic.sizeequ=0;
 indic.noknow_spill=0;
 indic.sep=0; % Has to be equal to loaded parameters!!!
+indic.count_techgap=1;
 count=30;
 Tinit=T;
 
 for xgr=0
     indic.xgrowth=xgr;
-    for ns=1
+    for ns=0
         indic.noskill=ns;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=0
+       for tar=1
             indic.target=tar;
-            indic         
-            SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
-%             SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+            indic     
+            if indic.count_techgap==0
+           % SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
+                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+            else
+               SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
+
+            end
        end            
     end
 end
 
 %%
 if indic.count_techgap==1
-    SP_solve(list, symms, params, Sparams, x0LF, initcount, init1519count, indexx, indic, T, Ems, MOM, percon);
 end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -500,7 +506,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.regime_gov=  0; % = equals policy version to be plotted
+plotts.regime_gov=  4; % = equals policy version to be plotted
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -524,17 +530,17 @@ plotts.compnsk_xgr1             = 0;
 
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
-plotts.count_modlev             = 1; 
+plotts.count_modlev             = 0; 
 
 plotts.count_modlev_eff         = 0;
-plotts.single_pol               = 1;
+plotts.single_pol               = 0;
 plotts.singov                   = 0;
 
 plotts.notaul                   = 0; % policy comparisons; this one needs to be switched on to get complete table
 plotts.bau                      = 0; % do plot bau comparison
 plotts.lf                       = 0; % comparison to laissez faire allocation 
 
-plotts.comptarg                 = 0; % comparison with and without target
+plotts.comptarg                 = 1; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
@@ -559,17 +565,17 @@ plotts.compREd=0;
     
 for xgr =0
     for nsk=0
-        for se=0
+        for nknk=1
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
-plotts.sizeequ =se; % important for comparison of 
+plotts.sizeequ =0; % important for comparison of 
 plotts.GOV =0;
-indic.noknow_spill=0; % in the benchmark allocation there are kn spillovers
-
+indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
+indic.count_techgap=0;
 plotts
 %%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
-plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
+plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon, MOM); 
         end
     end
 end
@@ -579,6 +585,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
+plotts.ems =        1;
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -604,7 +611,7 @@ plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 plotts.count_devs               = 0;
-plotts.count_devs_fromcto       = 1; 
+plotts.count_devs_fromcto       = 0; 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
 plotts.singov                   = 0;
@@ -632,7 +639,7 @@ plotts.per_LFd_nt=  0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 
 plotts.per_LFt0  =  0; % 2020  lf as benchmark
-plotts.per_optd =   0;
+plotts.per_optd  =  0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
@@ -641,7 +648,7 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0:1
+        for nknk=0
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

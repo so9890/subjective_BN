@@ -130,10 +130,12 @@ elseif indic.target==1
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
         fprintf('using sp solution as initial value')
-       helper= load(sprintf('SP_target_1008_spillover%d_knspil0_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1, indic.xgrowth, indic.PV, params(list.params=='etaa')));
+        helper= load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+
+%        helper= load(sprintf('SP_target_1008_spillover%d_knspil0_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1, indic.xgrowth, indic.PV, params(list.params=='etaa')));
        %helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.noskill, 4 , indic.sep, indic.xgrowth, indic.PV, etaa));
 
-        sp_all=helper.sp_all;
+        sp_all=helper.opt_all;
         % with new emission target
         kappaa = [repmat(Ftarget(1),1, percon),Ftarget]./sp_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
         kappaa = kappaa*(1-1e-10);

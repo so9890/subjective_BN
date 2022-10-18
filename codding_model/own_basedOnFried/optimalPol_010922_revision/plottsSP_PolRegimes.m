@@ -134,14 +134,14 @@ end
      RES_NK=add_vars(RES_NK, list, params, indic, list.allvars, symms, MOM);
 
  %- earmarking
-   helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-        all_TaulC=helper.COMP';
-         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-             indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-         all_Taul0=helper.COMP';
-     RES_GS = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
-     RES_GS=add_vars(RES_GS, list, params, indic, list.allvars, symms, MOM);
+%    helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%         all_TaulC=helper.COMP';
+%          helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%              indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, 7,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%          all_Taul0=helper.COMP';
+%      RES_GS = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
+%      RES_GS=add_vars(RES_GS, list, params, indic, list.allvars, symms, MOM);
  %- partial equilibrium sep=2
 %         helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep2_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
 %             indic.spillovers, indic.noknow_spill, plotts.nsk, plotts.xgr,0, indic.sep, 0,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
@@ -328,7 +328,7 @@ end
 %% effect of tauf percent
 if plotts.perDif_notauf==1
        fprintf('plott effect tauf percent')
- for lablab =0
+ for lablab =0:1
      if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
      else
@@ -383,7 +383,7 @@ end
 if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by taul')
-for lablab =0:1
+for lablab =1
     if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
     else
@@ -399,7 +399,7 @@ for lablab =0:1
         perdif0=(allvarsConsTAUL0-benchTAUL0)./benchTAUL0*100;
     for lgdind=0:1
 
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -408,24 +408,29 @@ for lablab =0:1
             varr=string(plotvars(v));
 
             main=plot(time,perdifCalib(find(varlist==varr),1:T),time,perdif0(find(varlist==varr),1:T),'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k';grrey}  )  
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k';'k'}  )  
 
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+         
             if lgdind==1
                    lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$',  'Interpreter', 'latex');
                     set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
             end
             ax=gca;
             ax.FontSize=13;
-            if varr == "F" 
+           if (varr == "F" && indic.noknow_spill==0 && lablab==0) || varr == "sff"...
+                ||(varr=="EY" && indic.noknow_spill==1 && lablab==0) || (varr=="EY" && indic.noknow_spill==0 && lablab==1)...
+                || (varr == "snS" && indic.noknow_spill==1 && lablab==0)  || (varr == "snS" && indic.noknow_spill==1 && lablab==1)...
+                || (varr == "sn" && indic.noknow_spill==1 && lablab==0)  || (varr == "sn" && indic.noknow_spill==1 && lablab==1)
                 ytickformat('%.1f')
-            elseif varr == "G" 
-                ytickformat('%.0f')                
+           elseif varr == "G" || varr == "sg" || varr == "GFF" ...
+                || (varr == "F" && indic.noknow_spill==1 && lablab==0) || (varr == "F" && indic.noknow_spill==0 && lablab==1)...
+                || (varr == "F" && indic.noknow_spill==1 && lablab==1) || (varr == "snS" && indic.noknow_spill==0 && lablab==1) ...
+                || (varr == "sn" && indic.noknow_spill==0 && lablab==1) 
+                ytickformat('%.0f')  
+           elseif (varr == "snS" && indic.noknow_spill==0 && lablab==0) || varr == "hhhl" 
+                ytickformat('%.3f') 
             else
                 ytickformat('%.2f')
             end
@@ -510,7 +515,7 @@ if plotts.compTauf_Lev==1
     
     fprintf('plott comp tauf by preexisting taul')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0:1
+   for lablab=0
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else
@@ -520,7 +525,7 @@ if plotts.compTauf_Lev==1
         allvarsTaul0=allvars('Taul0');
         
     for lgdind=0:1
-    for l = keys(lisst) % loop over variable groups
+    for l ="Add"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -543,12 +548,8 @@ if plotts.compTauf_Lev==1
                 end
             end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
+           xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
             if varr=="Tauf" || varr=="gAg" || varr=="Emnet"
@@ -597,8 +598,8 @@ if plotts.compTauf_PER==1
         %percentage difference between with and without taul allocation
         Perdif = 100*(allvarsTaulCalib-allvarsTaul0)./allvarsTaul0;
         
-    for lgdind=1
-    for l = keys(lisst) % loop over variable groups
+    for lgdind=0
+    for l ="Add"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -612,17 +613,14 @@ if plotts.compTauf_PER==1
                     set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+      xlim([1, time(end-1)])
+
            
             ax=gca;
             ax.FontSize=13;
-            if varr=="Tauf" || varr=="gAg"
+            if varr=="gAg"
                 ytickformat('%.0f')
-            elseif varr == "gAn"
+            elseif varr == "gAn" || varr=="Tauf" 
                 ytickformat('%.1f')
             else
                 ytickformat('%.2f')
@@ -654,7 +652,7 @@ if plotts.compTauf_Lev_NK==1
   
         
     for lgdind=0:1
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -668,11 +666,8 @@ if plotts.compTauf_Lev_NK==1
                     set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
+           xlim([1, time(end-1)])
+
            
             ax=gca;
             ax.FontSize=13;
@@ -724,19 +719,17 @@ if plotts.compTauf_PER_NK==1
                     set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
-           if ismember(varr, list.growthrates)
-                xlim([1, time(end-1)])
-           else             
-                xlim([1, time(end)])
-           end
-           
+           xlim([1, time(end-1)])
+
             ax=gca;
             ax.FontSize=13;
-            if varr =="Tauf" || varr=="gAg"
+            if varr =="Tauf" || (varr=="gAg" && indic.limit_LF==1)
                  ytickformat('%.0f')
 
-            elseif varr =="gAf" || varr=="GFF"
-                 ytickformat('%.1f')                 
+            elseif (varr =="gAf" && indic.limit_LF==1)|| (varr=="GFF"&& indic.limit_LF==1)
+                 ytickformat('%.1f')
+            elseif    (varr=="gAg" && indic.limit_LF==0) || (varr=="GFF" && indic.limit_LF==0)
+                 ytickformat('%.3f')
             else
                  ytickformat('%.2f')
             end
