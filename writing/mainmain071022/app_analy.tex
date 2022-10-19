@@ -85,13 +85,11 @@ This expression can be rewritten using relations of derivatives summarized in \r
 \end{align}
 The term in brackets is positive under the optimal policy as can be seen from the first order condition with respect to $s$, eq. \eqref{eq:sbs}:
 \begin{align}
-\frp{Y}{F}\frp{F}{L_F}-\frp{Y}{G}\frp{G}{L_G}=\frac{1}{H}\left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=\frac{1}{H}\left(\frac{-U_F\frp{F}{s}}{U_C}\right)>0.\nonumber
+\frp{Y}{F}\frp{F}{L_F}-\frp{Y}{G}\frp{G}{L_G}=\frac{1}{H}\left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=\frac{1}{H}\left(\frac{-U_F\frp{F}{s}}{U_C}\right)>0.\label{eq:gap}
 \end{align}
 The inequality holds since the externality of polluting production is negative. %, above expression is positive.
 %Therefore, the marginal product of labor in the efficient allocation equals
 Now note that the first summand in eq. \eqref{eq:mpl_opt} is the competitive wage rate.  Hence $w<MPL$.
-
-The gap between the wage rate and the marginal product of labor equals the gap between the marginal products of labor across sectors times the relative size of the dirty sector, $s$. The wedge occurs because the environmental tax keeps the marginal product of labor in the fossil sector high. 
 
 \subsection{Sufficiency of the environmental tax and lump-sum transfers}\label{app:incometax0}
 
@@ -101,15 +99,20 @@ Noticing that $\frac{\partial Y}{\partial H}= \frac{\partial Y}{\partial s}\frac
 \end{align}
 Hence, if the environmental tax is set to guarantee that condition \eqref{eq:sbh} holds and proceeds are redistributed lump sum, optimal hours worked only trade off the disutility from labor and the utility from more consumption. 
 
-%eq. \eqref{eq:pigou} also holds for the social planner allocation simplifying the second first order condition, eq. \eqref{eq:fbh}.
-
-
 Substituting $U_H$ from household optimality, eq. \eqref{eq:hsup}, and the clean sectors' profit maximizing condition from eq. \eqref{eq:profmax} yields
 \begin{align}
 1=1-\tau^*_\iota.\nonumber
 \end{align}
 Hence, $\tau^*_\iota =0$ from which follows that $\lambda =1$ so that the income tax scheme is a flat tax rate equal to zero; the labor income tax is not used in optimum.
 
+
+The reason for this result is that the competitive wage rate captures the social costs of the externality induced by an additional hour worked when the carbon tax is set so that the planners first order condition, eq. \eqref{eq:sbs}, holds. 
+To see this, substitute the last equality of eq. \eqref{eq:gap}
+in eq. \eqref{eq:mpl_opt} and solve for the wage rate $w= \frp{Y}{G}\frp{G}{L_G}$:
+\begin{align}
+w= \frp{Y}{H}+\frac{U_F}{U_C}\frp{F}{H},
+\end{align}
+where I replaced the derivative of fossil with respect to $s$ with the derivative with respect to $H$ using the relations in Appendix \ref{app:dervs_use}. 
 %\subsubsection{Simplifying social planner's first order conditions}
 %
 %The social planner's first order condition on labor can be rewritten as in the previous section to

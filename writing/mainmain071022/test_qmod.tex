@@ -1,6 +1,6 @@
 \section{Quantitative model and calibration}\label{sec:model}
 
-The previous section shows that there is no role for labor income taxation in the optimal policy. However, the model abstracts from endogenous growth. When growth is endogenous, carbon taxes may be used to target the allocation of research across sectors\footnote{ \cite{Acemoglu2012TheChange} argue that to achieve the efficient allocation, a research subsidy needs to complement a carbon tax. The subsidy serves to correct for dynamic spillovers in research. Using a carbon tax for this purpose would be too costly. }. Then, a motive for income taxation may arise from optimal emission mitigation because the carbon tax deviates from implementing the efficient share of fossil demand. 
+The previous section shows that there is no role for labor income taxation in the optimal policy. However, the model abstracts from endogenous growth. When growth is endogenous, carbon taxes may be used to target the allocation of research across sectors.\footnote{\ \cite{Acemoglu2012TheChange} argue that to achieve the efficient allocation, a research subsidy needs to complement a carbon tax. The subsidy serves to correct for dynamic spillovers in research. Absent a subsidy on green research, the optimal carbon tax is higher to stimulate green growth today. } Then, a motive for income taxation may arise from optimal emission mitigation because the carbon tax deviates from implementing the efficient share of fossil labor. 
 Therefore, Section \ref{sec_quantmod} extends the core model to a quantitative framework mainly building on \cite{Fried2018ClimateAnalysis}. Section \ref{sec:calib} calibrates the quantitative model. 
 
 \subsection{Quantitative model}\label{sec_quantmod}
@@ -18,18 +18,17 @@ Appendix \ref{app:quant_mod} provides an overview of all equations determining t
 % the rep agent
 The household side is described by a representative household.
 The household chooses hours of high-, $h_{ht}$, and low-skill workers, $h_{lt}$, hours of scientists, $S_t$, and average consumption, $C_t$, taking prices as given. The share of worker types is fixed with a lower share of high-skill workers, $z_h$, resulting in a skill premium. The household's problem remains static. Modeling the economy as a representative family allows to abstract from inequality as a motive for government intervention while being able to study skill heterogeneity. The total time endowment of workers and scientists is given by $\bar{H}$. %Each period, it behaves according to: % The household's problem reads
-The household receives lump-sum transfers from the government: $T_{\pi t}$ and $T_{lst}$ resulting from (i) confiscating firm profits and (ii) the carbon tax.
-
+The household receives lump-sum transfers from the government: $T_{\pi t}$ and $T_{lst}$ resulting from (i) confiscating firm profits and (ii) the carbon tax. The household behaves according to:
 %Scientists, $S_t$, form part of the household. Their size is normalized to one. At the beginning of a period,  the representative household supplies scientists treating their income as part of the household budget. However, to facilitate notation, scientists' income is confiscated by the government. This is not anticipated by the household.\footnote{\ Since firm profits are likewise confiscated by the government, firm profits, scientists income, and the subsidy on machine producers cancel from the government consolidated budget. The market imperfection arising from monopolistic competition is corrected for in a non-}
 \begin{align*}
 \underset{C_{t}, h_{lt}, h_{ht}, S_t}{\max}&
 u(C_{t}, h_{lt}, h_{ht}, S_t)\\
 s.t.& \ \ p_{t}C_{t}\leq% (1-\tau_{\iota t})(h_{ht}w_{ht}+h_{lt}w_{lt})+T_t\\ 
 z_h\lambda_t \left(h_{ht}w_{ht}\right)^{1-\tau_{\iota t}}+(1-z_h)\lambda_t\left(h_{lt}w_{lt}\right)^{1-\tau_{\iota t}}+w_{st}S_t+T_{\pi t}+T_{lst},\\
-\ & h_{ht}\leq \bar{H},\ \hspace{2mm} h_{lt}\leq \bar{H},\ \hspace{2mm}  S_{t}\leq \bar{H},
+\ & h_{ht}\leq \bar{H},\ \hspace{2mm} h_{lt}\leq \bar{H},\ \hspace{2mm}  S_{t}\leq \bar{H}.
 \end{align*}
-where $w_{ht}$, $w_{lt}$, $w_{st}$, and $p_{t}$ are prices for high- and low-skill labor, for research, and the final consumption good.
-The government levies a non-linear tax on labor income at the skill level. 
+The variables $w_{ht}$, $w_{lt}$, $w_{st}$, and $p_{t}$ indicate prices for high- and low-skill labor, for research, and the final consumption good.
+The government taxes labor income at the skill level. 
 %This modeling choice facilitates notation. 
 %\begin{align}
 %\underset{s_{jt}}{\max}\ \ & w_{jst}s_{jt}-\chi_s \frac{s_{jt}^{1+\sigma_s}}{1+\sigma_s}
@@ -50,16 +49,13 @@ Energy producers perfectly competitively combine fossil and green energy to a co
 E_t=\left[F_t^\frac{\varepsilon_e-1}{\varepsilon_e}+G_t^\frac{\varepsilon_e-1}{\varepsilon_e}\right]^\frac{\varepsilon_e}{\varepsilon_e-1}.
 \end{align*}
 The price of energy is determined as  $p_{Et}= \left[(p_{Ft}+\tau_{Ft})^{1-\varepsilon_e}+p_{Gt}^{1-\varepsilon_e}\right]^\frac{1}{{1-\varepsilon_e}}$.
-
-
-
-The government levies a sales tax per unit of fossil energy bought by energy producers. This tax is referred to as environmental, or carbon tax in this paper. 
+The government levies a sales tax per unit of fossil energy bought by energy producers. This tax is referred to as environmental or carbon tax in this paper. 
 
 Intermediate goods, fossil, $F_t$, green, $G_t$, and non-energy, $N_t$, are again produced in competitive sectors using a sector-specific labor input good and machines. The production function in sector $J\in \{F,G,N\}$ reads
 \begin{align*}
 &J_{t}= L_{Jt}^{1-\alpha_J}\int_{0}^{1}A_{Jit}^{1-\alpha_J}x_{Jit}^{\alpha_J} di.
 \end{align*}
-$A_{Jit}$ indicates the productivity of machine $i$ in sector $J$ at time $t$: $x_{Jit}$. 
+Variable $A_{Jit}$ indicates the productivity of machine $i$ in sector $J$ at time $t$: $x_{Jit}$. 
 Labor shares, $\alpha_J$, are sector specific. 
  %A reduction in labor supply, however, does not affect the structure of the economy due to free movement of labor. Importantly, \cite{Fried2018ClimateAnalysis} finds a higher labor share in the fossil sector.Therefore, the green sector cannot profit as much from an increased labor supply as fossil production reduces. This effect mitigates the effectiveness of a carbon tax. 
 % as the price for the fossil good increases, demand for fossil reduces. Since the two goods are substitutes, demand for green energy increases. 
@@ -67,30 +63,25 @@ Intermediate good producers maximize profits:
 \begin{align*}
 \pi_{Jt}=p_{Jt}F_t-w_{lJt}L_{Jt}-\int_{0}^{1}p_{xJit}x_{Jit}di,
 \end{align*}
-where $w_{lJt}$ is the price for the sector $J$'s labor input good, and $p_{xJit}$ denotes the price of machines from producer $i$ in sector $J$. 
+where $w_{lJt}$ is the price of sector $J$'s labor input good, $L_{Jt}$, and $p_{xJit}$ denotes the price of machines from producer $i$ in sector $J$. 
 
-The labor input good of sector $J$, $L_{Jt}$, is produced by a perfectly competitive labor industry according to: 
-\begin{align*}
-L_{Jt}=h_{hJt}^{\theta_J}h_{lJt}^{1-\theta_J}.
-\end{align*}
+The labor input good of sector $J$ is produced by a perfectly competitive labor industry according to: $L_{Jt}=h_{hJt}^{\theta_J}h_{lJt}^{1-\theta_J}.$
 This additional intermediate industry allows to capture differences in skills by sector and in particular the skill bias of the green sector: $\theta_G>\frac{1}{2}(\theta_F+\theta_N)$. 
 
-Machine producers are imperfect monopolists. They choose the price at which to sell their machines to intermediate good producers and decide on the amount of scientists to employ. Demand for machines increases with their productivity; this provides the incentive to invest in research. Irrespective of the sector, the costs of producing one machine is set to one unit of the final output good \citep[similar to][]{Fried2018ClimateAnalysis, Acemoglu2012TheChange}. 
-Following the same literature, machine producers only receive returns to innovation for one period. Afterwards, patents expire. 
-Each period, machine producer $i$ solves
+Machine producers are imperfect monopolists searching to maximize profits. They choose the price at which to sell their machines to intermediate good producers and decide on the amount of scientists to employ. Demand for machines increases with their productivity; this provides the incentive to invest in research. Irrespective of the sector, the costs of producing one machine is set to one unit of the final output good similar to \cite{Fried2018ClimateAnalysis} and \cite{Acemoglu2012TheChange}. 
+Following the same literature, machine producers only receive returns to innovation for one period. Afterwards, patents expire. Machine producer i's profits in sector $J$ are given by
 \begin{align*}
-\underset{p_{xJit}, s_{Jit}}{\max}&p_{xJit}(1+\zeta_{Jt})x_{Jit}-x_{Jit}-w_{st}s_{Jit},
+\pi_{Jit}=p_{xJit}(1+\zeta_{Jt})x_{Jit}-x_{Jit}-w_{st}s_{Jit}.
 \end{align*}
-internalizing demand for machines. 
 The government subsidizes machine production by $\zeta_{Jt}$ to correct for the monopolistic structure. Machine producers' profits are confiscated by the government to simplify notation.
 
 \paragraph{Research and technology}
-Technology growth is driven by research and spillover effects. 
+Technology growth is driven by research and spillovers. 
 The law of motion of technology of machines from firm $i$ in sector $J$ is modeled as
 \begin{align*}
 A_{Jit}=A_{Jit-1}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right).
 \end{align*}
-The aggregate technology level is defined as
+Aggregate technology levels are defined as
 \begin{align*}
 A_{Jt}=\int_{0}^{1}A_{Jit}di,\\
 A_{t}=\frac{\rho_FA_{Ft}+\rho_GA_{Gt}+\rho_N A_{Nt}}{\rho_F+\rho_G+\rho_N}.
@@ -98,13 +89,14 @@ A_{t}=\frac{\rho_FA_{Ft}+\rho_GA_{Gt}+\rho_N A_{Nt}}{\rho_F+\rho_G+\rho_N}.
 The parameters $\rho_J$ capture the number of research processes by sector. This ensures that returns to scale refer to the ratio of scientists to research processes \citep{Fried2018ClimateAnalysis}. 
 %The number of research processes is highest in the non-energy sector. Therefore, a reduction in non-energy technology is more costly for growth in other sectors via knowledge spillovers. 
 %In the baseline calibration, $\eta$ is smaller unity implying diminishing returns to research within a sector following \cite{Fried2018ClimateAnalysis}. 
-The private benefits of research for machine producers diverge from the social benefits as  producers neither internalize the effect of today's research on tomorrow's productivity under one-period patents nor the positive knowledge spillovers for all research sectors captured by the term $\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi$ with $\phi>0$. There are no knowledge spillovers when $\phi=0$.
+The private benefits of research for machine producers diverge from the social benefits as  producers neither internalize the effect of today's research on tomorrow's productivity under one-period patents nor the positive knowledge spillovers for all research sectors captured by the term $\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi$ with $\phi\geq0$. There are no knowledge spillovers when $\phi=0$.
 
-The marginal product of research determines the amount of researchers employed and given by
+The marginal product of research determines the amount of researchers employed. It equals the competitive wage for scientists given by
 \begin{align*}
 w_{st}= \frac{\eta \gamma \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi (1-\alpha_J)\alpha_Js_{Jt}^{\eta-1}p_{Jt}J_t}{\rho_J^\eta}.
 \end{align*}
-Ceteris paribus, revenues are increasing in labor supply which is affected by the income tax. The parameter $\gamma$ refers to research productivity.
+%Ceteris paribus, revenues are increasing in labor supply which is affected by the income tax. 
+The parameter $\gamma$ refers to research productivity.
 
 The supply of scientists is endogenous in my model. With this choice, I depart from the standard assumption of a fixed supply of scientists in the literature on directed technical change \citep{Acemoglu2012TheChange, Fried2018ClimateAnalysis}.  Modeling the supply of researchers flexibly gives more freedom for the planner to choose lower growth levels: no a-priori fixed amount of research has to be employed. In light of an absolute emission limit, this could be important.
 There is free movement of scientists across sectors, which seems reasonable given the 5-year duration of one period and certain research skills being applicable across sectors. %Furthermore, I do not assume free movement of scientists which simplifies the numeric calculation when the marginal gains of science diverge. 
@@ -135,7 +127,7 @@ content...
 
   
 \paragraph{Markets}
-In equilibrium, markets clear. I explicitly model markets for skill, scientists, and the final consumption good:
+In equilibrium, markets clear. I explicitly model markets for workers, scientists, and the final consumption good:
 \begin{align*}
 z_h h_{ht}&=h_{hFt}+h_{hGt}+h_{hNt},\\
 (1-z_h) h_{lt}&=h_{lFt}+h_{lGt}+h_{lNt},\\
@@ -161,7 +153,7 @@ s.t.\ %& (1)\  \tau_{\iota t}(h_{ht}w_{ht}+h_{lt}w_{lt})=T_t\  \forall \ t\geq 0
 \end{align}
 
 %- emission constraint
-Constraint \eqref{eq:emslim} is the emission limit. The parameter $\delta$ captures the capacity of the environment to reduce emitted CO$_2$ through sinks, such as forests and moors.  The parameter $\omega$ determines  CO$_2$ emissions per unit of fossil energy produced. I abstract from other greenhouse gases. This keeps the model simple while accounting for the pollutant the most relevant for mitigation policies.\footnote{\ CO$_2$ dominates total greenhouse gas forcing \citep[p.29]{IPCC2022}, and other greenhouse gasses hold a smaller mitigation potential (p.26).}
+Constraint \eqref{eq:emslim} is the emission limit. The parameter $\delta$ captures the capacity of the environment to reduce emitted CO$_2$ through sinks, such as forests and moors.  The parameter $\omega$ determines  CO$_2$ emissions per unit of fossil energy produced. %I abstract from other greenhouse gases. This keeps the model simple while accounting for the pollutant the most relevant for mitigation policies.
 
 %- gov budgets
 The scale parameter on income taxes, $\lambda_t$, adjusts so that all revenues from the labor income tax are redistributed to the household, eq. \eqref{eq:incbud}.
