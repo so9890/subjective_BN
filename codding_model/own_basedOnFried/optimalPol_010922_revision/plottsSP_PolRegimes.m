@@ -328,7 +328,7 @@ end
 %% effect of tauf percent
 if plotts.perDif_notauf==1
        fprintf('plott effect tauf percent')
- for lablab =0:1
+ for lablab =1
      if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
      else
@@ -422,12 +422,12 @@ for lablab =1
            if (varr == "F" && indic.noknow_spill==0 && lablab==0) || varr == "sff"...
                 ||(varr=="EY" && indic.noknow_spill==1 && lablab==0) || (varr=="EY" && indic.noknow_spill==0 && lablab==1)...
                 || (varr == "snS" && indic.noknow_spill==1 && lablab==0)  || (varr == "snS" && indic.noknow_spill==1 && lablab==1)...
-                || (varr == "sn" && indic.noknow_spill==1 && lablab==0)  || (varr == "sn" && indic.noknow_spill==1 && lablab==1)
+                || (varr == "sn" && indic.noknow_spill==1 && lablab==0)  
                 ytickformat('%.1f')
            elseif varr == "G" || varr == "sg" || varr == "GFF" ...
                 || (varr == "F" && indic.noknow_spill==1 && lablab==0) || (varr == "F" && indic.noknow_spill==0 && lablab==1)...
                 || (varr == "F" && indic.noknow_spill==1 && lablab==1) || (varr == "snS" && indic.noknow_spill==0 && lablab==1) ...
-                || (varr == "sn" && indic.noknow_spill==0 && lablab==1) 
+                || (varr == "sn" && indic.noknow_spill==0 && lablab==1) || (varr == "sn" && indic.noknow_spill==1 && lablab==1)
                 ytickformat('%.0f')  
            elseif (varr == "snS" && indic.noknow_spill==0 && lablab==0) || varr == "hhhl" 
                 ytickformat('%.3f') 
@@ -586,7 +586,7 @@ if plotts.compTauf_PER==1
     
     fprintf('plott comp tauf by preexisting taul in percent')
    for reg=plotts.regime%[0,2,4,7]
-   for lablab=0
+   for lablab=1
            if lablab ==0
                allvars=OTHERPOLL{reg+1};
            else

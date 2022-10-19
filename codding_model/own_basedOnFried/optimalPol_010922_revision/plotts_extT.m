@@ -314,7 +314,7 @@ if plotts.count_devs==1
         allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         perdif= 100*(allvars-allvarscount)./allvarscount;
         
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =["Res", "Add"] %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -329,10 +329,13 @@ if plotts.count_devs==1
            xticks(txx)
            xlim([1, time(end-1)])
 
-           
+           if (varr =="sg"|| varr =="sff" ||varr =="sn" || varr =="GFF") && plotts.nsk==1
+               ylim ([-0.002, 0.002])
+           else
+                ytickformat('%.2f')
+           end
             ax=gca;
             ax.FontSize=13;
-            ytickformat('%.2f')
             xticklabels(Year10)
             path=sprintf('figures/all_%s/CountTAUFPerDif_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa);
     
@@ -1255,7 +1258,7 @@ if plotts.comp_OPT==1
         allvarsnt =RESnt('Ext');
      end
     %% 
-    for l = keys(lisst) % loop over variable groups
+    for l = "Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1336,7 +1339,7 @@ if plotts.comp_OPTPer==1
             ax.FontSize=13;
             if varr=="SWF" || varr== "sn"
                ytickformat('%.0f')
-            elseif varr=="sff" || varr=="sg"
+            elseif varr=="sff" || varr=="sg" || varr=="GFF" || varr == "sgsff"
                ytickformat('%.1f')
             else
                ytickformat('%.2f')
@@ -1470,7 +1473,7 @@ if plotts.compeff3==1
         varl=varlist;
         allvarseff=RES(ie); 
 
-    for l ="Res" %keys(lisst) % loop over variable groups
+    for l =["Add"]%keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1489,9 +1492,23 @@ if plotts.compeff3==1
 
             ax=gca;
             ax.FontSize=13;
-            if varr == "sff" 
+            if (varr == "sff" && plotts.xgr==0 && plotts.nsk ==0)
                 ytickformat('%.2f')
                 ylim([-0.05, 0.2])
+           
+            elseif (varr == "sgsff" && (indic.noknow_spill==0|| indic.noknow_spill==1) && plotts.xgr==0 && plotts.nsk ==0)
+                ytickformat('%.0f')
+            
+            elseif varr =="hh" || varr =="hl" || varr =="Hagg"
+                ytickformat('%.3f')
+            elseif varr == "C"  && plotts.xgr==0 && plotts.nsk ==0 && indic.noknow_spill==0
+                ytickformat('%.1f')
+                ylim([-0.3, 0.31])
+                
+            elseif varr == "C"  && plotts.xgr==0 && plotts.nsk ==0 && indic.noknow_spill==1
+                ytickformat('%.2f')
+                ylim([-0.3, 0.31])
+
             end
 
             xticklabels(Year10)
@@ -1904,8 +1921,16 @@ if plotts.per_LFd==1
                 ytickformat('%.3f')
             elseif varr=="GFF"
                 ytickformat('%.0f')
-            elseif (varr=="C" && indic.noknow_spill==0) || varr =="S" 
+            elseif (varr=="C" && indic.noknow_spill==0)  
                 ytickformat('%.1f')
+                ylim([-0.3, 0.31])
+
+            elseif (varr=="C" && indic.noknow_spill==1)  
+                ytickformat('%.2f')
+                ylim([-0.3, 0.31])
+            elseif  varr =="S"
+                ytickformat('%.1f')
+
             else
                ytickformat('%.2f')
             end

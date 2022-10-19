@@ -253,9 +253,9 @@ plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 %- allocations with and without tauf 
 plotts.perDif_notauf            = 0; %
-plotts.perDif_notauf_compTaul   = 0;
+plotts.perDif_notauf_compTaul   = 1;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 plotts.compTauf_Lev_NK          = 0;
 plotts.compTauf_PER_NK          = 0;
@@ -275,11 +275,11 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=1 % no emission limit : 
+for ll=0 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0 % knowledge spillovers
+for nknk=1 % knowledge spillovers
     for xgr =0
-        for nsk=1
+        for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -585,7 +585,7 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.ems =        1;
+plotts.ems =        0;
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -622,7 +622,7 @@ plotts.lf                       = 0; % comparison to laissez faire allocation in
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.compeff3                 = 1; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -648,7 +648,7 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0
+        for nknk=0:1
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
