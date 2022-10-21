@@ -117,7 +117,7 @@ w_{st}=\frac{\eta \gamma A_{Ft-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Ft}}{\rho
 &
 w_{st}=\frac{\eta \gamma  A_{Nt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{S_{Nt}}{\rho_N}\right)^{\eta}p_{Nt}N_t}{\frac{1}{1-\alpha_N}s_{Nt}A_{Nt}}\nonumber\\
 &
-w_{st}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{gt}}{\rho_G}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
+w_{st}=\frac{\eta \gamma  A_{Gt-1}^{1-\phi}A_{t-1}^{\phi}\left(\frac{s_{Gt}}{\rho_G}\right)^{\eta}p_{Gt}G_t}{\frac{1}{1-\alpha_G}s_{Gt}A_{Gt}}\nonumber\\
 \text{Innovation}\ \vspace{4mm}&
 A_{Fit}=A_{Ft-1}\left(1+\gamma\left(\frac{s_{Fit}}{\rho_F}\right)^{\eta}\left(\frac{A_{t-1}}{A_{Ft-1}}\right)^{\phi}\right)\nonumber \\
 &
@@ -139,9 +139,9 @@ A_{Git}=A_{Gt-1}\left(1+\gamma\left(\frac{s_{Git}}{\rho_G}\right)^{\eta}\left(\f
 %&A_t=\max\{A_{nt}, A_{ft}, A_{gt}\}\\`
 %DROP THE FOLLOWING AS IT DOES NOT GROW AT A CONSTANT RATE IF SHARES ARE CHANGING! &A_t= \frac{\rho_fA_{ft}+\rho_gA_{gt}+\rho_nA_{nt}}{\rho_f+\rho_n+\rho_g}\\
 \text{\textbf{Government}}&\nonumber\\
-&0=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})}) +(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})\nonumber\\
+&0=z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber \\ &\hspace{10mm}+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})})\nonumber\\
 &T_{\pi t}= -\int_{0}^{1} \left(p_{xFit}\zeta_{Ft}x_{Fit}+p_{xGit}\zeta_{Gt}x_{Git}+ p_{xNit}\zeta_{Nt}x_{Nit}\right)di\nonumber\\ &\hspace{10mm}+\int_{0}^{1}\left(\pi_{Fit}+\pi_{Git}+\pi_{Nit}\right)di = -w_{st}S_t\nonumber\\
-\text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for J\in\{F,G,N\}\nonumber \\
+\text{with}\ \vspace{4mm}&\zeta_{Jt}=\frac{1-\alpha_J}{\alpha_J}\ for\  J\in\{F,G,N\}\nonumber \\
 & T_{lst}=\tau_{Ft}F_t\nonumber\\
 %\text{simplified:}\ \vspace{4mm} & Gov_{\iota t}= z_h(w_{ht}h_{ht}-\lambda_t(w_{ht}h_{ht})^{(1-\tau_{\iota t})})\nonumber\\&+(1-z_h)(w_{lt}h_{lt}-\lambda_t(w_{lt}h_{lt})^{(1-\tau_{\iota t})}) +\tau_{Ft}F_t
 %\nonumber\\
@@ -163,12 +163,12 @@ I motivate the design of the continuation value by pretending the planner would 
 This set-up accounts for concerns about economic well-being of future generations in a similar vein than the sustainability criterion proposed by the \cite{UNSUS} by attaching some value to the final technology level.\footnote{\ The sustainable development criterion reads "\textit{[...] to ensure that it meets the needs of the present without comprising the ability of future generations to meet their own needs.
 	}" (p.24). This is a vague definition.  \cite{Dasgupta2021} p.(332) interprets this criterion as meaning: 
 	"\textit{[...] each generation should bequeath to its successor at least as large a productive base as it had inherited from its predecessor. }". 
-	However, this cannot be used to derive a sensible condition on the optimization in the present setting, since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
+	However, this cannot be used to derive a sensible condition on the optimization in the present setting since there is no negative growth and technology is the only asset bequeathed to future generations. Thus,
 	successors will always have at least as much productive resources as predecessors left. The relation to the future is instead approximated by a future potential to derive utility from consumption given bequeathed technology levels. Natural needs of the future are accounted for through the emission limit. } I approximate the value of future technology levels by assuming constant growth rates.  
 To mitigate concerns that the choice of the continuation value drives the results, I experiment with the exact value of explicit optimization periods. I truncate the problem once explicitly adding a further period leaves the optimal allocation numerically unchanged. That is the case after $T=42$, or 210 years. %Then the 
 The planner's objective function becomes: 
 \begin{align*}
-\underset{\{\tau_{Ft}\}_{t=0}^{\infty},\{\tau_{\iota t}\}_{t=0}^{\infty}}{\max}&\sum_{t=0}^{\infty}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_t)
+\underset{\{\tau_{Ft}\}_{t=0}^{T},\{\tau_{\iota t}\}_{t=0}^{T}}{\max}&\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_t)
 +PV.
 \end{align*}
 
@@ -176,8 +176,8 @@ In more detail, I define the continuation value as the consumption utility over 
 \begin{align*}
 PV=\sum_{s=T+1}^{\infty} \beta^{s}u(C_s, h_{hs}, h_{ls}, S_{s}).
 \end{align*}
-I make three simplifying assumptions to substitute the infinite sum in the optimization problem. First, 
-I assume that the private consumption share in period $c_s$, with $C_s=c_sY_s$, is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
+I make three simplifying assumptions to derive the continuation value. First, 
+I assume that the consumption share, $c_s$, with $C_s=c_sY_s$, is constant from period $T+1$ onward.  Then, consumption grows at the same rate as output. 
 Second, as an approximation to future growth, I assume the economy grows at the same rate as in the last explicit optimization period. Third, hours of workers and scientists remain at their value in the last explicit optimization period. %\footnote{\ Note that I am not making the assumption that the future economy is best described by the continuation value; it rather serves as a proxy to measure the value of passed technology levels. } 
 Let $\gamma_{yT}=\frac{Y_{T}}{Y_{T-1}}-1$. Under above assumptions, I can rewrite future consumption as $C_s=(1+\gamma_{yT})^{s-T}C_{T}$.
 Given the functional form
@@ -197,7 +197,7 @@ When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand in brackets beco
 %\tr{in the version with externality in utility function, the continuation value is only with respect to consumption and hours of workers and scientists. }
 %
 
-\subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes social welfare, $\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV$, subject to the emission limit and feasibility. 
+\subsection{Social planner allocation}\label{app:sp_prob} The solution to the social planner's problem is defined as an allocation \\ $\{h_{hFt}, h_{hGt}, h_{hNt}, h_{lFt}, h_{lGt}, h_{lNt}, x_{Nt}, x_{Ft}, x_{Gt}, C_t,  h_{ht}, h_{lt}, s_{Ft}, s_{Gt}, s_{Nt} \}$ for each period which maximizes social welfare, $\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ PV$, subject to the emission limit and feasibility. 
 %\begin{align*} &\sum_{t=0}^{T}\beta^t u(C_{t}, h_{ht}, h_{lt}, S_{t})+ CV\\
 %s.t.\ &  \omega F_{t} -\delta \leq \Omega_t,\\
 %&C_t+x_{Ft}+x_{Gt}+x_{Nt}=Y_t,\\
@@ -210,9 +210,8 @@ When $\theta\underset{\lim}{\rightarrow} 1$,  the first summand in brackets beco
 %Production of $Y_t$ is defined by the eq.s describing production in the model: eq. \eqref{mod:y} to \ref{mod:LG}. 
 It holds that $x_{Jt}=\int_{0}^{1}x_{Jit}di$.
 
-\section{Calibration}\label{app:calib}
-\subsection{Emission limit}
-In 2019 global net CO$_2$ emissions amounted to 44.25Gt \citep[compare Figure SPM1.a p.11 in ][]{IPCCSPM} yielding a net emission limit in the 2030s of 22.125Gt per annum. The IPCC report is vague on the exact year when the 50\% reduction has to be reached; I assume that the net emission limit becomes binding in 2035 and is active until the limit reduces to zero in 2050. 
+\section{Calibration of the emission limit}\label{app:calib}
+In 2019, global net CO$_2$ emissions amounted to 44.25Gt \citep[compare Figure SPM1.a p.11 in ][]{IPCCSPM} yielding a net emission limit in the 2030s of 22.125Gt per annum. The IPCC report is vague on the exact year when the 50\% reduction has to be reached; I assume that the net emission limit becomes binding in 2035 and is active until the limit reduces to zero in 2050. 
 To back out the share of the emission limit assigned to the US following the \textit{equal-per-capita} principle, I use population projections from the \cite{UNPOP}. %\footnote{\ Retrieved on 4 August, 2022 from \url{https://population.un.org/dataportal/data/indicators/49/locations/900,840/start/2010/end/2100/table/pivotbylocation}.} 
 Since the US population share is projected to decline over the period from 2035 to 2050, the emission limit reduces over this period. 
 
@@ -407,7 +406,7 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 	\begin{subfigure}[]{1\textwidth}	
 		\centering\footnotesize{\textbf{In percentage deviation from laissez-faire}}\\ \vspace{2mm}
 		\begin{subfigure}[]{0.4\textwidth}
-			\caption{Green-to-fossil energy share }
+			\caption{Green-to-fossil energy ratio in k }
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
 		\end{subfigure}
@@ -424,19 +423,19 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 
 \begin{figure}[h!!!]
 	\centering
-	\caption{Decomposition effect of combined policy: Deviation of green-to-fossil energy ratio in percent}\label{fig:efftaul_GFF}
+	\caption{Decomposition effect of combined policy: deviation of green-to-fossil energy ratio in percent}\label{fig:efftaul_GFF}
 		\begin{subfigure}{0.32\textwidth}
-			\caption{Combined versus carbon-tax-only policy}
+			\caption{\footnotesize{Combined versus carbon-tax-only policy}}
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 		\end{subfigure}
 	\begin{subfigure}{0.32\textwidth}
-	\caption{Only optimal carbon tax versus carbon-tax-only policy}
+	\caption{\footnotesize{Only optimal carbon tax versus carbon-tax-only policy}}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_CTOPer_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 \end{subfigure}
 \begin{subfigure}{0.32\textwidth}
-	\caption{Combined policy versus only optimal carbon tax}
+	\caption{\footnotesize{Combined policy versus only optimal carbon tax}}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 \end{subfigure}	
@@ -477,7 +476,7 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 
 \begin{figure}[h!!!]
 	\centering
-	\caption{Deviation of combined policy from carbon-tax-only: no knowledge spillovers}\label{fig:opt_TLs_noKN}
+	\caption{Deviation of combined policy from carbon-tax-only: no knowledge spillovers}\label{fig:opt_TLs_noKN_app}
 		\begin{subfigure}{0.4\textwidth}
 		\caption{Average marginal income tax rate }
 		%	\captionsetup{width=.45\linewidth}
@@ -509,12 +508,12 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{subfigure}
-	\floatfoot{Notes: \footnotesize{ Graphs show percentage deviations of variables under the combined policy regime  and the carbon-tax-only regime without income tax, $\tau_{\iota t}=0$. }}
+	\floatfoot{Notes: \footnotesize{ Panel (a) shows the level of the average marginal income tax rate. Other graphs show percentage deviations of variables under the combined policy regime  and the carbon-tax-only regime without income tax, $\tau_{\iota t}=0$. A vertical line indicates when the net-zero emission limit becomes binding. }}
 \end{figure} 
 
 \begin{figure}[h!!!]
 	\centering
-	\caption{Deviation of combined policy from carbon-tax-only: without knowledge spillovers and with homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
+	\caption{Deviation of combined policy from carbon-tax-only: no knowledge spillovers and  homogeneous skills }\label{fig:opt_TLs_noknow_homoskill}
 	\begin{subfigure}{0.4\textwidth}
 	\caption{Average marginal income tax rate }
 	%	\captionsetup{width=.45\linewidth}
@@ -538,7 +537,7 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 	\
 \end{minipage}
 \begin{subfigure}{0.4\textwidth}
-	\caption{Green-to-fossil output}
+	\caption{Green-to-fossil energy ratio}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil1_noskill1_sep0_xgrowth0_PV1_etaa0.79.png}
 \end{subfigure}
@@ -560,7 +559,7 @@ To generate a non-increasing pattern of the emission limit, I set the global emi
 	\begin{subfigure}{0.4\textwidth}
 		\caption{Average hours worked}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_hh_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+		\includegraphics[width=1\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUFPerDif_Opt_target_Hagg_nsk1_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
 
 	\begin{subfigure}{0.4\textwidth}

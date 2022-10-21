@@ -77,7 +77,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \author[Sonja Dobkowitz]{\small Sonja Dobkowitz\\ \footnotesize{University of Bonn%, RTG 2281 The Macroeconomics of Inequality}
 	}\\ }
 %\institute[University of Bonn]{}
-\title{Labor income taxes and effective environmental policy}
+\title{The Net-Zero Emission Target and Labor Income Taxes}
 
 \newcommand{\ar}{$\Rightarrow$ \ }
 
@@ -89,7 +89,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{Mock Talk\\ October 18, 2022 }} 
+\date{\small{Mock Talk\\ October 24, 2022 }} 
 %\subject{} 
 \begin{document}
 	
@@ -125,60 +125,70 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\setbeamerfont{alerted text}{}
 %	\item we are facing  environmental limits 
 %	\vspace{3mm}
-	\item 	We need to transition to net-zero emissions by 2050 \citep{IPCC2022}
+	\item 	we need to transition to net-zero emissions by 2050 \citep{IPCC2022}
 \vspace{3mm}
-	\item Carbon taxes direct demand towards low-emission alternatives \underline{and} research across sectors
+	\item carbon taxes direct demand towards emission-low alternatives \underline{and} research across sectors
 	\vspace{3mm}
-	\item A labor income tax affects the level of production 
+	\item labor income taxes affect the level of production 
 	\vspace{3mm}
-	\item[\ar] a combined policy may allow to target research more
-	\vspace{3mm}
-\item \textbf{What is the optimal policy mix to implement the emission limit?}
+\item \textbf{What is the optimal policy mix to meet the emission target?}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{This paper}
+	\vspace{-2mm}
 	\begin{itemize}
-		\item<+-> quantitative \alert{endogenous growth} model building on \cite{Fried2018ClimateAnalysis}
-		\vspace{3mm}
-		\item<+->  \alert{emission limit constraints} the government when  {maximising social welfare}: \\ net emissions have to be zero by 2050, positive limit from 2020 to 2050
-		\vspace{3mm}
-		\item<+-> the government can use \alert{fossil} and \alert{distortionary income taxes}; carbon tax revenues are rebated lump sum
-		\vspace{3mm}
-		%	\item<+-> profitability of research in each sector determines sector growth
-		\item<+->  \alert{representative} household  
-		
-		%	\vspace{3mm}
-		%	\item<+-> the government chooses fossil and distortionary income taxes
-		%	\vspace{3mm}
-		%\item<+-> in an extension: Households voluntarily reduce consumption and labour supply
-		% as households reduce consumption themselves, (1) less need for reduction polices, (2) lower inefficiency through skill recomposition 
+\item<+-> quantitative model of directed technical change building on \cite{Fried2018ClimateAnalysis}
+\vspace{2mm}
+		\item<+->   the government   chooses the \alert{path of carbon and income taxes} \vspace{2mm}
+		\item<+-> an \alert{emission limit} constrains the government
 	\end{itemize}
+		\vspace{2mm}
+\pause
+\begin{center}
+	\begin{figure}
+		\centering
+		\caption{Net CO$_2$ emission limit in Gt}	\includegraphics[width=0.38\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet.png}
+	\end{figure}
+\end{center}
 \end{frame}
 
 \begin{frame}{Preview of results}
 	\pause
+\begin{itemize}[<+-| alert@+>]
+	\setbeamercolor{alerted text}{} %change the font color
+	\setbeamerfont{alerted text}{}
+	\item A combination of carbon and income taxes is optimal throughout
+
+	\vspace{4mm}
+	\begin{minipage}[]{1\textwidth}
 \begin{itemize}
-	
-	\item<+-> \alert{Under the net-zero emission limit}
-	
+\item {Under the net-zero emission limit:}
+\vspace{1mm}
+\begin{itemize}
+	\item[-]  an extensive carbon tax reduces fossil demand and research
+		\vspace{1mm}
+	\item[-] the labor tax subsidizes labor
+\end{itemize}
+\vspace{1mm}
+\item {Before the net-zero emission limit:}
+\vspace{1mm}
+\begin{itemize}
+	\item[-] a smaller carbon tax allows for more fossil research
+	\vspace{1mm}
+	\item[-] a tax on labor lowers emissions
+\end{itemize}	
+\end{itemize}
+	\end{minipage}
+
+	\vspace{4mm}
+	\item {Mechanism} 
+	\vspace{2mm}
 	\begin{itemize}
-		\item[-]<+->  the optimal policy uses carbon taxes extensively to not only reduce demand but also fossil research
-		\item[-]<+->  labor is subsidized to stabilize output
-	\end{itemize}
-	\vspace{5mm}
-	\item<+->  \alert{Before the net-zero limit }
-	\begin{itemize}
-		\item[-]<+-> the carbon tax reduces to allow for more fossil research
-		\item[-]<+-> labor is taxed to meet the emission limit
-	\end{itemize}
-	\vspace{5mm}
-	\item<+-> \alert{Mechanism} 
-	\begin{itemize}
-		\item[-]<+-> a smaller carbon tax to allow for fossil research reduces lump-sum transfers
-		\item[-]<+-> this stimulates economic activity and raises emissions
-		\item[-]<+-> a tax on labor lowers labor supply to meet the emission limit  
+		\item once the carbon tax targets research activity, the wage rate no longer fully reflects the social costs of labor
+		\vspace{2mm}
+		\item  households do not correctly internalize the social costs of labor
 	\end{itemize}
 	%\item<+->  \alert{sizable effect of skill heterogeneity}: \\ with only one skill, the optimal income tax increases social welfare by 0.85\%
 \end{itemize}
@@ -192,68 +202,96 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \begin{frame}{Model Overview}
 \begin{figure}[h]
-	
+	\vspace{-4mm}
 	\centering
-	\begin{tikzpicture}[auto,scale=.6, transform shape]
+	\begin{tikzpicture}[auto,scale=.7, transform shape]
 	
-	\node[circll] (A) at (-4,4) {Production};
-	\node[circll] (B) at (7,4) {Household};
-	\node[sphere] (C) at (-4,-5) {Research};
-	\node[circll] (D) at (7,-5) {Government};
-	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
+	\node[circll] (A) at (-6,6) {\textbf{Production}};
+	\node[circll] (B) at (6,6) {\textbf{\hyperlink{backhh}{{Household}}}};
+	\node[draw=none] (A1) at (-6,4) {};
+	\node[draw=none] (A2) at (-8,3) {};
+	\node[draw=none] (A3) at (-2,2) {};
+	\node[draw=none] (A21) at (-10,2) {};
+	\node[draw=none] (A22) at (-6,2) {};
+	\node[draw=none] (A4) at (-8,0.2) {};
+	\node[draw=none] (A5) at (-4,0.2) { };	
+	\node[circll] (C) at (0,0) {\textbf{Research}};
+	\node[circll] (D) at (0,8) {\textbf{Government}};
+%	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
 	\node[draw=none] (G) at (3.5,-11) {};
 	
-	\draw [->] (A) to [out=0,in=90] (F);
-	\draw [->] (B) to [out=180,in=90] (F);
-	\draw [->] (F) to node[]{4} (D);
+%	\draw [->] (A) to [out=0,in=90] (F);
+%	\draw [->] (A2) to  (A1);
+%	\draw [->] (A3) to  (A1);
+%	\draw [->] (A21) to  (A2);
+%	\draw [->] (A22) to  (A2);
+%	\draw [->] (D) to  (A21);
 	
-	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
-	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
+%	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
+%	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
 	
-	\begin{pgfinterruptboundingbox}
-	\draw [->] (A) to [out=-140, in=-150, out looseness=1.5, in looseness=3, inner sep=0pt,outer sep=0pt] node[pos=0.2, outer sep=2.5, swap]{1} (F);
-	\draw [->] (B) to [out=-40, in=-30, out looseness=1.5, in looseness=3, inner sep=0pt,outer sep=0pt] node[pos=0.2, outer sep=2.5]{7} (C) ;
-	\end{pgfinterruptboundingbox}
+%	\begin{pgfinterruptboundingbox}
+%	\draw [->] (D) to [out=140, in=150, out looseness=1.5, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=2.5, swap]{$\pmb{\tau_F}$} (A2);
+%	\draw [->] (D) to [out=70, in=50, out looseness=1, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=-10, swap]{$\pmb{\tau_\iota}$} (B);
+%	\end{pgfinterruptboundingbox}
 	
-	\draw [->] (B) to node[pos=0.75]{5} (D);
-	\draw [->] (B) to node[pos=0.75]{6} (F);
+%	\draw [->] (D) to node[pos=0.75]{6} (B);
 	\end{tikzpicture}
 	
 	\caption{Epistemische Topologie des \textit{Sinngedichts}}
 	
 \end{figure}
 \end{frame}
-
-\begin{frame}{Model overview}
-
-	\vspace{-2mm}
-	\begin{enumerate}
-		\item<+-> \textbf{representative household} supplies high and low-skilled labour and consumes 
-
-		 \vspace{2mm}
-		 
-		\item<+-> \textbf{production}
-		\begin{itemize}
-			\item<+-> competitive final good producers ($Y$)
-			\item<+-> non-energy ($N$) and energy producers ($ E$)
-			\item<+-> fossil and green energy producers ($F,G$)
-			\item<+-> labour input good producers ($h_h, h_l \rightarrow L_f, L_g, L_n$)
-			\item<+-> monopolistically competitive machine producers ($x_n, x_f, x_g$)
-		\end{itemize}
-		\vspace{2mm}
-		\item<+-> \textbf{research}
-		\begin{itemize}
-			\item<+-> machine producers (demand research)
-			\item<+-> scientists (supply research)
-		\end{itemize}
-		\item<+-> \textbf{government} %seeks to maximise social welfare but is constrained by an emission limit
-	\end{enumerate} 
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model Overview}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+		
+		\node[circll] (A) at (-6,6) {\textbf{Production}};
+		\node[circll] (B) at (6,6) {\textbf{\hyperlink{backhh}{\alert{Household}}}};
+		
+		
+		\node[draw=none] (A1) at (-6,4) {};
+		\node[draw=none] (A2) at (-8,3) {};
+		\node[draw=none] (A3) at (-2,2) {};
+		\node[draw=none] (A21) at (-10,2) {};
+		\node[draw=none] (A22) at (-6,2) {};
+		\node[draw=none] (A4) at (-8,0.2) {};
+		\node[draw=none] (A5) at (-4,0.2) { };	
+		\node[circll] (C) at (0,0) {\textbf{Research}};
+		\node[circll] (D) at (0,8) {\textbf{Government}};
+		%	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
+		\node[draw=none] (B1) at (4.6,6.25) {};
+		\node[draw=none] (B2) at (4.6,5.75) {};
+		\node[draw=none] (BA1) at (-4.6,6.25) {};
+		\node[draw=none] (BA2) at (-4.6,5.75) {};
+		\draw [->] (B1) to node[pos=0.75, swap]{Workers} (BA1);
+    	\draw [->] (BA2) to node[pos=0.75, swap]{Consumption good} (B2);
+    	\draw [->] (B) to node[pos=0.75, swap]{Scientists} (C);
+		%	\draw [->] (A2) to  (A1);
+		%	\draw [->] (A3) to  (A1);
+		%	\draw [->] (A21) to  (A2);
+		%	\draw [->] (A22) to  (A2);
+		%	\draw [->] (D) to  (A21);
+		
+		%	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
+		%	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
+		
+		%	\begin{pgfinterruptboundingbox}
+		%	\draw [->] (D) to [out=140, in=150, out looseness=1.5, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=2.5, swap]{$\pmb{\tau_F}$} (A2);
+		%	\draw [->] (D) to [out=70, in=50, out looseness=1, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=-10, swap]{$\pmb{\tau_\iota}$} (B);
+		%	\end{pgfinterruptboundingbox}
+		
+		%	\draw [->] (D) to node[pos=0.75]{6} (B);
+		\end{tikzpicture}
+		
+	\end{figure}
 \end{frame}
 
-%content...
-%\end{comment}
 
-\begin{frame}{Household}
+\begin{frame}{Representative household}
 \hypertarget{backhh}{}
 %\text{\textbf{Householdrt}}
 \vspace{2mm}
@@ -310,7 +348,51 @@ s.t.\ C_t=z_h \alert{\pmb{\lambda_t}} (w_{ht}h_{ht})^{\alert{\pmb{1-\tau_{\iota 
 \hyperlink{skillr}{\tiny{$\rightarrow$ skill ratio}}
 \end{frame}
 
-\begin{frame}{ Production}
+\begin{frame}{Model Overview}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+		
+		\node[circll] (A) at (-6,6) {\textbf{\hyperlink{prodmod}{\alert{Production}}}};
+		\node[circll] (B) at (6,6) {\textbf{\hyperlink{backhh}{{Household}}}};
+		\node[draw=none] (A1) at (-6,4) {Final Good, Y};
+		\node[draw=none] (A2) at (-8,3) {Energy, E};
+		\node[draw=none] (A3) at (-2,2) {Non-energy, N};
+		\node[draw=none] (A21) at (-10,2) {Fossil, F};
+		\node[draw=none] (A22) at (-6,2) {Green, G};
+		\node[draw=none] (A4) at (-8,0.2) {Machinery};
+		\node[draw=none] (A5) at (-4,0.2) {\ \ \ \ Labor\ \ \ \ };	
+		\node[circll] (C) at (0,0) {\textbf{Research}};
+		\node[circll] (D) at (0,8) {\textbf{Government}};
+		%	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
+		\node[draw=none] (G) at (3.5,-11) {};
+		
+		%	\draw [->] (A) to [out=0,in=90] (F);
+		\draw [->] (A2) to  (A1);
+		\draw [->] (A3) to  (A1);
+		\draw [->] (A21) to  (A2);
+		\draw [->] (A22) to  (A2);
+		%	\draw [->] (D) to  (A21);
+		
+		%	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
+		%	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
+		
+		\begin{pgfinterruptboundingbox}
+		\draw [->] (D) to [out=140, in=150, out looseness=1.5, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=2.5, swap]{$\pmb{\tau_F}$} (A2);
+		\draw [->] (D) to [out=70, in=50, out looseness=1, in looseness=1, inner sep=0pt,outer sep=0pt] node[pos=0.8, outer sep=-10, swap]{$\pmb{\tau_\iota}$} (B);
+		\end{pgfinterruptboundingbox}
+		
+		%	\draw [->] (D) to node[pos=0.75]{6} (B);
+		\end{tikzpicture}
+		
+		\caption{Epistemische Topologie des \textit{Sinngedichts}}
+		
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Production}
+	\hypertarget{prodmod}{}
 \textbf{Final good and energy producers }
 \vspace{-5mm}
 	\begin{minipage}[t!]{1\textwidth}

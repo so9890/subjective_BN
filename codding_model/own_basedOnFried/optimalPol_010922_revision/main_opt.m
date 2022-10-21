@@ -253,9 +253,9 @@ plotts.tauf_compTaul            = 0;
 plotts.tauf_compTaul_BYregime   = 0;
 %- allocations with and without tauf 
 plotts.perDif_notauf            = 0; %
-plotts.perDif_notauf_compTaul   = 1;
+plotts.perDif_notauf_compTaul   = 0;
 plotts.tauf_notauf              = 0; % plots allocation with and without tauf in levels with and without taul and with and without equal labor share
-plotts.compTauf_Lev             = 0; % compares allocation with tauf in model with and without taul in levels
+plotts.compTauf_Lev             = 1; % compares allocation with tauf in model with and without taul in levels
 plotts.compTauf_PER             = 0;
 plotts.compTauf_Lev_NK          = 0;
 plotts.compTauf_PER_NK          = 0;
@@ -275,11 +275,11 @@ plotts.compRed_noGS             = 0;
 for ee=0 % ==0 then uses benchmark emission limit
     indic.emsbase=ee;
         
-for ll=0 % no emission limit : 
+for ll=1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=1 % knowledge spillovers
+for nknk=0 % knowledge spillovers
     for xgr =0
-        for nsk=0
+        for nsk=1
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
@@ -540,13 +540,13 @@ plotts.notaul                   = 0; % policy comparisons; this one needs to be 
 plotts.bau                      = 0; % do plot bau comparison
 plotts.lf                       = 0; % comparison to laissez faire allocation 
 
-plotts.comptarg                 = 1; % comparison with and without target
+plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.compeff3                 = 1; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
+plotts.comp_OPT=    1; % laissez faire and optimal with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
@@ -565,7 +565,7 @@ plotts.compREd=0;
     
 for xgr =0
     for nsk=0
-        for nknk=1
+        for nknk=0:1
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
@@ -610,7 +610,7 @@ plotts.compnsk_xgr1             = 0;
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
-plotts.count_devs               = 0;
+plotts.count_devs               = 1;
 plotts.count_devs_fromcto       = 0; 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
@@ -622,7 +622,7 @@ plotts.lf                       = 0; % comparison to laissez faire allocation in
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3                 = 1; % sp versus optimal benchmark
+plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -647,8 +647,8 @@ for rr= [4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
 for xgr =0
-    for nsk=0
-        for nknk=0:1
+    for nsk=1
+        for nknk=0
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;

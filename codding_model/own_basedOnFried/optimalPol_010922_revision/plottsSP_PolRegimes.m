@@ -399,7 +399,7 @@ for lablab =1
         perdif0=(allvarsConsTAUL0-benchTAUL0)./benchTAUL0*100;
     for lgdind=0:1
 
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l ="Res" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -427,7 +427,9 @@ for lablab =1
            elseif varr == "G" || varr == "sg" || varr == "GFF" ...
                 || (varr == "F" && indic.noknow_spill==1 && lablab==0) || (varr == "F" && indic.noknow_spill==0 && lablab==1)...
                 || (varr == "F" && indic.noknow_spill==1 && lablab==1) || (varr == "snS" && indic.noknow_spill==0 && lablab==1) ...
-                || (varr == "sn" && indic.noknow_spill==0 && lablab==1) || (varr == "sn" && indic.noknow_spill==1 && lablab==1)
+                || (varr == "sn" && indic.noknow_spill==0 && lablab==1)
+                ytickformat('%.0f')  
+           elseif (varr == "sn" && indic.noknow_spill==1 && lablab==1)
                 ytickformat('%.0f')  
            elseif (varr == "snS" && indic.noknow_spill==0 && lablab==0) || varr == "hhhl" 
                 ytickformat('%.3f') 
@@ -549,10 +551,11 @@ if plotts.compTauf_Lev==1
             end
            xticks(txx)
            xlim([1, time(end-1)])
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
 
             ax=gca;
             ax.FontSize=13;
-            if varr=="Tauf" || varr=="gAg" || varr=="Emnet"
+            if varr=="Tauf" || varr=="gAg" || varr=="Emnet" || varr=="GFF" 
                 ytickformat('%.0f')
             elseif varr == "gAn"
                 ytickformat('%.1f')
@@ -613,12 +616,13 @@ if plotts.compTauf_PER==1
                     set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
-      xlim([1, time(end-1)])
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+           xlim([1, time(end-1)])
 
            
             ax=gca;
             ax.FontSize=13;
-            if varr=="gAg"
+            if varr=="gAg" || varr =="sgsff"
                 ytickformat('%.0f')
             elseif varr == "gAn" || varr=="Tauf" 
                 ytickformat('%.1f')
@@ -705,7 +709,7 @@ if plotts.compTauf_PER_NK==1
         PerdifNK = 100*(allCAlibNK-all0NK)./all0NK;
         
     for lgdind=0:1
-    for l =keys(lisst) % loop over variable groups
+    for l ="Add" %keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 

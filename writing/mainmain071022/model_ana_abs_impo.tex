@@ -11,7 +11,7 @@ Throughout the paper, the household's decision is static. Each period, the house
 U(C,H; F).
 \end{align*} 
 
-The household derives utility from consumption, $C$, but experiences disutility from hours worked, $H$. An externality from fossil production, $F$, decreases household utility. It is taken as given by the household.
+The household derives utility from consumption, $C$, but experiences disutility from hours worked, $H$. An externality from fossil production, $F$, decreases household utility. The level of fossil production is taken as given by the household.
 I assume additive separability of consumption, hours, and the externality. Utility of consumption is increasing and strictly concave. Utility is decreasing and strictly convex in hours worked and fossil production.
 Utility maximization is subject to a period budget constraint:
 \begin{align}
@@ -19,19 +19,19 @@ Utility maximization is subject to a period budget constraint:
 \end{align}
 The variable $w$ indicates the wage rate.  Lump-sum transfers from the government are denoted by $T_{ls}$.
 The government levies income taxes on labor income using a non-linear tax scheme common in the public finance literature \citep{Heathcote2017OptimalFramework, Benabou2002TaxEfficiency}. The tax scheme is
-characterized by (i) a scaling factor, $\lambda$, which determines the level of average tax revenues in the economy, and (ii) a measure of the tax progressivity denoted by $\tau_{\iota}$. 
+characterized by (i) a scaling factor, $\lambda$, which determines the level of average tax revenues in the economy, and (ii) a measure of tax progressivity denoted by $\tau_{\iota}$. 
 \cite{Heathcote2017OptimalFramework} show that whenever $\tau_{\iota}>0$, the tax scheme is progressive since the marginal tax rate exceeds the average tax rate irrespective of  pre-tax labor income. Hence, average tax payments increase with labor income.\footnote{\ An alternative intuition is that when $\tau_{\iota}>0$, the elasticity of post- to pre-tax  income is smaller unity for all levels of pre-tax income.  } %\footnote{\ I show that the result is equivalent with a linear tax rate in the appendix.} 
-With a representative agent, $\tau_{\iota}$ can be understood as an instrument to regulate labor supply. When $\tau_{\iota}<0$, the government subsidizes labor, with $\tau_{\iota}>0$, it discourages work effort by taxing labor. 
+With a representative household, $\tau_{\iota}$ can be understood as an instrument to regulate labor supply and, thus, the overall level of production. When $\tau_{\iota}<0$, the government subsidizes labor, with $\tau_{\iota}>0$, it discourages labor. 
 
 \paragraph{Production}
 All sectors of production are perfectly competitive, and production functions have decreasing returns to scale. %\footnote{\ \textit{With increasing returns to scale the assumption of perfect competition would be violated. With constant returns to scale, the solution is not unique.}}. The final consumption good, $Y$, is a composite of the fossil, $F$, and the green intermediate good, $G$. 
-Intermediate goods, indicated by $J\in \{F,G\}$ for fossil and green, are produced from the labor input good, $L_J$, and technology, $A_J$. The variable $Y$ stands in for final output and is the numeraire. Production is given by:
+Intermediate goods, indicated by $J\in \{F,G\}$ for fossil and green, are produced from the labor input good, $L_J$, using technology, $A_J$. The variable $Y$ stands in for final output and is the numeraire. Production is given by:
 \begin{align}
 Y=Y(F, G), \hspace{5mm} F=F(A_F, L_F),\hspace{5mm} G=G(A_G, L_G). \label{eq:prod}
 \end{align}
 
 \paragraph{Government}
-The government raises income taxes from households and levies an environmental tax, $\tau_F$, per unit of fossil good bought on final good producers. The environmental tax, thus, is modeled in parallel to a carbon tax which poses a price on emissions. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule. Environmental tax revenues are rebated lump sum to households:
+The government raises income taxes from households and levies an environmental tax, $\tau_F$, per unit of fossil bought by final good producers. The environmental tax, thus, is modeled in parallel to a carbon tax which poses a price on emissions. Revenues from the income tax and the environmental tax are treated separately by the government. Income tax revenues are fully redistributed through the income tax schedule. Environmental tax revenues are rebated lump sum to households:
 \begin{align}
 \tau_{F}F=T_{ls}, \hspace{7mm}
 0={w H}-\lambda(w H)^{1-\tau_{\iota}}. \label{eq:gov_but}
@@ -75,7 +75,7 @@ wrt.\ H:\hspace{4mm} & U_C\frp{Y}{H}+U_F\frp{F}{H}=-U_H\label{eq:fbh}.
 \end{align}
 Where $U_X$ denotes the partial derivative of utility with respect to the variable $X$.
 These equations determine the efficient or first-best allocation. 
-Absent an externality, $U_F=0$, the efficient distribution of labor equalizes the marginal product of labor across sectors; compare eq. \eqref{eq:fbs}. Efficient hours balance the marginal utility gain from consumption and the marginal disutility from working as formalized by eq. \eqref{eq:fbh}. 
+Absent an externality, $U_F=0$, the efficient distribution of labor equalizes the marginal product of labor across sectors; compare eq. \eqref{eq:fbs}. Efficient hours balance the marginal utility gain from consumption and the marginal disutility from working, as formalized by eq. \eqref{eq:fbh}. 
 
 When there is an externality, the social planner adjusts the allocation in two ways: (i) a compositional adjustment, that targets the share of fossil production, and (ii) a scaling adjustment amending the level of production. 
 The compositional adjustment is determined by eq. \eqref{eq:fbs}.
@@ -131,7 +131,7 @@ wrt.\ s:\hspace{4mm} & U_C\cdot\left(\frac{\partial Y}{\partial F}\frac{\partial
 wrt.\ H:\hspace{4mm} & U_C\frac{\partial Y}{\partial H}+U_F\frac{\partial F}{\partial H}=-U_H\label{eq:sbh}. 
 \end{align}
 %-- paragraph to show that with Gov=0 and lump-sum transfers, the efficient allocation is implemented
-When environmental tax revenues are fully redistributed lump sum, an environmental tax equal to the marginal social cost of fossil production\footnote{\ I define and derive the social cost of fossil production in Appendix \ref{app:scp}.} implements the efficient allocation. This observation is known as the \textit{Pigou principle} in the literature. 
+When environmental tax revenues are fully redistributed lump sum, an environmental tax equal to the marginal social cost of fossil production implements the efficient allocation.\footnote{\ I define and derive the social cost of fossil production in Appendix \ref{app:scp}.} This observation is known as the \textit{Pigou principle} in the literature. 
 To see this, note that eq. \eqref{eq:sbs} ensures that the social planner's first order condition, eq. \eqref{eq:fbs}, is satisfied. 
 Rewriting eq. \eqref{eq:fbs} reveals that the Pigou principle holds: %\footnote{\ I derive the social cost of pollution as the price the representative household is willing to pay for a marginal reduction in fossil production. The derivation is exponded in appendix Section \ref{sec:mod_an}. 
 %	To be precise, social cost of pollution refers to the marginal cost evaluated at the resulting equilibrium allocation.}: The Pigou principle. 
@@ -139,19 +139,25 @@ Rewriting eq. \eqref{eq:fbs} reveals that the Pigou principle holds: %\footnote{
 \underbrace{\frac{-U_F}{U_C}}_{\text{marginal social cost of fossil production}}=\left(1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}\right)\frac{\partial Y}{\partial F}=\tau^*_F.
 \end{align*}
 Where the second equality follows from substituting firms' profit maximization conditions from eqs. \eqref{eq:profmax}.
-Setting the environmental tax equal to the social cost of fossil production implies that the second first order condition of the Ramsey planner, eq. \eqref{eq:sbh}, is satisfied without use of the income tax instrument: $\tau_{\iota}^*=0$. 
-The reason is, that when the carbon tax is set to implement the efficient share of dirty labor, the wage rate reflects the marginal costs of hours through raising emissions. I show in Appendix \ref{app:incometax0} that the wage rate can be written as:
 
+Absent an externality of production, it is efficient to balance marginal products of labor across sectors.
+When there is an externality, the social planner lowers the share of labor in the fossil sector. As a result, the marginal product of labor in this sector increases; it falls in the green sector. To sustain this gap between marginal products in the competitive equilibrium, the government has to introduce a corrective tax. Otherwise, market forces would direct labor towards the sector with the higher marginal product. Consequently, the equilibrium wage rate is below the marginal product of labor.\footnote{\ I formally discuss this statement in Appendix \ref{app:wageMPL}.} 
+
+Setting the environmental tax equal to the social cost of fossil production implies that the second first order condition of the Ramsey planner, eq. \eqref{eq:sbh}, is satisfied without use of the income tax instrument: $\tau_{\iota}^*=0$. 
+The reason is, that in this case, the wage rate reflects the marginal social costs of hours through raising emissions. I show in Appendix \ref{app:incometax0} that the wage rate can be written as:
 \begin{align*}
 w = \frp{Y}{H}+\frac{U_F}{U_C}\frp{F}{H}.
 \end{align*}
-Therefore, households internalize the marginal social costs of the externality of hours worked in their labor supply decision. Since $U_F<0$, the wage rate and, thus, labor supply decline. Proposition \ref{prop:1} condenses this result.
+Since $U_F<0$, the second summand reduces the wage rate beyond the marginal product of labor in the economy.
+Therefore, households internalize the marginal social costs of the externality of hours worked in their labor supply decision. Relative to no policy intervention, labor supply declines. Proposition \ref{prop:1} condenses this result.
 
+\newpage 
 \begin{prop}\label{prop:1}
-	The efficient allocation is implemented by an environmental tax and lump-sum transfers.  When the environmental tax implements the efficient share of dirty labor, the wage rate fully captures the marginal effect of hours worked on the externality. There is no role for distortive labor income taxation, $\tau_{\iota}^*=0$.
+	The efficient allocation is implemented by an environmental tax and lump-sum transfers.  When the environmental tax implements the efficient share of dirty labor, the wage rate fully captures the marginal effect of hours worked on the externality. There is, hence, no role for distortive labor income taxation, $\tau_{\iota}^*=0$.
 \end{prop}
 Proof: Appendix \ref{app:incometax0}. 
 
-As discussed previously, absent an externality of production, it is efficient to balance marginal products of labor across sectors. However, when there is an externality, the social planner lowers the fossil share of labor which results in a higher marginal product of labor in this sector. To sustain this gap between marginal products in the competitive equilibrium, the government has to introduce a corrective tax so that market forces do not direct labor towards the sector with the higher marginal product. In other words, the corrective tax is set so that wage rates equalize despite heterogeneous marginal products of labor. As a result, the equilibrium wage rate is below the marginal product of labor in the fossil sector.\footnote{\ I formally discuss this statement in Appendix \ref{app:wageMPL}.} 
-Due to this effect of the environmental tax on the wage rate, lump-sum transfers and environmental taxes alone suffice to implement the efficient level of hours worked. 
+%As discussed previously,  However,
+
+%Due to this effect of the environmental tax on the wage rate, lump-sum transfers and environmental taxes alone suffice to implement the efficient level of hours worked. 
 
