@@ -401,6 +401,66 @@ if plotts.count_devs_fromcto==1
         end
     end
 end
+%% comparison only carbon tax (reg 5) to only tauf from combined
+if plotts.count_devs_both==1
+    
+    fprintf('plott counterfactual deviation from carbon tax only pol => role of adjustment in tauf')
+
+    %- read in variable container of chosen regime
+    if plotts.regime_gov==4
+        RESntaul=OTHERPOLL{5+1};
+        RES=OTHERPOLL{4+1};
+    end
+        allvarsntaul= RESntaul("OPT_T_NoTaus");
+        allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
+        perdiftauf= 100*(allvarscount-allvarsntaul)./allvarsntaul;
+        
+         
+        allvars= RES("OPT_T_NoTaus");
+        %allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
+        perdiftaul= 100*(allvars-allvarscount)./allvarsntaul; % relative to carbon-tax-only policy
+        
+    for lgdind=0:1
+    for l ="Add" %keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,perdiftauf(find(varlist==varr),1:T), time,perdiftaul(find(varlist==varr),1:T), time,zeros(size(perdiftauf(find(varlist==varr),1:T))), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'; '--'}, {'color'}, {'k';orrange; grrey} )   
+            
+            
+           xticks(txx)
+           xlim([1, time(end-1)])
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+
+            ax=gca;
+            ax.FontSize=13;
+            if varr== "sgsff"
+                ytickformat('%.1f')
+            elseif varr == "Hagg"
+                ytickformat('%.2f')
+                ylim([-0.12, 0.061])
+            else
+                 ytickformat('%.2f')
+            end
+            
+            if lgdind==1
+               lgd=legend('effect $\tau_F$' , 'effect $\tau_\iota$', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/CountTAUF_Both_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
 %% Comparison model versions in one graph
 % in levels
 if plotts.compnsk_xgr1==1
@@ -1362,7 +1422,7 @@ if plotts.comp_OPTPer==1
             ax.FontSize=13;
             if varr=="SWF" || varr== "sn"
                ytickformat('%.0f')
-            elseif varr=="sff" || varr=="sg" ||  varr == "sgsff" || varr =="GFF"
+            elseif varr=="sff" || varr=="sg" ||  varr == "sgsff" || varr =="GFF" || varr =="sffsg"
                ytickformat('%.1f')
             else
                ytickformat('%.2f')
@@ -1383,6 +1443,8 @@ if plotts.comp_OPTPer==1
      end
      end
 end
+
+
 
 %% counterfactual optimal policy in NKS model in benchmark
 if plotts.comp_Bench_CountNK==1
