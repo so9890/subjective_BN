@@ -610,7 +610,7 @@ plotts.compnsk_xgr1             = 0;
 plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
-plotts.count_devs               = 1;
+plotts.count_devs               = 0;
 plotts.count_devs_fromcto       = 0; 
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
@@ -622,7 +622,7 @@ plotts.lf                       = 0; % comparison to laissez faire allocation in
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.compeff3                 = 1; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -647,8 +647,8 @@ for rr= [4]
     plotts.regime_gov=  rr; % = equals policy version to be plotted
 
 for xgr =0
-    for nsk=1
-        for nknk=0
+    for nsk=0
+        for nknk=0:1
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
@@ -656,7 +656,7 @@ plotts.sizeequ =0; % important for comparison of
 plotts.GOV =0;
 plotts.extern =0;
 indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
-
+indic.slides =1;
 plotts
 %%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);

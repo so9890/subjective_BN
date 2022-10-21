@@ -127,7 +127,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %	\vspace{3mm}
 	\item 	we need to transition to net-zero emissions by 2050 \citep{IPCC2022}
 \vspace{3mm}
-	\item carbon taxes direct demand towards emission-low alternatives \underline{and} research across sectors
+	\item carbon taxes (i) direct demand towards emission-low alternatives\\ \hspace{13mm} \underline{and} (ii) research across sectors
 	\vspace{3mm}
 	\item labor income taxes affect the level of production 
 	\vspace{3mm}
@@ -139,7 +139,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{frame}{This paper}
 	\vspace{-2mm}
 	\begin{itemize}
-\item<+-> quantitative model of directed technical change building on \cite{Fried2018ClimateAnalysis}
+\item<+-> quantitative model of \alert{directed technical change} building on \cite{Fried2018ClimateAnalysis}
 \vspace{2mm}
 		\item<+->   the government   chooses the \alert{path of carbon and income taxes} \vspace{2mm}
 		\item<+-> an \alert{emission limit} constrains the government
@@ -155,6 +155,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \end{frame}
 
 \begin{frame}{Preview of results}
+	\vspace{-3mm}
 	\pause
 \begin{itemize}[<+-| alert@+>]
 	\setbeamercolor{alerted text}{} %change the font color
@@ -164,20 +165,20 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{4mm}
 	\begin{minipage}[]{1\textwidth}
 \begin{itemize}
-\item {Under the net-zero emission limit:}
+\item \normalsize{Under the net-zero emission limit:}
 \vspace{1mm}
 \begin{itemize}
-	\item[-]  an extensive carbon tax reduces fossil demand and research
+	\item[-]  \normalsize{an extensive carbon tax reduces fossil demand and research}
 		\vspace{1mm}
-	\item[-] the labor tax subsidizes labor
+	\item[-] \normalsize{the labor tax subsidizes labor}
 \end{itemize}
 \vspace{1mm}
-\item {Before the net-zero emission limit:}
+\item \normalsize{Before the net-zero emission limit:}
 \vspace{1mm}
 \begin{itemize}
-	\item[-] a smaller carbon tax allows for more fossil research
+	\item[-] \normalsize{a smaller carbon tax allows for more fossil research}
 	\vspace{1mm}
-	\item[-] a tax on labor lowers emissions
+	\item[-] \normalsize{a tax on labor lowers emissions}
 \end{itemize}	
 \end{itemize}
 	\end{minipage}
@@ -186,9 +187,9 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\item {Mechanism} 
 	\vspace{2mm}
 	\begin{itemize}
-		\item once the carbon tax targets research activity, the wage rate no longer fully reflects the social costs of labor
+		\item \normalsize{once the carbon tax targets research activity, the wage rate no longer fully reflects the social costs of labor}
 		\vspace{2mm}
-		\item  households do not correctly internalize the social costs of labor
+		\item[\ar]  \normalsize{households do not correctly internalize the social costs of labor}
 	\end{itemize}
 	%\item<+->  \alert{sizable effect of skill heterogeneity}: \\ with only one skill, the optimal income tax increases social welfare by 0.85\%
 \end{itemize}
@@ -713,15 +714,7 @@ s.t. \hspace{4mm}
 \section{Results}
 
 \begin{frame}{Optimal Policy}
-	\alert{Add zero indicator to marginal tax rate; drop 00 in carbon tax, lgd emiss}
 \begin{figure}[h!!]
-	\centering
-	\begin{subfigure}{0.32\textwidth}		
-		\caption{Net emissions, GtC0$_2$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_periods12_OPT_T_NoTaus_Emnet_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
-	\end{subfigure}
-\pause
 	\begin{subfigure}{0.32\textwidth}		
 		\caption{Average marginal tax rate}
 			%	\captionsetup{width=.45\linewidth}
@@ -750,34 +743,32 @@ s.t. \hspace{4mm}
 \hypertarget{benf}{}
 \section*{Mechanism}
 
-\begin{frame}{Comparison to optimal policy without labor income tax}
+\begin{frame}{First-best allocation}
 	\centering
 \begin{figure}[h!!]
 	\centering
-	\begin{subfigure}{0.32\textwidth}		
-		\caption{Carbon tax}
+	\begin{subfigure}{0.4\textwidth}		
+		\caption{\normalsize{Green-to-fossil energy ratio} }
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
 	\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}		
-	\caption{Fossil growth}
+\begin{minipage}[]{0.1\textwidth}
+\ 
+\end{minipage}
+\begin{subfigure}[]{0.4\textwidth}
+	\caption{\normalsize{Fossil-to-green scientists }}
 	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAf_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-\end{subfigure}
-	\begin{subfigure}{0.32\textwidth}		
-	\caption{Green growth}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/gAg_OPT_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-\end{subfigure}
+	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+\end{subfigure}	
 \end{figure}
 \vspace{5mm}
 \begin{block}{}
-	\ \\
-	\ \ \ \ The carbon tax is smaller when a labor income tax is available before the net-zero emission limit binds. It is higher afterwards.\  \ \\ \ 
+	\ \ \ \ First-best: more fossil research and high green-to-fossil energy ratio. \\ 
+	\ \ \ \ Optimal policy: trade-off between fossil research and demand 
 \end{block}	
 \end{frame}
 
-\begin{frame}{Comparison to optimal policy without labor income tax: No emission limit}
+\begin{frame}{Use of labor income tax´}
 	\centering
 	\begin{figure}[h!!]
 		\centering

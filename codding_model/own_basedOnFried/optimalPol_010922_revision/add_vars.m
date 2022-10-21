@@ -71,11 +71,13 @@ if max(sff~=zeros(size(sff)))
     snS= sn./S;
     sffS =sff./S;
     sgS =sg./S; 
+    sffsg=1./sgsff;
 else
     sgsff=zeros(size(AgAf));
     snS=zeros(size(AgAf)); 
     sgS=snS;
     sffS=snS;
+    sffsg=sgsff; 
 end
 
 

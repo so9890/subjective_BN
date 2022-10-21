@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -1496,7 +1496,7 @@ if plotts.compeff3==1
         varl=varlist;
         allvarseff=RES(ie); 
 
-    for l =["Res"]%keys(lisst) % loop over variable groups
+    for l =["Add"]%keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
         for lgdind=0:1
@@ -1524,9 +1524,13 @@ if plotts.compeff3==1
             elseif varr == "sgsff" 
                 ytickformat('%.0f')
                 ylim([-1e5, 5e5])
-%             elseif varr == "sg" 
-%                 ytickformat('%.2f')
-%                 ylim([-0.01, 0.12])
+             elseif varr == "sffsg" && indic.noknow_spill==0
+                 ytickformat('%.0f')
+                 ylim([-1, 8.01])
+                 
+             elseif varr == "GFF" && indic.noknow_spill==0 
+                 ytickformat('%.0f')
+                 ylim([-5, 30.01])
             
             elseif varr =="hh" || varr =="hl" || varr =="Hagg"
                 ytickformat('%.3f')
@@ -1547,7 +1551,11 @@ if plotts.compeff3==1
 
            if lgdind==1
                if withlff==1
-                    lgd=legend('laissez-faire', 'optimal policy', 'social planner', 'Interpreter', 'latex');
+                   if indic.slides ==0
+                        lgd=legend('laissez-faire', 'optimal policy', 'social planner', 'Interpreter', 'latex');
+                   else
+                        lgd=legend('laissez-faire', 'optimal policy', 'first-best', 'Interpreter', 'latex');
+                   end
                else
 %                    if varr =="tauf"
 %                       lgd=legend( 'social cost of emissions', 'no income tax', 'Interpreter', 'latex');
@@ -1565,8 +1573,13 @@ if plotts.compeff3==1
                    end
                end
            end
-        path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
+           if indic.slides==0
+              path=sprintf('figures/all_%s/%s_CompEff%s_regime%d_opteff_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
+           elseif indic.slides ==1
+              path=sprintf('figures/all_%s/%s_slides_CompEff%s_regime%d_opteff_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, io, plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
+           end
         exportgraphics(gcf,path,'Resolution', 400)
+        
         close gcf
         end
         end
