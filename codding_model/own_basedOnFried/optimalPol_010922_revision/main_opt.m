@@ -94,6 +94,10 @@ if indic.spillovers==1
     Sparams=1.2;
 end
 
+Sparams.TFPF0= init201014(list.init=='Af0')^(1-Sparams.alphaf);
+Sparams.TFPG0= init201014(list.init=='Ag0')^(1-Sparams.alphag);
+Sparams.TFPN0= init201014(list.init=='An0')^(1-Sparams.alphan);
+
 %% 
 %%%%% LIST for separate markets
 
