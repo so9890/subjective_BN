@@ -533,7 +533,7 @@ content...
 		\item \alert{carbon tax lowers demand for fossil machines and returns to fossil research}
 		\item scientists more productive in advanced sectors \ar path dependency
 		\item knowledge from other sectors increases productivity of scientists
-		\item decreasing returns to research
+		\item decreasing returns to research, $\eta<1$
 	\end{itemize}
 	\small
 	\vspace{7mm}
@@ -569,7 +569,7 @@ content...
 		\item carbon tax lowers demand for fossil machines and returns to fossil research
 		\item \alert{scientists more productive in advanced sectors \ar path dependency}
 		\item knowledge from other sectors increases productivity of scientists
-		\item decreasing returns to research
+		\item decreasing returns to research, $\eta<1$
 	\end{itemize}
 	\small
 	\vspace{7mm}
@@ -606,7 +606,7 @@ content...
 		\item carbon tax lowers demand for fossil machines and returns to fossil research
 		\item scientists more productive in advanced sectors \ar path dependency
 		\item \alert{knowledge from other sectors increases productivity of scientists}
-		\item decreasing returns to research
+		\item decreasing returns to research, $\eta<1$ 
 	\end{itemize}
 	\small
 	\vspace{7mm}
@@ -642,7 +642,7 @@ content...
 		\item carbon tax lowers demand for fossil machines and returns to fossil research
 		\item scientists more productive in advanced sectors \ar path dependency
 		\item knowledge from other sectors increases productivity of scientists
-		\item \alert{decreasing returns to research}
+		\item \alert{decreasing returns to research, $\eta<1$}
 	\end{itemize}
 	\small
 	\vspace{7mm}
@@ -825,7 +825,8 @@ Y_t&=C_t+\int_{0}^{1}\left(x_{Fit}+x_{Git}+x_{Nit}\right)di
 		\item[-] US emissions in 2019 beyond equal-per-capita level
 	\end{itemize}
 \vspace{2mm}
-	\item<+-> political goal: $-38\%$ by 2030 relative to 2019\\ \hspace{4mm} \small{\ar 5 times equal-per-capita share of remaining carbon budget}
+	\item<+-> political goal: $-38\%$ by 2030 relative to 2019
+	%\\ \hspace{4mm} \small{\ar 5 times equal-per-capita share of remaining carbon budget}
 \end{itemize}
 \end{frame}
 
@@ -862,7 +863,7 @@ Y_t&=C_t+\int_{0}^{1}\left(x_{Fit}+x_{Git}+x_{Nit}\right)di
 				\hline
 				Production&\multicolumn{2}{c}{}\\
 				\hline
-				$(\varepsilon_y, \varepsilon_e)$&(0.05, 1.50)&\cite{Fried2018ClimateAnalysis}\\	
+				$(\alert{\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&\cite{Fried2018ClimateAnalysis}\\	
 				($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
 				$\delta_y$&0.38&\makecell[l]{energy expenditure share  \citep{EIAEnergy}}\\
 				\hline
@@ -890,19 +891,20 @@ Y_t&=C_t+\int_{0}^{1}\left(x_{Fit}+x_{Git}+x_{Nit}\right)di
 
 \begin{frame}{Optimal Policy}
 \begin{figure}[h!!]
+	
 	\begin{subfigure}{0.4\textwidth}		
-		\caption{Average marginal tax rate}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dtaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}	
-	\begin{minipage}[]{0.1\textwidth}
-	\ 
-\end{minipage}
-		\begin{subfigure}{0.4\textwidth}		
 		\caption{Tax per ton of carbon,  US\$}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_periods12_OPT_T_NoTaus_Tauf_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
-	\end{subfigure}
+	\end{subfigure}	
+	\begin{minipage}[]{0.1\textwidth}
+	\ 
+\end{minipage}
+\begin{subfigure}{0.4\textwidth}		
+\caption{Average marginal tax rate}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dtaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{subfigure}
 	\end{figure}
 \vspace{3mm}
 \begin{block}{}
@@ -1001,7 +1003,7 @@ The optimal fiscal mix is a combination of labor and carbon taxes throughout.
 	\vspace{3mm}
 	\begin{block}{}
 		\begin{itemize}
-	\item a smaller carbon tax affects green-to-fossil energy ratio; hours unchanged
+	\item the carbon tax affects green-to-fossil energy ratio; hours unchanged
     \item[ ]\
 		\end{itemize}
 	\end{block}	
@@ -1046,7 +1048,7 @@ The optimal fiscal mix is a combination of labor and carbon taxes throughout.
 	\vspace{3mm}
 	\item Under the net-zero emission limit: 
 	\begin{itemize}
-		\item[-] excessive carbon tax to reduce fossil demand and research
+		\item[-] high carbon tax to reduce fossil demand and research
 		\item[-]  a subsidy on labor stabilizes output
 	\end{itemize}
 	\vspace{3mm}
