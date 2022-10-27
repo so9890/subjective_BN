@@ -12,7 +12,6 @@
 %\usepackage{mathptmx} % times!!! 
 %\usepackage[T1]{fontenc}
 \usepackage{amsmath}
-\usepackage{amsthm}
 \usepackage{soul}
 \usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
 \usepackage{natbib}
@@ -81,17 +80,16 @@
 %\usepackage{biblatex}
 %\addbibresource{bib_mt.bib}
 \usepackage{ulem}
-\title{Transfers and Labor Income Taxes in the Optimal Environmental Policy}
+\title{The Role of Fiscal Policies in Meeting Climate Targets}
 %\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
-\date{Sonja Dobkowitz\\ University of Bonn \\ %University of Bonn\\
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
 \vspace{1mm}
 Preliminary and incomplete\\
 %First version: January 9, 2022\\
 This version: \today }
 \usepackage{graphicx,caption}
-%\usepackage{hyperref}
-\usepackage[colorlinks,linkcolor=aaltoblue,citecolor=aaltoblue,urlcolor=aaltoblue,unicode=true]{hyperref} %can create hyperlinks. ALWAYS LOAD LAST
-\definecolor{aaltoblue}{RGB}{0,94,184}
+\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{minitoc}
 \setcounter{secttocdepth}{5}
 \usetikzlibrary{shapes.geometric}
@@ -122,18 +120,9 @@ This version: \today }
 	\begin{abstract}
 		\begin{singlespacing}
 			\textbf{Abstract \ }
-			Some scholars argue for limiting consumption to handle tightening environmental constraints \citep{Schor2005SustainableReductionb, VanVuuren2018AlternativeTechnologies}. Can reductive measures help mitigate environmental externalities?
-			 I show that an environmental tax does not suffice to implement the efficient allocation. Instead, the optimal policy also contains a reductive element: lump-sum transfers complement environmental taxes by reducing labor supply through an income effect.
-			 When environmental tax revenues are not redistributed lump sum, the planner uses progressive labor income taxes to decrease work effort. %Therefore, the optimal environmental policy - as a byproduct - increases equity either through lump-sum transfers or progressive income taxation.
-			I quantify the optimal income tax in an endogenous growth model with skill heterogeneity, which is progressive. Next to the benefits of more leisure, the income tax is used to substitute for environmental taxes so that the economy can profit from knowledge spillovers from the  non-energy sector. %The reason is that a higher price of energy goods induced by the environmental tax directs research away from the non-energy sector. As the non-energy sector is the biggest in terms of research processes, knowledge spillovers from this sector are especially important.%
-		%	Two compositional and opposed effects of the income tax arise through (i) a higher labor share in the fossil sector and (ii) a skill bias in the green sector. Overall, the compositional effect is small.	
-%			 On the one hand, a smaller labor supply discourages fossil production which is more labor intense. On the other hand, a skill bias in the green sector implies an adverse effect of income tax progressivity on the green-to-fossil energy mix. Overall, the latter mechanism dominates and is amplified through a market size effect, but the compositional effect remains small overall.
-
-		%	The model suggests that the use of income taxes when environmental tax revenues are not redistributed raises social welfare by 0.1\% over the 60 years from 2020 to 2080.
-			%The model suggests that integration of environmental and fiscal policy when no lump-sum transfers are available raises social welfare by 0.1\% over the 60 years from 2020 to 2080.
-%			To reach climate targets, the International Panel on Climate Change has identified net-zero emissions by 2050 an essential element. I show that progressive income taxes are optimally used in concert with corrective taxes to satisfy an absolute emission limit.
-%			On the one hand, progressive income taxation reduces labour efforts as leisure becomes relatively cheaper. The overall reduction in production lowers emissions. On the other hand, a progressive income tax (i) reduces general research efforts through a market size effect  and (ii) recomposes the structure of the economy away from green energy through a skill-supply channel. Both effects call for a more regressive tax to foster a green transition. For a reasonable calibration, I find that the reduction effect dominates and the optimal income tax schedule is progressive. The welfare advantage of income tax progressivity arises from a reduction of inefficiently high hours worked. 
-%The model suggests that including progressive income taxes as a tool to lower emissions accounts for a rise in social welfare by 0.1\% over the 60 years from 2020 to 2080.  % as relative supply of the through a skill-supply channel. As richer, high-skill workers reduce their labour supply more in response to a more progressive tax, low-skill labour becomes more abundant. 
+			
+			To reach climate targets the International Panel on Climate Change has identified net-zero emissions by 2050 an essential element. I show that progressive income taxes are optimally used in concert with corrective taxes to meet emission targets.
+			On the one hand, progressive income taxes reduce labour efforts as leisure becomes relatively cheaper. The overall reduction in production lowers emissions. On the other hand, tax progressivity recomposes the structure of the economy away from green energy production through a skill supply channel calling for a more regressive tax. For a reasonable calibration, I find that the reduction effect dominates and the optimal income tax schedule is progressive. The welfare advantage of income tax progressivity arises from a reduction of inefficiently high hours worked. The model suggests that including progressive income taxes as a tool to lower emissions accounts for a rise in social welfare by 0.1\% over the 60 years from 2020 to 2080.  % as relative supply of the through a skill-supply channel. As richer, high-skilled workers reduce their labour supply more in response to a more progressive tax, low-skill labour becomes more abundant. 
 			
 %			Natural scientists have identified the reduction of demand %for energy and land %thus, a change in lifestyle 
 %			as an important contributor to meeting global climate targets. However, a general equilibrium analysis of reduction policies is missing.
@@ -145,33 +134,29 @@ This version: \today }
 		
 		
 %In a set up with representative agent, the necessity to meet emission targets makes the optimal income tax highly progressive. The more goods are substitutes the higher the optimal tax progressivity. When goods are complements, the more slowly growing clean sector dampens production in the dirty sector making a lower progressivity sufficient. 
-%	\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
+	%		\noindent \textit{JEL classification}: E71, H21, H23,  O11, O13, Q58
 			
 		\end{singlespacing}
 		
 		\end{abstract}
 %\tableofcontents
-%\input{intro_impo}
-\input{intro_impo_2}
+
+\input{intro_impo}
 %\input{intro_simple_fisc}
 %\input{input_lit} %<- contains summaries of potentially relevant papers
-\input{model_ana_abs_impo}
-%\input{model_ana_impo}
-\input{impo_modeL_FinN}
-%\input{simplemodeL_Fisc}
+%\input{impo_model}
+%\input{simplemodel_fisc}
 %\input{theory_simple_fisc}
 %\input{theory_DTC}<- potentially relevant stuff
 \input{calib_simple_fisc}
-%\input{modeL_Fisc}
+%\input{model_fisc}
 %\input{quant_res_fisc}
 %\input{quant_res_impo}
-\input{quant_res_impo_3}
+\input{impo_res_ineq}
 %\input{quant_res_impo_BN1}
 \input{conclusion_simple_fisc}
-%\input{going_forward1208}
-\input{app2_impo}
-%\input{red_recomp_lit}
-%\input{appendix_fisc}<- Important notes on nature and on Balanced growth path in model based on fried
+%\input{app_impo}
+%\input{appendix_fisc}<- Important notes on nature etc
 %\input{solving_model_BGP}
 %-------------------------------------
 \clearpage

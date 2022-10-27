@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{etoc}
+\usepackage{pdfpages}
+\usepackage[capposition=top]{floatrow}
+\usepackage{pdflscape} % landsacpe package
+% set font to times
+%\usepackage{mathptmx} % times!!! 
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{soul}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom =2.5cm]{geometry}
+\usepackage{natbib}
+%\usepackage[natbibapa]{apacite}
+%\usepackage{apacite}
+%\bibliographystyle{apacite}
+\bibliographystyle{apa}
+%\renewcommand{\footnotesize}{\fontsize{10pt}{11pt}\selectfont}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings}
+\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\hat}{\widehat}
+\usepackage[bf]{caption}
+\usepackage{tikz}
+%\begin{comment}
+%\usepackage[headsepline,footsepline]{scrlayer-scrpage} % has to come before package!!! otherwise option clash
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings} % kopfzeile/ fußzeile
+%\clearpairofpagestyles
+%\ohead{}
+%\ihead{\textit{Redistribution, Demand and  Sustainable Production}}
+%\cfoot{\thepage}
+%\pagestyle{plain} % comment this one to have header
+%\end{comment}
+\allowdisplaybreaks
+\usepackage{comment}
+ \usepackage{siunitx}
+  \usepackage{textcomp}
+\definecolor{sonja}{cmyk}{0.9,0,0.3,0}
+%\definecolor{purple}{model}{color-spec}
+\usepackage{amssymb}
+\newcommand{\ar}{$\Rightarrow$ \ }
+\newcommand{\frp}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\tr}[1]{\textcolor{red}{#1}}
+\newcommand{\vlt}[1]{\textcolor{violet}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\sn}[1]{\textcolor{sonja}{#1}}
+%%% TIKZS
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every edge}=  [fill=orange]  
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{mainboxbig/.style={draw=sonja, text=black, fill=white, ellipse, rounded corners, thick, node distance=5em, text width=13em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=black , rectangle, rounded corners, thick, node distance=4em, text width=20em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+	
+% other stuff
+\newcommand{\innermid}{\nonscript\;\delimsize\vert\nonscript\;}
+\newcommand{\activatebar}{%
+	\begingroup\lccode`\~=`\|
+	\lowercase{\endgroup\let~}\innermid 
+	\mathcode`|=\string"8000
+}
+%\usepackage{biblatex}
+%\addbibresource{bib_mt.bib}
+\usepackage{ulem}
+\title{Fiscal Policy, Inequality, and the Environment}
+%\title{The Environment, Inequality, and Growth\\ \small{ optimal fiscal policy in an endogenous growth model with inequality and emission targets}}
+\date{Sonja Dobkowitz\\ Bonn Graduate School of Economics\\ %University of Bonn\\
+\vspace{1mm}
+%Preliminary and incomplete\\
+First version: January 9, 2022\\
+This version: \today }
+\usepackage{graphicx,caption}
+\usepackage{hyperref}
+\usepackage{minitoc}
+\setcounter{secttocdepth}{5}
+\usetikzlibrary{shapes.geometric}
+
+% for tabular
+
+%\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+%propositions etc
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}[prop]
+\newtheorem{lemma}[prop]{Lemma}
+
+\renewenvironment{abstract}
+{\small
+	\list{}{
+		\setlength{\leftmargin}{0.025\textwidth}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+\begin{document}
+%	\includepdf[pages=-]{../titlepage.pdf}
+	\maketitle
+	\begin{comment}THIS ABSTRACT REFERS TO DEMAND REDUCTION POLICIES. whILE THE OTHER ONE BELOW ONLY MOTIVATES TO LOOK AT DISTORTIONARY INCOME TAXES AS AN ALTERNATIVE TO FOSSIL TAXES
+	\begin{abstract}
+		\begin{singlespacing}
+			\textbf{Abstract \ }
+			Natural scientists have identified a reduction of demand %for energy and land %thus, a change in lifestyle 
+			as an important contributor to meeting global climate targets. However, a general equilibrium analysis of a demand reduction is missing.
+			While as a direct effect environmental pollution declines through lowering production, it may have counteracting general equilibrium effects:
+			A recomposition of relative skill supply shifts the economy away from green energy to fossil production. Directed technical change reacts by allocating research to dirty energy.
+		\textbf{ I study the effect of a (voluntary) reduction in demand on the optimal environmental policy in a model accommodating directed technical change and skill heterogeneity.} When a voluntary reduction of demand is missing, the government can attain a reduction through distortionary income taxation. 
+
+		\end{singlespacing}
+		
+		\end{abstract}
+		\end{comment}
+	\begin{abstract}
+		\begin{comment}THIS ABSTRAC FOCUSES ON OPTIMAL INCOME TAXES BUT HAS A DIFFERENT TRADE OFF AND FOCUS: THE ENVIRONMENT´
+		\end{comment}
+		\begin{singlespacing}
+			\textbf{Abstract \ }
+			The latest IPCC report has identified an alarming gap between climate change policies and emission targets compatible with climate goals.\footnote{\ Countries' current emission targets reach 52-60 GtCO2-eq per year in 2030 and to 46-67 GtCO2-eq per year by 2050 instead of a 1.5 degree compatible limit of net-zero emissions in 2050. The estimated temperature rise induced by countries' policy targets is 2.4°C or 3.5°C by 2100. } Regulators face challenges when implementing carbon taxes, as demonstrated by the yellow vest movement in France 2018 or the recent cap on energy prices in reaction to rising fuel prices caused by the war in Ukraine.
+			Distortionary income taxes constitute an alternative policy instrument. As a positive direct effect they lower the level of production as households diminish their labour supply. However, a recomposition of relative skill supply shifts the economy from green energy to fossil production. Directed technical change aggravates the shift by allocating research to dirty energy. 
+			On the other hand, redistribution to poor households may boost aggregate demand for cleaner goods. 
+			What is the environmentally optimal tax progressivity?
+		\end{singlespacing}
+	\end{abstract}
+%\tableofcontents
+
+%\input{intro_fisc}
+\input{intro_simple_fisc}
+\input{input_lit}
+\input{simplemodel_fisc}
+%\input{theory_simple_fisc}
+\input{theory_DTC}
+\input{calib_simple_fisc}
+%\input{model_fisc}
+\input{quant_res_fisc}
+\input{conclusion_simple_fisc}
+\input{appendix_fisc}
+\input{solving_model_BGP}
+%-------------------------------------
+\clearpage
+\bibliography{../../../bib_2_0}
+\addcontentsline{toc}{section}{References}
+\end{document}

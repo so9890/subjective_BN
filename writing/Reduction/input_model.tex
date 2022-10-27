@@ -1,0 +1,419 @@
+\section{Model}
+
+3 model blocks: households, producing firms, innovation sector.
+(abstract from durables, circular economy) %Note: income-dependent marginal propensities to consume \textbf{could follow from endogeneous level of upper consumption!!!} }
+
+
+\subsection{Considerations Utility specification}
+\tr{@Pavel: please skip this subsection, and continue reading from \ref{subsec:Simplemodel}}
+The central aspect of the model is a satiation point of consumption. Households never consume above this level. This makes sense if one assumes households which deliberately lower the amount consumed. 
+
+\begin{align*}
+U(C)= -\frac{(C-B)^2}{2} 
+\end{align*}
+Goods enter as perfect substitutes if $C=c_n+c_s$ and are complements if $C=c_n^{1-\omega}c_s^\omega$.
+ There is an upper bound and households would never consume more than $B$. Disadvantage: there is no consumption above B.  (Yet, $B$ can also be perceived as habits since the MU increases with $B$. Thus, $B$ can also represent subjective needs, but of such a kind, that the household never exceeds these needs). 
+
+
+Alternatively, one could assume habits or subjective needs and a reduction in these needs as exogenous shock. However, in this specification, consumption would grow again once prices adjust in order to clear markets (I assume... since still more is better and output is determined by input factors.)
+To solely focus on needs consider:
+
+\begin{align*}
+	U(C)= \frac{(C-B)^{1-\frac{1}{\eta}}}{1-\frac{1}{\eta}}
+\end{align*}
+
+
+Finally, I like to think that product groups are similar across sectors but that there are big productivity differences. E.g. Traveling unsustainably is by plane versus by train or sailing ship in a sustainable fashion. The input of labour and time is way higher in the sustainable sector. hence, less output in a given period. (growth not on variety level but on productivity level...eg very little of each category also already available now...yet at low productivity)
+
+
+Another question that arises is whether habits/the upper bound of consumption is to be modeled on individual good or composite consumption level.
+On product level, à la Ravn, Schmitt-Grohé (here with habits...)
+\begin{align*}
+&y(j)=\left((1-\omega)c_n(j)^{\frac{\sigma-1}{\sigma}} +\omega c_s(j)^{\frac{\sigma-1}{\sigma}}\right)^\frac{\sigma}{\sigma-1}\\
+with\ \sigma =1: \hspace{3mm}& y(j)=c_n(j)^{1-\omega}c_s(j)^\omega \\
+&	x= \left(\int_{0}^{1} (y(j)- B_j)^{\frac{\varepsilon-1}{\varepsilon}}dj\right)^{\frac{\varepsilon}{\varepsilon-1}}
+\end{align*}
+Don't know how to aggregate unit mass of products when using of an upper bound. 
+
+In contrast, assuming habits on the composite level would allow for substitution between say holiday trips and restaurant visits yet satisfying the same habit.
+
+\subsection{A tractable model}\label{subsec:Simplemodel}
+In this section present a simple model which I can solve analytically (at least in the perfect competitive version results of which are discussed below). The extension to \cite{Acemoglu2012TheChange} is that there are two household types which differ in their skills. Furthermore, I add a sector which produces the sector-specific labour input good. The share of high-skilled labour in the green sector is higher than in the non-green sector. In this first version of the model, I abstract from an investment decision and endogenous growth to solely focus on the effect on inequality in terms of wages. Since there is no growth, the simple model is static. In addition, I abstract from monopolistic competition.
+
+\subsubsection{Production}
+The production side mainly follows \cite{Acemoglu2012TheChange} where each sector produces one consumption good. (In contrast, though, the aggregation of goods to a composite consumption good is part of the household sector where I also introduce weights on the final consumption goods). \\
+
+\noindent\textbf{Competitive final good producers in each sector}
+There are two sectors, a green $s$ and a non-green sector $n$ in which a unit mass of competitive firms $i$ produces an individual consumption good. All firms use machines and an intermediate labour good as input. 
+\begin{align*}
+&Y_n= L_n^{1-\alpha_n}\int_{0}^{1}A_{ni}^{1-\alpha_n}x_{ni}^{\alpha_n} di\\
+&Y_s= L_s^{1-\alpha_s}\int_{0}^{1}A_{si}^{1-\alpha_s}x_{si}^{\alpha_s} di
+\end{align*}
+The quantity of machines used by firm $i$ in sector $j$ is denoted by $x_{ji}$ and the respective productivity by $A_{ji}$ with $j\in\{s,n\}$. The amount of the sector-specific labour input good is given by $L_j$.
+%\textbf{Competitive final good production aka household's choice}
+%\begin{align*}
+%&Y=\left(\omega Y_s^{\frac{\sigma-1}{\sigma}}+(1-\omega)Y_n^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}\\
+%with \ \sigma=1 \hspace{3mm} & Y=Y_s^\omega Y_n^{1-\omega}
+%\end{align*}
+%And on the household level
+%\begin{align*}
+%U(C)=-\frac{(C-B)^2}{2}.
+%\end{align*}
+
+%\paragraph{Production of machines and innovations }
+
+\paragraph{Machine producing firms}
+
+A monopolistically competitive sector produces machines and sells them to final good firms in the respective sector. (! In the version analysed below solved under perfect competition.) which sells machines to the final good producers of the specific sector at price $p_{ij}$. It is assumed that the costs to produce one machine, $\psi$, are homogeneous across firms.
+\begin{align*}
+\underset{x_{ij}}{max}\  p_{ij}x_{ij}-\psi x_{ij}
+\end{align*}
+
+\paragraph{Research}
+Scientists perform research and decide on the sector where to conduct their research, $\{s,n\}$. The exact modeling of endogenous growth will be added later. In this version, I assume that productivity is constant and exogenous, yet potentially sector and firm specific. 
+Following \cite{Acemoglu2012TheChange}, I assume that the average productivity in sector $j$ is defined by
+\begin{align*}
+	A_j:=\int_{0}^{1}A_{ij}di
+\end{align*}
+
+(Note: Monopolistic competition happens \textbf{across} sectors since it is the price elasticity of substitution between sectors that matters for the demand monopolistic producers face.
+The decision by scientists where to invent also depends on this elasticity, the weight on green goods $\omega$, and potentially on the satiation level. 
+)
+\paragraph{Labour market}
+As an extension to the model in \cite{Acemoglu2012TheChange} I assume heterogeneity in the labour input with respect to skills in each sector. This feature implies income heterogeneity. 
+\begin{comment}
+\begin{align*}
+H_s= \lambda z_h l_r\\
+H_n= (1-\lambda) z_l l_p
+\end{align*}
+\ar could have that in the initial ss wages in the low sector are higher since less labour is available with $z_l<z_h$. Either allow rich also to work there... or drop $z_h, z_l$. For now, drop $z_h, z_l$ and see what comes out from the simple setup, then think about how to adjust it if need be/ to make it more realistic.
+
+\end{comment}
+The labour input of the final good producing sector $j$ is provided by a competitive labour sector. Sectors produce the labour input according to: 
+\begin{align*}
+L_s= l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\\
+L_n=l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n},
+\end{align*}
+where \tr{ $\varepsilon_s>\varepsilon_n$} so that the share of high-skilled workers in the sustainable sector is higher.
+Note, it is not ensured that high-skilled households earn a higher wage per unit of labour supplied! (Have to think about parameter values or modeling assumptions, eg. allow labour supplied by high-skilled households to be used by the labour producing firm for as both $l_{hj}$ and $l_{lj}$; I guess this would imply that the wage rate of the high-skilled is at least as high as that of low-skilled workers. Or that the share of high-skilled labour is above 0.5 in both sectors. Alternatively, could make high-skilled more productive... )
+
+\subsubsection{Tractable HH problem and solution}
+A generic household solves
+\tr{\textbf{Not sure that only special solutions exists with weights $\omega$ which determine market shares, and endogenous growth...}}
+\begin{align*}
+\underset{c_n, c_s, h_e}{max}& \frac{-(C-B_e)^2}{2}- \frac{h_e^2}{2}\\
+s.t.& \ C= c_s^{\omega_s} c_n^{1-\omega_s}\\
+& c_sp_s+c_np_n=w_e h_e\\ %n_l+w_hn_h\\
+%& n_l+n_h=h_e\\
+%& n_{-e}=0\\
+& h_e\in[0,L],
+\end{align*}
+where $e\in\{l,h\}$ is either high or low skill. $h_e$  is the total amount of labour supplied by a household with skill $e$. $c_s$ and $c_n$ are the amounts of sustainable and unsustainable consumption.  $B_e$ is a household-specific satiation point of consumption. A household never chooses consumption beyond that point.
+
+(Notes: 
+1) I am planning on endogenising $B_e$ to positively depend on consumption in line with habits, to depend on policies, or/and to include some aspect of perceived disutility from consuming not at the satiation point which might be income dependent (so that low income households have a higher marginal propensity to consume...might also be able to generate income-dependent marginal propensities to consume either good in a similar vein than in my first paper ). WORK IN PROGRESS! \\
+2) In this model, the mechanism still runs through the supply side in contrast to a demand-determined model. As households lower their satiation point, the shadow value of income falls and they supply less labour. The plan is to develop the model into a model which features economic slack. On the other hand, though, the effect on labour income is fully absorbed by changes in the wage rate in the present, simple model. Which again allows to draw conclusions of a change in the satiation point on income. So, it might only complicate things without further insights.\\
+3) \tr{I also tried to find a tractable model with basic needs, similar to the one in the first paper, I also get to an analytical solution for the sustainable price and wages but only with a computer and it reads more complicated. Both models can be used to study a reduction in consumption. However, the basic needs specification features unbounded consumption so that a drop in prices implies a resurgence of consumption. This is a possibility I wanted to avoid.})
+%There are two mechanisms shaping the satiation point. First, $\gamma_e$ is a factor which determines how the satiation point is perceived. When $\gamma_e<1$ the satis 
+\begin{comment}
+(\textit{Note: Could allow high-skill workers to choose where to work BUT then same wage rate!})
+
+content...
+\end{comment}
+
+
+\begin{comment}
+\paragraph{Alternative specification: rich can choose where to work } \ar should ensure that the wage of the rich is higher than the wage paid for low-skill workers; otherwise there would be no high-skill labour supply.
+
+The problem of a high-skill household then reads
+\begin{align*}
+\underset{c_n, c_s, h_e}{max}& \frac{-(C-B)^2}{2}- \frac{h_e^2}{2}\\
+s.t.& \ C= c_s^{\omega_s} c_n^{1-\omega_s}\\
+& c_sp_s+c_np_n=w_h n_h+w_l n_l\\
+& n_h+n_l=h_e\\
+& n_{-e}=0 \ if\ e=l\\
+& h_e\in\{0,L\}.
+\end{align*}
+
+content...
+\end{comment}
+
+The FOCs of a generic household, where I  assume throughout that $C<B_e$, read
+\begin{align}
+\frac{\omega_s}{p_s}\left(\frac{c_n}{c_s}\right)^{1-\omega_s}\left(B_e-C\right)=\mu\\
+\frac{1-\omega_s}{p_n}\left(\frac{c_s}{c_n}\right)^{\omega_s}\left(B_e-C\right)=\mu\\
+\Rightarrow \frac{c_s}{c_n}=\frac{\omega_s}{1-\omega_s}\frac{p_n}{p_s}\label{eq:foc_cscn}\\
+h_e=w_e\frac{1-\omega_s}{p_n}\left(\frac{c_s}{c_n}\right)^{\omega_s}\left(B_e-C\right) +\gamma_0 -\gamma_L\\
+Budget
+\end{align} 
+where $\gamma_0$ and $\gamma_L$ are the multipliers on the inequality constraints which limit labour supply. In the following I assume an interior solution, so that $\gamma_0=\gamma_L=0$. 
+$\mu$ is the shadow value of income. 
+
+%Substituting and rearranging terms yields
+%\begin{align*}
+%h_e=& w_e\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}(B_e-C)\\
+%c_s=&  (w_e)^2\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}(B_e-C)\\
+%c_n=& (w_e)^2\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}(B_e-C)\\
+%\mu=& \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}(B_e-C)
+%\end{align*}
+Using equation \ref{eq:foc_cscn} composite consumption can be written as 
+
+\begin{align*}
+&C= \left(\frac{1-\omega_s}{\omega}\right)^{1-\omega_s}\left(\frac{p_s}{p_n}\right)^{1-\omega_s}c_s\\
+or\ & C= \left(\frac{\omega_s}{1-\omega}\right)^{\omega_s}\left(\frac{p_n}{p_s}\right)^{\omega_s}c_n
+\end{align*} 
+Using this, I can solve explicitly for the choice variables as a function of the satiation point $B_e$ and the wage rate $w_e$:
+\begin{align}
+c_s=\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_e\\
+c_n=\frac{w_e^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_e\\
+h_e=\left(
+\frac{w_e \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_e^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B_e
+\end{align}
+
+\subsubsection{Solving production side: Perfect competition, no growth; with an emphasis on relative wage rates}
+Problem of the \textbf{competitive, labour producing firm}
+\begin{align*}
+\underset{l_{hj}, l_{lj}}{max}\  \Pi_{jl}=p_{jL}L_j-w_hl_{hj}-w_ll_{lj} \hspace{2mm} for \ j\in\{s,n\}
+\end{align*}
+There is free labour movement of high and low skill labour between the two sectors so that there are two wages $w_h$ for high skill labour and $w_l$ for low skill labour. 
+
+Profit maximisation in sector j yields
+\begin{align*}
+l_{hj}= \left(\frac{p_{jL}}{w_h}\right)^{\frac{1}{1-\varepsilon_j}}\varepsilon_j^{\frac{1}{1-\varepsilon_j}}l_{lj}\\
+l_{lj}= \left(\frac{p_{jL}}{w_l}\right)^\frac{1}{\varepsilon_j}(1-\varepsilon_j)^\frac{1}{\varepsilon_j}l_{hj}
+\end{align*}
+Exploiting free labour movement and imposing that the wage rate is the same in both sectors implies
+\begin{align*}
+ w_l= \frac{p_{nL}^\frac{\varepsilon_s}{\varepsilon_s-\varepsilon_n}}{p_{sL}^\frac{\varepsilon_n}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_n(1-\varepsilon_n)^\frac{1-\varepsilon_n}{\varepsilon_n}}{\varepsilon_s(1-\varepsilon_s)^\frac{1-\varepsilon_s}{\varepsilon_s}}\right)^\frac{\varepsilon_s\varepsilon_n}{\varepsilon_s-\varepsilon_n}\\
+ w_h= \frac{p_{sL}^\frac{1-\varepsilon_n}{\varepsilon_s-\varepsilon_n}}{p_{nL}^\frac{1-\varepsilon_s}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_s^\frac{\varepsilon_s}{1-\varepsilon_s}(1-\varepsilon_s)}{\varepsilon_n^\frac{\varepsilon_n}{1-\varepsilon_n}(1-\varepsilon_n)}\right)^\frac{(1-\varepsilon_n)(1-\varepsilon_s)}{\varepsilon_s-\varepsilon_n}.
+\end{align*}
+It follows from here that the wage rate for high skill labour increases with the price paid by the sustainable sector for labour, and vice versa for low-skilled labour. 
+
+The ratio of wage rates $\frac{w_h}{w_l}$ reads
+\begin{align}
+\frac{w_h}{w_l}=\left(\frac{p_{sL}}{p_{nL}}\right)^\frac{1}{\varepsilon_s-\varepsilon_n}\left(\varepsilon_n^{-\varepsilon_n} (1-\varepsilon_n)^{-(1-\varepsilon_n)}\varepsilon_s^{\varepsilon_s} (1-\varepsilon_s)^{(1-\varepsilon_s)} \right)^\frac{1}{\varepsilon_s-\varepsilon_n}\label{eq:labourFirm_labrel}
+%\\
+%w_h>w_l \ \Leftrightarrow \ \frac{p_{sL}}{p_{nL}}>\varepsilon_n^{\varepsilon_n} (1-\varepsilon_n)^{(1-\varepsilon_n)}\varepsilon_s^{-\varepsilon_s} (1-\varepsilon_s)^{-(1-\varepsilon_s)} . 
+\end{align}
+
+\paragraph{Innovation}
+In this simple model there is no innovation and no technological growth, hence, $A_{ijt}=A_{ij}\ \forall t, i, j$.
+
+
+\paragraph{Final good producers}
+A competitive firm in sector $j$ maximises
+\begin{align*}
+\underset{L_j, \{x_{ij}\}_{i \in I}}{max} p_{j} L_j^{1-\alpha} \int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha di - p_{jL} L_j - \int_{0}^{1} p_{ji}x_{ij} d_i
+\end{align*}
+Solving for the first order conditions and rearranging terms yields
+\begin{align}
+p_j(1-\alpha) L_j^{-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i= p_j (1-\alpha)\frac{y_j}{L_j}=p_{jL}\label{eq:foc_demand_L}
+\\
+x_{ij} = \left(\alpha\frac{p_j}{p_{ji}}\right)^\frac{1}{1-\alpha}L_j A_{ij}\label{eq:foc_demand_ma}
+\end{align}
+
+\paragraph{Machine producing firms}
+under perfect competition the FOC of a generic machine producing firm reads
+\begin{align}\label{eq:foc_ma}
+p_{ij}=\psi
+\end{align}
+Substituting the price of machines required by machine producing firms to produce,  equation \ref{eq:foc_ma}, in the demand for machines, equation \ref{eq:foc_demand_ma}, and combining the FOCs of the final good producing firm in sector j, equations \ref{eq:foc_demand_L} and \ref{eq:foc_demand_ma} yields an expression for price paid for labour in equilibrium by final good producing firm in sector j:
+\begin{align}
+p_{jL}= (1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1-\alpha}p_j^\frac{1}{1-\alpha}\underbrace{\int_{0}^{1} A_{ij} di}_{=A_j}.
+\end{align}
+%I follow \cite{Acemoglu2012TheChange} in defining that $A_j:=\int_{0}^{1}A_{ij}di$ is the average productivity in sector j. 
+Dividing the labour price in the green by the non-green sector yields:
+\begin{align}
+\frac{p_{sL}}{p_{nL}}= \left(\frac{p_s}{p_n}\right)^\frac{1}{1-\alpha} \frac{A_s}{A_n}.\label{eq:firms_labrel}
+\end{align}
+
+The relative price paid for labour in the green sector rises with the relative average productivity in this sector and the relative price charged for sustainable goods. 
+
+Substituting equation  \ref{eq:firms_labrel}  in equation \ref{eq:labourFirm_labrel},
+the wage rate received by a high-skilled worker relative to a low-skilled one is then given by:
+
+\begin{align}
+\frac{w_h}{w_l}=\left(\frac{p_s}{p_n}\right)^\frac{1}{(1-\alpha)(\varepsilon_s-\varepsilon_n)} \left(\frac{A_s}{A_n}\right)^\frac{1}{\varepsilon_s-\varepsilon_n}\left(\varepsilon_n^{-\varepsilon_n} (1-\varepsilon_n)^{-(1-\varepsilon_n)}\varepsilon_s^{\varepsilon_s} (1-\varepsilon_s)^{(1-\varepsilon_s)} \right)^\frac{1}{\varepsilon_s-\varepsilon_n}
+\end{align}
+Substituting the sustainable equilibrium price $p_s$, this equation can be used to limit the parameter space to versions such that $w_h>w_l$. Note that when $A_n$ is sufficiently big, unskilled labour might earn a higher wage in this model. %To avoid this, as an alternative to the choosing parameter values, could allow high-skilled labour to be used as both, low and high-skill labour input by the labour producing firm. To see more clearly, have to substitute equilibrium prices here!
+
+\subsubsection{Market clearing}
+There are two final good markets
+\begin{align*}
+y_s=\lambda c_{sh}+(1-\lambda) c_{sl}\\
+y_n=\lambda c_{nh}+(1-\lambda) c_{nl}.
+\end{align*}
+Two labour markets
+\begin{align*}
+l_{hs}+l_{hn}=h_h\\
+l_{ls}+l_{ln}=h_l.
+\end{align*}
+Markets for intermediate goods clear by assumption.
+%Finally all markets for intermediate goods, i.e., machines, clear in equilibrium
+%\begin{align*}
+%x_{ij}=x_{ij} \forall i,j
+%\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+Overview equations determining equilibrium assuming income such that $C_e<B_e$
+\begin{align}
+\text{\textbf{Households}}& \nonumber \\
+\text{$c_s$ demand high-skill}\hspace{4mm}&c_{sh}=\frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_h\\
+\text{$c_n$ demand high-skill}\hspace{4mm}&c_{nh} = \frac{w_h^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_h\\
+\text{$h_h$ supply}\hspace{4mm}&
+h_h= \left(\frac{w_h \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_h^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B_h\\
+\text{$c_s$ demand low-skill}\hspace{4mm}&c_{sl}=\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_l\\
+\text{$c_n$ demand low-skill}\hspace{4mm}&c_{nl}=\frac{w_l^2\left(\frac{\omega_s}{p_s}\right)^{\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2-\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_l\\
+\text{$h_l$ supply}\hspace{4mm}& h_l= \left(\frac{w_l \left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+w_l^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}\right)B_l
+\end{align}
+\newpage
+\begin{align}
+\text{\textbf{Production}}& \nonumber \\
+\text{Production sust. labour input} \hspace{4mm}& L_s =l_{hs}^{\varepsilon_s}l_{ls}^{1-\varepsilon_s}\label{mod:labS}\\ 
+\text{Production unsust. labour input} \hspace{4mm}& L_n =l_{hn}^{\varepsilon_n}l_{ln}^{1-\varepsilon_n}\label{mod:labN}\\
+%
+\text{Demand labour firm sector n wrt } l_{hn}\hspace{4mm}&l_{hn}= \left(\frac{p_{nL}}{w_h}\right)^{\frac{1}{1-\varepsilon_n}}\varepsilon_n^{\frac{1}{1-\varepsilon_n}}l_{ln}\label{mod:opt_labhn}\\
+%
+\text{Demand labour firm sector s wrt } l_{hn}\hspace{4mm}&l_{hs}= \left(\frac{p_{sL}}{w_h}\right)^{\frac{1}{1-\varepsilon_s}}\varepsilon_s^{\frac{1}{1-\varepsilon_s}}l_{ls}\label{mod:opt_labhs}\\
+%
+\text{Demand labour firm sector n wrt } l_{ln}\hspace{4mm}&
+l_{ln}= \left(\frac{p_{nL}}{w_l}\right)^\frac{1}{\varepsilon_n}(1-\varepsilon_n)^\frac{1}{\varepsilon_n}l_{hn}\label{mod:opt_labln}\\
+%
+\text{Demand labour firm sector s wrt } l_{ls}\hspace{4mm}&
+l_{ls}= \left(\frac{p_{sL}}{w_l}\right)^\frac{1}{\varepsilon_s}(1-\varepsilon_s)^\frac{1}{\varepsilon_s}l_{hs}\label{mod:opt_labls}\\
+%
+\text{Final good producer sector n: Production}\hspace{4mm}&y_n
+%=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+=  \left(\alpha\frac{p_n}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_n L_n \label{mod:prod_n} \\ 
+%
+\text{Final good producer sector s: Production}\hspace{4mm}&y_s
+%=(L_j^D)^{1-\alpha}\int_{0}^{1}A_{ij}^{1-\alpha}x_{ij}^\alpha d_i\\
+=  \left(\alpha\frac{p_s}{\psi}\right)^{\frac{\alpha}{1-\alpha}}A_s L_s \label{mod:prod_s} \\
+%
+\text{Final good producer sector n: Labour demand}\hspace{4mm}&
+p_{nL} =% p_n(1-\alpha) (L_n)^{-\alpha}\int_{0}^{1}A_{in}^{1-\alpha}x_{in}^\alpha d_i\\
+%& \ \ \ =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_n^\frac{1}{1-\alpha}A_n\label{mod:pnl}
+\\
+%
+\text{Final good producer sector s: Labour demand}\hspace{4mm}&
+p_{sL} =% p_n(1-\alpha) (L_n)^{-\alpha}\int_{0}^{1}A_{in}^{1-\alpha}x_{in}^\alpha d_i\\
+%& \ \ \ =
+(1-\alpha)\left(\frac{\alpha}{\psi}\right)^\frac{\alpha}{1- \alpha}p_s^\frac{1}{1-\alpha}A_s\label{mod:psl}
+\\
+%\text{Final good producer sector j: Machines demand}\hspace{4mm}&
+%x_{ij} = \left(\alpha\frac{p_j}{p_{ij}}\right)^\frac{1}{1-\alpha}L_j^D A_{ij}\\
+%\text{Machine producers: machine supply}\hspace{4mm}& p_{ij}=\psi\\
+%
+\text{\textbf{Market clearing}}& \nonumber\\
+\text{sust final good}\hspace{4mm}& y_s=\lambda c_{sh}+(1-\lambda) c_{sl}\label{mod:sus_market}\\
+\text{unsust final good}\hspace{4mm}& y_n=\lambda c_{nh}+(1-\lambda) c_{nl};\ \  p_n=1\label{mod:unsus_market}\\
+\text{high-skill labour}\hspace{4mm}& l_{hs}+l_{hn}=h_h\label{mod:hh_market}\\
+\text{low-skill labour}\hspace{4mm}&l_{ls}+l_{ln}=h_l\label{mod:hl_market}
+\end{align}
+
+\newpage 
+
+
+\subsection{Solution with $\varepsilon_s=1$, $\varepsilon_n=0$, and $\alpha_j=0.5\ \forall j$: Effect of satiation point for wage rates/ inequality}
+\tr{I am using rich and high-skilled interchangeably in the discussion...same for poor and low-skilled...}
+In this version of the model the labour-producing firm becomes inactive and rather channels the prices paid by final good producers to workers.
+The following equations hold in this equilibrium replacing equations \ref{mod:labS} to \ref{mod:opt_labls} and labour market clearing, equations \ref{mod:hh_market} and \ref{mod:hl_market}:
+\begin{align}
+l_{hn}=0\\
+L_s=l_{hs}=h_h\\
+L_n=l_{ln}=h_l\\
+l_{ls}=0\\
+p_{sL}=w_h\\
+p_{nL}=w_l
+\end{align}
+Plugging in parameter values it holds that 
+\begin{align}
+p_{sL}=\frac{0.25}{\psi}A_sp_{s}^2\\
+p_{nL}=\frac{0.25}{\psi}A_np_{n}^2
+\end{align}
+I then use the production function of the green sector and enforce labour market clearing and  sustainable goods market clearing to get an equation which determines $p_s$ as a function of $p_{n}$ in equilibrium:
+\begin{align*}
+l_{hs}=\frac{y_s}{A_sp_s}\\
+\frac{p_{sL}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}\left(\frac{\omega_s}{p_s}\right)^{\omega_s}}{1+p_{sL}^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_h&\\ =\frac{1}{A_sp_s}\left[\lambda\frac{p_{sL}^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+p_{sL}^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_h+(1-\lambda)\frac{p_{nL}^2\left(\frac{\omega_s}{p_s}\right)^{1+\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{1-\omega_s}}{1+p_{nL}^2\left(\frac{\omega_s}{p_s}\right)^{2\omega_s}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}}B_l\right]
+\end{align*}
+Rearranging terms yields
+\begin{align*}
+	p_s^{4-2\tr{\omega_s}}=\nonumber \\
+	\frac{(1-\lambda)\frac{0.25}{\psi}\left(\frac{A_n}{A_s}\right)^2\tr{\omega_s}\textcolor{blue}{\frac{B_l}{B_h}}}{1+\left(\frac{0.25}{\psi}\right)^2A_n^2\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}\omega_s^{2\omega_s}\left(1-\lambda\frac{0.25}{\psi}\omega_s\right)-(1-\lambda)\left(\frac{0.25}{\psi}\right)^3A_n^2\omega_s^{2\omega_s+1}\left(\frac{1-\omega_s}{p_n}\right)^{2(1-\omega_s)}\textcolor{blue}{\frac{B_l}{B_h}}}
+\end{align*}
+First, when the satiation point is homogeneous across households, the equilibrium price does not depend on it. $B$ cancels from the equation as households adjust both their consumption and their labour supply in such a way that markets clear at the same price. Second, consider a situation where the satiation point of the high-skilled  exceeds that of the low-skilled. One could think of the satiation point positively depending on consumption (habits), assuming that the high-skilled are richer and consume more; then, such a relation of satiation points seems plausible. In this case, $B_l<B_h$, the sustainable price diminishes relative to an equal satiation point. The reason is that sustainable demand by low-skilled households remains unchanged, while the rich are more eager to consume and therefore provide more labour to the sustainable sector. 
+Due to a rise in high-skilled labour supply and enforced labour market clearing, the marginal product of labour in units of the numeraire falls.
+Production of the sustainable good is cheaper and supply would exceed demand at the price prevailing at an equal satiation point. Given perfect competition in the final goods market, final good producers pass through the drop in production costs to consumers and $p_s$ falls.
+
+
+Recall that the ratio of wages $\frac{w_h}{w_l}$ positively depends on $p_s$; with the given assumption on parameter values it reads
+\begin{align}
+\frac{w_h}{w_l}= \frac{A_s}{A_n}\left(\frac{p_s}{p_n}\right)^2
+\end{align} 
+Normalising $p_n$ to 1, the ratio of wages falls with the sustainable price. And high-skilled workers are less well off relative to low-skilled workers. 
+
+Finally, $\frac{B_l}{B_h}$ also shows up in the denominator of the sustainable price capturing the income effect of a change in the wage rate on labour supply. A rise in the wage rate makes the household richer at the initial level of labour supplied. The shadow value of income reduces, and the household lowers its labour supply at the higher wage rate. 
+This indirect effect adds to the initial rise in labour supply as the wage rate falls. This again reduces production costs of sustainable good's producers which pass it through to consumers.  
+
+Now, starting from an initial situation in which $B_l<B_h$, consider a decrease in the satiation point by high-skilled households while that of the poor remains unchanged. This is the exogenous change or policy measure I want to study in this paper. The drop in $B_h$ may be induced by some policy or intrinsically motivated. 
+Since the marginal utility of consumption of high-skilled households falls, income becomes less valuable to them and they reduce their labour supply. Sustainable goods supply reduces, while low-skilled households demand remains high. Demand exceeds supply at the initial sustainable price. Market forces imply a rise in the sustainable price. Perfect competition on the sustainable labour market force producers to pass through the rise in the price to high-skilled workers. The wage for high-skilled labour rises. 
+Inequality increases with the reduction in the satiation point of high-skilled households (again assuming that parameters are such that the high-skilled are also richer), as the wage rate of the high-skilled rises.
+
+\tr{Think about how the weight on sustainable consumption in the CES, $\omega_s$, matters for the effect of a reduction in $B_h$. I expect that the aggregate effect on prices depends on how the reduction in the satiation point translates to sustainable relative to unsustainable demand. What I should find is a reduction in unsustainable demand by the rich at an equally high labour supply by the low-skilled. The total effect on $p_s$ then depends on $\omega_s$, that is, on households budget shares. Where do I see this in the formula for $p_s$? }
+
+The weight on the sustainable good in the composite consumption function shapes the intensity with which the price reacts to a reduction in $B_h$
+
+WHEN ALLOWING FOR SAVING THE LABOUR DECISION IS NOT NEEDED FOR A CHANGE IN B TO AFFECT CONSUMPTION... HOUSEHOLDS COULD JUST SAVE MORE...BUT WITHOUT EITHER POSSIBILITY TO REDUCE TODAY'S FINANCIAL RESOURCES, 
+
+\paragraph{effect on budget share}
+
+How households allocate their budget across consumption goods is determined by the weights in the CES of the composite consumption good and prices. Having seen that the sustainable good's price rises as the rich reduce their satiation point, there is a negative effect on the aggregate budget share of sustainable consumption. 
+recall equation \ref{eq:foc_cscn}, as the sustainable price rises all households equally reduce sustainable consumption. 
+(What would happen with basic needs? The poor reduce sustainable consumption as would the rich but maybe at a higher elasticity. ONLY a qualitative difference here?
+)
+
+\begin{comment}
+\paragraph{Solving the model without further assumptions on parameter values}
+
+To explicitly solve the model as functions of $p_n$ I follow these steps:
+\begin{enumerate}
+\item $p_{nL}$ and $p_{sL}$ follow from equation \ref{mod:pnl} and \ref{mod:psl} directly. 
+\item I solve for $w_h$ and $w_l$ as function of $p_{nL}$ and $p_{sL}$ by use of the optimality conditions of the labour input producing firm equations \ref{mod:opt_labhn} to \ref{mod:opt_labls}. Which yields
+\begin{align}
+w_h=& \frac{p_{sL}^\frac{1-\varepsilon_n}{\varepsilon_s-\varepsilon_n}}{p_{nL}^\frac{1-\varepsilon_s}{\varepsilon_s-\varepsilon_n}}\left(\frac{\varepsilon_s^\frac{\varepsilon_s}{1-\varepsilon_s}(1-\varepsilon_s)}{\varepsilon_n^\frac{\varepsilon_n}{1-\varepsilon_n}(1-\varepsilon_n)}\right)^\frac{(1-\varepsilon_n)(1-\varepsilon_s)}{\varepsilon_s-\varepsilon_n}\\
+w_l=& p_{nL}^\frac{1}{1-\varepsilon_n}\left(\frac{\varepsilon_n}{w_h}\right)^{\frac{\varepsilon_n}{1-\varepsilon_n}}(1-\varepsilon_n)
+\end{align}
+\item using the household optimality conditions I get $c_{sh}, c_{sl}, h_h, h_l$ as a function of $p_n$ and $p_s$
+\item from $h_h, h_n$ plus the optimality conditions of the labour-input producing firm I derive $l_{hs}, l_{hn}, l_{ls}, l_{ln}$
+\item labour-input production, equations \ref{mod:labN} and \ref{mod:labS}, give $L_s$ and $L_n$
+\item sustainable output then follows from the production function \ref{mod:prod_s}
+\item
+to solve the model completely (only as a function of the price of the numeraire $c_n$: $p_n$), I enforce
+the sustainable good's market clearing condition \ref{mod:sus_market}. 
+\item all other variables $c_{nh}, c_{nl}, y_n$ follow from the HH sector and the unsustainable good's market clearing which holds by Walras' law.
+\end{enumerate}
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+\vspace{5mm}
+\noindent\rule[1ex]{\textwidth}{1pt}
+The model extends \cite{Bilbiie2012EndogenousCycles} and abstracts from shocks. 
+I introduce
+\begin{itemize}
+\item household heterogeneity in income through skills and investment
+\item satiated consumption \ar look up whether this can be solved by a shooting algorithm (what we did in Keith's topics class/ things I collected for first paper)
+\item 2 production sectors with sustainable and unsustainable quality
+\end{itemize}
+
+But they only have innovation as an increase in product variety not an increase in productivity of a given sector.
+
+to keep:
+\begin{itemize}
+\item monpolistic competition
+\end{itemize}
+
+
+content...
+\end{comment}
