@@ -1,0 +1,69 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid3\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid4\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2880\lin2880 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid5\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li3600\lin3600 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\margl1440\margr1440\vieww16200\viewh13200\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl312\slmult1\pardirnatural
+
+\f0\fs28 \cf0 Read me file for matlab programs used  for \'93Climate Policy and Innovation: A Quantitative Macroeconomic Analysis\'94 \
+3/15/2017\
+\
+The following lists the programs used in the paper and provides a brief description of each. \
+\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl312\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}data.m: computes the empirical and model values of the moments used for the calibration and robustness\
+{\listtext	\'95	}minDist.m: Calibrates model parameters by choosing values to minimize the distance between the empirical and model value of the moments. (Uses Nelder-Mead minimization routine adopted from Numerical Recipes In C routine 10.4).\
+\pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\sl312\slmult1\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Saves calibrated parameter values in base.mat \
+{\listtext	\uc0\u8259 	}Calls the following programs. \
+\pard\tx1660\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2160\fi-2160\sl312\slmult1\pardirnatural
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}bounds.m: bounds parameter space\
+{\listtext	\uc0\u8259 	}amotry.m: Tries a new point for the simplex\
+{\listtext	\uc0\u8259 	}momModel.m: Reports model values of moments used for calibration and other equilibrium quantities.  Calls bgp.m and period1.m\
+\pard\tx2380\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2880\fi-2880\sl312\slmult1\pardirnatural
+\ls1\ilvl3\cf0 {\listtext	\uc0\u8259 	}bgp.m: computes the excess supplies of fossil and green energy on the BGP given guesses for pf and pg\
+{\listtext	\uc0\u8259 	}period1.m: computes the foc and the market clearing conditions in the shock period in the endogenous innovation model. \
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl312\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}tax.m:  Calculates the carbon taxes necessary to achieve a 30 percent reduction in emissions in 20 years in the endogenous and exogenous innovation models. \
+\pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\sl312\slmult1\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Saves tax data in tax.mat\
+{\listtext	\uc0\u8259 	}Calls the following programs\
+\pard\tx1660\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2160\fi-2160\sl312\slmult1\pardirnatural
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}momModel3.m: computes equilibrium quantities in the endogenous and exogenous innovation models along the BGP and under two different policies: (1) a carbon tax and (2) a subsidy to green research (not used in present paper). \
+\pard\tx2380\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2880\fi-2880\sl312\slmult1\pardirnatural
+\ls1\ilvl3\cf0 {\listtext	\uc0\u8259 	}Calls the following programs\
+\pard\tx3100\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li3600\fi-3600\sl312\slmult1\pardirnatural
+\ls1\ilvl4\cf0 {\listtext	\uc0\u8259 	}bgp.m\
+{\listtext	\uc0\u8259 	}allinoneSubs.m: computes FOC and market clearing conditions in the endogenous-innovation model\
+{\listtext	\uc0\u8259 	}allinoneNoS.m: computes FOC and market clearing conditions in the exogenous-innovation model\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl312\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}simulation.m: simulates the economy under four scenarios: (1) baseline with no carbon tax, (2) carbon tax with endogenous innovation, (3) carbon tax with exogenous innovation and (4) green research subsidy (not used). \
+\pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\sl312\slmult1\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Saves simulation data in baseResults.mat\
+{\listtext	\uc0\u8259 	}Calls the following programs\
+\pard\tx1660\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2160\fi-2160\sl312\slmult1\pardirnatural
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}momModel3.m\
+{\listtext	\uc0\u8259 	}cev.m: computes the difference in welfare between the baseline and the carbon tax when consumption in the baseline is scaled by factor lambda. \
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl312\slmult1\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}standardErrors.m:  Calibrates bootstapped standard errors for parameters calibrated with the method of moments procedure\
+\pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\sl312\slmult1\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Saves standard error data in file se4.mat\
+{\listtext	\uc0\u8259 	}Calls the following program\
+\pard\tx1660\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2160\fi-2160\sl312\slmult1\pardirnatural
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}Calibrate.m: Chooses parameter values to minimize distance between empirical and model values of the moments. Uses Nelder-Mead algorithm for minimization. Same as minDist.m, but wrapped in a function. \
+\pard\tx2380\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2880\fi-2880\sl312\slmult1\pardirnatural
+\ls1\ilvl3\cf0 {\listtext	\uc0\u8259 	}Calls the following programs: \
+\pard\tx3100\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li3600\fi-3600\sl312\slmult1\pardirnatural
+\ls1\ilvl4\cf0 {\listtext	\uc0\u8259 	}momModel.m\
+{\listtext	\uc0\u8259 	}amotry.m\
+{\listtext	\uc0\u8259 	}bounds.m\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl312\slmult1\pardirnatural
+\cf0 \
+Additional notes\
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\sl312\slmult1\pardirnatural
+\ls2\ilvl0\cf0 {\listtext	\'95	}Use momModel.m to calculate the elasticity of innovation with respect to the oil import price in response to the 2003 oil shock. Set deltaPfStarD(2) = 1.06 (the percent change in the price of oil imports was 106%) and pp(6) = 1 (sets the productivity shock to unity). \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl312\slmult1\pardirnatural
+\cf0 \
+}

@@ -1,0 +1,547 @@
+﻿locationId,indicatorId,variantId,timeId,timeLabel,timeMid,categoryId,category,estimateTypeId,estimateType,estimateMethodId,estimateMethod,sexId,sex,ageId,ageLabel,ageStart,ageEnd,ageMid,value
+840,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,153272866
+840,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,157909980
+840,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,311182845
+840,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,154669482
+840,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,159207127
+840,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,313876609
+840,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,156181261
+840,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,160470060
+840,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,316651321
+840,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,157662346
+840,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,161712821
+840,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,319375166
+840,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,159103717
+840,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,162930247
+840,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,322033964
+840,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,160493394
+840,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,164114383
+840,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,324607777
+840,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,161895324
+840,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,165314874
+840,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,327210198
+840,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,163282017
+840,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,166509214
+840,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,329791231
+840,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,164538320
+840,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,167601718
+840,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,332140038
+840,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,165698830
+840,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,168620841
+840,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,334319671
+840,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,166504407
+840,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,169437597
+840,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,335942004
+840,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,166941642
+840,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,170055983
+840,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,336997624
+840,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,167498138
+840,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,170791720
+840,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,338289857
+840,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,168295333
+840,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,171701231
+840,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,339996564
+840,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,169169269
+840,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,172645152
+840,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,341814420
+840,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,170031186
+840,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,173572218
+840,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,343603404
+840,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,170881633
+840,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,174483304
+840,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,345364937
+840,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,171720427
+840,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,175377834
+840,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,347098261
+840,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,172548513
+840,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,176256337
+840,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,348804850
+840,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,173370855
+840,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,177122477
+840,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,350493332
+840,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,174186642
+840,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,177975659
+840,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,352162301
+840,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,174991640
+840,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,178811334
+840,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,353802974
+840,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,175785161
+840,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,179627040
+840,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,355412200
+840,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,176567299
+840,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,180423761
+840,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,356991059
+840,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,177332065
+840,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,181196711
+840,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,358528776
+840,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,178076477
+840,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,181939943
+840,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,360016420
+840,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,178802666
+840,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,182653909
+840,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,361456574
+840,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,179506263
+840,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,183335576
+840,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,362841838
+840,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,180181826
+840,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,183979349
+840,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,364161174
+840,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,180832575
+840,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,184588286
+840,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,365420860
+840,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,181456021
+840,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,185160219
+840,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,366616240
+840,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,182053267
+840,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,185696132
+840,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,367749399
+840,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,182630369
+840,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,186201833
+840,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,368832202
+840,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,183180424
+840,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,186672625
+840,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,369853049
+840,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,183704203
+840,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,187111133
+840,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,370815336
+840,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,184200116
+840,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,187515039
+840,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,371715154
+840,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,184668246
+840,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,187883669
+840,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,372551915
+840,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,185112718
+840,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,188222856
+840,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,373335573
+840,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,185532040
+840,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,188532044
+840,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,374064084
+840,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,185931420
+840,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,188818169
+840,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,374749589
+840,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,186309113
+840,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,189082850
+840,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,375391963
+840,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,186663819
+840,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,189324094
+840,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,375987913
+840,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,187004978
+840,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,189550069
+840,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,376555047
+840,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,187335824
+840,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,189766102
+840,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,377101926
+840,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,187660212
+840,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,189977802
+840,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,377638013
+840,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,187980522
+840,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,190187741
+840,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,378168263
+840,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,188299410
+840,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,190397549
+840,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,378696958
+840,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,188618324
+840,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,190611931
+840,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,379230255
+840,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,188936546
+840,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,190830627
+840,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,379767172
+840,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,189256076
+840,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,191054509
+840,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,380310585
+840,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,189576154
+840,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,191286011
+840,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,380862165
+840,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,189897626
+840,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,191524670
+840,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,381422296
+840,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,190223379
+840,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,191772110
+840,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,381995488
+840,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,190555409
+840,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,192031491
+840,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,382586900
+840,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,190890437
+840,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,192300775
+840,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,383191212
+840,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,191225202
+840,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,192575341
+840,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,383800543
+840,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,191558689
+840,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,192853412
+840,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,384412101
+840,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,191889270
+840,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,193134262
+840,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,385023532
+840,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,192216336
+840,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,193418139
+840,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,385634475
+840,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,192533444
+840,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,193698268
+840,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,386231712
+840,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,192837015
+840,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,193968295
+840,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,386805310
+840,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,193135852
+840,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,194236010
+840,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,387371862
+840,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,193426573
+840,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,194498800
+840,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,387925373
+840,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,193699934
+840,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,194748640
+840,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,388448574
+840,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,193953970
+840,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,194982947
+840,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,388936917
+840,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,194189034
+840,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,195201546
+840,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,389390580
+840,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,194406859
+840,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,195404133
+840,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,389810991
+840,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,194609148
+840,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,195590425
+840,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,390199573
+840,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,194796261
+840,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,195763019
+840,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,390559280
+840,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,194964645
+840,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,195918049
+840,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,390882693
+840,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195113791
+840,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196054675
+840,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,391168466
+840,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195247270
+840,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196177106
+840,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,391424375
+840,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195368435
+840,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196284365
+840,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,391652800
+840,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195478160
+840,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196378782
+840,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,391856941
+840,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195578016
+840,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196464491
+840,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392042507
+840,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195668762
+840,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196540611
+840,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392209373
+840,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195753011
+840,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196610605
+840,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392363616
+840,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195831315
+840,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196673732
+840,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392505047
+840,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195904586
+840,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196730979
+840,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392635565
+840,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,195976432
+840,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196787069
+840,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392763501
+840,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196043515
+840,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196839069
+840,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392882584
+840,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196109089
+840,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196890056
+840,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,392999145
+840,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196176861
+840,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196942272
+840,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393119132
+840,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196243150
+840,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,196993443
+840,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393236593
+840,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196307993
+840,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197045706
+840,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393353698
+840,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196373719
+840,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197099883
+840,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393473602
+840,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196445034
+840,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197157719
+840,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393602753
+840,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196515826
+840,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197212954
+840,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393728779
+840,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196581727
+840,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197261300
+840,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393843027
+840,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196642655
+840,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197303668
+840,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,393946323
+840,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,196698854
+840,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,197342301
+840,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,394041155
+900,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3514408098
+900,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3471195007
+900,49,4,61,"2010","2010.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,6985603105
+900,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3558591636
+900,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3514533789
+900,49,4,62,"2011","2011.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7073125425
+900,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3603431424
+900,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3558266498
+900,49,4,63,"2012","2012.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7161697921
+900,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3648401068
+900,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3602192303
+900,49,4,64,"2013","2013.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7250593370
+900,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3693112764
+900,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3645900655
+900,49,4,65,"2014","2014.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7339013419
+900,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3737402732
+900,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3689194805
+900,49,4,66,"2015","2015.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7426597537
+900,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3781091377
+900,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3732382861
+900,49,4,67,"2016","2016.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7513474238
+900,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3824259774
+900,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3775562630
+900,49,4,68,"2017","2017.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7599822404
+900,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3866135266
+900,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3817654563
+900,49,4,69,"2018","2018.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7683789828
+900,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3906407855
+900,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3858543178
+900,49,4,70,"2019","2019.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7764951033
+900,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3943612193
+900,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3897340688
+900,49,4,71,"2020","2020.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7840952880
+900,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,3976648227
+900,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3932646925
+900,49,4,72,"2021","2021.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7909295152
+900,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",1,"Male",188,"Total",0,-1,0,4008579598
+900,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",2,"Female",188,"Total",0,-1,0,3966525558
+900,49,4,73,"2022","2022.5",0,"Not applicable",1,"Model-based Estimates",2,"Interpolation",3,"Both sexes",188,"Total",0,-1,0,7975105156
+900,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4042987696
+900,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4002323752
+900,49,4,74,"2023","2023.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8045311448
+900,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4079164815
+900,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4039671185
+900,49,4,75,"2024","2024.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8118836000
+900,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4115098916
+900,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4076889537
+900,49,4,76,"2025","2025.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8191988453
+900,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4150587873
+900,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4113776637
+900,49,4,77,"2026","2026.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8264364510
+900,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4185644209
+900,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4150333463
+900,49,4,78,"2027","2027.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8335977671
+900,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4220269876
+900,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4186558916
+900,49,4,79,"2028","2028.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8406828792
+900,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4254455626
+900,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4222433765
+900,49,4,80,"2029","2029.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8476889391
+900,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4288200901
+900,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4257940426
+900,49,4,81,"2030","2030.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8546141327
+900,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4321484302
+900,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4293048443
+900,49,4,82,"2031","2031.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8614532745
+900,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4354329857
+900,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4327762127
+900,49,4,83,"2032","2032.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8682091984
+900,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4386738454
+900,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4362060088
+900,49,4,84,"2033","2033.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8748798542
+900,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4418675879
+900,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4395899293
+900,49,4,85,"2034","2034.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8814575171
+900,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4450137505
+900,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4429259897
+900,49,4,86,"2035","2035.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8879397401
+900,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4481101605
+900,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4462105097
+900,49,4,87,"2036","2036.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,8943206702
+900,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4511582713
+900,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4494443657
+900,49,4,88,"2037","2037.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9006026370
+900,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4541605357
+900,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4526283670
+900,49,4,89,"2038","2038.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9067889027
+900,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4571109103
+900,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4557552112
+900,49,4,90,"2039","2039.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9128661215
+900,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4600048510
+900,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4588201982
+900,49,4,91,"2040","2040.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9188250492
+900,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4628433548
+900,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4618239753
+900,49,4,92,"2041","2041.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9246673301
+900,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4656251546
+900,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4647645305
+900,49,4,93,"2042","2042.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9303896851
+900,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4683456894
+900,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4676379527
+900,49,4,94,"2043","2043.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9359836421
+900,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4710004555
+900,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4704403869
+900,49,4,95,"2044","2044.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9414408424
+900,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4735864218
+900,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4731679357
+900,49,4,96,"2045","2045.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9467543575
+900,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4761007015
+900,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4758183789
+900,49,4,97,"2046","2046.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9519190804
+900,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4785399560
+900,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4783898327
+900,49,4,98,"2047","2047.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9569297887
+900,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4808993734
+900,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4808780736
+900,49,4,99,"2048","2048.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9617774470
+900,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4831728251
+900,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4832787895
+900,49,4,100,"2049","2049.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9664516146
+900,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4853577388
+900,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4855914373
+900,49,4,101,"2050","2050.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9709491761
+900,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4874518172
+900,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4878138744
+900,49,4,102,"2051","2051.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9752656916
+900,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4894597314
+900,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4899504729
+900,49,4,103,"2052","2052.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9794102043
+900,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4913827105
+900,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4920034086
+900,49,4,104,"2053","2053.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9833861191
+900,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4932190995
+900,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4939709607
+900,49,4,105,"2054","2054.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9871900602
+900,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4949734454
+900,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4958570416
+900,49,4,106,"2055","2055.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9908304869
+900,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4966487217
+900,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4976636046
+900,49,4,107,"2056","2056.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9943123263
+900,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4982497874
+900,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,4993942277
+900,49,4,108,"2057","2057.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,9976440151
+900,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,4997790059
+900,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5010520052
+900,49,4,109,"2058","2058.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10008310111
+900,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5012352828
+900,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5026353033
+900,49,4,110,"2059","2059.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10038705861
+900,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5026244570
+900,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5041489037
+900,49,4,111,"2060","2060.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10067733607
+900,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5039552513
+900,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5056020551
+900,49,4,112,"2061","2061.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10095573064
+900,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5052325261
+900,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5069982418
+900,49,4,113,"2062","2062.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10122307679
+900,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5064568181
+900,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5083380935
+900,49,4,114,"2063","2063.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10147949116
+900,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5076284359
+900,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5096229417
+900,49,4,115,"2064","2064.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10172513776
+900,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5087456285
+900,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5108508615
+900,49,4,116,"2065","2065.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10195964900
+900,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5098063718
+900,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5120209299
+900,49,4,117,"2066","2066.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10218273017
+900,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5108171311
+900,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5131412469
+900,49,4,118,"2067","2067.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10239583780
+900,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5117761367
+900,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5142111625
+900,49,4,119,"2068","2068.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10259872992
+900,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5126804752
+900,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5152270118
+900,49,4,120,"2069","2069.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10279074870
+900,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5135283307
+900,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5161883405
+900,49,4,121,"2070","2070.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10297166711
+900,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5143189581
+900,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5170952722
+900,49,4,122,"2071","2071.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10314142303
+900,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5150565320
+900,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5179494535
+900,49,4,123,"2072","2072.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10330059855
+900,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5157397869
+900,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5187493624
+900,49,4,124,"2073","2073.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10344891493
+900,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5163634697
+900,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5194918067
+900,49,4,125,"2074","2074.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10358552763
+900,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5169250791
+900,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5201743408
+900,49,4,126,"2075","2075.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10370994199
+900,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5174238983
+900,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5207941414
+900,49,4,127,"2076","2076.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10382180397
+900,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5178580262
+900,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5213501738
+900,49,4,128,"2077","2077.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10392082000
+900,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5182291475
+900,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5218458278
+900,49,4,129,"2078","2078.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10400749753
+900,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5185422042
+900,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5222844881
+900,49,4,130,"2079","2079.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10408266922
+900,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5187975886
+900,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5226661303
+900,49,4,131,"2080","2080.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10414637189
+900,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5189949358
+900,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5229902132
+900,49,4,132,"2081","2081.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10419851489
+900,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5191403499
+900,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5232619397
+900,49,4,133,"2082","2082.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10424022896
+900,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5192372853
+900,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5234853548
+900,49,4,134,"2083","2083.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10427226400
+900,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5192850546
+900,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5236596849
+900,49,4,135,"2084","2084.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10429447395
+900,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5192831010
+900,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5237848091
+900,49,4,136,"2085","2085.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10430679101
+900,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5192308612
+900,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5238617669
+900,49,4,137,"2086","2086.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10430926281
+900,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5191321302
+900,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5238946322
+900,49,4,138,"2087","2087.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10430267624
+900,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5189929053
+900,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5238901574
+900,49,4,139,"2088","2088.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10428830627
+900,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5188126358
+900,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5238474789
+900,49,4,140,"2089","2089.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10426601147
+900,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5185896748
+900,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5237644289
+900,49,4,141,"2090","2090.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10423541036
+900,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5183229225
+900,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5236417908
+900,49,4,142,"2091","2091.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10419647132
+900,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5180150307
+900,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5234809523
+900,49,4,143,"2092","2092.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10414959829
+900,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5176669801
+900,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5232821288
+900,49,4,144,"2093","2093.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10409491089
+900,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5172800515
+900,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5230471635
+900,49,4,145,"2094","2094.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10403272150
+900,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5168552652
+900,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5227753193
+900,49,4,146,"2095","2095.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10396305845
+900,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5163893811
+900,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5224623339
+900,49,4,147,"2096","2096.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10388517150
+900,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5158814664
+900,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5221073784
+900,49,4,148,"2097","2097.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10379888448
+900,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5153334151
+900,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5217111046
+900,49,4,149,"2098","2098.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10370445197
+900,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5147497978
+900,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5212771384
+900,49,4,150,"2099","2099.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10360269362
+900,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",1,"Male",188,"Total",0,-1,0,5141293479
+900,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",2,"Female",188,"Total",0,-1,0,5208029560
+900,49,4,151,"2100","2100.5",0,"Not applicable",1,"Model-based Estimates",3,"Projection",3,"Both sexes",188,"Total",0,-1,0,10349323038
