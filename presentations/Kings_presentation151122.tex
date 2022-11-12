@@ -182,7 +182,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\centering
 		\begin{tikzpicture}[auto,scale=.7, transform shape]
 			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{\alert{Representative}}}\\ \textbf{\hyperlink{backhh}{\alert{Household}}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
 			\node[circll] (D) at (0,9) {\textbf{Government}}; 
 
 			\node[draw=none] (B1) at (5,4.25) {};
@@ -214,7 +214,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\centering
 		\begin{tikzpicture}[auto,scale=.7, transform shape]
 			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{\alert{Representative}}}\\ \textbf{\hyperlink{backhh}{\alert{Household}}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
 			\node[circll] (D) at (0,9) {\textbf{Government}}; 
 			\node[draw=none] (B1) at (5,4.25) {};
 			\node[draw=none] (B2) at (5,3.5) {};
@@ -238,6 +238,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\end{tikzpicture}
 		
 	\end{figure}
+\end{frame}
+
+\begin{frame}{}
+	content...
 \end{frame}
 
 
@@ -371,15 +375,120 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\end{figure}
 \end{frame}
 
+
 \begin{frame}{Machine producers: Research}
+	\tr{Explain in picture using previous graph}
 	\begin{itemize}
 		\item machine producers maximize profits
 		\item monopolistically competitive sector: set price taking demand for machines into account
 		\item demand for machines rises with their productivity, $A_{Jt}$
 		\item machine producers invest in productivity of their machines by employing scientists
 	\end{itemize}
-
+	
 \end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Carbon tax: Effect on Research}
+	\begin{figure}[h]
+		\vspace{0mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.6, transform shape]
+%			\node[circll] (A) at (0,16) {\textbf{Final}\textbf{ Good}}; 
+%			\node[circll] (B) at (-6,14) {\textbf{Energy}};
+%			\node[circll] (C) at (5,14) {\textbf{{Non-energy}}};
+			\node[circll] (D) at (-10,10) {\textbf{Machines }\\\textbf{Fossil}};
+			\node[circll] (E) at (-4,10) {\textbf{Machines}\\ \textbf{Green}};
+				
+				\node[circll] (F) at (2,10) {\textbf{Machines}\\ \textbf{Non-energy}};
+			
+				\node[circll] (S) at (-4,6) {\textbf{{Scientists}}};
+			
+			\draw [->] (S) to node[pos=0.5, swap]{} (D);
+			\draw [->] (S) to node[pos=0.5, swap]{} (E);
+					\draw [->] (S) to node[pos=0.5, swap]{} (F);
+			\end{tikzpicture}
+	\end{figure}
+\begin{itemize}
+	\item free movement of scientists \ar in equilibrium:
+	 \begin{align*}
+	 	w_{sF}\left(\underbrace{p_FF}_{+},\underbrace{s_F}_{-}\right)=	w_{sG}\left(\underbrace{p_GG}_{+},\underbrace{s_G}_{-}\right)
+	 \end{align*}
+\end{itemize}
+\end{frame}
+\addtocounter{framenumber}{-1}
+\begin{frame}{Carbon tax: Effect on Research}
+	\begin{figure}[h]
+		\vspace{0mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.4, transform shape]
+			%			\node[circll] (A) at (0,16) {\textbf{Final}\textbf{ Good}}; 
+			%			\node[circll] (B) at (-6,14) {\textbf{Energy}};
+			%			\node[circll] (C) at (5,14) {\textbf{{Non-energy}}};
+			\node[circll] (D) at (-10,10) {\textbf{Machines }\\\textbf{Fossil}};
+			\node[circll] (E) at (-4,10) {\textbf{Machines}\\ \textbf{Green}};
+			
+			\node[circll] (F) at (2,10) {\textbf{Machines}\\ \textbf{Non-energy}};
+			
+			\node[circll] (S) at (-4,6) {\textbf{{Scientists}}};
+			
+			\draw [->] (S) to node[pos=0.5, swap]{} (D);
+			\draw [->] (S) to node[pos=0.5, swap]{} (E);
+			\draw [->] (S) to node[pos=0.5, swap]{} (F);
+		\end{tikzpicture}
+	\end{figure}
+	\begin{itemize}
+		\item $\tau_F \uparrow \Rightarrow p_F F \downarrow$ and  $p_G G \uparrow$
+		\begin{align*}
+			w_{sF}\left(\underbrace{p_FF}_{+},\underbrace{s_F}_{-}\right)\alert{\pmb{<}}	w_{sG}\left(\underbrace{p_GG}_{+},\underbrace{s_G}_{-}\right)
+		\end{align*}
+	\item[\ar] $s_F\downarrow$ and $s_G \uparrow$
+	\end{itemize}
+\end{frame}
+
+\begin{comment}
+	content...
+
+\begin{frame}{Carbon tax: 2. Effect on Research}
+	\vspace{-7mm}
+	In equilibrium: \large
+	\begin{align*}
+				\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
+	\end{align*}
+	\normalsize
+	\begin{itemize}
+		\item carbon tax lowers returns to fossil research and raises returns to green research
+		\item in equilibrium: scientists transition from fossil to green sector
+	\end{itemize}
+	\small
+	\vspace{0mm}
+	\hspace{-4mm}
+	\begin{minipage}[t!]{0.3\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $p_JJ$: revenues sector J
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.5\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] $s_J$: scientists sector J
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+\end{comment}
+\begin{frame}{Government trade-off}
+	
+	\begin{enumerate}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} 
+		\setbeamerfont{alerted text}{}
+		\item reduce emissions \ar lower fossil demand
+		\vspace{3mm}
+		\item keep consumption high \ar fossil sector especially productive and decreasing returns to research make rapid shift to green research costly; knowledge spillovers to green sector foster green productivity in the future
+	\end{enumerate}
+\end{frame}
+
 
 
 
@@ -442,48 +551,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\end{enumerate}
 \alert{\textbf{\ar Could be optimal to maintain some fossil research}}
 \end{frame}
-
-\begin{frame}{Carbon tax: 2. Effect on Research}
-	\vspace{-7mm}
-	In equilibrium: \large
-	\begin{align*}
-		w_{sF}\left(\underbrace{p_FF}_{+},\underbrace{s_F}_{-}\right)=		w_{sG}\left(\underbrace{p_GG}_{+},\underbrace{s_G}_{-}\right)
-%		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
-	\end{align*}
-	\normalsize
-	\begin{itemize}
-		\item carbon tax lowers returns to fossil research and raises returns to green research
-		\item in equilibrium: scientists transition from fossil to green sector
-	\end{itemize}
-	\small
-	\vspace{0mm}
-	\hspace{-4mm}
-	\begin{minipage}[t!]{0.3\textwidth}
-		\vspace{0mm}
-		\begin{itemize}
-			\item[] $p_JJ$: revenues sector J
-		\end{itemize}
-	\end{minipage}
-	\vspace{-5mm}
-	\begin{minipage}[t!]{0.5\textwidth}
-		\vspace{0mm}
-		\begin{itemize}	
-			\item[] $s_J$: scientists sector J
-		\end{itemize}
-	\end{minipage}
-\end{frame}
-
-\begin{frame}{Government trade-off}
-	
-	\begin{enumerate}[<+-| alert@+>]
-		\setbeamercolor{alerted text}{} 
-		\setbeamerfont{alerted text}{}
-		\item reduce emissions \ar lower fossil demand
-		\vspace{3mm}
-		\item keep consumption high \ar fossil sector especially productive and decreasing returns to research make rapid shift to green research costly; knowledge spillovers to green sector foster green productivity in the future
-	\end{enumerate}
-\end{frame}
-
 
 \section{Results}
 
