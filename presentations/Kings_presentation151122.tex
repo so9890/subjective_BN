@@ -395,8 +395,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\node[circll] (D) at (-10,12) {\textbf{{Fossil}}};
 		\node[circll] (E) at (-2,12) {\textbf{{Green}}};
 		\node[sphere] (Ems) at (-13,15) {\textbf{Emissions}};
-		\node[modus] (DemF) at (-6, 9.2){
-			\huge	${F_t} = \left(\frac{p_{Gt}}{p_{Ft}+\alert{\pmb{\tau_{Ft}}}}\right)^{\varepsilon_e}G_t$};
+%		\node[modus] (DemF) at (-6, 9.2){
+%			\huge	${F_t} = \left(\frac{p_{Gt}}{p_{Ft}+\alert{\pmb{\tau_{Ft}}}}\right)^{\varepsilon_e}G_t$};
 
 		
 		\draw [->] (E) to node[pos=0.5, swap]{} (B);
@@ -404,7 +404,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\draw [->] (D) to node[pos=0.5, swap]{} (Ems);
 	\end{tikzpicture}
 \end{figure}
-\pause
 \begin{itemize}
 	\item \alert{carbon tax lowers demand for fossil and raises demand for green energy}
 	\item[]
@@ -431,7 +430,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\end{figure}
 	\pause
 		\begin{itemize}
-			\item \alert{carbon tax lowers returns to research in fossil sector \ar scientists shift from fossil to green sector}
+			\item \alert{carbon tax lowers revenues in fossil sector \ar returns to research in fossil sector $\downarrow$ \ar scientists shift from fossil to green sector}
 		\end{itemize}
 		
 	\end{frame}
@@ -590,40 +589,46 @@ content...
 	
 \end{comment}
 
-\begin{frame}
-	Having seen how the carbon tax affects allocations, how does it serve to meet government goals?
-\end{frame}
+%\begin{frame}
+%	Having seen how the carbon tax affects allocations, how does it serve to meet government goals?
+%\end{frame}
 
-\begin{frame}{Government trade-off}
-
+\begin{frame}{In a nutshell: Government trade-off and instruments}
+\pause
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} 
 		\setbeamerfont{alerted text}{}
 		\item 	Goal of government intervention
 		\begin{enumerate}
-			\item[a)] lower emissions; in long run only green production is feasible
+			\item[a)] lower emissions
 			\item[b)] keep productivity high
 		\end{enumerate}
 	\vspace{3mm}
-	\item Effect carbon tax
+	\item Carbon tax
 	\begin{enumerate}
 		\item[a)] reduces emissions by lowering fossil demand
-		\item[b)] directs research \ar affects productivity
+		\item[b)] directs research across sectors
 		\begin{itemize}
 			\item[-] if want to foster green research
-			\ar higher carbon tax \ar but reduces returns to labor %\ar costly in terms of output % reduces share of fossil energy 
+			\ar higher carbon tax \ar % but reduces returns to labor %\ar
+			 costly in terms of output % reduces share of fossil energy 
 			\item[-] if want to foster fossil research \ar smaller carbon tax \ar but too high emissions
 		\end{itemize}
 	\end{enumerate}
+\item Labor income tax can be used to counter side effects of carbon tax 
 	\end{itemize}
 \end{frame}
 
 
-\begin{frame}
-	What determines the optimal allocation of research? 
-\end{frame}
+%\begin{frame}
+%	What determines the optimal allocation of research? 
+%\end{frame}
 % when to direct research to which sector
-\begin{frame}{Productivity of research and inefficiencies}
+\begin{frame}{Productivity of research}
+	\vspace{-10mm}
+	What determines the optimal allocation of scientists?
+	\vspace{4mm}
+	\pause
 	% talk about productivity of research bcs it determines optimal allocation of research
 \large
 \begin{align*}
@@ -632,10 +637,10 @@ content...
 \normalsize
 \begin{enumerate}
 		\item \alert{path dependency: sector-specific knowledge renders scientists more productive}
-		\begin{itemize}
-			\item<+-> scientists in most advanced, fossil sector are more productive
-			\item<+-> shift to green research early on to make green research more productive tomorrow
-		\end{itemize}
+%		\begin{itemize}
+%	\item<+-> scientists in most advanced, fossil sector are more productive
+%			\item<+-> shift to green research early on to make green research more productive tomorrow
+%		\end{itemize}
 	\item[] % knowledge from other sectors increases productivity of scientists
 	\item[] % decreasing returns to research, $\eta<1$
 \end{enumerate}
@@ -650,40 +655,41 @@ content...
 \normalsize
 	\begin{enumerate}
 		\item path dependency: accumulated knowledge in sector renders scientists more productive
-				\begin{itemize}
-			\item scientists in most advanced, fossil sector are more productive
-			\item shift to green early on to internalize green productivity increase tomorrow
-		\end{itemize}
+%				\begin{itemize}
+%			\item scientists in most advanced, fossil sector are more productive
+%			\item shift to green early on to internalize green productivity increase tomorrow
+%		\end{itemize}
 %		\item decreasing returns to research, $\eta<1$
-		\item \alert{knowledge spillovers:} knowledge from other sectors increases research productivity \pause
-		\begin{itemize}
-			\item fossil research increases green research productivity in future
-		\end{itemize}
+		\item \alert{knowledge spillovers} % knowledge from other sectors increases research productivity 
+%		\pause
+%		\begin{itemize}
+%			\item fossil research increases green research productivity in future
+%		\end{itemize}
 	\item[] % knowledge spillovers may allow to profit from high research productivity in fossil sector while boosting green productivity tomorrow
 	\end{enumerate}
 \end{frame}
 
-\addtocounter{framenumber}{-1}
-\begin{frame}{Productivity of research}
-	\large
-	\begin{align*}
-		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
-	\end{align*}
-	\normalsize
-	\begin{enumerate}
-		\item path dependency: accumulated knowledge in sector renders scientists more productive
-		\begin{itemize}
-			\item scientists in most advanced, fossil sector are more productive
-			\item shift to green early on to internalize green productivity increase tomorrow
-		\end{itemize}
-		%		\item decreasing returns to research, $\eta<1$
-		\item {knowledge spillovers:} knowledge from other sectors increases research productivity
-		\begin{itemize}
-			\item fossil research increases green research productivity in future
-		\end{itemize}
-		\item[\ar] \alert{knowledge spillovers may allow to profit from high research productivity in fossil sector while boosting green productivity tomorrow}
-	\end{enumerate}
-\end{frame}
+%\addtocounter{framenumber}{-1}
+%\begin{frame}{Productivity of research}
+%	\large
+%	\begin{align*}
+%		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+%	\end{align*}
+%	\normalsize
+%	\begin{enumerate}
+%		\item path dependency: accumulated knowledge in sector renders scientists more productive
+%		\begin{itemize}
+%			\item scientists in most advanced, fossil sector are more productive
+%			\item shift to green early on to internalize green productivity increase tomorrow
+%		\end{itemize}
+%		%		\item decreasing returns to research, $\eta<1$
+%		\item {knowledge spillovers:} knowledge from other sectors increases research productivity
+%%		\begin{itemize}
+%%			\item fossil research increases green research productivity in future
+%%		\end{itemize}
+%%		\item[\ar] \alert{knowledge spillovers may allow to profit from high research productivity in fossil sector while boosting green productivity tomorrow}
+%	\end{enumerate}
+%\end{frame}
 %
 %\addtocounter{framenumber}{-1}
 %\begin{frame}{Productivity of research}
@@ -720,7 +726,13 @@ content...
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
-	\end{figure}	
+	\end{figure}
+	\pause
+	\begin{itemize}
+		\item In run-up to net-zero limit: labor income tax reduces emissions
+		\item Under net-zero limit: subsidy on labor boosts production
+		% the emission limit is too strict to maintain some fossil research bcs it comes with a higher fossil to green energy ratio. It is then optimal to at least internalize green dynamic spillovers
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Mechanism: Deviation from carbon-tax only policy}
@@ -739,9 +751,8 @@ content...
 	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 \end{subfigure}
 	\end{figure}
-\begin{itemize}[<+-| alert@+>]
-	\setbeamercolor{alerted text}{} 
-	\setbeamerfont{alerted text}{}
+\pause
+\begin{itemize}
 \item In run-up to net-zero limit: lower carbon tax to maintain some fossil research
 \item Under net-zero limit: higher carbon tax to foster green research %, and a subsidy on labor to stabilize output
  % the emission limit is too strict to maintain some fossil research bcs it comes with a higher fossil to green energy ratio. It is then optimal to at least internalize green dynamic spillovers
