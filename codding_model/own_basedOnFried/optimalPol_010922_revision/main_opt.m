@@ -30,12 +30,16 @@ indic.util =0; % ==0 log utility, otherwise as  in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
+indic.elasE = 0; % ==0 then standard as in Fried, % == 1 then eppsee=10
+indic.sigmaWorker =0; % ==0 then standard calibration with chetty sigmaa=1/0.75; ==1 then higher frish elasticity: sigma smaller! sigmaa= 1/1.5;
+                      % == 2 then smaller frisch elasticity sigmaa= 1/0.5; 
 indic.sep =0; % ==0 one joint market (in calibration very low fossil and green scientists to satisfy wage clearing 
               % ==1 3 separate markets 
               % ==2 if partial equbm; relative to joint market
               % ==3 energy market joint and non-energy market separate
 indic.target =0; % ==1 if uses emission target
-indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model)
+indic.noknow_spill =2; % ==0 then there are knowledge spillovers (benchmark model); ==1 then without;
+                        % ==2 then smaller: phii=0.25; ==3 then bigger: phii=0.75
 indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
 indic.noskill = 0; % == 1 if no skill calibration of model
@@ -315,9 +319,11 @@ end
 indic.sizeequ=0;
 indic.noknow_spill=0;
 indic.sep=0; % Has to be equal to loaded parameters!!!
-indic.count_techgap=1;
+indic.count_techgap=0;
 count=30;
 Tinit=T;
+indic.sigmaWorker=1;
+
 
 for xgr=0
     indic.xgrowth=xgr;
@@ -355,11 +361,16 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=3;
+indic.elasE =0;
+indic.sigmaWorker=0;
+indic.Bop=0;
+indic.util=0; % have both to be changed
+indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
-indic.testT =0; % do not test value of T
+indic.testT =0; % do not test value of T but only run with T=12
 
-for tr =0
+for tr =1
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
@@ -369,9 +380,9 @@ for nsk=0
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
-     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems*10, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
  else
-     OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Ems*10, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
  end
  end
 end

@@ -95,7 +95,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{Mock Talk\\ October 24, 2022 }} 
+\date{\small{ZEW\\ November 23, 2022 }} 
 %\subject{} 
 \begin{document}
 
@@ -122,8 +122,24 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %---------------------------------------
 %            Intro
 %---------------------------------------
-%\section{ Reducing Consumption Levels}
-\addtocounter{framenumber}{-1}
+
+%\begin{frame}{Motivation}
+%	
+%	\begin{itemize}[<+-| alert@+>]
+%		\setbeamercolor{alerted text}{} %change the font color
+%		\setbeamerfont{alerted text}{}
+%		\item 
+%		\item meeting climate targets requires a limit on emissions  \citep{IPCC2022}
+%		\vspace{3mm}
+%		\item carbon taxes  direct  (i) demand towards emission-low alternatives\\ \hspace{23mm} \underline{and} (ii) research across sectors
+%		\vspace{3mm}
+%		\item labor income taxes affect the level of production 
+%		\vspace{3mm}
+%		\item \textbf{What is the optimal policy mix to meet the emission target?}
+%	\end{itemize}
+%\end{frame}
+
+
 \begin{frame}{Motivation}
 	
 	\begin{itemize}[<+-| alert@+>]
@@ -131,9 +147,11 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\setbeamerfont{alerted text}{}
 		%	\item we are facing  environmental limits 
 		%	\vspace{3mm}
-		\item meeting climate targets requires net-zero emissions by 2050 \citep{IPCC2022}
+		\item meeting climate targets requires a limit on emissions \citep{IPCC2022}
 		\vspace{3mm}
-		\item carbon taxes  direct  (i) demand towards emission-low alternatives\\ \hspace{23mm} \underline{and} (ii) research across sectors
+		\item carbon taxes  direct  (i) demand towards emission-low alternatives ...
+		\vspace{3mm}
+		\item ... \underline{and} (ii) research across sectors when research subsidies are unavailable \small{\citep{Acemoglu2012TheChange}}
 		\vspace{3mm}
 		\item labor income taxes affect the level of production 
 		\vspace{3mm}
@@ -154,7 +172,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{center}
 		\begin{figure}
 			\centering
-			\textbf{US net CO$_2$ emission limit in Gt}\\
+			\textbf{\tr{Add current level}US net CO$_2$ emission limit in Gt}\\
 			\vspace{2mm}	\includegraphics[width=0.38\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet.png}
 		\end{figure}
 	\end{center}
@@ -171,26 +189,29 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\vspace{2mm}
 		%begin{minipage}[]{1\textwidth}
 		%\begin{itemize}
-		\item \normalsize{Under the net-zero emission limit:}
-		\vspace{1mm}
-		\begin{itemize}
-			\item[-]  \normalsize{an extensive carbon tax reduces fossil demand and research}
-			\vspace{1mm}
-			\item[-] \normalsize{the labor tax subsidizes labor}
-		\end{itemize}
-		\vspace{2mm}
-		\item \normalsize{Before the net-zero emission limit:}
-		\vspace{1mm}
-		\begin{itemize}
-			\item[-] \normalsize{a smaller carbon tax allows for more fossil research}
-			\vspace{1mm}
-			\item[-] \normalsize{a tax on labor lowers emissions}
-		\end{itemize}	
-		%\end{itemize}
-		%	\end{minipage}
+	\item Before the net-zero emission limit: 
+	\begin{itemize}
+		\item[-] lower carbon tax to maintain some fossil research
+		\item[-] a tax on labor reduces emissions
+	\end{itemize}
+	\vspace{3mm}
+	\item Under the net-zero emission limit: 
+	\begin{itemize}
+		\item[-]  high carbon tax to reduce fossil demand and boost green research
+		\item[-]  a subsidy on labor stabilizes output
+	\end{itemize}
+	\item A significant gap between the social planner and optimal allocation calls for alternative policy measures
+	%; \tr{e.g. a higher marginal value of leisure}	%	\end{minipage}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Contribution}
+	\begin{itemize}
+		\item Optimal policy relative to Fried and a dynamic emission limit
+	\item \cite{Acemoglu2012TheChange} I add more realistic aspects of productivity creation \ar (i) increasing policy intervention, (ii) potentially advantageous to maintain some fossil research
+	\item to the environmental policy literature I add the focus on labor income taxes as an environmental policy tool: Can they help meet first-best?
+	\end{itemize}
+\end{frame}
 %\begin{frame}{Mechanism}
 %\begin{itemize}
 %	\item in theory: optimal carbon tax set so that emitters internalize social costs of emissions
@@ -208,67 +229,166 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \section{Model}
 
-
-\begin{frame}{Model overview}
-
-\begin{figure}[h]
-	%	\vspace{-4mm}
-	\centering
-	\begin{tikzpicture}[auto,scale=.7, transform shape]
-		
-		\node[circll] (A) at (-7,4)  {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-		\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Household}}}};
-		\node[circll] (D) at (0,9) {\textbf{Government}};
-	\end{tikzpicture}
-\end{figure}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		%	\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			
+			\node[circll] (A) at (-7,4)  {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{Government}};
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		%	\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			
+			\node[circll] (A) at (-7,4)  {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\alert{{Representative}}}\\ \textbf{\alert{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{Government}};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
 
-\begin{frame}{Model overview}
 
-\begin{figure}[h]
-	%	\vspace{-4mm}
-	\centering
-	\begin{tikzpicture}[auto,scale=.7, transform shape]
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\alert{{Representative}}}\\ \textbf{\alert{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{Government}}; 
+			
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			
+			
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+		\end{tikzpicture}
 		
-		\node[circll] (A) at (-7,4)  {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-		\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{\alert{Household}}}};
-		\node[circll] (D) at (0,9) {\textbf{Government}};
-		
-	\end{tikzpicture}
-\end{figure}
+	\end{figure}
 \end{frame}
 \addtocounter{framenumber}{-1}
-\begin{frame}{Model overview}
-\begin{figure}[h]
-	\vspace{-4mm}
-	\centering
-	\begin{tikzpicture}[auto,scale=.7, transform shape]
-		\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-		\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{\alert{Household}}}};
-		\node[circll] (D) at (0,9) {\textbf{Government}}; 
-		\node[draw=none] (B1) at (5.6,4.25) {};
-		\node[draw=none] (B2) at (5.6,3.75) {};
-		\node[draw=none] (BA1) at (-5.6,4.25) {};
-		\node[draw=none] (BA2) at (-5.6,3.75) {};
-		\node[draw=none] (D1) at (1.8,7.8) {};
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\alert{{Representative}}}\\ \textbf{\alert{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			\draw [->] (B22) to node[pos=0.65, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
+		%	\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}>0$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+			%	\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
 		
-		\node[draw=none] (B22) at (6.4,5.6) {};
-		\node[draw=none] (D2) at (2.3,8.5) {};
-		\node[draw=none] (B3) at (5.3,5.3) {};
-		\node[draw=none] (D3) at (-1.5,7) {};
-		\node[draw=none] (A1) at (-4.2,4.6) {};
+	\end{figure}
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
+			\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}>0$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+			%	\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
 		
-		\draw [->] (B22) to node[pos=0.5, swap]{Tax on labor, $\pmb{\tau_{\iota}}$} (D2);
-		\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
-		
-		
-		\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
-		\draw [->] (BA2) to node[pos=0.75, swap]{Consumption good} (B2);
-	\end{tikzpicture}
-	
-\end{figure}
+	\end{figure}
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{{{Representative}}}\\ \textbf{{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
+			\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}>0$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+			\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 
@@ -331,35 +451,132 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \end{frame}
 
 
-\begin{frame}{Model overview}
-\begin{figure}[h]
-	\vspace{-4mm}
-	\centering
-	\begin{tikzpicture}[auto,scale=.7, transform shape]
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\alert{Production}}}\\ \alert{\textbf{{and Research}}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			%			\draw [->] (B22) to node[pos=0.5, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
+			%			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+%			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+%			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+%			\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
 		
-		\node[circll] (A) at (-6,4) {\textbf{\alert{\hyperlink{prodmod}{Production}}}\\ \textbf{\alert{and Research}}};
-		\node[circll] (B) at (6,4) {\textbf{\hyperlink{backhh}{{Household}}}};
-		%\node[circll] (C) at (0,0) {\alert{\textbf{Research}}};
-		\node[circll] (D) at (0,8) {\textbf{Government}};
-		%	\node[dialog] (F) at (3.5,-3.0) {Moralischer \\ Modus};
-		\node[draw=none] (B1) at (4.6,4.25) {};
-		\node[draw=none] (B2) at (4.6,3.75) {};
-		\node[draw=none] (BA1) at (-4.6,4.25) {};
-		\node[draw=none] (BA2) at (-4.6,3.75) {};
-		\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
-		\draw [->] (BA2) to node[pos=0.75, swap]{Consumption good} (B2);
-		%	\draw [->] (A) to [out=0,in=90] (F);
-		%		\draw [->] (C) to node[pos=0.5, swap]{Technology}   (A);
-		\draw [->] (D) to node[pos=0.5, swap]{Tax on carbon, $\pmb{\tau_F}$}   (A);
-		%	\draw [->] (D) to  (A21);
+	\end{figure}
+\end{frame}
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\alert{Production}}}\\ \alert{\textbf{{and Research}}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			%			\draw [->] (B22) to node[pos=0.5, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
+			%			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			%\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
 		
-		%	\draw [->] (A) to node[pos=0.75, swap]{2} (C);
-		%	\draw [->] (A) to node[pos=0.75, swap]{3} (D);
+	\end{figure}
+\end{frame}
+
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+%			\draw [->] (B22) to node[pos=0.5, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
+%			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
 		
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Production}
+	\begin{figure}[h]
+		\vspace{-10mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (0,17) {\textbf{Final}\textbf{ Good}}; 
+			\node[circll] (B) at (-6,14) {\textbf{Energy}};
+			\node[circll] (C) at (5,12) {\textbf{{Non-energy}}};
+			\node[circll] (D) at (-10,12) {\textbf{{Fossil}}};
+			\node[circll] (E) at (-2,12) {\textbf{{Green}}};
+			\node[sphere] (Ems) at (-11,16) {\textbf{Emissions}};
+			
+			%		\node[circllsmall] (CM) at (4.6,8) {\textbf{{Machines}}};
+			%		\node[circllsmall] (CL) at (7.4,8) {\textbf{{Labor}}};			\node[circllsmall] (EM) at (-3.4,8) {\textbf{{Machines}}};
+			%	    \node[circllsmall] (EL) at (-0.6,8) {\textbf{{Labor}}};
+			%	    \node[circllsmall] (DM) at (-11.4,8) {\textbf{{Machines}}};
+			%	    \node[circllsmall] (DL) at (-8.6,8) {\textbf{{Labor}}};
+			
+			
+			\draw [->] (B) to node[pos=0.5, swap]{} (A);
+			\draw [->] (C) to node[pos=0.5, swap]{} (A);
+			
+			\draw [->] (E) to node[pos=0.5, swap]{} (B);
+			\draw [->] (D) to node[pos=0.5, swap]{} (B);
+			\draw [->] (D) to node[pos=0.5, swap]{} (Ems);
+		\end{tikzpicture}
 		
-		%	\draw [->] (D) to node[pos=0.75]{6} (B);
-	\end{tikzpicture}
-\end{figure}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Production: final and energy good}
@@ -523,148 +740,121 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 content...
 \end{comment}
 
-\begin{frame}{Production: returns to research}
-\vspace{-2mm}
-\begin{align*}
-	%	w_{st}&=\left(\frac{p_{Jt}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}L_{Jt}A_{Jt-1}\gamma \eta \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}\\
-	w_{st}&=\underbrace{\left(\frac{\alert{p_{Jt}}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}\alert{L_{Jt}}}_{\frac{\partial x_{Jit}}{\partial A_{Jit}}}\gamma \eta A_{Jt-1} \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}
-	%&	\frac{\eta \gamma \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi(1-\alpha_J)\alpha_Js_{Jt}^{\eta-1}p_{Jt}J_t}{\rho_J^\eta}	
-\end{align*}
-\begin{itemize}
-	\item \alert{carbon tax lowers demand for fossil machines and returns to fossil research}
-	\item scientists more productive in advanced sectors \ar path dependency
-	\item knowledge from other sectors increases productivity of scientists
-	\item decreasing returns to research, $\eta<1$
-\end{itemize}
-\small
-\vspace{7mm}
-\hspace{-4mm}
-\begin{minipage}[t!]{0.3\textwidth}
-	\vspace{0mm}
+	\begin{frame}{Carbon tax: 2. Effect on Research}
+	\vspace{-7mm}
+	In equilibrium: \large
+	\begin{align*}
+		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
+	\end{align*}
+	\normalsize
 	\begin{itemize}
-		\item[] $\eta$: returns to research  \vspace{-2mm}
-		\item[] $\rho_j$: research processes
+		\item carbon tax lowers returns to fossil research and raises returns to green research
+		\item in equilibrium: scientists transition from fossil to green sector
 	\end{itemize}
-\end{minipage}
-\vspace{-5mm}
-\begin{minipage}[t!]{0.5\textwidth}
+	\small
 	\vspace{0mm}
-	\begin{itemize}	
-		\item[] $\gamma$: productivity scientists
-		\vspace{-2mm}	
-		\item[] $\phi$: knowledge spillovers, $\phi\geq0$
-	\end{itemize}
-\end{minipage}
+	\hspace{-4mm}
+	\begin{minipage}[t!]{0.3\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $p_JJ$: revenues sector J
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.5\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] $s_J$: scientists sector J
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+%\begin{frame}{2nd effect of carbon tax: direction of research}
+%\vspace{-2mm}
+%\begin{align*}
+%	w_
+%	w_{st}&=\underbrace{\left(\frac{\alert{p_{Jt}}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}\alert{L_{Jt}}}_{\frac{\partial x_{Jit}}{\partial A_{Jit}}}\gamma \eta A_{Jt-1} \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}
+%	%&	\frac{\eta \gamma \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi(1-\alpha_J)\alpha_Js_{Jt}^{\eta-1}p_{Jt}J_t}{\rho_J^\eta}	
+%\end{align*}
+%\begin{itemize}
+%	\item \alert{carbon tax lowers demand for fossil machines and returns to fossil research}
+%\end{itemize}
+%\small
+%\vspace{7mm}
+%\hspace{-4mm}
+%\begin{minipage}[t!]{0.3\textwidth}
+%	\vspace{0mm}
+%	\begin{itemize}
+%		\item[] $\eta$: returns to research  \vspace{-2mm}
+%		\item[] $\rho_j$: research processes
+%	\end{itemize}
+%\end{minipage}
+%\vspace{-5mm}
+%\begin{minipage}[t!]{0.5\textwidth}
+%	\vspace{0mm}
+%	\begin{itemize}	
+%		\item[] $\gamma$: productivity scientists
+%		\vspace{-2mm}	
+%		\item[] $\phi$: knowledge spillovers, $\phi\geq0$
+%	\end{itemize}
+%\end{minipage}
+%\end{frame}
+
+\begin{frame}{Productivity of research: the optimal allocation of scientists}
+	\pause
+	\vspace{-10mm}
+	\vspace{4mm}
+	% talk about productivity of research bcs it determines optimal allocation of research
+	\large
+	\begin{align*}
+		A_{Jt}=\alert{A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jt}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item \alert{path dependency: sector-specific knowledge renders scientists more productive}
+		%		\begin{itemize}
+			%	\item<+-> scientists in most advanced, fossil sector are more productive
+			%			\item<+-> shift to green research early on to make green research more productive tomorrow
+			%		\end{itemize}
+		\item[] % knowledge from other sectors increases productivity of scientists
+		\item[] % decreasing returns to research, $\eta<1$
+	\end{enumerate}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
-
-\begin{frame}{Production: returns to research}
-\vspace{-2mm}
-\begin{align*}
-	%	w_{st}&=\left(\frac{p_{Jt}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}L_{Jt}A_{Jt-1}\gamma \eta \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}\\
-	w_{st}&=\underbrace{\left(\frac{{p_{Jt}}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}{L_{Jt}}}_{\frac{\partial x_{Jit}}{\partial A_{Jit}}}\gamma \eta \alert{A_{Jt-1}} \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}
-	%&	\frac{\eta \gamma \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi(1-\alpha_J)\alpha_Js_{Jt}^{\eta-1}p_{Jt}J_t}{\rho_J^\eta}	
-\end{align*}
-\begin{itemize}
-	\item carbon tax lowers demand for fossil machines and returns to fossil research
-	\item \alert{scientists more productive in advanced sectors \ar path dependency}
-	\item knowledge from other sectors increases productivity of scientists
-	\item decreasing returns to research, $\eta<1$
-\end{itemize}
-\small
-\vspace{7mm}
-\hspace{-4mm}
-\begin{minipage}[t!]{0.3\textwidth}
-	\vspace{0mm}
-	\begin{itemize}
-		\item[] $\eta$: returns to research  \vspace{-2mm}
-		\item[] $\rho_j$: research processes
-	\end{itemize}
-\end{minipage}
-\vspace{-5mm}
-\begin{minipage}[t!]{0.5\textwidth}
-	\vspace{0mm}
-	\begin{itemize}	
-		\item[] $\gamma$: productivity scientists
-		\vspace{-2mm}	
-		\item[] $\phi$: knowledge spillovers, $\phi\geq0$
-	\end{itemize}
-\end{minipage}
+\begin{frame}{Productivity of research: the optimal allocation of scientists}
+	\large
+	\begin{align*}
+		A_{Jt}={A_{Jt-1}}\left(1+\gamma\alert{\left(\frac{s_{Jt}}{\rho_J}\right)^{\eta}}{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item path dependency: sector-specific knowledge renders scientists more productive
+		\item \alert{decreasing returns to research, $\eta<1$}
+		\item[]% \alert{knowledge spillovers} 
+	\end{enumerate}
 \end{frame}
 
 
 
 \addtocounter{framenumber}{-1}
-
-\begin{frame}{Production: returns to research}
-\vspace{-2mm}
-\begin{align*}
-	%	w_{st}&=\left(\frac{p_{Jt}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}L_{Jt}A_{Jt-1}\gamma \eta \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}\\
-	w_{st}&=\underbrace{\left(\frac{{p_{Jt}}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}{L_{Jt}}}_{\frac{\partial x_{Jit}}{\partial A_{Jit}}}\gamma \eta {A_{Jt-1}} \alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}
-\end{align*}
-\begin{itemize}
-	\item carbon tax lowers demand for fossil machines and returns to fossil research
-	\item scientists more productive in advanced sectors \ar path dependency
-	\item \alert{knowledge from other sectors increases productivity of scientists}
-	\item decreasing returns to research, $\eta<1$ 
-\end{itemize}
-\small
-\vspace{7mm}
-\hspace{-4mm}
-\begin{minipage}[t!]{0.3\textwidth}
-	\vspace{0mm}
-	\begin{itemize}
-		\item[] $\eta$: returns to research  \vspace{-2mm}
-		\item[] $\rho_j$: research processes
-	\end{itemize}
-\end{minipage}
-\vspace{-5mm}
-\begin{minipage}[t!]{0.5\textwidth}
-	\vspace{0mm}
-	\begin{itemize}	
-		\item[] $\gamma$: productivity scientists
-		\vspace{-2mm}	
-		\item[] $\phi$: knowledge spillovers, $\phi\geq0$
-	\end{itemize}
-\end{minipage}
+\begin{frame}{Productivity of research: the optimal allocation of scientists}
+	\large
+	\begin{align*}
+		A_{Jt}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jt}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item path dependency: sector-specific knowledge renders scientists more productive
+		%				\begin{itemize}
+			%			\item scientists in most advanced, fossil sector are more productive
+			%			\item shift to green early on to internalize green productivity increase tomorrow
+			%		\end{itemize}
+		\item decreasing returns to research, $\eta<1$
+		\item \alert{knowledge spillovers} from other sectors increases productivity of scientists
+	\end{enumerate}
 \end{frame}
 
-\addtocounter{framenumber}{-1}
-
-\begin{frame}{Production: returns to research}
-\vspace{-2mm}
-\begin{align*}
-	%	w_{st}&=\left(\frac{p_{Jt}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}L_{Jt}A_{Jt-1}\gamma \eta \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}\\
-	w_{st}&=\underbrace{\left(\frac{{p_{Jt}}\alpha_J}{p_{xJit}}\right)^{\frac{1}{1-\alpha_J}}{L_{Jt}}}_{\frac{\partial x_{Jit}}{\partial A_{Jit}}}\gamma \eta {A_{Jt-1}} \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^{\phi}\alert{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta-1}}
-	%&	\frac{\eta \gamma \left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi(1-\alpha_J)\alpha_Js_{Jt}^{\eta-1}p_{Jt}J_t}{\rho_J^\eta}	
-\end{align*}
-\begin{itemize}
-	\item carbon tax lowers demand for fossil machines and returns to fossil research
-	\item scientists more productive in advanced sectors \ar path dependency
-	\item knowledge from other sectors increases productivity of scientists
-	\item \alert{decreasing returns to research, $\eta<1$}
-\end{itemize}
-\small
-\vspace{7mm}
-\hspace{-4mm}
-\begin{minipage}[t!]{0.3\textwidth}
-	\vspace{0mm}
-	\begin{itemize}
-		\item[] $\eta$: returns to research  \vspace{-2mm}
-		\item[] $\rho_j$: research processes
-	\end{itemize}
-\end{minipage}
-\vspace{-5mm}
-\begin{minipage}[t!]{0.5\textwidth}
-	\vspace{0mm}
-	\begin{itemize}	
-		\item[] $\gamma$: productivity scientists
-		\vspace{-2mm}	
-		\item[] $\phi$: knowledge spillovers, $\phi\geq0$
-	\end{itemize}
-\end{minipage}
-\end{frame}
 
 
 
@@ -679,29 +869,50 @@ content...
 	\end{align*}
 \end{minipage}
 \end{frame}
-
-\begin{frame}{Model overview}
-\begin{figure}[h]
-	\vspace{-4mm}
-	\centering
-	\begin{tikzpicture}[auto,scale=.7, transform shape]
-		
-		\node[circll] (A) at (-5.5,3.6) {\textbf{{{Production}}}\\ \textbf{{and Research}}};
-		\node[circll] (B) at (5.5,3.6) {\textbf{{{Household}}}};
-		\node[circll] (D) at (0,8) {\textbf{\alert{\hyperlink{gov}{Government}}}};
-		\node[draw=none] (D1) at (1.1,6.9) {};
-		\node[draw=none] (B1) at (4.6,5) {};
-		\node[draw=none] (D2) at (1.5,7.5) {};
-		\node[draw=none] (B2) at (4,4.6) {};
-		\node[draw=none] (D3) at (-1.5,7) {};
-		\node[draw=none] (A1) at (-4.2,4.6) {};
-		\draw [->] (A1) to node[pos=0.5]{Tax on carbon, $\pmb{\tau_F}$}   (D3);
-		\draw [->] (B1) to node[pos=0.5, swap]{Tax on labor, $\pmb{\tau_{\iota}}$} (D2);
-		\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B2);
-	\end{tikzpicture}
-\end{figure}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		%	\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			
+			\node[circll] (A) at (-7,4)  {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{\alert{Government}}\\ \textbf{max welfare} \\ \textbf{s.t. emission limit} }; 
+		\end{tikzpicture}
+	\end{figure}
 \end{frame}
-
+\addtocounter{framenumber}{-1}
+\begin{frame}{Model}
+	\begin{figure}[h]
+		\vspace{-4mm}
+		\centering
+		\begin{tikzpicture}[auto,scale=.7, transform shape]
+			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (D) at (0,9) {\textbf{\alert{Government}}\\ \textbf{max welfare} \\ \textbf{s.t. emission limit} }; 
+			\node[draw=none] (B1) at (5,4.25) {};
+			\node[draw=none] (B2) at (5,3.5) {};
+			\node[draw=none] (BA1) at (-5,4.25) {};
+			\node[draw=none] (BA2) at (-5,3.5) {};
+			\node[draw=none] (D1) at (1.8,7.8) {};
+			
+			\node[draw=none] (B22) at (6.4,5.6) {};
+			\node[draw=none] (D2) at (2.3,8.5) {};
+			\node[draw=none] (B3) at (5.3,5.3) {};
+			\node[draw=none] (D3) at (-1.5,7) {};
+			\node[draw=none] (A1) at (-4.2,4.6) {};
+			\node[draw=none] (D4) at (-2,8.3) {};
+			\node[draw=none] (A4) at (-6,5.4) {};
+			\draw [->] (B22) to node[pos=0.5, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
+			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+			
+%			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+%			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+			\draw [->] (A4) to node[pos=0.5]{{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+		\end{tikzpicture}
+		
+	\end{figure}
+\end{frame}
 
 \begin{frame}{ Government}
 \hypertarget{gov}{}
@@ -831,59 +1042,68 @@ content...
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Parameters}
-\pause
-\vspace{-10mm}
-\begin{table}[h!]
-	\begin{center}
-		%		\captionsetup{width=0.3\textwidth}
-		%		\caption{ Calibration}
-		%		\label{tab:calib}
-		\resizebox{4in}{!}{
-			\begin{tabular}{l|ll}
-				%			\hline \hline
-				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
-				\hline \hline
-				Parameter& Value& \makecell[l]{Target}\\ 
-				\hline
-				Household&\multicolumn{2}{c}{}\\
-				\hline 
-				($\sigma$, 	$\sigma_s$) & ($1.33$, $1.33$)&  \makecell[l]{\cite{Chetty2011AreMargins}}  \\
-				%$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}\\	
-				($\chi$, $\chi_s$)& (10.02, 0.48) &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} \\
-				$\beta$ & 0.93 &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}\\
-				$\bar{H}$&1.00& \makecell[l]{14.5 hours per day \citep{Jones1993OptimalGrowth}} \\
-				\hline
-				Research&\multicolumn{2}{c}{}
-				\\
-				\hline 
-				${\alert{\eta}}$ &0.79 &  \\
-				($\rho_F$, $\rho_G$, $\rho_N$)& (0.01, 0.01, 1.00) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}   \\
-				${{\phi}}$ &0.50&  \\
-				$\gamma$ & 0.06 &\makecell[l]{maximum aggregate growth:\\4\% per annum \citep{OECDGDP}}\\
-				\hline
-				Production&\multicolumn{2}{c}{}\\
-				\hline
-				$(\alert{\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&\cite{Fried2018ClimateAnalysis}\\	
-				($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
-				$\delta_y$&0.38&\makecell[l]{energy expenditure share  \citep{EIAEnergy}}\\
-				\hline
-				Initial TFP&\multicolumn{2}{c}{}\\
-				\hline
-				(\alert{${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(8.21, 1.27, 2.80) &-  \\
-				\hline 
-				Emissions&\multicolumn{2}{c}{}\\
-				\hline
-				$\delta$&3.19& \makecell[l]{in GtCO$_2$ \citep{EPAems}}\\
-				$\omega$&217.3& \cite{EPAems}\\
-				\hline \hline
-			\end{tabular}
-		}
-	\end{center}
-\end{table}
+
+\begin{frame}{Important parameters}
+	\vspace{10mm}
+	\begin{table}[h!]
+		\begin{center}
+			%		\captionsetup{width=0.3\textwidth}
+			%		\caption{ Calibration}
+			%		\label{tab:calib}
+		
+				\begin{tabular}{l|ll}
+					%			\hline \hline
+					%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+					\hline \hline
+					\textbf{Parameter}& \textbf{Value}& \makecell[l]{\textbf{Target}}\\ 
+					\hline 
+					%($\sigma$, 	$\sigma_s$) & ($1.33$, $1.33$)&  \makecell[l]{\cite{Chetty2011AreMargins}}  \\
+					${{\eta}}$ &0.79 &  \\
+					${{\phi}}$ &0.50& \makecell[l]{\cite{Fried2018ClimateAnalysis}}  \\
+					$({\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&\cite{Fried2018ClimateAnalysis}\\	
+				%	($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
+					({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(8.21, 1.27, 2.80) &-  \\
+					$\delta$&3.19& \makecell[l]{in GtCO$_2$ \citep{EPAems}}\\
+					$\omega$&217.3& \cite{EPAems}\\
+					\hline \hline
+				\end{tabular}
+			
+		\end{center}
+	\end{table}
+
+\hypertarget{backca}{}
+\vspace{16mm}
+\hfill
+\hyperlink{calib}{\tiny{$\rightarrow$ all parameters}}
 \end{frame}
 
 
+
+\begin{frame}{In a nutshell: Government trade-off and instruments}
+	\pause
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} 
+		\setbeamerfont{alerted text}{}
+		\item 	Goal of government intervention
+		\begin{enumerate}
+			\item[a)] lower emissions
+			\item[b)] keep productivity high
+		\end{enumerate}
+		\vspace{3mm}
+		\item Carbon tax
+		\begin{enumerate}
+			\item[a)] reduces emissions by lowering fossil demand
+			\item[b)] directs research across sectors
+			\begin{itemize}
+				\item[-] if want to foster green research
+				\ar higher carbon tax \ar % but reduces returns to labor %\ar
+				costly in terms of output % reduces share of fossil energy 
+				\item[-] if want to foster fossil research \ar smaller carbon tax \ar but too high emissions
+			\end{itemize}
+		\end{enumerate}
+		\item Labor income tax can be used to counter side effects of carbon tax 
+	\end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -891,10 +1111,11 @@ content...
 \section{Results}
 
 \begin{frame}{Optimal Policy}
+	\vspace{-3mm}
 \begin{figure}[h!!]
 	
 	\begin{subfigure}{0.4\textwidth}		
-		\caption{Tax per ton of carbon,  US\$}
+		\caption{\normalsize  Tax per ton of carbon,  US\$}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Single_periods12_OPT_T_NoTaus_Tauf_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{subfigure}	
@@ -902,63 +1123,56 @@ content...
 		\ 
 	\end{minipage}
 	\begin{subfigure}{0.4\textwidth}		
-		\caption{Average marginal tax rate}
+		\caption{\normalsize Marginal tax rate}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
 	\end{subfigure}
 \end{figure}
-\vspace{3mm}
-\begin{block}{}
-	The optimal fiscal mix is a combination of labor and carbon taxes throughout. 
-\end{block}	
-%\vspace{-2mm}
-%\hfill
-%\hyperlink{notopt}{\tiny{$\rightarrow$ no emission target,}} 
-%\hyperlink{alloc}{\tiny{$\rightarrow$ allocation,}} 
-%\hyperlink{allocLF}{\tiny{$\rightarrow$ comparison LF,}} 
-%\hyperlink{sq}{\tiny{$\rightarrow$ status quo}} 
-%\hypertarget{backmainres}{}
-\end{frame}
-
-\hypertarget{benf}{}
-\section*{Mechanism}
-
-\begin{frame}{What is the goal? Comparison to first-best}
-\pause
-\centering
-\begin{figure}[h!!]
-	\centering
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{\normalsize{Green-to-fossil energy ratio} }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
-		\ 
-	\end{minipage}
-	\begin{subfigure}[]{0.4\textwidth}
-		\caption{\normalsize{Fossil-to-green scientists }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
-	\end{subfigure}	
-	
-\end{figure}
-\pause
-\vspace{3mm}
+\vspace{5mm}
 \begin{block}{}
 	\begin{itemize}
-		\item<+-> First-best: more fossil research and higher green-to-fossil energy ratio
-		\item<+-> Optimal policy: trade-off between fossil research and fossil energy share
+ \item In run-up to net-zero limit: labor income tax reduces emissions
+ \item Under net-zero limit: subsidy on labor boosts production
 	\end{itemize}
 \end{block}	
 \end{frame}
 
+\section*{Mechanism}
+
+\begin{frame}{Comparison to first-best}
+	\pause
+	\centering
+	\begin{figure}
+		\begin{subfigure}{0.4\textwidth}
+			\caption{\normalsize{Green-to-fossil energy ratio} }
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.1\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.4\textwidth}
+			\caption{\normalsize{Fossil-to-green scientists }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{3mm}
+	\begin{block}{}
+		\begin{itemize}
+			\item<+-> First-best: more fossil research and higher green-to-fossil energy ratio
+			\item<+-> Optimal policy: trade-off between fossil research and fossil energy share
+		\end{itemize}
+	\end{block}	
+\end{frame}
+
 \begin{frame}{Deviation from carbon-tax-only policy}
+\vspace{-3mm}
 \pause
 \centering
 \begin{figure}
-	\begin{subfigure}{0.4\textwidth}
-		\caption{\normalsize{Carbon tax, in \%}}
+	\begin{subfigure}{0.42\textwidth}
+		\caption{{\% deviation carbon tax}}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Tauf_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{subfigure}
@@ -966,78 +1180,27 @@ content...
 		\
 	\end{minipage}
 	\begin{subfigure}{0.4\textwidth}
-		\caption{\normalsize{Fossil-to-green scientists,  in \% }}
+		\caption{{\% deviation fossil-to-green scientists }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
 	\end{subfigure}
 \end{figure}
 \vspace{3mm}
-\pause
 \begin{block}{}
 	\begin{itemize}
-		\item<+-> In short run, can set a lower carbon tax to raise fossil research.
-		\item<+-> In long run, increase carbon tax to boost green research.
+ \item In run-up to net-zero limit: lower carbon tax to maintain some more fossil research
+\item Under net-zero limit: higher carbon tax to foster green research
 	\end{itemize}
 \end{block}	
+
+\vspace{-3mm}
+\hfill	\hyperlink{decomp}{\tiny{$\rightarrow$ decomposition}}
+\hypertarget{mec}{}
 \end{frame}
 
-\begin{frame}{Decomposition}
-\pause
-\centering
 
-\begin{figure}[h!!]
-	\centering
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{\normalsize{Green-to-fossil energy share}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_CTOPer_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
-		\
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{\normalsize{Average hours worked} }
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_CTOPer_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
-	\end{subfigure}
-\end{figure}
-\vspace{3mm}
-\begin{block}{}
-	\begin{itemize}
-		\item the carbon tax affects green-to-fossil energy ratio; hours unchanged
-		\item[ ]\
-	\end{itemize}
-\end{block}	
-\end{frame}
 
-\addtocounter{framenumber}{-1}
-\begin{frame}{Decomposition}
-\centering
 
-\begin{figure}[h!!]
-	\centering
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{\normalsize{Green-to-fossil energy share}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
-		\
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{\normalsize{Average hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-\end{figure}
-\vspace{3mm}
-\begin{block}{}
-	\begin{itemize}
-		\item a smaller carbon tax  affects green-to-fossil energy ratio; hours unchanged
-		\item the labor tax adjusts hours to (i) reduce emissions or to (ii) raise output
-	\end{itemize}
-\end{block}	
-\end{frame}
 
 \hypertarget{conc}{}
 \section{Conclusion}
@@ -1058,6 +1221,7 @@ content...
 		\item[-]  lower carbon tax to reduce fossil research less
 		\item[-] a tax on labor reduces emissions
 	\end{itemize}
+\item significant gap between first-best and optimal allocation\\ \ar additional policy instruments
 \end{itemize}
 \end{frame}
 \begin{frame}[shrink]{References}
@@ -1094,9 +1258,128 @@ content...
 %----------------------------------------
 
 
+\begin{frame}{Parameters}
+	\hypertarget{calib}{}
+	\vspace{-10mm}
+	\begin{table}[h!]
+		\begin{center}
+			%		\captionsetup{width=0.3\textwidth}
+			%		\caption{ Calibration}
+			%		\label{tab:calib}
+			\resizebox{4in}{!}{
+				\begin{tabular}{l|ll}
+					%			\hline \hline
+					%			\multicolumn{7}{c}{Calibration based on basic needs}\\
+					\hline \hline
+					\textbf{Parameter}& \textbf{Value}& \makecell[l]{\textbf{Target}}\\ 
+					\hline
+					Household&\multicolumn{2}{c}{}\\
+					\hline 
+					($\sigma$, 	$\sigma_s$) & ($1.33$, $1.33$)&  \makecell[l]{\cite{Chetty2011AreMargins}}  \\
+					%$z_h$& \makecell[l]{skill premium 2005-2016:\\ $w_h/w_l=1.9$\\ \citep{Slavik2020WagePremium}}\\	
+					($\chi$, $\chi_s$)& (10.02, 0.48) &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} \\
+					$\beta$ & 0.93 &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}\\
+					$\bar{H}$&1.00& \makecell[l]{14.5 hours per day \citep{Jones1993OptimalGrowth}} \\
+					\hline
+					Research&\multicolumn{2}{c}{}
+					\\
+					\hline 
+					${{\eta}}$ &0.79 &  \\
+					($\rho_F$, $\rho_G$, $\rho_N$)& (0.01, 0.01, 1.00) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}   \\
+					${{\phi}}$ &0.50&  \\
+					$\gamma$ & 0.06 &\makecell[l]{maximum aggregate growth:\\4\% per annum \citep{OECDGDP}}\\
+					\hline
+					Production&\multicolumn{2}{c}{}\\
+					\hline
+					$({\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&\cite{Fried2018ClimateAnalysis}\\	
+					($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
+					$\delta_y$&0.38&\makecell[l]{energy expenditure share  \citep{EIAEnergy}}\\
+					\hline
+					Initial TFP&\multicolumn{2}{c}{}\\
+					\hline
+					({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(8.21, 1.27, 2.80) &-  \\
+					\hline 
+					Emissions&\multicolumn{2}{c}{}\\
+					\hline
+					$\delta$&3.19& \makecell[l]{in GtCO$_2$ \citep{EPAems}}\\
+					$\omega$&217.3& \cite{EPAems}\\
+					\hline \hline
+				\end{tabular}
+			}
+		\end{center}
+	\end{table}
+	
+	\vspace{-6mm}
+	\hfill
+	\hyperlink{backca}{\tiny{$\rightarrow$ back}}
+\end{frame}
 
 %----------------------------------------
-%- Allocation 
+%- Results
 %----------------------------------------
+
+%\begin{frame}{Decomposition: effect adjustment carbon tax}
+%	\hypertarget{decomp}{}
+%	\centering
+%	
+%	\begin{figure}[h!!]
+%		\centering
+%		\begin{subfigure}{0.4\textwidth}		
+%			\caption{\normalsize{Green-to-fossil energy share}}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_CTOPer_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+%		\end{subfigure}
+%		\begin{minipage}[]{0.1\textwidth}
+%			\
+%		\end{minipage}
+%		\begin{subfigure}{0.4\textwidth}		
+%			\caption{\normalsize{Average hours worked} }
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_CTOPer_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+%		\end{subfigure}
+%	\end{figure}
+%	\vspace{3mm}
+%	\begin{block}{}
+%		\begin{itemize}
+%			\item the carbon tax affects green-to-fossil energy ratio; hours unchanged
+%			\item[ ]\
+%		\end{itemize}
+%	\end{block}	
+%\end{frame}
+
+\begin{frame}{Decomposition}
+		\hypertarget{decomp}{}
+	\centering
+	
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.4\textwidth}		
+			\caption{\normalsize{Green-to-fossil energy share}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.1\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.4\textwidth}		
+			\caption{\normalsize{Average hours worked}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{3mm}
+	\begin{block}{}
+		\begin{itemize}
+			\item  the change in the carbon tax affects green-to-fossil energy ratio; hours unchanged
+			\item the labor tax adjusts hours to (i) reduce emissions or to (ii) raise output
+		\end{itemize}
+	\end{block}	
+	
+	\vfill
+	\vspace{-3mm}
+	\hfill 
+	\hyperlink{mec}{\tiny{$\rightarrow$ back}}
+\end{frame}
+
 
 \end{document}

@@ -6,13 +6,21 @@ end
 if indic.util==0
     thetaa = params(list.params=='thetaa');
 else
-    if indic.Bop==1 % income effect dominates!
+    if indic.Bop==1 % income effect dominates! => labor supply less responsive
         thetaa=2;
     else
         thetaa=0.4;
     end
 end
-sigmaa = params(list.params=='sigmaa');
+
+if indic.sigmaWorker==0
+    sigmaa = params(list.params=='sigmaa');
+elseif indic.sigmaWorker==1
+    sigmaa = 1/1.5;
+elseif indic.sigmaWorker==2
+    sigmaa = 1/0.5;
+end
+
 sigmaas = params(list.params=='sigmaas');
 if indic.sep==2
     % relative to sep==0 calibration
@@ -47,7 +55,13 @@ if indic.subs==0
 else
     eppsy=1.3;
 end
-eppse = params(list.params=='eppse');
+
+if indic.elasE==0
+    eppse = params(list.params=='eppse');
+
+else eppse =10;
+end
+
 deltay = params(list.params=='deltay');
 gammaa = params(list.params=='gammaa');
 etaa = params(list.params=='etaa');
@@ -62,8 +76,12 @@ else
 end
 if indic.noknow_spill==1
     phii=0;
-else
+elseif indic.noknow_spill ==0
     phii = params(list.params=='phii');
+elseif indic.noknow_spill==2
+    phii =0.25;
+elseif indic.noknow_spill==3
+    phii =0.6;
 end
 
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy

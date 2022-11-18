@@ -3,6 +3,7 @@ function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic, M
 
 % pars
 read_in_params;
+
 % Ftarg_20s=(MOM.US_Budget20_30+3*deltaa)./omegaa; 
 
 % transform x: all are exponentially transformed

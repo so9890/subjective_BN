@@ -312,5 +312,7 @@ elseif indic.count_techgap==1
         save(sprintf('SP_notarget_1008_countec_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV, indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
     end
     end
+elseif indic.sigmaWorker==1
+        save(sprintf('SP_target_1008_sigmaW%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.sigmaWorker, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
 end
 end
