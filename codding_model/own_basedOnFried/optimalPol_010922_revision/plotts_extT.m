@@ -1,4 +1,4 @@
-function []=plotts_extT(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
+function []=plotts_extT(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM, StatsEms)
 
 % this script plots results
 
@@ -794,11 +794,11 @@ end
 %% emission limit
 if plotts.ems==1
     gcf=figure('Visible','off');
-    main= plot( time(percon+1:end),zeros(size(Ems(1:T))), time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
-    set(main, {'LineStyle'},{'--'; '-'}, {'color'}, { grrey; 'k'} ) 
+    main= plot([0,time(percon+1:end)],zeros(1,T+1), [0,time(percon+1:end)],[StatsEms.netems_sum1519,Ems(1:T)],[time(percon+1:end)],[Ems(1:T)],  'LineWidth', 1.1);  
+    set(main, {'LineStyle'},{'--';'--'; '-'}, {'color'}, { grrey;'k'; 'k'} ) 
     xticks(txx)
-    xlim([1, time(end-1)])
-    ylim([-0.5, 4])
+    xlim([0, time(end-1)])
+    ylim([-0.5, 25.5])
     ytickformat('%.1f')
     ax=gca;
     ax.FontSize=13;
@@ -810,6 +810,39 @@ if plotts.ems==1
 
 end
 
+if plotts.ems_goals==1
+    for lgdind=0:1
+        for oo=0:1
+    gcf=figure('Visible','off');
+    if oo==0
+        main= plot( time(percon+1:end),StatsEms.netems_sum1519*ones(1,T), ...
+             time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+    set(main, {'LineStyle'},{'--';'-'}, {'color'}, {grrey; 'k'} ) 
+    else
+         main= plot( time(percon+1:end),StatsEms.netems_sum1519*ones(1,T), ...
+             time(percon+1:end),Ems(1:T),...
+             time(percon+1+2:end),[StatsEms.targetBidenGTCO2_modelperiod*ones(1,4), zeros(1,6)],...
+             time(percon+1:end),StatsEms.Emslimit_constantEmsRat_Budget, 'LineWidth', 1.1);  
+        set(main, {'LineStyle'},{'--';'-'; '--'; '--'}, {'color'}, {grrey; 'k'; 'b'; orrange} ) 
+    end
+    xticks(txx)
+    xlim([1, time(end-1)])
+    ylim([-0.5, 25.5])
+    ytickformat('%.1f')
+    ax=gca;
+    ax.FontSize=13;
+    xticklabels(Year10)
+    if lgdind==1
+        lgd=legend('2015-2019 US net emissions', 'IPCC carbon budget, equal-per-capita','Biden target','IPCC carbon budget, equal \% reduction','Interpreter', 'latex');
+        set(lgd, 'Interpreter', 'latex', 'Location', 'bestoutside', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+    end
+    path=sprintf('figures/all_%s/Emnet_goals_o%d_lgd%d.png',date,oo, lgdind);
+    
+    exportgraphics(gcf,path,'Resolution', 400)
+    close gcf
+        end
+    end
+end
 
 %% All figures single
 if plotts.single_pol==1
@@ -1566,8 +1599,12 @@ if plotts.compeff3==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
       if withlff==1
-            main=plot(time, lff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));            
-           set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{':';'-'; '--'}, {'color'}, {'k'; 'k'; 'k'} )   
+            main=plot(time, lff(find(varl==varr),1:T),  time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T));  
+            if indic.slides ==0
+               set(main, {'LineWidth'}, {0.6; 1.2; 1.2}, {'LineStyle'},{'--';'--'; '-'}, {'color'}, {grrey; 'k'; 'k'} )   
+            else
+               set(main, {'LineWidth'}, {0.6; 1.2; 1.2}, {'LineStyle'},{':';'--'; '-'}, {'color'}, {'k'; 'k'; orrange} )   
+            end
       else
             main=plot( time,allvars(find(varl==varr),1:T),time,allvarseff(find(varl==varr),1:T));            
            set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'k'} )   
@@ -1614,9 +1651,9 @@ if plotts.compeff3==1
            if lgdind==1
                if withlff==1
                    if indic.slides ==0
-                        lgd=legend('laissez-faire', 'optimal policy', 'social planner', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire',  'social planner', 'optimal policy', 'Interpreter', 'latex');
                    else
-                        lgd=legend('laissez-faire', 'optimal policy', 'first-best', 'Interpreter', 'latex');
+                        lgd=legend('laissez-faire', 'first-best',  'optimal policy', 'Interpreter', 'latex');
                    end
                else
 %                    if varr =="tauf"
@@ -1644,6 +1681,95 @@ if plotts.compeff3==1
         
         close gcf
         end
+        end
+      end
+    end
+    end
+end
+
+%% comparison social planner and optimal policy benchmark
+if plotts.compeff4==1
+    %- only efficient and benchmark
+    fprintf('plotting comparison efficient and lf graphs')   
+    RES=OTHERPOLL{plotts.regime_gov+1};
+
+        lff=RES('LF');
+        eff= string({'SP_T'});
+
+    for i =[1]
+
+        ie=eff(i);
+        
+        varl=varlist;
+        allvarseff=RES(ie); 
+
+    for l =["Add"]%keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            main=plot(time, lff(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T));  
+            set(main, {'LineWidth'}, {0.6; 1.2}, {'LineStyle'},{':'; '--'}, {'color'}, {'k'; 'k'} )   
+         
+      
+      xticks(txx)
+      xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+      xlim([1, time(end-1)])
+      
+            ax=gca;
+            ax.FontSize=13;
+            if (varr == "sff" && plotts.xgr==0 && plotts.nsk ==0) || varr == "sg" 
+                ytickformat('%.2f')
+                ylim([-0.1, 0.2])
+           
+            elseif varr == "sgsff" 
+                ytickformat('%.0f')
+                ylim([-1e5, 5e5])
+             elseif varr == "sffsg" && indic.noknow_spill==0
+                 ytickformat('%.0f')
+                 ylim([-1, 8.01])
+                 
+             elseif varr == "GFF" && indic.noknow_spill==0 
+                 ytickformat('%.0f')
+                 ylim([-5, 30.01])
+            
+            elseif varr =="hh" || varr =="hl" || varr =="Hagg"
+                ytickformat('%.3f')
+%             elseif varr == "C"  && plotts.xgr==0 && plotts.nsk ==0 && indic.noknow_spill==0
+%                 ytickformat('%.1f')
+%                  ylim([0.309999, 0.500001])
+%                 
+            elseif varr == "C"  
+                ytickformat('%.1f')
+                 ylim([0.59999, 1.4001])
+            elseif varr == "sn"  
+                ytickformat('%.1f')                 
+            else
+               ytickformat('%.2f')
+            end
+
+            xticklabels(Year10)
+
+           if lgdind==1
+              lgd=legend('laissez-faire', 'first-best', 'Interpreter', 'latex');
+           
+               
+               if varr~="sff"
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+               else
+                   if indic.noknow_spill==0
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'west', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+                   else
+                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+                   end
+               end
+           end
+        path=sprintf('figures/all_%s/%s_slides_CompEffLF_regime%d_knspil%d_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d.png', date, varr,  plotts.regime_gov,indic.noknow_spill, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        
+        close gcf
         end
       end
     end

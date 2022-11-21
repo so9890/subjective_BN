@@ -36,6 +36,7 @@ deltaa         = sum(grosemissions1519_equi-netemissions1519_equi)*averagecontri
 %--- emissions and target emissions
 % emissionsUS2019     = grosemissions1519(end); 
 netemissionsUS2019  = grosemissions1519_co2(end)-deltaa/5; % annual 
+StatsEms.netems_sum1519  =sum(grosemissions1519_co2)-deltaa;
 % netemlimit35_equalratio = netemissionsUS2019*0.5*5
 netemissionsGlobal2019 = 0.75*59; % from IPCC report table a page 6 SPM
 StatsEms.contribUS2019=netemissionsUS2019/netemissionsGlobal2019; % => in 2019 the US contributed 10.44% to global net emissions; 
@@ -99,8 +100,18 @@ StatsEms.BAU_ems2050 = netemissionsUS2019*30;
 StatsEms.BAU_shareglobBudget = StatsEms.BAU_ems2050./globalcarbonBudget20_50; % => 30\% but allowed: ~4\%
 StatsEms.popshare=datasmall;
 
-StatsEms.targetBidenGTCO2 =netCO2_2005*0.52;
+StatsEms.targetBidenGTCO2 =netCO2_2005*0.52; % for one year
+StatsEms.targetBidenGTCO2_modelperiod=5*StatsEms.targetBidenGTCO2;
 StatsEms.polRed_rel2019 = 1-StatsEms.targetBidenGTCO2/netemissionsUS2019;
 StatsEms.totalnetEms_Biden = netemissionsUS2019*10+20*StatsEms.targetBidenGTCO2;
 StatsEms.shareEquCapBudget = StatsEms.totalnetEms_Biden/StatsEms.BudgetUS_popshare;
+StatsEms.Emslimit_constantEmsRat = [0.5*netemissionsUS2019*5*ones(1,4), zeros(1,6)];
+StatsEms.totalUS_equalRed=20*0.5*netemissionsUS2019;
+StatsEms.budgetUS_share_ifequalRed = StatsEms.totalUS_equalRed/globalcarbonBudget20_50;
+StatsEms.Emslimit_constantEmsRat_Budget= [globalcarbonBudget20_50/30*5*StatsEms.contribUS2019*ones(1,6), zeros(1,6)];
+StatsEms.RedPer_constantEmsRate_Budget = (globalcarbonBudget20_50/30*5*StatsEms.contribUS2019-netemissionsUS2019*5)/(netemissionsUS2019*5);
+% globalRed=netemissionsGlobal2019*0.5;
+% GDPshareUS1519=0.34; % from file GDP_USDOllar_World
+% StatsEms.Emslimit_capabilityApp =[(netemissionsUS2019-globalRed*GDPshareUS1519)*5*ones(1,4), zeros(1,6)];
+
 end

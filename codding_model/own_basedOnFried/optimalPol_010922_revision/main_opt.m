@@ -38,7 +38,7 @@ indic.sep =0; % ==0 one joint market (in calibration very low fossil and green s
               % ==2 if partial equbm; relative to joint market
               % ==3 energy market joint and non-energy market separate
 indic.target =0; % ==1 if uses emission target
-indic.noknow_spill =2; % ==0 then there are knowledge spillovers (benchmark model); ==1 then without;
+indic.noknow_spill =0; % ==0 then there are knowledge spillovers (benchmark model); ==1 then without;
                         % ==2 then smaller: phii=0.25; ==3 then bigger: phii=0.75
 indic.sizeequ=0; %==1 then research sectors have same size => is there still a higher progressive tax when there are spillovers?
 indic.spillovers =0; % ==1 then there are positive spillover effects of scientists within sectors! 
@@ -339,7 +339,7 @@ for xgr=0
            % SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
                 SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
             else
-               SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
+                SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
 
             end
        end            
@@ -361,7 +361,7 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=3;
+indic.noknow_spill=0;
 indic.elasE =0;
 indic.sigmaWorker=0;
 indic.Bop=0;
@@ -369,6 +369,13 @@ indic.util=0; % have both to be changed
 indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T but only run with T=12
+indic.targetWhat = 0; %==0 then baseline, ==1 then equal shares
+
+if indic.targetWhat==0
+    Emss=Ems;
+else
+    Emss=StatsEms.Emslimit_constantEmsRat_Budget;
+end
 
 for tr =1
     indic.target=tr;
@@ -376,13 +383,13 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[4]
+ for nnt=[4,5]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
-     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, init201519, indexx, indic, T, Emss, MOM, percon);
  else
-     OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
+     OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Emss, MOM, percon);
  end
  end
 end
@@ -523,11 +530,17 @@ indic
 % choose sort of plots to be plotted
 plotts.regime_gov=  4; % = equals policy version to be plotted
 
+
 plotts.table=       0;
 plotts.cev  =       0; 
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
+plotts.Ems_limit=   0; 
+plotts.Ems_limit_Decomp=   0;
+plotts.phi_sens =   0;
+plotts.sens_other=  1;
+
 plotts.countcomp=   0;
 plotts.countcomp2=  0;
 plotts.countcomp3=  0;
@@ -557,11 +570,11 @@ plotts.lf                       = 0; % comparison to laissez faire allocation
 
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
-plotts.compeff3                 = 1; % sp versus optimal benchmark
+plotts.compeff3                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
-plotts.comp_OPT=    1; % laissez faire and optimal with and without taul
+plotts.comp_OPT=    0; % laissez faire and optimal with and without taul
 plotts.comp_OPT_NK= 0; % laissez faire and optimal with and without taul
 plotts.comp_Bench_CountNK =0; % policy from model without knowledge spillovers in benchmark model
 plotts.per_BAUt0 =  0;
@@ -580,7 +593,7 @@ plotts.compREd=0;
     
 for xgr =0
     for nsk=0
-        for nknk=0:1
+        for nknk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
@@ -601,6 +614,8 @@ indic
 
 % choose sort of plots to be plotted
 plotts.ems =        0;
+plotts.ems_goals =  0;
+
 
 plotts.table=       0;
 plotts.cev  =       0; 
@@ -627,7 +642,7 @@ plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 plotts.count_devs               = 0;
 plotts.count_devs_fromcto       = 0;
-plotts.count_devs_both          = 1;
+plotts.count_devs_both          = 0;
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
 plotts.singov                   = 0;
@@ -639,6 +654,7 @@ plotts.lf                       = 0; % comparison to laissez faire allocation in
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.compeff4                 = 1; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -664,7 +680,7 @@ for rr= [4]
 
 for xgr =0
     for nsk=0
-        for nknk=0:1
+        for nknk=0
             T=12;
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
@@ -672,12 +688,12 @@ plotts.sizeequ =0; % important for comparison of
 plotts.GOV =0;
 plotts.extern =0;
 indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
-indic.slides =0;
+indic.slides =1;
 plotts
 %%
 %     plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon);
 
-plotts_extT(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM)
+plotts_extT(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM, StatsEms)
         end
     end
 end

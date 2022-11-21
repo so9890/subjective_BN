@@ -15,10 +15,12 @@ end
 
 if indic.sigmaWorker==0
     sigmaa = params(list.params=='sigmaa');
-elseif indic.sigmaWorker==1
+elseif indic.sigmaWorker==1 % more elastic labor supply
     sigmaa = 1/1.5;
 elseif indic.sigmaWorker==2
     sigmaa = 1/0.5;
+elseif indic.sigmaWorker==3 % inelasitc labor supply
+    sigmaa = 1/0.0001;
 end
 
 sigmaas = params(list.params=='sigmaas');

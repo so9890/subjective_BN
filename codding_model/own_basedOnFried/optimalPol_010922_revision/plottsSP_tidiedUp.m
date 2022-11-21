@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul Hagg PV CEVv CEVvPV CEVvDy AgAf sffsg sgsff snS sffS sgS GFF EY CY hhhl whwl LgLf gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
-symms.plotsvarsRes =[sn sff sg  S Af Ag An A];  
+symms.plotsvarsRes =[sn sff sg S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul Hagg PV AgAf sgsff snS sffsg sffS sgS  GFF EY CY hhhl whwl LgLf gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -83,6 +83,7 @@ for nsk =0:1
         helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',... 
             indic.spillovers,indic.noknow_spill, indic.noskill,i,  indic.sep, indic.xgrowth,indic.PV,  plotts.sizeequ, plotts.GOV, etaa));
         opt_not_notaus=helper.opt_all';
+        
         helper=load(sprintf('OPT_target_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', ... 
             indic.spillovers,indic.noknow_spill, indic.noskill, i, indic.sep, indic.xgrowth,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
         opt_t_notaus=helper.opt_all';
@@ -112,47 +113,17 @@ end
 RES_count=containers.Map({'SP_T', 'SP_NOT' },...
                                 {  sp_t, sp_not});
 RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms, MOM);
+
+%% counterfac emission limit
+for ii=[4,5]
+     helper=load(sprintf('OPT_target_0509_emnet1_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, plotts.nsk, ii, indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
+     opt_t_notaus=helper.opt_all';
+     RES_Ems=containers.Map({'OPT_T_NoTaus', },{opt_t_notaus});
+     RES_Ems=add_vars(RES_Ems, list, params, indic, list.allvars, symms, MOM);
+     OTHERPOL_Ems{ii+1}=RES_Ems;
+end
+
 %% counetrfactual model
-% if plotts.regime_gov==3
-%     for to=[0,1,2] % loop over counterfactual versions
-%     helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-%     nsk_all=helper.LF_COUNT';
-%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',to,  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-%     xgr_all=helper.LF_COUNT';
-%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep,indic.PV,  etaa));
-%     xgr_nsk_all=helper.LF_COUNT';
-%         helper=load(sprintf('COMPEquN_SIM_taufopt%d_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat', to, indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-%     test_all=helper.LF_COUNT';
-%     
-%     if to==2
-%         RES_count=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-%         RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms);
-%     elseif to==1 % only tauf
-%         RES_count_onlytauf=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-%         RES_count_onlytauf=add_vars(RES_count_onlytauf, list, params, indic, list.allvars, symms);
-%     elseif to==0 % only taul
-%         RES_count_onlytaul=containers.Map({'nsk','xgr', 'xgr_nsk', 'test'},...
-%                                     {nsk_all,  xgr_all, xgr_nsk_all, test_all});
-%         RES_count_onlytaul=add_vars(RES_count_onlytaul, list, params, indic, list.allvars, symms);
-%     end               
-%     end
-% end
-% 
-% % counetrfactual with tauf =0 and other model: What is the effect of labor
-% % income tax with endogenous growth
-% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-% xgr_all=helper.LF_COUNT';
-% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-% test_all=helper.LF_COUNT';
-% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth1_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV,  etaa));
-% xgr_nsk_all=helper.LF_COUNT';
-% helper=load(sprintf('COMPEquN_SIM_taufopt3_spillover%d_notaul%d_noskill1_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-% nsk_all=helper.LF_COUNT';
-% RES_count_SAMETAUL_onlytaul=containers.Map({'xgr','nsk', 'xgr_nsk', 'test'},...
-%                             {xgr_all, nsk_all, xgr_nsk_all, test_all});
-% RES_count_SAMETAUL_onlytaul=add_vars(RES_count_SAMETAUL_onlytaul, list, params, indic, list.allvars, symms);
 
 % no knowledge spillovers 
  helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
@@ -163,21 +134,47 @@ RES_count=add_vars(RES_count, list, params, indic, list.allvars, symms, MOM);
                              {opt_t_notaus, opt_not_notaus});
  RES_noknspil=add_vars(RES_noknspil, list, params, indic, list.allvars, symms, MOM);
 
-%  
-% counetrfactual with optimal policy from no spill over plugged in benchmark model
-% 
-% helper=load(sprintf('COMPEquN_SIM_taufopt4_spillover%d_notaul%d_noskill0_sep%d_xgrowth0_PV%d_etaa%.2f.mat',  indic.spillovers, plotts.regime_gov, indic.sep, indic.PV, etaa));
-% test_all=helper.LF_COUNT';
-% RES_count_NKinBen=containers.Map({'all'},{test_all});
-% RES_count_NKinBen=add_vars(RES_count_NKinBen, list, params, indic, list.allvars, symms);
-
+  % higher elasticity of substition eppse==10
+  helper=load(sprintf('OPT_target_0509_elas10_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill , plotts.nsk,plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_ela=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_ela=add_vars(RES_ela, list, params, indic, list.allvars, symms, MOM);
+  % more elastic labor supply
+  helper=load(sprintf('OPT_target_0509_sigmaW1_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,plotts.nsk, plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_sigma=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_sigma=add_vars(RES_sigma, list, params, indic, list.allvars, symms, MOM);  
+  % income effect dominates! households work more when income reduces
+  helper=load(sprintf('OPT_target_0509_theta1_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,plotts.nsk,plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_bop=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_bop=add_vars(RES_bop, list, params, indic, list.allvars, symms, MOM);    
+  % counterfactual technology gap 
+  helper=load(sprintf('OPT_target_countec_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.noknow_spill , plotts.nsk,plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_tec=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_tec=add_vars(RES_tec, list, params, indic, list.allvars, symms, MOM);    
+ 
+  % alternative knowledge spillovers
+  %knspil==2 smaller knkn (path dependency more important); expect smaller
+  %use of labor tax
+  helper=load(sprintf('OPT_target_0509_spillover0_knspil2_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', plotts.nsk,plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_smkn=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_smkn=add_vars(RES_smkn, list, params, indic, list.allvars, symms, MOM);
+  % knspil ==3 higher knkn => expect to see higher labor tax/exploitation
+  % of fossil research
+  helper=load(sprintf('OPT_target_0509_spillover0_knspil3_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', plotts.nsk,plotts.regime_gov, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  opt_t_notaus=helper.opt_all';  
+  RES_bgkn=containers.Map({'OPT_T_NoTaus'},{opt_t_notaus});
+  RES_bgkn=add_vars(RES_bgkn, list, params, indic, list.allvars, symms, MOM);
 %% Tables
 if plotts.table==1
 for xgr=0:1
 for nsk= 0:1
     %- choose respective containers cell
     if xgr ==0 && nsk==0
-    OTHERPOLL= OTHERPOL;
+        OTHERPOLL= OTHERPOL;
     elseif xgr ==1 && nsk==0
         OTHERPOLL= OTHERPOL_xgr;
     elseif xgr ==0 && nsk==1
@@ -250,6 +247,111 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+
+%% comparison parameter alternatives
+if plotts.phi_sens==1
+    
+    fprintf('plott sensitivity phi')
+
+        RES=OTHERPOL{plotts.regime_gov+1}; 
+        ben= RES("OPT_T_NoTaus");
+        nokn=RES_noknspil("OPT_T_NoTaus");
+        smkn=RES_smkn("OPT_T_NoTaus");
+        bgkn=RES_bgkn("OPT_T_NoTaus");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(bgkn(find(varlist==varr),1:T)), time,(ben(find(varlist==varr),1:T)), time,(smkn(find(varlist==varr),1:T)),time,nokn(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {'b';'k';orrange; grrey} )   
+            if lgdind==1
+               lgd=legend('$\phi=0.6$', '$\phi=0.5$', '$\phi=0.25$','$\phi=0$',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/Phi_Sens_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+%% comparison parameter alternatives
+if plotts.sens_other==1
+    
+    fprintf('plott sensitivity other')
+
+        RES=OTHERPOL{plotts.regime_gov+1}; 
+        ben= RES("OPT_T_NoTaus");
+        sig=RES_sigma("OPT_T_NoTaus");
+        bop=RES_bop("OPT_T_NoTaus");
+        ela=RES_ela("OPT_T_NoTaus");
+        tec = RES_tec("OPT_T_NoTaus");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(ben(find(varlist==varr),1:T)), time,(sig(find(varlist==varr),1:T)), ...
+                time,(bop(find(varlist==varr),1:T)),time,ela(find(varlist==varr),1:T), ...
+                time,(tec(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; '--'; '--'; ':'}, {'color'}, {'k';'b';orrange; grrey; 'r'} )   
+            if lgdind==1
+               lgd=legend('baseline', '$\sigma=2/3$', '$\theta=2$','$\varepsilon_e=10$', 'technology gap',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           xlim([1, time(end-1)])
+
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.0f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/SensOther_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
 %% effect of taul in model without xgr and with xgr
 % compare effect of only taul in benchmark and in exogenous growth model
 if plotts.count_taul_nsk_LF==1
@@ -344,6 +446,120 @@ if plotts.count_taul_xgr_LF==1
             ytickformat('%.2f')
             xticklabels(Year10)
             path=sprintf('figures/all_%s/CountXgrTaulLF_target_%s_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
+%% Comparison Emission limits
+if plotts.Ems_limit==1
+    
+    fprintf('plott levels with other emission limit')
+
+        RES=OTHERPOL{plotts.regime_gov+1}; 
+        RES_ems=OTHERPOL_Ems{plotts.regime_gov+1}; 
+
+        allvars= RES("OPT_T_NoTaus");
+        allvarsems= RES_ems("OPT_T_NoTaus");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(allvars(find(varlist==varr),1:T)), time,allvarsems(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k';orrange} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'equal \% reduction' ,  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/Ems_Sens_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
+%% policy decomposition with less strict emission limit; comparison to benchmark decomposition
+if plotts.Ems_limit_Decomp==1
+    
+    fprintf('plott decomposition ems limit')
+
+        RES=OTHERPOL{plotts.regime_gov+1};
+        RES_ems=OTHERPOL_Ems{plotts.regime_gov+1}; 
+
+        if plotts.regime_gov==4
+            RESnt=OTHERPOL{plotts.regime_gov+1+1}; 
+            RES_emsnt=OTHERPOL_Ems{plotts.regime_gov+1+1};
+        end
+        allvars= RES("OPT_T_NoTaus");
+        allvarsnt= RESnt("OPT_T_NoTaus");
+        allvarsems= RES_ems("OPT_T_NoTaus");
+        allvarsemsnt= RES_emsnt("OPT_T_NoTaus");
+
+        Perdif=100*(allvars-allvarsnt)./allvarsnt;
+        Perdifems=100*(allvarsems-allvarsemsnt)./allvarsemsnt;
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(Perdif(find(varlist==varr),1:T)), time,Perdifems(find(varlist==varr),1:T),time,zeros(1,T), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'; '--'}, {'color'}, {'k';orrange; grrey} )   
+            if lgdind==1
+               lgd=legend('benchmark' , 'equal \% reduction' ,  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="sffsg"
+                ytickformat('%.0f')
+            elseif varr=="Tauf"
+                ytickformat('%.1f')                
+            else
+                ytickformat('%.0f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/EmsDecomp_CTO_Sens_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
