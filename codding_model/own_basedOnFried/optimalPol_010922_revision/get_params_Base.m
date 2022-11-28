@@ -109,7 +109,7 @@ rhog     = 0.01;
 % rhof     = 0.01;
 % rhon     = 1; 
 % rhog     = 0.01;
-phii     = 0.5;            % Fried
+phii     = 0.75;            % Fried
 upbS     = 0.01;
 
 % phis = 1; % scaled

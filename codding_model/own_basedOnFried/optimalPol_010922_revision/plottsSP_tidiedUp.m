@@ -322,11 +322,10 @@ if plotts.sens_other==1
             varr=string(plotvars(v));
 
             main=plot(time,(ben(find(varlist==varr),1:T)), time,(sig(find(varlist==varr),1:T)), ...
-                time,(bop(find(varlist==varr),1:T)),time,ela(find(varlist==varr),1:T), ...
-                time,(tec(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
-            set(main, {'LineStyle'},{'-';'--'; '--'; '--'; ':'}, {'color'}, {'k';'b';orrange; grrey; 'r'} )   
+                time,(bop(find(varlist==varr),1:T)),time,ela(find(varlist==varr),1:T),  'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'; '--'; '--'}, {'color'}, {'k';'b';orrange; grrey} )   
             if lgdind==1
-               lgd=legend('baseline', '$\sigma=2/3$', '$\theta=2$','$\varepsilon_e=10$', 'technology gap',  'Interpreter', 'latex');
+               lgd=legend('baseline', '$\sigma=2/3$', '$\theta=2$','$\varepsilon_e=10$',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             

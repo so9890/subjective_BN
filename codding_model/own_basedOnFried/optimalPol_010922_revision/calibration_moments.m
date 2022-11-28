@@ -25,8 +25,8 @@ MOM.targethour=1/5*(datahours.asShareOfTotalHours(datahours.TIME==2019)+datahour
 % moments for technology
 MOM.EpeY = moms(vars=='Energy Expenditures as Share of GDP')/100;
 MOM.Y    = 1; % normalised; sum 5 Year GDP 2015-2019
-MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./moms(vars=='Total Renewable Energy Consumption');
-MOM.GE   = moms(vars=='Total Renewable Energy Consumption')/moms(vars=='Total Primary Energy Consumption');
+MOM.FG   = moms(vars=='Total Fossil Fuels Consumption')./(moms(vars=='Total Renewable Energy Consumption')+ moms(vars=='Nuclear Electric Power Consumption'));
+MOM.GE   = (moms(vars=='Total Renewable Energy Consumption')+ moms(vars=='Nuclear Electric Power Consumption'))./moms(vars=='Total Primary Energy Consumption');
 
 %MOM.F    = moms(vars=='Total Fossil Fuels Consumption'); % to match emissions
 % Data on skill input and distribution

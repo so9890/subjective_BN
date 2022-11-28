@@ -9,7 +9,7 @@
 % Version: August 2022
 clear
 %cd C:\Users\lintb\Desktop\COMET\ReStud
-cd '/home/sonja/Documents/projects/subjective_BN/codding_model/own_basedOnFried/optimalPol_010922_revision'
+cd '/home/sonja/Documents/DocumentsSonja/projects/subjective_BN/codding_model/own_basedOnFried/optimalPol_010922_revision'
 %%
 %M-File Outline%
 %%%%%%%%%%%%%%%%
@@ -25,14 +25,14 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
 lengthh = 5; % number of zears per period         
-indic.util =0; % ==0 log utility, otherwise as  in Boppart
-
-indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
+indic.util =1; % ==0 log utility, otherwise as  in Boppart
+indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
 indic.elasE = 0; % ==0 then standard as in Fried, % == 1 then eppsee=10
 indic.sigmaWorker =0; % ==0 then standard calibration with chetty sigmaa=1/0.75; ==1 then higher frish elasticity: sigma smaller! sigmaa= 1/1.5;
                       % == 2 then smaller frisch elasticity sigmaa= 1/0.5; 
+                      
 indic.sep =0; % ==0 one joint market (in calibration very low fossil and green scientists to satisfy wage clearing 
               % ==1 3 separate markets 
               % ==2 if partial equbm; relative to joint market
@@ -88,10 +88,11 @@ if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx', 'StatsEms')
 else
     fprintf('calibrating model')
-    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; 
+    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.util=0; indic.Bop=0; 
+    indic.sigmaWorker=0;
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]...
         =get_params_Base( T, indic, lengthh);
-    save(sprintf('params_0209_sep%d', indic.sep))
+    save(sprintf('params_2811_sep%d', indic.sep))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -105,13 +106,13 @@ Sparams.TFPN0= init201014(list.init=='An0')^(1-Sparams.alphan);
 %% 
 %%%%% LIST for separate markets
 
-     symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
-     syms wsg wsn wsf gammasg gammasf gammasn real
+    symms.sepchoice=symms.choice(list.choice~='S'&list.choice~='ws'& list.choice~='gammas');
+    syms wsg wsn wsf gammasg gammasf gammasn real
     symms.sepchoice=[symms.sepchoice wsg wsn wsf gammasg gammasf gammasn];
     list.sepchoice=string(symms.sepchoice);
     
     %- allvars 
-     symms.sepallvars=symms.allvars(list.allvars~='ws');
+    symms.sepallvars=symms.allvars(list.allvars~='ws');
     symms.sepallvars=[symms.sepallvars wsg wsn wsf gammasg gammasf gammasn]; 
     list.sepallvars=string(symms.sepallvars);
     
@@ -317,12 +318,14 @@ end
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.sizeequ=0;
-indic.noknow_spill=0;
+indic.noknow_spill=3;
 indic.sep=0; % Has to be equal to loaded parameters!!!
 indic.count_techgap=0;
+indic.util=1;
+indic.Bop=1;
 count=30;
 Tinit=T;
-indic.sigmaWorker=1;
+indic.sigmaWorker=0;
 
 
 for xgr=0
@@ -361,11 +364,11 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=0;
+indic.noknow_spill=3; %==0 then fried,, ==3 then 3/4
 indic.elasE =0;
 indic.sigmaWorker=0;
-indic.Bop=0;
-indic.util=0; % have both to be changed
+indic.Bop=1;
+indic.util=1; % have both to be changed
 indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T but only run with T=12
@@ -383,7 +386,7 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[4,5]
+ for nnt=[5]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -404,18 +407,21 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.util=1;
+indic.Bop=1;
+indic.sigmaWorker=0;
+indic.noknow_spill=3;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
 count=30;% addiitonal periods
 for tr =1
     indic.target=tr;
-for xgr=0:1
+for xgr=0
     indic.xgrowth=xgr;
-for nsk=[0, 1]
+for nsk=[0]
     indic.noskill=nsk;
- for nnt=0
+ for nnt=5
      indic.notaul=nnt;
      indic
 [symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
