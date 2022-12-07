@@ -66,7 +66,7 @@ if indic.target==1
     if indic.notaul==3
        helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul-1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif indic.notaul == 0 || indic.notaul==4
-       helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+       helper=load(sprintf('OPT_target_plus%d_0512_Bop1_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     else
        helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     end
@@ -214,11 +214,11 @@ objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
 
 if indic.target==1
 
-        if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
+       % if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
                 options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        else
-                options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        end
+%         else
+%                 options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+%         end
                 [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
                  options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
@@ -233,7 +233,7 @@ elseif indic.target==0
             error('active set did not solve sufficiently well')
         end
 end
-save('incase_of_error', 'x')
+save('incase_of_error_Direct', 'x')
 %% transform
 % helper=load(sprintf('active_set_solu_notargetOPT_505_spillover%d_taus%d_possible', indic.spillovers, indic.taus))
 % x=xsqp;
@@ -309,7 +309,7 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.count_techgap==0
     if indic.target==1
-        save(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
+        save(sprintf('OPT_target_plus%d_0512_Bop%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.Bop, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
     else
         if indic.extern==1
             save(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')

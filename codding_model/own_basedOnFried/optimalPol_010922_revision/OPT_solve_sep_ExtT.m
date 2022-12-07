@@ -53,7 +53,7 @@ nn= length(list.opt); % number of variables
 if indic.target==1
      
 %      helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,  5, indic.sep, indic.xgrowth, indic.PV, etaa));
-       helper=load(sprintf('OPT_target_0509_Bop%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop, indic.noknow_spill ,indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+       helper=load(sprintf('OPT_target_0512_Bop%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop, indic.noknow_spill ,indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 %      helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_GOV%d_etaa%.2f.mat',indic.noknow_spill, indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV,indic.GOV, etaa));
 
         opt_all=helper.opt_all;
@@ -195,11 +195,11 @@ constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM,
 objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
 
 if indic.target==1
-if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
+% if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-else
-        options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-end
+% else
+%         options = optimset('algorithm','sqp','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+% end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
          options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
@@ -237,7 +237,7 @@ for cc=1:count        % number of additional periods
         % new number of explicit optimization periods
         T=T+1;
 
-        if ~isfile((sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d.mat',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill)))
+        if ~isfile((sprintf('512_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d.mat',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill)))
 
         %- update initial values: add last period value as guess for new direct
         % optimization period
@@ -249,13 +249,13 @@ for cc=1:count        % number of additional periods
          constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
          objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
 
-         options = optimset('algorithm','sqp','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-         [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
          options = optimset('algorithm','active-set','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
-        [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-         save(sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
+%          [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
+%          options = optimset('algorithm','active-set','TolCon',1e-9,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        [x,fval,exitflag,output,lambda] = fmincon(objf,x0,[],[],[],[],lb,ub,constf,options);
+         save(sprintf('512_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x')
         else
-         hhelper=load(sprintf('2309_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x');
+         hhelper=load(sprintf('512_results_opt_main_notaul%d_target%d_Tplus%d_nsk%d_xgr%d_knspil%d',indic.notaul, indic.target, cc, indic.noskill, indic.xgrowth, indic.noknow_spill), 'x');
          x=hhelper.x;
         end
 end
@@ -335,7 +335,7 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.count_techgap==0
     if indic.target==1
-        save(sprintf('OPT_target_plus%d_0509_Bop%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count,indic.Bop, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
+        save(sprintf('OPT_target_plus%d_0512_Bop%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count,indic.Bop, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
     else
         if indic.extern==1
             save(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')

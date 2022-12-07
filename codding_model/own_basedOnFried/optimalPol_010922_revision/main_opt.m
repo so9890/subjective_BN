@@ -82,17 +82,18 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
 
-if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
+if isfile(sprintf('params_0512_sep%d.mat', indic.sep))
     fprintf('loading parameter values sep%d', indic.sep)
-    load(sprintf('params_0209_sep%d', indic.sep),...
+    load(sprintf('params_0512_sep%d', indic.sep),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx', 'StatsEms')
 else
     fprintf('calibrating model')
-    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0; indic.noskill=0; indic.xgrowth=0; indic.util=0; indic.Bop=0; 
+    indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0;...
+        indic.noskill=0; indic.xgrowth=0; indic.util=1; indic.Bop=1; 
     indic.sigmaWorker=0;
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]...
         =get_params_Base( T, indic, lengthh);
-    save(sprintf('params_2811_sep%d', indic.sep))
+    save(sprintf('params_0512_sep%d', indic.sep))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -339,8 +340,8 @@ for xgr=0
             indic.target=tar;
             indic     
             if indic.count_techgap==0
-           % SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
-                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+           SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
+           %     SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
             else
                 SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
 
@@ -386,7 +387,7 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[5]
+ for nnt=[4]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -421,7 +422,7 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=[0]
     indic.noskill=nsk;
- for nnt=5
+ for nnt=4
      indic.notaul=nnt;
      indic
 [symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
@@ -435,9 +436,11 @@ end
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =0;
 indic.extern=0;
+indic.util=1;
+indic.Bop=1;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=1;
+indic.noknow_spill=3;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
 indic
@@ -446,7 +449,7 @@ for tr =1
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
-for nsk=1
+for nsk=0
     indic.noskill=nsk;
  for nnt=4
      indic.notaul=nnt;
@@ -545,7 +548,11 @@ plotts.robust=      0;
 plotts.Ems_limit=   0; 
 plotts.Ems_limit_Decomp=   0;
 plotts.phi_sens =   0;
-plotts.sens_other=  1;
+plotts.sens_other=  0;
+plotts.phi_newcalib       = 1;
+plotts.comp_OPTPer_NCalib = 0;
+plotts.comp_OPT_NCAlib    = 0;
+
 
 plotts.countcomp=   0;
 plotts.countcomp2=  0;

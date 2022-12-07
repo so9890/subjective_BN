@@ -130,7 +130,7 @@ elseif indic.target==1
     Ftarget = (Ems+deltaa)/omegaa;
     x0 = zeros(nn*T,1);
         fprintf('using sp solution as initial value')
-       % helper=load(sprintf('OPT_target_0509_Bop%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop, 0 ,indic.noskill,indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+     %   helper=load(sprintf('OPT_target_0509_Bop%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop, 0 ,indic.noskill, 4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
 
 %     helper= load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 4, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 
@@ -235,7 +235,7 @@ constfSP=@(x)constraintsSP(x, T, params, initOPT, list, Ems, indic, percon, MOM)
     options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     [x,fval,exitflag,output,lambda] = fmincon(objfSP,x,[],[],[],[],lb,ub,constfSP,options);
 % end
-  load('1008_SP_target_noskill')
+  save('0512_SP_target')
 
 %%
 out_trans=exp(x);
@@ -297,7 +297,7 @@ sp_all=eval(symms.allvars);
 %%
 if indic.count_techgap==0
 if indic.target==1
-    save(sprintf('SP_target_1008_bop%d_sigmaa%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.Bop, indic.sigmaWorker, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
+    save(sprintf('SP_target_0512_bop%d_sigmaa%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.Bop, indic.sigmaWorker, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
 fprintf('saved')
 else
     if indic.extern==1       

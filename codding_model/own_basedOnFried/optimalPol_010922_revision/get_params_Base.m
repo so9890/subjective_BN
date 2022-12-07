@@ -85,7 +85,11 @@ sigmaas  = sigmaa;
 if indic.util== 0
     thetaa   = 1;
 else
-    thetaa   = 2; % look up in Boppart
+    if indic.Bop==1 % income effect dominates! => labor supply less responsive
+        thetaa=(0.2+1/sigmaa)./((1-0.2)/sigmaa);
+    else
+        thetaa=0.4;
+    end
 end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
@@ -109,7 +113,7 @@ rhog     = 0.01;
 % rhof     = 0.01;
 % rhon     = 1; 
 % rhog     = 0.01;
-phii     = 0.75;            % Fried
+phii     = 0.75;            % Fried: o.5
 upbS     = 0.01;
 
 % phis = 1; % scaled

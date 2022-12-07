@@ -123,6 +123,17 @@ for ii=[4,5]
      OTHERPOL_Ems{ii+1}=RES_Ems;
 end
 
+%% counetrfac NEW calibration: phi=3/4, Bop
+helper=load(sprintf('SP_target_0512_bop1_sigmaa0_spillover%d_knspil3_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+sp_t = helper.sp_all';
+helper=load(sprintf('OPT_target_0512_Bop1_spillover0_knspil3_taus0_noskill%d_notaul5_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+opt_t_nt= helper.opt_all';
+helper=load(sprintf('OPT_target_0512_Bop1_spillover0_knspil3_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+opt_t_wt= helper.opt_all';
+RES_NCalib=containers.Map({'SP_T', 'OPT_T_NOTaul', 'OPT_T_WithTaul' },...
+                                {  sp_t, opt_t_nt, opt_t_wt});
+RES_NCalib=add_vars(RES_NCalib, list, params, indic, list.allvars, symms, MOM);
+
 %% counetrfactual model
 
 % no knowledge spillovers 
@@ -232,12 +243,15 @@ if plotts.cev==1
         h1= OTHERPOLL{4}; % taul can be used
         h2= OTHERPOLL{3}; % taul cannot be used
     elseif plotts.regime_gov==4
-        h1= OTHERPOLL{5}; % taul can be used
+        h1=  OTHERPOLL{5}; % taul can be used
         h2= OTHERPOLL{6}; % taul cannot be used
+    
     end
         
-    [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);   
-    save(sprintf('Table_CEV_%s_regime%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
+%     [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);   
+    [COMP, COMPTable] = comp_CEV(RES_NCalib('OPT_T_WithTaul'),RES_NCalib('OPT_T_NOTaul') , varlist, varlist, symms, list, params, T, indic);   
+
+    save(sprintf('Table_CEV_Newcalib_%s_regime%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
 end
 %% Plots
 %- axes
@@ -247,6 +261,101 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+%% comparison parameter alternatives
+if plotts.phi_newcalib==1
+    fprintf('plott new calib')
+
+    nt= RES_NCalib("OPT_T_NOTaul");
+    wt=RES_NCalib("OPT_T_WithTaul");
+    eff=RES_NCalib("SP_T");
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(nt(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)), time,(eff(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {'b';'k';orrange} )   
+            if lgdind==1
+               lgd=legend('carbon tax only', 'benchmark', 'first best',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_eff2pol_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
+%% optimal with and without taul in levels 
+if plotts.comp_OPTPer_NCalib==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage opt and no taul no eff') 
+    
+   
+        allvarsnt= RES_NCalib("OPT_T_NOTaul");
+        allvars=RES_NCalib("OPT_T_WithTaul");
+        Perdif=100*(allvars-allvarsnt)./allvarsnt;
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot( time,(Perdif(find(varlist==varr),1:T)),time,zeros(size(time)));            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey},{'LineWidth'}, {1.1; 1} )   
+           xticks(txx)
+           xlim([1, time(end-1)])
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+           
+            ax=gca;
+            ax.FontSize=13;
+%             if varr=="SWF" || varr== "sn"
+%                ytickformat('%.0f')
+%             elseif varr=="sff" || varr=="sg" ||  varr == "sgsff" || varr =="GFF" || varr =="sffsg"
+%                ytickformat('%.1f')
+%             else
+%                ytickformat('%.2f')
+%             end
+            xticklabels(Year10)
+%            if lgdind==1
+%               lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
+%               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+%            end
+        path=sprintf('figures/all_%s/%s_COMPtaulPerNewCalib_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+        
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+end
 
 %% comparison parameter alternatives
 if plotts.phi_sens==1
@@ -1816,6 +1925,49 @@ if plotts.comp_LFOPT==1
            end
 
         path=sprintf('figures/all_%s/%s_LF_OPT_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+   end
+end
+
+%% level differences: NEW CALIBRATION with and without taul
+if plotts.comp_OPT_NCAlib==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting levels opt and no taul no eff') 
+
+        allvars= RES_NCalib('OPT_T_WithTaul');
+        allvarsnt =RES_NCalib('OPT_T_NOTaul');
+        
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot( time,(allvars(find(varlist==varr),1:T)),time,(allvarsnt(find(varlist==varr),1:T)),'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; 'b'} )   
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/%s_OPT_COMPtaul_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr, plotts.regime_gov, indic.spillovers, indic.noknow_spill, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
