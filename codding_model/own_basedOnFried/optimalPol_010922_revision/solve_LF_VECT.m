@@ -139,7 +139,7 @@ objf=@(x)objectiveCALIBSCI(x);
         constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic, MOM);
     end
 
-    if indic.xgrowth==0 && indic.noskill==1
+    if (indic.xgrowth==0 && indic.noskill==1) || (indic.oldCalib==0 && indic.tauf==0)
         options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     else
         options = optimset('algorithm','active-set','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);

@@ -41,7 +41,7 @@ if indic.noskill==0
       [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul,taus, lambdaa,...
             wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM);
 else
 
@@ -89,7 +89,9 @@ end
          ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
            if indic.sep==0
             ceq(T*6+1:T*7) = ws-wsf; % wage clearing
-            ceq(T*7+1:T*8) = ws-wsg;
+            if indic.notaul<7 % otherwise used to determine taus
+                ceq(T*7+1:T*8) = ws-wsg;
+            end
             ceq(T*8+1:T*9) = ws-wsn;
             
             ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
@@ -99,20 +101,20 @@ end
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
             ceq(T*12+1:T*13) = S-sn-sff-sg;
             
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
                 ceq(T*13+1:T*14) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
-           else
+           elseif indic.sep>=1
              ceq(T*6+1:T*7) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
              ceq(T*7+1:T*8) = (chiis)*sg.^sigmaas-muu.*wsg;
              ceq(T*8+1:T*9) = (chiis)*sn.^sigmaas-muu.*wsn;
              ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
-         ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
+            ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
          
          % hh budget different for with and without inequality version
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
@@ -143,17 +145,19 @@ end
             ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
               if indic.sep==0
                 ceq(T*4+1:T*5) = ws-wsf; % wage clearing
-                ceq(T*5+1:T*6) = ws-wsg;
+                if indic.notaul>7
+                    ceq(T*5+1:T*6) = ws-wsg;
+                end
                 ceq(T*6+1:T*7) = ws-wsn;
                 ceq(T*7+1:T*8) = S-sn-sg-sff;
-                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5||  indic.notaul == 8% when no taul is available
                 ceq(T*8+1:T*9)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
                 end
               else
                  ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
                  ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-muu.*wsg;
                  ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-muu.*wsn;
-                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 5% when no taul is available
                 ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
                 end
                end
@@ -164,7 +168,7 @@ end
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
             ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
 
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5% when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 8% when no taul is available
                 ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 

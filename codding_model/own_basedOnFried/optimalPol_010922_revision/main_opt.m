@@ -25,8 +25,8 @@ T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
 lengthh = 5; % number of zears per period         
-indic.util =1; % ==0 log utility, otherwise as  in Boppart
-indic.Bop=1; % indicator ==1 then uses version as discussed in Boppart: 
+indic.util =0; % ==0 log utility, otherwise as  in Boppart
+indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
 indic.elasE = 0; % ==0 then standard as in Fried, % == 1 then eppsee=10
@@ -81,10 +81,9 @@ percon = 0;  % periods nonconstrained before 50\% constrained
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function 1) sets direct parameters, 
 %          2) calibrates model to indirect params.
-
-if isfile(sprintf('params_0512_sep%d.mat', indic.sep))
+if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
     fprintf('loading parameter values sep%d', indic.sep)
-    load(sprintf('params_0512_sep%d', indic.sep),...
+    load(sprintf('params_0209_sep%d', indic.sep),...
         'params', 'Sparams', 'polCALIB', 'init201014', 'init201519', 'list', 'symms', 'Ems', 'Sall', 'x0LF', 'MOM', 'indexx', 'StatsEms')
 else
     fprintf('calibrating model')
@@ -319,7 +318,7 @@ end
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.sizeequ=0;
-indic.noknow_spill=3;
+indic.noknow_spill=2;
 indic.sep=0; % Has to be equal to loaded parameters!!!
 indic.count_techgap=0;
 indic.util=1;
@@ -336,12 +335,12 @@ for xgr=0
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=1
+       for tar=0
             indic.target=tar;
             indic     
             if indic.count_techgap==0
-           SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
-           %     SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+           %SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
+                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
             else
                 SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
 
@@ -365,15 +364,16 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=3; %==0 then fried,, ==3 then 3/4
+indic.noknow_spill=0; %==0 then fried,, ==3 then 3/4
 indic.elasE =0;
 indic.sigmaWorker=0;
-indic.Bop=1;
-indic.util=1; % have both to be changed
+indic.Bop=0;
+indic.util=0; % have both to be changed
 indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T but only run with T=12
-indic.targetWhat = 0; %==0 then baseline, ==1 then equal shares
+indic.targetWhat = 1; %==0 then baseline, ==1 then equal shares
+indic.Sun=0; %=1 then scientists are not form of households=> income channel not present; ==2 then scientists are also part of household and equally taxed 
 
 if indic.targetWhat==0
     Emss=Ems;
@@ -387,7 +387,7 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[4]
+ for nnt=[7]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -443,6 +443,7 @@ indic.sizeequ=0;
 indic.noknow_spill=3;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
+indic.Sun=0;
 indic
 count=30;% addiitonal periods
 for tr =1
@@ -464,17 +465,21 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=0:1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+for tf=0 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
 indic.tauf=tf; % ==1 uses version with optimal taul=0 but tauf=1; ==0 uses version with tauf=0 optimal but taul =1
 indic.PV=1;
 indic.notaul=4;
 indic.limit_LF=0; % for simulation, not a policy calculation
-indic.noknow_spill=0; % counterfactuals so far only without knowledge spillovers
+indic.noknow_spill=3; % counterfactuals so far only without knowledge spillovers
+indic.oldCalib=0; % ==0 then uses new calbration
+indic.Bop=1;
+indic.Sun=0;
+
 T=12;
 
 for xgr=0
     indic.xgrowth=xgr;
-    for nsk=1
+    for nsk=0
         indic.noskill=nsk;
 % load benchmark policy
 if tf>=2 % read in benchmark model wrt skill xgr
@@ -484,7 +489,11 @@ if tf>=2 % read in benchmark model wrt skill xgr
          helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, indic.notaul, indic.sep, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     end
 elseif tf<2 % load in same model wsrt skill xgr
-             helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    if indic.oldCalib==1
+        helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    elseif indic.oldCalib==0  
+        helper=load(sprintf('OPT_target_plus30_0512_Bop1_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    end
 end
          if  indic.tauf>1  % get better starting values!
              if indic.tauf<2
@@ -524,8 +533,12 @@ end
          T=12; 
         [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic, Ems, MOM);
         % helper.opt_all: as initial values and to deduce policy 
-        save(sprintf('COMPEquN_SIM_1110_taufopt%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
-    end
+        if indic.oldCalib==1
+           save(sprintf('COMPEquN_SIM_1110_taufopt%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+        elseif indic.oldCalib==0
+           save(sprintf('COMPEquN_SIM_1110_taufopt%d_newCalib_Bop%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.Bop, indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
+        end
+end
 end
 end
 %%
@@ -545,13 +558,14 @@ plotts.cev  =       0;
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
-plotts.Ems_limit=   0; 
-plotts.Ems_limit_Decomp=   0;
+plotts.Ems_limit=   1; 
+plotts.Ems_limit_Decomp=   1;
 plotts.phi_sens =   0;
 plotts.sens_other=  0;
-plotts.phi_newcalib       = 1;
+plotts.phi_newcalib       = 0;
 plotts.comp_OPTPer_NCalib = 0;
 plotts.comp_OPT_NCAlib    = 0;
+plotts.count_devs_both_NC = 0;
 
 
 plotts.countcomp=   0;
@@ -603,15 +617,17 @@ plotts.per_optd =   0;
 
 plotts.tauf_comp=0;
 plotts.compREd=0;
+
+indic.noknow_spill=0;
     
 for xgr =0
     for nsk=0
-        for nknk=0
+        for nknk=3
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 
 plotts.GOV =0;
-indic.noknow_spill=nknk; % in the benchmark allocation there are kn spillovers
+plotts.nknk=nknk; % in the benchmark allocation there are kn spillovers
 indic.count_techgap=0;
 plotts
 %%
@@ -654,7 +670,7 @@ plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 plotts.count_devs               = 0;
-plotts.count_devs_fromcto       = 0;
+plotts.count_devs_fromcto       = 1;
 plotts.count_devs_both          = 0;
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     
@@ -667,7 +683,7 @@ plotts.lf                       = 0; % comparison to laissez faire allocation in
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
-plotts.compeff4                 = 1; % sp versus optimal benchmark
+plotts.compeff4                 = 0; % sp versus optimal benchmark
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark

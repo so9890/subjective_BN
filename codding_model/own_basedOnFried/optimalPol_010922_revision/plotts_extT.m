@@ -366,7 +366,7 @@ if plotts.count_devs_fromcto==1
         allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         perdif= 100*(allvarscount-allvars)./allvars;
         
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -421,7 +421,7 @@ if plotts.count_devs_both==1
         perdiftaul= 100*(allvars-allvarscount)./allvarsntaul; % relative to carbon-tax-only policy
         
     for lgdind=0:1
-    for l ="Add" %keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -453,6 +453,7 @@ if plotts.count_devs_both==1
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
             end
             xticklabels(Year10)
+            if indic.new
             path=sprintf('figures/all_%s/CountTAUF_Both_Opt_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)

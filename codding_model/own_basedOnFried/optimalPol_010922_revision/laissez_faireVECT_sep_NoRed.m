@@ -17,6 +17,8 @@ if indic.limit_LF==0
 else
     tauf=(x((find(list.test=='tauf')-1)*T+1:(find(list.test=='tauf'))*T));
 end
+
+% taus is exogenous
 taus=varrs(list.allvars=='taus', :)';
 
 % choice variables
@@ -131,12 +133,12 @@ elseif indic.notaul == 4 || indic.notaul ==5
     end
     GovCon =zeros(size(F));
     Tls  = tauf.*F;
-elseif indic.notaul == 7 % earmarking
+elseif indic.notaul >= 7 % earmarking
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
     GovCon =zeros(size(F));
-    Tls =zeros(size(F));    
-    taus = tauf.*F./(pg.*G); % subsidy on green sector
+    Tls =zeros(size(F));  
+
 end
 
 
@@ -146,7 +148,7 @@ N       =  (1-deltay)/deltay.*(pee./pn).^(eppsy).*E; % demand N final good produ
 Y       =  (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlg     = (pg).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 % wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 % 
 % xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
@@ -184,7 +186,7 @@ f((q-1)*T+1:T*q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan));
 
 %6- output green
 q=q+1;
-f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
+f((q-1)*T+1:T*q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 
@@ -194,7 +196,7 @@ if indic.xgrowth==0
             f((q-1)*T+1:T*q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
             %8
             q=q+1;
-            f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+            f((q-1)*T+1:T*q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
             %9
             q=q+1;
             f((q-1)*T+1:T*q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
@@ -209,7 +211,7 @@ if indic.xgrowth==0
             f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
             %8
             q=q+1;
-            f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus).*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
+            f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*(1-taus).*Ag);
             %9
             q=q+1;
             f((q-1)*T+1:T*q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
@@ -252,7 +254,7 @@ else
     q=q+1;
     f((q-1)*T+1:T*q) = Ln -pn.*(1-alphan).*N./w; % labour demand neutral 
     q=q+1;
-    f((q-1)*T+1:T*q) = Lg - pg.*(1+taus).*(1-alphag).*G./w;
+    f((q-1)*T+1:T*q) = Lg - pg.*(1-alphag).*G./w;
 end
 % prices and wages
 %19- optimality energy producers
@@ -316,7 +318,11 @@ if indic.xgrowth==0 && indic.sep~=2
         q=q+1;
         f((q-1)*T+1:T*q)= sff+sg+sn-S; % determines wage in neutral sector
         q=q+1;
-        f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
+        if indic.Sun==0
+            f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
+        elseif indic.Sun==1
+            f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((ws-gammas));
+        end
         q=q+1;
         f((q-1)*T+1:T*q)= gammas.*(upbarH-S);
     end
@@ -341,9 +347,8 @@ f((q-1)*T+1:T*q)= SGov-GovRev*Y; % match gov revenues from calibration
 
 % emisson limit 
 if indic.limit_LF==1
-q=q+1;
-f((q-1)*T+1:T*q)=omegaa*F-deltaa-Ems';
-
+    q=q+1;
+    f((q-1)*T+1:T*q)=omegaa*F-deltaa-Ems';
 end
 
 %fprintf('number equations: %d; number variables %d', q, length(list.test));

@@ -89,7 +89,7 @@ if indic.noskill==0
     Ln      = hhn.^thetan.*hln.^(1-thetan);
     Lf      = hhf.^thetaf.*hlf.^(1-thetaf); 
 else
-    hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
+    hh=h; hl=h; wh=w; wl=w; % this should suffice to have government budget correct
 end
 
 if indic.notaul<2 || ...

@@ -1,7 +1,7 @@
 function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, taus, lambdaa,...
             wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic, MOM)
 
 read_in_params;
@@ -108,6 +108,9 @@ pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function
 pf      = (F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf); % production fossil
 
 tauf      = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
+
+
+
 pee     = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 pn      = ((1-deltay.*pee.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
 
@@ -126,10 +129,22 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
 % if indic.xgrowth==0
     wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
     wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-    wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
-
+    wsg_taus= (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+    if indic.notaul>=7
+        taus = 1-wsg_taus./wsf;
+        wsg= tauf.*F./(taus.*sg);
+    else
+        taus=zeros(size(F));
+        wsg=wsg_taus;
+    end
     %- relevant for code without separate markets
-    ws   = (chiis*S.^sigmaas)./muu; 
+    if indic.Sun==0 % scientists form part of HH
+        ws   = (chiis*S.^sigmaas)./muu; 
+    elseif indic.Sun==1
+        ws   = (chiis*S.^sigmaas); 
+%     elseif indic.Sun==2 % scientists form part of household and are taxed as well/ same income tax
+%         ws
+    end
 % else
 %     ws=zeros(size(F));
 %     wsf =zeros(size(F));
@@ -137,9 +152,9 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
 %     wsn=zeros(size(F));
 % end
 % assuming interior solution households
-if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 
+if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 || indic.notaul == 7
     taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-elseif indic.notaul==1 || indic.notaul == 2 || indic.notaul ==5 
+elseif indic.notaul==1 || indic.notaul == 2 || indic.notaul ==5 || indic.notaul ==8
     taul   = zeros(size(sn));
 end
 % lambdaa so that gov budget is balanced
@@ -151,7 +166,7 @@ if indic.notaul<2
                 +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
                 +tauf.*F; % government income scheme budget
 
-else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans of env rev
+else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans of env rev or (iii) notaul==7 earmarking
    lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)-GovRev)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
         
@@ -160,8 +175,8 @@ else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans 
             % government income scheme budget
 end
 
-if indic.notaul >=4 % lump sum trans
-    Tls =tauf.*F;
+if indic.notaul >=4 && indic.notaul<7 % lump sum trans
+    Tls =tauf.*F;    
 else
     Tls =zeros(size(F));
 end
@@ -171,6 +186,7 @@ if indic.notaul<2 || indic.notaul >= 4 % (>=4 :lump sum transfers with and witho
 else
             GovCon =tauf.*F;
 end
+
 
         % subsidies, profits and wages scientists cancel
 
