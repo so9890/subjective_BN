@@ -110,10 +110,17 @@ else
     hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
 end
 
+if indic.Sun~=2
+    helpS=zeros(size(F)); % helper for gov revenues from taxing scientists
+elseif indic.Sun==2
+    helpS=-lambdaa.*(ws.*S).^(1-taul);
+end
 if indic.notaul<2 || ...
    indic.notaul == 6 % tauf redistributed via income tax
+
     SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS...
         +tauf.*F;
     Tls =zeros(size(F));    
     GovCon =zeros(size(F));
@@ -121,24 +128,26 @@ if indic.notaul<2 || ...
 elseif indic.notaul == 2 ||...
         indic.notaul==3 %2,3,4,5,7
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+           +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+           +helpS;
     GovCon = tauf.*F; % GovCon = env tax consumed by government
     Tls =zeros(size(F));    
 elseif indic.notaul == 4 || indic.notaul ==5
     if indic.noskill==0
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS;
     else
-        SGov = w.*h-lambdaa.*(w.*h).^(1-taul);
+        SGov = w.*h-lambdaa.*(w.*h).^(1-taul) +helpS;
     end
     GovCon =zeros(size(F));
     Tls  = tauf.*F;
 elseif indic.notaul >= 7 % earmarking
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+         +helpS;
     GovCon =zeros(size(F));
-    Tls =zeros(size(F));  
-
+    Tls =zeros(size(F)); 
 end
 
 
@@ -168,13 +177,21 @@ if indic.noskill==0
         f((q-1)*T+1:T*q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
         %3- budget
         q=q+1;
-        f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C; %=> determines C
+        if indic.Sun~=2 || indic.xgrowth==1
+            f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C;
+        elseif indic.Sun==2
+            f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tls-C; %=> determines C
+        end
 else
         q=q+1;
         f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
        %3- budget
         q=q+1;
-        f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
+        if indic.Sun~=2
+            f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
+        elseif indic.Sun==2
+           f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tls-C; %=> determines C
+        end
 end
 %4- output fossil
 q=q+1;
@@ -322,6 +339,9 @@ if indic.xgrowth==0 && indic.sep~=2
             f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
         elseif indic.Sun==1
             f((q-1)*T+1:T*q)= (chiis).*S.^sigmaas-((ws-gammas));
+        elseif indic.Sun==2
+            f((q-1)*T+1:T*q)= chiis.*S.^(sigmaas+taul)+gammas-muu.*lambdaa.*(1-taul).*ws.^(1-taul);
+            
         end
         q=q+1;
         f((q-1)*T+1:T*q)= gammas.*(upbarH-S);

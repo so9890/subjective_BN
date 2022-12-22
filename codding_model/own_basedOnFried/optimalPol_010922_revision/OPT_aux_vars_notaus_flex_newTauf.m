@@ -107,9 +107,7 @@ muuh=muu; muul=muu;
 pg      = (G./(Ag.*Lg)).^((1-alphag)/alphag)./alphag; % from production function green
 pf      = (F./(Af.*Lf)).^((1-alphaf)/alphaf)./(alphaf); % production fossil
 
-tauf      = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
-
-
+tauf    = (G./F).^(1/eppse).*pg-pf; % optimality energy producers
 
 pee     = ((pf+tauf).^(1-eppse)+pg.^(1-eppse)).^(1/(1-eppse));
 pn      = ((1-deltay.*pee.^(1-eppsy))./(1-deltay)).^(1/(1-eppsy)); % definition prices and numeraire
@@ -130,6 +128,7 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
     wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
     wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
     wsg_taus= (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+    
     if indic.notaul>=7
         taus = 1-wsg_taus./wsf;
         wsg= tauf.*F./(taus.*sg);
@@ -142,8 +141,8 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
         ws   = (chiis*S.^sigmaas)./muu; 
     elseif indic.Sun==1
         ws   = (chiis*S.^sigmaas); 
-%     elseif indic.Sun==2 % scientists form part of household and are taxed as well/ same income tax
-%         ws
+    elseif indic.Sun==2 % scientists form part of household and are taxed as well/ same income tax
+        ws = wsf;
     end
 % else
 %     ws=zeros(size(F));
@@ -154,25 +153,41 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
 % assuming interior solution households
 if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 || indic.notaul == 7
     taul   = (log(wh./wl)-sigmaa*log(hhhl))./(log(hhhl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
+                                   % independent from optimality scientists                                                                      
 elseif indic.notaul==1 || indic.notaul == 2 || indic.notaul ==5 || indic.notaul ==8
     taul   = zeros(size(sn));
 end
 % lambdaa so that gov budget is balanced
 if indic.notaul<2
-    lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F-GovRev)./...
-            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
-        
-    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-                +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-                +tauf.*F; % government income scheme budget
-
+    if indic.Sun~=2
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F-GovRev)./...
+                (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul));
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+                    +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+                    +tauf.*F; % government income scheme budget
+    elseif indic.Sun==2
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F-GovRev)./...
+                (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)+(ws.*S).^(1-taul));
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+                    +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+                    +lambdaa.*(ws.*S).^(1-taul)+tauf.*F; % government income scheme budget      
+    end
 else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans of env rev or (iii) notaul==7 earmarking
-   lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)-GovRev)./...
+   if indic.Sun~=2
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)-GovRev)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
         
-    SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
                 +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
             % government income scheme budget
+   elseif indic.Sun==2
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)-GovRev)./...
+            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)+(ws.*S).^(1-taul)); 
+        
+        SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+                +lambdaa.*(ws.*S).^(1-taul)+(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+            % government income scheme budget
+   end
 end
 
 if indic.notaul >=4 && indic.notaul<7 % lump sum trans
@@ -214,10 +229,14 @@ end
 
 Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
 
-if indic.sep==0
-      Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
- else
-      Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+if indic.xgrowth==0
+    if indic.sep==0
+          Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);
+     else
+          Utilsci = chiis*sff.^(1+sigmaas)./(1+sigmaas)+chiis*sg.^(1+sigmaas)./(1+sigmaas)+chiis*sn.^(1+sigmaas)./(1+sigmaas);
+    end
+elseif indic.xgrowth==1
+    Utilsci=zeros(size(Utilcon));
 end
 
 SWF = Utilcon-Utillab-Utilsci;

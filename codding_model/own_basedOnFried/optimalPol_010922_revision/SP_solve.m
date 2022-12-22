@@ -87,7 +87,7 @@ if indic.target==0
     
     else
        fprintf('using sp solution') 
-      helper=load(sprintf('SP_notarget_1008_spillover%d_knspil0_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers, indic.noskill, 1,indic.xgrowth, indic.PV, params(list.params=='etaa')));
+      helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep,indic.xgrowth, indic.PV, params(list.params=='etaa')));
 %          helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, 1,indic.xgrowth, 1, params(list.params=='etaa')));
 %        helper=load(sprintf('OPT_notarget_0308_spillover%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers, indic.taus, indic.noskill,4, indic.sep, indic.extern, indic.xgrowth, indic.PV, etaa));
 
@@ -198,6 +198,8 @@ initOPT= init201519; % as calibrated under BAU policy
      guess_trans(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff')))=sqrt(x0(T*(find(list.sp=='sff')-1)+1:T*(find(list.sp=='sff'))));
      guess_trans(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn')))=sqrt(x0(T*(find(list.sp=='sn')-1)+1:T*(find(list.sp=='sn'))));
      guess_trans(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg')))=sqrt(x0(T*(find(list.sp=='sg')-1)+1:T*(find(list.sp=='sg'))));
+     guess_trans(T*(find(list.sp=='S')-1)+1:T*(find(list.sp=='S')))=log((params(list.params=='upbarS')-x0(T*(find(list.sp=='S')-1)+1:T*(find(list.sp=='S'))))./...
+     x0(T*(find(list.sp=='S')-1)+1:T*(find(list.sp=='S')))); 
  end
 if indic.target==1
     % only from the third period onwards F is contrained
@@ -297,14 +299,14 @@ sp_all=eval(symms.allvars);
 %%
 if indic.count_techgap==0
 if indic.target==1
-    save(sprintf('SP_target_0512_bop%d_sigmaa%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.Bop, indic.sigmaWorker, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
+    save(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.targetWhat, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
 fprintf('saved')
 else
     if indic.extern==1       
         save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, weightext, indic.xgrowth,  indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs')
     else   
         if indic.Bop==0
-            save(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')), 'sp_all', 'obs')
+            save(sprintf('SP_notarget_2112_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')), 'sp_all', 'obs')
         elseif indic.Bop==1
             save(sprintf('SP_notarget_0512_bop%d_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.Bop, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')), 'sp_all', 'obs')
         end

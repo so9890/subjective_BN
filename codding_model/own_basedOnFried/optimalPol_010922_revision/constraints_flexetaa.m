@@ -25,7 +25,7 @@ elseif indic.sep==0
      x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
      x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
      x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
-     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+     x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 end
 
 
@@ -88,7 +88,11 @@ end
          ceq(T*4+1:T*5) = (1-thetan)*Ln.*wln-wl.*hln; % optimality labour good producers neutral low
          ceq(T*5+1:T*6) = (1-thetag)*Lg.*wlg-wl.*hlg; % optimality labour good producers green low
            if indic.sep==0
-            ceq(T*6+1:T*7) = ws-wsf; % wage clearing
+               if indic.Sun~=2
+                  ceq(T*6+1:T*7) = ws-wsf; % wage clearing
+               elseif indic.Sun==2
+                  ceq(T*6+1:T*7) = chiis.*S.^(sigmaas+taul)-muu.*lambdaa.*(1-taul).*ws.^(1-taul) ; % when scientists are taxed than include optimal supply scientists here
+               end
             if indic.notaul<7 % otherwise used to determine taus
                 ceq(T*7+1:T*8) = ws-wsg;
             end
@@ -98,7 +102,11 @@ end
          ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
           
          % hh budget different for with and without inequality version
+         if indic.Sun==2
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+         else
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
+         end
             ceq(T*12+1:T*13) = S-sn-sff-sg;
             
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
@@ -113,7 +121,11 @@ end
             ceq(T*10+1:T*11)= (1-zh)*hl-(hlf+hlg + hln );
          
          % hh budget different for with and without inequality version
+         if indic.Sun==2
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+         else
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
+         end
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
@@ -132,9 +144,10 @@ end
          ceq(T*6+1:T*7) = zh*hh-(hhf+hhg+hhn);
          ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
          ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
-           if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
+        
+         if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
                 ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
-            end
+         end
      end
        
  elseif indic.noskill==1
@@ -142,7 +155,11 @@ end
             ceq(T*0+1:T*1) = Ln -pn.*(1-alphan).*N./w; % labour demand by sector 
             ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
-            ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
+            if indic.Sun~=2
+                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
+            else
+                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+            end
               if indic.sep==0
                 ceq(T*4+1:T*5) = ws-wsf; % wage clearing
                 if indic.notaul>7

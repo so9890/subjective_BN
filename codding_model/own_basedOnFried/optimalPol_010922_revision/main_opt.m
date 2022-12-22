@@ -60,7 +60,7 @@ indic.xgrowth=0;
 indic.extern=0; % extern==0 when uses no externality in utility
 % but ensure no externality when target is used 
 if indic.target==1
-    indinc.extern=0;
+    indic.extern=0;
 end
 indic.count_techgap=0; % if ==1 then uses technology gap as in Fried
 indic.subs = 0; %==1 eppsy>1 (energy and neutral good are substitutes)
@@ -88,11 +88,11 @@ if isfile(sprintf('params_0209_sep%d.mat', indic.sep))
 else
     fprintf('calibrating model')
     indic.notaul=0; indic.limit_LF=0;indic.labshareequ =0; indic.sizeequ=0; indic.taul0=0; indic.GOV=0; indic.noknow_spill=0;...
-        indic.noskill=0; indic.xgrowth=0; indic.util=1; indic.Bop=1; 
+        indic.noskill=0; indic.xgrowth=0; indic.util=0; indic.Bop=0; 
     indic.sigmaWorker=0;
     [params, Sparams,  polCALIB,  init201014, init201519, list, symms, Ems,  Sall, x0LF, MOM, indexx, StatsEms]...
         =get_params_Base( T, indic, lengthh);
-    save(sprintf('params_0512_sep%d', indic.sep))
+    save(sprintf('params_0209_sep%d', indic.sep))
 end
 if indic.spillovers==1
     params(list.params=='etaa')=1.2;
@@ -318,14 +318,21 @@ end
 % Timing: starting from 2020-2025  as initial period                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 indic.sizeequ=0;
-indic.noknow_spill=2;
+indic.noknow_spill=0;
 indic.sep=0; % Has to be equal to loaded parameters!!!
 indic.count_techgap=0;
-indic.util=1;
-indic.Bop=1;
+indic.util=0;
+indic.Bop=0;
 count=30;
 Tinit=T;
 indic.sigmaWorker=0;
+indic.targetWhat=1;
+
+if indic.targetWhat==0
+    Emss=Ems;
+else
+    Emss=StatsEms.Emslimit_constantEmsRat_Budget;
+end
 
 
 for xgr=0
@@ -373,7 +380,8 @@ indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T but only run with T=12
 indic.targetWhat = 1; %==0 then baseline, ==1 then equal shares
-indic.Sun=0; %=1 then scientists are not form of households=> income channel not present; ==2 then scientists are also part of household and equally taxed 
+indic.Sun=2; %==1 then scientists are not form of households=> income channel not present; 
+             %==2 then scientists are also part of household and equally taxed 
 
 if indic.targetWhat==0
     Emss=Ems;
@@ -381,13 +389,13 @@ else
     Emss=StatsEms.Emslimit_constantEmsRat_Budget;
 end
 
-for tr =1
+for tr =0:1
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[7]
+ for nnt=[5]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -558,11 +566,12 @@ plotts.cev  =       0;
 plotts.analyta =    0;
 plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
-plotts.Ems_limit=   1; 
-plotts.Ems_limit_Decomp=   1;
+plotts.Ems_limit=   0; 
+plotts.Ems_limit_Decomp=   0;
 plotts.phi_sens =   0;
 plotts.sens_other=  0;
-plotts.phi_newcalib       = 0;
+plotts.phi_newcalib       = 1;
+plotts.phi_newcalib_noeff = 0;
 plotts.comp_OPTPer_NCalib = 0;
 plotts.comp_OPT_NCAlib    = 0;
 plotts.count_devs_both_NC = 0;
@@ -619,10 +628,11 @@ plotts.tauf_comp=0;
 plotts.compREd=0;
 
 indic.noknow_spill=0;
-    
+indic.Sun=2;
+indic.targetWhat=1;
 for xgr =0
     for nsk=0
-        for nknk=3
+        for nknk=0
 plotts.xgr = xgr; % main version to be used for plots
 plotts.nsk = nsk;
 plotts.sizeequ =0; % important for comparison of 

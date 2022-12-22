@@ -5,7 +5,8 @@ sigmaa  = paramss(list.paramsdir=='sigmaa');
 upbarH  = paramss(list.paramsdir=='upbarH');
 S       = paramss(list.paramsdir=='S');
 sigmaas = paramss(list.paramsdir=='sigmaas');
-upbS    = paramss(list.paramsdir=='upbS');
+upbarS  = paramss(list.paramsdir=='upbarS');
+zs      = paramss(list.paramsdir=='zs');
 B       =  paramss(list.paramsdir=='B');
 
 Bl       =  paramss(list.paramsdir=='Bl');

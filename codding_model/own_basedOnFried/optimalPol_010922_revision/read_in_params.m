@@ -34,6 +34,7 @@ if indic.sep==2
 %     wsgpar     = 0.01; %exp(x(list.choice=='wsg'));
 end
 upbarH  = params(list.params=='upbarH');
+upbarS  = params(list.params=='upbarS'); 
 chii  = params(list.params=='chii');
 zh  = params(list.params=='zh');
 
@@ -41,7 +42,7 @@ if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
 chiis  = params(list.params=='chiis');
-% upbS   = params(list.params=='upbS');
+zs     = params(list.params=='upbS'); % 1 percent of workers are scientists
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');
 thetag = params(list.params=='thetag');

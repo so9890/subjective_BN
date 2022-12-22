@@ -19,6 +19,8 @@ if indic.xgrowth==0
  x((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T) = (y((find(list.sp=='sff')-1)*T+1:find(list.sp=='sff')*T)).^2;
  x((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T) = (y((find(list.sp=='sn')-1)*T+1:find(list.sp=='sn')*T)).^2;
  x((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T) = (y((find(list.sp=='sg')-1)*T+1:find(list.sp=='sg')*T)).^2;
+  x((find(list.sp=='S')-1)*T+1:find(list.sp=='S')*T) = upbarS./(1+exp(y((find(list.sp=='S')-1)*T+1:find(list.sp=='S')*T)));
+
 end
 
 if indic.target==1
@@ -55,7 +57,7 @@ c=[];
 % c(1)= sum(F(1:percon))-Ftarg_20s; 
 if indic.xgrowth==0
     if indic.sep==0
-        c(1:T)    = S-upbarH;
+        c(1:T)    = S-upbarS;
     else
         
         c(1:T)=sg-upbarH;

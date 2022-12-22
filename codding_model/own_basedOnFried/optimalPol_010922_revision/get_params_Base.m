@@ -46,7 +46,8 @@ syms sigmaa...      % 1/sigmaa = Frisch elasticity of labour
      omegaa ...     % emission share of dirty output
      sigmaas ...    % Frisch elasticity labour supply scientists
      chiis ...      % disutility of labour scientists
-     upbS ...       % upper bound scientists
+     upbarS ...     % upper bound scientists
+     zs ...         % share of scientists
      Af0 ...        % initial technology level fossil
      Ag0 ...        % initial technology level green
      An0 ...        % initial technology level neutral
@@ -60,7 +61,7 @@ syms taul ...       % income tax progressivity
      real
  
 symms.params = [sigmaa,sigmaas, chiis, thetaa, betaa, zh, chii, upbarH, alphaf, alphan, alphag,...
-                thetaf, thetan, thetag, eppsy, eppse, deltay, upbS, GovRev, ...
+                thetaf, thetan, thetag, eppsy, eppse, deltay, upbarS, zs, GovRev, ...
                 gammaa, etaa, rhof, rhon, rhog, phii, deltaa, omegaa];   
 list.params  = string(symms.params);
 
@@ -72,7 +73,7 @@ list.pol      = string(symms.pol);
 
 % parameters directly calibrated
 symms.paramsdir = [sigmaa, thetaa, betaa, upbarH, alphaf, alphan, alphag,...
-                eppsy, eppse, sigmaas, upbS, GovRev, ...
+                eppsy, eppse, sigmaas, upbarS, zs, GovRev, ...
                 etaa, phii,  rhof, rhon, rhog, deltaa];   
 list.paramsdir  = string(symms.paramsdir);
 
@@ -93,8 +94,8 @@ else
 end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
-upbarH     = 1;
-
+upbarH   = 1;
+upbarS   = 0.33;
 eppse    = 1.5;            % Fried
 eppsy    = 0.05;           % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
@@ -114,7 +115,7 @@ rhog     = 0.01;
 % rhon     = 1; 
 % rhog     = 0.01;
 phii     = 0.75;            % Fried: o.5
-upbS     = 0.01;
+zs     = 0.01;
 
 % phis = 1; % scaled
 %- policies
