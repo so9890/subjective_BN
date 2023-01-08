@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, taus, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic, MOM)
+            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic, MOM)
 
 read_in_params;
 
@@ -26,7 +26,7 @@ if indic.xgrowth==0
     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
  if indic.sep==1
-    S    = sn+sg+sff;
+    S    = (sn+sg+sff);
  elseif indic.sep==0
     S     = x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T);
  end
@@ -166,11 +166,11 @@ if indic.notaul<2
                     +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
                     +tauf.*F; % government income scheme budget
     elseif indic.Sun==2
-        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F-GovRev)./...
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+ws.*S+tauf.*F-GovRev)./...
                 (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)+(ws.*S).^(1-taul));
         SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
                     +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
-                    +lambdaa.*(ws.*S).^(1-taul)+tauf.*F; % government income scheme budget      
+                    +(ws.*S-lambdaa.*(ws.*S).^(1-taul))+tauf.*F; % government income scheme budget      
     end
 else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans of env rev or (iii) notaul==7 earmarking
    if indic.Sun~=2
@@ -181,19 +181,22 @@ else % either (i) gov consumes env revs (notaul==2, ==3) or (ii) lump sum trans 
                 +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
             % government income scheme budget
    elseif indic.Sun==2
-        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)-GovRev)./...
+        lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+ws.*S-GovRev)./...
             (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)+(ws.*S).^(1-taul)); 
         
         SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-                +lambdaa.*(ws.*S).^(1-taul)+(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+                +(ws.*S-lambdaa.*(ws.*S).^(1-taul))...
+                +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
             % government income scheme budget
    end
 end
 
 if indic.notaul >=4 && indic.notaul<7 % lump sum trans
     Tls =tauf.*F;    
+    Tlsall=Tls-ws.*S;
 else
     Tls =zeros(size(F));
+    Tlsall=Tls-ws.*S;
 end
 % government consumption
 if indic.notaul<2 || indic.notaul >= 4 % (>=4 :lump sum transfers with and without taul)

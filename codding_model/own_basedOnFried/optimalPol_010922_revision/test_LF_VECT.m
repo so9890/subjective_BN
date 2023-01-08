@@ -61,7 +61,7 @@ end
     end
     if indic.sep==0
         ws=z(list.allvars=='ws', :)';
-        S =log((params(list.params=='upbarH')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
+        S =log((params(list.params=='upbarS')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
         gammas =zeros(size(S));
     else
         wsf=z(list.allvars=='wsf', :)';

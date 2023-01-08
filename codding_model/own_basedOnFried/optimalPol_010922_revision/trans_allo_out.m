@@ -17,6 +17,8 @@ allo_trans=solution;
 allo_trans(indexx.sqr)=solution(indexx.sqr).^2;
 allo_trans(indexx.exp)=exp(solution(indexx.exp));
 allo_trans(indexx.lab)=params(listt=='upbarH')./(1+exp(solution(indexx.lab)));
+allo_trans(indexx.Sc)=params(listt=='upbarS')./(1+exp(solution(indexx.Sc)));
+
 allo_trans(indexx.oneab)=1./(1+exp(solution(indexx.oneab)));
 
 end

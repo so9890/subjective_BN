@@ -1,4 +1,4 @@
-function  [ceq]= calibRem_nows_fsolve_GOOD_nonsep(x, MOM, list, trProd, paramss, poll, Af, An, Ag, gammaa)
+function  [ceq]= calibRem_nows_fsolve_GOOD_nonsep(x, MOM, list, trProd, paramss, poll, Af, An, Ag, lambdaa)
 % this function backs out missing functions:
 % 
 
@@ -14,7 +14,7 @@ sn      = exp(x(list.calib3=='sn'));
 ws      = exp(x(list.calib3=='ws'));
 % sigmaas = exp(x(list.calib3=='sigmaas'));
 chiis   = exp(x(list.calib3=='chiis'));
-% gammaa  = exp(x(list.calib3=='gammaa'));
+gammaa  = exp(x(list.calib3=='gammaa'));
 % rhon  = exp(x(list.calib3=='rhon'));
 % rhog  = exp(x(list.calib3=='rhog'));
 % rhof  = exp(x(list.calib3=='rhof'));
@@ -39,8 +39,8 @@ muu=C^(-thetaa);
 
 q=0;
 % % target gammaa
-%   q=q+1;
-%   ceq(q)= (A/A_lag-1)-MOM.growth; % targeting 5 year growth rate
+   q=q+1;
+   ceq(q)= (A/A_lag-1)-MOM.growth; % targeting 5 year growth rate
 %  q=q+1;
 %  ceq(q)= gammaa - MOM.growth/((sn/rhon)^etaa*(A_lag/An_lag)^phii);
 
@@ -67,8 +67,10 @@ ceq(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan)
 
 q=q+1;
 ceq(q)= sff+sg+sn-MOM.targethour;
-q=q+1;
-ceq(q)= MOM.targethour-(muu*ws/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
+q=q+1;   
+ceq(q)= chiis.*MOM.targethour.^(sigmaas+taul)-muu.*lambdaa.*(1-taul).*ws.^(1-taul);
+            
+%ceq(q)= MOM.targethour-(muu*ws/(chiis)).^(1/sigmaas);  % equal disutility as for other labour => pins down ws
 %  q=q+1;
 %  ceq(q)= MOM.rhon-rhon;  % equal disutility as for other labour => pins down ws
 

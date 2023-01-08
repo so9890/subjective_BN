@@ -84,7 +84,7 @@ if indic.xgrowth==0
 
     if indic.sep==0
         gammas =sqrt(zeros(size(An)));
-        S =log((params(list.params=='upbarH')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
+        S =log((params(list.params=='upbarS')-varrs(list.allvars=='S', :))./(varrs(list.allvars=='S', :)))';
         ws=z(list.allvars=='ws', :)';
     else
         gammasg =z(list.allvars=='gammasg', :)';
@@ -125,6 +125,11 @@ x0=x0(:);
 %     % to evaluate stuff
 % end
 
+modFF = @(x)laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic, Ems);
+options = optimoptions('fsolve', 'TolFun', 10e-6,'Display','iter', 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+[x0, fval, exitf] = fsolve(modFF, x0, options);
+
+
 lb=[];
 ub=[];
 
@@ -139,8 +144,8 @@ objf=@(x)objectiveCALIBSCI(x);
         constLF=@(x)laissez_faireVECT_xgrowth_fmincon(x, params, list, varrs, init201519, T, indic, MOM);
     end
 
-    if (indic.xgrowth==0 && indic.noskill==1) || (indic.oldCalib==0 && indic.tauf==0)
-        options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+    if (indic.xgrowth==0 && indic.noskill==1) 
+        options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',5e10,'MaxIter',6e10,'Display','iter');
     else
         options = optimset('algorithm','active-set','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
     end

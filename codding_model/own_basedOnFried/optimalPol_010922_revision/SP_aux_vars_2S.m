@@ -63,7 +63,7 @@ An_lag  = [An0;An(1:T-1)];
 N       = xn.^alphan.*(An.*Ln).^(1-alphan); 
 pn      = (N./(An.*Ln)).^((1-alphan)/alphan)./alphan;
 A_lag   = (rhof*Af_lag+rhon*An_lag+rhog*Ag_lag)./(rhof+rhon+rhog);
-S       = sff+sg +sn;
+S       = (sff+sg +sn);
 A       = (rhof*Af+rhon*An+rhog*Ag)/(rhof+rhon+rhog);
 Y       = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy)*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % final output production
 wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
@@ -85,10 +85,10 @@ wh      = thetaf*(hlf./hhf).^(1-thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).
 wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)).*...
         (pf).^(1/(1-alphaf)).*Af;
 taul    = (log(wh./wl)-sigmaa*log(hh./hl))./(log(hh./hl)+log(wh./wl)); % from equating FOCs wrt skill supply, solve for taul
-lambdaa = (zh*(wh.*hh)+(1-zh)*(wl.*hl)+tauf.*F)./...
-            (zh*(wh.*hh).^(1-taul)+(1-zh)*(wl.*hl).^(1-taul)); 
+lambdaa = (zh*(wh.*hh)+((1-zh))*(wl.*hl)+tauf.*F)./...
+            (zh*(wh.*hh).^(1-taul)+((1-zh))*(wl.*hl).^(1-taul)); 
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+            +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
             +tauf.*F;
 Emnet     = omegaa*F-deltaa; % net emissions
 
@@ -110,7 +110,7 @@ elseif thetaa==1
     Utilcon = log(C);
 end
 
-Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+Utillab = chii.*(zh.*hh.^(1+sigmaa)+((1-zh)).*hl.^(1+sigmaa))./(1+sigmaa);
 
 if indic.sep==0
       Utilsci = chiis*S.^(1+sigmaas)./(1+sigmaas);

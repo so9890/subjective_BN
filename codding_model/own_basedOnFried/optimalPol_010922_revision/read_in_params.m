@@ -37,12 +37,11 @@ upbarH  = params(list.params=='upbarH');
 upbarS  = params(list.params=='upbarS'); 
 chii  = params(list.params=='chii');
 zh  = params(list.params=='zh');
-
+zs  = params(list.params=='zs');
 if sum(list.params=='betaa')==1
     betaa = params(list.params=='betaa');
 end
 chiis  = params(list.params=='chiis');
-zs     = params(list.params=='upbS'); % 1 percent of workers are scientists
 thetaf = params(list.params=='thetaf');
 thetan = params(list.params=='thetan');
 thetag = params(list.params=='thetag');

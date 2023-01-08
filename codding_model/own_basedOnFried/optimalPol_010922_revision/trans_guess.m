@@ -16,6 +16,8 @@ else
     guess_trans(indexx.lab)=log((params(listt=='upbarH')-guess(indexx.lab))./(guess(indexx.lab)));
 end
 
+guess_trans(indexx.Sc)=log((params(listt=='upbarS')-guess(indexx.Sc))./(guess(indexx.Sc)));
+
 guess_trans(indexx.oneab)=log((1-guess(indexx.oneab))./guess(indexx.oneab));
 
 

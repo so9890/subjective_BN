@@ -63,7 +63,7 @@ end
         sn     = (x((find(list.test=='sn')-1)*T+1:(find(list.test=='sn'))*T)).^2;
         se     = (x((find(list.test=='se')-1)*T+1:(find(list.test=='se'))*T)).^2;
      end
-S    = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
+S    = upbarS./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
  if indic.sep~=2
      if indic.sep~=0
          gammasf = x((find(list.test=='gammasf')-1)*T+1:(find(list.test=='gammasf'))*T).^2;
@@ -113,7 +113,7 @@ end
 if indic.Sun~=2
     helpS=zeros(size(F)); % helper for gov revenues from taxing scientists
 elseif indic.Sun==2
-    helpS=-lambdaa.*(ws.*S).^(1-taul);
+    helpS=(ws.*S-lambdaa.*(ws.*S).^(1-taul)); % version with lump sum transfers to finance subsidies on machine producers
 end
 if indic.notaul<2 || ...
    indic.notaul == 6 % tauf redistributed via income tax
@@ -124,14 +124,13 @@ if indic.notaul<2 || ...
         +tauf.*F;
     Tls =zeros(size(F));    
     GovCon =zeros(size(F));
-
 elseif indic.notaul == 2 ||...
         indic.notaul==3 %2,3,4,5,7
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
            +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
            +helpS;
     GovCon = tauf.*F; % GovCon = env tax consumed by government
-    Tls =zeros(size(F));    
+    Tls =zeros(size(F)); 
 elseif indic.notaul == 4 || indic.notaul ==5
     if indic.noskill==0
         SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
@@ -147,9 +146,13 @@ elseif indic.notaul >= 7 % earmarking
          +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
          +helpS;
     GovCon =zeros(size(F));
-    Tls =zeros(size(F)); 
+    Tls = zeros(size(F));
 end
-
+if indic.xgrowth==0
+    Tlsall = Tls-ws.*S;
+else
+    Tlsall=Tls;
+end
 
 muu      = C.^(-thetaa); % same equation in case thetaa == 1
 E       = (F.^((eppse-1)/eppse)+G.^((eppse-1)/eppse)).^(eppse/(eppse-1));
@@ -178,19 +181,27 @@ if indic.noskill==0
         %3- budget
         q=q+1;
         if indic.Sun~=2 || indic.xgrowth==1
-            f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C;
+            if indic.xgrowth==0
+               f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+ws.*S+Tlsall-C;
+            else
+               f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tlsall-C;
+            end
         elseif indic.Sun==2
-            f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tls-C; %=> determines C
+            f((q-1)*T+1:T*q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tlsall-C; %=> determines C
         end
 else
         q=q+1;
         f(q:T)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
        %3- budget
         q=q+1;
-        if indic.Sun~=2
-            f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
-        elseif indic.Sun==2
-           f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tls-C; %=> determines C
+        if indic.Sun~=2 || indic.xgrowth==1
+            if indic.xgrowth==0
+                f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+ws.*S+Tlsall-C; %=> determines C
+            else
+               f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+Tlsall-C; %=> determines C
+            end
+       elseif indic.Sun==2
+           f((q-1)*T+1:T*q) = lambdaa.*(w.*h).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tlsall-C; %=> determines C
         end
 end
 %4- output fossil
@@ -344,7 +355,7 @@ if indic.xgrowth==0 && indic.sep~=2
             
         end
         q=q+1;
-        f((q-1)*T+1:T*q)= gammas.*(upbarH-S);
+        f((q-1)*T+1:T*q)= gammas.*(upbarS-S);
     end
 end
 

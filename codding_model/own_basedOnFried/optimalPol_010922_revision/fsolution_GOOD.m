@@ -73,7 +73,7 @@ wlf   = Lfwlf/Lf;
 sff = SR.sff;
 sg = SR.sg;
 sn = SR.sn;
-S = (sff+sg+sn); % determined by chii in science problem
+S = (sff+sg+sn)/zs; % determined by chii in science problem
 gammasg =0;
 gammasn=0;
 gammasf=0;
@@ -102,8 +102,10 @@ Agtest= Ag0*(1+gammaa*(sg/rhog)^etaa*(A0/Ag0)^phii);
      fprintf('growth rate works!!')
  end
  
+
 SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-            +(1-zh)*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
+            +((1-zh))*(wl.*hl-lambdaa.*(wl*hl).^(1-taul))...
+             +zs*(ws.*S-lambdaa*(ws.*S)^(1-taul))...           
             +tauf.*F;
 GovRev  = MOM.Debt;
 Emnet     = omegaa*F-deltaa; % net emissions
@@ -144,7 +146,7 @@ x0LF= eval(symms.choice);
 % tests
 zh=paramss(list.paramsdir=='zh');
 tauf = poll(list.poldir=='tauf');
-Cincome= zh*hh*wh+(1-zh)*wl*hl+tauf*F-SGov;
+Cincome= zh*hh*wh+((1-zh))*wl*hl+zs*ws*S-ws*S*zs+tauf*F-SGov;
 
 if abs(Cincome-C)>1e-10
     error('goods market does not clear!')
@@ -157,7 +159,7 @@ if abs(hh*zh-hhn-hhf-hhg)>1e-10
 else
     fprintf('high skill market clears!')
 end
-if abs((1-zh)*hl-(hlg+hlf+hln))>1e-10
+if abs(((1-zh))*hl-(hlg+hlf+hln))>1e-10
     error('low skill market does not clear!')
 else
     fprintf('low skill market clears!')

@@ -61,7 +61,7 @@ else
     sff    = exp(x(list.choice=='sff'));
     sn     = exp(x(list.choice=='sn'));
     sg     = exp(x(list.choice=='sg'));
-    S      = upbarH/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
+    S      = upbarS/(1+exp(x(list.choice=='S')));%exp(x(list.choice=='S')); % total labour supply
     ws     = exp(x(list.choice=='ws'));
     gammas = x(list.choice=='gammas')^2;
 end
@@ -92,45 +92,50 @@ else
     hh=h; hl=h; wh=w; wl=w; % this should suffice to have government budget correct
 end
 
+
+if indic.Sun~=2
+    helpS=zeros(size(F)); % helper for gov revenues from taxing scientists
+elseif indic.Sun==2
+    helpS=(ws.*S-lambdaa.*(ws.*S).^(1-taul)); % version with lump sum transfers to finance subsidies on machine producers
+end
 if indic.notaul<2 || ...
    indic.notaul == 6 % tauf redistributed via income tax
+
     SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS...
         +tauf.*F;
     Tls =zeros(size(F));    
     GovCon =zeros(size(F));
-
 elseif indic.notaul == 2 ||...
-        indic.notaul==3 
+        indic.notaul==3 %2,3,4,5,7
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+           +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+           +helpS;
     GovCon = tauf.*F; % GovCon = env tax consumed by government
-    Tls =zeros(size(F));    
+    Tls =zeros(size(F)); 
 elseif indic.notaul == 4 || indic.notaul ==5
-    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    if indic.noskill==0
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS;
+    else
+        SGov = w.*h-lambdaa.*(w.*h).^(1-taul) +helpS;
+    end
     GovCon =zeros(size(F));
     Tls  = tauf.*F;
-elseif indic.notaul == 7 % earmarking
+elseif indic.notaul >= 7 % earmarking
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+         +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+         +helpS;
     GovCon =zeros(size(F));
-    Tls =zeros(size(F));    
-    taus = tauf.*F./(pg.*G); % subsidy on green sector
+    Tls = zeros(size(F));
 end
-% else % with one skill type
-%     if indic.notaul<2
-%         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul))...
-%             +tauf.*F;
-%     else
-%         SGov    = (w.*h-lambdaa.*(w.*h).^(1-taul));
-%         if indic.notaul <4
-%             GovCon = tauf.*F;
-%         else
-%             GovCon =zeros(size(F));
-%         end
-%     end
-% end
+if indic.xgrowth==0
+    Tlsall = Tls-ws.*S;
+else
+    Tlsall=Tls;
+end
 
 muu   = C.^(-thetaa); % same equation in case thetaa == 1
    
@@ -140,7 +145,7 @@ N     =  (1-deltay)/deltay.*(pee./pn)^(eppsy).*E; % demand N final good producer
 Y     = (deltay^(1/eppsy).*E.^((eppsy-1)/eppsy)+(1-deltay)^(1/eppsy).*N.^((eppsy-1)/eppsy)).^(eppsy/(eppsy-1)); % production function Y 
 
 wln     = pn.^(1/(1-alphan)).*(1-alphan).*alphan.^(alphan/(1-alphan)).*An; % price labour input neutral sector
-wlg     = (pg.*(1+taus)).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
+wlg     = (pg).^(1/(1-alphag)).*(1-alphag).*alphag.^(alphag/(1-alphag)).*Ag;
 wlf     = (1-alphaf)*alphaf^(alphaf/(1-alphaf)).*(pf).^(1/(1-alphaf)).*Af; 
 % 
 % xn      = (alphan*pn).^(1/(1-alphan)).*Ln*An;
@@ -158,11 +163,18 @@ if indic.noskill==0
         f(q)= chii*hh.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(wh).^(1-taul))-gammalh./zh.*hh.^taul); %=> determines hh
         %2
         q=q+1;
-        f(q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./(1-zh).*hl.^taul); %=> determines hl
+        f(q)= chii*hl.^(sigmaa+taul) - ((muu.*lambdaa.*(1-taul).*(wl).^(1-taul))-gammall./((1-zh)).*hl.^taul); %=> determines hl
         %3- budget
         q=q+1;
-        f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+(1-zh).*lambdaa.*(wl.*hl).^(1-taul)+Tls-C; %=> determines C
-
+         if indic.Sun~=2 || indic.xgrowth==1
+            if indic.xgrowth==0
+               f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+((1-zh)).*lambdaa.*(wl.*hl).^(1-taul)+ws.*S+Tlsall-C;
+            else
+               f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+((1-zh)).*lambdaa.*(wl.*hl).^(1-taul)+Tlsall-C;
+            end
+        elseif indic.Sun==2
+            f(q) = zh.*lambdaa.*(wh.*hh).^(1-taul)+((1-zh)).*lambdaa.*(wl.*hl).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tlsall-C; %=> determines C
+        end
     else  
         error('version with inequality not yet updated')
         q=q+1;
@@ -182,7 +194,15 @@ else
     f(q)= chii*h.^(sigmaa+taul)- ((muu.*lambdaa.*(1-taul).*(w).^(1-taul))-gammalh.*h.^taul); %=> determines hh
    %3- budget
     q=q+1;
-    f(q) = lambdaa.*(w.*h).^(1-taul)+Tls-C; %=> determines C
+    if indic.Sun~=2 || indic.xgrowth==1
+            if indic.xgrowth==0
+                f(q) =lambdaa.*(w.*h).^(1-taul)+ws.*S+Tlsall-C; %=> determines C
+            else
+               f(q) = lambdaa.*(w.*h).^(1-taul)+Tlsall-C; %=> determines C
+            end
+    elseif indic.Sun==2
+           f(q) = lambdaa.*(w.*h).^(1-taul)+lambdaa.*(ws.*S).^(1-taul)+Tlsall-C; %=> determines C
+    end
 end
 
 %4- output fossil
@@ -195,7 +215,7 @@ f(q) = N-An.*Ln.*(pn.*alphan).^(alphan./(1-alphan));
 
 %6- output green
 q=q+1;
-f(q)=  G-Ag.*Lg.*(pg.*(1+taus).*alphag).^(alphag./(1-alphag));
+f(q)=  G-Ag.*Lg.*(pg.*alphag).^(alphag./(1-alphag));
 
 %7- demand green scientists
 if indic.sep==1
@@ -203,7 +223,7 @@ if indic.sep==1
     f(q)= wsf - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
     %8
     q=q+1;
-    f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+    f(q)= wsg - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
     %9
     q=q+1;
     f(q)= wsn - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
@@ -213,7 +233,7 @@ else
     f(q)= ws - (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F.*(1-alphaf).*Af_lag)./(rhof^etaa.*Af); 
     %8
     q=q+1;
-    f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*(1+taus)*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
+    f(q)= ws - (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G.*(1-alphag).*Ag_lag)./(rhog^etaa.*Ag);
     %9
     q=q+1;
     f(q)= ws - (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N.*(1-alphan).*An_lag)./(rhon^etaa.*An);
@@ -256,7 +276,7 @@ else
     q=q+1;
     f(q) = Ln -pn.*(1-alphan).*N./w; % labour demand neutral 
     q=q+1;
-    f(q) = Lg - pg.*(1+taus)*(1-alphag).*G./w;
+    f(q) = Lg - pg.*(1-alphag).*G./w;
 end
 
 % prices and wages
@@ -280,7 +300,7 @@ if indic.noskill==0
     f(q) = zh.*hh-(hhn + hhf+hhg); % high skill market clearing
     %23
     q=q+1;
-    f(q) = (1-zh).*hl-(hln + hlf+hlg); % low skill market clearing
+    f(q) = ((1-zh)).*hl-(hln + hlf+hlg); % low skill market clearing
 
     %13- Kuhn Tucker Labour supply and scientists
     %25
@@ -315,10 +335,17 @@ elseif indic.sep==0
     %market for scientists
      q=q+1;
      f(q)= sff+sg+sn-S; % determines wage in neutral sector
+     q=q+1;
+        if indic.Sun==0
+            f(q)= (chiis).*S.^sigmaas-((muu.*ws-gammas));
+        elseif indic.Sun==1
+            f(q)= (chiis).*S.^sigmaas-((ws-gammas));
+        elseif indic.Sun==2
+            f(q)= chiis.*S.^(sigmaas+taul)+gammas-muu.*lambdaa.*(1-taul).*ws.^(1-taul);
+            
+        end
     q=q+1;
-    f(q)= (chiis)*S^sigmaas-((muu*ws-gammas));
-    q=q+1;
-    f(q)= gammas.*(upbarH-S);
+    f(q)= gammas.*(upbarS-S);
 end
 % balanced budget government
 q=q+1;

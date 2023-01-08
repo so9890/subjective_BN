@@ -29,6 +29,8 @@ for k = keys(RES)
     F = varrs(varlist=='F',:)';
     wh = varrs(varlist=='wh',:)';
     wl = varrs(varlist=='wl',:)';
+    ws = varrs(varlist=='ws',:)';
+
     E = varrs(varlist=='E',:)';
     Y = varrs(varlist=='Y',:)';
     tauf = varrs(varlist=='tauf',:)';
@@ -106,7 +108,10 @@ analyTaul = tauf.*pf.*F./Y;
 
 dTaulHh = (1-(1-taul).*lambdaa.*(wh.*hh).^(-taul)).*100;
 dTaulHl = (1-(1-taul).*lambdaa.*(wl.*hl).^(-taul)).*100;
+dTaulS = (1-(1-taul).*lambdaa.*(ws.*S).^(-taul)).*100;
+
 dTaulAv = 1./((1-zh)*wl.*hl+zh*wh.*hh).*(zh*wh.*hh.*dTaulHh+(1-zh).*wl.*hl.*dTaulHl);
+dTaulAvS = 1./((1-zh)*wl.*hl+zh*wh.*hh+ws.*S).*(zh*wh.*hh.*dTaulHh+(1-zh).*wl.*hl.*dTaulHl+ws.*S.*dTaulS);
 %- tauf in tons per C02
 
 tauf_CO2=tauf./omegaa;

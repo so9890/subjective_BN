@@ -42,7 +42,7 @@ if indic.noskill==0
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul,taus, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM);
+            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM);
 else
 
      [xn,xf,xg,Ag, An, Af,...
@@ -103,9 +103,9 @@ end
           
          % hh budget different for with and without inequality version
          if indic.Sun==2
-            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tlsall;
          else
-            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-ws.*S-Tlsall;
          end
             ceq(T*12+1:T*13) = S-sn-sff-sg;
             
@@ -122,9 +122,9 @@ end
          
          % hh budget different for with and without inequality version
          if indic.Sun==2
-            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tlsall;
          else
-            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
+            ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-ws.*S-Tlsall;
          end
             if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
@@ -156,9 +156,9 @@ end
             ceq(T*1+1:T*2) = Lg - pg.*(1-alphag).*G./w;
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
             if indic.Sun~=2
-                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
+                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-ws.*S-Tlsall;
             else
-                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tls;
+                ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-lambdaa.*(ws.*S).^(1-taul)-Tlsall;
             end
               if indic.sep==0
                 ceq(T*4+1:T*5) = ws-wsf; % wage clearing

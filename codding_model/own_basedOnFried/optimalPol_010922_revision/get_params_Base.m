@@ -95,7 +95,7 @@ end
 
 betaa    = (.985)^5;  % Barrage, but here for 5 years
 upbarH   = 1;
-upbarS   = 0.33;
+upbarS   = 0.4;
 eppse    = 1.5;            % Fried
 eppsy    = 0.05;           % Fried
 alphaf   = 1-0.28;         % Fried: fossil has a higher labour share!
@@ -114,8 +114,8 @@ rhog     = 0.01;
 % rhof     = 0.01;
 % rhon     = 1; 
 % rhog     = 0.01;
-phii     = 0.75;            % Fried: o.5
-zs     = 0.01;
+phii     = 0.5;            % Fried: o.5
+zs       = 1;
 
 % phis = 1; % scaled
 %- policies

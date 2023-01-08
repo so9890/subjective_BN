@@ -28,7 +28,7 @@ end
 syms Af_lag Ag_lag An_lag ...
      sff sg sn  ws gammaa chiis real
 symms.calib3 = [Af_lag Ag_lag An_lag ...
-     sff sg sn ws chiis];
+     sff sg sn ws chiis gammaa];
  
 list.calib3 =string(symms.calib3);
 
@@ -52,8 +52,11 @@ indexxLF.lab = boolean(zeros(size(list.choice)));
 indexxLF.exp = boolean(zeros(size(list.choice)));
 indexxLF.sqr = boolean(zeros(size(list.choice)));
 indexxLF.oneab = boolean(zeros(size(list.choice)));
+indexxLF.Sc = boolean(zeros(size(list.choice)));
 
-indexxLF.lab(list.choice=='hl'| list.choice=='hh'| list.choice=='S')=1;
+
+indexxLF.lab(list.choice=='hl'| list.choice=='hh')=1;
+indexxLF.Sc( list.choice=='S')=1;
 indexxLF.exp(  list.choice~='lambdaa'& list.choice~='hl'& list.choice~='hh' & list.choice~='gammas'&list.choice~='gammall'& list.choice~='gammalh'& list.choice~='S' )=1;
 indexxLF.sqr(list.choice=='gammall'| list.choice=='gammalh'| list.choice=='gammas' )=1;
 
@@ -86,7 +89,7 @@ indexxcalib.lab = boolean(zeros(size(list.calib)));
 indexxcalib.exp = boolean(zeros(size(list.calib)));
 indexxcalib.sqr = boolean(zeros(size(list.calib)));
 indexxcalib.oneab = boolean(zeros(size(list.calib)));
-indexxcalib.sci = boolean(zeros(size(list.choice)));
+indexxcalib.Sc = boolean(zeros(size(list.choice)));
 
 indexxcalib.lab(list.calib=='hl'| list.calib=='hh')=1;
 indexxcalib.exp(list.calib~='thetan' & list.calib~='thetaf' & list.calib~='thetag'& list.calib~='zh' ...
@@ -103,7 +106,7 @@ pn=log(1);
 pg=log(1);
 deltay =  log((1-0.4)/0.4);
 
-x0=eval(symms.prod(symms.prod~='omegaa'))
+x0=eval(symms.prod(symms.prod~='omegaa'));
 %- solve
 f = calibProd(x0, MOM, list, parsHelp);
 prodf = @(x)calibProd(x,  MOM, list, parsHelp);
@@ -161,6 +164,7 @@ Sparams=cell2struct(num2cell(trLab), cell_par, 2);
 hhn = trLab(list.calib=='hhn');
 hhg = trLab(list.calib=='hhg');
 hhf = trLab(list.calib=='hhf');
+lambdaa = trLab(list.calib=='lambdaa');
 hln = hhn*(1-Sparams.thetan)/(Sparams.thetan)*MOM.whwl; % hln
 hlf = hhf*(1-Sparams.thetaf)/(Sparams.thetaf)*MOM.whwl; % hlf
 hlg = hhg*(1-Sparams.thetag)/(Sparams.thetag)*MOM.whwl; % hlg 
@@ -195,72 +199,59 @@ x0 = eval(symms.calib3);
 %%
 
 %-- find upper bound on growth rate
-xup=[log(Af), log(Ag), log(An), log(0.1)];
-
-[ceq]= calibRem_upbar_gammaa(xup, MOM, list, parsHelp,polhelp,  Af, An, Ag);
-modg=@(x)calibRem_upbar_gammaa(x, MOM, list, parsHelp,polhelp,  Af, An, Ag);
-options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-[x, fval, exitf] = fsolve(modg, xup, options);
-gammaa=exp(x(4));
+% xup=[log(Af), log(Ag), log(An), log(0.1)];
+% 
+% [ceq]= calibRem_upbar_gammaa(xup, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+% modg=@(x)calibRem_upbar_gammaa(x, MOM, list, parsHelp,polhelp,  Af, An, Ag);
+% options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+% [x, fval, exitf] = fsolve(modg, xup, options);
+% gammaa=exp(x(4));
 %%
 %- test
 %  f= calibRem_nows_fsolve(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag);
 % 
 % % solving model
-modF3 = @(x)calibRem_nows_fsolve_GOOD_nonsep(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa); 
-options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter'); %,'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-rr=load(sprintf('calib_2209_sep'), 'x');
-[x, fval, exitf] = fsolve(modF3, rr.x, options);
-% [x, fval, exitf] = fsolve(modF3, x0, options);
+modF3 = @(x)calibRem_nows_fsolve_GOOD_nonsep(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, lambdaa); 
+options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter','Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+% rr=load(sprintf('calib_2209_sep'), 'x');
+rr=load(sprintf('calib_0501_sep'), 'xSc');
+[xSc, fval, exitf] = fsolve(modF3, [rr.xSc], options);
+%[x, fval, exitf] = fsolve(modF3, x0, options);
 
-save(sprintf('calib_2209_sep'), 'x');
+save(sprintf('calib_0501_sep'), 'xSc');
 
 %%
-  Af_lag  = exp(x(list.calib3=='Af_lag'));
-  Ag_lag  = exp(x(list.calib3=='Ag_lag'));
-  An_lag  = exp(x(list.calib3=='An_lag'));
-  chiis    = exp(x(list.calib3=='chiis'));
-  ws       = exp(x(list.calib3=='ws'));
-% gammaa   = exp(x(list.calib3=='gammaa'));
-  sff     = exp(x(list.calib3=='sff'));
-  sg      = exp(x(list.calib3=='sg'));
-  sn      = exp(x(list.calib3=='sn'));
-% symms.calib4=symms.calib3(list.calib3~='gammaa');
-% list.calib4=string(symms.calib4);
-% % 
-% x02=x(list.calib3~='gammaa');
-% % f=calibRem_nows_fixed(x02, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa, chiis);
-% 
-% sol4=load('initcalib4NEW');
-% 
-% modF4=@(x)calibRem_nows_fixed_GOOD(x, MOM, list, trProd, parsHelp, polhelp, Af, An, Ag, gammaa);
-% options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e4, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-% [x4, fval, exitf] = fsolve(modF4, x02, options);
-% save('initcalib4NEW', 'x4')
-%  %
-%  Af_lag  = exp(x4(list.calib4=='Af_lag'));
-%  Ag_lag  = exp(x4(list.calib4=='Ag_lag'));
-%  An_lag  = exp(x4(list.calib4=='An_lag'));
-% chiis    = exp(x4(list.calib4=='chiis'));
-%  ws       = exp(x4(list.calib4=='ws'));
-%  sff     = exp(x4(list.calib4=='sff'));
-%  sg      = exp(x4(list.calib4=='sg'));
-%  sn      = exp(x4(list.calib4=='sn'));
-%%
-% syms chiis real
-% symms.calib3=[symms.calib3, chiis]; 
-% list.calib3=string(symms.calib3);
-% chiis= ws/(C^parsHelp(list.paramsdir=='thetaa')*MOM.targethour^parsHelp(list.paramsdir=='sigmaas'));
 
-resSci=[eval(symms.calib3), gammaa]; 
-syms gammaa real 
-symms.calib3=[symms.calib3, gammaa];
+  x0=[solLab,xSc];
+  list.calibBoth=[list.calib, list.calib3];
+%% Jointly calibrate labor and scientists
+f=calibLabourAnsSc(x0,  MOM, trProd,  parsHelp, list, polhelp);
+modFJoint = @(x)calibLabourAnsSc(x, MOM, trProd,  parsHelp, list, polhelp);
+options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e4, 'MaxIter', 3e5, 'Display', 'Iter','Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+[x, fval, exitf] = fsolve(modFJoint, x0, options);
+
+% read in results
+trLabJoint=trans_allo_out(indexxcalib, x(1:length(list.calib)), parsHelp, list.paramsdir, indic);
+%   Af_lag  = exp(x(list.calib3=='Af_lag'));
+%   Ag_lag  = exp(x(list.calib3=='Ag_lag'));
+%   An_lag  = exp(x(list.calib3=='An_lag'));
+%   chiis    = exp(x(list.calib3=='chiis'));
+%   ws       = exp(x(list.calib3=='ws'));
+%   gammaa   = exp(x(list.calib3=='gammaa'));
+%   sff     = exp(x(list.calib3=='sff'));
+%   sg      = exp(x(list.calib3=='sg'));
+%   sn      = exp(x(list.calib3=='sn'));
+resSciJoint=[exp(x(length(list.calib)+1:end))];
+%%
+ 
+% syms gammaa real 
+% symms.calib3=[symms.calib3, gammaa];
 % get calibrated parameters and policy
-[Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLab, resSci, parsHelp, list, polhelp);
+[Sparams, Spol, params, pol]=parsSol_GOOD(symms,trProd, trLabJoint, resSciJoint, parsHelp, list, polhelp);
 
 %% save all results 
 [x0LF, SL, SP, SR, Sall, Sinit201014, init201014 , Sinit201519, init201519]...
-    =fsolution_GOOD(symms, trProd, trLab, resSci, parsHelp, list, polhelp, MOM, indic); 
+    =fsolution_GOOD(symms, trProd, trLabJoint, resSciJoint, parsHelp, list, polhelp, MOM, indic); 
 
 %% Test if is calibration and baseline model solve LF in baseyear
 guess_transLF=trans_guess(indexxLF, x0LF, params, list.params);
@@ -269,7 +260,7 @@ indic.ineq=0;
 f=laissez_faire_nows_sep(guess_transLF, params, list, pol, init201014, indic);
 
 
-if max(abs(f))>1e-10
+if max(abs(f))>1e-9
     error('calibration is not a solution to LF')
 else
     fprintf('Hurray!!! LF solves at baseline calibration!!!');

@@ -120,6 +120,7 @@ if indic.limit_LF==1
     
     if indic.sep<=2
     if indic.noskill==0
+        
         indexx('LF')=hhelper;
     else
         indexx(sprintf('LF_noskill_sep%d', indic.sep))=hhelper;
@@ -128,6 +129,15 @@ if indic.limit_LF==1
         indexx(sprintf('LF_sep%d', indic.sep))=hhelper;
     end
 end
+
+%update for Sun
+
+%     hhelper=indexx('LF');
+%     hhelper.Sc=boolean(zeros(size(hhelper.lab)));
+%     hhelper.Sc(list.choice=='S' )=1;
+%     hhelper.lab(list.choice=='S' )=0;
+%     indexx('LF')=hhelper;
+
 %%
 while t<=T+1 % because first iteration is base year
     fprintf('entering simulation of period %d', t);
@@ -136,7 +146,7 @@ while t<=T+1 % because first iteration is base year
     if t==1 % baseline period: no emission limit, take same as in second period
         Emlim=0;
     else % 
-        Emlim = Ems (t-1);
+        Emlim = Ems(t-1);
     end
     %--- read in policy (can be vector or static)
     if row(1)>1
@@ -171,14 +181,14 @@ while t<=T+1 % because first iteration is base year
     %% - solving model
      lb=[];
      ub=[];
-     if ~(indic.limit_LF==1 && indic.notaul==7 && indic.noknow_spill==0)
+     if ~(indic.limit_LF==0 && indic.notaul==4 && indic.noknow_spill==0)
          objf=@(x)objectiveCALIBSCI(x);
     %     if indic.sep==0
       %      constrf = @(x)laissez_faire_nows_fmincon(x, params, list, pol, laggs, indic);
      %    else
              constrf = @(x)laissez_faire_nows_fmincon_sep(x, params, list, pol, laggs, indic, Emlim, t);
      %    end
-         if indic.labshareequ==0
+         if indic.labshareequ==0 && (~indic.taul0==1)
             options = optimset('algorithm','active-set','TolCon', 1e-7,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          else
             options = optimset('algorithm','sqp','TolCon', 1e-8,'Tolfun',1e-26,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -195,8 +205,8 @@ while t<=T+1 % because first iteration is base year
     elseif indic.sep==3
         modFF = @(x)laissez_faire_nows_sepSe(x, params, list, pol, laggs, indic, Emlim, t);
     end
-    options = optimoptions('fsolve', 'TolFun', 10e-12, 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
-        if (indic.limit_LF==1 && indic.notaul==7 && indic.noknow_spill==0)
+    options = optimoptions('fsolve', 'TolFun', 10e-9,'Display','iter', 'MaxFunEvals',8e6, 'MaxIter', 3e6,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+        if (indic.limit_LF==0 && indic.notaul==4 && indic.noknow_spill==0)
             [sol3, fval, exitf] = fsolve(modFF, guess_trans, options);
         end
     [sol2, fval, exitf] = fsolve(modFF, sol3, options);
@@ -208,7 +218,7 @@ while t<=T+1 % because first iteration is base year
 % if ~(indic.noskill==1 && indic.tauf==1 && indic.xgrowth==0)
 if indic.sep<=1
     if ~(indic.sizeequ==1 && indic.GOV==0 && indic.noknow_spill==0 ) &&  (indic.labshareequ==1&& indic.GOV==0 && indic.noknow_spill==0 )
-         options = optimoptions('fsolve', 'TolFun', 10e-10, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+         options = optimoptions('fsolve', 'TolFun', 10e-9, 'MaxFunEvals',8e3, 'MaxIter', 3e5);% 'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
          [sol3, fval, exitf] = fsolve(modFF, sol2, options);
     else
         sol3=sol2;

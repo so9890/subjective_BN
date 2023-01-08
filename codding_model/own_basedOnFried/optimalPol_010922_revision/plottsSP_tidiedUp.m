@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulS dTaulAv dTaulAvS AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulS dTaulAv dTaulAvS AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -123,26 +123,53 @@ for ii=[4,5]
      OTHERPOL_Ems{ii+1}=RES_Ems;
 end
 
-%% counetrfac NEW calibration: phi=3/4, Bop
-helper=load(sprintf('SP_target_0512_emnet1_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+%% counetrfac NEW calibration: phi=3/4, upper bar Scientists
+helper=load(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+    indic.targetWhat, indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
 sp_t = helper.sp_all';
-helper=load(sprintf('OPT_target_0509_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+
+helper=load(sprintf('SP_notarget_2112_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
+    indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+sp_not = helper.sp_all';
+
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_t_nt= helper.opt_all';
-helper=load(sprintf('OPT_target_0509_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, etaa));
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_t_wt= helper.opt_all';
-RES_NCalib=containers.Map({'SP_T', 'OPT_T_NOTaul', 'OPT_T_WithTaul' },...
-                                {  sp_t, opt_t_nt, opt_t_wt});
+
+helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_not_nt= helper.opt_all';
+helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_not_wt= helper.opt_all';
+
+% laissez faire and BAU
+helper = load(sprintf('BAU_2112_taulZero1_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
+    indic.spillovers, plotts.nknk, indic.Sun, plotts.nsk,  plotts.xgr, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+LF = helper.COMP';
+helper = load(sprintf('BAU_2112_taulZero0_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
+    indic.spillovers, plotts.nknk, indic.Sun, plotts.nsk, plotts.xgr, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
+BAU = helper.COMP';
+
+RES_NCalib=containers.Map({'LF', 'BAU', 'SP_T', 'SP_NoT' 'OPT_T_NOTaul', 'OPT_T_WithTaul',  'OPT_NoT_NOTaul', 'OPT_NoT_WithTaul'},...
+                                {LF, BAU, sp_t, sp_not, opt_t_nt, opt_t_wt, opt_not_nt, opt_not_wt});
 RES_NCalib=add_vars(RES_NCalib, list, params, indic, list.allvars, symms, MOM);
 
-%- only optNewCalib_pol_Ln_emnet1_Sun2_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.pngimal tauf
+%- only optNewCalib_pol_indic.noskillLn_emnet1_Sun2_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.pngimal tauf
 if plotts.xgr==0 
-    helper=load(sprintf('COMPEquN_SIM_1110_taufopt1_newCalib_Bop1_knspil3_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
-         indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
-    count_taul=helper.LF_COUNT';
-        helper=load(sprintf('COMPEquN_SIM_1110_taufopt0_newCalib_Bop1_knspil3_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
-          indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
-    count_tauf=helper.LF_COUNT';
-        RES_count_NCalib=containers.Map({'CountOnlyTauf', 'CountOnlyTaul'},{count_taul, count_tauf});
+    helper=load(sprintf('COMPEquN_SIM_0501_taufopt1_newCalib_target_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+         plotts.nknk, indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_taul_T=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_0501_taufopt0_newCalib_target_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+          plotts.nknk, indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_tauf_T=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_0501_taufopt1_newCalib_notarget_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+         plotts.nknk, indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_taul_NoT=helper.LF_COUNT';
+        helper=load(sprintf('COMPEquN_SIM_0501_taufopt0_newCalib_notarget_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+          plotts.nknk, indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
+    count_tauf_NoT=helper.LF_COUNT';
+        RES_count_NCalib=containers.Map({'CountOnlyTauf_T', 'CountOnlyTaul_T', 'CountOnlyTauf_NoT', 'CountOnlyTaul_NoT'},...
+            {count_taul_T, count_tauf_T, count_taul_NoT, count_tauf_NoT});
      RES_count_NCalib=add_vars(RES_count_NCalib, list, params, indic, list.allvars, symms, MOM);
   
 end
@@ -273,13 +300,71 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
+%'LF', 'BAU', 'SP_T', 'SP_NoT' 'OPT_T_NOTaul', 'OPT_T_WithTaul',  'OPT_NoT_NOTaul', 'OPT_NoT_WithTaul'
+%% comparison parameter alternatives
+if plotts.phi_LF_newcalib==1
+    fprintf('plott new calib levels with lf')
+
+    LFall= RES_NCalib("LF");
+    for s=["T", "NoT"]
+        ss=string(s);
+        nt= RES_NCalib(sprintf("OPT_%s_NOTaul", ss));
+        wt=RES_NCalib(sprintf("OPT_%s_WithTaul", ss));
+        eff=RES_NCalib(sprintf("SP_%s",ss) );
+            
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(LFall(find(varlist==varr),1:T)), time,(nt(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)), time,(eff(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--'; '--';'-'; '--'}, {'color'}, {'k';'b';'k';orrange} )   
+            if lgdind==1
+               lgd=legend('laissez-faire','carbon tax only', 'benchmark', 'first best',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_eff2pol_LF_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',...
+                date, ss, varr,indic.Sun, indic.targetWhat, indic.spillovers, plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+    end
+    end
+end
+
 %% comparison parameter alternatives
 if plotts.phi_newcalib==1
     fprintf('plott new calib')
 
-    nt= RES_NCalib("OPT_T_NOTaul");
-    wt=RES_NCalib("OPT_T_WithTaul");
-    eff=RES_NCalib("SP_T");
+    for s=["T", "NoT"]
+        ss=string(s);
+    nt= RES_NCalib(sprintf("OPT_%s_NOTaul", ss));
+    wt=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+    eff=RES_NCalib(sprintf("SP_%s", ss));
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -314,10 +399,11 @@ if plotts.phi_newcalib==1
                 ytickformat('%.1f')
             end
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/NewCalib_eff2pol_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/NewCalib_eff2pol_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,ss, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
+        end
         end
     end
     end
@@ -327,8 +413,10 @@ end
 if plotts.phi_newcalib_noeff==1
     fprintf('plott new calib no eff')
 
-    nt = RES_NCalib("OPT_T_NOTaul");
-    wt = RES_NCalib("OPT_T_WithTaul");
+    for s =["NoT", "T"]
+        ss=string(s);
+    nt = RES_NCalib(sprintf("OPT_%s_NOTaul",ss));
+    wt = RES_NCalib(sprintf("OPT_%s_WithTaul", ss));
         
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
@@ -363,12 +451,63 @@ if plotts.phi_newcalib_noeff==1
                 ytickformat('%.1f')
             end
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/NewCalib_pol_%s_emnet%d_Sun%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/NewCalib_pol_%s_%s_emnet%d_Sun%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,ss, varr,indic.targetWhat, indic.Sun, indic.spillovers, plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
         end
+        end
     end
+    end
+end
+
+%% no efficient
+if plotts.phi_newcalib_TvsNoT==1
+    fprintf('plott new calib no T vs NoT')
+
+
+    wt = RES_NCalib(sprintf("OPT_T_WithTaul"));
+    not = RES_NCalib(sprintf("OPT_NoT_WithTaul"));
+
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(not(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)),  'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--';'-'}, {'color'}, {'b';'k'} )   
+            if lgdind==1
+               lgd=legend('no target', 'with target', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_pol_TvsNoT_%s_emnet%d_Sun%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,varr,indic.targetWhat, indic.Sun, indic.spillovers, plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
     end
 end
 
@@ -378,13 +517,14 @@ if plotts.count_devs_both_NC==1
     fprintf('plott counterfactual deviation from carbon tax only pol => role of adjustment in tauf')
 
     %- read in variable container of chosen regime
-         
-        allvarsntaul= RES_NCalib("OPT_T_NOTaul");
-        allvarscount=RES_count_NCalib("CountOnlyTauf"); % version with only tauf
+         for s=["NoT"]
+             ss=string(s);
+        allvarsntaul= RES_NCalib(sprintf("OPT_%s_NOTaul", ss));
+        allvarscount=RES_count_NCalib(sprintf("CountOnlyTauf_%s",ss)); % version with only tauf
         perdiftauf= 100*(allvarscount-allvarsntaul)./allvarsntaul;
         
          
-        allvars= RES_NCalib("OPT_T_WithTaul");
+        allvars= RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
         %allvarscount=RES_count("CountOnlyTauf"); % version with only tauf
         perdiftaul= 100*(allvars-allvarscount)./allvarsntaul; % relative to carbon-tax-only policy
         
@@ -422,10 +562,11 @@ if plotts.count_devs_both_NC==1
             end
             xticklabels(Year10)
 
-            path=sprintf('figures/all_%s/CountTAUF_Both_Opt_NewCalib_emnet%d_Sun%d_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, indic.targetWhat, indic.Sun, varr ,plotts.nsk, plotts.xgr, indic.noknow_spill, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/CountTAUF_Both_Opt_NewCalib_%s_emnet%d_Sun%d_target_%s_nsk%d_xgr%d_knspil%d_regime%d_spillover%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,ss, indic.targetWhat, indic.Sun, varr ,plotts.nsk, plotts.xgr, plotts.nknk, plotts.regime_gov, indic.spillovers, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
+        end
         end
     end
     end
@@ -437,9 +578,10 @@ if plotts.comp_OPTPer_NCalib==1
     % without tagret dynamic 
      fprintf('plotting percentage opt and no taul no eff') 
     
-   
-        allvarsnt= RES_NCalib("OPT_T_NOTaul");
-        allvars=RES_NCalib("OPT_T_WithTaul");
+   for s=["T", "NoT"]
+       ss=string(s);
+        allvarsnt= RES_NCalib(sprintf("OPT_%s_NOTaul", ss));
+        allvars=RES_NCalib(sprintf("OPT_%s_WithTaul", ss));
         Perdif=100*(allvars-allvarsnt)./allvarsnt;
     %% 
     for l = keys(lisst) % loop over variable groups
@@ -469,10 +611,11 @@ if plotts.comp_OPTPer_NCalib==1
 %               lgd=legend('with income tax', 'without income tax', 'Interpreter', 'latex');
 %               set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
 %            end
-        path=sprintf('figures/all_%s/%s_COMPtaulPerNewCalib_regime%d_emnet%d_Sun%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr, plotts.regime_gov,indic.targetWhat, indic.Sun, indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
+        path=sprintf('figures/all_%s/%s_COMPtaulPerNewCalib_%s_regime%d_emnet%d_Sun%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.png',date, varr,ss, plotts.regime_gov,indic.targetWhat, indic.Sun, indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa);
         
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
+        end
         end
     end
 end

@@ -57,7 +57,7 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
 
   end
   if indic.sep==0
-     S     = upbarH./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
+     S     = upbarS./(1+exp(x((find(list.test=='S')-1)*T+1:(find(list.test=='S'))*T)));
      gammas = (x((find(list.test=='gammas')-1)*T+1:(find(list.test=='gammas'))*T)).^2;
      ws     = (x((find(list.test=='ws')-1)*T+1:(find(list.test=='ws'))*T)).^2;
   elseif indic.sep==2
@@ -65,7 +65,7 @@ C      = exp(x((find(list.test=='C')-1)*T+1:(find(list.test=='C'))*T));
     S=sff+sg+sn;
     gammas=zeros(size(S));
   else
-      S=sg+sff+sn;
+      S=(sg+sff+sn);
   end
  gammasg     = (x((find(list.test=='gammasg')-1)*T+1:(find(list.test=='gammasg'))*T)).^2;
  gammasn     = (x((find(list.test=='gammasn')-1)*T+1:(find(list.test=='gammasn'))*T)).^2;
@@ -98,31 +98,49 @@ else
     hh=h; hl=h; wh=w; wl=w; % this should suffice to have governmenta budget correct
 end
 
+
+if indic.Sun~=2
+    helpS=zeros(size(F)); % helper for gov revenues from taxing scientists
+elseif indic.Sun==2
+    helpS=(ws.*S-lambdaa.*(ws.*S).^(1-taul)); % version with lump sum transfers to finance subsidies on machine producers
+end
 if indic.notaul<2 || ...
    indic.notaul == 6 % tauf redistributed via income tax
+
     SGov    = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
         +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS...
         +tauf.*F;
     Tls =zeros(size(F));    
     GovCon =zeros(size(F));
-
 elseif indic.notaul == 2 ||...
         indic.notaul==3 %2,3,4,5,7
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+           +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+           +helpS;
     GovCon = tauf.*F; % GovCon = env tax consumed by government
-    Tls =zeros(size(F));    
+    Tls =zeros(size(F)); 
 elseif indic.notaul == 4 || indic.notaul ==5
-    SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+    if indic.noskill==0
+        SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
+        +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+        +helpS;
+    else
+        SGov = w.*h-lambdaa.*(w.*h).^(1-taul) +helpS;
+    end
     GovCon =zeros(size(F));
     Tls  = tauf.*F;
-elseif indic.notaul == 7 % earmarking
+elseif indic.notaul >= 7 % earmarking
     SGov = zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-        +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul));
+         +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+         +helpS;
     GovCon =zeros(size(F));
-    Tls =zeros(size(F));    
-    taus = tauf.*F./(pg.*G); % subsidy on green sector
+    Tls = zeros(size(F));
+end
+if indic.xgrowth==0
+    Tlsall = Tls-ws.*S;
+else
+    Tlsall=Tls;
 end
 
 
@@ -151,7 +169,7 @@ elseif thetaa==1
 end
    
 if indic.noskill==0
-     Utillab = chii.*(zh.*hh.^(1+sigmaa)+(1-zh).*hl.^(1+sigmaa))./(1+sigmaa);
+     Utillab = chii.*(zh.*hh.^(1+sigmaa)+((1-zh)).*hl.^(1+sigmaa))./(1+sigmaa);
 else
      Utillab = chii.*(h.^(1+sigmaa))./(1+sigmaa);
 end

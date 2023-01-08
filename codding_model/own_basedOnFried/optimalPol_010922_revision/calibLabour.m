@@ -13,6 +13,7 @@ function f = calibLabour(x,  MOM, C, Lnwln, Lgwlg, Lfwlf, pf, F, paramss, list, 
 upbarH=paramss(list.paramsdir=='upbarH');
 thetaa=paramss(list.paramsdir=='thetaa');
 sigmaa=paramss(list.paramsdir=='sigmaa');
+
 taul=poll(list.poldir=='taul');
 tauf=poll(list.poldir=='tauf'); 
 
@@ -61,7 +62,7 @@ f(q) =  thetaf-thetan;%=> thetan, thetaf
 
 % chii: average hours worked PER FIVE YEARS
 q=q+1;
-f(q) = hh*zh+hl*(1-zh)-MOM.targethour;  
+f(q) = hh*zh+hl*((1-zh))-MOM.targethour;  
 
 % zh
 q=q+1;
@@ -71,7 +72,7 @@ f(q) = MOM.whwl-wh/wl;
 %need to be specific on policy regime! 
 q=q+1;
 f(q) = - MOM.Debt + zh*(wh.*hh-lambdaa.*(wh.*hh).^(1-taul))...
-             +(1-zh)*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
+             +((1-zh))*(wl.*hl-lambdaa.*(wl.*hl).^(1-taul))...
              +tauf.*F;
          
 %budget => C
@@ -101,7 +102,7 @@ f(q) = hl  - (hln+hlf+hlg)/((1-zh)); % low skill market clearing
 q=q+1;
 f(q)= chii*hh^(sigmaa+taul)- ((muu*lambdaa*(1-taul)*(wh)^(1-taul))-gammalh/zh*hh^taul); %=> determines hh
 q=q+1;
-f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl)^(1-taul))-gammall/(1-zh)*hl^taul); %=> determines hl
+f(q)= chii*hl^(sigmaa+taul) - ((muu*lambdaa*(1-taul)*(wl)^(1-taul))-gammall/((1-zh))*hl^taul); %=> determines hl
 
 %12
 q=q+1;

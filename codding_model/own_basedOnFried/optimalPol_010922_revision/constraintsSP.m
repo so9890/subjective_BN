@@ -79,10 +79,10 @@ if indic.xgrowth==0
 
     if indic.noskill==0
         ceq(4*T+1:5*T) = zh*hh - (hhn + hhf+hhg); % high skill market clearing
-        ceq(5*T+1:6*T) = (1-zh)*hl - (hln + hlf+hlg);
+        ceq(5*T+1:6*T) = ((1-zh))*hl - (hln + hlf+hlg);
         ceq(6*T+1:7*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
     else
-        ceq(4*T+1:5*T)       = h - (Ln + Lf+Lg); % high skill market clearing
+        ceq(4*T+1:5*T)       =h - (Ln + Lf+Lg); % high skill market clearing
     end
 
 else
@@ -90,10 +90,10 @@ else
 
      if indic.noskill==0
         ceq(1*T+1:2*T) = zh*hh - (hhn + hhf+hhg); % high skill market clearing
-        ceq(2*T+1:3*T) = (1-zh)*hl - (hln + hlf+hlg);
+        ceq(2*T+1:3*T) = ((1-zh))*hl - (hln + hlf+hlg);
         ceq(3*T+1:4*T) = F-xf.^alphaf.*(Af.*Lf).^(1-alphaf);
     else
-        ceq(1*T+1:2*T) = h - (Ln + Lf+Lg); % high skill market clearing
+        ceq(1*T+1:2*T) =h - (Ln + Lf+Lg); % high skill market clearing
      end
 
 end
