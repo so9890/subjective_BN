@@ -4,6 +4,12 @@ function [symms, list, opt_all]= OPT_solve_sep(list, symms, params, x0LF, init20
 read_in_params;
 Ftarget =  (Ems'+deltaa)/omegaa;
 
+if indic.notaul==9 % taking labor tax from optimal policy without target
+    helper  = load(sprintf('OPT_notarget_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul4_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.sep, indic.extern , indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    taulFixed           =helper.opt_all(:,list.allvars=='taul');
+else
+    taulFixed=0;
+end
 % symbilic variables and lists
 syms hhf hhg hlf hlg hhn hln C Ch Cl F G Af Ag An hl hh S sff sn sg Lf Lg h gammasg gammasf real
 
@@ -61,9 +67,11 @@ if indic.target==1
     helper=load(sprintf('OPT_target_0512_Bop%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop,indic.Sun, indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   elseif indic.count_techgap==1
       helper=load(sprintf('OPT_target_countec_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
-   elseif indic.targetWhat==1
-       
-       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+   elseif indic.targetWhat==1 &&  indic.notaul~=9
+       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+  elseif indic.notaul==9
+      helper=load(sprintf('COMPEquN_SIM_0501_taufopt%d_newCalib_target_emnet%d_Sun%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', 5,indic.targetWhat, indic.Sun, indic.noknow_spill,  indic.spillovers, 4, indic.noskill, indic.sep, indic.xgrowth, indic.PV,etaa));
+      helper.opt_all=helper.LF_COUNT;
   else
     helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,indic.noskill, 5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   end
@@ -191,8 +199,8 @@ ub=[];
 %%
 % Test Constraints and Objective Function %%%
 % percon=0;
-f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon, MOM);
-[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon);
+f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon, MOM, taulFixed);
+[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon, taulFixed);
 
 % to examine stuff
 % ind=1:length(ceq);
@@ -206,18 +214,23 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon,
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
-constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM, percon);
-objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
+constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM, percon, taulFixed);
+objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM, taulFixed);
 
 if indic.target==1
 % if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % else
-        options = optimset('algorithm','active-set','TolCon',1e-10,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
-         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+       save('incase_of_error_0201_tt', 'x')
+%         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+%        ll=load('incase_of_error_0201_3.mat', 'x')
+
+        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+         save('incase_of_error_0201_4', 'x')
 
 elseif indic.target==0
 %     if indic.notaul==0 %|| (indic.noskill==1 && indic.xgrowth==0)
@@ -234,7 +247,6 @@ elseif indic.target==0
         end
      %   end
 end
-save('incase_of_error_0201', 'x')
 %%
 if indic.testT==1
     %  save(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x')
@@ -292,8 +304,8 @@ if indic.testT==1
                 x0(T*(find(list.opt==ll)-1)+1:T*(find(list.opt==ll)))  = [xold(Told*(find(list.opt==ll)-1)+1:Told*(find(list.opt==ll)));xold(Told*(find(list.opt==ll)))]; 
             end
         %- optimization for new horizon
-         constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon);
-         objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
+         constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Emsnew, indic, MOM, percon, taulFixed);
+         objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM, taulFixed);
 
         if ~isfile(sprintf('2309_results_opt_main_notaul0_target%d_Tplus%d.mat',indic.target, count))
 
@@ -377,7 +389,7 @@ end
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul,taus, lambdaa,...
             wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]...
-            = OPT_aux_vars_notaus_flex_newTauf(out_trans, list, params, T, init201519, indic, MOM);
+            = OPT_aux_vars_notaus_flex_newTauf(out_trans, list, params, T, init201519, indic, MOM, taulFixed);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
     else
@@ -419,11 +431,20 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 if indic.elasE==0 && indic.sigmaWorker==0  && indic.Bop==0
 if indic.count_techgap==0
     if indic.target==1
-        if indic.targetWhat==0
-            save(sprintf('OPT_target_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
-        else
-           save(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+        if indic.notaul~=9
+                if indic.targetWhat==0
+                    save(sprintf('OPT_target_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+                else
+                   save(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+                end
+        elseif indic.notaul==9
+               if indic.targetWhat==0
+                save(sprintf('OPT_target_taulFixed_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+               else
+                save(sprintf('OPT_target_taulFixed_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+               end
         end
+
     else
         if indic.extern==1
             save(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')

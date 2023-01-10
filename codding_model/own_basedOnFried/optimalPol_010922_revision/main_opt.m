@@ -165,14 +165,14 @@ for nknk = 3
     indic.noknow_spill=nknk; 
 for bb ="BAU" %["BAU", "SCC"]
     indic.tauff=bb;
-for tata=0:1 % ==0 then uses calibrated taul
+for tata=1 % ==0 then uses calibrated taul; ==1 then taul=0; ==2 then taul==optimal no target
     indic.taul0=tata; %==1 then sets taul =0
 for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=0
+for ff=1
     indic.limit_LF=ff; % ==0 then limit does not have to be implemented, tauf as given
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -196,6 +196,7 @@ for ee=0
         Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
     else
         Ems_alt=Ems;
+        
     end
 % full model
 for nsk=0
@@ -340,6 +341,7 @@ count=30;
 Tinit=T;
 indic.sigmaWorker=0;
 indic.targetWhat=1;
+indic.Sun=2;
 
 if indic.targetWhat==0
     Emss=Ems;
@@ -359,10 +361,10 @@ for xgr=0
             indic.target=tar;
             indic     
             if indic.count_techgap==0
-           %SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Ems, MOM, percon)
-                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Ems, MOM, percon);
+           SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Emss, MOM, percon);
+           %     SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Emss, MOM, percon);
             else
-                SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Ems, MOM, percon);
+            %    SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Emss, MOM, percon);
 
             end
        end            
@@ -402,13 +404,13 @@ else
     Emss=StatsEms.Emslimit_constantEmsRat_Budget;
 end
 
-for tr =[0,1]
+for tr =[1]
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[4]
+ for nnt=[9]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -429,24 +431,34 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.util=1;
-indic.Bop=1;
+indic.util=0;
+indic.Bop=0;
 indic.sigmaWorker=0;
-indic.noknow_spill=0;
+indic.noknow_spill=3;
+indic.Sun=2;
+indic.targetWhat=1;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
+indic.taulFixed=0;
 indic
 count=30;% addiitonal periods
-for tr =1
+
+if indic.targetWhat==0
+    Emss=Ems;
+else
+    Emss=StatsEms.Emslimit_constantEmsRat_Budget;
+end
+
+for tr =[1,0]
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
 for nsk=[0]
     indic.noskill=nsk;
- for nnt=5
+ for nnt=[4]
      indic.notaul=nnt;
      indic
-[symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
+[symms, list, opt_all]= OPT_solve_sep_ExtT(list, symms, params, x0LF, init201519, indexx, indic, T, Emss, MOM, percon, count);
  end
 end
 end
@@ -457,17 +469,26 @@ end
 indic.taus  = 0; % with ==0 no taus possible!
 indic.sep =0;
 indic.extern=0;
-indic.util=1;
-indic.Bop=1;
+indic.util=0;
+indic.Bop=00;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
 indic.noknow_spill=3;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T
-indic.Sun=0;
+indic.Sun=2;
+indic.targetWhat=1;
+indic.taulFixed=0;
+
 indic
 count=30;% addiitonal periods
-for tr =1
+
+if indic.targetWhat==0
+    Emss=Ems;
+else
+    Emss=StatsEms.Emslimit_constantEmsRat_Budget;
+end
+for tr =[1,0]
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
@@ -476,7 +497,7 @@ for nsk=0
  for nnt=4
      indic.notaul=nnt;
      indic
-[symms, list, opt_all]= OPT_solve_sep_ExtT_direct(list, symms, params, x0LF, init201519, indexx, indic, T, Ems, MOM, percon, count);
+[symms, list, opt_all]= OPT_solve_sep_ExtT_direct(list, symms, params, x0LF, init201519, indexx, indic, T, Emss, MOM, percon, count);
  end
 end
 end
@@ -486,30 +507,43 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=0:1 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+for tf=[0,1,5] %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+         %==5 uses optimal taul from without target as given, derives tauf
+         %(with limit_LF==1)
 indic.tauf=tf; % ==1 uses version with optimal taul=0 but tauf=1; ==0 uses version with tauf=0 optimal but taul =1
 indic.PV=1;
 indic.notaul=4;
-indic.limit_LF=0; % for simulation, not a policy calculation
+indic.limit_LF=1; % for simulation, not a policy calculation
 indic.noknow_spill=3; % counterfactuals so far only without knowledge spillovers
 indic.oldCalib=0; % ==0 then uses new calbration
 indic.Bop=0;
 indic.Sun=2;
 indic.targetWhat=1;
-indic.target=0;
+indic.target=1;
 T=12;
+count=30;
+
+if indic.targetWhat==0
+    Emss=Ems;
+else
+    Emss=StatsEms.Emslimit_constantEmsRat_Budget;
+end
 
 for xgr=0
     indic.xgrowth=xgr;
     for nsk=0
         indic.noskill=nsk;
 % load benchmark policy
-if tf>=2 % read in benchmark model wrt skill xgr
+if tf>=2 && tf<5 % read in benchmark model wrt skill xgr
     if tf~=4
         if indic.target==1
-            helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+            helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+  
+            %helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
         elseif indic.target ==0
-            helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+            helper=load(sprintf('OPT_notarget_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+               count,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa'))); 
         end
     elseif tf==4
          helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil1_taus0_noskill0_notaul%d_sep%d_xgrowth0_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, indic.notaul, indic.sep, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
@@ -519,13 +553,23 @@ elseif tf<2 % load in same model wsrt skill xgr
         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif indic.oldCalib==0  
         if indic.target==1
-            helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+            helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+  
+            %helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
         elseif indic.target ==0
-            helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+            helper=load(sprintf('OPT_notarget_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+               count,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa'))); 
         end
     end
+elseif tf==5 
+    % use optimal taul from version without tauf
+%        helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+       helper=load(sprintf('OPT_notarget_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul4_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+               count,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa'))); 
+        
 end
-         if  indic.tauf>1  % get better starting values!plotts.nsk
+         if  indic.tauf>1 && indic.tauf<5 % get better starting values!plotts.nsk
              if indic.tauf<2
                  T=11;
              end
@@ -543,7 +587,7 @@ end
                      
                  end
              if indic.xgrowth==0
-                 [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, poll, params, symms, x0LF, init201014, indexx, indic, Sall, Ems);
+                 [LF_SIM, pol, FVAL] = solve_LF_nows(T, list, poll, params, symms, x0LF, init201014, indexx, indic, Sall, Emss);
              else
                  [LF_SIM, pol, FVAL, indexx] = solve_LF_nows_xgrowth(T, list, poll, params, Sparams,  symms, x0LF, init201014, indexx, indic, Sall);
              end
@@ -561,7 +605,7 @@ end
 
          end
          T=12; 
-        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic, Ems, MOM);
+        [LF_COUNT]=compequ(T, list, params, init201519, symms, helper.LF_SIM,indic, Emss, MOM);
         % helper.opt_all: as initial values and to deduce policy 
         if indic.oldCalib==1
            save(sprintf('COMPEquN_SIM_0501_taufopt%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
@@ -571,7 +615,7 @@ end
             else
                save(sprintf('COMPEquN_SIM_0501_taufopt%d_newCalib_notarget_emnet%d_Sun%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.tauf,indic.targetWhat, indic.Sun, indic.noknow_spill,  indic.spillovers, indic.notaul, indic.noskill, indic.sep, indic.xgrowth, indic.PV, params(list.params=='etaa')),'LF_COUNT', 'Sparams');
             end
-            end
+        end
 end
 end
 end
@@ -586,7 +630,6 @@ indic
 % choose sort of plots to be plotted
 plotts.regime_gov=  4; % = equals policy version to be plotted
 
-
 plotts.table=       0;
 plotts.cev  =       0; 
 plotts.analyta =    0;
@@ -596,13 +639,18 @@ plotts.Ems_limit=   0;
 plotts.Ems_limit_Decomp=   0;
 plotts.phi_sens =   0;
 plotts.sens_other=  0;
-plotts.phi_newcalib       = 0;
-plotts.phi_LF_newcalib    = 0;
-plotts.phi_newcalib_noeff = 0;
-plotts.comp_OPTPer_NCalib = 0;
-plotts.comp_OPT_NCAlib    = 0;
-plotts.count_devs_both_NC = 0;
-plotts.phi_newcalib_TvsNoT = 1;
+plotts.phi_newcalib        = 0;
+plotts.phi_LF_newcalib     = 0;
+plotts.phi_effLF_newcalib  = 1;
+plotts.phi_newcalib_noeff  = 0;
+plotts.comp_OPTPer_NCalib  = 0;
+plotts.comp_OPT_NCAlib     = 0;
+plotts.count_devs_both_NC  = 0;
+plotts.phi_newcalib_TvsNoT = 0;
+plotts.taulFixed_newcalib  = 0;
+plotts.taulFixed_newcalib_pol  = 0;
+plotts.taulFixed_newcalib_polPer = 0;
+ plotts.single_pol_NC      =0;
 
 plotts.countcomp=   0;
 plotts.countcomp2=  0;

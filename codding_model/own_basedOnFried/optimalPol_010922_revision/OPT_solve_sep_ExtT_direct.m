@@ -7,6 +7,8 @@ read_in_params;
 Ems=[Ems,zeros(1,count)];
 Ftarget =  (Ems'+deltaa)/omegaa;
 T=T+count;
+
+ taulFixed=0;
 %     if isfile(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')))
 %     fprintf('file exists')
 %      return
@@ -66,8 +68,9 @@ if indic.target==1
     if indic.notaul==3
        helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul-1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif indic.notaul == 0 || indic.notaul==4
-       helper=load(sprintf('OPT_target_plus%d_0512_Bop1_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-    else
+     helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            count,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+        else
        helper=load(sprintf('OPT_target_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     end
         opt_all=helper.opt_all_all;
@@ -108,8 +111,8 @@ elseif indic.target==0
     if indic.notaul==3
           helper=load(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul-1,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif indic.notaul == 0 || indic.notaul==4
-         helper=load(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-
+         helper=load(sprintf('OPT_notarget_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+               count,indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul+1,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     else
         helper=load(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     end
@@ -177,7 +180,7 @@ if indic.sep==1
      guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
      guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
      guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-    guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
+    guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
  end
 
@@ -194,8 +197,8 @@ ub=[];
 %%
 % Test Constraints and Objective Function %%%
 % percon=0;
-f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon, MOM);
-[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon);
+f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon, MOM, taulFixed);
+[c, ceq] = constraints_flexetaa(guess_trans, T, params, init201519, list, Ems, indic, MOM, percon, taulFixed);
 
 % to examine stuff
 % ind=1:length(ceq);
@@ -209,8 +212,8 @@ f =  objective(guess_trans, T, params, list, Ftarget, indic, init201519, percon,
 %first (need to) run scenario in interior-point (non-specified) and/or sqp algorithm,
 %utilize results to generate initial point and then re-run active-set algorithm.
 
-constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM, percon);
-objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM);
+constf=@(x)constraints_flexetaa(x, T, params, init201519, list, Ems, indic, MOM, percon, taulFixed);
+objf=@(x)objective(x, T, params, list, Ftarget, indic, init201519, percon, MOM, taulFixed);
 
 if indic.target==1
 
@@ -253,7 +256,7 @@ elseif indic.sep==0
     out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
     out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
-    out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarH./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
+    out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarS./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 end    
 
 
@@ -266,8 +269,8 @@ end
             [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
-            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, PV,PVSWF, objF]...
+            pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, taus, lambdaa,...
+            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]...
             = OPT_aux_vars_notaus_flex_newTauf(out_trans, list, params, T, init201519, indic, MOM);
         gammasg = zeros(size(pn));
         gammasf = zeros(size(pn));
@@ -284,7 +287,6 @@ end
         hhf=zeros(size(pn));hhg=zeros(size(pn));hhn=zeros(size(pn));hlf=zeros(size(pn));hlg=zeros(size(pn));hln=zeros(size(pn));
     end
     
-taus = zeros(size(pn));
 gammall = zeros(size(pn));
 gammalh = zeros(size(pn));
 gammasn = zeros(size(pn));
@@ -309,12 +311,14 @@ test_LF_VECT(T, list,  params,symms, init201519, helper, indic);
 %%
 if indic.count_techgap==0
     if indic.target==1
-        save(sprintf('OPT_target_plus%d_0512_Bop%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.Bop, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
+        save(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
     else
         if indic.extern==1
             save(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
         else
-           save(sprintf('OPT_notarget_plus%d_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',count, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
+            save(sprintf('OPT_notarget_plus%d_0501_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+               count,indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs', 'opt_all_all')
         end
     end
 else

@@ -125,21 +125,21 @@ end
 
 %% counetrfac NEW calibration: phi=3/4, upper bar Scientists
 helper=load(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-    indic.targetWhat, indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
+       indic.targetWhat, indic.spillovers,plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, params(list.params=='etaa')));
 sp_t = helper.sp_all';
 
 helper=load(sprintf('SP_notarget_2112_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
     indic.spillovers, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV,indic.sizeequ, etaa));
 sp_not = helper.sp_all';
-
-helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+%plus%d_0501_
+helper=load(sprintf('OPT_target_plus30_0501_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_t_nt= helper.opt_all';
-helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+helper=load(sprintf('OPT_target_plus30_0501_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_t_wt= helper.opt_all';
 
-helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+helper=load(sprintf('OPT_notarget_plus30_0501_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul5_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_not_nt= helper.opt_all';
-helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+helper=load(sprintf('OPT_notarget_plus30_0501_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul4_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_not_wt= helper.opt_all';
 
 % laissez faire and BAU
@@ -168,12 +168,15 @@ if plotts.xgr==0
         helper=load(sprintf('COMPEquN_SIM_0501_taufopt0_newCalib_notarget_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
           plotts.nknk, indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV, etaa));
     count_tauf_NoT=helper.LF_COUNT';
-        RES_count_NCalib=containers.Map({'CountOnlyTauf_T', 'CountOnlyTaul_T', 'CountOnlyTauf_NoT', 'CountOnlyTaul_NoT'},...
-            {count_taul_T, count_tauf_T, count_taul_NoT, count_tauf_NoT});
+          helper=load(sprintf('COMPEquN_SIM_0501_taufopt5_newCalib_target_emnet%d_Sun%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
+          indic.targetWhat, indic.Sun, plotts.nknk,  indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV,etaa));
+      count_tauf_TaulFixed=helper.LF_COUNT';
+        RES_count_NCalib=containers.Map({'CountOnlyTauf_T', 'CountOnlyTaul_T', 'CountOnlyTauf_NoT', 'CountOnlyTaul_NoT' , 'Count_TaulFixed'},...
+            {count_taul_T, count_tauf_T, count_taul_NoT, count_tauf_NoT, count_tauf_TaulFixed});
      RES_count_NCalib=add_vars(RES_count_NCalib, list, params, indic, list.allvars, symms, MOM);
   
 end
-%% counetrfactual model
+%% counterfactual model
 
 % no knowledge spillovers 
  helper=load(sprintf('OPT_notarget_0509_spillover%d_knspil1_taus0_noskill%d_notaul%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers, plotts.nsk,plotts.regime_gov,  indic.sep, plotts.xgr,indic.PV, plotts.sizeequ, plotts.GOV, etaa));
@@ -300,7 +303,216 @@ txx=1:2:T; % reducing indices
 Year =transpose(year(['2020'; '2025';'2030'; '2035';'2040'; '2045';'2050'; '2055'; '2060';'2065';'2070';'2075'],'yyyy'));
 Year10 =transpose(year(['2020';'2030'; '2040'; '2050';'2060';'2070'],'yyyy'));
 
-%'LF', 'BAU', 'SP_T', 'SP_NoT' 'OPT_T_NOTaul', 'OPT_T_WithTaul',  'OPT_NoT_NOTaul', 'OPT_NoT_WithTaul'
+%'LF', 'BAU', 'SP_T', 'SP_NoT' 'OPT_T_NOTaul', 'OPT_T_WithTaul',
+%'OPT_NoT_NOTaul', 'OPT_NoT_WithTaul', 'Count_TaulFixed'
+
+%% comparison joint optimal versus taul given only tauf optimal
+%% comparison parameter alternatives
+if plotts.taulFixed_newcalib==1
+    fprintf('plott new calib taul fixed')
+
+    for s=["T", "NoT"]
+        ss=string(s);
+    nt= RES_count_NCalib(sprintf("Count_TaulFixed"));
+    wt=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+    eff=RES_NCalib(sprintf("SP_%s", ss));
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(nt(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)), time,(eff(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {'b';'k';orrange} )   
+            if lgdind==1
+               lgd=legend('$\tau_\iota$ fixed', 'benchmark', 'first best',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_eff2polTaulFixed_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,ss, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+    end
+    end
+end
+
+%% comparison taul fixed policy
+if plotts.taulFixed_newcalib_pol==1
+    fprintf('plott new calib taul fixed pol levels')
+
+    for s=["T", "NoT"]
+        ss=string(s);
+    nt= RES_count_NCalib(sprintf("Count_TaulFixed"));
+    wt=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+        
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(nt(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'--';'-'}, {'color'}, {'b';'k'} )   
+            if lgdind==1
+               lgd=legend('$\tau_\iota$ fixed', 'benchmark',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_polTaulFixed_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date,ss, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+    end
+    end
+end
+
+%% comparison parameter alternatives
+if plotts.taulFixed_newcalib_polPer==1
+    fprintf('plott new calib taul fixed pol per')
+
+    for s=["T", "NoT"]
+        ss=string(s);
+    nt= RES_count_NCalib(sprintf("Count_TaulFixed"));
+    wt=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+    per= 100*(wt-nt)./nt;
+        
+  %  for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(per(find(varlist==varr),1:T)), time,zeros(size(per(find(varlist==varr),1:T))),'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; grrey} )   
+%             if lgdind==1
+%                lgd=legend('$\tau_\iota$ fixed', 'benchmark',  'Interpreter', 'latex');
+%                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+%             end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+%             if varr=="Tauf"
+%                 ytickformat('%.0f')
+%             elseif varr =="dTaulAv"
+%                 ytickformat('%.1f')
+%             else
+%                 ytickformat('%.1f')
+%             end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_polTaulFixedPer_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f.png',date,ss, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+     %   end
+        end
+    end
+    end
+end
+%% All figures single
+if plotts.single_pol_NC==1
+    
+    fprintf('plotting single graphs')
+
+    %- loop over economy versions
+    for s=["T", "NoT"]
+        ss=string(s);
+        wt=RES_NCalib(sprintf("OPT_%s_WithTaul", ss));
+        
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            if ll=="HH" && varr=="Emnet"
+                main=plot(time,wt(find(varlist==varr),1:T),time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+                set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+                lgd=legend('net emissions' , 'net emission limit',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+
+            else
+                main=plot(time,wt(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+                set(main, {'LineStyle'},{'-'}, {'color'}, {'k'} )   
+
+            end
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+         %   ytickformat('%.2f')
+            xticklabels(Year10)
+           path=sprintf('figures/all_%s/Single_NC_%s_%s_emnet%d_Sun%d_regime%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',...
+               date, ss, varr, indic.targetWhat, indic.Sun, plotts.regime_gov, indic.spillovers,plotts.nknk, plotts.nsk, indic.sep,plotts.xgr,indic.extern, indic.PV, plotts.sizeequ, plotts.GOV, etaa);
+         
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+
 %% comparison parameter alternatives
 if plotts.phi_LF_newcalib==1
     fprintf('plott new calib levels with lf')
@@ -355,7 +567,58 @@ if plotts.phi_LF_newcalib==1
     end
     end
 end
+%% comparison parameter alternatives
+if plotts.phi_effLF_newcalib==1
+    fprintf('plott new calib levels  eff with lf')
 
+    LFall= RES_NCalib("LF");
+    for s=["T", "NoT"]
+        ss=string(s);
+        eff=RES_NCalib(sprintf("SP_%s",ss) );
+            
+    for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(LFall(find(varlist==varr),1:T)), time,(eff(find(varlist==varr),1:T)), 'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{':'; '-'}, {'color'}, {'k';'k'} )   
+            if lgdind==1
+               lgd=legend('laissez-faire', 'first best',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_effLF_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',...
+                date, ss, varr,indic.Sun, indic.targetWhat, indic.spillovers, plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+    end
+    end
+end
 %% comparison parameter alternatives
 if plotts.phi_newcalib==1
     fprintf('plott new calib')

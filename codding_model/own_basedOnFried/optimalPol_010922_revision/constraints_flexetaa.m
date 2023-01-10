@@ -1,4 +1,4 @@
-function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic, MOM, percon)
+function [c, ceq] = constraints_flexetaa(y, T, params, init, list, Ems, indic, MOM, percon, taulFixed)
 % function to read in constraints on government problem
 
 % pars
@@ -42,7 +42,7 @@ if indic.noskill==0
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul,taus, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM);
+            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex_newTauf(x, list, params, T, init, indic, MOM, taulFixed);
 else
 
      [xn,xf,xg,Ag, An, Af,...
@@ -109,7 +109,7 @@ end
          end
             ceq(T*12+1:T*13) = S-sn-sff-sg;
             
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 || indic.notaul==9% when no taul is available
                 ceq(T*13+1:T*14) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
@@ -126,7 +126,7 @@ end
          else
             ceq(T*11+1:T*12)   = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-ws.*S-Tlsall;
          end
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 % when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 || indic.notaul==9 % when no taul is available
                 ceq(T*12+1:T*13) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
             end
          
@@ -145,7 +145,7 @@ end
          ceq(T*7+1:T*8) = (1-zh)*hl-(hlf+hlg + hln );
          ceq(T*8+1:T*9) = C-zh.*lambdaa.*(wh.*hh).^(1-taul)-(1-zh).*lambdaa.*(wl.*hl).^(1-taul)-Tls;
         
-         if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 % when no taul is available
+         if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 || indic.notaul==8 || indic.notaul==9 % when no taul is available
                 ceq(T*9+1:T*10) = chii*hl.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(wl).^(1-taul));
          end
      end
@@ -167,14 +167,14 @@ end
                 end
                 ceq(T*6+1:T*7) = ws-wsn;
                 ceq(T*7+1:T*8) = S-sn-sg-sff;
-                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5||  indic.notaul == 8% when no taul is available
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5||  indic.notaul == 8 || indic.notaul==9% when no taul is available
                 ceq(T*8+1:T*9)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
                 end
               else
                  ceq(T*4+1:T*5) = (chiis)*sff.^sigmaas-muu.*wsf; % scientist hours supply
                  ceq(T*5+1:T*6) = (chiis)*sg.^sigmaas-muu.*wsg;
                  ceq(T*6+1:T*7) = (chiis)*sn.^sigmaas-muu.*wsn;
-                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 5% when no taul is available
+                if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 8 || indic.notaul==9% when no taul is available
                 ceq(T*7+1:T*8)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
                 end
                end
@@ -185,7 +185,7 @@ end
             ceq(T*2+1:T*3) = Lf- h./(1+Ln./Lf+Lg./Lf); % labour market clearing 
             ceq(T*3+1:T*4) = C-lambdaa.*(w.*h).^(1-taul)-Tls;
 
-            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 8% when no taul is available
+            if indic.notaul==1 || indic.notaul == 2 ||  indic.notaul == 5 ||  indic.notaul == 8 || indic.notaul==9 % when no taul is available
                 ceq(T*4+1:T*5)= chii*h.^(sigmaa+taul)-(muu.*lambdaa.*(1-taul).*(w).^(1-taul));
             end
 

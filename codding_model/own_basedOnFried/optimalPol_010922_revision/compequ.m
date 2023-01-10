@@ -26,6 +26,15 @@ function LF_COUNT=compequ(T, list, params, init201519,   symms, LF_SIM, indic, E
         LF_SIM(:,list.allvars=='taus')=zeros(size(LF_SIM(:,list.allvars=='taus'))); 
     elseif indic.tauf==4 % uses benchmark model policy but sets tauf to zero and runs model with no know spils
         indic.noknow_spill=0; % effect of opt pol in model without kn spil in full model
+    elseif indic.tauf ==5
+        indic.limit_LF=1;
+        taul= LF_SIM(:,list.allvars=='taul'); % save taul fixed
+        taul(end)=taul(end-1);
+        % read in new variables as starting values
+        helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+        LF_SIM=helper.opt_all;
+        % replace taul
+        LF_SIM(:,list.allvars=='taul')=taul; 
     end
 
 helper.LF_SIM=LF_SIM';

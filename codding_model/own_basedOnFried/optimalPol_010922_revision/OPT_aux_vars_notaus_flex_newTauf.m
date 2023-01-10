@@ -2,7 +2,7 @@ function [hhf, hhg, hhn, hlg, hlf, hln, xn,xf,xg,Ag, An, Af,...
             Lg, Ln, Lf, Af_lag, An_lag, Ag_lag,sff, sn, sg,  ...
             F, N, G, E, Y, C, Ch, Cl, muuh, muul, hl, hh, A_lag, SGov, Emnet, A,muu,...
             pn, pg, pf, pee, wh, wl, wsf, wsg, wsn, ws,  tauf, taul, taus, lambdaa,...
-            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic, MOM)
+            wln, wlg, wlf, SWF, S, GovCon, Tls, Tlsall, PV,PVSWF, objF]= OPT_aux_vars_notaus_flex(x, list, params, T, init201519, indic, MOM, taulFixed)
 
 read_in_params;
 
@@ -156,6 +156,8 @@ if indic.notaul== 0 || indic.notaul == 3 || indic.notaul == 4 || indic.notaul ==
                                    % independent from optimality scientists                                                                      
 elseif indic.notaul==1 || indic.notaul == 2 || indic.notaul ==5 || indic.notaul ==8
     taul   = zeros(size(sn));
+elseif indic.notaul==9 % version where taul is equal to optimal without target (no tauf)
+    taul = taulFixed;
 end
 % lambdaa so that gov budget is balanced
 if indic.notaul<2

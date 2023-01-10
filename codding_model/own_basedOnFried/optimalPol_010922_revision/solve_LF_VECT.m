@@ -114,21 +114,23 @@ end
 x0=eval(symms.test);
 x0=x0(:);
 
-% f=laissez_faireVECT(sol, params, list, varrs, init201519,T);
+f=laissez_faireVECT_sep_NoRed(x0, params, list, varrs, init201519,T, indic, Ems);
 % 
-% if max(abs(f))>1e-9
+ if max(abs(f))>1e-9
 %    % equations where results are off
-%     ind=1:length(f);
-%     pos=ind(abs(f)>1e-9);
-%     eqset= floor(pos./T);
+     ind=1:length(f);
+     pos=ind(abs(f)>1e-9);
+     eqset= floor(pos./T);
 %     error('optimal policy does not solve laissez faire. For the relevant equations see eqset');
 %     % to evaluate stuff
-% end
+ end
 
 modFF = @(x)laissez_faireVECT_sep_NoRed(x, params, list, varrs, init201519,T, indic, Ems);
 options = optimoptions('fsolve', 'TolFun', 10e-6,'Display','iter', 'MaxFunEvals',8e3, 'MaxIter', 3e5,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
 [x0, fval, exitf] = fsolve(modFF, x0, options);
 
+% options = optimoptions('fsolve', 'TolFun', 10e-6,'Display','iter', 'MaxFunEvals',8e3, 'MaxIter', 3e5); %,  'Algorithm', 'levenberg-marquardt');%, );%, );%, 'Display', 'Iter', );
+% [x0, fval, exitf] = fsolve(modFF, x0, options);
 
 lb=[];
 ub=[];
