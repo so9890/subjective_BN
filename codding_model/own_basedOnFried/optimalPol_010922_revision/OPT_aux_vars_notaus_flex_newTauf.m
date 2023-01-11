@@ -130,12 +130,13 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
     wsg_taus= (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
     
     if indic.notaul>=7
-        taus = 1-wsg_taus./wsf;
-        wsg= tauf.*F./(taus.*sg);
+        taus=tauf.*F./(wsf.*sg); % due to scientists free movement: wsg=wsf
+%         wsg=wsf;
     else
         taus=zeros(size(F));
-        wsg=wsg_taus;
     end
+        wsg = wsg_taus./(1-taus);
+
     %- relevant for code without separate markets
     if indic.Sun==0 % scientists form part of HH
         ws   = (chiis*S.^sigmaas)./muu; 
@@ -195,11 +196,11 @@ end
 
 if indic.notaul >=4 && indic.notaul<7 % lump sum trans
     Tls =tauf.*F;    
-    Tlsall=Tls-ws.*S;
 else
     Tls =zeros(size(F));
-    Tlsall=Tls-ws.*S;
 end
+
+Tlsall=Tls-(wsf.*sff+wsn.*sn+wsg.*(1-taus).*sg);
 % government consumption
 if indic.notaul<2 || indic.notaul >= 4 % (>=4 :lump sum transfers with and without taul)
             GovCon = zeros(size(F)); % no government consumption

@@ -151,7 +151,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{Mock Presentation\\ December 18, 2022 }} 
+\date{\small{ Job Talk DIW\\ January 20, 2023 }} 
 %\subject{} 
 \begin{document}
 
@@ -194,7 +194,43 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	%		\item \textbf{What is the optimal policy mix to meet the emission target?}
 	%	\end{itemize}
 %\end{frame}
+\begin{comment}
+\begin{frame}{Motivation}
+	
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} %change the font color
+		\setbeamerfont{alerted text}{}
+		%	\item we are facing  environmental limits 
+		%	\vspace{3mm}
+		\item Research subsidies essential to optimally deal with an environmental externality \small{\citep{Acemoglu2012TheChange}} %Meeting climate targets requires a limit on emissions \citep{IPCC2022}
+		\item I show that in a second-best world, \textbf{labor income taxes} form part of the optimal environmental policy!
+		\begin{enumerate}
+			\item[1st Case] research subsidies are not available
+		\end{enumerate}
+		
+		\item 
+		\vspace{3mm}
+		\item Carbon taxes  direct  (i) demand towards low-emission alternatives ...
+		\vspace{3mm}
+		\item ... \underline{and} (ii) research across sectors
+		\vspace{2mm}
+		\begin{itemize}
+			\item[-] important when research subsidies are unavailable \small{\citep{Acemoglu2012TheChange}}	
+			%			\item[-] if want to foster \textbf{green} research
+			%			\ar higher carbon tax \ar % but reduces returns to labor %\ar
+			%			costly in terms of output % reduces share of fossil energy 
+			%			\item[-] if want to foster \textbf{fossil} research \ar smaller carbon tax \ar but too high emissions
+		\end{itemize}
+		\vspace{2mm}
+		\item Labor income tax can be used to counter side effects of carbon tax 
+		
+		\vspace{3mm}
+		\item \textbf{What is the optimal policy mix to meet the emission target?}
+	\end{itemize}
+\end{frame}
 
+content...
+\end{comment}
 
 \begin{frame}{Motivation}
 	
@@ -262,7 +298,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\item Under the net-zero emission limit: 
 		\begin{itemize}
 			\item[-]  higher carbon tax to boost green research
-			\item[-]  a subsidy on labor stabilizes output
+			\item[-]  a smaller tax on labor stabilizes output
 		\end{itemize}
 		\vspace{3mm}
 		\item A significant gap between first-best and optimal allocation calls for additional policy measures
@@ -494,7 +530,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\\
 		\vspace{4mm}
 		\\
-		\text{s.t.}\ C_t=(\alert{\pmb{1-\tau_{\iota t}}})w_{t}H_{t}+w_{st}S_t+T_t%+Gov_t
+		\text{s.t.}\ C_t=(\alert{\pmb{1-\tau_{\iota t}}})\left(w_{t}H_{t}+w_{st}S_t\right)+T_t%+Gov_t
 		%\\
 		%\hspace{2mm}\ H_{t}\leq \bar{H}; \hspace{4mm} S_{t}\leq \bar{H}
 		%	\tikzmarkend{first0}
@@ -1212,7 +1248,7 @@ content...
 	\begin{align*}
 		\max_{\{\tau_{Ft}\}_{t=0}^{\infty}, \{\tau_{\iota t}\}_{t=0}^{\infty}}&\hspace{3mm} \sum_{t=0}^{\infty}\beta^t U\left(C_t,H_t, S_t\right)\\ \ \\
 		\text{s.t.} \hspace{4mm}
-		&{ (1)\ \ T_t=\tau_{\iota t}w_{t}H_{t}+{{\tau_{Ft}}}F_{t}}+T_{\pi t}\\
+		&{ (1)\ \ T_t=\tau_{\iota t}\left(w_{t}H_{t}+w_{st}S_{t}\right)+{{\tau_{Ft}}}F_{t}}+T_{\pi t}\\
 		& {(2)\ \  \text{behavior of firms and households}}\\
 		& {(3)\ \ \text{resource constraints} }\\
 		&{(4)\ \  \alert{\omega F_t-\delta \leq\Omega_t }} \hspace{3mm} \alert{\text{(dynamic emission target)}}
@@ -1365,22 +1401,28 @@ content...
 \vspace{-3mm}
 \begin{figure}[h!!]
 	
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Tax per ton of carbon,  US\$, $\tau_{Ft}$}
+	\begin{subfigure}{0.45\textwidth}		
+		\caption{Tax per ton of carbon in US\$, $\tau_{Ft}$}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_Tauf_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{subfigure}	
-	\begin{minipage}[]{0.1\textwidth}
+	\begin{minipage}[]{0.05\textwidth}
 		\ 
 	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Marginal tax rate in \%, $\tau_{\iota t}$}
+	\begin{subfigure}{0.45\textwidth}		
+		\caption{Marginal income tax rate in \%, $\tau_{\iota t}$}
 		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulAv_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulAvS_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{subfigure}
 \end{figure}
 
-
+	\vspace{3mm}
+\begin{block}{}
+	\begin{itemize}
+		\item Labor income tax used to subsidize research
+		\item Is there a role for labor income taxation within the optimal environmental policy?
+	\end{itemize}
+\end{block}	
 \hypertarget{backOPT}{}
 \vspace{-4mm}
 \hfill
@@ -1389,129 +1431,74 @@ content...
 \hyperlink{altems}{\tiny{$\rightarrow$ alternative emission limit,}}\hyperlink{sensphi}{\tiny{$\rightarrow$ sensitivity,}}\hyperlink{compfb}{\tiny{$\rightarrow$ comparison first best}}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-%%%%%% first best
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Comparison to first best}
-	\hypertarget{compfb}{}
-	\vspace{-3mm}
-	\pause
-	\centering
-	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{\normalsize{Green-to-fossil energy ratio} }
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_slides_CompEffLF_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{\normalsize{Fossil-to-green scientists }}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_slides_CompEffLF_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-	\end{figure}
-	\vspace{1mm}
-	\begin{block}{}
-		\begin{itemize}
-			\item<+-> First-best: more fossil research and higher green-to-fossil energy ratio
-			\item [] %<+-> Government dilemma: more fossil research but less fossil energy use
-		\end{itemize}
-	\end{block}	
-	
-	\vspace{-5.5mm}
-	\hfill	\hyperlink{mec}{\tiny{$\rightarrow$ back}}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Comparison to first best}
-	\vspace{-3mm}
-	\centering
-	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{\normalsize{Green-to-fossil energy ratio} }
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/GFF_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{\normalsize{Fossil-to-green scientists }}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/sffsg_slides_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
-		\end{subfigure}
-	\end{figure}
-	\vspace{1mm}
-	\begin{block}{}
-		\begin{itemize}
-			\item First-best: more fossil research and higher green-to-fossil energy ratio
-			\item \alert{Government dilemma:  more fossil research comes with higher fossil energy use}
-		\end{itemize}
-	\end{block}	
-	
-	\vspace{-5.5mm}
-	\hfill	\hyperlink{mec}{\tiny{$\rightarrow$ back,}}\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
-\end{frame}
-
-
-
 
 \section*{Mechanism}
 
-%MEchanism
+\begin{frame}{Investigating the role of labor income taxes as environmental policy instrument}
+	
 
-\begin{frame}{How does the optimal environmental policy change when integrating the labor income tax?}
+	\begin{itemize}
+		\item 	\alert{Problem: Even absent emission target, the optimal policy uses the labor income tax to subsidize research}
+				\vspace{3mm}
+		\item[\ar] difference of optimal allocation under a carbon-tax-only policy to the benchmark policy not solely explained by motive to lower emissions %(bcs labor income tax driven by subsidizing research \ar reduces emissions as a side effect)
+				\vspace{3mm}
+		\item Solution: compare benchmark optimal allocation to a counterfactual scenario where the labor income tax is fixed at its optimal level without emission target but emission limit has to be met
+				\vspace{3mm}
+		\item[\ar] Isolates effect of integrating labor income tax as an environmental policy instrument 
+	\end{itemize}
+%	\alert{Effect of integrated policy}
+%	\\
+%
+%	\ar use of labor income tax not solely due to lower emissions, rather: labor income tax targeted at research, as a side effect, emissions reduce, smaller carbon tax required.
+%	\\ 
+%	\ar But: want to isolate changes in policy driven by emission target
+%	\\
+%	\ar Compare optimal allocation in benchmark policy to world where labor income tax is fixed at its optimal level without emission target
+%	\\
+%	\ar Isolates effect of integrating labor income tax as an environmental policy instrument 
+\end{frame}
+
+\begin{frame}{Use of labor income tax in the environmental policy}
 	\begin{figure}[h!!]
 		\centering
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{Deviation in carbon tax in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_Tauf_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.1\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{Average Tax rate}}
+		
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Average marginal income tax rate in \%}}
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixed_T_dTaulAvS_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+	\begin{minipage}[]{0.05\textwidth}
+	\
+\end{minipage}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Deviation carbon tax in \%}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_Tauf_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
 		\end{subfigure}
 	\end{figure}
 	\vspace{3mm}
 	\begin{block}{}
 		\begin{itemize}
 			\item In run-up to net-zero limit: labor income tax reduces emissions
-			\item Under net-zero limit: subsidy on labor boosts production
+			\item Under net-zero limit: reduction of labor income tax boosts production
 		\end{itemize}
 	\end{block}	
 \end{frame}
+\begin{comment}
 \begin{frame}{Deviation from fixed labor income tax policy}
 \hypertarget{mec0}{}
 \vspace{-3mm}
-\pause
 \centering
 \begin{figure}
-%	\begin{subfigure}{0.42\textwidth}
-%		\caption{{\% deviation carbon tax}}
-%		%	\captionsetup{width=.45\linewidth}
-%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_S_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-%	\end{subfigure}
-%	\begin{minipage}[]{0.1\textwidth}
-%		\
-%	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\caption{{\% deviation fossil-to-green scientists }}
 		%	\captionsetup{width=.45\linewidth}
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
 	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
+	\begin{minipage}[]{0.05\textwidth}
 		\
 	\end{minipage}
-\begin{subfigure}{0.4\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\caption{{\% deviation green-to-fossil energy }}
 	%	\captionsetup{width=.45\linewidth}
 	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
@@ -1524,37 +1511,63 @@ content...
 		\item Under net-zero limit: higher carbon tax to foster green research
 	\end{itemize}
 \end{block}	
-
-\vspace{-3mm}
-\hfill	\hyperlink{decomp}{\tiny{$\rightarrow$ decomposition,}}\hyperlink{compfb}{\tiny{$\rightarrow$ comparison first best,}}\hyperlink{altemsdecomp}{\tiny{$\rightarrow$ alternative emission limit,}}\hyperlink{sensphi}{\tiny{$\rightarrow$ sensitivity}}
-\hypertarget{mec}{}
 \end{frame}
 
+
+content...
+\end{comment}
+\begin{frame}{Decomposing effect of integrated policy }
+	\hypertarget{mec0}{}
+	\vspace{-3mm}
+	\centering
+	\begin{figure}
+		\begin{subfigure}{0.45\textwidth}
+			\caption{{\% deviation fossil-to-green scientists }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}
+			\caption{{\% deviation hours worked }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_Hagg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{3mm}
+	\begin{block}{}
+		\begin{itemize}
+\item adjustment in carbon tax directs research activity 
+\item adjustment in labor income tax mitigate side effects on labor market
+		\end{itemize}
+	\end{block}	
+\end{frame}
 
 
 
 \hypertarget{conc}{}
 \section{Conclusion}
 \begin{frame}{Conclusion}
-\begin{itemize}[<+-| alert@+>]
-	\setbeamercolor{alerted text}{} %change the font color
-	\setbeamerfont{alerted text}{}
-	\item I study the optimal mix of taxes on carbon and income to meet emission targets
-	\vspace{3mm}
-	
-	\item Before the net-zero emission limit: 
-	\begin{itemize}
-		\item[-]  lower carbon tax to maintain some fossil research
-		\item[-] a tax on labor reduces emissions
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} %change the font color
+		\setbeamerfont{alerted text}{}
+		\item I study the optimal mix of taxes on carbon and income to meet emission targets
+		\vspace{3mm}
+		
+		\item Before the net-zero emission limit: 
+		\begin{itemize}
+			\item[-]  lower carbon tax to maintain some fossil research
+			\item[-] a higher tax on labor reduces emissions
+		\end{itemize}
+		\vspace{3mm}
+		\item Under the net-zero emission limit: 
+		\begin{itemize}
+			\item[-] high carbon tax to increase green research
+			\item[-]  a smaller tax on labor stabilizes output
+		\end{itemize}
+		\item overall effect small \ar introduce research subsidies
 	\end{itemize}
-	\vspace{3mm}
-	\item Under the net-zero emission limit: 
-	\begin{itemize}
-		\item[-] high carbon tax to increase green research
-		\item[-]  a subsidy on labor stabilizes output
-	\end{itemize}
-	\item Significant gap between first-best and optimal allocation\\ \ar additional policy instruments
-\end{itemize}
 \end{frame}
 \begin{frame}[shrink]{References}
 
@@ -1572,17 +1585,17 @@ content...
 %-----------------------------------------
 %- Model
 %-----------------------------------------
-\begin{frame}{Labor supply decision}
-\hypertarget{labsup}{}
-\begin{align*}
-	H_t=\left(\frac{1-\tau_{\iota t}}{\chi}\right)^{\frac{1}{1+\sigma}}
-\end{align*}
-
-\vfill
-\vspace{0mm}
-\hfill 
-\hyperlink{hhopt}{\tiny{$\rightarrow$ back}}
-\end{frame}
+%\begin{frame}{Labor supply decision}
+%\hypertarget{labsup}{}
+%\begin{align*}
+%	H_t=\left(\frac{1-\tau_{\iota t}}{\chi}\right)^{\frac{1}{1+\sigma}}
+%\end{align*}
+%
+%\vfill
+%\vspace{0mm}
+%\hfill 
+%\hyperlink{hhopt}{\tiny{$\rightarrow$ back}}
+%\end{frame}
 
 
 
@@ -1641,13 +1654,14 @@ content...
 				($\chi$, $\chi_s$)& (10.02, 0.48) &  \makecell[l]{average hours worked per\\ economic time endowment\\ by worker: 0.34 \citep{OECDHoursworked}} \\
 				$\beta$ & 0.93 &  \makecell[l]{\cite{Barrage2019OptimalPolicy}}\\
 				$\bar{H}$&1.00& \makecell[l]{14.5 hours per day \citep{Jones1993OptimalGrowth}} \\
+					$\bar{S}$&0.50& \makecell[l]{upper bound hours scientists} \\
 				\hline
 				Research&\multicolumn{2}{c}{}
 				\\
 				\hline 
 				${{\eta}}$ &0.79 &  \\
 				($\rho_F$, $\rho_G$, $\rho_N$)& (0.01, 0.01, 1.00) &\makecell[l]{\cite{Fried2018ClimateAnalysis}}   \\
-				${{\phi}}$ &0.50&  \\
+				${{\phi}}$ &0.75&  \\
 				$\gamma$ & 0.06 &\makecell[l]{maximum aggregate growth:\\4\% per annum \citep{OECDGDP}}\\
 				\hline
 				Production&\multicolumn{2}{c}{}\\
@@ -1658,7 +1672,7 @@ content...
 				\hline
 				Initial TFP&\multicolumn{2}{c}{}\\
 				\hline
-				({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(8.21, 1.27, 2.80) &fossil to green ratio, energy share to GDP  \\
+				({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(6.68, 1.50, 2.85) &fossil to green ratio, energy share to GDP  \\
 				\hline 
 				Emissions&\multicolumn{2}{c}{}\\
 				\hline
@@ -1675,118 +1689,81 @@ content...
 \hyperlink{backca}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%% first best
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Optimal Policy: higher emission limit}
-\hypertarget{altems}{}
-\vspace{-3mm}
-\begin{figure}[h!!]
-	
-	
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Tax per ton of carbon,  US\$, $\tau_{Ft}$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Ems_Sens_Tauf_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}	
-	\begin{minipage}[]{0.1\textwidth}
-		\ 
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Marginal tax rate in \%, $\tau_{\iota t}$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Ems_Sens_dTaulAv_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}
-	
-\end{figure}
-\vspace{5mm}
-\begin{block}{}
-	\begin{itemize}
-		\item less strict emission limit (ca. -62\% relative to 2019) allows to exploit availability of labor income tax more
-	\end{itemize}
-\end{block}	
 
-\vspace{-2mm}
-\hfill
-\hyperlink{backOPT}{\tiny{$\rightarrow$ back}}\textbf{}
+
+\begin{frame}{Comparison to first best}
+	
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Green-to-fossil energy ratio}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Fossil-to-green scientists}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	%	\vspace{1mm}
+	%\begin{block}{}
+	%	\begin{itemize}
+		%		\item First-best: more fossil research and higher green-to-fossil energy ratio
+		%		\item[] % \alert{Government dilemma:  more fossil research comes with higher fossil energy use}
+		%	\end{itemize}
+	%\end{block}	
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Comparison to first best}
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{Green-to-fossil energy ratio}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Fossil-to-green scientists}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{1mm}
+	\begin{block}{}
+		\begin{itemize}
+			%\item First-best: more fossil research and higher green-to-fossil energy ratio
+			\item {Government dilemma:  more fossil research comes with higher fossil energy use}
+		\end{itemize}
+	\end{block}	
+	\hypertarget{compfb}{}
+	\vspace{-4mm}
+	
+	\hfill
+	\hyperlink{backOPT}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 
 
-\begin{frame}{Deviation from carbon-tax-only policy: higher emission limit}
-\hypertarget{altemsdecomp}{}
-\vspace{-3mm}
-\centering
-\begin{figure}
-	\begin{subfigure}{0.42\textwidth}
-		\caption{{\% deviation carbon tax}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/EmsDecomp_CTO_Sens_Tauf_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
-		\
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}
-		\caption{{\% deviation fossil-to-green scientists }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/EmsDecomp_CTO_Sens_sffsg_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-\end{figure}
-\vspace{3mm}
-\begin{block}{}
-	\begin{itemize}
-		\item less strict emission limit (ca. -62\% relative to 2019) allows to exploit availability of labor income tax more
-	\end{itemize}
-\end{block}	
 
-\vspace{-3mm}
-\hfill	\hyperlink{mec}{\tiny{$\rightarrow$ back}}
-\end{frame}
-
-
-%-- DECOMPOSITION baseline model
-\begin{frame}{Decomposition}
-\hypertarget{decomp}{}
-\centering
-
-\begin{figure}[h!!]
-	\centering
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{{\% deviation  green-to-fossil energy }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_GFF_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.1\textwidth}
-		\
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{{\% deviation hours worked}}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/CountTAUF_Both_Opt_target_S_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-	\end{subfigure}
-\end{figure}
-\vspace{3mm}
-\begin{block}{}
-	\begin{itemize}
-		\item  the change in the carbon tax affects green-to-fossil energy ratio; hours unchanged
-		\item the labor tax adjusts hours to (i) reduce emissions or to (ii) raise output
-	\end{itemize}
-\end{block}	
-
-\vfill
-\vspace{-3mm}
-\hfill 
-\hyperlink{mec}{\tiny{$\rightarrow$ back}}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% New Calibration with scientists taxed
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Average Tax rates by labor scientists}
+\begin{frame}{Marginal tax rates by type}
 	\hypertarget{Redis}{}
 	\vspace{-3mm}
 	\begin{figure}[h!!]
 		
 		\begin{subfigure}{0.4\textwidth}		
-			\caption{Average marginal tax scientists in \%}
+			\caption{\footnotesize{Marginal income tax rate scientists, \%}}
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulS_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 		\end{subfigure}	
@@ -1794,16 +1771,13 @@ content...
 			\ 
 		\end{minipage}
 		\begin{subfigure}{0.4\textwidth}		
-			\caption{Marginal tax rate workers in \%}
+			\caption{\footnotesize{Marginal income tax rate workers, \%}}
 			%	\captionsetup{width=.45\linewidth}
 			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulAv_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 		\end{subfigure}
 		
 	\end{figure}
-	\vspace{5mm}
-	\begin{block}{}
-		The government mainly uses the labor income tax to subsidize research.
-	\end{block}	
+	
 	\vspace{-4mm}
 	\hfill
 	\hyperlink{backOPT}{\tiny{$\rightarrow$ back}}
@@ -1816,117 +1790,7 @@ content...
 
 
 
-%\begin{frame}{Comparison to carbon tax only policy}
-%	\begin{figure}[h!!]
-%		\centering
-%		\begin{subfigure}{0.4\textwidth}		
-%			\caption{{Levels  Tauf}}
-%			%	\captionsetup{width=.45\linewidth}
-%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_T_Tauf_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-%		\end{subfigure}
-%		\begin{minipage}[]{0.1\textwidth}
-%			\
-%		\end{minipage}
-%		\begin{subfigure}{0.4\textwidth}		
-%			\caption{{Average Tax rate}}
-%			%	\captionsetup{width=.45\linewidth}
-%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_T_dTaulAvS_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-%		\end{subfigure}
-%	\end{figure}
-%\end{frame}
 
-
-
-\begin{frame}{with efficient allocation; New calibration and emission limit scientists taxed}
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{GFF}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{All scientists}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_T_S_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}		
-	\caption{{fossil to green scientists}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-\end{subfigure}
-	\end{figure}
-\end{frame}
-
-
-\begin{frame}{Decomposition: new calibration, scientists taxed}
-	\hypertarget{decomp}{}
-	\centering
-	
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{\% deviation  green-to-fossil energy }}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_T_emnet1_Sun2_target_GFF_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{\% deviation hours worked}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_T_emnet1_Sun2_target_Hagg_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}		
-	\caption{{\% emissions}}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_T_emnet1_Sun2_target_Tauf_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-\end{subfigure}
-	\end{figure}
-	
-	\vfill
-	\vspace{-3mm}
-	\hfill 
-	\hyperlink{mec}{\tiny{$\rightarrow$ back}}
-\end{frame}
-
-\begin{frame}{Optimal Policy with and without emission target}
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{Levels  Tauf}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_Tauf_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.1\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{Average Tax rate}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_dTaulAvS_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-	\end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% New calibration scientists taxed, no target
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{New calibration and emission limit scientists taxed: NO target}
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{\% deviation  Tauf}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Tauf_COMPtaulPerNewCalib_NoT_regime4_emnet1_Sun2_spillover0_knspil3_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.1\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.4\textwidth}		
-			\caption{{\% deviation hours worked}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Hagg_COMPtaulPerNewCalib_NoT_regime4_emnet1_Sun2_spillover0_knspil3_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
-		\end{subfigure}
-	\end{figure}
-\end{frame}
 
 
 \begin{frame}{Optimal Policy without emission target}
@@ -1940,50 +1804,21 @@ content...
 		\begin{subfigure}{0.3\textwidth}		
 			\caption{{All scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_NoT_S_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_NoT_S_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 		\begin{subfigure}{0.3\textwidth}		
 			\caption{{Fossil to green scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_NoT_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff2pol_NoT_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 	\end{figure}
-\end{frame}
-
-
-\begin{frame}{Decomposition: new calibration, scientists taxed: to target}
-	\hypertarget{decomp}{}
-	\centering
-	
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{\% deviation  green-to-fossil energy }}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_NoT_emnet1_Sun2_target_GFF_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{\% deviation hours worked}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_NoT_emnet1_Sun2_target_Hagg_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}		
-			\caption{{\% emissions}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/CountTAUF_Both_Opt_NewCalib_NoT_emnet1_Sun2_target_Emnet_nsk0_xgr0_knspil3_regime4_spillover0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-	\end{figure}
-	
-	\vfill
-	\vspace{-3mm}
-	\hfill 
-	\hyperlink{mec}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 
 \section*{Sensitivity}
 
 \begin{frame}{Sensitivity of optimal policy to knowledge spillovers}
+	\tr{UPDATE}
 \hypertarget{sensphi}{}
 \vspace{-3mm}
 \begin{figure}[h!!]

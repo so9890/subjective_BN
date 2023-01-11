@@ -149,7 +149,7 @@ elseif indic.notaul >= 7 % earmarking
     Tls = zeros(size(F));
 end
 if indic.xgrowth==0
-    Tlsall = Tls-ws.*S;
+    Tlsall=Tls-(ws.*sff+ws.*sn+ws.*(1-taus).*sg);
 else
     Tlsall=Tls;
 end

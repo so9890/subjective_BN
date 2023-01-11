@@ -96,7 +96,7 @@ x0=x0(:);
 %     f=laissez_faireVECT_xgrowth(x0, params, list, varrs, init201519,T, indic);
 % end
 % to examine stuff
-if (indic.notaul==0 || indic.notaul==4) && indic.noskill==1 && indic.xgrowth==0
+if ((indic.notaul==0 || indic.notaul==4) && indic.noskill==1 && indic.xgrowth==0)|| indic.notaul>7
     comp=1e-7;
 else
     comp=1e-8;

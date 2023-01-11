@@ -29,10 +29,19 @@ function LF_COUNT=compequ(T, list, params, init201519,   symms, LF_SIM, indic, E
     elseif indic.tauf ==5
         indic.limit_LF=1;
         taul= LF_SIM(:,list.allvars=='taul'); % save taul fixed
-        taul(end)=taul(end-1);
         % read in new variables as starting values
-        helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-        LF_SIM=helper.opt_all;
+            helper=load(sprintf('OPT_target_plus30_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+             indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+          LF_SIM=helper.opt_all;
+        % replace taul
+        LF_SIM(:,list.allvars=='taul')=taul; 
+    elseif indic.tauf==6
+        indic.limit_LF=0; % => in contrast to 5 tauf is given by joint optimal
+        taul= LF_SIM(:,list.allvars=='taul'); % save taul fixed
+        % read in joint optimal to fix tauf
+        helper=load(sprintf('OPT_target_plus30_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+         indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+         LF_SIM=helper.opt_all;
         % replace taul
         LF_SIM(:,list.allvars=='taul')=taul; 
     end

@@ -68,7 +68,7 @@ if indic.target==1
   elseif indic.count_techgap==1
       helper=load(sprintf('OPT_target_countec_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
    elseif indic.targetWhat==1 &&  indic.notaul~=9
-       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   elseif indic.notaul==9
       helper=load(sprintf('COMPEquN_SIM_0501_taufopt%d_newCalib_target_emnet%d_Sun%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', 5,indic.targetWhat, indic.Sun, indic.noknow_spill,  indic.spillovers, 4, indic.noskill, indic.sep, indic.xgrowth, indic.PV,etaa));
       helper.opt_all=helper.LF_COUNT;
@@ -171,17 +171,17 @@ else
 end
 % initial value of scientists might be zero (in version with target; other transformation required)
 
-if indic.sep==1
+% if indic.sep==1
     guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))))./...
     x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))); 
     guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))))./...
     x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))); 
     guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=log((params(list.params=='upbarH')-x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))))./...
     x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))); 
- elseif indic.sep==0
-     guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-     guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
-     guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+ if indic.sep==0
+%      guess_trans(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))=sqrt(x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+%      guess_trans(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))=sqrt(x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
+%      guess_trans(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))=sqrt(x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn'))));%;% sqrt(params(list.params=='upbS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
     guess_trans(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))=log((params(list.params=='upbarS')-x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))))./...
     x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S'))));
  end
@@ -221,7 +221,7 @@ if indic.target==1
 % if indic.notaul==1 && indic.noskill==1 && indic.xgrowth==0
 %         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % else
-        options = optimset('algorithm','sqp','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
+        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
 % end
         [x,fval,exitflag,output,lambda] = fmincon(objf,guess_trans,[],[],[],[],lb,ub,constf,options);
        save('incase_of_error_0201_tt', 'x')
@@ -230,8 +230,8 @@ if indic.target==1
 
         options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
          [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
-         save('incase_of_error_0201_4', 'x')
-
+%          save('incase_of_error_0201_4', 'x')
+% ll=load('incase_of_error_0201_4', 'x');
 elseif indic.target==0
 %     if indic.notaul==0 %|| (indic.noskill==1 && indic.xgrowth==0)
 %        options = optimset('algorithm','active-set','TolCon',1e-8,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
@@ -242,11 +242,15 @@ elseif indic.target==0
     %   if ~(indic.noskill==1 && indic.xgrowth==0)
        options = optimset('algorithm','active-set','TolCon',1e-11,'Tolfun',1e-6,'MaxFunEvals',500000,'MaxIter',6200,'Display','iter','MaxSQPIter',10000);
         [x,fval,exitflag,output,lambda] = fmincon(objf,x,[],[],[],[],lb,ub,constf,options);
+        save('as_1001', "x")
         if ~ismember(exitflag, [1,4,5])
             error('active set did not solve sufficiently well')
         end
      %   end
 end
+% save('1101_x', "x");
+% ll=load('1101_x.mat');
+% x=ll.x;
 %%
 if indic.testT==1
     %  save(sprintf('2309_results_opt_main_notaul0_target%d', indic.target), 'x')
@@ -366,14 +370,14 @@ else
     out_trans((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)=upbarH./(1+exp(x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
 end
 
-if indic.sep==1
+%if indic.sep==1
     out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
     out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
-elseif indic.sep==0
-    out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
-    out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
-    out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+if indic.sep==0
+%     out_trans((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+%     out_trans((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+%     out_trans((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
     out_trans((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarS./(1+exp(x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 end    
 

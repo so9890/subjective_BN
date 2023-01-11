@@ -17,14 +17,14 @@ else
     x((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T) = upbarH./(1+exp(y((find(list.opt=='h')-1)*T+1:find(list.opt=='h')*T)));
 end
 
-if indic.sep==1
+% if indic.sep==1
     x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = upbarH./(1+exp(y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)));
     x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = upbarH./(1+exp(y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)));
     x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = upbarH./(1+exp(y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)));
-elseif indic.sep==0
-     x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
-     x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
-     x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
+if indic.sep==0
+%      x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T) = (y((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T)).^2;
+%      x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T) = (y((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T)).^2;
+%      x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T) = (y((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T)).^2;
      x((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T) = upbarS./(1+exp(y((find(list.opt=='S')-1)*T+1:find(list.opt=='S')*T)));
 end
 
@@ -64,13 +64,20 @@ c(T+1:T*2) = -Tls; % lump-sum transfers cannot be negative
 
 if indic.xgrowth==0
     if indic.sep==0
-        %c(T*2+1:T*3)   =S- upbarH;
+        %c(T*2+1:T*3)   =S- upbarS;
     else
         c(T*2+1:T*3)   = sg-upbarH;
         c(3*T+1:4*T)   = sff-upbarH;
         c(4*T+1:5*T)   = sn-upbarH;
     end
 end
+
+if indic.notaul>=7
+    if indic.sep==0 
+        c(T*2+1:T*3)   =-tauf; % tauf has to be positive
+    elseif indic.sep~=0 && indic.xgrowth== 0 
+        c(T*5+1:T*6)   =-tauf; % tauf has to be positive
+    end
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%
@@ -95,7 +102,9 @@ end
                end
             if indic.notaul<7 % otherwise used to determine taus
                 ceq(T*7+1:T*8) = ws-wsg;
-            end
+             else
+                 ceq(T*7+1:T*8) = zeros(size(T*7+1:T*8));
+             end
             ceq(T*8+1:T*9) = ws-wsn;
             
             ceq(T*9+1:T*10)= zh*hh-(hhf+hhg+hhn);
