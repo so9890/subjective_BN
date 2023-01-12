@@ -152,6 +152,15 @@ opt_not_nt_rs= helper.opt_all';
 helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul7_sep%d_extern0_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, plotts.nknk, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
 opt_not_wt_rs= helper.opt_all';
 
+% counterfac parameters
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil1_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun,plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_t_wt_nknk0= helper.opt_all';
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil0_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_t_wt_nknk05= helper.opt_all';
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil2_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun,  plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_t_wt_nknk025= helper.opt_all';
+helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil3_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun,  plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+opt_t_wt_nknk075= helper.opt_all';
 
 % laissez faire and BAU
 helper = load(sprintf('BAU_2112_taulZero1_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
@@ -167,6 +176,11 @@ RES_NCalib=add_vars(RES_NCalib, list, params, indic, list.allvars, symms, MOM);
 RES_NCalib_RS=containers.Map({'LF', 'BAU', 'SP_T', 'SP_NoT', 'OPT_T_NOTaul', 'OPT_T_WithTaul',  'OPT_NoT_NOTaul', 'OPT_NoT_WithTaul'},...
                             {LF, BAU, sp_t, sp_not, opt_t_nt_rs, opt_t_wt_rs, opt_not_nt_rs, opt_not_wt_rs});
 RES_NCalib_RS=add_vars(RES_NCalib_RS, list, params, indic, list.allvars, symms, MOM);
+
+RES_Sens=containers.Map({'nknk0', 'nknk05', 'nknk025', 'nknk075'},...
+                            {opt_t_wt_nknk0, opt_t_wt_nknk05, opt_t_wt_nknk025, opt_t_wt_nknk075});
+RES_Sens=add_vars(RES_Sens, list, params, indic, list.allvars, symms, MOM);
+
 %- only optNewCalib_pol_indic.noskillLn_emnet1_Sun2_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.pngimal tauf
 if plotts.xgr==0 
     helper=load(sprintf('COMPEquN_SIM_0501_taufopt1_newCalib_target_emnet1_Sun2_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat',...
@@ -188,11 +202,14 @@ if plotts.xgr==0
           indic.targetWhat, indic.Sun, plotts.nknk,  indic.spillovers, plotts.regime_gov, plotts.nsk, indic.sep, plotts.xgr, indic.PV,etaa));
     count_tauf_TaulFixed_TaufJoint=helper.LF_COUNT';
    
+
     RES_count_NCalib=containers.Map({'CountOnlyTauf_T', 'CountOnlyTaul_T', 'CountOnlyTauf_NoT', 'CountOnlyTaul_NoT' , 'Count_TaulFixed', 'Count_TaulFixed_TaufJoint'},...
             {count_taul_T, count_tauf_T, count_taul_NoT, count_tauf_NoT, count_tauf_TaulFixed, count_tauf_TaulFixed_TaufJoint});
      RES_count_NCalib=add_vars(RES_count_NCalib, list, params, indic, list.allvars, symms, MOM);
   
 end
+
+
 %% counterfactual model
 
 % no knowledge spillovers 
@@ -308,9 +325,9 @@ if plotts.cev==1
     end
         
 %     [COMP, COMPTable] = comp_CEV(h1('OPT_T_NoTaus'),h2('OPT_T_NoTaus') , varlist, varlist, symms, list, params, T, indic);   
-    [COMP, COMPTable] = comp_CEV(RES_NCalib('OPT_T_WithTaul'),RES_NCalib('OPT_T_NOTaul') , varlist, varlist, symms, list, params, T, indic);   
+    [COMP, COMPTable] = comp_CEV(RES_NCalib('OPT_T_WithTaul'),RES_count_NCalib('Count_TaulFixed') , varlist, varlist, symms, list, params, T, indic);   
 
-    save(sprintf('Table_CEV_Newcalib_%s_regime%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
+    save(sprintf('Table_CEV_Newcalib1201_%s_regime%d_emnet%d_Sun%d_sep%d_noskill%d_etaa%.2f_xgrowth%d_PV%d_extern%d.mat',date, plotts.regime_gov,indic.targetWhat, indic.Sun,  indic.sep, plotts.nsk, etaa, plotts.xgr, indic.PV, indic.extern), 'COMPTable');
 end
 %% Plots
 %- axes
@@ -1182,12 +1199,11 @@ if plotts.phi_sens==1
     
     fprintf('plott sensitivity phi')
 
-        RES=OTHERPOL{plotts.regime_gov+1}; 
-        ben= RES("OPT_T_NoTaus");
-        nokn=RES_noknspil("OPT_T_NoTaus");
-        smkn=RES_smkn("OPT_T_NoTaus");
-        bgkn=RES_bgkn("OPT_T_NoTaus");
-        
+        nknk0= RES_Sens("nknk0");
+        nknk05= RES_Sens("nknk05");
+        nknk025= RES_Sens("nknk025");
+        nknk075=RES_Sens("nknk075"); %RES_NCalib("OPT_T_WithTaul");
+
     for lgdind=0:1
     for l =keys(lisst) % loop over variable groups
         ll=string(l);
@@ -1197,10 +1213,10 @@ if plotts.phi_sens==1
             gcf=figure('Visible','off');
             varr=string(plotvars(v));
 
-            main=plot(time,(bgkn(find(varlist==varr),1:T)), time,(ben(find(varlist==varr),1:T)), time,(smkn(find(varlist==varr),1:T)),time,nokn(find(varlist==varr),1:T), 'LineWidth', 1.1);   
+            main=plot(time,(nknk075(find(varlist==varr),1:T)), time,(nknk05(find(varlist==varr),1:T)), time,(nknk025(find(varlist==varr),1:T)),time,nknk0(find(varlist==varr),1:T), 'LineWidth', 1.1);   
             set(main, {'LineStyle'},{'--';'-'; '--'; ':'}, {'color'}, {'b';'k';orrange; grrey} )   
             if lgdind==1
-               lgd=legend('$\phi=0.6$', '$\phi=0.5$', '$\phi=0.25$','$\phi=0$',  'Interpreter', 'latex');
+               lgd=legend('$\phi=0.75$', '$\phi=0.5$', '$\phi=0.25$','$\phi=0$',  'Interpreter', 'latex');
                 set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
             end
             
@@ -1221,7 +1237,7 @@ if plotts.phi_sens==1
                 ytickformat('%.1f')
             end
             xticklabels(Year10)
-            path=sprintf('figures/all_%s/Phi_Sens_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+            path=sprintf('figures/all_%s/Phi_SensN_%s_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr, indic.spillovers,indic.noknow_spill, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

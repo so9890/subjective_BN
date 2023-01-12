@@ -233,6 +233,26 @@ content...
 \end{comment}
 
 \begin{frame}{Motivation}
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} %change the font color
+		\setbeamerfont{alerted text}{}
+		\item How to best implement emission targets in line with climate goals? % Frage
+		\vspace{3mm}
+		\item Problem:
+			\begin{itemize}
+				\item[-] On the one hand, reduce the use of fossil energy...
+				\item[-] ... on the other hand, technology advances in established (fossil) industries facilitate green innovation tomorrow
+				\item[-] A \textbf{carbon tax} lowers the use fossil energy but also reduces research in established industries %state of the art
+			\end{itemize} 
+				\vspace{3mm}
+		\item I discuss how \textbf{labor income taxes} may be used to maintain some fossil research today while meeting emission targets
+				\vspace{3mm}
+		\item[\alert{\ar}] \alert{\textbf{What is the optimal mix of carbon and labor income taxes to meet emission targets?}}
+	\end{itemize}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Motivation}
 	
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} %change the font color
@@ -256,10 +276,12 @@ content...
 		\item Labor income tax can be used to counter side effects of carbon tax 
 		
 		\vspace{3mm}
-		\item \textbf{What is the optimal policy mix to meet the emission target?}
+		\item \textbf{What is the optimal fiscal policy mix to meet the emission target?}
 	\end{itemize}
 \end{frame}
 
+content...
+\end{comment}
 
 \begin{frame}{This paper}
 	\vspace{-2mm}
@@ -267,7 +289,7 @@ content...
 		\item<+-> Quantitative model of \alert{directed technical change}  building on \cite{Fried2018ClimateAnalysis}
 		\vspace{2mm}
 		\item<+->   The government   chooses the \alert{path of carbon and income taxes} to maximize welfare\vspace{2mm}
-		\item<+-> An \alert{emission limit} constrains the government
+		\item<+-> An \alert{emission limit} constrains the government: positive net emissions before 2050; net-zero emissions starting from 2050
 	\end{itemize}
 	\pause
 	\begin{center}
@@ -304,26 +326,41 @@ content...
 		\item Usage of labor income tax limited in size \ar look at research subsidies
 		\begin{itemize}
 			\item[-] income tax remains beneficial to correct labor market distortions arising from lack of lump-sum rebates of carbon tax revenues
-			\item[-] when only green research subsidies are available, welfare smaller than with lump-sum rebates
-			
+			%\item[-] when only green research subsidies are available, welfare smaller than with lump-sum rebates			
 		\end{itemize}
 		%; \tr{e.g. a higher marginal value of leisure}	%	\end{minipage}
 \end{itemize}
 \end{frame}
 
+\begin{comment}
+\begin{frame}
+\begin{itemize}
+	\item How to best implement emission targets in line with climate goals?
+	\item 2 adjustment possibilities to reduce emissions: 
+	\begin{enumerate}
+		\item shift from fossil to green production technologies (e.g. carbon tax, green subsidies)
+		\item lower the level of production overall (e.g. labor income taxes)
+	\end{enumerate}
+\item Literature focuses on 1st point
+\end{itemize}
+\end{frame}
+\end{comment}
+
 \begin{frame}{Contribution to the literature}
 \begin{itemize}[<+->]
-			\item \alert{Standard to have inelastic labor supply in environmental policy discussion}\\  \footnotesize{ \citep{Acemoglu2012TheChange, Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology, Fried2018ClimateAnalysis, Hart2019TheEconomists}}
-			\\  \normalsize{\alert{\ar misses potential distortions on the labor market}}
+			\item \alert{\textbf{Standard to have inelastic labor supply in environmental policy discussion}}\\  \footnotesize{ \citep{Acemoglu2012TheChange, Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology, Fried2018ClimateAnalysis, Hart2019TheEconomists}}
+			\\  \normalsize{\alert{\ar precludes studying combinations of compositional and scaling policies}}
+			% Das klingt gut (differenzierung zwischen wirkungsweisen und nicht instrumenten! ): weil instrumente beide effekte haben können, dass die carbon tax auch das level beeinflusst wird ausgeklammert
+			% I argue that we should study optimal env. policies allowing for level adjustments of production! I provide am example scenario where adjusting the level becomes part of the optimal policy
 				\vspace{2mm}
-				\item \alert{This paper}: labor market distortions arise from (i) directed technical change and (ii) lack of research subsidies \footnotesize{\citep{Acemoglu2012TheChange}}
-			 \\ \normalsize{\alert{\ar role for labor income taxation}}
+				\item \alert{This paper}: targeting the scale of production is optimal due to (i) directed technical change and (ii) lack of research subsidies \footnotesize{\citep{Acemoglu2012TheChange}}
+			 %\\ \normalsize{\alert{\ar role for labor income taxation}}
 			 \vspace{2mm}
-	\item \alert{Labor income taxes as environmental policy instrument}
+	\item \alert{Labor income taxes and environmental policies in the literature}
 	\begin{itemize}
-		\item[-]  fiscal policy generally passive \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}}
-		\item[-] arise as environmental policy tool due to income inequality \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
-		\item[\ar] I add a novel motive for the use of labor income taxes within the optimal environmental policy
+		\item[-]  fiscal policy generally passive \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
+		\item[-] arise as environmental policy tool due to \textbf{income inequality} \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
+		\item[-] I add a novel motive for the use of labor income taxes within the optimal environmental policy
 	\end{itemize}
 	% weak double dividend literature (advantage to use env tac revenues to lower existing distortions; deviation of optimal env tax from pigou)
 	%			\begin{itemize}
@@ -735,7 +772,7 @@ content...
 		\item[]$F_t$: fossil energy
 		\vspace{-2mm}	
 		\item[]$G_t$: green energy
-		\vspace{-2mm}	
+		\vspace{-7mm}	
 		\item[]$N_t$: non-energy
 	\end{itemize}
 \end{minipage}
@@ -1215,7 +1252,7 @@ content...
 	\begin{align*}
 		\max_{\{\tau_{Ft}\}_{t=0}^{\infty}, \{\tau_{\iota t}\}_{t=0}^{\infty}}&\hspace{3mm} \sum_{t=0}^{\infty}\beta^t U\left(C_t,H_t, S_t\right)\\ \ \\
 		\text{s.t.} \hspace{4mm}
-		&{ (1)\ \ T_t=\tau_{\iota t}w_{t}H_{t}+{{\tau_{Ft}}}F_{t}}+T_{\pi t}\\
+		&{ (1)\ \ T_t=\tau_{\iota t}\left(w_{t}H_{t}+w_{st}S_{t}\right)+{{\tau_{Ft}}}F_{t}}+T_{\pi t}\\
 		& {(2)\ \  \text{behavior of firms and households}}\\
 		& {(3)\ \ \text{resource constraints} }\\
 		& \ % {(4)\ \  \omega F_t-\delta \leq\Omega_t }
@@ -1308,7 +1345,7 @@ content...
 		\item[-] from 2050 onward: net-zero  emissions
 	\end{itemize}
 	\vspace{0mm}
-	\item<+-> \textbf{equal-per-capita} distribution of  CO$_2$ emissions among countries %\footnotesize{\citep{RobiouDuPont2017EquitableGoals}}
+	\item<+-> \textbf{equal} distribution of  CO$_2$ emissions among countries %\footnotesize{\citep{RobiouDuPont2017EquitableGoals}}
 \end{itemize}
 \vspace{-2mm}
 \pause
@@ -1322,7 +1359,7 @@ content...
 	\hspace{-10mm}
 	\begin{minipage}{0.3\textwidth}
 		\begin{figure}
-			\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_Legend_cropped_o0.png}
+			\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o0_lgd1_crop.png}
 		\end{figure}
 	\end{minipage}
 \end{center}
@@ -1339,7 +1376,7 @@ content...
 		\item[-] from 2050 onward: net-zero  emissions
 	\end{itemize}
 	\vspace{0mm}
-	\item \textbf{equal-per-capita} distribution of  CO$_2$ emissions among countries 
+	\item \normalsize{\textbf{equal} distribution of  CO$_2$ emissions among countries }
 \end{itemize}
 \vspace{-2mm}
 
@@ -1353,7 +1390,7 @@ content...
 	\hspace{-10mm}
 	\begin{minipage}{0.3\textwidth}
 		\begin{figure}
-			\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_Legend_cropped.png}
+			\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o1_lgd1.png}
 		\end{figure}
 	\end{minipage}
 \end{center}
@@ -1374,12 +1411,12 @@ content...
 				%			\hline \hline
 				%			\multicolumn{7}{c}{Calibration based on basic needs}\\
 				\hline \hline
-				\textbf{Parameter}& \textbf{Value}&\textbf{Meaining}& \makecell[l]{\textbf{Source}}\\ 
+				\textbf{Parameter}& \textbf{Value}&\textbf{Meaning}& \makecell[l]{\textbf{Source}}\\ 
 				\hline 
 				%($\sigma$, 	$\sigma_s$) & ($1.33$, $1.33$)&  \makecell[l]{\cite{Chetty2011AreMargins}}  \\
-				${{\eta}}$  &0.79 & \small{returns to  research}&\rdelim\}{3}{5cm}[\normalfont\makecell{\cite{Fried2018ClimateAnalysis}}] \\
-				${{\phi}}$  &0.75& \small{cross-sector knowledge spillovers}&  \\
-				$({\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&price elasticity of substitution&\\	
+				${{\eta}}$  &0.79 & \small{returns to  research}& \cite{Fried2018ClimateAnalysis}\\%\rdelim\}{3}{5cm}[\normalfont\makecell{\cite{Fried2018ClimateAnalysis}}] \\
+				${{\phi}}$  &0.75& \small{cross-sector knowledge spillovers}& \cite{Barbieri2021GreenPolicy} \\
+				$({\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&price elasticity of substitution& \cite{Fried2018ClimateAnalysis}\\	
 				%	($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
 				({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(6.68, 1.50, 2.85)&TFP &energy and fossil shares \citep{EIAEnergy} \\
 				%					$\delta$&3.19&sinks in Gt&\rdelim\}{2}{5cm}[\normalfont\makecell{\cite{EPAems}}] \\
@@ -1442,12 +1479,14 @@ content...
 \begin{frame}{Investigating the role of labor income taxes as environmental policy instrument}
 	
 
-	\begin{itemize}
-		\item 	\alert{Problem: Even absent emission target, the optimal policy uses the labor income tax to subsidize research}
+	\begin{itemize}[<+-| alert@+>]
+		\setbeamercolor{alerted text}{} %change the font color
+		\setbeamerfont{alerted text}{}
+		\item 	{Problem: The optimal policy uses the labor income tax to subsidize research irrespective of emission target}
 				\vspace{3mm}
 		\item[\ar] difference of optimal allocation under a carbon-tax-only policy to the benchmark policy not solely explained by motive to lower emissions %(bcs labor income tax driven by subsidizing research \ar reduces emissions as a side effect)
 				\vspace{3mm}
-		\item Solution: compare benchmark optimal allocation to a counterfactual scenario where the labor income tax is fixed at its optimal level without emission target but emission limit has to be met
+		\item Solution: compare benchmark optimal allocation to a counterfactual scenario where the labor income tax is fixed at its optimal level without emission target, only the carbon tax can adjust
 				\vspace{3mm}
 		\item[\ar] Isolates effect of integrating labor income tax as an environmental policy instrument 
 	\end{itemize}
@@ -1464,6 +1503,8 @@ content...
 \end{frame}
 
 \begin{frame}{Use of labor income tax in the environmental policy}
+		\vspace{-3mm}
+			\centering
 	\begin{figure}[h!!]
 		\centering
 		
@@ -1484,44 +1525,14 @@ content...
 	\vspace{3mm}
 	\begin{block}{}
 		\begin{itemize}
-			\item In run-up to net-zero limit: labor income tax reduces emissions
-			\item Under net-zero limit: reduction of labor income tax boosts production
+			\item In run-up to net-zero limit: higher labor income tax to reduce emissions
+			\item Under net-zero limit: reduction of labor income tax stabilizes production
 		\end{itemize}
 	\end{block}	
 \end{frame}
-\begin{comment}
-\begin{frame}{Deviation from fixed labor income tax policy}
-\hypertarget{mec0}{}
-\vspace{-3mm}
-\centering
-\begin{figure}
-	\begin{subfigure}{0.45\textwidth}
-		\caption{{\% deviation fossil-to-green scientists }}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-	\end{subfigure}
-	\begin{minipage}[]{0.05\textwidth}
-		\
-	\end{minipage}
-\begin{subfigure}{0.45\textwidth}
-	\caption{{\% deviation green-to-fossil energy }}
-	%	\captionsetup{width=.45\linewidth}
-	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-\end{subfigure}
-\end{figure}
-\vspace{3mm}
-\begin{block}{}
-	\begin{itemize}
-		\item In run-up to net-zero limit: lower carbon tax to maintain some fossil research
-		\item Under net-zero limit: higher carbon tax to foster green research
-	\end{itemize}
-\end{block}	
-\end{frame}
 
-
-content...
-\end{comment}
 \begin{frame}{Decomposing effect of integrated policy }
+	\pause
 	\hypertarget{mec0}{}
 	\vspace{-3mm}
 	\centering
@@ -1550,21 +1561,6 @@ content...
 \end{frame}
 
 
-\begin{frame}{Taking stock}
-\begin{itemize}
-	\item small effect of integrating income tax
-	\item green research subsidies are used in the real world
-	\item[\ar]  What is the optimal policy when carbon tax revenues finance green research subsidies?
-	\item In particular: Do labor income taxes remain part of the optimal environmental policy?
-	\item Yes! Again, labor income taxes correct for distortions on the labor market:
-	\begin{itemize}
-		\item when carbon tax revenues are not redistributed lump-sum to households, households feel poorer
-		\item[\ar] they supply inefficiently high hours!
-		\item The labor income tax helps to lower labor supply closer to the efficient level.
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
 \hypertarget{conc}{}
 \section{Conclusion}
 \begin{frame}{Conclusion}
@@ -1573,27 +1569,37 @@ content...
 		\setbeamerfont{alerted text}{}
 		\item I study the optimal mix of taxes on carbon and income to meet emission targets
 		\vspace{3mm}
-		
-		\item Before the net-zero emission limit: 
+		\item Labor income taxes complement carbon taxes to target the direction of research:
+		\vspace{2mm}
+		\begin{itemize}
+		\item[-] Before the net-zero emission limit: 
 		\begin{itemize}
 			\item[-] lower carbon tax to maintain some fossil research
 			\item[-] a higher tax on labor reduces emissions
 		\end{itemize}
 		\vspace{3mm}
-		\item Under the net-zero emission limit: 
+		\item[-] Under the net-zero emission limit: 
 		\begin{itemize}
 			\item[-] high carbon tax to increase green research
 			\item[-]  a smaller tax on labor stabilizes output
 		\end{itemize}
+			\end{itemize}
 			\vspace{3mm}
-		\item Overall effect small \ar introduce research subsidies\\
-		Outlook:
+		\item Small effect \ar introduce (green/fossil) research subsidies e.g. by using carbon tax revenues
+		\vspace{2mm}
+	 
 		\begin{itemize}
-			\item role for labor income tax remains since carbon tax revenues are not redistributed lump-sum
-			\item when only green research subsidies are available: green transition even more costly
-		\end{itemize}
+			\item[-] Outlook: role for labor income tax remains since carbon tax revenues are not redistributed lump-sum \ar labor market distortion
+%			\item[-] when only green research subsidies are available: green transition even more costly
+		\end{itemize}	
+
+
 	\end{itemize}
 \end{frame}
+
+
+\input{15min_futureResearchDIW}
+
 \begin{frame}[shrink]{References}
 
 \bibliography{../../bib_2_0}

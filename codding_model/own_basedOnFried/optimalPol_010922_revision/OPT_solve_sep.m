@@ -13,8 +13,8 @@ end
 % symbilic variables and lists
 syms hhf hhg hlf hlg hhn hln C Ch Cl F G Af Ag An hl hh S sff sn sg Lf Lg h gammasg gammasf real
 
-if indic.taus ==1
-    symms.opt = [hhf hhg hlf hlg hhn hln C F G Af Ag An hl hh s sg];    
+if indic.notaul >=7
+        symms.opt = [hhf hhg hlf hlg hhn hln C F G hl hh sn sff sg S];    
 else
     if indic.sep==1
         if indic.noskill==0
@@ -59,21 +59,22 @@ nn= length(list.opt); % number of variables
 if indic.target==1
      
   %  helper= load(sprintf('OPT_notarget_0509_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill,indic.notaul,indic.sep, indic.extern, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-  if indic.elasE==1
-    helper=load(sprintf('OPT_target_0509_elas10_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
-  elseif indic.sigmaWorker~=0
+  if indic.sigmaWorker~=0
     helper=load(sprintf('OPT_target_0509_sigmaW%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.sigmaWorker, indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   elseif indic.Bop~=0
     helper=load(sprintf('OPT_target_0512_Bop%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop,indic.Sun, indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   elseif indic.count_techgap==1
       helper=load(sprintf('OPT_target_countec_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
    elseif indic.targetWhat==1 &&  indic.notaul~=9
-       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill ,indic.noskill, 5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+%        helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil3_taus0_noskill%d_notaul4_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun,  plotts.nsk, indic.sep, plotts.xgr, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+       helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   elseif indic.notaul==9
       helper=load(sprintf('COMPEquN_SIM_0501_taufopt%d_newCalib_target_emnet%d_Sun%d_knspil%d_spillover%d_notaul%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', 5,indic.targetWhat, indic.Sun, indic.noknow_spill,  indic.spillovers, 4, indic.noskill, indic.sep, indic.xgrowth, indic.PV,etaa));
       helper.opt_all=helper.LF_COUNT;
   else
-    helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,indic.noskill, 5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+      helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',1, indic.Sun, indic.noknow_spill ,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
+
+%    helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
   end
         opt_all=helper.opt_all;
 %     kappaa = [repmat(Ftarget(1), 1,percon) ,Ftarget']./opt_all(1:T,list.allvars=='F')'; % ratio of targeted F to non-emission
@@ -105,19 +106,17 @@ kappaa = kappaa*(1-1e-10);
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))  =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
+        x0(T*(find(list.opt=='wsg')-1)+1:T*(find(list.opt=='wsg')))   =opt_all(:,list.allvars=='wsg');  % An
          if indic.sep==0
                      x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
          end
    end  
 elseif indic.target==0
-     % helper=load(sprintf('OPT_notarget_0512_Bop%d_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Bop, indic.noknow_spill ,indic.noskill,4, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
-
-% helper=load(sprintf('OPT_target_0509_spillover0_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.noknow_spill ,indic.noskill,5, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, etaa));
-if indic.extern==0
-   helper= load(sprintf('OPT_notarget_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, 5,indic.sep, indic.extern , indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-elseif indic.extern==1
-   helper= load(sprintf('OPT_notarget_0509_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul ,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-end
+    if indic.extern==0
+       helper= load(sprintf('OPT_notarget_2112_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.Sun, indic.spillovers,0, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern , indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    elseif indic.extern==1
+       helper= load(sprintf('OPT_notarget_0509_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul ,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+    end
     opt_all=helper.opt_all;
     x0 = zeros(nn*T,1);
     if indic.noskill==0
@@ -144,6 +143,8 @@ end
         x0(T*(find(list.opt=='sff')-1)+1:T*(find(list.opt=='sff')))   =opt_all(:,list.allvars=='sff');  % Af
         x0(T*(find(list.opt=='sg')-1)+1:T*(find(list.opt=='sg')))   =opt_all(:,list.allvars=='sg');  % Ag
         x0(T*(find(list.opt=='sn')-1)+1:T*(find(list.opt=='sn')))   =opt_all(:,list.allvars=='sn');  % An
+        x0(T*(find(list.opt=='wsg')-1)+1:T*(find(list.opt=='wsg')))   =opt_all(:,list.allvars=='wsg');  % An
+
          if indic.sep==0
             x0(T*(find(list.opt=='S')-1)+1:T*(find(list.opt=='S')))   =opt_all(:,list.allvars=='S');  % An
          end
@@ -473,11 +474,10 @@ else
     end
 end
 elseif indic.elasE==1 && indic.sigmaWorker==0 && indic.Bop==0
-        if indic.targetWhat~=0
-           error('have not yet coded different target and counterfact technology gap')
-        end
+
  if indic.target==1
-        save(sprintf('OPT_target_0509_elas10_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
+        save(sprintf('OPT_target_2112_elas10_emnet%d_Sun%_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')
  else
         if indic.extern==1
             save(sprintf('OPT_notarget_0509_elas10_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_weightext%.2f_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul,indic.sep, indic.extern,weightext, indic.xgrowth,indic.PV,indic.sizeequ, indic.GOV, params(list.params=='etaa')), 'opt_all', 'addGov', 'obs')

@@ -25,6 +25,9 @@ if indic.xgrowth==0
     sff     = x((find(list.opt=='sff')-1)*T+1:find(list.opt=='sff')*T);
     sg     = x((find(list.opt=='sg')-1)*T+1:find(list.opt=='sg')*T);
     sn     = x((find(list.opt=='sn')-1)*T+1:find(list.opt=='sn')*T);
+%     if indic.notaul>=7
+%             wsg     = x((find(list.opt=='wsg')-1)*T+1:find(list.opt=='wsg')*T);
+%     end
  if indic.sep==1
     S    = (sn+sg+sff);
  elseif indic.sep==0
@@ -127,15 +130,15 @@ wl      = (1-thetaf)*(hhf./hlf).^(thetaf).*(1-alphaf).*alphaf^(alphaf/(1-alphaf)
 % if indic.xgrowth==0
     wsf     = (gammaa*etaa*(A_lag./Af_lag).^phii.*sff.^(etaa-1).*pf.*F*(1-alphaf).*Af_lag)./(Af.*rhof^etaa); 
     wsn     = (gammaa*etaa*(A_lag./An_lag).^phii.*sn.^(etaa-1).*pn.*N*(1-alphan).*An_lag)./(An.*rhon^etaa); 
-    wsg_taus= (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
-    
+    wsg     = (gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+
     if indic.notaul>=7
         taus=tauf.*F./(wsf.*sg); % due to scientists free movement: wsg=wsf
-%         wsg=wsf;
     else
         taus=zeros(size(F));
+        wsg = wsg; %(gammaa*etaa*(A_lag./Ag_lag).^phii.*sg.^(etaa-1).*pg.*G*(1-alphag).*Ag_lag)./(Ag.*rhog^etaa);  % to include taus
+
     end
-        wsg = wsg_taus./(1-taus);
 
     %- relevant for code without separate markets
     if indic.Sun==0 % scientists form part of HH

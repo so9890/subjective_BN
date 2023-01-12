@@ -13,13 +13,13 @@ grrey = [0.6 0.6 0.6];
 
 %- variables
 syms hh hl Y F E N Emnet G pg pn pf pee tauf taul taus wh wl wlf wlg wln ws wsg wsn wsf lambdaa C Lg Lf Ln xn xg xf sn sff sg SWF Af Ag An A S real
-syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
+syms analyTaul Hagg PV CEVv CEVvPV CEVvDy Tauf dTaulS dTaulHh dTaulHl dTaulAv dTaulAvS AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAg gAf gAn gAagg Utilcon Utillab Utilsci real
 symms.plotsvarsProd =[Y N E G F];
 symms.plotsvarsHH =[hh hl C SWF Emnet]; 
 symms.plotsvarsRes =[sn sff sg S Af Ag An A];  
 symms.plotsvarsProdIn =[xn xg xf Ln Lg Lf];  
 symms.plotsvarsPol =[taus tauf taul lambdaa];  
-symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
+symms.plotsvarsAdd = [analyTaul Hagg PV Tauf dTaulAvS dTaulS dTaulHh dTaulHl dTaulAv AgAf sffsg sgsff snS  sffS sgS GFF EY CY hhhl whwl LgLf pgpftf pepn gAagg gAg gAf gAn Utilcon Utillab Utilsci];
 % already exists: symms.addgov
 symms.comp=[ CEVv CEVvDy CEVvPV ]; % for comparison of policy interventions, 
 
@@ -461,6 +461,7 @@ if plotts.count_devs_both==1
         end
     end
     end
+    end
 end
 %% Comparison model versions in one graph
 % in levels
@@ -810,20 +811,20 @@ if plotts.ems==1
     close gcf
 
 end
-
+%% ems goals
 if plotts.ems_goals==1
     for lgdind=0:1
         for oo=0:1
     gcf=figure('Visible','off');
     if oo==0
         main= plot( time(percon+1:end),StatsEms.netems_sum1519*ones(1,T), ...
-             time(percon+1:end),Ems(1:T), 'LineWidth', 1.1);  
+             time(percon+1:end),StatsEms.Emslimit_constantEmsRat_Budget(1:T), 'LineWidth', 1.1);  
     set(main, {'LineStyle'},{'--';'-'}, {'color'}, {grrey; 'k'} ) 
     else
          main= plot( time(percon+1:end),StatsEms.netems_sum1519*ones(1,T), ...
-             time(percon+1:end),Ems(1:T),...
+             time(percon+1:end),StatsEms.Emslimit_constantEmsRat_Budget(1:T),...
              time(percon+1+2:end),[StatsEms.targetBidenGTCO2_modelperiod*ones(1,4), zeros(1,6)],...
-             time(percon+1:end),StatsEms.Emslimit_constantEmsRat_Budget, 'LineWidth', 1.1);  
+             time(percon+1:end),Ems, 'LineWidth', 1.1);  
         set(main, {'LineStyle'},{'--';'-'; '--'; '--'}, {'color'}, {grrey; 'k'; 'b'; orrange} ) 
     end
     xticks(txx)
@@ -834,7 +835,7 @@ if plotts.ems_goals==1
     ax.FontSize=13;
     xticklabels(Year10)
     if lgdind==1
-        lgd=legend('2015-2019 US net emissions', 'IPCC carbon budget, equal-per-capita','Biden target','IPCC carbon budget, equal \% reduction','Interpreter', 'latex');
+        lgd=legend('2015-2019 US net emissions', 'IPCC carbon budget, equal \% reduction', 'Biden target','IPCC carbon budget, equal-per-capita','Interpreter', 'latex');
         set(lgd, 'Interpreter', 'latex', 'Location', 'bestoutside', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
     end
     path=sprintf('figures/all_%s/Emnet_goals_o%d_lgd%d.png',date,oo, lgdind);

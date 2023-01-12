@@ -386,7 +386,6 @@ indic.sep =0;
 indic.extern=0;
 indic.GOV=0; % ==0 then no gov revenues
 indic.sizeequ=0; 
-indic.noknow_spill=3; %==0 then fried,, ==3 then 3/4
 indic.elasE =0;
 indic.sigmaWorker=0;
 indic.Bop=0;
@@ -404,13 +403,16 @@ else
     Emss=StatsEms.Emslimit_constantEmsRat_Budget;
 end
 
-for tr =[1]
+for tr =[0]
     indic.target=tr;
 for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
- for nnt=[8]
+for nknk=[0,1,2]
+    indic.noknow_spill=nknk; %==0 then fried,, ==3 then 3/4
+
+ for nnt=[4]
      indic.notaul=nnt;
      indic
  if indic.count_techgap==0
@@ -419,6 +421,7 @@ for nsk=0
      OPT_solve_sep(list, symms, params, x0LF, iin.init1519count, indexx, indic, T, Emss, MOM, percon);
  end
  end
+end
 end
 end
 end
@@ -638,7 +641,7 @@ plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
 plotts.Ems_limit=   0; 
 plotts.Ems_limit_Decomp=   0;
-plotts.phi_sens =   0;
+plotts.phi_sens =   1; 
 plotts.sens_other=  0;
 plotts.phi_newcalib        = 0;
 plotts.phi_LF_newcalib     = 0;
@@ -650,7 +653,7 @@ plotts.phi_newcalib_noeff  = 0;
 plotts.comp_OPTPer_NCalib  = 0;
 plotts.comp_OPT_NCAlib     = 0;
 plotts.count_devs_both_NC  = 0;
-plotts.phi_newcalib_TvsNoT = 1;
+plotts.phi_newcalib_TvsNoT = 0;
 plotts.taulFixed_newcalib  = 0;
 plotts.taulFixed_newcalib_pol  = 0;
 plotts.taulFixed_newcalib_polPer = 0;
@@ -733,7 +736,7 @@ indic
 
 % choose sort of plots to be plotted
 plotts.ems =        0;
-plotts.ems_goals =  0;
+plotts.ems_goals =  1;
 
 
 plotts.table=       0;
@@ -760,7 +763,7 @@ plotts.compnsk_xgr_dev          = 0;
 plotts.compnsk_xgr_dev1         = 0;
 plotts.count_modlev             = 0; 
 plotts.count_devs               = 0;
-plotts.count_devs_fromcto       = 1;
+plotts.count_devs_fromcto       = 0;
 plotts.count_devs_both          = 0;
 plotts.count_modlev_eff         = 0;
 plotts.single_pol               = 0;     

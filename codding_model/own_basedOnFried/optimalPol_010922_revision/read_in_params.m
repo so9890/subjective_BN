@@ -64,7 +64,8 @@ end
 if indic.elasE==0
     eppse = params(list.params=='eppse');
 
-else eppse =10;
+else 
+    eppse =10;
 end
 
 deltay = params(list.params=='deltay');
@@ -82,11 +83,11 @@ end
 if indic.noknow_spill==1
     phii=0;
 elseif indic.noknow_spill ==0
-    phii = params(list.params=='phii');
+    phii = 0.5;
 elseif indic.noknow_spill==2
     phii =0.25;
 elseif indic.noknow_spill==3
-    phii =0.75;
+    phii =0.75; % params(list.params=='phii');
 end
 
 omegaa = params(list.params=='omegaa'); % carbon content of fossil energy

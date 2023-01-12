@@ -78,7 +78,7 @@ if indic.notaul>=7
     elseif indic.sep~=0 && indic.xgrowth== 0 
         c(T*5+1:T*6)   =-tauf; % tauf has to be positive
     end
- 
+end
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%    Equality Constraints    %%%
  % include missing equations here %
@@ -103,7 +103,7 @@ if indic.notaul>=7
             if indic.notaul<7 % otherwise used to determine taus
                 ceq(T*7+1:T*8) = ws-wsg;
              else
-                 ceq(T*7+1:T*8) = zeros(size(T*7+1:T*8));
+                 ceq(T*7+1:T*8) =  zeros(size(T*7+1:T*8));
              end
             ceq(T*8+1:T*9) = ws-wsn;
             
