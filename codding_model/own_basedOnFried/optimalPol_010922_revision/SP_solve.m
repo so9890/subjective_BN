@@ -88,7 +88,7 @@ if indic.target==0
     else
        fprintf('using sp solution') 
        helper=load(sprintf('SP_notarget_2112_spillover%d_knspil%d_noskill%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
-           indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')));
+           indic.spillovers,0, indic.noskill, indic.sep, indic.extern, indic.xgrowth, indic.PV,indic.sizeequ,  params(list.params=='etaa')));
 
 %      helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_sizeequ0_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep,indic.xgrowth, indic.PV, params(list.params=='etaa')));
 %          helper=load(sprintf('SP_notarget_1008_spillover%d_knspil%d_noskill%d_sep%d_extern0_xgrowth%d_PV%d_etaa%.2f.mat', indic.spillovers,indic.noknow_spill, indic.noskill, 1,indic.xgrowth, 1, params(list.params=='etaa')));
@@ -141,7 +141,7 @@ elseif indic.target==1
        %helper=load(sprintf('OPT_target_0308_spillover0_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_etaa%.2f.mat', indic.noskill, 4 , indic.sep, indic.xgrowth, indic.PV, etaa));
 %     helper=load(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat',...
 %         indic.targetWhat, indic.spillovers, indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')));
-    helper=load(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.targetWhat, indic.spillovers,indic.noknow_spill, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs');
+    helper=load(sprintf('SP_target_2112_emnet%d_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_PV%d_sizeequ%d_etaa%.2f.mat', indic.targetWhat, indic.spillovers,0, indic.noskill, indic.sep, indic.xgrowth, indic.PV,indic.sizeequ, params(list.params=='etaa')), 'sp_all', 'obs');
 
         sp_all=helper.sp_all;
         % with new emission target

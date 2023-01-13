@@ -114,6 +114,8 @@
 
 \usepackage{tikz}
 \usetikzlibrary{tikzmark}
+\newcommand{\ImageWidth}{11cm}
+\usetikzlibrary{decorations.pathreplacing,positioning, arrows.meta}
 \usetikzlibrary{decorations.markings}
 \usepackage{tikz-cd}
 \usetikzlibrary{arrows,calc,fit}
@@ -157,6 +159,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \tikzstyle{modus}=[rectangle,inner sep=5mm,align=center, draw]
 \tikzstyle{dialog}=[diamond, align=center, draw]
+\tikzstyle{elli}=[ellipse, align=center,  minimum size=3cm, draw]
 \tikzstyle{sphere}=[circle, align=center, dotted, minimum size=3cm, draw]
 \tikzstyle{circll}=[circle, align=center, minimum size=3cm, draw]
 {\setbeamertemplate{footline}{}
@@ -241,11 +244,13 @@ content...
 		\item Problem:
 			\begin{itemize}
 				\item[-] On the one hand, reduce the use of fossil energy...
+				\vspace{2mm}
 				\item[-] ... on the other hand, technology advances in established (fossil) industries facilitate green innovation tomorrow
+				\vspace{2mm}				
 				\item[-] A \textbf{carbon tax} lowers the use fossil energy but also reduces research in established industries %state of the art
 			\end{itemize} 
 				\vspace{3mm}
-		\item I discuss how \textbf{labor income taxes} may be used to maintain some fossil research today while meeting emission targets
+		\item My contribution: discuss \textbf{labor income taxes} as a potential solution
 				\vspace{3mm}
 		\item[\alert{\ar}] \alert{\textbf{What is the optimal mix of carbon and labor income taxes to meet emission targets?}}
 	\end{itemize}
@@ -284,33 +289,65 @@ content...
 \end{comment}
 
 \begin{frame}{This paper}
-	\vspace{-2mm}
+	\vspace{-1mm}
 	\begin{itemize}
-		\item<+-> Quantitative model of \alert{directed technical change}  building on \cite{Fried2018ClimateAnalysis}
+		\item<+-> Quantitative model building on \cite{Fried2018ClimateAnalysis} 
+		\vspace{2mm}
+		\begin{itemize}
+			\item[-]<+-> \alert{technologies are sector specific}: green, fossil, and non-energy sector 
+			\vspace{1mm}
+			\item[-]<+-> \alert{research} on technologies augments productivity within a sector at different paces\\ \footnotesize{(directed technical change) }
+			\vspace{1mm}
+			\item[-]<+-> \alert{cross-sectoral knowledge spillovers}: knowledge accumulated in a sector stimulates innovation in other sectors %\\ \footnotesize{(cross-sectoral knowledge spillovers)}
+		\end{itemize}
 		\vspace{2mm}
 		\item<+->   The government   chooses the \alert{path of carbon and income taxes} to maximize welfare\vspace{2mm}
-		\item<+-> An \alert{emission limit} constrains the government: positive net emissions before 2050; net-zero emissions starting from 2050
+		\item<+-> An \alert{emission limit} constrains the government: 
+%		\begin{itemize}
+%			\item[-]<+-> positive net emissions before 2050
+%			\item[-]<+-> net-zero emissions from 2050 onward
+%		\end{itemize}
 	\end{itemize}
-	\pause
-	\begin{center}
-		\begin{figure}
-			\centering
-			\caption{US net CO$_2$ emission limit in Gt}
-			%			\vspace{2mm}
-			\includegraphics[width=0.38\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet.png}
-		\end{figure}
-	\end{center}
+\pause
+\vspace{0mm}
+\centering
+\resizebox{290pt}{70pt}{%
+\begin{tikzpicture}
+	\draw[ultra thick, ->] (0,0) -- (10,0);
+	\foreach \x in {0}
+	\draw (\x cm,3pt) -- (\x cm,-3pt);
+	\foreach \x in {5}
+	\draw[dashed, gray, thick] (\x cm,10pt) -- (\x cm,-6pt);
+	% draw node
+	\draw[thick] (0,0) node[below=3pt,thick] {2020} node[above=3pt] {};
+	\draw[thick] (5,0) node[below=3pt,thick] {2050} node[above=3pt] {};
+	\draw [thick ,decorate,decoration={brace,amplitude=5pt}] (0,0.7)  -- +(5,0) 
+	node [black,midway,above=4pt, font=\scriptsize] {Some net emissions allowed};
+	\node[draw=none, black, above=4pt, font=\scriptsize] (B1) at (7.5,-.9) {Net-zero emissions};
+
+\end{tikzpicture}
+}
+%	\pause
+%	\begin{center}
+%		\begin{figure}
+%	\caption{US CO$_2$ emission limit in Gt}
+%	\vspace{-2mm}
+%	\includegraphics[width=0.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o0_lgd0.png}
+%\end{figure}
+%	\end{center}
 \end{frame}
 
 
 \begin{frame}{Preview of results}
+	\centering
 	\vspace{-3mm}
-	\pause
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} %change the font color
 		\setbeamerfont{alerted text}{}
 		%begin{minipage}[]{1\textwidth}
 		%\begin{itemize}
+		\item A combination of carbon and labor income taxes is optimal to target the direction of research
+		\vspace{3mm}
 		\item Before the net-zero emission limit: 
 		\begin{itemize}
 			\item[-] lower carbon tax to maintain some fossil research %\tr{give an example of knowledge spillovers here}
@@ -324,10 +361,10 @@ content...
 		\end{itemize}
 		\vspace{3mm}
 		\item Usage of labor income tax limited in size \ar look at research subsidies
-		\begin{itemize}
-			\item[-] income tax remains beneficial to correct labor market distortions arising from lack of lump-sum rebates of carbon tax revenues
-			%\item[-] when only green research subsidies are available, welfare smaller than with lump-sum rebates			
-		\end{itemize}
+%		\begin{itemize}
+%			\item[-] income tax remains beneficial to correct labor market distortions arising from lack of lump-sum rebates of carbon tax revenues
+%			%\item[-] when only green research subsidies are available, welfare smaller than with lump-sum rebates			
+%		\end{itemize}
 		%; \tr{e.g. a higher marginal value of leisure}	%	\end{minipage}
 \end{itemize}
 \end{frame}
@@ -1457,8 +1494,8 @@ content...
 		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulAvS_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 	\end{subfigure}
 \end{figure}
-
 	\vspace{3mm}
+	\pause
 \begin{block}{}
 	\begin{itemize}
 		\item Labor income tax used to subsidize research
@@ -1823,7 +1860,7 @@ content...
 
 
 
-
+\begin{comment}
 \begin{frame}{Optimal Policy without emission target}
 	\begin{figure}[h!!]
 		\centering
@@ -1845,42 +1882,49 @@ content...
 	\end{figure}
 \end{frame}
 
+content...
+\end{comment}
 
 \section*{Sensitivity}
 
-\begin{frame}{Sensitivity of optimal policy to knowledge spillovers}
-	\tr{UPDATE}
-\hypertarget{sensphi}{}
-\vspace{-3mm}
-\begin{figure}[h!!]
+\begin{frame}{Sensitivity to importance of knowledge spillovers}
+	\hypertarget{sensphi}{}
+	\vspace{-3mm}
+	\begin{figure}[h!!]
+		
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{Tax per ton of carbon,  US\$, $\tau_{Ft}$}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Phi_SensN_Tauf_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}	
+		\begin{minipage}[]{0.05\textwidth}
+			\ 
+		\end{minipage}
+		%	\begin{subfigure}{0.3\textwidth}		
+			%		\caption{Marginal tax rate in \%, $\tau_{\iota t}$}
+			%		%	\captionsetup{width=.45\linewidth}
+			%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Phi_SensN_dTaulAvS_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			%	\end{subfigure}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{ \% deviation no Target, $\tau_{\iota t}$}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_Sens_TvsNoT_dTaulAvS_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{2mm}
+	\begin{block}{}
+		\begin{itemize}
+			\item the stronger knowledge spillovers, the higher the optimal carbon tax
+			\item at the same time, can profit more from fossil growth in early periods
+			%	\item with knowledge spillovers qualitatively similar results
+		\end{itemize}
+	\end{block}	
 	
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Tax per ton of carbon,  US\$, $\tau_{Ft}$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Phi_Sens_Tauf_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}	
-	\begin{minipage}[]{0.1\textwidth}
-		\ 
-	\end{minipage}
-	\begin{subfigure}{0.4\textwidth}		
-		\caption{Marginal tax rate in \%, $\tau_{\iota t}$}
-		%	\captionsetup{width=.45\linewidth}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Phi_Sens_dTaulAv_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-	\end{subfigure}
-\end{figure}
-\vspace{2mm}
-\begin{block}{}
-	\begin{itemize}
-		\item the stronger knowledge spillovers, the higher the optimal carbon tax
-		\item at the same time, can profit more from fossil growth in early periods
-		\item with knowledge spillovers qualitatively similar results
-	\end{itemize}
-\end{block}	
-
-\vspace{-5mm}
-\hfill
-\hyperlink{backOPT}{\tiny{$\rightarrow$ back,}}	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
+	\vspace{-5mm}
+	\hfill
+	\hyperlink{backOPT}{\tiny{$\rightarrow$ back,}}	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 \end{frame}
+
 
 \begin{frame}{Sensitivity of optimal policy to other parameters}
 \hypertarget{sensother}{}

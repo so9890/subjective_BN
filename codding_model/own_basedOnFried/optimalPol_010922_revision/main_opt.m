@@ -337,7 +337,7 @@ indic.sep=0; % Has to be equal to loaded parameters!!!
 indic.count_techgap=0;
 indic.util=0;
 indic.Bop=0;
-count=30;
+count=25;
 Tinit=T;
 indic.sigmaWorker=0;
 indic.targetWhat=1;
@@ -354,20 +354,23 @@ for xgr=0
     indic.xgrowth=xgr;
     for ns=0
         indic.noskill=ns;
+       for nknk=[1,2]
+            indic.noknow_spill=nknk;
 %             if ~isfile(sprintf('SP_target_active_set_1705_spillover%d_noskill%d_sep%d_BN%d_etaa%.2f.mat', indic.spillovers, indic.noskill, indic.sep, indic.BN, params(list.params=='etaa')))
 %                 indic.target=1;
 %                 fprintf('solving Social planner solution with target, noskill%d', indic.noskill);
-       for tar=[1,0]
+       for tar=[0]
             indic.target=tar;
             indic     
             if indic.count_techgap==0
-           SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Emss, MOM, percon);
-           %     SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Emss, MOM, percon);
+           %SP_solve_extT(list, symms, params, count, init201519, indic, Tinit, Emss, MOM, percon);
+                SP_solve(list, symms, params, Sparams, x0LF, init201014, init201519, indexx, indic, T, Emss, MOM, percon);
             else
             %    SP_solve(list, symms, params, Sparams, x0LF, iin.initcount, iin.init1519count, indexx, indic, T, Emss, MOM, percon);
 
             end
-       end            
+       end
+       end
     end
 end
 
@@ -409,7 +412,7 @@ for xgr=0
     indic.xgrowth=xgr;
 for nsk=0
     indic.noskill=nsk;
-for nknk=[0,1,2]
+for nknk=[3]
     indic.noknow_spill=nknk; %==0 then fried,, ==3 then 3/4
 
  for nnt=[4]
@@ -641,7 +644,8 @@ plotts.limit=       0; %==1 if plots emission target
 plotts.robust=      0;
 plotts.Ems_limit=   0; 
 plotts.Ems_limit_Decomp=   0;
-plotts.phi_sens =   1; 
+plotts.phi_sens =   0;
+plotts.phiSens_newcalib_TvsNoT =1;
 plotts.sens_other=  0;
 plotts.phi_newcalib        = 0;
 plotts.phi_LF_newcalib     = 0;
