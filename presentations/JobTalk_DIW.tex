@@ -95,6 +95,7 @@
 \usepackage{appendixnumberbeamer}
 \usepackage{xcolor}
 \usepackage{subcaption}
+\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate subbody}
 %table
 \usepackage{makecell}
 \usepackage{multirow}
@@ -234,25 +235,31 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 content...
 \end{comment}
-
+\addtocounter{framenumber}{-1}
 \begin{frame}{Motivation}
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} %change the font color
 		\setbeamerfont{alerted text}{}
-		\item How to best implement emission targets in line with climate goals? % Frage
+		\item How to best meet climate goals? % Frage
 		\vspace{3mm}
 		\item Problem:
 			\begin{itemize}
-				\item[-] On the one hand, reduce the use of fossil energy...
+				\item[-] On the one hand,  reduce the use of fossil fuels,...
 				\vspace{2mm}
-				\item[-] ... on the other hand, technology advances in established (fossil) industries facilitate green innovation tomorrow
+				\item[-] ... on the other hand, maintain some fossil research activity
+				\begin{enumerate}
+					\item[-] research in established sectors more productive
+					\item[-] risk of duplicating ideas if all research happens in one sector
+					\item[-] non-green knowledge facilitates green innovation tomorrow %\tiny{\citep{Barbieri2021GreenPolicy}}
+				\end{enumerate}% idea that researchers learn from past findings: building on the shoulder of giants mechanism
+%				and 
 				\vspace{2mm}				
-				\item[-] A \textbf{carbon tax} lowers the use fossil energy but also reduces research in established industries %state of the art
+				\item[-] A \textbf{carbon tax} lowers the use fossil fuels but also reduces research in established industries %state of the art
 			\end{itemize} 
 				\vspace{3mm}
 		\item My contribution: discuss \textbf{labor income taxes} as a potential solution
 				\vspace{3mm}
-		\item[\alert{\ar}] \alert{\textbf{What is the optimal mix of carbon and labor income taxes to meet emission targets?}}
+		\item[] \hspace{-4mm}\alert{{What is the optimal mix of carbon and labor income taxes to meet emission targets?}}
 	\end{itemize}
 \end{frame}
 
@@ -289,16 +296,20 @@ content...
 \end{comment}
 
 \begin{frame}{This paper}
-	\vspace{-1mm}
+	\vspace{-2mm}
 	\begin{itemize}
 		\item<+-> Quantitative model building on \cite{Fried2018ClimateAnalysis} 
 		\vspace{2mm}
 		\begin{itemize}
 			\item[-]<+-> \alert{technologies are sector specific}: green, fossil, and non-energy sector 
 			\vspace{1mm}
-			\item[-]<+-> \alert{research} on technologies augments productivity within a sector at different paces\\ \footnotesize{(directed technical change) }
+			\item[-]<+-> \alert{research} on technologies augments productivity within a sector \\ \footnotesize{(directed technical change) }
 			\vspace{1mm}
-			\item[-]<+-> \alert{cross-sectoral knowledge spillovers}: knowledge accumulated in a sector stimulates innovation in other sectors %\\ \footnotesize{(cross-sectoral knowledge spillovers)}
+			\item[-]<+-> \alert{knowledge spillovers}: 
+			\begin{enumerate}
+				\item[a)] researchers learn from knowledge accumulated in their sector
+				\item[b)] knowledge accumulated in a sector stimulates innovation in other sectors 
+			\end{enumerate}%\\ \footnotesize{(cross-sectoral knowledge spillovers)}
 		\end{itemize}
 		\vspace{2mm}
 		\item<+->   The government   chooses the \alert{path of carbon and income taxes} to maximize welfare\vspace{2mm}
@@ -348,13 +359,13 @@ content...
 		%\begin{itemize}
 		\item A combination of carbon and labor income taxes is optimal to target the direction of research
 		\vspace{3mm}
-		\item Before the net-zero emission limit: 
+		\item Before the net-zero emission limit (ca. 2020-2050): 
 		\begin{itemize}
 			\item[-] lower carbon tax to maintain some fossil research %\tr{give an example of knowledge spillovers here}
 			\item[-] a tax on labor reduces emissions
 		\end{itemize}
 		\vspace{3mm}
-		\item Under the net-zero emission limit: 
+		\item Under the net-zero emission limit (from 2050 onward): 
 		\begin{itemize}
 			\item[-]  higher carbon tax to boost green research
 			\item[-]  a smaller tax on labor stabilizes output
@@ -386,18 +397,19 @@ content...
 \begin{frame}{Contribution to the literature}
 \begin{itemize}[<+->]
 			\item \alert{\textbf{Standard to have inelastic labor supply in environmental policy discussion}}\\  \footnotesize{ \citep{Acemoglu2012TheChange, Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology, Fried2018ClimateAnalysis, Hart2019TheEconomists}}
-			\\  \normalsize{\alert{\ar precludes studying combinations of compositional and scaling policies}}
+			\\  \normalsize{\alert{\ar precludes studying combinations of policies targeted at the composition and\\ \hspace{5mm} the level of production }}
 			% Das klingt gut (differenzierung zwischen wirkungsweisen und nicht instrumenten! ): weil instrumente beide effekte haben können, dass die carbon tax auch das level beeinflusst wird ausgeklammert
 			% I argue that we should study optimal env. policies allowing for level adjustments of production! I provide am example scenario where adjusting the level becomes part of the optimal policy
 				\vspace{2mm}
-				\item \alert{This paper}: targeting the scale of production is optimal due to (i) directed technical change and (ii) lack of research subsidies \footnotesize{\citep{Acemoglu2012TheChange}}
+				\item \alert{This paper}: targeting the level of production is optimal due to  directed technical change % and (ii) lack of research subsidies
+ \footnotesize{\citep{Acemoglu2012TheChange}}
 			 %\\ \normalsize{\alert{\ar role for labor income taxation}}
 			 \vspace{2mm}
 	\item \alert{Labor income taxes and environmental policies in the literature}
 	\begin{itemize}
-		\item[-]  fiscal policy generally passive \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
-		\item[-] arise as environmental policy tool due to \textbf{income inequality} \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
-		\item[-] I add a novel motive for the use of labor income taxes within the optimal environmental policy
+		\item[-]  generally passive \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
+		\item[-] arise as environmental policy tool due to {income inequality} \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
+		\item[-] This paper: novel motive for the use of labor income taxes within the optimal environmental policy: endogeneity of the allocation of researchers
 	\end{itemize}
 	% weak double dividend literature (advantage to use env tac revenues to lower existing distortions; deviation of optimal env tax from pigou)
 	%			\begin{itemize}
@@ -585,8 +597,8 @@ content...
 		\node[draw=none] (D4) at (-2,8.3) {};
 		\node[draw=none] (A4) at (-6,5.4) {};
 		\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
-		\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}>0$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
-		\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+		\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}} \uparrow$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+		\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}} \downarrow$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
 		\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
 		
 		\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
@@ -650,9 +662,9 @@ content...
 	\end{itemize}
 \end{minipage}
 
-\vspace{12mm}
-\hfill	\hyperlink{labsup}{\tiny{$\rightarrow$ labor supply}}
-\hypertarget{hhopt}{}
+%\vspace{12mm}
+%\hfill	\hyperlink{labsup}{\tiny{$\rightarrow$ labor supply}}
+%\hypertarget{hhopt}{}
 \end{frame}
 
 %
@@ -998,7 +1010,7 @@ In equilibrium: \large
 \end{align*}
 \normalsize
 \begin{itemize}
-	\item carbon tax lowers wages to fossil research and raises wages to green research
+	\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
 	\vspace{2mm}
 	\item[]% in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
 \end{itemize}
@@ -1034,9 +1046,9 @@ In equilibrium: \large
 \end{align*}
 \normalsize
 \begin{itemize}
-	\item carbon tax lowers wages to fossil research and raises wages to green research
+	\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
 	\vspace{2mm}
-	\item in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
+	\item in equilibrium: scientists transition from fossil to green sector\\ \hspace{24mm}\small{(decreasing returns to research)}
 \end{itemize}
 \small
 \vspace{4mm}
@@ -1375,7 +1387,7 @@ content...
 \begin{frame}{Emission limit}
 \vspace{-1mm}
 \begin{itemize}
-	\item<+->  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}:
+	\item<+->  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}\normalsize:
 	\vspace{1mm}
 	\begin{itemize}
 		\item[-] before 2050: remaining carbon budget 510Gt
@@ -1406,7 +1418,7 @@ content...
 \begin{frame}{Emission limit}
 \vspace{-1mm}
 \begin{itemize}
-	\item  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}:
+	\item  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}\normalsize :
 	\vspace{1mm}
 	\begin{itemize}
 		\item[-] before 2050: remaining carbon budget 510Gt
@@ -1503,10 +1515,8 @@ content...
 	\end{itemize}
 \end{block}	
 \hypertarget{backOPT}{}
-\vspace{-4mm}
-\hfill
-
-\hyperlink{Redis}{\tiny{$\rightarrow$ redistribution,}}
+\vspace{-5.7mm}
+\hfill \hyperlink{Redis}{\tiny{$\rightarrow$ redistribution,}}
 \hyperlink{altems}{\tiny{$\rightarrow$ alternative emission limit,}}\hyperlink{sensphi}{\tiny{$\rightarrow$ sensitivity,}}\hyperlink{compfb}{\tiny{$\rightarrow$ comparison first best}}
 \end{frame}
 
@@ -1792,6 +1802,7 @@ content...
 
 \addtocounter{framenumber}{-1}
 \begin{frame}{Comparison to first best}
+	\hypertarget{compfb}{}
 	\begin{figure}[h!!]
 		\centering
 		\begin{subfigure}{0.45\textwidth}		
@@ -1815,7 +1826,6 @@ content...
 			\item {Government dilemma:  more fossil research comes with higher fossil energy use}
 		\end{itemize}
 	\end{block}	
-	\hypertarget{compfb}{}
 	\vspace{-4mm}
 	
 	\hfill
@@ -1920,12 +1930,12 @@ content...
 		\end{itemize}
 	\end{block}	
 	
-	\vspace{-5mm}
+	\vspace{-6mm}
 	\hfill
 	\hyperlink{backOPT}{\tiny{$\rightarrow$ back,}}	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 \end{frame}
 
-
+\begin{comment}
 \begin{frame}{Sensitivity of optimal policy to other parameters}
 \hypertarget{sensother}{}
 \vspace{-3mm}
@@ -1953,8 +1963,11 @@ content...
 	\end{itemize}
 \end{block}	
 
-\vspace{-4mm}
+\vspace{-5mm}
 \hfill
 \hyperlink{backOPT}{\tiny{$\rightarrow$ back,}}\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 \end{frame}
+
+content...
+\end{comment}
 \end{document}

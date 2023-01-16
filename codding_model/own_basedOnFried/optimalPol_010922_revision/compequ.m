@@ -30,7 +30,7 @@ function LF_COUNT=compequ(T, list, params, init201519,   symms, LF_SIM, indic, E
         indic.limit_LF=1;
         taul= LF_SIM(:,list.allvars=='taul'); % save taul fixed
         % read in new variables as starting values
-            helper=load(sprintf('OPT_target_plus30_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
              indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
           LF_SIM=helper.opt_all;
         % replace taul

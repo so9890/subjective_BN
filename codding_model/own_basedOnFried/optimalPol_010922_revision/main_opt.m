@@ -396,7 +396,7 @@ indic.util=0; % have both to be changed
 indic.count_techgap=0;
 indic.limit_LF=0; % no need to test this
 indic.testT =0; % do not test value of T but only run with T=12
-indic.targetWhat = 1; %==0 then baseline, ==1 then equal shares
+indic.targetWhat = 0; %==0 then baseline, ==1 then equal shares
 indic.Sun=2; %==1 then scientists are not form of households=> income channel not present; 
              %==2 then scientists are also part of household and equally taxed 
 
@@ -513,7 +513,7 @@ end
 %%%      Section 6: Competitive equi 
 %%%      counterfactual policy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for tf=5:6 %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
+for tf=[1,5] %==4 (set optimal pol without no spil in benchmark model); ==2 then uses policy as in helper.opt_all; only benchmark taul, tauf=0 in other models
          %==5 uses optimal taul from without target as given, derives tauf
          %==6 taul fixed, tauf from joint optimal with target
          %(with limit_LF==1)
@@ -525,7 +525,7 @@ indic.noknow_spill=3; % counterfactuals so far only without knowledge spillovers
 indic.oldCalib=0; % ==0 then uses new calbration
 indic.Bop=0;
 indic.Sun=2;
-indic.targetWhat=1;
+indic.targetWhat=0;
 indic.target=1;
 T=12;
 count=30;
@@ -544,8 +544,11 @@ for xgr=0
 if tf>=2 && tf<5 % read in benchmark model wrt skill xgr
     if tf~=4
         if indic.target==1
-            helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
             count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+  
+  %          helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+   %         count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
   
             %helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
         elseif indic.target ==0
@@ -560,9 +563,11 @@ elseif tf<2 % load in same model wsrt skill xgr
         helper=load(sprintf('OPT_target_plus30_0509_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.spillovers,indic.noknow_spill,indic.noskill, indic.notaul, indic.sep, indic.xgrowth , indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
     elseif indic.oldCalib==0  
         if indic.target==1
-            helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
-            count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
-  
+            helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+            indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+%    helper=load(sprintf('OPT_target_plus%d_0501_emnet%d_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
+%             count, indic.targetWhat, indic.Sun, indic.spillovers,indic.noknow_spill, indic.taus, indic.noskill, indic.notaul, indic.sep, indic.xgrowth,indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
+%   
             %helper=load(sprintf('OPT_target_2112_emnet%d_Sun%d_spillover%d_knspil%d_taus0_noskill%d_notaul%d_sep%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',indic.targetWhat, indic.Sun, indic.spillovers, indic.noknow_spill, indic.noskill, indic.notaul, indic.sep, indic.xgrowth, indic.PV, indic.sizeequ, indic.GOV, params(list.params=='etaa')));
         elseif indic.target ==0
             helper=load(sprintf('OPT_notarget_plus%d_0501_Sun%d_spillover%d_knspil%d_taus%d_noskill%d_notaul%d_sep%d_extern%d_xgrowth%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.mat',...
@@ -645,7 +650,8 @@ plotts.robust=      0;
 plotts.Ems_limit=   0; 
 plotts.Ems_limit_Decomp=   0;
 plotts.phi_sens =   0;
-plotts.phiSens_newcalib_TvsNoT =1;
+plotts.phiSens_newcalib_TvsNoT =0;
+plotts.phi_effBauOPt_noBAu_newcalib =1;
 plotts.sens_other=  0;
 plotts.phi_newcalib        = 0;
 plotts.phi_LF_newcalib     = 0;
