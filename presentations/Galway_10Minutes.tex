@@ -1,0 +1,172 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+%\mode<handout>
+%{
+	%	\usepackage{pgf}
+	%	\usepackage{pgfpages}
+	%	
+	%	\pgfpagesdeclarelayout{4 on 1 boxed}
+	%	{
+		%		\edef\pgfpageoptionheight{\the\paperheight} 
+		%		\edef\pgfpageoptionwidth{\the\paperwidth}
+		%		\edef\pgfpageoptionborder{0pt}
+		%	}
+	%	{
+		%		\pgfpagesphysicalpageoptions
+		%		{%
+			%			logical pages=4,%
+			%			physical height=\pgfpageoptionheight,%
+			%			physical width=\pgfpageoptionwidth%
+			%		}
+		%		\pgfpageslogicalpageoptions{1}
+		%		{%
+			%			border code=\pgfsetlinewidth{2pt}\pgfstroke,%
+			%			border shrink=\pgfpageoptionborder,%
+			%			resized width=.5\pgfphysicalwidth,%
+			%			resized height=.5\pgfphysicalheight,%
+			%			center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight}%
+			%		}%
+		%		\pgfpageslogicalpageoptions{2}
+		%		{%
+			%			border code=\pgfsetlinewidth{2pt}\pgfstroke,%
+			%			border shrink=\pgfpageoptionborder,%
+			%			resized width=.5\pgfphysicalwidth,%
+			%			resized height=.5\pgfphysicalheight,%
+			%			center=\pgfpoint{.75\pgfphysicalwidth}{.75\pgfphysicalheight}%
+			%		}%
+		%		\pgfpageslogicalpageoptions{3}
+		%		{%
+			%			border code=\pgfsetlinewidth{2pt}\pgfstroke,%
+			%			border shrink=\pgfpageoptionborder,%
+			%			resized width=.5\pgfphysicalwidth,%
+			%			resized height=.5\pgfphysicalheight,%
+			%			center=\pgfpoint{.25\pgfphysicalwidth}{.25\pgfphysicalheight}%
+			%		}%
+		%		\pgfpageslogicalpageoptions{4}
+		%		{%
+			%			border code=\pgfsetlinewidth{2pt}\pgfstroke,%
+			%			border shrink=\pgfpageoptionborder,%
+			%			resized width=.5\pgfphysicalwidth,%
+			%			resized height=.5\pgfphysicalheight,%
+			%			center=\pgfpoint{.75\pgfphysicalwidth}{.25\pgfphysicalheight}%
+			%		}%
+		%	}
+	%	
+	%	
+	%	\pgfpagesuselayout{4 on 1 boxed}[a4paper, border shrink=5mm, landscape]
+	%	\nofiles
+	%}
+\usefonttheme[onlymath]{serif}
+\usetheme[outer/progressbar=foot,
+%outer/numbering=none
+]{metropolis}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamercolor{frametitle}{bg={}, fg=black!80}
+\definecolor{myorange}{rgb}{0.8500, 0.3250, 0.0980}
+\setbeamercolor{alerted text}{bg={}, fg=myorange }
+\setbeamercolor{block title}{bg=black!10, fg=black}
+\setbeamercolor{block body}{bg=black!10, fg=black}
+\setbeamercolor{block frame}{bg=black, fg=black}
+\setbeamertemplate{blocks}[rounded]
+\setbeamertemplate{blocks}[framed]
+%\usecolortheme{seahorse}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\newcommand{\tr}[1]{\textcolor{blue}{#1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{calc}
+\usepackage{soul}
+\setbeamercolor{headerCol}{fg=blue!30,bg=black!80}
+\setbeamercolor{bodyCol}{fg=black}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{setspace}
+\renewcommand{\bibsection}{}
+\bibliographystyle{apa} 
+% have to run bibtex mydocument.aux after first run to generate bbl file. 
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate subbody}
+%table
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+\newif\ifabbreviation
+\pretocmd{\thebibliography}{\abbreviationfalse}{}{}
+\AtBeginDocument{\abbreviationtrue}
+\DeclareRobustCommand\acroauthor[2]{%
+	\ifabbreviation #2\else #1 (\mbox{#2})\fi}
+
+\usepackage[customcolors]{hf-tikz}
+\definecolor{sonja}{cmyk}{1.5,0,0.9,0.3}
+%\definecolor{blue}{cmyk}{0,1,0,0}
+\hfsetfillcolor{black!10}
+\hfsetbordercolor{black}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\newcommand{\ImageWidth}{11cm}
+\usetikzlibrary{decorations.pathreplacing,positioning, arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,calc,fit}
+\tikzset{mainbox/.style={draw=white, text=white, fill=gray, rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{dummybox/.style={draw=none, text=white , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{box/.style={draw , rectangle, rounded corners, thick, node distance=7em, text width=8em, text centered, minimum height=3.5em}}
+\tikzset{container/.style={draw, rectangle, dashed, inner sep=2em}}
+\tikzset{line/.style={draw, very thick, -latex'}}
+\tikzset{    pil/.style={
+		->,
+		thick,
+		shorten <=2pt,
+		shorten >=2pt,}}
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+	1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+\usetikzlibrary{shapes}
+\renewcommand{\figurename}{}
+
+%TITLE
+\author[Sonja Dobkowitz]{\small Sonja Dobkowitz\\ \footnotesize{University of Bonn%, RTG 2281 The Macroeconomics of Inequality}
+}\\ }
+%\institute[University of Bonn]{}
+\title{How my research and teaching will contribute to the School of Business and Economics}
+
+\newcommand{\ar}{$\Rightarrow$ \ }
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%   \insertframenumber/\inserttotalframenumber
+%}
+
+%\institute{University of Bonn} 
+\date{\small{ Presentation Galway\\ January 24, 2023 }} 
+%\subject{} 
+\begin{document}
+
+\tikzstyle{modus}=[rectangle,inner sep=5mm,align=center, draw]
+\tikzstyle{dialog}=[diamond, align=center, draw]
+\tikzstyle{elli}=[ellipse, align=center,  minimum size=3cm, draw]
+\tikzstyle{sphere}=[circle, align=center, dotted, minimum size=3cm, draw]
+\tikzstyle{circll}=[circle, align=center, minimum size=3cm, draw]
+{\setbeamertemplate{footline}{}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+}
+
+\end{document}

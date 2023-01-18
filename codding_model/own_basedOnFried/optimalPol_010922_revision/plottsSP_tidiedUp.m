@@ -366,7 +366,7 @@ if plotts.taulFixedtaufJoint_newcalib_polPer==1
     perj= 100*(joint-wt)./nt;
     
    for lgdind=0:1
-    for l =["Add"]%keys(lisst) % loop over variable groups
+    for l =keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -390,8 +390,10 @@ if plotts.taulFixedtaufJoint_newcalib_polPer==1
             end
             ax=gca;
             ax.FontSize=13;
-             if varr=="Tauf" || varr=="GFF" || varr =="Hagg"
+             if varr=="Tauf" || varr=="GFF" || varr =="Hagg" || varr =="Y"
+                 
                  ytickformat('%.2f')
+
              elseif varr =="dTaulAv" || varr =="sffsg"
                  ytickformat('%.1f')
              else
@@ -399,6 +401,65 @@ if plotts.taulFixedtaufJoint_newcalib_polPer==1
              end
             xticklabels(Year10)
             path=sprintf('figures/all_%s/NewCalib_polTaulFixedTaufJointPer_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+    end
+    end
+end
+%% comparison taul fixed and carbon tax optimal vs carbon tax jont opt and taul fixed
+
+if plotts.taulFixedtaufJoint_newcalib_polPer_Tauf==1
+    fprintf('plott new calib taul fixed pol per')
+
+    nt= RES_count_NCalib(sprintf("Count_TaulFixed"));
+    wt=RES_count_NCalib(sprintf("Count_TaulFixed_TaufJoint"));
+    per= 100*(wt-nt)./nt;
+        
+    joint=RES_NCalib(sprintf("OPT_T_WithTaul"));
+    perj= 100*(joint-wt)./nt;
+    
+   for lgdind=0:1
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot(time,(per(find(varlist==varr),1:T)), time,zeros(size(per(find(varlist==varr),1:T))),'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; grrey} )   
+
+           xticks(txx)
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           if lgdind==1
+               lgd=legend('effect $\Delta\ \tau_f$', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'east', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
+            ax=gca;
+            ax.FontSize=13;
+             if varr=="Tauf" || varr=="GFF" || varr =="Hagg" || varr =="Y"
+                 ytickformat('%.2f')
+                 if varr=="Hagg"
+                    ylim([-0.161, 0.021])
+                 elseif varr=="Y"
+                    ylim([-0.151, 0.051])
+                 end             
+             elseif varr =="dTaulAv" || varr =="sffsg" 
+                 ytickformat('%.1f')
+                
+             else
+                 ytickformat('%.1f')
+             end
+            xticklabels(Year10)
+            path=sprintf('figures/all_%s/NewCalib_polTaulFixedTaufJointPer_onlyTauf_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',date, varr,indic.Sun, indic.targetWhat, indic.spillovers,plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
     
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -550,7 +611,10 @@ if plotts.taulFixed_newcalib_polPer==1
            
             ax=gca;
             ax.FontSize=13;
-             if varr=="Tauf" || varr=="GFF"
+             if varr=="Tauf" || varr=="GFF" || varr=="Y"
+                 if varr =="Y"
+                    ylim([-0.151, 0.051])
+                 end
                  ytickformat('%.2f')
              elseif varr =="dTaulAv" || varr =="sffsg"
                  ytickformat('%.1f')
@@ -1106,7 +1170,8 @@ end
 if plotts.phi_newcalib_TvsNoT==1
     fprintf('plott new calib no T vs NoT')
 
-for nnt=["RS"]
+for nnt=["base"]
+    nnt=string(nnt);
     if nnt=="base"
         RES=RES_NCalib;
     else
@@ -1126,17 +1191,19 @@ for nnt=["RS"]
 
             main=plot(time,(not(find(varlist==varr),1:T)), time,(wt(find(varlist==varr),1:T)),  'LineWidth', 1.1);   
             set(main, {'LineStyle'},{'--';'-'}, {'color'}, {'b';'k'} )   
-            if lgdind==1
-               lgd=legend('no target', 'with target', 'Interpreter', 'latex');
-                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-            end
             
            xticks(txx)
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+
            if ismember(varr, list.growthrates)
                 xlim([1, time(end-1)])
            else             
                 xlim([1, time(end)])
            end
+            if lgdind==1
+               lgd=legend('no emission limit', 'with emission limit', 'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+            end
            
             ax=gca;
             ax.FontSize=13;
