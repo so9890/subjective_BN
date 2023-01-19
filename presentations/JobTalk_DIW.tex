@@ -1,5 +1,4 @@
 \documentclass[11pt,aspectratio=169]{beamer}
-
 %\mode<handout>
 %{
 	%	\usepackage{pgf}
@@ -61,6 +60,8 @@
 %outer/numbering=none
 ]{metropolis}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+\setbeamercolor{background canvas}{bg=black!1}
 \setbeamercolor{frametitle}{bg={}, fg=black!80}
 \definecolor{myorange}{rgb}{0.8500, 0.3250, 0.0980}
 \setbeamercolor{alerted text}{bg={}, fg=myorange }
@@ -369,8 +370,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\vspace{3mm}
 			\item Under the net-zero emission limit (from 2050 onward): 
 			\begin{itemize}
-				\item[-]  higher carbon tax to boost green research
-				\item[-]  a smaller tax on labor stabilizes output
+				\item[-]  higher carbon tax to foster green research
+				\item[-]  a smaller tax on labor boosts output
 			\end{itemize}
 			\vspace{3mm}
 			\item Limited use of labor income tax \ar look at research subsidies
@@ -410,7 +411,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		% Das klingt gut (differenzierung zwischen wirkungsweisen und nicht instrumenten! ): weil instrumente beide effekte haben können, dass die carbon tax auch das level beeinflusst wird ausgeklammert
 		% I argue that we should study optimal env. policies allowing for level adjustments of production! I provide am example scenario where adjusting the level becomes part of the optimal policy
 		\vspace{2mm}
-		\item \alert{This paper}: use of labor income tax is optimal due to  directed technical change % and (ii) lack of research subsidies
+		\item \alert{This paper}: motive for labor income taxation solely arises from environmental externality % alone %directly % is optimal due to  directed technical change % and (ii) lack of research subsidies
 		%	\footnotesize{\citep{Acemoglu2012TheChange}}
 		%\\ \normalsize{\alert{\ar role for labor income taxation}}
 		% weak double dividend literature (advantage to use env tac revenues to lower existing distortions; deviation of optimal env tax from pigou)
@@ -969,16 +970,149 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %\end{enumerate}
 %\end{frame}
 
-\begin{frame}{Effect of carbon tax on the allocation of scientists}
-	\vspace{2mm}
-	In equilibrium: \large
+
+\begin{frame}{Innovation}
+	\pause
+		\vspace{-5mm}
+			% talk about productivity of research bcs it determines optimal allocation of research
+	\large
 	\begin{align*}
-		\overbrace{{\psi_F} p_F{F}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} p_G{G}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
+		A_{Jit}=\alert{A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item \alert{within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
+		%		\begin{itemize}
+			%	\item<+-> scientists in most advanced, fossil sector are more productive
+			%			\item<+-> shift to green research early on to make green research more productive tomorrow
+			%		\end{itemize}
+		\item[] \  % knowledge from other sectors increases productivity of scientists
+		\item[] \ \\ \ % decreasing returns to research, $\eta<1$
+	\end{enumerate}
+	\small
+	\vspace{4mm}
+	\hspace{-2mm}
+	\begin{minipage}[t!]{0.43\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $A_{Jt}$: sector-specific technology
+			\vspace{-2mm}		
+			\item[] $A_t$: aggregate technology
+			\vspace{-2mm}
+			\item[] $\gamma$ : productivity of scientists
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.55\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] $\rho_J$: number of research processes in sector $J$
+			\vspace{-2mm}			
+			\item[] $\eta$ : returns to research
+			\vspace{-2mm}			
+			\item[] $\phi$ : relative importance knowledge spillovers
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Innovation}
+		\vspace{-5mm}
+	\large
+	\begin{align*}
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma\alert{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive
+		\item \alert{decreasing returns to research, $\eta<1$}
+		\item[] \ \\ \  % \alert{knowledge spillovers} 
+	\end{enumerate}
+	\small
+	\vspace{4mm}
+	\hspace{-2mm}
+	\begin{minipage}[t!]{0.43\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $A_{Jt}$: sector-specific technology
+			\vspace{-2mm}		
+			\item[] $A_t$: aggregate technology
+			\vspace{-2mm}
+			\item[] $\gamma$ : productivity of scientists
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.55\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] \alert{$\rho_J$: number of research processes in sector $J$}
+			\vspace{-2mm}			
+			\item[] $\eta$ : returns to research
+			\vspace{-2mm}			
+			\item[] $\phi$ : relative importance knowledge spillovers
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Innovation}
+	\vspace{-5mm}
+	\large
+	\begin{align*}
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive
+		%				\begin{itemize}
+			%			\item scientists in most advanced, fossil sector are more productive
+			%			\item shift to green early on to internalize green productivity increase tomorrow
+			%		\end{itemize}
+		\item decreasing returns to research, $\eta<1$
+		\item \alert{cross-sectoral knowledge spillovers: knowledge from other sectors increases productivity of scientists in sector $J$} %\footnotesize{\citep{Barbieri2021GreenPolicy}}
+	\end{enumerate}
+	\small
+	\vspace{4mm}
+	\hspace{-2mm}
+	\begin{minipage}[t!]{0.43\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $A_{Jt}$: sector-specific technology
+			\vspace{-2mm}		
+			\item[] $A_t$: aggregate technology 
+			\vspace{-2mm}
+			\item[] $\gamma$ : productivity of scientists
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.55\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] $\rho_J$: number of research processes in sector $J$
+			\vspace{-2mm}			
+			\item[] $\eta$ : returns to research
+			\vspace{-2mm}			
+			\item[] $\phi$ : relative importance knowledge spillovers
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Effect of carbon tax on the allocation of scientists}
+	\vspace{0mm}
+    \large
+	\begin{align*}		
+		\color{black}
+		\overbrace{{\psi_F} \textcolor{black!1}{\underbrace{\textcolor{black}{p_F{F}}}_{{{\tau_F\uparrow\Rightarrow\downarrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{F}}{\partial s_{F}}}}_{{{s_F\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}{\pmb{=}}\overbrace{{\psi_G} \textcolor{black!1}{\underbrace{\textcolor{black}{p_GG}}_{{{\tau_F\uparrow\Rightarrow\uparrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{G}}{\partial s_{G}}}}_{	{{s_G\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
+%		\overbrace{{\psi_F} p_F{F}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} p_G{G}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
 	\begin{itemize}
 		\item[] \ % carbon tax lowers returns to fossil research and raises returns to green research
-		\item[] \ \\ \  % in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
+		\vspace{2mm}
+		\item[] \  % in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
 	\end{itemize}
 	\small
 	\vspace{4mm}
@@ -1005,19 +1139,21 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \addtocounter{framenumber}{-1}
 
 \begin{frame}{Effect of carbon tax on the allocation of scientists}
-	\vspace{2mm}
-	%In equilibrium: \large
+	\vspace{0mm}
+	\large
 	\begin{align*}
-		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\downarrow}}}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\uparrow}}}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
+		\color{black}
+				\overbrace{{\psi_F} \underbrace{p_F{F}}_{{\alert{\tau_F\uparrow\Rightarrow\downarrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{F}}{\partial s_{F}}}}_{{{s_F\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{{\alert{\tau_F\uparrow\Rightarrow\uparrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{G}}{\partial s_{G}}}}_{	{{s_G\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
+%		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\downarrow}}}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\uparrow}}}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
 	\begin{itemize}
 		\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
 		\vspace{2mm}
-		\item[] \ \\ \ % in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
+		\item[] \  % in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
 	\end{itemize}
 	\small
-	\vspace{2.6mm}
+	\vspace{4mm}
 	\hspace{-2mm}
 	\begin{minipage}[t!]{0.4\textwidth}
 		\vspace{0mm}
@@ -1041,16 +1177,16 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \addtocounter{framenumber}{-1}
 
 \begin{frame}{Effect of carbon tax on the allocation of scientists}
-	\vspace{2mm}
-	In equilibrium: \large
+	\vspace{0mm}
+	 \large
 	\begin{align*}
-		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\underbrace{\frac{\partial A_{F}}{\partial s_{F}}}_{\alert{\pmb{s_F\downarrow\Rightarrow\uparrow}}}}^{\text{wage fossil scientists}}\alert{\pmb{=}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\underbrace{\frac{\partial A_{G}}{\partial s_{G}}}_{\alert{\pmb{s_G\uparrow\Rightarrow\downarrow}}}}^{\text{wage green scientists}}
+		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\underbrace{\frac{\partial A_{F}}{\partial s_{F}}}_{\alert{{s_F\downarrow\Rightarrow\uparrow}}}}^{\text{wage fossil scientists}}\alert{\pmb{=}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\underbrace{\frac{\partial A_{G}}{\partial s_{G}}}_{\alert{{s_G\uparrow\Rightarrow\downarrow}}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
 	\begin{itemize}
 		\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
 		\vspace{2mm}
-		\item in equilibrium: scientists transition from fossil to green sector\\ \hspace{24mm}\small{(decreasing returns to research)}
+		\item scientists transition from fossil to green sector \small{(decreasing returns to research)}
 	\end{itemize}
 	\small
 	\vspace{4mm}
@@ -1106,132 +1242,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %\end{minipage}
 %\end{frame}
 
-\begin{frame}{Innovation}
-	\pause
-	\vspace{-10mm}
-	\vspace{4mm}
-	% talk about productivity of research bcs it determines optimal allocation of research
-	\large
-	\begin{align*}
-		A_{Jit}=\alert{A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
-	\end{align*}
-	\normalsize
-	\begin{enumerate}
-		\item \alert{within sector knowledge spillovers: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
-		%		\begin{itemize}
-			%	\item<+-> scientists in most advanced, fossil sector are more productive
-			%			\item<+-> shift to green research early on to make green research more productive tomorrow
-			%		\end{itemize}
-		\item[] \  % knowledge from other sectors increases productivity of scientists
-		\item[] \ % decreasing returns to research, $\eta<1$
-	\end{enumerate}
-	\small
-	\vspace{4mm}
-	\hspace{-2mm}
-	\begin{minipage}[t!]{0.43\textwidth}
-		\vspace{0mm}
-		\begin{itemize}
-			\item[] $A_{Jt}$: sector-specific technology
-			\vspace{-2mm}		
-			\item[] $A_t$: aggregate technology
-			\vspace{-2mm}
-			\item[] $\gamma$ : productivity of scientists
-		\end{itemize}
-	\end{minipage}
-	\vspace{-5mm}
-	\begin{minipage}[t!]{0.55\textwidth}
-		\vspace{0mm}
-		\begin{itemize}	
-			\item[] $\rho_J$: number of research processes in sector $J$
-			\vspace{-2mm}			
-			\item[] $\eta$ : returns to research
-			\vspace{-2mm}			
-			\item[] $\phi$ : relative importance knowledge spillovers
-		\end{itemize}
-	\end{minipage}
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Innovation}
-	\large
-	\begin{align*}
-		A_{Jit}={A_{Jt-1}}\left(1+\gamma\alert{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
-	\end{align*}
-	\normalsize
-	\begin{enumerate}
-		\item within sector knowledge spillovers: sector-specific knowledge renders scientists more productive
-		\item \alert{decreasing returns to research, $\eta<1$}
-		\item[] \ % \alert{knowledge spillovers} 
-	\end{enumerate}
-	\small
-	\vspace{4mm}
-	\hspace{-2mm}
-	\begin{minipage}[t!]{0.43\textwidth}
-		\vspace{0mm}
-		\begin{itemize}
-			\item[] $A_{Jt}$: sector-specific technology
-			\vspace{-2mm}		
-			\item[] $A_t$: aggregate technology
-			\vspace{-2mm}
-			\item[] $\gamma$ : productivity of scientists
-		\end{itemize}
-	\end{minipage}
-	\vspace{-5mm}
-	\begin{minipage}[t!]{0.55\textwidth}
-		\vspace{0mm}
-		\begin{itemize}	
-			\item[] \alert{$\rho_J$: number of research processes in sector $J$}
-			\vspace{-2mm}			
-			\item[] $\eta$ : returns to research
-			\vspace{-2mm}			
-			\item[] $\phi$ : relative importance knowledge spillovers
-		\end{itemize}
-	\end{minipage}
-\end{frame}
-
-
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Innovation}
-	\large
-	\begin{align*}
-		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
-	\end{align*}
-	\normalsize
-	\begin{enumerate}
-		\item within sector knowledge spillovers: sector-specific knowledge renders scientists more productive
-		%				\begin{itemize}
-			%			\item scientists in most advanced, fossil sector are more productive
-			%			\item shift to green early on to internalize green productivity increase tomorrow
-			%		\end{itemize}
-		\item decreasing returns to research, $\eta<1$
-		\item \alert{cross-sectoral knowledge spillovers: knowledge from other sectors increases productivity of scientists in sector $J$} %\footnotesize{\citep{Barbieri2021GreenPolicy}}
-	\end{enumerate}
-	\small
-	\vspace{4mm}
-	\hspace{-2mm}
-	\begin{minipage}[t!]{0.43\textwidth}
-		\vspace{0mm}
-		\begin{itemize}
-			\item[] $A_{Jt}$: sector-specific technology
-			\vspace{-2mm}		
-			\item[] $A_t$: aggregate technology 
-			\vspace{-2mm}
-			\item[] $\gamma$ : productivity of scientists
-		\end{itemize}
-	\end{minipage}
-	\vspace{-5mm}
-	\begin{minipage}[t!]{0.55\textwidth}
-		\vspace{0mm}
-		\begin{itemize}	
-			\item[] $\rho_J$: number of research processes in sector $J$
-			\vspace{-2mm}			
-			\item[] $\eta$ : returns to research
-			\vspace{-2mm}			
-			\item[] $\phi$ : relative importance knowledge spillovers
-		\end{itemize}
-	\end{minipage}
-\end{frame}
 
 \begin{frame}{Markets}
 	\begin{minipage}[t!]{1\textwidth}
@@ -1862,7 +1872,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\vspace{2mm}
 		
 		\begin{itemize}
-			\item[-] \textbf{Outlook}: role for labor income tax remains since carbon tax revenues are not redistributed lump-sum \ar labor market distortion
+			\item[-] \textbf{Outlook}: role for labor income tax remains since carbon tax revenues are not redistributed lump-sum \ar inefficiently high labor supply %labor market distortion
 			%			\item[-] when only green research subsidies are available: green transition even more costly
 		\end{itemize}	
 		
