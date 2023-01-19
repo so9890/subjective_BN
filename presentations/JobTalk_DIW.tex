@@ -310,8 +310,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\vspace{1mm}
 			\item[-]<+-> \alert{knowledge spillovers}: 
 			\begin{enumerate}
-				\item[a)]<+-> \alert{Within-sector}: researchers learn from knowledge accumulated in their sector
-				\item[b)]<+-> \alert{Cross-sector}: knowledge generated in sector A stimulates innovation in sector B
+				\item[a)]<+-> \alert{within-sector}: researchers learn from knowledge accumulated in their sector
+				\item[b)]<+-> \alert{cross-sector}: knowledge generated in sector A stimulates innovation in sector B
 			\end{enumerate}%\\ \footnotesize{(cross-sectoral knowledge spillovers)}
 		\end{itemize}
 		\vspace{2mm}
@@ -1401,7 +1401,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{frame}{Emission limit}
 	\vspace{-1mm}
 	\begin{itemize}
-		\item<+->  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}\normalsize:
+		\item<+->  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate target \footnotesize{\citep{IPCC2022}}\normalsize:
 		\vspace{1mm}
 		\begin{itemize}
 			\item[-] before 2050: remaining carbon budget 510Gt
@@ -1481,7 +1481,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 					${{\phi}}$  &0.75& \small{cross-sector knowledge spillovers}&\small \cite{Barbieri2021GreenPolicy} \\
 					$({\varepsilon_y, \varepsilon_e})$&(0.05, 1.50)&\small{price elasticity of substitution}&\small \cite{Fried2018ClimateAnalysis}\\	
 					%	($\alpha_F$, $\alpha_G$, $\alpha_N$) &(0.72, 0.91, 0.36)&\\
-					$\frac{A_{F0}}{A_{G0}}$&8.27&\small{relative productivity} &\small energy and fossil shares \citep{EIAEnergy} \\
+					$\frac{A_{F0}}{A_{G0}}$&8.27&\small{relative productivity} &\small %energy and 
+					fossil energy share \citep{EIAEnergy} \\
 				%	({${A_{F0}^{1-alpha_f}}$, ${A_{G0}^{1-alpha_g}}$, ${A_{N0}^{1-alpha_n}}$})&(6.68, 1.50, 2.85)&TFP &energy and fossil shares \citep{EIAEnergy} \\
 				
 					%					$\delta$&3.19&sinks in Gt&\rdelim\}{2}{5cm}[\normalfont\makecell{\cite{EPAems}}] \\
@@ -1493,7 +1494,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\end{table}
 	
 	\hypertarget{backca}{}
-	\vspace{14.7mm}
+	\vspace{14mm}
 	\hfill
 	\hyperlink{calib}{\tiny{$\rightarrow$ all parameters}}
 \end{frame}
@@ -1558,10 +1559,6 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\item {Government dilemma: reducing fossil fuels entails too strong a decline in fossil research activity}
 		\end{itemize}
 	\end{block}	
-	\vspace{-4mm}
-	
-	\hfill
-	\hyperlink{backOPT}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 
@@ -1631,8 +1628,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\end{block}	
 	\hypertarget{backOPT}{}
 	\vspace{-5.7mm}
-	\hfill \hyperlink{Redis}{\tiny{$\rightarrow$ redistribution,}}
-	\hyperlink{altems}{\tiny{$\rightarrow$ alternative emission limit}} %\hyperlink{compfb}{\tiny{$\rightarrow$ comparison first best}}
+	\hfill \hyperlink{Redis}{\tiny{$\rightarrow$ redistribution}}
+%	\hyperlink{altems}{\tiny{$\rightarrow$ alternative emission limit}} %\hyperlink{compfb}{\tiny{$\rightarrow$ comparison first best}}
 \end{frame}
 
 \begin{frame}{Quantitative experiment}
@@ -1682,39 +1679,39 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	
 	content...
 \end{comment}
-\begin{frame}{Integrating labor income taxes into the environmental policy}
-	\pause
-	\vspace{-3mm}
-	\centering
-	\begin{figure}[h!!]
-		\centering
-
-		\begin{subfigure}{0.45\textwidth}		
-			\caption{{Average marginal income tax in \%, $\tau_{\iota t}$}}
-			%	\captionsetup{width=.45\linewidth}
-	%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixed_T_dTaulAvS_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_dTaulAvS_base_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}	
-			\ 	
+%\begin{frame}{Integrating labor income taxes into the environmental policy}
+%	\pause
+%	\vspace{-3mm}
+%	\centering
+%	\begin{figure}[h!!]
+%		\centering
+%
+%		\begin{subfigure}{0.45\textwidth}		
+%			\caption{{Average marginal income tax in \%, $\tau_{\iota t}$}}
+%			%	\captionsetup{width=.45\linewidth}
+%	%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixed_T_dTaulAvS_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_dTaulAvS_base_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+%		\end{subfigure}
+%		\begin{minipage}[]{0.05\textwidth}
+%			\
+%		\end{minipage}
+%		\begin{subfigure}{0.45\textwidth}	
+% 	
 %			\caption{{Deviation carbon tax in \%}}
 %			%	\captionsetup{width=.45\linewidth}
 %			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_Tauf_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-		\end{subfigure}
-	\end{figure}
+%		\end{subfigure}
+%	\end{figure}
 %	\vspace{3mm}
-%	\begin{block}{}
-%		\begin{itemize}
-%			\item In run-up to net-zero limit: higher labor income tax to reduce emissions
-%			\item Under net-zero limit: reduction of labor income tax stabilizes production
-%		\end{itemize}
-%	\end{block}	
-\end{frame}
-
-\addtocounter{framenumber}{-1}
+%%	\begin{block}{}
+%%		\begin{itemize}
+%%			\item In run-up to net-zero limit: higher labor income tax to reduce emissions
+%%			\item Under net-zero limit: reduction of labor income tax stabilizes production
+%%		\end{itemize}
+%%	\end{block}	
+%\end{frame}
+%
+%\addtocounter{framenumber}{-1}
 \begin{frame}{Integrating labor income taxes into the environmental policy}
 	\vspace{-3mm}
 	\centering
@@ -1741,11 +1738,11 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \begin{block}{}
 	\begin{itemize}
 		%				\item integrated policy achieves more beneficial allocation of scientists \item at the costs of lower production in initial years
-		\item In run-up to net-zero limit: higher labor income tax to allow for lower carbon tax.
-		\item Under net-zero limit: higher carbon tax and smaller labor income tax.
+		\item In run-up to net-zero limit: higher labor income tax to allow for lower carbon tax
+		\item Under net-zero limit: higher carbon tax and smaller labor income tax
 	\end{itemize}
 \end{block}	
-
+\vspace{-4.5mm}
 \hypertarget{backmec}{}
 \hfill
 \hyperlink{sensphi}{\tiny{$\rightarrow$ sensitivity}}
@@ -1753,7 +1750,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 
 \begin{frame}{Effect  of integrated policy}
 	\pause
-	\vspace{-3mm}
+	\vspace{-5mm}
 \centering
 \begin{figure}[h!!]
 	\centering
@@ -1775,12 +1772,12 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{block}{}
 			\begin{itemize}
 %				\item integrated policy achieves more beneficial allocation of scientists \item at the costs of lower production in initial years
-					\item In run-up to net-zero limit: higher fossil-to-green ratio of scientists. Reduction in output to meet emission limit.
-					\item Under net-zero limit: more green research to internalize within-sector spillovers. % Allows for rise in overall production. 
+					\item In run-up to net-zero limit: higher fossil-to-green ratio of scientists. Reduction in output to meet emission limit
+					\item Under net-zero limit: more green research to internalize within-sector spillovers % Allows for rise in overall production. 
 				\end{itemize}
 		\end{block}	
 	
-	\vspace{-4mm}
+	\vspace{-5.5mm}
 	\hfill
 	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 \end{frame}
@@ -1837,8 +1834,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{3mm}
 	\begin{block}{}
 		\begin{itemize}
-			\item Adjustment in carbon tax directs research activity.
-			\item Changes in labor income tax adjusts level of production. %side effects on labor market
+			\item Adjustment in carbon tax directs research activity
+			\item Changes in labor income tax adjust level of production %side effects on labor market
 		\end{itemize}
 	\end{block}	
 \end{frame}
