@@ -155,7 +155,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{Job Talk DIW\\ January 20, 2023 }} 
+\date{\small{DIW, Berlin\\ January 20, 2023 }} 
 %\subject{} 
 \begin{document}
 
@@ -506,40 +506,38 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\end{tikzpicture}
 		
 	\end{figure}
-\end{frame}
-\addtocounter{framenumber}{-1}
+\end{frame}\addtocounter{framenumber}{-1}
 \begin{frame}{Model}
-	\begin{figure}[h]
-		\vspace{-4mm}
-		\centering
-		\begin{tikzpicture}[auto,scale=.7, transform shape]
-			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-			\node[circll] (B) at (7,4) {\textbf{\alert{{Representative}}}\\ \textbf{\alert{{Household}}}};
-			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
-			\node[draw=none] (B1) at (5,4.25) {};
-			\node[draw=none] (B2) at (5,3.5) {};
-			\node[draw=none] (BA1) at (-5,4.25) {};
-			\node[draw=none] (BA2) at (-5,3.5) {};
-			\node[draw=none] (D1) at (1.8,7.8) {};
-			
-			\node[draw=none] (B22) at (6.4,5.6) {};
-			\node[draw=none] (D2) at (2.3,8.5) {};
-			\node[draw=none] (B3) at (5.3,5.3) {};
-			\node[draw=none] (D3) at (-1.5,7) {};
-			\node[draw=none] (A1) at (-4.2,4.6) {};
-			\node[draw=none] (D4) at (-2,8.3) {};
-			\node[draw=none] (A4) at (-6,5.4) {};
-			\draw [->] (B22) to node[pos=0.65, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$}} (D2);
-			%	\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}>0$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
-			%	\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
-			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
-			
-			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
-			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
-			%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
-		\end{tikzpicture}
+\begin{figure}[h]
+	\vspace{-4mm}
+	\centering
+	\begin{tikzpicture}[auto,scale=.7, transform shape]
+		\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
+		\node[circll] (B) at (7,4) {\textbf{{{Representative}}}\\ \textbf{{{Household}}}};
+		\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
+		\node[draw=none] (B1) at (5,4.25) {};
+		\node[draw=none] (B2) at (5,3.5) {};
+		\node[draw=none] (BA1) at (-5,4.25) {};
+		\node[draw=none] (BA2) at (-5,3.5) {};
+		\node[draw=none] (D1) at (1.8,7.8) {};
 		
-	\end{figure}
+		\node[draw=none] (B22) at (6.4,5.6) {};
+		\node[draw=none] (D2) at (2.3,8.5) {};
+		\node[draw=none] (B3) at (5.3,5.3) {};
+		\node[draw=none] (D3) at (-1.5,7) {};
+		\node[draw=none] (A1) at (-4.2,4.6) {};
+		\node[draw=none] (D4) at (-2,8.3) {};
+		\node[draw=none] (A4) at (-6,5.4) {};
+		\draw [->] (B22) to node[pos=0.65, swap]{{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
+		\draw [->] (B22) to node[pos=0.45, swap]{\textcolor{black!1}{$\pmb{\tau_{\iota}} \uparrow$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+		\draw [->] (B22) to node[pos=0.3, swap]{\textcolor{black!1}{$\pmb{\tau_{\iota}} \downarrow$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+		\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
+		
+		\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+		\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
+		%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+	\end{tikzpicture}
+\end{figure}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
@@ -549,7 +547,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\centering
 		\begin{tikzpicture}[auto,scale=.7, transform shape]
 			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{{and Research}}};
-			\node[circll] (B) at (7,4) {\textbf{\hyperlink{backhh}{{Representative}}}\\ \textbf{\hyperlink{backhh}{{Household}}}};
+			\node[circll] (B) at (7,4) {\textbf{{{Representative}}}\\ \textbf{{{Household}}}};
 			\node[circll] (D) at (0,9) {\textbf{{Government}} }; 
 			\node[draw=none] (B1) at (5,4.25) {};
 			\node[draw=none] (B2) at (5,3.5) {};
@@ -566,17 +564,15 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\node[draw=none] (A4) at (-6,5.4) {};
 			\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
 			\draw [->] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}} \uparrow$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
-			%	\draw [->] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}<0$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+			\draw [->] (B22) to node[pos=0.3, swap]{\textcolor{black!1}{$\pmb{\tau_{\iota}} \downarrow$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
 			\draw [->] (D1) to node[pos=0.5, swap]{Transfers} (B3);
 			
 			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
 			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);
 			%	\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
 		\end{tikzpicture}
-		
 	\end{figure}
 \end{frame}
-
 \addtocounter{framenumber}{-1}
 \begin{frame}{Model}
 	\begin{figure}[h]
@@ -1305,7 +1301,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \end{frame}
 
 
-\begin{frame}{ Government}
+\begin{frame}{Government}
 	\hypertarget{gov}{}
 	\vspace{-4mm}
 	\centering
@@ -1317,7 +1313,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			&{(2)\ \ T\left(w_{t}H_{t},w_{st}S_{t}; \lambda_t, \tau_{\iota t}\right)=0}\\
 			& {(3)\ \  \text{behavior of firms and households}}\\
 			& {(4)\ \ \text{resource constraints} }\\
-			& \ % {(4)\ \  \omega F_t-\delta \leq\Omega_t }
+			& \textcolor{black!1}{(5)\ \  {\omega F_t-\delta \leq\Omega_t } \hspace{3mm} {\text{(dynamic emission target)}}}
 		\end{align*}
 	\end{minipage}
 	
@@ -1331,19 +1327,18 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\item[] $T_\pi$: profits minus subsidies \\ \hspace{5.5mm} from machine producers \vspace{0mm}
 		\end{itemize}
 	\end{minipage}
-	\begin{minipage}[t!]{0.4\textwidth}
-		\vspace{8mm}
-		\begin{itemize}
-			\item[] % $\Omega_{t}$: net emission limit
-			\vspace{-2mm}	
-			\item[] %$\omega$\ : emissions per unit of fossil \vspace{-2mm}
-			\item[] %$\delta$\ \ : carbon sinks
-		\end{itemize}
+\begin{minipage}[t!]{0.45\textwidth}
+	\vspace{8mm}
+	\begin{itemize}
+		\item[] \textcolor{black!1}{$\Omega_{t}$: net emission limit}
+		\vspace{-2mm}	
+		\item[] \textcolor{black!1}{$\omega$\ : emissions per unit of fossil} \vspace{-0.8mm}
+		\item[] \textcolor{black!1}{$\delta$\ \ : carbon sinks \tiny{\citep{VanVuuren2018AlternativeTechnologies}}}
+	\end{itemize}
 	\end{minipage}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
-
 \begin{frame}{ Government}
 	\hypertarget{gov}{}
 	\vspace{-4mm}
@@ -1613,9 +1608,9 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\ 
 		\end{minipage}
 		\begin{subfigure}{0.45\textwidth}		
-			\caption{Average marginal income tax in \%, $\tau_{\iota t}$}
+			\caption{Income tax progressivity, $\tau_{\iota t}$}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_dTaulAvS_emnet1_Sun2_regime4_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Single_NC_T_taul_emnet1_Sun2_regimebase_spillover0_knspil3_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
 		\end{subfigure}
 	\end{figure}
 	\vspace{3mm}
@@ -1623,7 +1618,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{block}{}
 		\begin{itemize}
 			\item Labor income tax mainly used to subsidize research.
-			\item Is there a role for labor income taxation within the optimal environmental policy?
+			\item How does the government use the labor income tax to meet emission targets?
 		\end{itemize}
 	\end{block}	
 	\hypertarget{backOPT}{}
@@ -1719,10 +1714,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\centering
 		
 		\begin{subfigure}{0.45\textwidth}		
-			\caption{{Average marginal income tax, $\tau_{\iota t}$}}
+			\caption{{Income tax progressivity, $\tau_{\iota t}$}}
 			%	\captionsetup{width=.45\linewidth}
 			%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixed_T_dTaulAvS_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_dTaulAvS_base_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_taul_base_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
 		\end{subfigure}
 		\begin{minipage}[]{0.05\textwidth}
 			\
@@ -1812,7 +1807,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \end{frame}
 
 \addtocounter{framenumber}{-1}
-\begin{frame}{Effect of integrated policy}
+\begin{frame}{Decomposing effect of integrated policy}
 	\hypertarget{mec0}{}
 	\vspace{-3mm}
 	\centering
@@ -2086,16 +2081,16 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			%		\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/Phi_SensN_dTaulAvS_spillover0_knspil0_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
 			%	\end{subfigure}
 		\begin{subfigure}{0.42\textwidth}		
-			\caption{ Deviation average marginal income tax in \%}
+			\caption{ Deviation marginal income tax workers in \%}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_Sens_TvsNoT_dTaulAvS_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_Sens_TvsNoT_dTaulAv_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 	\end{figure}
 	\vspace{2mm}
 	\begin{block}{}
 		\begin{itemize}
-			\item the stronger knowledge spillovers, the higher the optimal carbon tax
-			\item at the same time, can profit more from fossil knowledge generated in early periods
+			\item The stronger knowledge spillovers, the higher the optimal carbon tax
+			\item At the same time, can profit more from fossil knowledge generated in early periods
 			%	\item with knowledge spillovers qualitatively similar results
 		\end{itemize}
 	\end{block}	

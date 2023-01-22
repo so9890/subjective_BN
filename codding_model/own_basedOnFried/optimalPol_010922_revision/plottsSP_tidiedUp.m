@@ -637,7 +637,7 @@ if plotts.single_pol_NC==1
     fprintf('plotting single graphs')
 
     %- loop over economy versions
-    for nnt=[ "RS"]
+    for nnt=[ "base"]
         if nnt =="base"
             RES=RES_NCalib;
         else
@@ -678,6 +678,8 @@ if plotts.single_pol_NC==1
             ax.FontSize=13;
             if varr=="dTaulAv" || varr=="dTaulAvS"
                 ytickformat('%.1f')
+            elseif varr =="taul"
+                ytickformat('%.3f')
             end
             xticklabels(Year10)
             path=sprintf('figures/all_%s/Single_NC_%s_%s_emnet%d_Sun%d_regime%s_spillover%d_knspil%d_noskill%d_sep%d_xgrowth%d_extern%d_PV%d_sizeequ%d_GOV%d_etaa%.2f.png',...
@@ -1211,6 +1213,8 @@ for nnt=["base"]
                 ytickformat('%.0f')
             elseif varr =="dTaulAv"
                 ytickformat('%.1f')
+            elseif varr =="taul"
+                ytickformat('%.3f')
             else
                 ytickformat('%.1f')
             end

@@ -664,10 +664,10 @@ plotts.phi_newcalib_noeff  = 0;
 plotts.comp_OPTPer_NCalib  = 0;
 plotts.comp_OPT_NCAlib     = 0;
 plotts.count_devs_both_NC  = 0;
-plotts.phi_newcalib_TvsNoT = 0;
+plotts.phi_newcalib_TvsNoT = 1;
 plotts.taulFixed_newcalib  = 0;
 plotts.taulFixed_newcalib_pol  = 0;
-plotts.taulFixed_newcalib_polPer = 1;
+plotts.taulFixed_newcalib_polPer = 0;
 plotts.taulFixedtaufJoint_newcalib_polPer=0;
  plotts.single_pol_NC      =0;
 
