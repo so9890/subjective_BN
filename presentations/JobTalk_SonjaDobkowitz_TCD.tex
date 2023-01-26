@@ -273,42 +273,47 @@ content...
 		\end{itemize}
 		\vspace{2mm}
 		\item<+->   The government   chooses the \alert{path of carbon and income taxes} to maximize welfare\vspace{2mm}
-		\item<+-> An \alert{emission limit} constrains the government: 
+		\item<+-> An \alert{emission limit} constrains the government		\vspace{2mm}
+		\item<+-> \alert{Main results:} 
+		\begin{itemize}
+			\item[-] a combination of carbon and labor income taxes is optimal to target the allocation of research activity		\vspace{1mm} \item[-] limited use of labor income tax \ar augment baseline model with research subsidies
+		\end{itemize}
 		%		\begin{itemize}
 			%			\item[-]<+-> positive net emissions before 2050
 			%			\item[-]<+-> net-zero emissions from 2050 onward
 			%		\end{itemize}
 	\end{itemize}
-	\pause
-	\vspace{0mm}
-	\centering
-	\resizebox{290pt}{70pt}{%
-		\begin{tikzpicture}
-			\draw[ultra thick, ->] (0,0) -- (10,0);
-			\foreach \x in {0}
-			\draw (\x cm,3pt) -- (\x cm,-3pt);
-			\foreach \x in {5}
-			\draw[dashed, gray, thick] (\x cm,10pt) -- (\x cm,-6pt);
-			% draw node
-			\draw[thick] (0,0) node[below=3pt,thick] {2020} node[above=3pt] {};
-			\draw[thick] (5,0) node[below=3pt,thick] {2050} node[above=3pt] {};
-			\draw [thick ,decorate,decoration={brace,amplitude=5pt}] (0,0.7)  -- +(5,0) 
-			node [black,midway,above=4pt, font=\scriptsize] {Some net emissions allowed};
-			\node[draw=none, black, above=4pt, font=\scriptsize] (B1) at (7.5,-.9) {Net-zero emissions};
-			
-		\end{tikzpicture}
-	}
-	%	\pause
-	%	\begin{center}
-		%		\begin{figure}
-			%	\caption{US CO$_2$ emission limit in Gt}
-			%	\vspace{-2mm}
-			%	\includegraphics[width=0.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o0_lgd0.png}
-			%\end{figure}
-			%	\end{center}
+
+%	\pause
+%	\vspace{0mm}
+%	\centering
+%	\resizebox{290pt}{70pt}{%
+%		\begin{tikzpicture}
+%			\draw[ultra thick, ->] (0,0) -- (10,0);
+%			\foreach \x in {0}
+%			\draw (\x cm,3pt) -- (\x cm,-3pt);
+%			\foreach \x in {5}
+%			\draw[dashed, gray, thick] (\x cm,10pt) -- (\x cm,-6pt);
+%			% draw node
+%			\draw[thick] (0,0) node[below=3pt,thick] {2020} node[above=3pt] {};
+%			\draw[thick] (5,0) node[below=3pt,thick] {2050} node[above=3pt] {};
+%			\draw [thick ,decorate,decoration={brace,amplitude=5pt}] (0,0.7)  -- +(5,0) 
+%			node [black,midway,above=4pt, font=\scriptsize] {Some net emissions allowed};
+%			\node[draw=none, black, above=4pt, font=\scriptsize] (B1) at (7.5,-.9) {Net-zero emissions};
+%			
+%		\end{tikzpicture}
+%	}
+%	%	\pause
+%	%	\begin{center}
+%		%		\begin{figure}
+%			%	\caption{US CO$_2$ emission limit in Gt}
+%			%	\vspace{-2mm}
+%			%	\includegraphics[width=0.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o0_lgd0.png}
+%			%\end{figure}
+%			%	\end{center}
 	\end{frame}
 	
-	
+	\begin{comment}
 	\begin{frame}{Preview of results}
 		\centering
 		\vspace{-3mm}
@@ -340,6 +345,9 @@ content...
 	\end{itemize}
 \end{frame}
 
+content...
+\end{comment}
+
 \begin{comment}
 	\begin{frame}
 		\begin{itemize}
@@ -359,17 +367,17 @@ content...
 		\item \alert{\textbf{Standard to have inelastic labor supply in environmental policy discussion}}\\  \footnotesize{ \citep{Acemoglu2012TheChange, Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology, Fried2018ClimateAnalysis, Hart2019TheEconomists}}
 		\\  \normalsize{\alert{\ar precludes studying combinations of policies targeted at the composition and\\ \hspace{5mm} the level of production }}
 		\vspace{2mm}
-		\item \alert{Labor income taxes and environmental policies in the literature}
+		\item {Labor income taxes and environmental policies in the literature}
 		\begin{itemize}
-			\item[-]  government funding condition%; generally passive
+			\item[-]  government funding condition; labor income tax generally passive \\
 			 \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
-			\item[-] labor income taxes arise as environmental policy tool due to {income inequality} \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
+			\item[-] {income inequality} motivates taxing labor income as environmental policy tool \\ \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
 			%	\item[-] This paper: novel motive for the use of labor income taxes within the optimal environmental policy: endogeneity of the allocation of researchers
 		\end{itemize}		
 		% Das klingt gut (differenzierung zwischen wirkungsweisen und nicht instrumenten! ): weil instrumente beide effekte haben können, dass die carbon tax auch das level beeinflusst wird ausgeklammert
 		% I argue that we should study optimal env. policies allowing for level adjustments of production! I provide am example scenario where adjusting the level becomes part of the optimal policy
 		\vspace{2mm}
-		\item \alert{This paper}: motive for labor income taxation emerges from environmental externality % alone %directly % is optimal due to  directed technical change % and (ii) lack of research subsidies
+		\item \alert{This paper}: motive for labor income taxation emerges from  environmental externality % alone %directly % is optimal due to  directed technical change % and (ii) lack of research subsidies
 		%	\footnotesize{\citep{Acemoglu2012TheChange}}
 		%\\ \normalsize{\alert{\ar role for labor income taxation}}
 		% weak double dividend literature (advantage to use env tac revenues to lower existing distortions; deviation of optimal env tax from pigou)
@@ -682,7 +690,6 @@ content...
 \hypertarget{backSchemeEnd}{}
 \end{frame}
 
-
 \begin{frame}{Production}
 	\begin{figure}[h]
 		\vspace{-10mm}
@@ -691,36 +698,20 @@ content...
 			\node[circll] (A) at (0,17) {\textbf{Final}\textbf{ Good}}; 
 			\node[circll] (B) at (-6,14) {\textbf{Energy}};
 			\node[circll] (C) at (5,14) {\textbf{{Non-energy}}};
-			\node[draw=none] (D) at (-10,12) {\textcolor{black!1}{\textbf{{Fossil}}}};
-			\node[draw=none] (E) at (-2,12) {\textcolor{black!1}{\textbf{{Green}}}};
-			\node[draw=none] (Ems) at (-11,16) {\textcolor{black!1}{\textbf{Emissions}}};
+			\node[circll, draw=black!1] (D) at (-10,12) {\textbf{\textcolor{black!1}{Fossil}}};
+			\node[circll, draw=black!1] (E) at (-2,12) {\textbf{\textcolor{black!1}{Green}}};
+			\node[sphere, draw=black!1] (Ems) at (-11,16) {\textbf{\textcolor{black!1}{Emissions}}};
 			
-			%		\node[circllsmall] (CM) at (4.6,8) {\textbf{{Machines}}};
-			%		\node[circllsmall] (CL) at (7.4,8) {\textbf{{Labor}}};			\node[circllsmall] (EM) at (-3.4,8) {\textbf{{Machines}}};
-			%	    \node[circllsmall] (EL) at (-0.6,8) {\textbf{{Labor}}};
-			%	    \node[circllsmall] (DM) at (-11.4,8) {\textbf{{Machines}}};
-			%	    \node[circllsmall] (DL) at (-8.6,8) {\textbf{{Labor}}};
 			
 			
 			\draw [->] (B) to node[pos=0.5, swap]{} (A);
 			\draw [->] (C) to node[pos=0.5, swap]{} (A);
 			
-			%\draw [->] (E) to node[pos=0.5, swap]{} (B);
-			%\draw [->] (D) to node[pos=0.5, swap]{} (B);
+			\draw [draw=none] (E) to node[pos=0.5, swap]{} (B);
+			\draw [draw=none] (D) to node[pos=0.5, swap]{} (B);
 			
-			%		
-			%		\draw [->] (EM) to node[pos=0.5, swap]{} (E);
-			%		\draw [->] (EL) to node[pos=0.5, swap]{} (E);
-			%		
-			%		
-			%		\draw [->] (DM) to node[pos=0.5, swap]{} (D);
-			%		\draw [->] (DL) to node[pos=0.5, swap]{} (D);
-			%		
-			%		
-			%		\draw [->] (CM) to node[pos=0.5, swap]{} (C);
-			%		\draw [->] (CL) to node[pos=0.5, swap]{} (C);
 			
-			%\draw [->] (D) to node[pos=0.5, swap]{} (Ems);
+			\draw [draw=none] (D) to node[pos=0.5, swap]{} (Ems);
 		\end{tikzpicture}
 		
 	\end{figure}
@@ -1072,29 +1063,32 @@ content...
 	\hypertarget{backinnov}{}
 	\vspace{-2mm}
 	\begin{itemize}[<+->]
-		\item[-] innovation augments technology in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
+		\item[-] research raises productivity of machine $i$ in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
 		\item[-] machine producers invest in research to increase profits \small{(monopolistic competition)}
 		\vspace{-1mm}
 		\normalsize
-		\item[-] inefficiencies: one period patents
+	%	\item[-] inefficiencies: one period patents
 	\end{itemize}
 \pause
-	\vspace{-2.5mm}
+	\vspace{-1.4mm}
 	% talk about productivity of research bcs it determines optimal allocation of research
 	\large
 	\begin{align*}
 		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
 	\end{align*}
 	\normalsize
-	\vspace{-1.4mm}
+	\vspace{-1.9mm}
 	\begin{enumerate}
-		\item[] % \alert{within-sector knowledge spillovers} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
+		% \alert{within-sector knowledge spillovers} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
 	%		\begin{itemize}
 		%	\item<+-> scientists in most advanced, fossil sector are more productive
 		%			\item<+-> shift to green research early on to make green research more productive tomorrow
 		%		\end{itemize}
 	\item[] \  % knowledge from other sectors increases productivity of scientists
+	\vspace{-1mm}
 	\item[] \  % decreasing returns to research, $\eta<1$
+	\vspace{-1mm}
+	\item[] \
 \end{enumerate}
 \small
 \vspace{4mm}
@@ -1122,33 +1116,34 @@ content...
 \end{minipage}
 \end{frame}
 
-		
+		\addtocounter{framenumber}{-1}
 \begin{frame}{\hyperlink{modma}{Innovation}}
-	\hypertarget{backinnov}{}
 	\vspace{-2mm}
 	\begin{itemize}
-		\item[-] innovation augments technology in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
+		\item[-] research raises productivity of machine $i$ in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
 		\item[-] machine producers invest in research to increase profits \small{(monopolistic competition)}
 		\vspace{-1mm}
 		\normalsize
-		\item[-] inefficiencies: one period patents
+	%	\item[-] inefficiencies: one period patents
 	\end{itemize}
-	\vspace{-2.5mm}
+	\vspace{-1.4mm}
 	% talk about productivity of research bcs it determines optimal allocation of research
 	\large
 	\begin{align*}
 		A_{Jit}=\alert{A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
 	\end{align*}
 	\normalsize
-	\vspace{-1.4mm}
+	\vspace{-1.9mm}
 	\begin{enumerate}
-		\item[-] \alert{within-sector knowledge spillovers} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
+		\item[-] \alert{within-sector knowledge spillovers} \vspace{-1mm} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
 		%		\begin{itemize}
 			%	\item<+-> scientists in most advanced, fossil sector are more productive
 			%			\item<+-> shift to green research early on to make green research more productive tomorrow
 			%		\end{itemize}
 	%	\item[] \  % knowledge from other sectors increases productivity of scientists
 		\item[] \  % decreasing returns to research, $\eta<1$
+		\vspace{-1mm}
+		\item[] \
 	\end{enumerate}
 	\small
 \vspace{4mm}
@@ -1229,23 +1224,22 @@ content...
 \begin{frame}{\hyperlink{modma}{Innovation}}
 	\vspace{-2mm}
 	\begin{itemize}
-		\item[-] innovation augments technology in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
+		\item[-] research raises productivity of machine $i$ in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
 		\item[-] machine producers invest in research to increase profits \small{(monopolistic competition)}
 		\vspace{-1mm}
 		\normalsize
-		\item[-] inefficiencies: one period patents
 	\end{itemize}
-	\vspace{-2.5mm}
+	\vspace{-1.4mm}
 	\large
 	\begin{align*}
 		A_{Jit}={A_{Jt-1}}\left(1+\gamma{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
 	\end{align*}
 	\normalsize
-	\vspace{-1.4mm}
+	\vspace{-1.9mm}
 	\begin{enumerate}
-		\item[-] within-sector knowledge spillovers \vspace{-1mm}%: sector-specific knowledge renders scientists more productive
-%		\item[-] {decreasing returns to research, $\eta<1$}
-		\item[-]  \alert{cross-sectoral knowledge spillovers} 
+		\item[-] within-sector knowledge spillovers \vspace{-1mm}
+		\item[-]  \alert{cross-sectoral knowledge spillovers} \vspace{-1mm}%: sector-specific
+		\item[] \
 	\end{enumerate}
 	\small
 \vspace{4mm}
@@ -1272,6 +1266,55 @@ content...
 	\end{itemize}
 \end{minipage}
 \end{frame}
+
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{\hyperlink{modma}{Innovation}}
+	\vspace{-2mm}
+	\begin{itemize}
+		\item[-] research raises productivity of machine $i$ in sector $J\in\{\text{Green},\text{Fossil},\text{Non-energy}\}$ \vspace{-1mm}
+		\item[-] machine producers invest in research to increase profits \small{(monopolistic competition)}
+		\vspace{-1mm}
+		\normalsize
+	\end{itemize}
+	\vspace{-1.4mm}
+	\large
+	\begin{align*}
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
+	\end{align*}
+	\normalsize
+	\vspace{-1.9mm}
+	\begin{enumerate}
+		\item[-] within-sector knowledge spillovers \vspace{-1mm}
+		\item[-]  {cross-sectoral knowledge spillovers} \vspace{-1mm}
+		\item[-] \alert{inefficiencies: one-period patents}
+	\end{enumerate}
+	\small
+	\vspace{4mm}
+	\hspace{-2mm}
+	\begin{minipage}[t!]{0.43\textwidth}
+		\vspace{0mm}
+		\begin{itemize}
+			\item[] $A_{xt}$: firm/aggregate technology
+			\vspace{-2mm}		
+			\item[] $s_{Jit}$: scientists firm $i$ sector $J$
+			\vspace{-2mm}
+			\item[] $\gamma$ : productivity of scientists
+		\end{itemize}
+	\end{minipage}
+	\vspace{-5mm}
+	\begin{minipage}[t!]{0.55\textwidth}
+		\vspace{0mm}
+		\begin{itemize}	
+			\item[] {$\rho_J$: number of research processes in sector $J$}
+			\vspace{-2mm}			
+			\item[] $\eta$ : returns to research
+			\vspace{-2mm}			
+			\item[] $\phi$ : relative importance knowledge spillovers
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
 
 \begin{frame}{2nd: Carbon tax effect on \alert{allocation of scientists}}
 	\hypertarget{effcarscie}{}
@@ -1414,7 +1457,7 @@ content...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Calibration 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Calibration}
+\section{Calibration to the US}
 \begin{frame}{Emission limit}
 %	\vspace{-1mm}
 %	\begin{itemize}
@@ -1446,7 +1489,7 @@ content...
 	\end{center}
 
 \vspace{-1.7mm}
-\hfill	\hyperlink{emsall}{\tiny{$\rightarrow$ alternative emission targets}}
+\hfill	\hyperlink{emsall}{\tiny{$\rightarrow$ alternative emission targets,}} 		\hyperlink{calib}{\tiny{$\rightarrow$ parameters}}
 \end{frame}
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1454,8 +1497,65 @@ content...
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\hypertarget{resback}{}
 	\section{Results}
-	
+\begin{frame}{First-best and optimal allocation}
+	\pause
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Green-to-fossil energy ratio}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Fossil-to-green scientists}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	%	\vspace{1mm}
+	%\begin{block}{}
+	%	\begin{itemize}
+		%		\item First-best: more fossil research and higher green-to-fossil energy ratio
+		%		\item[] % \alert{Government dilemma:  more fossil research comes with higher fossil energy use}
+		%	\end{itemize}
+	%\end{block}	
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{First-best and optimal allocation}
+	\hypertarget{compfb}{}
+	\begin{figure}[h!!]
+		\centering
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{Green-to-fossil energy ratio}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}		
+			\caption{{Fossil-to-green scientists}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{1mm}
+	\begin{block}{}
+		\begin{itemize}
+			%\item First-best: more fossil research and higher green-to-fossil energy ratio
+			\item {Government dilemma: reducing fossil fuels entails too strong a decline in fossil research activity}
+		\end{itemize}
+	\end{block}	
+\end{frame}
+
+
+
 	\begin{frame}{Optimal Policy}
+		\pause
 		\vspace{-3mm}
 		\begin{figure}[h!!]
 			\begin{subfigure}{0.45\textwidth}		
@@ -1488,7 +1588,8 @@ content...
 	\end{frame}
 
 	
-
+\begin{comment}
+	content...
 \begin{frame}{Quantitative experiment}
 	\alert{\textbf{How does the government use the labor income tax to meet emission targets?}}
 	\pause 
@@ -1505,6 +1606,8 @@ content...
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+
+\end{comment}
 	
 
 \begin{frame}{Integrating labor income taxes into the environmental policy}
@@ -1534,51 +1637,17 @@ content...
 	\begin{block}{}
 		\begin{itemize}
 			%				\item integrated policy achieves more beneficial allocation of scientists \item at the costs of lower production in initial years
-			\item In run-up to net-zero limit: higher labor income tax to allow for lower carbon tax
-			\item Under net-zero limit: higher carbon tax and smaller labor income tax
+			\item In run-up to net-zero limit: policy adjustment to boost fossil research
+			\item Under net-zero limit: policy adjustment to foster green research
 		\end{itemize}
 	\end{block}	
 	\vspace{-5.7mm}
 	\hfill
 	\hyperlink{sensphi}{\tiny{$\rightarrow$ sensitivity,}} 
-	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
+	\hyperlink{eff}{\tiny{$\rightarrow$ effect and decomposition}}
 	\hypertarget{backmec}{}
 \end{frame}
 
-	
-\begin{frame}{Effect  of integrated policy}
-	\pause
-	\vspace{-5mm}
-	\centering
-	\begin{figure}[h!!]
-		\centering
-		\begin{subfigure}{0.45\textwidth}		
-			\caption{{Deviation fossil-to-green scientists in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}		
-			\caption{{Deviation output in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
-		\end{subfigure}
-	\end{figure}
-		\vspace{3mm}	
-	\begin{block}{}
-		\begin{itemize}
-			%				\item integrated policy achieves more beneficial allocation of scientists \item at the costs of lower production in initial years
-			\item In run-up to net-zero limit: Higher fossil-to-green ratio of scientists %. Reduction in output to meet emission limit
-			\item Under net-zero limit: More green research to internalize within-sector spillovers % Allows for rise in overall production. 
-		\end{itemize}
-	\end{block}	
-	
-	\vspace{-5.5mm}
-	\hfill
-	\hyperlink{mec0}{\tiny{$\rightarrow$ decomposition}}
-\end{frame}
 		
 	\hypertarget{conc}{}
 	\section{Conclusion}
@@ -2154,7 +2223,7 @@ content...
 		
 		\vspace{-6mm}
 		\hfill
-		\hyperlink{backca}{\tiny{$\rightarrow$ back}}
+		\hyperlink{resback}{\tiny{$\rightarrow$ back}}
 	\end{frame}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -2257,6 +2326,42 @@ content...
 			\hfill
 			\hyperlink{backmec}{\tiny{$\rightarrow$ back,}}	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 		\end{frame}
+	
+	
+	
+	\begin{frame}{Effect  of integrated policy}
+		\hypertarget{eff}{}
+		\vspace{-5mm}
+		\centering
+		\begin{figure}[h!!]
+			\centering
+			\begin{subfigure}{0.45\textwidth}		
+				\caption{{Deviation fossil-to-green scientists in \%}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
+			\end{subfigure}
+			\begin{minipage}[]{0.05\textwidth}
+				\
+			\end{minipage}
+			\begin{subfigure}{0.45\textwidth}		
+				\caption{{Deviation output in \%}}
+				%	\captionsetup{width=.45\linewidth}
+				\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedPer_T_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79.png}
+			\end{subfigure}
+		\end{figure}
+		\vspace{3mm}	
+		\begin{block}{}
+			\begin{itemize}
+				%				\item integrated policy achieves more beneficial allocation of scientists \item at the costs of lower production in initial years
+				\item In run-up to net-zero limit: Higher fossil-to-green ratio of scientists %. Reduction in output to meet emission limit
+				\item Under net-zero limit: More green research to internalize within-sector spillovers % Allows for rise in overall production. 
+			\end{itemize}
+		\end{block}	
+		
+		\vspace{-5.5mm}
+		\hfill
+		\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
+	\end{frame}
 
 \begin{frame}{Decomposing effect of integrated policy}
 	\hypertarget{mec0}{}
