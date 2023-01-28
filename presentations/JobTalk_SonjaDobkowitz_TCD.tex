@@ -276,7 +276,8 @@ content...
 		\item<+-> An \alert{emission limit} constrains the government		\vspace{2mm}
 		\item<+-> \alert{Main results:} 
 		\begin{itemize}
-			\item[-] a combination of carbon and labor income taxes is optimal to target the allocation of researchers 	\vspace{1mm} \item[-] limited use of labor income tax \ar augment baseline model with research subsidies
+			\item[-]<+-> a combination of carbon and labor income taxes is optimal to target the allocation of researchers 	\vspace{1mm} 
+			\item[-]<+-> limited use of labor income tax \ar augment baseline model with research subsidies
 		\end{itemize}
 		%		\begin{itemize}
 			%			\item[-]<+-> positive net emissions before 2050
@@ -581,40 +582,40 @@ content...
 \end{frame}
 
 
-\addtocounter{framenumber}{-1}
-\begin{frame}{Model}
-	\begin{figure}[h]
-		\vspace{-4mm}
-		\centering
-		\begin{tikzpicture}[auto,scale=.7, transform shape]
-			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{\hyperlink{prodmod}{and Research}}};
-			\node[circll] (B) at (7,4) {\textbf{\hyperlink{modhh}{{Representative}}}\\ \textbf{\hyperlink{modhh}{{Household}}}};
-			\node[circll] (D) at (0,9) {\textbf{\alert{Government}}\\ \textbf{max welfare} \\ \textbf{s.t. emission limit} }; 
-			\node[draw=none] (B1) at (5,4.25) {};
-			\node[draw=none] (B2) at (5,3.5) {};
-			\node[draw=none] (BA1) at (-5,4.25) {};
-			\node[draw=none] (BA2) at (-5,3.5) {};
-			\node[draw=none] (D1) at (1.8,7.8) {};
-			
-			\node[draw=none] (B22) at (6.4,5.6) {};
-			\node[draw=none] (D2) at (2.3,8.5) {};
-			\node[draw=none] (B3) at (5.3,5.3) {};
-			\node[draw=none] (D3) at (-1.5,7) {};
-			\node[draw=none] (A1) at (-4.2,4.6) {};
-			\node[draw=none] (D4) at (-2,8.3) {};
-			\node[draw=none] (A4) at (-6,5.4) {};
-			\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
-			\draw [draw=none] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}\uparrow$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
-			\draw [draw=none] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}\downarrow$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
-			\draw [draw=none] (D1) to node[pos=0.5, swap]{\textcolor{black!1}{Transfers}} (B3);
-			
-			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
-			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);		
-			%\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
-		\end{tikzpicture}
-		
-	\end{figure}
-\end{frame}
+%\addtocounter{framenumber}{-1}
+%\begin{frame}{Model}
+%	\begin{figure}[h]
+%		\vspace{-4mm}
+%		\centering
+%		\begin{tikzpicture}[auto,scale=.7, transform shape]
+%			\node[circll] (A) at (-7,4) {\textbf{{\hyperlink{prodmod}{Production}}}\\ \textbf{\hyperlink{prodmod}{and Research}}};
+%			\node[circll] (B) at (7,4) {\textbf{\hyperlink{modhh}{{Representative}}}\\ \textbf{\hyperlink{modhh}{{Household}}}};
+%			\node[circll] (D) at (0,9) {\textbf{\alert{Government}}\\ \textbf{max welfare} \\ \textbf{s.t. emission limit} }; 
+%			\node[draw=none] (B1) at (5,4.25) {};
+%			\node[draw=none] (B2) at (5,3.5) {};
+%			\node[draw=none] (BA1) at (-5,4.25) {};
+%			\node[draw=none] (BA2) at (-5,3.5) {};
+%			\node[draw=none] (D1) at (1.8,7.8) {};
+%			
+%			\node[draw=none] (B22) at (6.4,5.6) {};
+%			\node[draw=none] (D2) at (2.3,8.5) {};
+%			\node[draw=none] (B3) at (5.3,5.3) {};
+%			\node[draw=none] (D3) at (-1.5,7) {};
+%			\node[draw=none] (A1) at (-4.2,4.6) {};
+%			\node[draw=none] (D4) at (-2,8.3) {};
+%			\node[draw=none] (A4) at (-6,5.4) {};
+%			\draw [->] (B22) to node[pos=0.65, swap]{\alert{Tax on labor, $\pmb{\tau_{\iota}}$:}} (D2);
+%			\draw [draw=none] (B22) to node[pos=0.45, swap]{\alert{$\pmb{\tau_{\iota}}\uparrow$:  labor supply $\downarrow$ \ar emissions $\downarrow$}} (D2);
+%			\draw [draw=none] (B22) to node[pos=0.3, swap]{\alert{$\pmb{\tau_{\iota}}\downarrow$:    labor supply $\uparrow$ \ar output $\uparrow$}} (D2);
+%			\draw [draw=none] (D1) to node[pos=0.5, swap]{\textcolor{black!1}{Transfers}} (B3);
+%			
+%			\draw [->] (B1) to node[pos=0.75, swap]{Workers and scientists} (BA1);
+%			\draw [->] (BA2) to node[pos=0.75, swap]{Final good} (B2);		
+%			%\draw [->] (A4) to node[pos=0.5, swap]{\alert{Tax on carbon, $\pmb{\tau_F}$}}   (D4);
+%		\end{tikzpicture}
+%		
+%	\end{figure}
+%\end{frame}
 
 %\addtocounter{framenumber}{-1}
 %\begin{frame}{Model}
@@ -1507,7 +1508,7 @@ content...
 		\begin{subfigure}{0.45\textwidth}		
 			\caption{{Green-to-fossil energy ratio}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff_noBau_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 		\begin{minipage}[]{0.05\textwidth}
 			\
@@ -1515,10 +1516,10 @@ content...
 		\begin{subfigure}{0.45\textwidth}		
 			\caption{{Fossil-to-green scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBAU_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_eff_noBau_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 	\end{figure}
-	%	\vspace{1mm}
+		\vspace{7.7mm}
 	%\begin{block}{}
 	%	\begin{itemize}
 		%		\item First-best: more fossil research and higher green-to-fossil energy ratio
@@ -1529,13 +1530,12 @@ content...
 
 \addtocounter{framenumber}{-1}
 \begin{frame}{First-best and optimal allocation}
-	\hypertarget{compfb}{}
 	\begin{figure}[h!!]
 		\centering
 		\begin{subfigure}{0.45\textwidth}		
 			\caption{Green-to-fossil energy ratio}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_noBau_T_GFF_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
 		\end{subfigure}
 		\begin{minipage}[]{0.05\textwidth}
 			\
@@ -1543,7 +1543,7 @@ content...
 		\begin{subfigure}{0.45\textwidth}		
 			\caption{{Fossil-to-green scientists}}
 			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_effBauOpt_noBau_T_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
 		\end{subfigure}
 	\end{figure}
 	\vspace{1mm}
@@ -1553,11 +1553,14 @@ content...
 			\item {Government dilemma: reducing fossil fuels entails too strong a decline in fossil research activity}
 		\end{itemize}
 	\end{block}	
+\vspace{-5.7mm}
+\hfill
+\hyperlink{compfb}{\tiny{$\rightarrow$ BAU}}
 \end{frame}
 
 
-
 	\begin{frame}{Optimal Policy}
+		\hypertarget{backop}{}
 		\pause
 		\vspace{-3mm}
 		\begin{figure}[h!!]
@@ -2261,7 +2264,7 @@ content...
 	\end{block}	
 	\vspace{-5.7mm}
 	\hfill
-	\hyperlink{backOPT}{\tiny{$\rightarrow$ back}}
+	\hyperlink{backop}{\tiny{$\rightarrow$ back}}
 \end{frame}	
 	
 	

@@ -875,6 +875,68 @@ if plotts.phi_effBauOPt_noBAu_newcalib==1
     end
     end
 end
+
+%% comparison parameter alternatives
+if plotts.phi_eff_newcalib==1
+    fprintf('plott new calib levels  eff with bau')
+
+    for s=["T"]
+        ss=string(s);
+        eff=RES_NCalib(sprintf("SP_%s",ss) );
+        wt=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+
+    for lgdind=0:1
+    for l ="Add" %keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+
+            main=plot( time,(eff(find(varlist==varr),1:T)),  'LineWidth', 1.1);   
+            set(main, {'LineStyle'},{ '--'}, {'color'}, {'k'} )   
+      
+           xticks(txx)
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+        
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+           
+            ax=gca;
+            ax.FontSize=13;
+            if varr=="Tauf"
+                ytickformat('%.0f')
+            elseif varr =="dTaulAv"
+                ytickformat('%.1f')
+            elseif varr =="GFF"
+                ytickformat('%.0f')
+                 ylim([-5, 40.1])
+            elseif varr =="sffsg"
+                ytickformat('%.1f')
+                 ylim([-0.2, 0.45])
+            else
+                ytickformat('%.1f')
+            end
+            xticklabels(Year10)
+            if lgdind==1
+               lgd=legend( 'first best',  'Interpreter', 'latex');
+                set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+            end
+            
+            path=sprintf('figures/all_%s/NewCalib_eff_noBau_%s_%s_Sun%d_emnet%d_spillover%d_knspil%d_xgr%d_nsk%d_sep%d_extern%d_PV%d_etaa%.2f_lgd%d.png',...
+                date, ss, varr,indic.Sun, indic.targetWhat, indic.spillovers, plotts.nknk, plotts.xgr, plotts.nsk, indic.sep,indic.extern, indic.PV, etaa, lgdind);
+    
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+    end
+    end
+end
 %% comparison parameter alternatives
 if plotts.phi_effBauOPt_newcalib==1
     fprintf('plott new calib levels  eff with bau')

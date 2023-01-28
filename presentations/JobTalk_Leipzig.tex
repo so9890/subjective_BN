@@ -155,7 +155,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{DIW, Berlin\\ January 20, 2023 }} 
+\date{\small{Presentation at Leipzig University\\ January 30, 2023 }} 
 %\subject{} 
 \begin{document}
 
@@ -164,6 +164,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \tikzstyle{elli}=[ellipse, align=center,  minimum size=3cm, draw]
 \tikzstyle{sphere}=[circle, align=center, dotted, minimum size=3cm, draw]
 \tikzstyle{circll}=[circle, align=center, minimum size=3cm, draw]
+\tikzstyle{circllB}=[circle, align=center, minimum size=6cm, draw]
+\pgfdeclarelayer{bg}    % declare background layer
+\pgfsetlayers{bg,main}  % set the order of the layers (main is the standard layer)
+
 {\setbeamertemplate{footline}{}
 	\begin{frame}
 		\titlepage
