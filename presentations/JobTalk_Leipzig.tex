@@ -261,10 +261,10 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\end{enumerate}% idea that researchers learn from past findings: building on the shoulder of giants mechanism
 			%				and 
 			\vspace{2mm}				
-			\item[-] A \textbf{carbon tax} lowers the use fossil fuels but also reduces research in established industries %state of the art
+			\item[-] A \textbf{carbon tax} lowers the use of fossil fuels but also reduces research in established industries %state of the art
 		\end{itemize} 
 		\vspace{3mm}
-		\item My contribution: discuss \textbf{labor income taxes} as a potential solution
+		\item My contribution: introduce \textbf{labor income taxes} as a potential solution
 		\vspace{3mm}
 		\item[] \hspace{-4mm}\alert{{What is the optimal mix of carbon and labor income taxes to meet emission targets?}}
 	\end{itemize}
@@ -401,21 +401,23 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\end{frame}
 \end{comment}
 
+
 \begin{frame}{Contribution to the literature}
 	\begin{itemize}[<+->]
 		\item \alert{\textbf{Standard to have inelastic labor supply in environmental policy discussion}}\\  \footnotesize{ \citep{Acemoglu2012TheChange, Golosov2014OptimalEquilibrium, Acemoglu2016TransitionTechnology, Fried2018ClimateAnalysis, Hart2019TheEconomists}}
 		\\  \normalsize{\alert{\ar precludes studying combinations of policies targeted at the composition and\\ \hspace{5mm} the level of production }}
 		\vspace{2mm}
-		\item \alert{Labor income taxes and environmental policies in the literature}
+		\item {Labor income taxes and environmental policies in the literature}
 		\begin{itemize}
-			\item[-]  government funding condition; generally passive \footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
-			\item[-] labor income taxes arise as environmental policy tool due to {income inequality} \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
+			\item[-]  government funding condition; labor income tax generally passive \\
+			\footnotesize{ \citep{ LansBovenberg1994EnvironmentalTaxation, Goulder1995EnvironmentalGuide, Barrage2019OptimalPolicy}} % Not an env. policy instrument
+			\item[-] {income inequality} motivates taxing labor income as environmental policy tool \\ \footnotesize{\citep{Jacobs2019RedistributionCurves, Dobkowitz2022, Douenne2022OptimalHouseholds}}
 			%	\item[-] This paper: novel motive for the use of labor income taxes within the optimal environmental policy: endogeneity of the allocation of researchers
 		\end{itemize}		
 		% Das klingt gut (differenzierung zwischen wirkungsweisen und nicht instrumenten! ): weil instrumente beide effekte haben können, dass die carbon tax auch das level beeinflusst wird ausgeklammert
 		% I argue that we should study optimal env. policies allowing for level adjustments of production! I provide am example scenario where adjusting the level becomes part of the optimal policy
 		\vspace{2mm}
-		\item \alert{This paper}: motive for labor income taxation solely arises from environmental externality % alone %directly % is optimal due to  directed technical change % and (ii) lack of research subsidies
+		\item \alert{This paper}: motive for labor income taxation emerges from  environmental externality % alone %directly % is optimal due to  directed technical change % and (ii) lack of research subsidies
 		%	\footnotesize{\citep{Acemoglu2012TheChange}}
 		%\\ \normalsize{\alert{\ar role for labor income taxation}}
 		% weak double dividend literature (advantage to use env tac revenues to lower existing distortions; deviation of optimal env tax from pigou)
@@ -898,7 +900,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 		\begin{itemize}
 			\item[-] monopolistic competition 
 			\vspace{-4mm}
-			\item[-] one-period patents
+			\item[] \ 
 		\end{itemize}	
 	\end{minipage}
 	\begin{minipage}[t!]{0.5\textwidth}
@@ -977,17 +979,62 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	% talk about productivity of research bcs it determines optimal allocation of research
 	\large
 	\begin{align*}
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
+	\end{align*}
+	\normalsize
+	\begin{enumerate}
+		\item[] \ % \alert{within-sector knowledge spillovers} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
+	%		\begin{itemize}
+		%	\item<+-> scientists in most advanced, fossil sector are more productive
+		%			\item<+-> shift to green research early on to make green research more productive tomorrow
+		%		\end{itemize}
+	\item[] \  % knowledge from other sectors increases productivity of scientists
+	\item[] \  % decreasing returns to research, $\eta<1$
+\end{enumerate}
+\small
+\vspace{4mm}
+\hspace{-2mm}
+\begin{minipage}[t!]{0.43\textwidth}
+	\vspace{0mm}
+	\begin{itemize}
+		\item[] $A_{Jt}$: sector-specific technology
+		\vspace{-2mm}		
+		\item[] $A_t$: aggregate technology
+		\vspace{-2mm}
+		\item[] $\gamma$ : productivity of scientists
+	\end{itemize}
+\end{minipage}
+\vspace{-5mm}
+\begin{minipage}[t!]{0.55\textwidth}
+	\vspace{0mm}
+	\begin{itemize}	
+		\item[] $\rho_J$: number of research processes in sector $J$
+		\vspace{-2mm}			
+		\item[] $\eta$ : returns to research
+		\vspace{-2mm}			
+		\item[] $\phi$ : relative importance knowledge spillovers
+	\end{itemize}
+\end{minipage}
+\end{frame}
+
+\addtocounter{framenumber}{-1}
+\begin{frame}{Innovation}
+
+	\vspace{-5mm}
+	% talk about productivity of research bcs it determines optimal allocation of research
+	\large
+	\begin{align*}
 		A_{Jit}=\alert{A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi\right)
 	\end{align*}
 	\normalsize
 	\begin{enumerate}
-		\item \alert{within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
+		\item \alert{within-sector knowledge spillovers} %: sector-specific knowledge renders scientists more productive} % \footnotesize{one-period patents} % due to patent structure not taken into account by machine producers when demanding research. 
 		%		\begin{itemize}
 			%	\item<+-> scientists in most advanced, fossil sector are more productive
 			%			\item<+-> shift to green research early on to make green research more productive tomorrow
 			%		\end{itemize}
 		\item[] \  % knowledge from other sectors increases productivity of scientists
-		\item[] \ \\ \ % decreasing returns to research, $\eta<1$
+		\item[] \  % decreasing returns to research, $\eta<1$
 	\end{enumerate}
 	\small
 	\vspace{4mm}
@@ -1020,13 +1067,13 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{-5mm}
 	\large
 	\begin{align*}
-		A_{Jit}={A_{Jt-1}}\left(1+\gamma\alert{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma{\left(\frac{s_{Jit}}{\rho_J}\right)^{\eta}}\alert{{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}}\right)
 	\end{align*}
 	\normalsize
 	\begin{enumerate}
-		\item within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive
-		\item \alert{decreasing returns to research, $\eta<1$}
-		\item[] \ \\ \  % \alert{knowledge spillovers} 
+		\item within-sector knowledge spillovers %: sector-specific knowledge renders scientists more productive
+		\item \alert{cross-sectoral knowledge spillovers}
+		\item[] \  % \alert{knowledge spillovers} 
 	\end{enumerate}
 	\small
 	\vspace{4mm}
@@ -1045,7 +1092,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.55\textwidth}
 		\vspace{0mm}
 		\begin{itemize}	
-			\item[] \alert{$\rho_J$: number of research processes in sector $J$}
+			\item[] {$\rho_J$: number of research processes in sector $J$}
 			\vspace{-2mm}			
 			\item[] $\eta$ : returns to research
 			\vspace{-2mm}			
@@ -1061,17 +1108,18 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\vspace{-5mm}
 	\large
 	\begin{align*}
-		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta\alert{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
+		A_{Jit}={A_{Jt-1}}\left(1+\gamma\left(\frac{s_{Jit}}{\rho_J}\right)^\eta{\left(\frac{A_{t-1}}{A_{Jt-1}}\right)^\phi}\right)
 	\end{align*}
 	\normalsize
 	\begin{enumerate}
-		\item within-sector knowledge spillovers: sector-specific knowledge renders scientists more productive
+		\item within-sector knowledge spillovers %: sector-specific knowledge renders scientists more productive
 		%				\begin{itemize}
 			%			\item scientists in most advanced, fossil sector are more productive
 			%			\item shift to green early on to internalize green productivity increase tomorrow
 			%		\end{itemize}
-		\item decreasing returns to research, $\eta<1$
-		\item \alert{cross-sectoral knowledge spillovers: knowledge from other sectors increases productivity of scientists in sector $J$} %\footnotesize{\citep{Barbieri2021GreenPolicy}}
+
+		\item {cross-sectoral knowledge spillovers} 
+				\item[-] \alert{inefficiencies: one-period patents}%: knowledge from other sectors increases productivity of scientists in sector $J$} %\footnotesize{\citep{Barbieri2021GreenPolicy}}
 	\end{enumerate}
 	\small
 	\vspace{4mm}
@@ -1100,15 +1148,22 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 \end{frame}
 
 
-\begin{frame}{Effect of carbon tax on the allocation of scientists}
+
+\begin{frame}{Carbon tax effect on \alert{allocation of scientists}}
+	\hypertarget{effcarscie}{}
+	\begin{itemize}
+		\item[-] free movement of scientists \ar in equilibrium equal wages
+	\end{itemize}
+	\pause
 	\vspace{0mm}
 	\large
 	\begin{align*}		
 		\color{black}
-		\overbrace{{\psi_F} \textcolor{black!1}{\underbrace{\textcolor{black}{p_F{F}}}_{{{\tau_F\uparrow\Rightarrow\downarrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{F}}{\partial s_{F}}}}_{{{s_F\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}{\pmb{=}}\overbrace{{\psi_G} \textcolor{black!1}{\underbrace{\textcolor{black}{p_GG}}_{{{\tau_F\uparrow\Rightarrow\uparrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{G}}{\partial s_{G}}}}_{	{{s_G\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
+		\overbrace{{\psi_F} \textcolor{black!1}{\underbrace{\textcolor{black}{p_{Ft}{F_t}}}_{{{\tau_{Ft}\uparrow\Rightarrow\downarrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{Ft}}{\partial s_{Ft}}}}_{{{s_{Ft}\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}{\pmb{=}}\overbrace{{\psi_G} \textcolor{black!1}{\underbrace{\textcolor{black}{p_{Gt}G_t}}_{{{\tau_{Ft}\uparrow\Rightarrow\uparrow}}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{Gt}}{\partial s_{Gt}}}}_{	{{s_{Gt}\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
 		%		\overbrace{{\psi_F} p_F{F}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}=\overbrace{{\psi_G} p_G{G}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
+	\vspace{-2mm}
 	\begin{itemize}
 		\item[] \ % carbon tax lowers returns to fossil research and raises returns to green research
 		\vspace{2mm}
@@ -1120,36 +1175,44 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.4\textwidth}
 		\vspace{0mm}
 		\begin{itemize}
-			\item[] $p_JJ$: revenues sector $J$
+			\item[] $p_{Jt}J_t$: revenues sector $J$
 			\vspace{-2mm}
-			\item[] $\psi_J$ : sector-specific constant
+			\item[] $\psi_{J}$ : sector-specific constant
 		\end{itemize}
 	\end{minipage}
 	\vspace{-5mm}
 	\begin{minipage}[t!]{0.5\textwidth}
 		\vspace{0mm}
 		\begin{itemize}	
-			\item[] $A_J$: productivity sector $J$
+			\item[] $A_{Jt}$: productivity sector $J$
 			\vspace{-2mm}			
-			\item[] $s_J$ : scientists sector $J$
+			\item[] $s_{Jt}$ : scientists sector $J$
 		\end{itemize}
 	\end{minipage}
+	
+	%	\vspace{8mm}
+	%	\hfill
+	%	\hyperlink{backinnov}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
 
-\begin{frame}{Effect of carbon tax on the allocation of scientists}
+\begin{frame}{Carbon tax effect on \alert{allocation of scientists}}
+	\begin{itemize}
+		\item[-] free movement of scientists \ar in equilibrium equal wages
+	\end{itemize}
 	\vspace{0mm}
 	\large
 	\begin{align*}
 		\color{black}
-		\overbrace{{\psi_F} \underbrace{p_F{F}}_{{\alert{\tau_F\uparrow\Rightarrow\downarrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{F}}{\partial s_{F}}}}_{{{s_F\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{{\alert{\tau_F\uparrow\Rightarrow\uparrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{G}}{\partial s_{G}}}}_{	{{s_G\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
+		\overbrace{{\psi_F} \underbrace{p_{Ft}{F_t}}_{{\alert{\tau_{Ft}\uparrow\Rightarrow\downarrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{Ft}}{\partial s_{Ft}}}}_{{{s_{Ft}\downarrow\Rightarrow\uparrow}}}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_{Gt}{G_t}}_{{\alert{\tau_{Ft}\uparrow\Rightarrow\uparrow}}}\textcolor{black!1}{\underbrace{\textcolor{black}{\frac{\partial A_{Gt}}{\partial s_{Gt}}}}_{	{{s_{Gt}\uparrow\Rightarrow\downarrow}}}}}^{\text{wage green scientists}}
 		%		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\downarrow}}}\frac{\partial A_{F}}{\partial s_{F}}}^{\text{wage fossil scientists}}\alert{\pmb{<}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\alert{\pmb{\tau_F\uparrow\Rightarrow\uparrow}}}\frac{\partial A_{G}}{\partial s_{G}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
+	\vspace{-2mm}
 	\begin{itemize}
-		\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
-		\vspace{2mm}
+		\item[-] carbon tax lowers wages of fossil researchers and raises wages of green researchers
+		\vspace{1mm}
 		\item[] \  % in equilibrium: scientists transition from fossil to green sector \small{(decreasing returns to research)}
 	\end{itemize}
 	\small
@@ -1158,7 +1221,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.4\textwidth}
 		\vspace{0mm}
 		\begin{itemize}
-			\item[] $p_JJ$: revenues sector $J$
+			\item[] $p_{Jt}J_t$: revenues sector $J$
 			\vspace{-2mm}
 			\item[] $\psi_J$ : sector-specific constant
 		\end{itemize}
@@ -1167,26 +1230,34 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.5\textwidth}
 		\vspace{0mm}
 		\begin{itemize}	
-			\item[] $A_J$: productivity sector $J$
+			\item[] $A_{Jt}$: productivity sector $J$
 			\vspace{-2mm}			
-			\item[] $s_J$ : scientists sector $J$
+			\item[] $s_{Jt}$ : scientists sector $J$
 		\end{itemize}
 	\end{minipage}
+	
+	%	\vspace{8mm}
+	%	\hfill
+	%	\hyperlink{backinnov}{\tiny{$\rightarrow$ back}}
 \end{frame}
 
 \addtocounter{framenumber}{-1}
 
-\begin{frame}{Effect of carbon tax on the allocation of scientists}
+\begin{frame}{Carbon tax effect on \alert{allocation of scientists}}
+	\begin{itemize}
+		\item[-] free movement of scientists \ar in equilibrium equal wages
+	\end{itemize}
 	\vspace{0mm}
 	\large
 	\begin{align*}
-		\overbrace{{\psi_F} \underbrace{p_F{F}}_{\tau_F\uparrow\Rightarrow\downarrow}\underbrace{\frac{\partial A_{F}}{\partial s_{F}}}_{\alert{{s_F\downarrow\Rightarrow\uparrow}}}}^{\text{wage fossil scientists}}\alert{\pmb{=}}\overbrace{{\psi_G} \underbrace{p_G{G}}_{\tau_F\uparrow\Rightarrow\uparrow}\underbrace{\frac{\partial A_{G}}{\partial s_{G}}}_{\alert{{s_G\uparrow\Rightarrow\downarrow}}}}^{\text{wage green scientists}}
+		\overbrace{{\psi_F} \underbrace{p_{Ft}{F_t}}_{\tau_{Ft}\uparrow\Rightarrow\downarrow}\underbrace{\frac{\partial A_{Ft}}{\partial s_{Ft}}}_{\alert{{s_{Ft}\downarrow\Rightarrow\uparrow}}}}^{\text{wage fossil scientists}}\alert{\pmb{=}}\overbrace{{\psi_G} \underbrace{p_{Gt}{G_t}}_{\tau_{Ft}\uparrow\Rightarrow\uparrow}\underbrace{\frac{\partial A_{Gt}}{\partial s_{Gt}}}_{\alert{{s_{Gt}\uparrow\Rightarrow\downarrow}}}}^{\text{wage green scientists}}
 	\end{align*}
 	\normalsize
+	\vspace{-2mm}
 	\begin{itemize}
-		\item carbon tax lowers wages of fossil researchers and raises wages of green researchers
-		\vspace{2mm}
-		\item scientists transition from fossil to green sector \small{(decreasing returns to research)}
+		\item[-] carbon tax lowers wages of fossil researchers and raises wages of green researchers
+		\vspace{1mm}
+		\item[-] scientists transition from fossil to green sector \small{(decreasing returns to research)}
 	\end{itemize}
 	\small
 	\vspace{4mm}
@@ -1194,7 +1265,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.4\textwidth}
 		\vspace{0mm}
 		\begin{itemize}
-			\item[] $p_JJ$: revenues sector $J$
+			\item[] $p_{Jt}J_t$: revenues sector $J$
 			\vspace{-2mm}
 			\item[] $\psi_J$ : sector-specific constant
 		\end{itemize}
@@ -1203,14 +1274,16 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{minipage}[t!]{0.5\textwidth}
 		\vspace{0mm}
 		\begin{itemize}	
-			\item[] $A_J$: productivity sector $J$
+			\item[] $A_{Jt}$: productivity sector $J$
 			\vspace{-2mm}			
-			\item[] $s_J$ : scientists sector $J$
+			\item[] $s_{Jt}$ : scientists sector $J$
 		\end{itemize}
 	\end{minipage}
+	
+	%	\vspace{8mm}
+	%	\hfill
+	%	\hyperlink{backinnov}{\tiny{$\rightarrow$ back}}
 \end{frame}
-
-
 %\begin{frame}{2nd effect of carbon tax: direction of research}
 %\vspace{-2mm}
 %\begin{align*}
@@ -1425,43 +1498,14 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\end{figure}
 		\end{minipage}
 	\end{center}
+
+\vspace{-6.5mm}
+\hfill \hyperlink{altems}{\tiny{$\rightarrow$ anlternative emission limits}}
 \end{frame}
 
-\addtocounter{framenumber}{-1}
-\begin{frame}{Emission limit}
-	\vspace{-1mm}
-	\begin{itemize}
-		\item  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}\normalsize :
-		\vspace{1mm}
-		\begin{itemize}
-			\item[-] before 2050: remaining carbon budget 510Gt
-			\item[-] from 2050 onward: net-zero  emissions
-		\end{itemize}
-		\vspace{0mm}
-		\item \normalsize{\textbf{equal} distribution of  CO$_2$ emissions across countries }
-	\end{itemize}
-	\vspace{-2mm}
-	
-	\begin{center}
-		\begin{minipage}{0.6\textwidth}
-			\begin{figure}
-				\caption{Net CO$_2$ emission limit in Gt}
-				\includegraphics[width=0.7\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o1_lgd0.png}
-			\end{figure}
-		\end{minipage}
-		\hspace{-10mm}
-		\begin{minipage}{0.3\textwidth}
-			\begin{figure}
-				\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o1_lgd1.png}
-			\end{figure}
-		\end{minipage}
-	\end{center}
-	% equal per capita: -85\% reduction relative to 2019 levels (high because also corrects for emissions in US higher than population share!)
-	% political goal -38\% relative to 2019
-	% constant ratios/ carbon budget: -62\%
-\end{frame}
 
 \begin{frame}{Important parameters}
+	\hypertarget{backparams}{}
 	\vspace{20mm}
 	\begin{table}[h!]
 		\begin{center}
@@ -1608,7 +1652,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\begin{block}{}
 		\begin{itemize}
 			\item Labor income tax mainly used to subsidize research.
-			\item How does the government use the labor income tax to meet emission targets?
+			\item \alert{How does the government use the labor income tax to meet emission targets?}
 		\end{itemize}
 	\end{block}	
 	\hypertarget{backOPT}{}
@@ -1709,6 +1753,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			%	\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixed_T_dTaulAvS_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
 			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_pol_TvsNoT_taul_base_emnet1_Sun2_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
 		\end{subfigure}
+	\pause
 		\begin{minipage}[]{0.05\textwidth}
 			\
 		\end{minipage}
@@ -1764,67 +1809,8 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	
 	\vspace{-5.5mm}
 	\hfill
-	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
+	\hyperlink{mec0}{\tiny{$\rightarrow$ decomposition}}
 \end{frame}
-
-\begin{frame}{Decomposing effect of integrated policy }
-	\pause
-	\hypertarget{mec0}{}
-	\vspace{-3mm}
-	\centering
-	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{{Deviation fossil-to-green scientists in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_onlyTauf_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{{Deviation output in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_onlyTauf_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-	\end{figure}
-	\vspace{3mm}
-	\begin{block}{}
-		\begin{itemize}
-			\item Adjustment in carbon tax directs research activity 
-			\item[] %adjustment in labor income tax mitigates side effects on labor market
-		\end{itemize}
-	\end{block}	
-\end{frame}
-
-\addtocounter{framenumber}{-1}
-\begin{frame}{Decomposing effect of integrated policy}
-	\hypertarget{mec0}{}
-	\vspace{-3mm}
-	\centering
-	\begin{figure}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{{Deviation fossil-to-green scientists in \% }}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
-		\end{subfigure}
-		\begin{minipage}[]{0.05\textwidth}
-			\
-		\end{minipage}
-		\begin{subfigure}{0.45\textwidth}
-			\caption{{Deviation output in \%}}
-			%	\captionsetup{width=.45\linewidth}
-			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
-		\end{subfigure}
-	\end{figure}
-	\vspace{3mm}
-	\begin{block}{}
-		\begin{itemize}
-			\item Adjustment in carbon tax directs research activity
-			\item Changes in labor income tax adjust level of production %side effects on labor market
-		\end{itemize}
-	\end{block}	
-\end{frame}
-
 
 \hypertarget{conc}{}
 \section{Conclusion}
@@ -1927,6 +1913,42 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %- Calibration
 %----------------------------------------
 
+\begin{frame}{Emission limit}
+	\hypertarget{altems}{}
+	\vspace{-1mm}
+	\begin{itemize}
+		\item  \textbf{global} CO$_2$ emissions consistent with $1.5^\circ$C climate targets \footnotesize{\citep{IPCC2022}}\normalsize :
+		\vspace{1mm}
+		\begin{itemize}
+			\item[-] before 2050: remaining carbon budget 510Gt
+			\item[-] from 2050 onward: net-zero  emissions
+		\end{itemize}
+		\vspace{0mm}
+		\item \normalsize{\textbf{equal} distribution of  CO$_2$ emissions across countries }
+	\end{itemize}
+	\vspace{-2mm}
+	
+	\begin{center}
+		\begin{minipage}{0.6\textwidth}
+			\begin{figure}
+				\caption{Net CO$_2$ emission limit in Gt}
+				\includegraphics[width=0.7\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o1_lgd0.png}
+			\end{figure}
+		\end{minipage}
+		\hspace{-10mm}
+		\begin{minipage}{0.3\textwidth}
+			\begin{figure}
+				\includegraphics[width=1.4\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet_goals_o1_lgd1.png}
+			\end{figure}
+		\end{minipage}
+	\end{center}
+	% equal per capita: -85\% reduction relative to 2019 levels (high because also corrects for emissions in US higher than population share!)
+	% political goal -38\% relative to 2019
+	% constant ratios/ carbon budget: -62\%
+	
+	\vspace{-6.5mm}
+	\hfill \hyperlink{backparams}{\tiny{$\rightarrow$ back}}
+\end{frame}
 
 \begin{frame}{Parameters}
 	\hypertarget{calib}{}
@@ -2090,6 +2112,68 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	\hyperlink{backmec}{\tiny{$\rightarrow$ back,}}	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
 \end{frame}
 
+
+%\begin{frame}{Decomposing effect of integrated policy }
+%	\pause
+%%	\hypertarget{mec0}{}
+%	\vspace{-3mm}
+%	\centering
+%	\begin{figure}
+	%		\begin{subfigure}{0.45\textwidth}
+		%			\caption{{Deviation fossil-to-green scientists in \%}}
+		%			%	\captionsetup{width=.45\linewidth}
+		%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_onlyTauf_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		%		\end{subfigure}
+	%		\begin{minipage}[]{0.05\textwidth}
+		%			\
+		%		\end{minipage}
+	%		\begin{subfigure}{0.45\textwidth}
+		%			\caption{{Deviation output in \%}}
+		%			%	\captionsetup{width=.45\linewidth}
+		%			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_onlyTauf_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		%		\end{subfigure}
+	%	\end{figure}
+%	\vspace{3mm}
+%	\begin{block}{}
+	%		\begin{itemize}
+		%			\item Adjustment in carbon tax directs research activity 
+		%			\item[] %adjustment in labor income tax mitigates side effects on labor market
+		%		\end{itemize}
+	%	\end{block}	
+%\end{frame}
+%
+
+\begin{frame}{Decomposing effect of integrated policy}
+	\hypertarget{mec0}{}
+	\vspace{-3mm}
+	\centering
+	\begin{figure}
+		\begin{subfigure}{0.45\textwidth}
+			\caption{{Deviation fossil-to-green scientists in \% }}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_sffsg_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.05\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}{0.45\textwidth}
+			\caption{{Deviation output in \%}}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/NewCalib_polTaulFixedTaufJointPer_Y_Sun2_emnet1_spillover0_knspil3_xgr0_nsk0_sep0_extern0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{figure}
+	\vspace{3mm}
+	\begin{block}{}
+		\begin{itemize}
+			\item Adjustment in carbon tax directs research activity
+			\item Changes in labor income tax adjust level of production %side effects on labor market
+		\end{itemize}
+	\end{block}	
+	
+	\vspace{-5.5mm}
+	\hfill
+	\hyperlink{conc}{\tiny{$\rightarrow$ conclusion}}
+\end{frame}
 \begin{comment}
 	\begin{frame}{Sensitivity of optimal policy to other parameters}
 		\hypertarget{sensother}{}
