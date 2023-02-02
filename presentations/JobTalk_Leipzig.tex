@@ -155,7 +155,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 %}
 
 %\institute{University of Bonn} 
-\date{\small{Presentation at Leipzig University\\ January 30, 2023 }} 
+\date{\small{Presentation at Leipzig University\\ Feburary 6, 2023 }} 
 %\subject{} 
 \begin{document}
 
@@ -241,7 +241,11 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 	content...
 \end{comment}
 \addtocounter{framenumber}{-1}
-\begin{frame}{Motivation}
+{ % these braces make the change local to the single frame
+	\setbeamertemplate{footline}{ \footnotesize{\ \ Summary accessible to Master Students}\hfill \scriptsize{\insertframenumber} \hspace{0.5mm}\  \vspace{3.2mm}}
+
+
+\begin{frame}{Motivation }
 	\begin{itemize}[<+-| alert@+>]
 		\setbeamercolor{alerted text}{} %change the font color
 		\setbeamerfont{alerted text}{}
@@ -364,7 +368,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 			\setbeamerfont{alerted text}{}
 			%begin{minipage}[]{1\textwidth}
 			%\begin{itemize}
-			\item A combination of carbon and labor income taxes is optimal to target the direction of research
+			\item A combination of carbon and labor income taxes is optimal to target the allocation of research
 			\vspace{3mm}
 			\item Before the net-zero emission limit (ca. 2020-2050): 
 			\begin{itemize}
@@ -385,7 +389,7 @@ postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
 				%		\end{itemize}
 			%; \tr{e.g. a higher marginal value of leisure}	%	\end{minipage}
 	\end{itemize}
-\end{frame}
+\end{frame}}
 
 \begin{comment}
 	\begin{frame}
