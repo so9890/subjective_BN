@@ -117,8 +117,18 @@
 			
 		\end{onehalfspacing}
 	\end{abstract}
+
+	\graphicspath{{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/}{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22/}}
+
 	%\tableofcontents
+	\thispagestyle{empty}
+	\clearpage
+	\setcounter{page}{1}
+	
+	
+	%---- Text-------------------------
 	\input{intro_impo_2}
+	\input{litt2_impo}
 	%\input{input_lit} %<- contains summaries of potentially relevant papers
 	\input{model_ana_abs_impo}
 	\input{test_qmod}
@@ -126,7 +136,7 @@
 	\input{calib_simple_fisc}
 	\input{quant_res_impo_3}
 	%\input{quant_res_modelfeatures}% <- analysis of optimality results with different model features
-	\input{conclusion_simple_fisc}
+	\input{conclusion2}
 	%\input{going_forward1208}
 	
 	%\input{red_recomp_lit}
@@ -135,5 +145,11 @@
 	%-------------------------------------
 	\bibliography{../../../bib_2_0}
 	\addcontentsline{toc}{section}{References}
+	
+	\clearpage
+	\appendix
+	
+	\input{app_analy}
 	\input{app2_impo}
+	\input{app_experiment2}
 \end{document}

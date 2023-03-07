@@ -1,4 +1,4 @@
-\subsection{Calibration}\label{sec:calib}
+\subsection{Calibration}\label{sec:calib2}
 %\tr{Inflation data \url{/home/sonja/Documents/projects/subjective_BN/writing/mainmain}}
 
 Section \ref{sec:ems} derives and discusses the emission target. 
@@ -41,7 +41,7 @@ Figure \ref{fig:emlimit}  visualizes the resulting emission limit for the US.
 
 \begin{figure}
 	\caption{Net CO$_2$ emission limit in Gt}\label{fig:emlimit}
-	\includegraphics[width=0.4\textwidth]{../../codding_model/own_basedOnFried/optimalPol_010922_revision/figures/all_13Sept22_Tplus30/Emnet.png}
+	\includegraphics[width=0.4\textwidth]{Emnet.png}
 \end{figure}
 %  In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as 
 % $\omega_{2030-2050}$= 2.4899Gt and $\omega_{2050-2080}$= 0Gt.
@@ -71,7 +71,7 @@ u(C_t,h_{ht}, h_{lt}, S_t )= \log(C_t)-z_h\chi\frac{h_{ht}^{1+\sigma}}{{1+\sigma
 %Most likely, the continuous rise in carbon taxation over time lowers the wage rate and labor supply increases. A lack of lump-sum rebates would most likely aggravate the inefficiency of hours worked. %Nevertheless, as shown in the analytical part for a general utility function, some reductive policy is required to implement the efficient allocation. But, compared to the laissez-faire scenario, hours will rise. 
 
 \paragraph{Parameter values}
-To calibrate the model, I proceed in three steps. First, I set certain parameters to values found in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions and target equations hold. Third, parameters relating production and emissions are chosen. Table \ref{tab:calib} summarizes the calibrated parameter values.
+To calibrate the model, I proceed in three steps. First, I set certain parameters to values found in the literature. Second, I calibrate the remaining variables requiring that equilibrium conditions and target equations hold. Third, parameters relating production and emissions are chosen. Table \ref{tab:calib2} summarizes the calibrated parameter values.
 
 I calibrate the model to the US in the baseline period from 2015 to 2019. Using this calibration approach, it is not ensured that the economy is on a balanced growth path. However, the goal of this paper is to study necessary interventions to meet an absolute emission limit. Therefore, %in contrast to a relative reduction objective, 
 it is important to capture whether the economy is transitioning, for example, to %a balanced growth path with
@@ -102,7 +102,7 @@ The parameter relating CO$_2$ emissions and fossil energy in the base period equ
  	\begin{center}
  		\captionsetup{width=0.9\textwidth}
  		\caption{ Calibration}
- 		\label{tab:calib}
+ 		\label{tab:calib2}
  		\resizebox{5in}{!}{
  		\begin{tabular}{c|ll}
  			%			\hline \hline
@@ -146,15 +146,14 @@ The parameter relating CO$_2$ emissions and fossil energy in the base period equ
  			Government&\multicolumn{2}{c}{}\\
  			\hline
  			$\tau_F$&- &0.00\\
- 			$\tau_\iota$&\cite{Heathcote2017OptimalFramework} &0.18\\
+ 			$\tau_{\iota}$&\cite{Heathcote2017OptimalFramework} &0.18\\
  			\hline
  			Emissions&\multicolumn{2}{c}{}\\
  			\hline
  			$\delta$& \makecell[l]{\cite{EPAems}}&3.19\\
  			$\omega$& \cite{EPAems}&217.3\\
  			\hline \hline
- 		\end{tabular}
- 	}
+ 		\end{tabular}	}
  	\end{center}
  \end{table}
  

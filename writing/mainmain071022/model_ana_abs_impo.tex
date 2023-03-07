@@ -60,31 +60,30 @@ w= p_F\frac{\partial F}{\partial L_F}=p_G\frac{\partial G}{\partial L_G}.\label{
 The competitive equilibrium is defined as prices and allocations so that households and firms behave optimally; i.e. eqs. \eqref{eq:hhbudget}, \eqref{eq:hsup}, and \eqref{eq:profmax} hold. Production happens according to eqs. \eqref{eq:prod}.  Equilibrium prices and the wage rate adjust to clear markets, eqs. \eqref{eq:market_clear}. Finally, the government's budgets are satisfied eqs. \eqref{eq:gov_but}. Policy variables $\tau_F$ and $\tau_\iota$ are taken as given. 
 
 \subsection{Theoretic results}\label{sec:theory}
-Section \ref{subsec:sp} defines and discusses the efficient allocation. It constitutes a benchmark for the optimal allocation discussed in Section \ref{subsec:decen_ec}. 
+Section \ref{subsec:sp2} defines and discusses the efficient allocation. It constitutes a benchmark for the optimal allocation discussed in Section \ref{subsec:decen_ec}. 
 
-\subsubsection{Social planner}\label{subsec:sp}
+\subsubsection{Social planner}\label{subsec:sp2}
 Let the share of fossil to total labor be denoted by $s=\frac{L_F}{H}$. The social planner's problem reads
 \begin{align*}
 \underset{s, H}{\max}\ & U(C,H; F)\\ s.t.\ \ & C=Y.
 \end{align*}
 The first order conditions are given by
 \begin{align}
-wrt.\ s:\hspace{4mm} & U_C \cdot \left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=-U_F\frp{F}{s}, \label{eq:fbs}
-\\
-wrt.\ H:\hspace{4mm} & U_C\frp{Y}{H}+U_F\frp{F}{H}=-U_H\label{eq:fbh}. 
+wrt. s: & U_C \cdot \left(\frp{Y}{F}\frp{F}{s}+\frp{Y}{G}\frp{G}{s}\right)=-U_F\frp{F}{s}, \label{eq:fbs2}\\
+wrt. H: & U_C\frp{Y}{H}+U_F\frp{F}{H}=-U_H. \label{eq:fbh}
 \end{align}
 Where $U_X$ denotes the partial derivative of utility with respect to the variable $X$.
 These equations determine the efficient or first-best allocation. 
-Absent an externality, $U_F=0$, the efficient distribution of labor equalizes the marginal product of labor across sectors; compare eq. \eqref{eq:fbs}. Efficient hours balance the marginal utility gain from consumption and the marginal disutility from working, as formalized by eq. \eqref{eq:fbh}. 
+Absent an externality, $U_F=0$, the efficient distribution of labor equalizes the marginal product of labor across sectors; compare eq. \eqref{eq:fbs2}. Efficient hours balance the marginal utility gain from consumption and the marginal disutility from working, as formalized by eq. \eqref{eq:fbh}. 
 
 When there is an externality, the social planner adjusts the allocation in two ways: (i) a compositional adjustment, that targets the share of fossil production, and (ii) a scaling adjustment amending the level of production. 
-The compositional adjustment is determined by eq. \eqref{eq:fbs}.
+The compositional adjustment is determined by eq. \eqref{eq:fbs2}.
 The negative externality of fossil production makes it efficient to alter the share of fossil labor so that  a marginal reallocation of labor to the fossil sector would raise output.\footnote{\ Note that $U_F<0$ by assumption so that the right-hand side is positive and that $\frac{dG}{ds}<0$. Hence, the marginal product of labor in the fossil sector is higher compared to the green sector in the efficient allocation.} %Hence,$\frp{Y}{F}\frp{F}{s}>-\frp{Y}{G}\frp{G}{s}$ is efficient. }
 I show in Appendix \ref{app:redeffs} that the social planner reduces the fossil labor share when the aggregate production function features decreasing returns to scale in its labor inputs, $L_G$ and $L_F$.
 
 
 The scaling effect is summarized by eq. \eqref{eq:fbh}.
-First note that eq. \eqref{eq:fbh} can be rewritten by substituting eq. \eqref{eq:fbs} and noticing the relation of derivatives with respect to $H$ and $s$.\footnote{\ This is done in more detail for the optimal allocation in Appendix \ref{app:incometax0}. The relation of derivatives are summarized in Appendix \ref{app:dervs_use}.}  
+First note that eq. \eqref{eq:fbh} can be rewritten by substituting eq. \eqref{eq:fbs2} and noticing the relation of derivatives with respect to $H$ and $s$.\footnote{\ This is done in more detail for the optimal allocation in Appendix \ref{app:incometax0}. The relation of derivatives are summarized in Appendix \ref{app:dervs_use}.}  
 The second first order condition becomes:
 \begin{align}\label{eq:fbh_simp}
 -U_H=U_C\frac{\partial Y}{\partial G}\frp{G}{L_G}.
@@ -132,8 +131,8 @@ wrt.\ H:\hspace{4mm} & U_C\frac{\partial Y}{\partial H}+U_F\frac{\partial F}{\pa
 \end{align}
 %-- paragraph to show that with Gov=0 and lump-sum transfers, the efficient allocation is implemented
 When environmental tax revenues are fully redistributed lump sum, an environmental tax equal to the marginal social cost of fossil production implements the efficient allocation.\footnote{\ I define and derive the social cost of fossil production in Appendix \ref{app:scp}.} This observation is known as the \textit{Pigou principle} in the literature. 
-To see this, note that eq. \eqref{eq:sbs} ensures that the social planner's first order condition, eq. \eqref{eq:fbs}, is satisfied. 
-Rewriting eq. \eqref{eq:fbs} reveals that the Pigou principle holds: %\footnote{\ I derive the social cost of pollution as the price the representative household is willing to pay for a marginal reduction in fossil production. The derivation is exponded in appendix Section \ref{sec:mod_an}. 
+To see this, note that eq. \eqref{eq:sbs} ensures that the social planner's first order condition, eq. \eqref{eq:fbs2}, is satisfied. 
+Rewriting eq. \eqref{eq:fbs2} reveals that the Pigou principle holds: %\footnote{\ I derive the social cost of pollution as the price the representative household is willing to pay for a marginal reduction in fossil production. The derivation is exponded in appendix Section \ref{sec:mod_an}. 
 %	To be precise, social cost of pollution refers to the marginal cost evaluated at the resulting equilibrium allocation.}: The Pigou principle. 
 \begin{align*}
 \underbrace{\frac{-U_F}{U_C}}_{\text{marginal social cost of fossil production}}=\left(1+\frac{\frac{\partial Y}{\partial G}\frac{\partial G}{\partial s}}{\frac{\partial Y}{\partial F}\frac{\partial F}{\partial s}}\right)\frac{\partial Y}{\partial F}=\tau^*_F.
