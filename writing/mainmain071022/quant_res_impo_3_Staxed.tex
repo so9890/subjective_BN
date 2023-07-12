@@ -1,0 +1,532 @@
+\section{Quantitative results}\label{sec:res}
+
+This section presents and discusses the quantitative results. 
+In Section \ref{subsec:exp}, I use the model to learn how a constant carbon tax affects the economy and how it interacts with a tax on labor income. Section \ref{subsec:meetlim} calculates how high a carbon tax is necessary to meet the emission limit. I find that an increasing carbon tax is necessary to counter market forces directing production and research towards the fossil sector. 
+Section \ref{subsec:mr} goes one step further asking  how the government can optimally satisfy the emission limit using carbon and labor income taxes. Results show that a combination of the two instruments is optimal throughout. 
+
+%I focus on analyzing the mechanisms and welfare benefits from integrating the income tax scheme into the environmental policy. I also discuss the costs of not using lump-sum transfers.
+
+\subsection{A constant carbon tax}\label{subsec:exp}
+
+
+We are now equipped to study how a carbon tax  equal to US\$185 (in 2020 prices) affects the economy. The value reflects the social costs of carbon calculated by a joint research effort led by \textit{Resources for the Future} (RFF), an independent research institution, and the University of Berkeley \citep{Rennert2022ComprehensiveCO2}.\footnote{\  For comparability, the social cost of carbon equal US\$203.5 in 2022 prices.}
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{A constant carbon tax equal to US\$185 (2020 prices) per ton of carbon  }\label{fig:Leveltauf_nsk0_xgr0_know}		
+	\begin{subfigure}[]{0.4\textwidth}
+		\caption{Net CO$_2$ emissions in Gt \\ \ }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{CompTauf_bytaul_Reg5_Emnet_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit0_emsbase2_countec0_GovRev0_etaa0.79_lgd1.png}
+	\end{subfigure}	
+	\begin{minipage}[]{0.1\textwidth}
+		\
+	\end{minipage}
+	\begin{subfigure}[]{0.4\textwidth}
+		\caption{Fossil energy in percentage deviation from business-as-usual}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{PerdifNoTauf_regime5_CompTaul_F_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit0_emsbase2_countec0_GovRev0_etaa0.79_lgd0.png}
+	\end{subfigure}
+	%\begin{subfigure}[]{0.4\textwidth}
+	%\caption{Emnet}
+	%%	\captionsetup{width=.45\linewidth}
+	%\includegraphics[width=1\textwidth]{PerdifNoTauf_regime5_CompTaul_Emnet_spillover0_nsk0_xgr0_knspil0_sep0_LFlimit0_emsbase0_countec0_GovRev0_etaa0.79_lgd0.png}
+	%\end{subfigure}
+	\floatfoot{Notes: Panel (a) shows levels of net emissions under a constant carbon tax equal to US\$185 (in 2020 prices) for a world with progressive income taxation at $\tau_{\iota}=0.181$, the solid graph, and without income taxation, $\tau_{\iota}=0$. The thin dotted graph shows the emission limit suggested by the IPCC. Panel (b) presents the percentage deviation from the business-as-usual policy in the economy (i) with and (ii) without income tax by the solid and dashed graphs, respectively.}
+\end{figure} 
+
+\paragraph{Static effect of a carbon tax}
+% 1) reallocation of demand by energy producers and by final good producers.
+Figure \ref{fig:Leveltauf_nsk0_xgr0_know} shows the effect of a constant carbon tax in a world with and without labor income tax represented by the solid and the dashed graphs, respectively. In this and all following figures, the x-axis indicates the first year of the 5-year period to which the variable value corresponds.\footnote{\ Figure \ref{fig:Leveltauf_nsk0_xgr0_add} in Appendix \ref{app:polexp_cc} shows research related and other variables.}  
+
+
+Panel (a) depicts how net emissions evolve under the carbon tax. The level of emissions is smaller in presence of a labor income tax with $\tau_{\iota}=0.181$.   A carbon tax of 185\$ per ton diminishes emissions by around 46\% initially relative to the business-as-usual (BAU) policy; i.e., without carbon tax. However, net emissions exceed the emission limit  derived previously; see the dotted line in Panel (a). Panel (b) shows the percentage deviation from the BAU allocation for fossil energy.
+
+A carbon tax operates as follows. As energy producers face a higher price for fossil energy, they lower demand for fossil and rise demand for green energy. Fossil production falls, and green production rises.
+The tax on fossil goods also increases the price for energy goods relative to non-energy goods on impact. Final good producers recompose their inputs towards non-energy goods. The energy share to GDP declines.  But, the recomposition is limited as energy and non-energy goods are complements. 
+
+% 2) effect on research
+The shift in demand by energy and final good producers induces a reallocation of research. In the model, the direction of research is determined by a market size effect, a price effect, and knowledge spillovers. 
+A market size effect directs research to the sector with the bigger market; i.e., higher output. A price effect runs in the contrary direction rendering research in more expensive sectors more profitable. Which effect dominates depends on the degree of substitutability of goods \citep{Acemoglu2002DirectedChange, Hemous2021DirectedEconomics}. Knowledge spillovers make research in less productive sectors more profitable.
+
+Since green and fossil goods are sufficient substitutes, the market size effect dominates the price effect. As demand for the green good increases, profitability of research in  this sector rises. In contrast, research in the fossil sector falls. This makes the green good even cheaper contributing to an increase in the green-to-fossil energy ratio.
+Non-energy research falls because knowledge spillovers to the energy sector direct research away from the non-energy sector.\footnote{\ I examine the effect of a carbon tax on non-energy and energy research in Appendix \ref{app:polexp_cc}. Contrary to theory, the price effect does not dominate. It does not direct research to the more expensive good. The reason are heterogeneous labor shares which hamper a supply-side effect. Assume sectors share the same input good. As demand for the more expensive good falls, the cheaper sector can produce even cheaper because of a higher supply of input goods. This amplifies the price difference in goods. When the supply-side effect is muted since sectors have different production functions, the price difference may not be big enough to direct research to the more expensive good. The market size effect dominates directing research to the sector with the bigger market: in this case, non-energy goods. Yet, knowledge spillovers from the non-energy to the energy sector are pivotal. All in all, the share of energy research increases.}
+
+\paragraph{Dynamics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% knowledge spillovers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Over time, the effectiveness of the carbon tax to lower fossil production declines from 40.8\% to 39.3\%. Hence, to meet a net-zero emission limit, a continuous intervention is necessary. 
+This finding is in contrast to the result by \cite{Acemoglu2012TheChange} who abstract from knowledge spillovers and heterogeneity in labor shares. They conclude that when dirty and clean goods are sufficient substitutes, a temporary intervention suffices to prevent too high pollution. In contrast, in the present model, knowledge spillovers and heterogeneous labor shares 
+call for a continuous rise in the carbon tax to keep fossil energy from rising. 
+
+Consider, first, the effect of knowledge spillovers.
+Initially, the carbon tax reduces research in the fossil sector, however, as green technology advances, knowledge spillovers from the green sector make fossil research more profitable again, and demand for fossil scientists resurges.
+It is not only that a constant amount of researchers becomes more productive but also a change in the equilibrium level of fossil researchers which intensifies the effect of knowledge spillovers. This mechanism explains the quick rise in emissions under a constant carbon tax.\footnote{\ Panel (a) in Figure \ref{fig:Leveltauf_nsk0_xgr0_noknow} shows the effect of a constant carbon tax in a model without knowledge spillovers, $\phi=0$. The rise in net emissions over time is muted, and a constant carbon tax becomes more effective over time in reducing fossil production.  Absent knowledge spillovers, more research is allocated to the green and non-energy sector.} 
+Therefore, when knowledge spillovers are strong, reducing emissions to net-zero requires a continues intensification of environmental intervention. In its extreme, growth may have to stop eventually in order to prevent the fossil sector from growing too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{Role of heterogeneous labor shares}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Consider now the effect of heterogeneous labor shares. The green sector has the smallest labor share. Labor is more important in the fossil and most important in the non-energy sector. This heterogeneity lowers the effectiveness of the carbon tax through a supply-side channel. 
+A reduction in demand for labor in the fossil sector eases labor costs of the green sector. When, however, the green sector only uses a small share of labor, the higher labor supply does not lower green production costs as much, and the green good remains more expensive. The share of green energy and labor rises less. This weakens the effectiveness of directed technical change to foster green energy production. 
+Panel (b) in Figure \ref{fig:Leveltauf_nsk0_xgr0_noknow} displays the behavior of key variables in a model with homogeneous labor shares across sectors.\footnote{\ In this counterfactual calibration, I set capital shares equal across sectors to the average in the baseline calibration: $\alpha_g=\alpha_f=\alpha_n=0.66$. } 
+
+%Now, absent a carbon tax, a smaller labor share in the green sector raises the share of labor allocated to the fossil sector over time. As the fossil sector becomes more productive, the marginal product of labor in the fossil sector increases more and labor transitions to the fossil sector. This mechanism offsets the effectiveness of a constant carbon tax over time. In contrast, when labor shares are equal, the effectiveness of the carbon tax to lower fossil production increases over time. 
+
+
+
+%Endogenous growth intensifies this adverse effect of heterogeneous capital shares: as the market size of green goods is depressed, the carbon tax does not boost green research as much as with equal capital shares. 
+%In sum, heterogeneous labor shares imply an increasing path of emissions over time under the carbon tax. 
+%This feature of the economy also calls for a carbon tax increasing over time.
+
+Panel (c) in Figure \ref{fig:Leveltauf_nsk0_xgr0_noknow} shows the result in a model variation without knowledge spillovers and with equal labor shares. A constant carbon tax suffices to lower emissions over time. Then, endogenous growth directs research away from the fossil sector so that emissions continuously decline.  This finding is consistent with the result in \cite{Acemoglu2012TheChange}. %:  when clean and dirty goods are sufficiently substitutable, eventually, no further intervention may be necessary to satisfy environmental limits. % consistent in the sense that it does not conflict with
+
+\paragraph{Effect of the income tax}
+
+A progressive income tax lowers the level of emissions; compare the solid and the dashed graph in Panel (a) in Figure \ref{fig:Leveltauf_nsk0_xgr0_know}. As labor supply reduces, output shrinks, and emissions fall. 
+However, there are compositional effects of a progressive income tax which (i) affect the economic structure, and (ii) interact with the effectiveness of the carbon tax. I will explain each statement in turn. 
+
+% \paragraph{Compositional effect of progressive income tax}
+% compositional effect
+A progressive income tax lowers the green-to-fossil energy ratio and diminishes the energy share in GDP. %\footnote{\ Figure \ref{fig:Efftaul_nsk0_xgr0_know} in Appendix \ref{app:polexp_cc} displays the effect of a progressive income tax in presence of a constant carbon tax. }
+The compositional effect of a progressive income tax originates from the asymmetric reaction of high- and low-skill workers. 
+Tax progressivity affects labor supply via an income and a substitution effect. 
+The income effect is similar across skill types due to the family structure of the household side.
+The substitution effect, in contrast, is more pronounced for high-skill workers.
+There are two reasons. First, post-tax income falls more the higher pre-tax income as progressivity rises. 
+Second,  I assume that the marginal value of leisure rises with hours worked. Since the high skill work more, they require a higher wage rate to be compensated for an additional unit of labor. Hence, as tax progressivity rises, and the after-tax wage rate falls, the high skill reduce their labor supply more.  %\tr{The effect of a marginal increase in income tax progressivity intensifies with the level of pre-tax income.}
+%I assume a constant Frisch elasticity of hours with respect to the wage rate. Hence, the responsiveness of labor with respect to the after-tax wage rate varies with hours worked.\footnote{\ The percentage change in hours by high- and low-skilled workers to a percentage change in the wage rate is equivalent. Then, more hours worked initially imply a stronger reduction in absolute terms in response to a percentage change in the wage rate. }
+Overall, the high-to-low skill ratio declines. 
+
+
+Now, note that green production is skill biased as opposed to fossil production.
+As a  consequence, green production becomes more expensive, while fossil production gets cheaper when tax progressivity rises. The price of non-energy goods, which are less skill-intense than energy goods, falls, too. Therefore, energy producers substitute fossil for green energy, and final good producers turn to non-energy goods. The former effect raises, the latter diminishes emissions.
+
+% research
+
+Research responds to the change in demand and in prices. First, non-energy research is less profitable due to its smaller price. Since non-energy and energy goods are complements, the amount of non-energy goods does not rise sufficiently to raise machine producers' profits despite the smaller price. As a result, research turns to the energy sector. The share of non-energy researchers reduces, albeit minimally. %; see Panel \eqref{figpan:nonre} in Figure \ref{fig:Efftaul_nsk0_xgr0_know}. %\footnote{\ The effect of the progressive income tax also prevails with heterogeneous labor shares and absent knowledge spillovers. The price-effect dominates the direction of research.} 
+Second, focusing solely on the allocation of researchers between the fossil and green sector, the relatively higher supply of low-skill labor raises the market size of the fossil good. Since intermediate energy goods are sufficient substitutes, the market size effect dominates the price effect and research shifts from green to fossil.
+Although the share of green-to-fossil research drops, the absolute amount of green scientists increases. The reallocation of research to energy goods in general implies a rise in green researchers. 
+
+While the labor tax affects the composition of research due to skill heterogeneity, there is no effect on aggregate research activity. 
+To see this, I consider the model with homogeneous skills, then the labor tax has no compositional effect. In this model, the equilibrium amount of scientists remains unchanged by a progressive income tax. Indeed, demand for innovation reduces in response to a progressive income tax since less labor is available to work with technology. However, at the same time, scientists are willing to accept a lower wage rate since consumption of the household reduces. In equilibrium, the reduction in demand is absorbed by a change in the wage rate, and the level of aggregate research remains unchanged. 
+% This finding is important to be kept in mind. It allows to differentiate the motive for labor taxation in the optimal policy analysis between  targeting (i) research and (ii) labor supply. 
+
+
+
+\paragraph{Interaction of income and carbon taxes}
+The compositional effect of a tax on labor interacts with the impact of the carbon tax.
+Quantitatively, the effect of the carbon tax seems largely unaffected by the value of income tax progressivity.
+Yet, there is a smaller reduction in fossil energy visible in Panel (b) in Figure \ref{fig:Leveltauf_nsk0_xgr0_know}.
+This discrepancy emerges from the effect of a carbon tax on skill supply which is affected by the income tax. 
+
+The carbon tax changes the skill premium since demand for green-specific high-skill labor increases. High-skill hours in equilibrium rise, while hours of low-skill workers reduce.  A progressive income tax lessens the effect of changes in the wage rate on labor supply. The reason is that the elasticity of after-tax labor income with respect to pre-tax labor income diminishes with a higher tax progressivity.\footnote{\ Consider Panel (f) in Figure \ref{fig:Leveltauf_nsk0_xgr0_add} in Appendix \ref{app:polexp_cc}.} This mutes the supply response in the skill ratio to the carbon tax, and production costs of the green good remain high.
+
+
+\subsection{Meeting the emission limit}\label{subsec:meetlim}
+
+The previous section makes apparent that, first, the carbon tax suggested by the RFF does not cause emissions in line with the IPCC's emission limit.  Second, it shows that model dynamics call for an increasing carbon tax. In this section, I calculate the necessary carbon tax to meet the emission limit. I compare the resulting tax and allocations for the policy regimes with labor income tax (``combined policy") to a ``carbon-tax-only'' policy.
+
+
+\begin{figure}[h!!]
+	\centering
+	\caption{Meeting the emission limit with and without preexisting labor tax }\label{fig:Limit_nsk0_xgr0_know}
+	\begin{subfigure}[]{1\textwidth}
+		\centering\footnotesize{\textbf{In levels}}\\ \vspace{2mm}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Tax per ton of carbon in 2022 US\$}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{CompTauf_bytaul_Reg5_Tauf_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit1_emsbase2_countec0_GovRev0_etaa0.79_lgd1.png}
+		\end{subfigure}	
+		\begin{minipage}[]{0.1\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Green-to-fossil energy ratio}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{CompTauf_bytaul_Reg5_GFF_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit1_emsbase2_countec0_GovRev0_etaa0.79_lgd0.png}
+		\end{subfigure}	 
+	\end{subfigure}		
+	
+	\vspace{3mm}
+	\begin{subfigure}[]{1\textwidth}
+		\centering\footnotesize{\textbf{In percentage deviation from carbon-tax-only regime}}\\ \vspace{2mm}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Carbon tax}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{CompTaufPER_bytaul_Reg5_Tauf_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit1_emsbase2_countec0_GovRev0_etaa0.79_lgd0.png} 
+		\end{subfigure}
+		\begin{minipage}[]{0.1\textwidth}
+			\
+		\end{minipage}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Green-to-fossil scientists}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{CompTaufPER_bytaul_Reg5_sgsff_Sun2_spillover0_nsk0_xgr0_knspil3_sep0_LFlimit1_emsbase2_countec0_GovRev0_etaa0.79_lgd0.png} 
+		\end{subfigure}		
+	\end{subfigure}			
+	\floatfoot{Notes: Panels (a) and (b) show variables in levels when the emission limit has to be met (i) in a scenario without income tax, $\tau_{\iota}=0$, dashed graphs, and (ii) in a scenario with labor income tax, $\tau_{\iota}=0.181$, solid graphs. Panel (c) and (d) depict percentage deviation in variables in the combined scenario to the carbon-tax-only scenario. A vertical line indicates when the net-zero emission limit becomes binding.}
+\end{figure} 
+
+% necessary carbon tax
+%         0.8892    0.9516    1.0138    1.0765    1.1402    1.2047    2.6180    2.6986    2.7810    2.8651    2.9507    3.0376
+
+Figure \ref{fig:Limit_nsk0_xgr0_know} shows the results.
+Consider Panel (a). The necessary carbon tax ranges from US\$889  in the 2020-2024 period to around US\$2,951 in the 2070-2074 period (both in 2022 prices). The carbon tax is lower when labor is taxed: the deviation of the carbon tax reaches -10\% in initial periods but diminishes over time to approximately -7.25\% (Panel (c)).\footnote{\ The smaller deviation under the net-zero emission limit results primarily from the tightness of the emission limit itself and not the presence of the labor income tax. Abstracting from all model features discussed earlier, the carbon tax nevertheless approaches the one without progressive income tax as the emission limit gets tighter. Hence, the more stringent emission limit calls for a more aggressive carbon tax despite the reductive effect of labor taxation.}
+
+The combined policy results in a lower green-to-fossil energy ratio (Panel (b)) and a higher energy share to GDP. Yet, the reduction in economic activity induced by the labor income tax ensures that the emission limit is satisfied. On the upside, the combined policy enables a smoother distribution of energy scientists (Panel (d)). While the carbon tax induces a shift of researchers to the green sector, the labor tax lowers the green-to-fossil research share. 
+In sum, the combined policy allows for a smoother distribution of scientists across sectors. This diminishes the reduction in scientists' productivity due to decreasing returns to research.\footnote{\ I discuss the effects of knowledge spillovers, heterogeneous skills, heterogeneous labor shares, and endogenous growth in Appendix \ref{app:modvar}. }
+
+
+
+\subsection{Optimal policy}\label{subsec:mr}
+
+
+This section seeks to answer the question how a benevolent planner optimally attains the emission limit. After showing the results in Section \ref{sec:optres}, I discuss the intention behind the optimal policy in Section \ref{subsec:dis}. The optimal policy consists of a combination of labor income and carbon taxes. The reason is that when the carbon tax is used to target the direction of research, the wage rate no longer captures the social costs of labor. The labor tax boosts or curbs labor supply to correct for the externality of work through emissions. 
+%This section depicts results on the optimal policy followed by the implied allocation in the benchmark model where environmental tax revenues are redistributed via the income tax scheme. 
+
+\subsubsection{Results}\label{sec:optres}
+Figure \ref{fig:optPol} depicts the optimal policy.
+To meet the emission limit suggested by the IPCC, the optimal policy taxes labor until 2044 (Panel (a)). The labor tax  turns into a subsidy from 2045 onward, $\tau_{\iota t}<0$. 
+\begin{figure}[h!!]
+	\centering
+	\caption{Optimal policy }\label{fig:optPol}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Average marginal income tax rate }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+	\
+\end{minipage}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Tax per ton of carbon in 2022 US\$ }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{Single_periods12_OPT_T_NoTaus_Tauf_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_extern0_PV1_sizeequ0_GOV0_etaa0.79.png}
+	\end{subfigure}
+\floatfoot{Notes: \footnotesize{The x-axis indicates the first year of the 5 year period to which the variable value corresponds. A vertical line indicates when the net-zero emission limit becomes binding.}}
+\end{figure} 
+Consider now Panel (b). The optimal carbon tax increases over time and jumps to a higher level when the net-zero emission limit is introduced in 2050.
+In 2020, the carbon tax equals US\$987 and rises steadily to US\$1,326 in the 2045-2049 period.  As the emission limit declines to net-zero, the tax rapidly surges to US\$2,833 and gradually increases afterwards reaching US\$3,2186 in 2070-2074. 
+%\paragraph{Efficient and optimal allocation}\label{subsec:notaul}
+
+Figure \ref{fig:optAll_percLf_dyn} presents adjustments of key variables under the first-best (efficient) and the second-best (optimal) policy relative to the laissez-faire allocation.\footnote{\ I formulate the social planner's problem in Appendix \ref{app:sp_prob}. }  Dashed graphs show the efficient and solid graphs the optimal allocation.
+The efficient allocation can be perceived as the allocation the Ramsey planner intents to implement. However, she may not be able to achieve the efficient allocation due to the reliance on (a limited number of) tax instruments.\footnote{\ Figure \ref{fig:LF} in Appendix \ref{app:quant_res_opt}  shows the laissez-faire, the efficient, and the optimal allocation in levels.}
+
+\begin{figure}[h!!!]
+	\centering \caption{Efficient and optimal allocation relative to laissez-faire}
+\label{fig:optAll_percLf_dyn}
+	\begin{subfigure}[]{1\textwidth}	
+		\centering\footnotesize{\textbf{In percentage deviation from laissez-faire}}\\ \vspace{2mm}
+	\begin{subfigure}[]{0.4\textwidth}
+		\caption{Consumption}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{C_PercentageLFDyn_Target_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+	\ 
+\end{minipage}
+	\begin{subfigure}[]{0.4\textwidth}
+				\caption{Average hours worked }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{Hagg_PercentageLFDyn_Target_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}
+
+\vspace{3mm}
+\begin{subfigure}[]{0.4\textwidth}
+				\caption{Green-to-fossil energy ratio in k}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{GFF_PercentageLFDyn_Target_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+	\ 
+\end{minipage}
+\begin{subfigure}[]{0.4\textwidth}
+			\caption{ Non-energy scientists share}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{snS_PercentageLFDyn_Target_regime4_knspil0_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+\end{subfigure}
+\end{subfigure}
+
+\vspace{3mm}
+\begin{subfigure}[]{1\textwidth}
+	\centering	\footnotesize{{\textbf{In levels}}}\\ \vspace{2mm}
+\begin{subfigure}[]{0.4\textwidth}
+				\caption{Fossil scientists}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{sff_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+\ 
+\end{minipage}
+\begin{subfigure}[]{0.4\textwidth}
+			\caption{Green scientists}
+%	\captionsetup{width=.45\linewidth}
+\includegraphics[width=1\textwidth]{sg_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+\end{subfigure}
+%\begin{subfigure}[]{0.4\textwidth}
+%	\caption{Fossil scientists}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{sn_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+%\end{subfigure}
+\end{subfigure}
+	\floatfoot{Notes: \footnotesize{ Panels (a) to (d) show the percentage deviation of the allocation resulting under the optimal policy, the black solid graph, and the efficient allocation, the black dashed graph, relative to the laissez-faire allocation. Panels (e) and (f) show fossil and green scientists in levels. The dotted graph refers to the laissez-faire allocation. A vertical line indicates when the net-zero emission limit becomes binding.
+	}}
+\end{figure} 
+
+
+%\begin{figure}[h!!!]
+%	\centering \caption{Efficient and optimal allocation relative to laissez-faire: 	new model}
+%	\label{fig:optAll_percLf_dyn}
+%	\begin{subfigure}[]{1\textwidth}	
+%		\centering\footnotesize{\textbf{In percentage deviation from laissez-faire}}\\ \vspace{2mm}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{Consumption}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_C_PercentageLFDyn_T_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+%		\end{subfigure}
+%		\begin{minipage}[]{0.1\textwidth}
+%			\ 
+%		\end{minipage}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{Average hours worked }
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_Hagg_PercentageLFDyn_T_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%		\end{subfigure}
+%		
+%		\vspace{3mm}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{Green-to-fossil energy ratio in k}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_GFF_PercentageLFDyn_T_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%		\end{subfigure}
+%		\begin{minipage}[]{0.1\textwidth}
+%			\ 
+%		\end{minipage}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{ Non-energy scientists share}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_snS_PercentageLFDyn_T_regime4_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+%		\end{subfigure}
+%	\end{subfigure}
+%	
+%	\vspace{3mm}
+%	\begin{subfigure}[]{1\textwidth}
+%		\centering	\footnotesize{{\textbf{In levels}}}\\ \vspace{2mm}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{Fossil scientists}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_sff_CompEffT_regime4_opteff_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+%		\end{subfigure}
+%		\begin{minipage}[]{0.1\textwidth}
+%			\ 
+%		\end{minipage}
+%		\begin{subfigure}[]{0.4\textwidth}
+%			\caption{Green scientists}
+%			%	\captionsetup{width=.45\linewidth}
+%			\includegraphics[width=1\textwidth]{NC_sg_CompEffT_regime4_opteff_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+%		\end{subfigure}
+%		%\begin{subfigure}[]{0.4\textwidth}
+%		%	\caption{Fossil scientists}
+%		%	%	\captionsetup{width=.45\linewidth}
+%		%	\includegraphics[width=1\textwidth]{sn_CompEffOPT_T_NoTaus_regime4_opteff_knspil0_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+%		%\end{subfigure}
+%	\end{subfigure}
+%	\floatfoot{Notes: \footnotesize{ Panels (a) to (d) show the percentage deviation of the allocation resulting under the optimal policy, the black solid graph, and the efficient allocation, the black dashed graph, relative to the laissez-faire allocation. Panels (e) and (f) show fossil and green scientists in levels. The dotted graph refers to the laissez-faire allocation. A vertical line indicates when the net-zero emission limit becomes binding.
+%	}}
+%\end{figure} 
+%
+%\clearpage
+%%
+% Labor supply
+The social planner attains the emission limit while increasing consumption and decreasing labor  relative to laissez-faire (Panels (a) and (b) in Figure \ref{fig:optAll_percLf_dyn}). This allocation is achieved by a higher research effort on aggregate: average hours of scientists roughly double in all periods. The social planner decreases the share of non-energy scientists (Panel (d)). More research effort in the energy sector is efficient. Within the energy sector, a higher level of fossil scientists as compared to green scientists characterizes the efficient allocation (Panels (e) and (f)). As the emission limit becomes stricter, the ratio of green-to-fossil scientists increases.
+The social planner can sustain high growth rates -especially in the fossil sector- and simultaneously meet the emission limit by choosing a lower energy share to GDP and a higher ratio of green-to-fossil energy (Panel (c)).  I will discuss in the next section why this allocation of researchers is efficient.
+
+
+Under the optimal policy, in contrast, consumption reduces relative to the laissez-faire allocation. Average hours of scientists fall slightly by approximately 0.1\%. The optimal policy implements a lower share of energy research, and the number of fossil scientists remains close to zero (Panels (d) and (e)). The ratio of green to fossil scientists tends to infinity. 
+In the competitive economy, a rise in fossil research has to be induced via demand. A higher demand for fossil, however, would conflict with the emission target. A trade-off between growth and emission mitigation exists.  In fact, the optimal allocation falls short of both the efficient green-to-fossil energy ratio and the efficient allocation of researchers. Thus, implementing the emission target is costly in terms of R\&D investment and growth.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DISCUSSION 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Discussion}\label{subsec:dis}
+
+ What explains the optimal policy?  To answer this question, I, first, consider the social planner allocation without knowledge spillovers. Knowing the reasons behind the efficient allocation enables us to better understand the use of policy instruments. Second, I look at how the optimal allocation with labor income tax differs from the optimal allocation when no income tax is available. 
+Finally, I conduct a counterfactual experiment where only the optimal carbon tax is implemented. This allows to decompose the effect of the carbon and the labor income tax. 
+
+\paragraph{Efficient and optimal allocation without knowledge spillovers}
+Figure \ref{fig:optAll_percLf_dyn_noKN} depicts deviations of the efficient and the optimal allocation from laissez-faire in the model without knowledge spillovers.
+Absent knowledge spillovers, the social planner raises research efforts  by a factor of 3.5 compared to 2 in the benchmark model, and hours worked reduce less and increase more over time (Panel (b)). Nevertheless, consumption grows less than in the model with knowledge spillovers (Panel (a)). The reason is that meeting the emission limit is only maintainable under a less productive allocation of researchers across sectors when knowledge is sector specific. 
+
+ When knowledge cannot spill from conventional to the green sector, meeting the emission limit requires a strong rise in green relative to fossil research. Almost no energy research happens in the fossil sector (Panel (c)), and the social planner raises green research effort (Panel (d)). Due to decreasing returns to scale, this extreme allocation reduces overall research productivity and, hence, consumption growth. Yet, it is efficient because it takes into account dynamic spillovers in the green sector.\footnote{\ Figure \ref{fig:optAll_percLf_dyn_noKN_add} in Appendix \ref{app:quant_res_opt} depicts the ratio of green-to-fossil energy and the adjustment in the share of non-energy scientists absent knowledge spillovers. When no knowledge spills to the non-energy sector, the planner raises the share of non-energy scientists initially to boost consumption. Once the net-zero emission limit binds, the social planner reduces the share of non-energy researchers relative to laissez-faire. Then, energy research becomes more important to mitigate the costs of the emission limit.}
+ 
+The rise in working hours over time under the social planner reflects the slow down in consumption. Consumption becomes so valuable, that hours have to rise. 
+Hence, knowledge spillovers diminish the costs of implementing the emission limit since they allow to mitigate decreasing returns to research in the green sector. 
+
+
+\begin{figure}[h!!!]
+	\centering 	\caption{Efficient and optimal allocation: no knowledge spillovers}\label{fig:optAll_percLf_dyn_noKN}
+		\begin{subfigure}[]{1\textwidth}	
+		\centering\footnotesize{\textbf{In percentage deviation from laissez-faire}}\\ \vspace{2mm}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Consumption}
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{C_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd1.png}
+		\end{subfigure}
+		\begin{minipage}[]{0.1\textwidth}
+			\ 
+		\end{minipage}
+		\begin{subfigure}[]{0.4\textwidth}
+			\caption{Average hours worked }
+			%	\captionsetup{width=.45\linewidth}
+			\includegraphics[width=1\textwidth]{Hagg_PercentageLFDyn_Target_regime4_knspil1_spillover0_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+		\end{subfigure}
+	\end{subfigure}
+	
+	\vspace{3mm}
+			\begin{subfigure}[]{1\textwidth}	
+		\centering\footnotesize{\textbf{In levels}}\\ \vspace{2mm}
+\begin{subfigure}[]{0.4\textwidth}
+	\caption{Fossil scientists}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{sff_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd1_lff1.png}
+\end{subfigure}
+	\begin{minipage}[]{0.1\textwidth}
+		\ 
+	\end{minipage}
+	\begin{subfigure}[]{0.4\textwidth}
+		\caption{Green scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{sg_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+	\end{subfigure}	
+%	\begin{subfigure}[]{0.4\textwidth}
+%	\caption{Non-energy scientists}
+%	%	\captionsetup{width=.45\linewidth}
+%	\includegraphics[width=1\textwidth]{sn_CompEffOPT_T_NoTaus_regime4_opteff_knspil1_spillover0_noskill0_sep0_xgrowth0_countec0_PV1_etaa0.79_lgd0_lff1.png}
+%\end{subfigure}	
+\end{subfigure}
+\end{figure} 
+
+
+\paragraph{Comparison to carbon-tax-only policy regime}
+How is the income tax used to achieve a more efficient allocation?
+This section analysis the benefits of the policy regime with income tax, the {combined} regime, as opposed to a {carbon-tax-only} regime where $\tau_{\iota t}=0$.  
+Panel (a)  in Figure \ref{fig:efftaul} presents percentage deviations of variables under the combined policy relative to the carbon-tax-only regime. In both regimes, tax instruments are chosen optimally. In the period from 2020 to 2044, the carbon tax is lower when a labor income tax can be used (Panel (a i)). Recall that in the exact same period, the labor income tax is used to tax labor (Panel (a), Figure \ref{fig:optPol}). From 2045 onward, the carbon tax exceeds its counterpart when no labor tax is available. Now, the government subsidizes labor. Thus, labor income taxes and carbon taxes act as substitutes.
+
+By setting a lower carbon tax and taxing labor, the government achieves a smoother distribution of energy scientists in the periods before the net-zero emission limit: the share of green-to-fossil scientists decreases (Panel (a ii)). 
+% the fossil and non-energy sector keep consumption high; see Panels (c) and (d). 
+%To achieve the higher technology levels, the planner accepts a smaller green-to-fossil ratio today. % which result in lower utility levels tomorrow. %
+Hence, in terms of the allocation of research, the optimal policy comes closer to the efficient allocation. Yet, to do so, it forfeits an advantageous green-to-fossil energy ratio.\footnote{ \ Both, a smaller carbon tax and a tax on labor contribute to the adverse energy ratio. Figure \ref{fig:efftaul_GFF} in Appendix \ref{app:quant_res_opt} shows deviations of the green-to-fossil energy ratio.} This observation highlights the trade-off between more fossil research and lower fossil demand. 
+
+When the net-zero emission limit binds, the carbon tax under the combined policy is higher than in the carbon-tax-only scenario.
+ The  stricter emission limit leaves no room to profit from fossil growth. Instead, more research has to be directed to the green sector. This is in spirit of the finding in \cite{Acemoglu2012TheChange}: absent a research subsidy, the carbon tax is used to take into account the path dependency of research, i.e. the gains from green research today by boosting green productivity tomorrow.
+ 
+ Indeed, the optimal policy in the model without knowledge spillovers subsidizes labor throughout; see Figure \ref{fig:opt_TLs_noKN}. In this case, future green growth does not profit from fossil growth today. Therefore, carbon is taxed higher to foster more green research right from the beginning.\footnote{\ The deviation in the carbon tax is minimal. For better visibility, consider Figure \ref{fig:opt_TLs_noKN_app} in Appendix \ref{app:quant_res_opt}.} By doing so, the optimal policy takes into account the path dependency of research. As regards the level of the carbon tax, it is smaller than in the model with knowledge spillovers. Knowledge spillovers to the fossil sector call for a higher and gradually increasing carbon tax.\footnote{\ On this point, see the discussion in Section \ref{subsec:exp}.}
+% Hence, making up for earlier fossil growth in later periods by ``overtaxing'' carbon, seems not to be the sole driver of the higher carbon tax. C}  
+
+\begin{figure}[h!!!]
+	\centering
+	\caption{Optimal policy without knowledge spillovers}\label{fig:opt_TLs_noKN}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Average marginal income tax rate }
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{dTaulAv_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\begin{minipage}[]{0.1\textwidth}
+		\
+	\end{minipage}
+	\begin{subfigure}{0.4\textwidth}
+		\caption{Tax per ton of carbon in 2022 US\$}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{Tauf_OPT_T_NoTaus_COMPtaul_regime4_spillover0_knspil1_noskill0_sep0_xgrowth0_PV1_etaa0.79_lgd0.png}
+	\end{subfigure}
+	\floatfoot{Notes: \footnotesize{ The figure shows the optimal policy in the model without knowledge spillovers. Solid graphs refer to the combined policy regime, and dashed graphs to the carbon-tax-only regime. A vertical line indicates when the net-zero emission limit becomes binding.}}
+\end{figure} 
+
+
+In the next two paragraphs, I decompose the effect of the combined policy regime relative to the carbon-tax-only regime into the effect of (i) the adjusted carbon tax, and (ii) the change in the labor income tax. % Under the assumption that the government first adjusts the carbon tax and then implements the labor tax, this decomposes the  aggregate effect into the effect of the policy regime as a whole.  
+
+\paragraph{Effect of adjustment in carbon tax}
+Panel (b) in Figure \ref{fig:efftaul} depicts the deviation of the allocation when only the optimal carbon tax is implemented and the labor income tax is fixed at $\tau_{\iota t}=0$ relative to the carbon-tax-only scenario. The lower carbon tax almost fully accounts for the deviation of the ratio of green-to-fossil research (Panel (b i)). Average hours worked remain largely unchanged by the change in the carbon tax (Panel (b ii)). But, a bigger labor share allocated to the fossil sector raises the externality associated with work. As a result, the allocation with the lower carbon tax alone would violate the emission limit. 
+
+%Under the net-zero emission limit, average hours are close to the level under the carbon-tax-only allocation. Yet, they are lower due to a reduction in the wage rate induced by the higher carbon tax. As shown in the analytical section, a smaller share of fossil production is concomitant with a lower wage rate. The reason is that more labor is allocated to the green sector where the marginal product of labor is smaller. 
+
+\paragraph{Effect of labor income tax}
+
+Panel (c) in Figure \ref{fig:efftaul} compares the allocation under the combined policy to the one where only the carbon tax is set to its optimal value and the labor income tax is kept at zero. The difference is, thus, explained by income taxation. 
+
+The labor income tax contributes to a smoother allocation of green-to-fossil scientists albeit minimally (Panel (c i)). 
+Instead, the labor income tax is more important to adjust average hours worked (Panel (c ii)). Before the net-zero emission limit, it reduces labor supply contributing to a reduction in emissions. In other words, the smaller carbon tax implies a distortion in the labor market: households do not internalize the negative effect of their work effort on emissions. 
+
+The higher carbon tax under the net-zero emission limit, in contrast, results in too low a wage rate discouraging labor supply. In other words, households act as if their work was associated with more social costs than it actually is. The labor subsidy ensures that labor supply rises. It, thereby, raises fossil production. Yet, the emission limit remains satisfied due to the higher carbon tax. % \textit{Emissions are below their optimal social level}
+
+An alternative explanation for the use of labor income taxes could be to stimulate research activity. 
+Indeed, the progressive income tax fosters fossil research in early periods through its effect on the skill ratio. However, even in a model with homogeneous skills, the labor income tax is part of the optimal policy. Nevertheless, in this counterfactual model, the labor income tax does not affect research effort.\footnote{\ Compare Figure \ref{fig:opt_Count_homskill} in Appendix \ref{app:quant_res_opt}.}  The reason is that a higher demand for research is absorbed by a higher wage rate for scientists, as discussed in section \ref{subsec:exp}. 
+\begin{figure}[h!!!]
+	\centering
+	\caption{Decomposing effect of combined policy}\label{fig:efftaul}
+	\begin{subfigure}{1\textwidth}
+		\caption{\textbf{Deviation of combined policy from carbon-tax-only policy in percent}}
+		\vspace{3mm}
+	\begin{subfigure}{0.4\textwidth}
+		\centering{(i) Carbon tax}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{Tauf_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+	\end{subfigure}
+\begin{minipage}[]{0.1\textwidth}
+\
+\end{minipage}
+\begin{subfigure}{0.4\textwidth}
+	\centering{(ii) Green-to-fossil scientists}
+	%	\captionsetup{width=.45\linewidth}
+	\includegraphics[width=1\textwidth]{sgsff_OPT_T_NoTaus_COMPtaulPer_regime4_spillover0_knspil0_noskill0_sep0_xgrowth0_PV1_etaa0.79.png}
+\end{subfigure}
+\end{subfigure}
+
+\vspace{3mm}
+	\begin{subfigure}{1\textwidth}
+	\caption{\textbf{Deviation only optimal carbon tax from carbon-tax-only policy in percent}}
+	\vspace{3mm}
+	\begin{subfigure}{0.4\textwidth}
+		\centering{(i) Green-to-fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{CountTAUF_CTOPer_Opt_target_sgsff_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+	\begin{minipage}[]{0.1\textwidth}
+		\
+	\end{minipage}
+	\begin{subfigure}{0.4\textwidth}
+		\centering{(ii) Average hours worked}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{CountTAUF_CTOPer_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+\end{subfigure}
+
+\vspace{3mm}
+\begin{subfigure}{1\textwidth}
+	\caption{\textbf{Deviation of combined policy from only optimal carbon tax in percent}}\label{fig:opt_Count}
+			\vspace{3mm}
+	\begin{subfigure}{0.4\textwidth}
+		\centering{(i) Green-to-fossil scientists}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{CountTAUFPerDif_Opt_target_sgsff_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}	
+	\begin{minipage}[]{0.1\textwidth}
+		\
+	\end{minipage}	
+	\begin{subfigure}{0.4\textwidth}
+		\centering{(ii) Average hours worked}
+		%	\captionsetup{width=.45\linewidth}
+		\includegraphics[width=1\textwidth]{CountTAUFPerDif_Opt_target_Hagg_nsk0_xgr0_knspil0_regime4_spillover0_sep0_extern0_PV1_etaa0.79.png}
+	\end{subfigure}
+\end{subfigure}
+
+	\floatfoot{Notes: \footnotesize{ Graphs show the percentage deviations of the variable under the combined policy regime where the planner can choose income tax progressivity and the carbon-tax-only regime where the income tax scheme is non-distortive, $\tau_{\iota t}=0$. A vertical line indicates the introduction of the net-zero emission limit. }}
+\end{figure} 
+
+ 
+\clearpage

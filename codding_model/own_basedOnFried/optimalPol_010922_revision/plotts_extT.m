@@ -801,7 +801,7 @@ if plotts.ems==1
     xticks(txx)
     xlim([0, time(end-1)])
     ylim([-0.5, 25.5])
-    ytickformat('%.1f')
+    ytickformat('%.0f')
     ax=gca;
     ax.FontSize=13;
     xticklabels(Year10)

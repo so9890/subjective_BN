@@ -7,11 +7,11 @@ Secton \ref{sec:modpar} calibrates the remaining model parameters.
 \subsubsection{Emission target}\label{sec:ems}
 This section calibrates the emission limit. I consider CO$_2$ emissions only and abstract from other greenhouse gasses since carbon is the most important pollutant with the highest mitigation potential \citep[p.29]{IPCC2022}.
 %	 WG3 IPCC report (p.37) \textbf{\textit{The trajectory of future CO$_2$ emissions plays a critical role in mitigation, given CO$_2$ long-term impact and dominance in total greenhouse gas forcing}}. Furthermore, \textbf{The main reason is that scenarios reduce non-CO$_2$ greenhouse gas emissions less than CO$_2$ due to a limited mitigation potential (see 3.3.2.2)} p.34 in foxit, 3-26 in chapter 3}.  
-The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO$_2$ emissions in the 2030s by 50\% relative to 2019 and net-zero emissions in the 2050s  as essential to meeting the 1.5°C climate target.\footnote{\ ``\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO$_2$ in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO$_2$ emissions in the 2050s [...] (\textnormal{medium confidence}).}" \citep[p.5, Chapter 3]{IPCC2022} }  Furthermore, the report stipulates a remaining global net CO$_2$ budget of 510 GtCO$_2$ %($\approx$ 510,000 million metric tons of CO$_2$) 
+The most recent IPCC report \citep{IPCC2022} formulates a reduction of global CO$_2$ emissions in the 2030s by 50\% relative to 2019 and net-zero emissions in the 2050s  as essential to meeting the 1.5°C climate target.\footnote{ ``\textit{Mitigation pathways limiting warming to 1.5°C [...] reach 50\% reductions of CO$_2$ in the 2030s, relative to 2019, then reduce emissions further to reach net zero CO$_2$ emissions in the 2050s [...] (\textnormal{medium confidence}).}" \citep[p.5, Chapter 3]{IPCC2022} }  Furthermore, the report stipulates a remaining global net CO$_2$ budget of 510 GtCO$_2$ %($\approx$ 510,000 million metric tons of CO$_2$) 
 from 2020 to the net-zero phase starting from 2050 \citep[p.5, Chapter 3]{IPCC2022}. 
 To deduce an emission target for the US, further assumptions on the distribution of mitigation burdens have to be made. I follow \cite{RobiouDuPont2017EquitableGoals} who consider 5 distinct principles of distributive burden sharing. I use an \textit{equal-per-capita} approach according to which emissions per capita shall be equalized across countries. 
 I plan to conduct sensitivity analyses based on alternative derivations of the emission target. Appendix \ref{app:calib} details the calculation of the emission target. 
-Figure \ref{fig:emlimit}  visualizes the resulting emission limit for the US.
+Figure \ref{fig:emlimit}  visualizes the resulting emission limit for the US starting from 2020. The value for 2015-2019 refers to observed emissions.
 
 % data
 %, 2022: Mitigation pathways compatible with long-term goals. In IPCC, 2022: Climate
@@ -40,24 +40,24 @@ Figure \ref{fig:emlimit}  visualizes the resulting emission limit for the US.
 %\end{table}	
 
 \begin{figure}
-	\caption{Net CO$_2$ emission limit in Gt}\label{fig:emlimit}
+	\caption{Net CO$_2$ emission limit in gigatons  (Gt)}\label{fig:emlimit}
 	\includegraphics[width=0.4\textwidth]{Emnet.png}
 \end{figure}
 %  In summary, I calibrate the net-emission target vector for the period from 2030 to 2080 as 
 % $\omega_{2030-2050}$= 2.4899Gt and $\omega_{2050-2080}$= 0Gt.
 %\footnote{Another alternative 
 %} 
-% I assume here that each country contributes to the global reduction by the same percentage of 50\% of its own emissions.\footnote{\ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This would result in an even stricter target for the US which contributed almost 20\% to global greenhouse gas emissions in 2019 (based on own calculations where total emissions come from the EIA global greenhouse gas information, to be found here \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions}).}
+% I assume here that each country contributes to the global reduction by the same percentage of 50\% of its own emissions.\footnote{ Alternatively, one could assume that the global reduction is allocated in the same share as countries contributed to global emissions in 2019. This would result in an even stricter target for the US which contributed almost 20\% to global greenhouse gas emissions in 2019 (based on own calculations where total emissions come from the EIA global greenhouse gas information, to be found here \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions}).}
 % Starting from 2050, the net-emission target is zero. 
 % sinks and emission from fossil sector
 
 \paragraph{Discussion}
 The reduction in net CO$_2$ emissions necessary to meet the emission limit relative to 2019 emissions in the US  is substantial. It amounts to around 85\%. The result is not only explained by the global emission limit but also by the US emitting beyond its population share in 2019. In 2019, US emissions accounted for 10.44\% of global net emissions while the population share of the US was 4.3\%. Hence, even without an emission limit, the US would have to reduce emissions according to the \textit{equal-per-capita} principle.
 
-The necessary reduction in net CO$_2$ emissions found in this calibration exceeds political goals. On April 22, 2021, President Biden announced a 50-52\% reduction in net greenhouse gas emissions relative to 2005 levels in 2030 % \footnote{\ If pollutants were to be reduced by an equal share, this means a 50-52\% reduction in net CO$_2$ emissions.} 
-and net-zero emissions no later than 2050.\footnote{\ Source: \href{https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/}{https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/}, retrieved 14 September 2022.} 
-However, relative to 2019, the foreseen reduction for 2030 corresponds to a 38\% decline only.
-The resulting net emissions in the US would then amount to 103.21 Gt.\footnote{\ This calculation assumes emissions where left at 2019-levels until 2030 and then lowered to the Biden target from 2030 to 2050 and net-zero afterwards.} This is 5 times the budget acceptable for the US,  if the global remaining carbon budget was allocated on a \textit{equal-per-capita} basis.\footnote{\ The remaining net carbon budget for the US based on its population share is 20.738Gt for the period from 2020 to 2050.} % This amounts to 27\% of emissions which the US would emit if annual emissions equaled 2019 net emissions.}  
+The necessary reduction in net CO$_2$ emissions found in this calibration exceeds political goals. On April 22, 2021, President Biden announced a 50-52\% reduction in net greenhouse gas emissions relative to 2005 levels in 2030 % \footnote{ If pollutants were to be reduced by an equal share, this means a 50-52\% reduction in net CO$_2$ emissions.} 
+and net-zero emissions no later than 2050.\footnote{ Source: \href{https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/}{https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/}, retrieved 14 September 2022.} 
+However, relative to 2019, the planned reduction for 2030 corresponds to a 38\% decline only.
+The resulting net emissions in the US would then amount to 103.21 Gt.\footnote{ This calculation assumes emissions where left at 2019-levels until 2030 and then lowered to the Biden target from 2030 to 2050 and net-zero afterwards.} This is 5 times the budget acceptable for the US,  if the global remaining carbon budget was allocated on a \textit{equal-per-capita} basis.\footnote{ The remaining net carbon budget for the US based on its population share is 20.738Gt for the period from 2020 to 2050.} % This amounts to 27\% of emissions which the US would emit if annual emissions equaled 2019 net emissions.}  
 
 \subsubsection{Model parameters}\label{sec:modpar}
 
@@ -66,7 +66,7 @@ The resulting net emissions in the US would then amount to 103.21 Gt.\footnote{\
 \begin{align*}
 u(C_t,h_{ht}, h_{lt}, S_t )= \log(C_t)-z_h\chi\frac{h_{ht}^{1+\sigma}}{{1+\sigma}}-(1-z_h)\chi\frac{h_{lt}^{1+\sigma}}{{1+\sigma}}-\chi_s\frac{S_t^{1+\sigma_s}}{1+\sigma_s}.
 \end{align*}
- The log-utility of consumption ensures that the scaling parameter of the income tax scheme does not affect hours worked. It cancels from the optimality condition describing labor supply since income and substitution effect cancel which simplifies the analysis.\footnote{\  On the other hand, recent research has shown that substitution and income effects of the wage rate most likely do not cancel. \cite{Boppart2019LaborPerspectiveb} argue for a slightly higher income effect so that hours fall over time as productivity increases. I plan to conduct a sensitivity analysis by assuming the utility specification suggested in their paper.}
+ The log-utility of consumption ensures that the scaling parameter of the income tax scheme does not affect hours worked. It cancels from the optimality condition describing labor supply since income and substitution effect cancel which simplifies the analysis.\footnote{  On the other hand, recent research has shown that substitution and income effects of the wage rate most likely do not cancel. \cite{Boppart2019LaborPerspectiveb} argue for a slightly higher income effect so that hours fall over time as productivity increases. I plan to conduct a sensitivity analysis by assuming the utility specification suggested in their paper.}
 
 %Most likely, the continuous rise in carbon taxation over time lowers the wage rate and labor supply increases. A lack of lump-sum rebates would most likely aggravate the inefficiency of hours worked. %Nevertheless, as shown in the analytical part for a general utility function, some reductive policy is required to implement the efficient allocation. But, compared to the laissez-faire scenario, hours will rise. 
 
@@ -87,7 +87,7 @@ Returns to research are decreasing with $\eta=0.79<1$. This makes extreme distri
 %explicitly derives  allocations and polices for 55 years. In their overlapping-generations model, \cite{Kotlikoff2021MakingWin} use the same number to calibrate the working life of a household as it captures the years a household is typically active in economic markets. 
 %\tr{ Regency: T=11=55 years, and explicit optimization over T+1 periods. 55 is a suggests to be a sensible number for the explicit optimization interval.  }
 
-In the second step, I calibrate the weight on energy in final good production by matching the average expenditure share on energy relative to GDP over the period from 2015 to 2019 taken from the US Energy Information Administration \citep[][Table 1.7]{EIAEnergy}. The expenditure share equals 6\%. The resulting weight on energy is $\delta_y=0.38$. %\footnote{\ Note that in difference to \cite{Fried2018ClimateAnalysis} I raise the weight on intermediate inputs in final production to the power $\frac{1}{\varepsilon_y}$, so that in the limit the function approaches the Leontief specification as $\varepsilon_y\rightarrow 0$ \citep{Herrendorf2014GrowthTransformation}.}
+In the second step, I calibrate the weight on energy in final good production by matching the average expenditure share on energy relative to GDP over the period from 2015 to 2019 taken from the US Energy Information Administration \citep[][Table 1.7]{EIAEnergy}. The expenditure share equals 6\%. The resulting weight on energy is $\delta_y=0.38$. %\footnote{ Note that in difference to \cite{Fried2018ClimateAnalysis} I raise the weight on intermediate inputs in final production to the power $\frac{1}{\varepsilon_y}$, so that in the limit the function approaches the Leontief specification as $\varepsilon_y\rightarrow 0$ \citep{Herrendorf2014GrowthTransformation}.}
  The data to match the high-skill share in labor production are taken from Table 3 in \cite{Consoli2016DoCapital}. In particular, I derive the share of high-skill labor in the green sector and for the non-green sector. I assume that within the non-green sector, i.e., sectors N and F in the model, high-skill labor shares are the same, $\theta_F=\theta_N$.  These three conditions determine $\theta_G=0.57$ and $\theta_F=\theta_N=0.42$. The share of high-skill workers, $z_h$, is chosen to match a skill premium for the period 2005-2016 of $\frac{w_h}{w_l}=1.9$ following \cite{Slavik2020WagePremium}. The disutility of labor, $\chi$, is set to match equilibrium average hours worked to average hours over the period from 2015-2019 drawing from OECD data \citep{OECDHoursworked}, $\chi=10.02$. I normalize total economic time endowment for workers and scientists per day, which I set to 14.5 as found in \cite{Jones1993OptimalGrowth}, to 1. 
 
  Two more variables determining research remain to be calibrated: research productivity, $\gamma$, and the disutility from research, $\chi_s$.
@@ -95,8 +95,8 @@ In the second step, I calibrate the weight on energy in final good production by
  %OECD (2022), Quarterly GDP (indicator). doi: 10.1787/b86d1fc8-en (Accessed on 06 August 2022)
   The resulting research productivity is $\gamma = 0.06$.  Finally, I set average hours supplied by scientists to 0.34 similar to workers while equilibrium equations have to hold. As a result, the disutility of research is $\chi_s=0.48$. Initial productivity levels follow from normalizing output in the base period to $Y=1$ and matching the ratio of fossil-to-green energy utilization over the years 2015-2019 which equals 7.33 according to \cite[][Table 1.3]{EIAEnergy}. I find that total factor productivities in the baseline period are $A_{N0}^{1-\alpha_N}=2.8$, $A_{F0}^{1-\alpha_F}=8.21$, and $A_{G0}^{1-\alpha_G}=1.27$. %Since the green and fossil energy good are no close substitutes with $\varepsilon_e=1.5$, the fossil sector has to be technologically more advanced to 
 
-Finally, I calibrate the sink capacity to match the average difference between gross and net CO$_2$ emissions over the baseline period from 2015 to 2019. Information on emissions comes from the US Environmental Protection Agency \citep{EPAems}. Since sinks are relevant for all greenhouse gasses, I only use the proportion of total sink capacity which reflects contribution of carbon dioxide to gross greenhouse gas emissions. The resulting sink capacity per model period is $\delta=3.19$GtCO$_2$.\footnote{\ I consider this capacity to be constant. This is a simplifying assumption. What is crucial qualitatively is the assumption that sinks are finite. Indeed, natural sinks and carbon capture and storage (CCS) technologies rely on the use of land \citep{VanVuuren2018AlternativeTechnologies} which is in limited supply. In addition, the importance of land for food production makes land even scarcer especially in light of a growing world population.}
-The parameter relating CO$_2$ emissions and fossil energy in the base period equals $\omega=217.39$.\footnote{\  I perceive the fossil sector in the model as source of all CO$_2$ emissions including, for instance, non-energy use of fuels and incineration of waste.}  
+Finally, I calibrate the sink capacity to match the average difference between gross and net CO$_2$ emissions over the baseline period from 2015 to 2019. Information on emissions comes from the US Environmental Protection Agency \citep{EPAems}. Since sinks are relevant for all greenhouse gasses, I only use the proportion of total sink capacity which reflects contribution of carbon dioxide to gross greenhouse gas emissions. The resulting sink capacity per model period is $\delta=3.19$GtCO$_2$.\footnote{ I consider this capacity to be constant. This is a simplifying assumption. What is crucial qualitatively is the assumption that sinks are finite. Indeed, natural sinks and carbon capture and storage (CCS) technologies rely on the use of land \citep{VanVuuren2018AlternativeTechnologies} which is in limited supply. In addition, the importance of land for food production makes land even scarcer especially in light of a growing world population.}
+The parameter relating CO$_2$ emissions and fossil energy in the base period equals $\omega=217.39$.\footnote{  I perceive the fossil sector in the model as source of all CO$_2$ emissions including, for instance, non-energy use of fuels and incineration of waste.}  
 
  \begin{table}[h!]
  	\begin{center}
@@ -137,7 +137,7 @@ The parameter relating CO$_2$ emissions and fossil energy in the base period equ
  			\hline
  			Initial total factor productivity&\multicolumn{2}{c}{}\\
  			\hline
- 			($A_{F0}^{1-\alpha_F}$, $A_{G0}^{1-\alpha_G}$, $A_{N0}^{1-\alpha_N}$)&- &(8.21, 1.27, 2.80)  \\
+ 			($A_{F0}^{1-\alpha_F}$, $A_{G0}^{1-\alpha_G}$, $A_{N0}^{1-\alpha_N}$)& energy shares \citep{EIAEnergy} &(8.21, 1.27, 2.80)  \\
  			\hline 
  				Labor production&\multicolumn{2}{c}{}\\ 			
  			\hline
@@ -151,13 +151,13 @@ The parameter relating CO$_2$ emissions and fossil energy in the base period equ
  			Emissions&\multicolumn{2}{c}{}\\
  			\hline
  			$\delta$& \makecell[l]{\cite{EPAems}}&3.19\\
- 			$\omega$& \cite{EPAems}&217.3\\
+ 			$\omega$& \cite{EPAems}&217.39\\
  			\hline \hline
  		\end{tabular}	}
  	\end{center}
  \end{table}
  
- %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO$_2$ equivalents in 2019.\footnote{\ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
+ %According to the IEA, global greenhouse gas emissions from fuel combustion amounted to 34.2 Gt in CO$_2$ equivalents in 2019.\footnote{ Retrieved from \url{https://www.iea.org/reports/global-energy-review-2021/CO$_2$-emissions} on February 2, 2022.} I use the share the US contributed to global emissions in 2019, 19.18\%, to proxy the share in reductions I require the US to contribute to total reductions from 2019 to 2030. 
  
  % procedure
  
@@ -172,7 +172,7 @@ The parameter relating CO$_2$ emissions and fossil energy in the base period equ
 %I reduce each limit in the same proportion in the 2035-2050 period so that the remaining budget for the US for the period 2020 to 2035 
 
 %This result leads to the following emission limits
-%From 2020 to 2035 there is a total budget of net-CO$_2$ emissions of 10.627Gt for the US. From 2035 to 2050 model-period emissions may amount to [2.900, 2.854, 2.809].\footnote{\ I use here that in earlier test runs the emission limits have been fully exploited. }
+%From 2020 to 2035 there is a total budget of net-CO$_2$ emissions of 10.627Gt for the US. From 2035 to 2050 model-period emissions may amount to [2.900, 2.854, 2.809].\footnote{ I use here that in earlier test runs the emission limits have been fully exploited. }
 
 % \clearpage
 

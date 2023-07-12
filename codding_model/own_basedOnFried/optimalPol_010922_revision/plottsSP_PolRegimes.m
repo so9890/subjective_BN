@@ -64,14 +64,14 @@ TAUFS_xgr_nsk={};
 % baseline results 
 for lablab =0:1 % with equal and non-equal labor supply % MAKE sure this parameter is not used anymore further down
     indic.labshareequ=lablab; % relevant for additional variables
-for xgr=0:1
-for nsk =0:1
+for xgr=0
+for nsk =0
     indic.xgrowth=xgr;
     indic.noskill=nsk;
 %- other results
-    for i=[0,5] % loop over policy versions
+    for i=[5] % loop over policy versions
         helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+            indic.spillovers, indic.noknow_spill,  indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
         all_TaulC=helper.COMP';
         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
             indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth,lablab, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
@@ -124,14 +124,14 @@ end
 
 
 %- for comparison model without knowledge spillovers
-    helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-        all_TaulC=helper.COMP';
-        helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-            indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
-        all_Taul0=helper.COMP';
-     RES_NK = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
-     RES_NK=add_vars(RES_NK, list, params, indic, list.allvars, symms, MOM);
+%     helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers, plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%         all_TaulC=helper.COMP';
+%         helper=load(sprintf('COMP_1409_taulZero1_spillovers%d_knspil1_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+%             indic.spillovers,  plotts.nsk, plotts.xgr,0, indic.sep, i,indic.limit_LF, indic.emsbase, indic.count_techgap, indic.GOV,  etaa));
+%         all_Taul0=helper.COMP';
+%      RES_NK = containers.Map({'TaulCalib', 'Taul0'},{all_TaulC, all_Taul0});
+%      RES_NK=add_vars(RES_NK, list, params, indic, list.allvars, symms, MOM);
 
  %- earmarking
 %    helper=load(sprintf('COMP_1409_taulZero0_spillovers%d_knspil0_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
@@ -328,7 +328,7 @@ end
 %% effect of tauf percent
 if plotts.perDif_notauf==1
        fprintf('plott effect tauf percent')
- for lablab =1
+ for lablab =0
      if lablab ==0
         Cons=OTHERPOLL{plotts.regime+1};
      else
@@ -384,7 +384,7 @@ if plotts.perDif_notauf_compTaul==1
     
     fprintf('plott effect tauf by taul')
 for lablab =1
-    if lablab ==0
+    if lablab ==1
         Cons=OTHERPOLL{plotts.regime+1};
     else
         Cons=OTHERPOLLEL{plotts.regime+1};
@@ -397,9 +397,9 @@ for lablab =1
 
         perdifCalib=(allvarsConsTAUL-benchTAUL)./benchTAUL*100;
         perdif0=(allvarsConsTAUL0-benchTAUL0)./benchTAUL0*100;
-    for lgdind=0:1
+    for lgdind=0
 
-    for l ="Res" %keys(lisst) % loop over variable groups
+    for l ="Res"%keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
 
@@ -419,18 +419,20 @@ for lablab =1
             end
             ax=gca;
             ax.FontSize=13;
-           if (varr == "F" && indic.noknow_spill==0 && lablab==0) || varr == "sff"...
+           if (varr == "F" && indic.noknow_spill==3) || varr == "sff"...
                 ||(varr=="EY" && indic.noknow_spill==1 && lablab==0) || (varr=="EY" && indic.noknow_spill==0 && lablab==1)...
-                || (varr == "snS" && indic.noknow_spill==1 && lablab==0)  || (varr == "snS" && indic.noknow_spill==1 && lablab==1)...
+                || (varr == "snS" && indic.noknow_spill==1 && lablab==0) ||  (varr == "sn" && indic.noknow_spill==1  && lablab==1)...
                 || (varr == "sn" && indic.noknow_spill==1 && lablab==0)  
                 ytickformat('%.1f')
            elseif varr == "G" || varr == "sg" || varr == "GFF" ...
                 || (varr == "F" && indic.noknow_spill==1 && lablab==0) || (varr == "F" && indic.noknow_spill==0 && lablab==1)...
-                || (varr == "F" && indic.noknow_spill==1 && lablab==1) || (varr == "snS" && indic.noknow_spill==0 && lablab==1) ...
-                || (varr == "sn" && indic.noknow_spill==0 && lablab==1)
+                || (varr == "F" && indic.noknow_spill==1 && lablab==1) || (varr == "snS" && indic.noknow_spill==0 && lablab==1) 
+                
                 ytickformat('%.0f')  
-           elseif (varr == "sn" && indic.noknow_spill==1 && lablab==1)
-                ytickformat('%.0f')  
+           elseif (varr == "snS" && indic.noknow_spill==1 && lablab==1)
+                ytickformat('%.1f')  
+           elseif (varr == "sn" && indic.noknow_spill==3  && lablab==1)
+                ytickformat('%.2f')
            elseif (varr == "snS" && indic.noknow_spill==0 && lablab==0) || varr == "hhhl" 
                 ytickformat('%.3f') 
             else
@@ -438,9 +440,9 @@ for lablab =1
             end
             xticklabels(Year10)
             if lablab ==0
-                path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/PerdifNoTauf_regime%d_CompTaul_%s_Sun%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.Sun, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             else
-                path=sprintf('figures/all_%s/PerdifNoTauf_Equlab_regime%d_CompTaul_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/PerdifNoTauf_Equlab_regime%d_CompTaul_%s_Sun%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, plotts.regime, varr,indic.Sun, indic.spillovers, plotts.nsk, plotts.xgr,indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             end
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -526,7 +528,7 @@ if plotts.compTauf_Lev==1
         allvarsTaulCalib=allvars('TaulCalib');
         allvarsTaul0=allvars('Taul0');
         
-    for lgdind=0:1
+    for lgdind=1
     for l ="Add"% keys(lisst) % loop over variable groups
         ll=string(l);
         plotvars=lisst(ll);
@@ -537,21 +539,26 @@ if plotts.compTauf_Lev==1
             if varr=="Emnet"
                 main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T),time, Ems);   
                 set(main, {'LineStyle'},{'-';'--'; ':'}, {'color'}, {'k'; 'k'; 'k'}, {'LineWidth'}, {1.1; 1.1; 1} )   
-                if lgdind==1
-                   lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$', 'net emission limit',  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
-                end
+              
             else
                 main=plot(time,allvarsTaulCalib(find(varlist==varr),1:T), time, allvarsTaul0(find(varlist==varr),1:T), 'LineWidth', 1.1);   
                 set(main, {'LineStyle'},{'-';'--'}, {'color'}, {'k'; 'k'} )   
-                if lgdind==1
-                   lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' ,  'Interpreter', 'latex');
-                    set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
-                end
+               
             end
            xticks(txx)
            xlim([1, time(end-1)])
-           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey, 'HandleVisibility','off')
+
+         
+                 if lgdind==1
+                    if varr=="Emnet"
+                        lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$', 'net emission limit','',  'Interpreter', 'latex');
+                        set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+                    else
+                       lgd=legend('$\tau_{\iota}=0.181$', '$\tau_{\iota}=0$' ,'',  'Interpreter', 'latex');
+                       set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
+                    end
+                 end
 
             ax=gca;
             ax.FontSize=13;
@@ -566,7 +573,7 @@ if plotts.compTauf_Lev==1
             if lablab ==0
                 path=sprintf('figures/all_%s/CompTauf_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             else
-                path=sprintf('figures/all_%s/CompTauf_bytaul_Equlab_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/CompTauf_bytaul_Equlab_Reg%d_%s_Sun%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.Sun, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             end                
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf
@@ -616,24 +623,24 @@ if plotts.compTauf_PER==1
                     set(lgd, 'Interpreter', 'latex', 'Location', 'northwest', 'Box', 'off','FontSize', 21,'Orientation', 'vertical');
                 end
            xticks(txx)
-           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey)
+           xline(7, 'LineStyle', ':', 'LineWidth', 0.8, 'color', grrey, 'HandleVisibility','off' )
            xlim([1, time(end-1)])
 
            
             ax=gca;
             ax.FontSize=13;
-            if varr=="gAg" || varr =="sgsff"
+            if varr=="gAg" || varr =="sgsff"|| varr=="Tauf" 
                 ytickformat('%.0f')
-            elseif varr == "gAn" || varr=="Tauf" 
+            elseif varr == "gAn" 
                 ytickformat('%.1f')
             else
                 ytickformat('%.2f')
             end
             xticklabels(Year10)
             if lablab ==0
-                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Reg%d_%s_Sun%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr,indic.Sun, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             else
-                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Equlab_Reg%d_%s_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
+                path=sprintf('figures/all_%s/CompTaufPER_bytaul_Equlab_Reg%d_%s_Sun%d_spillover%d_nsk%d_xgr%d_knspil%d_sep%d_LFlimit%d_emsbase%d_countec%d_GovRev%d_etaa%.2f_lgd%d.png',date, reg, varr,indic.Sun, indic.spillovers, plotts.nsk, plotts.xgr, indic.noknow_spill, indic.sep,indic.limit_LF, indic.emsbase,  indic.count_techgap, indic.GOV,  etaa, lgdind);
             end                
         exportgraphics(gcf,path,'Resolution', 400)
         close gcf

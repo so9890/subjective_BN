@@ -24,8 +24,8 @@ cd '/home/sonja/Documents/DocumentsSonja/projects/subjective_BN/codding_model/ow
 T = 12;  % Direct optimization period time horizon: 2020-2080
          % one period = 5 years
 
-lengthh = 5; % number of zears per period         
-indic.util =0; % ==0 log utility, otherwise as  in Boppart
+lengthh = 5; % number of years per period         
+indic.util =0; % ==0 log utility, otherwise as in Boppart
 indic.Bop=0; % indicator ==1 then uses version as discussed in Boppart: 
                  % income effect stronger than substitution effect and
                  % thetaa > 1
@@ -37,7 +37,7 @@ indic.sep =0; % ==0 one joint market (in calibration very low fossil and green s
               % ==1 3 separate markets 
               % ==2 if partial equbm; relative to joint market
               % ==3 energy market joint and non-energy market separate
-indic.Sun = 2; %==2 then scientists are taxed too!               
+indic.Sun = 2; %==2 then scientists are taxed too!  ; ==0 then scientsist form part of household; ==1 then scientists are separate households             
 indic.target =0; % ==1 if uses emission target
 indic.noknow_spill =3; % ==0 then there are knowledge spillovers (benchmark model); ==1 then without;
                         % ==2 then smaller: phii=0.25; ==3 then bigger: phii=0.75
@@ -161,18 +161,18 @@ StatsEms.RFF2022up=1.1*413; % social cost of carbon from resources for the futur
 
 for lablab = 0
     indic.labshareequ=lablab;
-for nknk = 3
+for nknk = [1,3] % ==3 then big knowledge spillovers
     indic.noknow_spill=nknk; 
-for bb ="BAU" %["BAU", "SCC"]
+for bb =["BAU"]%, "SCC"]
     indic.tauff=bb;
-for tata=1 % ==0 then uses calibrated taul; ==1 then taul=0; ==2 then taul==optimal no target
+for tata=0:1 % ==0 then uses calibrated taul; ==1 then taul=0; ==2 then taul==optimal no target
     indic.taul0=tata; %==1 then sets taul =0
 for GG=0
     indic.GOV=GG; %==1 then lambdaa chosen to match government expenditures; ==0 then GOV=0
 
 for cc=0
     indic.count_techgap=cc;
-for ff=1
+for ff=0
     indic.limit_LF=ff; % ==0 then limit does not have to be implemented, tauf as given
 % choose environmental tax fixed
 if indic.limit_LF==0
@@ -190,23 +190,26 @@ if indic.limit_LF==0
     end
 end
 
-for ee=0
+for ee=2
     indic.emsbase=ee;
     if indic.emsbase==1
         Ems_alt=x0LF(list.choice=='F')*0.7*ones(size(Ems))*Sparams.omegaa-Sparams.deltaa;
-    else
+    elseif indic.emsbase==0
         Ems_alt=Ems;
+    elseif indic.emsbase ==2 % equal to medium level of emissions
+         Ems_alt=StatsEms.Emslimit_constantEmsRat_Budget;
         
     end
 % full model
 for nsk=0
     indic.noskill=nsk;
     for xgr=0
+
         indic.xgrowth=xgr;
         % to save tauf
         TAUF=zeros(T,7); % 7= number of scenarios
 
-    for nnt=[5]
+    for nnt=[5] % ==5 then with lump sum transfers
         indic.notaul=nnt;
 
         if xgr==0
@@ -237,12 +240,12 @@ for nsk=0
 
     %-- save stuff
         if ~(indic.tauff=="BAU" && indic.limit_LF==0)
-            save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
-                indic.taul0, indic.spillovers, indic.noknow_spill, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
-            save(sprintf('TAUF_1409_taulZero%d_knspil%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
-                indic.taul0, indic.noknow_spill, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV, indic.sep), 'TAUF')
+            save(sprintf('COMP_1409_taulZero%d_spillovers%d_knspil%d_Sun%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_emlimit%d_Emsalt%d_countec%d_GovRev%d_etaa%.2f.mat',...
+                indic.taul0, indic.spillovers, indic.noknow_spill,indic.Sun, indic.noskill, indic.xgrowth, indic.labshareequ, indic.sep, indic.notaul,indic.limit_LF,indic.emsbase, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
+            save(sprintf('TAUF_1409_taulZero%d_knspil%d_Sun%d_limit%d_EmsBase%d_xgr%d_nsk%d_labequ%d_countec%d_GovRev%d_sep%d',...
+                indic.taul0, indic.noknow_spill, indic.Sun, indic.limit_LF,indic.emsbase, indic.xgrowth, indic.noskill,indic.labshareequ, indic.count_techgap, indic.GOV, indic.sep), 'TAUF')
         else
-            save(sprintf('BAU_2112_taulZero%d_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
+            save(sprintf('BAU_2112_taulZero%d_spillovers%d_knspil%d_Sun%d_size_noskill%d_xgrowth%d_labequ%d_sep%d_notaul%d_countec%d_GovRev%d_etaa%.2f.mat',...
                 indic.taul0, indic.spillovers, indic.noknow_spill, indic.Sun, indic.noskill, indic.xgrowth, indic.labshareequ,  indic.sep, indic.notaul, indic.count_techgap, indic.GOV,  params(list.params=='etaa')), 'COMP', 'tauf_perton2019')
         end                
 
@@ -295,21 +298,25 @@ plotts.compRed_TaulPer          = 0;
 
 plotts.compRed_noGS             = 0;
 
-for ee=0 % ==0 then uses benchmark emission limit
+for ee=0 % ==0 then uses benchmark emission limit equal per capita; ==2 then uses equal distribution of burden across countries
     indic.emsbase=ee;
-        
+    if indic.emsbase==0
+        Emss=Ems;
+    elseif indic.emsbase ==2 % equal to medium level of emissions
+        Emss=StatsEms.Emslimit_constantEmsRat_Budget; 
+    end
 for ll=1 % no emission limit : 
     indic.limit_LF=ll;
-for nknk=0 % knowledge spillovers
+for nknk=[1] % knowledge spillovers
     for xgr =0
-        for nsk=1
+        for nsk=0
     plotts.xgr = xgr; % main version to be used for plots
     plotts.nsk = nsk;
     indic.noknow_spill=nknk;
 
     plotts
     %%
-    plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Ems, plotts, percon, MOM);
+    plottsSP_PolRegimes(list, T, etaa, weightext,indic, params, Emss, plotts, percon, MOM);
     %plottsSP_tidiedUp(list, T-1, etaa, weightext,indic, params, Ems, plotts, percon); 
         end
     end
@@ -652,7 +659,7 @@ plotts.Ems_limit_Decomp=   0;
 plotts.phi_sens =   0;
 plotts.phiSens_newcalib_TvsNoT =0;
 plotts.phi_effBauOPt_noBAu_newcalib =0;
-plotts.phi_eff_newcalib =1;
+plotts.phi_eff_newcalib     =0;
 plotts.taulFixedtaufJoint_newcalib_polPer_Tauf=0;
 plotts.sens_other=  0;
 plotts.phi_newcalib        = 0;
@@ -702,6 +709,8 @@ plotts.lf                       = 0; % comparison to laissez faire allocation
 plotts.comptarg                 = 0; % comparison with and without target
 plotts.compeff                  = 0; % efficient versus optimal benchmark and non-benchmark
 plotts.compeff3                 = 0; % sp versus optimal benchmark
+plotts.compeff3_NC              = 1; % sp versus optimal benchmark
+
 plotts.comp_LFOPT               = 0; % laissez faire and optimal with and without taul
 plotts.compeff1=    0; %1; only social planner
 plotts.compeff2=    0; %1; efficient and non benchmark
@@ -713,6 +722,7 @@ plotts.per_effopt0= 0;
 plotts.per_effoptd= 0;
 plotts.per_baud =   0;
 plotts.per_LFd  =   0; % dynamic lf as benchmark
+plotts.per_LFd_NC = 0;
 plotts.per_LFd_nt=  0; % dynamic lf as benchmark plus no income tax
 plotts.per_LFd_ne_nt=0; % dynamic lf as benchmark plus no income tax
 
@@ -747,8 +757,8 @@ weightext=0.01;
 indic
 
 % choose sort of plots to be plotted
-plotts.ems =        0;
-plotts.ems_goals =  1;
+plotts.ems =        1;
+plotts.ems_goals =  0;
 
 
 plotts.table=       0;

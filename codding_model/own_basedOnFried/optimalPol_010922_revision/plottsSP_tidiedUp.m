@@ -172,10 +172,10 @@ helper=load(sprintf('OPT_notarget_2112_Sun%d_spillover0_knspil3_taus0_noskill%d_
 opt_not_wt_nknk075= helper.opt_all';
 
 % laissez faire and BAU
-helper = load(sprintf('BAU_2112_taulZero1_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
+helper = load(sprintf('BAU_2112_taulZero1_spillovers%d_knspil%d_Sun%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
     indic.spillovers, plotts.nknk, indic.Sun, plotts.nsk,  plotts.xgr, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
 LF = helper.COMP';
-helper = load(sprintf('BAU_2112_taulZero0_spillovers%d_knspil%d_Sun%d_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
+helper = load(sprintf('BAU_2112_taulZero0_spillovers%d_knspil%d_Sun%d_size_noskill%d_xgrowth%d_labequ0_sep%d_notaul5_countec%d_GovRev%d_etaa%.2f.mat', ...
     indic.spillovers, plotts.nknk, indic.Sun, plotts.nsk, plotts.xgr, indic.sep, indic.count_techgap, indic.GOV, params(list.params=='etaa')));
 BAU = helper.COMP';
 
@@ -1662,6 +1662,7 @@ if plotts.count_taul_xgr_LF==1
     end
     end
 end
+
 
 %% Comparison Emission limits
 if plotts.Ems_limit==1
@@ -3278,7 +3279,77 @@ if plotts.compeff3==1
     end
     end
 end
+%% comparison social planner and optimal policy benchmark
+if plotts.compeff3_NC==1
+    %- only efficient and benchmark
+    fprintf('plotting comparison efficient-optimal graphs')   
+  
 
+    for withlff=1
+    lff= RES_NCalib("LF");
+    
+    for s=["T", "NoT"]
+        ss=string(s);
+        allvarseff=RES_NCalib(sprintf("SP_%s",ss) );
+        allvars=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+%    eff= string({'SP_T', 'SP_NOT'});
+%         opt=string({'OPT_T_NoTaus', 'OPT_NOT_NoTaus'});
+% 
+%     for i =[1,2]
+% 
+%         ie=eff(i);
+%         io=opt(i);
+%         
+%         allvars= RES(io);
+         varl=varlist;
+%         allvarseff=RES(ie); 
+
+    for l =keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+            gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+      if withlff==1
+            main=plot(time, lff(find(varl==varr),1:T), time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T));            
+           set(main, {'LineWidth'}, {1; 1.2; 1.2}, {'LineStyle'},{'--';'-'; '--'}, {'color'}, {grrey; 'k'; orrange} )   
+      else
+            main=plot(time,allvarseff(find(varl==varr),1:T), time,allvars(find(varl==varr),1:T));            
+           set(main, {'LineWidth'}, {1.2; 1.2}, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+      end
+      xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+
+           if lgdind==1
+               if withlff==1
+                    lgd=legend('laissez-faire', 'efficient', 'optimal policy', 'Interpreter', 'latex');
+               else
+%                    if varr =="tauf"
+%                       lgd=legend( 'social cost of emissions', 'no income tax', 'Interpreter', 'latex');
+%                    else
+                     lgd=legend( 'efficient', ' optimal policy', 'Interpreter', 'latex');
+%                    end
+               end
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 19,'Orientation', 'vertical');
+           end
+        path=sprintf('figures/all_%s/NC_%s_CompEff%s_regime%d_opteff_spillover%d_noskill%d_sep%d_xgrowth%d_countec%d_PV%d_etaa%.2f_lgd%d_lff%d.png', date, varr, ss, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep,plotts.xgr, indic.count_techgap, indic.PV, etaa, lgdind, withlff);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    end
+    end
+end
 %% comparison to BAU
 if plotts.bau==1
     fprintf('plotting bau graphs') 
@@ -3676,6 +3747,60 @@ if plotts.per_LFd==1
         end
       end
     
+end   
+ 
+ %% expressed in reduction relative to bau per period/ dynamic
+if plotts.per_LFd_NC==1
+    % plot graphs in percent relative toefficient/optimal world
+    % without tagret dynamic 
+     fprintf('plotting percentage relative to bau dynamic new calib') 
+
+    revall= RES_NCalib("LF");
+    for s=["T", "NoT"]
+        ss=string(s);
+        allvarseff=RES_NCalib(sprintf("SP_%s",ss) );
+       allvars=RES_NCalib(sprintf("OPT_%s_WithTaul",ss));
+
+
+%         RES=OTHERPOLL{plotts.regime_gov+1};
+%                
+%         allvars= RES('OPT_T_NoTaus');
+%         allvarseff= RES('SP_T');
+%         revall =RES('LF');
+
+    %% 
+    for l = keys(lisst) % loop over variable groups
+        ll=string(l);
+        plotvars=lisst(ll);
+        for lgdind=0:1
+        for v=1:length(plotvars)
+        gcf=figure('Visible','off');
+            varr=string(plotvars(v));
+            
+            main=plot(time,(allvarseff(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T),time,(allvars(find(varlist==varr),1:T)-revall(find(varlist==varr), 1:T))./revall(find(varlist==varr), 1:T), 'LineWidth', 1.1);            
+           set(main, {'LineStyle'},{'-'; '--'}, {'color'}, {'k'; orrange} )   
+           xticks(txx)
+           if ismember(varr, list.growthrates)
+                xlim([1, time(end-1)])
+           else             
+                xlim([1, time(end)])
+           end
+            ax=gca;
+            ax.FontSize=13;
+            ytickformat('%.2f')
+            xticklabels(Year10)
+           if lgdind==1
+              lgd=legend('efficient', 'optimal policy', 'Interpreter', 'latex');
+              set(lgd, 'Interpreter', 'latex', 'Location', 'best', 'Box', 'off','FontSize', 20,'Orientation', 'vertical');
+           end
+
+        path=sprintf('figures/all_%s/NC_%s_PercentageLFDyn_%s_regime%d_spillover%d_noskill%d_sep%d_xgrowth%d_PV%d_etaa%.2f_lgd%d.png',date, varr,ss, plotts.regime_gov, indic.spillovers, plotts.nsk, indic.sep, plotts.xgr, indic.PV,  etaa, lgdind);
+        exportgraphics(gcf,path,'Resolution', 400)
+        close gcf
+        end
+        end
+      end
+    end
 end   
  
 %%
